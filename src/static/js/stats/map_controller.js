@@ -22,6 +22,7 @@ export default class extends Controller {
     'regionsOrgCount',
     'departmentsOrgCount',
     'communesWithOrg',
+    'table',
   ]
   static values = {
     regionsOrgMax: Number,
@@ -77,7 +78,7 @@ export default class extends Controller {
     if (this.map.hasLayer(this.regions)) return
     this.map.addLayer(this.regions)
     this.legend.setContent(this.#generateLegendContent(this.scaleRegions))
-    this.lastInscriptions.setContent('')
+    this.tableTarget.innerHTML = ''
   }
 
   #switchToDepartmentLevel() {
@@ -95,7 +96,7 @@ export default class extends Controller {
       })
     }
     this.legend.setContent(this.#generateLegendContent(this.scaleDepartments))
-    this.lastInscriptions.setContent('')
+    this.tableTarget.innerHTML = ''
   }
 
   #switchToCommuneLevel() {
@@ -117,7 +118,7 @@ export default class extends Controller {
       this.#getCommunes(currentDepartmentCode).then(({ communes, data }) => {
         this.communes[currentDepartmentCode] = communes
         this.map.addLayer(communes)
-        this.#updateLastInscriptions(data)
+        this.#updateTable(data)
       })
     }
     this.legend.setContent(`
@@ -127,40 +128,45 @@ export default class extends Controller {
     `)
   }
 
-  #updateLastInscriptions(data) {
+  #updateTable(data) {
     const correspondance = []
     for (const feature of data.features) {
       const key = `${feature.properties.code}-${feature.properties.nom}`
       if (Object.keys(this.communesWithOrg).includes(key)) {
         correspondance.push({
-          date: this.communesWithOrg[key].date,
+          date_created: this.communesWithOrg[key].date_created,
+          projects_count: this.communesWithOrg[key].projects_count,
           nom: feature.properties.nom,
         })
       }
     }
-    correspondance.sort((a, b) => b.date > a.date)
-    this.lastInscriptions.setContent(`
-      <table>
+    correspondance.sort((a, b) => b.date_created > a.date_created)
+    this.tableTarget.innerHTML = `
+      <table class="fr-table" style="width: 100%;">
         <caption>
-          <strong>
-            5 dernières communes enregistrées :
-          </strong>
+          Communes enregistrées :
         </caption>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Date de création</th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
             ${correspondance
-              .slice(0, 5)
               .map(
                 (item) =>
-                  `<td>${item.nom}</td><td>${new Date(item.date).toLocaleDateString(
-                    'fr-FR'
-                  )}</td>`
+                  `
+                  <td>${item.nom}</td>
+                  <td>${new Date(item.date_created).toLocaleDateString('fr-FR')}</td>
+                  `
               )
               .join('</tr><tr>')}
           </tr>
         </tbody>
       </table>
-    `)
+    `
   }
 
   #initMap() {
@@ -171,8 +177,6 @@ export default class extends Controller {
     // Control that shows the legend for colors.
     this.legend = this.#createLegend()
     map.addControl(this.legend)
-    this.lastInscriptions = this.#createLastInscriptions()
-    map.addControl(this.lastInscriptions)
     this.regions = this.#getRegions()
     // By default, we load regions’ shapes.
     this.regions.addTo(map)
@@ -180,7 +184,10 @@ export default class extends Controller {
   }
 
   #createMap() {
-    const map = L.map(this.element).setView(this.centerFrance, this.zoomFrance)
+    const map = L.map(this.element.querySelector('div')).setView(
+      this.centerFrance,
+      this.zoomFrance
+    )
     map.attributionControl.addAttribution(
       'Contours &copy; <a href="https://github.com/etalab/contours-administratifs">Etalab</a>'
     )
@@ -208,10 +215,10 @@ export default class extends Controller {
           if (count) {
             message += `<b>${props.nom}</b><br>${count} organisations créées`
           } else {
-            if (props.date) {
-              message += `<b>${props.nom}</b><br>${props.date.toLocaleDateString(
-                'fr-FR'
-              )}`
+            if (props.date_created) {
+              message += `<b>${
+                props.nom
+              }</b><br>${props.date_created.toLocaleDateString('fr-FR')}`
             } else {
               message += `<b>${props.nom}</b>`
             }
@@ -241,27 +248,6 @@ export default class extends Controller {
     return new L.Legend({
       position: 'bottomleft',
       content: this.#generateLegendContent(this.scaleRegions),
-    })
-  }
-
-  #createLastInscriptions() {
-    L.Legend = L.Control.extend({
-      onAdd: function () {
-        const container = document.createElement('div')
-        container.classList.add('info', 'legend')
-        if (this.options.content) {
-          container.innerHTML = this.options.content
-        }
-        return container
-      },
-      setContent: function (str) {
-        this.getContainer().innerHTML = str
-      },
-    })
-
-    return new L.Legend({
-      position: 'bottomright',
-      content: '',
     })
   }
 
@@ -387,7 +373,7 @@ export default class extends Controller {
                 const communeHasOrg = Object.keys(this.communesWithOrg).includes(key)
                 if (communeHasOrg) {
                   const communeProperties = this.communesWithOrg[key]
-                  properties.date = new Date(communeProperties['date'])
+                  properties.date_created = new Date(communeProperties['date_created'])
                 }
                 this.info.update(properties, {})
               },

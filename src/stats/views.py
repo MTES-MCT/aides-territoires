@@ -404,7 +404,7 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
 
         communes_with_org = {
             f"{commune['code']}-{commune['name']}": {
-                "date": commune["organization__date_created"],
+                "date_created": commune["organization__date_created"],
                 "age": get_age(commune["organization__date_created"]),
             }
             for commune in communes

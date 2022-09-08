@@ -10,7 +10,7 @@
 
 {% block extra_css %}
 <style>
-    [data-controller="map"] {
+    .leaflet-container {
         width: 1000px;
         height: 700px;
         margin: 0 auto 3rem auto;
@@ -48,6 +48,9 @@
       list-style: none;
       left: 10px;
     }
+    .fr-table[data-fr-js-table="true"] caption {
+      top: -1rem;
+    }
 </style>
 {% endblock extra_css %}
 
@@ -79,6 +82,52 @@
       data-map-regions-org-max-value="{{ regions_org_max }}"
       data-map-departments-org-max-value="{{ departments_org_max }}"
       >
+      <div>
+        <ul class="flyto info legend">
+          <li>
+            <a href="#metropole"
+              data-action="map#flyTo"
+              data-latlon="[46.227, 2.213]"
+              data-zoom="5.5"
+              >La Métropole</a>
+          </li>
+          <li>
+            <a href="#martinique"
+              data-action="map#flyTo"
+              data-latlon="[14.64733448410248, -60.9863181099044]"
+              data-zoom="10.5"
+              >La Martinique</a>
+          </li>
+          <li>
+            <a href="#guadeloupe"
+              data-action="map#flyTo"
+              data-latlon="[16.22198290921609, -61.49184374055841]"
+              data-zoom="10.5"
+              >La Guadeloupe</a>
+          </li>
+          <li>
+            <a href="reunion"
+              data-action="map#flyTo"
+              data-latlon="[-21.0981335232285, 55.519057070196396]"
+              data-zoom="10.5"
+              >La Réunion</a>
+          </li>
+          <li>
+            <a href="mayotte"
+              data-action="map#flyTo"
+              data-latlon="[-12.8205731179995, 45.163326586369074]"
+              data-zoom="10.5"
+              >Mayotte</a>
+          </li>
+          <li>
+            <a href="guyane"
+              data-action="map#flyTo"
+              data-latlon="[4.0093516128835835, -53.124561798899116]"
+              data-zoom="9"
+              >La Guyane</a>
+          </li>
+        </ul>
+      </div>
       <script data-map-target="regions" type="application/json">
         {{ regions_geojson|safe }}
       </script>
@@ -91,50 +140,7 @@
       <script data-map-target="communesWithOrg" type="application/json">
         {{ communes_with_org|safe }}
       </script>
-      <ul class="flyto info legend">
-        <li>
-          <a href="#metropole"
-            data-action="map#flyTo"
-            data-latlon="[46.227, 2.213]"
-            data-zoom="5.5"
-            >La Métropole</a>
-        </li>
-        <li>
-          <a href="#martinique"
-            data-action="map#flyTo"
-            data-latlon="[14.64733448410248, -60.9863181099044]"
-            data-zoom="10.5"
-            >La Martinique</a>
-        </li>
-        <li>
-          <a href="#guadeloupe"
-            data-action="map#flyTo"
-            data-latlon="[16.22198290921609, -61.49184374055841]"
-            data-zoom="10.5"
-            >La Guadeloupe</a>
-        </li>
-        <li>
-          <a href="reunion"
-            data-action="map#flyTo"
-            data-latlon="[-21.0981335232285, 55.519057070196396]"
-            data-zoom="10.5"
-            >La Réunion</a>
-        </li>
-        <li>
-          <a href="mayotte"
-            data-action="map#flyTo"
-            data-latlon="[-12.8205731179995, 45.163326586369074]"
-            data-zoom="10.5"
-            >Mayotte</a>
-        </li>
-        <li>
-          <a href="guyane"
-            data-action="map#flyTo"
-            data-latlon="[4.0093516128835835, -53.124561798899116]"
-            data-zoom="9"
-            >La Guyane</a>
-        </li>
-      </ul>
+      <div data-map-target="table"></div>
     </div>
 </section>
 {% endblock %}
