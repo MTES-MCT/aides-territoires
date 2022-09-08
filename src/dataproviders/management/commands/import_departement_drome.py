@@ -1,6 +1,4 @@
-# flake8: noqa
 import os
-import csv
 import json
 import requests
 
@@ -10,15 +8,12 @@ from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import content_prettify, get_category_list_from_name
 from dataproviders.management.commands.base import BaseImportCommand
-from geofr.models import Perimeter
-from backers.models import Backer
 from aids.models import Aid
 
 ADMIN_ID = 1
 
 DATA_SOURCE = DataSource.objects.prefetch_related("perimeter", "backer").get(pk=9)
 
-OPENDATA_URL = "https://www.ladrome.fr/"
 FEED_ROWS = 1000
 
 
@@ -83,37 +78,37 @@ class Command(BaseImportCommand):
 
     def extract_import_raw_object_calendar(self, line):
         import_raw_object_calendar = {}
-        if line.get("start_date", None) != None:
+        if line.get("start_date", None) is not None:
             import_raw_object_calendar["start_date"] = line["start_date"]
-        if line.get("predeposit_date", None) != None:
+        if line.get("predeposit_date", None) is not None:
             import_raw_object_calendar["predeposit_date"] = line["predeposit_date"]
-        if line.get("submission_deadline", None) != None:
+        if line.get("submission_deadline", None) is not None:
             import_raw_object_calendar["submission_deadline"] = line[
                 "submission_deadline"
             ]
-        if line.get("recurrence", None) != None:
+        if line.get("recurrence", None) is not None:
             import_raw_object_calendar["recurrence"] = line["recurrence"]
         return import_raw_object_calendar
 
     def extract_import_raw_object(self, line):
         import_raw_object = dict(line)
-        if line.get("start_date", None) != None:
+        if line.get("start_date", None) is not None:
             import_raw_object.pop("start_date")
-        if line.get("predeposit_date", None) != None:
+        if line.get("predeposit_date", None) is not None:
             import_raw_object.pop("predeposit_date")
-        if line.get("submission_deadline", None) != None:
+        if line.get("submission_deadline", None) is not None:
             import_raw_object.pop("submission_deadline")
-        if line.get("recurrence", None) != None:
+        if line.get("recurrence", None) is not None:
             import_raw_object.pop("recurrence")
         return import_raw_object
 
     def extract_recurrence(self, line):
-        if line.get("recurrence", None) != None:
-            if line.get("recurrence") == 'Permanente':
+        if line.get("recurrence", None) is not None:
+            if line.get("recurrence") == "Permanente":
                 recurrence = Aid.RECURRENCES.ongoing
-            if line.get("recurrence") == 'Ponctuelle':
+            if line.get("recurrence") == "Ponctuelle":
                 recurrence = Aid.RECURRENCES.oneoff
-            if line.get("recurrence") == 'Récurrente':
+            if line.get("recurrence") == "Récurrente":
                 recurrence = Aid.RECURRENCES.recurring
         return recurrence
 
@@ -129,15 +124,15 @@ class Command(BaseImportCommand):
         description = line["description"]
         str_to_find = "Service Instructeur et Référent"
         if str_to_find in description:
-            description = str(line.get('description', '').partition(str_to_find)[0])
+            description = str(line.get("description", "").partition(str_to_find)[0])
             description = content_prettify(description)
         return description
 
     def extract_eligibility(self, line):
-        str_to_find = 'Opérations éligibles'
-        if str_to_find in line.get('description', ''):
-            eligibility_1 = str(line.get('description', '').partition(str_to_find)[1])
-            eligibility_2 = str(line.get('description', '').partition(str_to_find)[2])
+        str_to_find = "Opérations éligibles"
+        if str_to_find in line.get("description", ""):
+            eligibility_1 = str(line.get("description", "").partition(str_to_find)[1])
+            eligibility_2 = str(line.get("description", "").partition(str_to_find)[2])
             eligibility_3 = str(eligibility_2.partition("Type d’aide")[0])
             eligibility = "<h3><strong>" + eligibility_1 + eligibility_3
             eligibility = content_prettify(eligibility)
@@ -159,19 +154,6 @@ class Command(BaseImportCommand):
         application_url = line["application_url"]
         return application_url
 
-    def extract_targeted_audiences(self, line):
-        """
-        Exemple of string to process: ["Communes", "Associations"]
-        """
-        if line.get("targeted_audiences", None) != None:
-            audiences = line.get("targeted_audiences", None)
-            aid_audiences = []
-            for audience in audiences:
-                aid_audiences.extend(audience)
-            return aid_audiences
-        else:
-            return []
-
     def extract_aid_types(self, line):
         types = line.get("aid_types", None)
         aid_types = []
@@ -185,12 +167,12 @@ class Command(BaseImportCommand):
         return is_call_for_project
 
     def extract_start_date(self, line):
-        if line.get("start_date", None) != None:
+        if line.get("start_date", None) is not None:
             start_date = line.get("start_date", None)
             return start_date
 
     def extract_submission_deadline(self, line):
-        if line.get("submission_deadline", None) != None:
+        if line.get("submission_deadline", None) is not None:
             submission_deadline = line.get("submission_deadline", None)
             return submission_deadline
 
@@ -211,7 +193,11 @@ class Command(BaseImportCommand):
             if targeted_audiences != []:
                 for targeted_audience in targeted_audiences:
                     try:
-                        targeted_audience = next(choice[0] for choice in Aid.AUDIENCES if choice[1] == targeted_audience)
+                        targeted_audience = next(
+                            choice[0]
+                            for choice in Aid.AUDIENCES
+                            if choice[1] == targeted_audience
+                        )
                         aid_targeted_audiences.append(targeted_audience)
                     except Exception:
                         print(f"{targeted_audience}")
@@ -244,13 +230,13 @@ class Command(BaseImportCommand):
         return aid_categories
 
     def extract_contact(self, line):
-        str_to_find = 'Service Instructeur et Référent'
+        str_to_find = "Service Instructeur et Référent"
         if line.get("contact", "") != "":
             contact = line.get("contact")
             return content_prettify(contact)
-        elif str_to_find in line.get('description', ''):
-            contact_1 = str(line.get('description', '').partition(str_to_find)[1])
-            contact_2 = str(line.get('description', '').partition(str_to_find)[2])
+        elif str_to_find in line.get("description", ""):
+            contact_1 = str(line.get("description", "").partition(str_to_find)[1])
+            contact_2 = str(line.get("description", "").partition(str_to_find)[2])
             contact = "<h3><strong>" + contact_1 + contact_2
             return content_prettify(contact)
         else:
