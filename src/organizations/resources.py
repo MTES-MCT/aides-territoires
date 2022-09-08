@@ -79,7 +79,7 @@ class OrganizationResource(resources.ModelResource):
 
     def dehydrate_projects(self, obj):
         projects_list = []
-        projects = Project.objects.filter(organizations=obj)
+        projects = obj.project_set.all()
         for project in projects:
             projects_list.append(project.name)
 
@@ -89,7 +89,7 @@ class OrganizationResource(resources.ModelResource):
             return ', '.join(projects_list)
 
     def dehydrate_projects_number(self, obj):
-        projects_number = Project.objects.filter(organizations=obj).count()
+        projects_number = obj.project_set.all().count()
         return projects_number
 
     class Meta:
