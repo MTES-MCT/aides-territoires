@@ -57,6 +57,51 @@
     <section class="aid-content fr-grid-row fr-mt-5w">
         <div class="sidebar fr-col-12 fr-col-md-4 fr-p-3w fr-background-alt">
 
+            {% if financers %}
+            <div class="fr-mb-4w fr-grid-row">
+                <div class="fr-col-1">
+                    <span class="ri-open-arm-line ri-xl"></span>
+                </div>
+                <div class="fr-col-11">
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
+                        <strong>Porteurs d'aide&nbsp;:</strong>
+                    </h2>
+                    {% for financer in financers %}
+                    <p class="fr-mb-0 fr-ml-1w">
+                        {{ financer }}
+                    </p>
+                    {% endfor %}
+                    {% if financers_with_logo %}
+                    <div id="logos-financers" class="fr-mt-2w">
+                        {% for financer in financers_with_logo %}
+                        <a href="{% url 'backer_detail_view' financer.pk financer.slug %}" class="fr-col-offset-2 fr-col-10 at-link__nodecorator">
+                            <img src="{{ financer.logo.url }}" class="fr-responsive-img" alt="{{ financer.name }}" />
+                        </a>
+                        {% endfor %}    
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if instructors %}
+            <div class="fr-mb-4w fr-grid-row">
+                <div class="fr-col-1">
+                    <span class="ri-open-arm-line ri-xl"></span>
+                </div>
+                <div class="fr-col-11">
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
+                        <strong>Instructeurs de l'aide&nbsp;:</strong>
+                    </h2>
+                    {% for instructor in instructors %}
+                    <p class="fr-mb-0 fr-ml-1w">
+                        {{ instructor }}
+                    </p>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
             {% if aid.submission_deadline and not aid.is_ongoing %}
             {% if aid.has_approaching_deadline %}
             <p class="fr-badge fr-badge--info fr-badge--no-icon fr-mb-5w">J-{{ aid.days_before_deadline }} pour candidater</p>
@@ -101,95 +146,91 @@
                 {% endif %}
             {% endif %}
 
-            <div>
-                {% if aid.is_call_for_project %}
-                <div class="call-for-project fr-mb-4w fr-grid-row">
-                    <div class="fr-col-1">
-                        <span class="ri-pushpin-2-fill ri-xl" aria-hidden="true"></span>
-                    </div>
-                    <div class="fr-col-11">
-                        <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
-                            Appel à projets (AAP) / Appel à manifestation d’intérêt (AMI)
-                        </h2>    
-                    </div>
+            {% if aid.is_call_for_project %}
+            <div class="call-for-project fr-mb-4w fr-grid-row">
+                <div class="fr-col-1">
+                    <span class="ri-pushpin-2-fill ri-xl" aria-hidden="true"></span>
                 </div>
-                {% endif %}
+                <div class="fr-col-11">
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
+                        Appel à projets (AAP) / Appel à manifestation d’intérêt (AMI)
+                    </h2>    
+                </div>
+            </div>
+            {% endif %}
 
-                <div class="aid-type fr-grid-row fr-mb-4w">
-                    <div class="fr-col-1">
-                        <span class="ri-hand-coin-line ri-xl" aria-hidden="true"></span>
-                    </div>
-                    <div class="fr-col-11">
-                        <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
-                            {% aid_types_choices_display_list aid 'aid_types' %}
-                        </h2>
-                    </div>
+            <div class="aid-type fr-grid-row fr-mb-4w">
+                <div class="fr-col-1">
+                    <span class="ri-hand-coin-line ri-xl" aria-hidden="true"></span>
+                </div>
+                <div class="fr-col-11">
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
+                        {% aid_types_choices_display_list aid 'aid_types' %}
+                    </h2>
                 </div>
             </div>
 
             {% if aid.has_calendar %}
-                <div class="calendar-start fr-mb-4w fr-grid-row">
-                    <div class="fr-col-1">
-                        <span class="ri-calendar-line ri-xl fr-mr-1w"></span>
-                    </div>
-                    <div class="fr-col-11">
-                        <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
-                            {% if aid.start_date and aid.submission_deadline and not aid.is_ongoing %}
-                            <strong>Calendrier&nbsp;:</strong> Du {{ aid.start_date|date }} au {{ aid.submission_deadline|date }}
-                            {% elif aid.start_date and not aid.is_ongoing %}
-                            <strong>Calendrier&nbsp;:</strong> À partir du {{ aid.start_date|date }}
-                            {% elif aid.submission_deadline and not aid.is_ongoing %}
-                            <strong>Calendrier&nbsp;:</strong> Clôture le {{aid.submission_deadline|date }}
-                            {% endif %}
-                        </h2>
-                        {% if aid.predeposit_date and not aid.is_ongoing %}
-                        <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
-                            <strong>Date de pré-dépôt&nbsp;:</strong> {{ aid.predeposit_date|date }}
-                        </h2>
+            <div class="calendar-start fr-mb-4w fr-grid-row">
+                <div class="fr-col-1">
+                    <span class="ri-calendar-line ri-xl fr-mr-1w"></span>
+                </div>
+                <div class="fr-col-11">
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
+                        {% if aid.start_date and aid.submission_deadline and not aid.is_ongoing %}
+                        <strong>Calendrier&nbsp;:</strong> Du {{ aid.start_date|date }} au {{ aid.submission_deadline|date }}
+                        {% elif aid.start_date and not aid.is_ongoing %}
+                        <strong>Calendrier&nbsp;:</strong> À partir du {{ aid.start_date|date }}
+                        {% elif aid.submission_deadline and not aid.is_ongoing %}
+                        <strong>Calendrier&nbsp;:</strong> Clôture le {{aid.submission_deadline|date }}
                         {% endif %}
-                    </div>
+                    </h2>
+                    {% if aid.predeposit_date and not aid.is_ongoing %}
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
+                        <strong>Date de pré-dépôt&nbsp;:</strong> {{ aid.predeposit_date|date }}
+                    </h2>
+                    {% endif %}
                 </div>
-                {% endif %}
+            </div>
+            {% endif %}
 
-            <div>
-                {% if aid.recurrence %}
-                <div class="recurrence fr-mb-4w fr-grid-row">
-                    <div class="fr-col-1">                    
-                        <span class="ri-refresh-line ri-xl" aria-hidden="true"></span>
-                    </div>
-                    <div class="fr-col-11">
-                        <h2 class="fr-text--md fr-mb-0 fr-ml-1w">
-                            Récurrence&nbsp;:
-                        </h2>
-                        <p class="fr-mb-0 fr-ml-1w">{{ aid.get_recurrence_display }}</p>    
-                    </div>
+            {% if aid.recurrence %}
+            <div class="recurrence fr-mb-4w fr-grid-row">
+                <div class="fr-col-1">                    
+                    <span class="ri-refresh-line ri-xl" aria-hidden="true"></span>
                 </div>
-                {% endif %}
-
-                {% if aid.targeted_audiences %}
-                <div class="fr-mb-4w fr-grid-row">
-                    <div class="fr-col-1">
-                        <span class="ri-user-received-line ri-xl" aria-hidden="true"></span>
-                    </div>
-                    <div class="fr-col-11">
-                        <h2 class="fr-text--md fr-mb-0 fr-ml-1w">
-                            Bénéficiaires&nbsp;:
-                        </h2>
-                        <p class="fr-mb-0 fr-ml-1w">{% choices_display aid 'targeted_audiences' %}</p>
-                    </div>
+                <div class="fr-col-11">
+                    <h2 class="fr-text--md fr-mb-0 fr-ml-1w">
+                        Récurrence&nbsp;:
+                    </h2>
+                    <p class="fr-mb-0 fr-ml-1w">{{ aid.get_recurrence_display }}</p>    
                 </div>
-                {% endif %}
+            </div>
+            {% endif %}
 
-                <div class="fr-mb-4w fr-grid-row">
-                    <div class="fr-col-1">
-                        <span class="fr-icon-map-pin-2-line" aria-hidden="true"></span>
-                    </div>
-                    <div class="fr-col-11">
-                        <h2 class="fr-text--md fr-mb-0 fr-ml-1w">
-                            Zone géographique couverte par l’aide&nbsp;:
-                        </h2>
-                        <p class="fr-mb-0 fr-ml-1w">{{ aid.perimeter }}</p>
-                    </div>
+            {% if aid.targeted_audiences %}
+            <div class="fr-mb-4w fr-grid-row">
+                <div class="fr-col-1">
+                    <span class="ri-user-received-line ri-xl" aria-hidden="true"></span>
+                </div>
+                <div class="fr-col-11">
+                    <h2 class="fr-text--md fr-mb-0 fr-ml-1w">
+                        Bénéficiaires&nbsp;:
+                    </h2>
+                    <p class="fr-mb-0 fr-ml-1w">{% choices_display aid 'targeted_audiences' %}</p>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="fr-mb-4w fr-grid-row">
+                <div class="fr-col-1">
+                    <span class="fr-icon-map-pin-2-line" aria-hidden="true"></span>
+                </div>
+                <div class="fr-col-11">
+                    <h2 class="fr-text--md fr-mb-0 fr-ml-1w">
+                        Zone géographique couverte par l’aide&nbsp;:
+                    </h2>
+                    <p class="fr-mb-0 fr-ml-1w">{{ aid.perimeter }}</p>
                 </div>
             </div>
 
@@ -213,28 +254,10 @@
             </div>
             {% endif %}
 
-            {% if financers_with_logo %}
-            <div class="fr-mb-4w fr-grid-row">
-                <div class="fr-col-1">
-                    <span class="ri-database-2-line ri-xl"></span>
-                </div>
-                <div class="fr-col-11" id="logos-financers">
-                    <h2 class="fr-text--md fr-text--normal fr-ml-1w">
-                        <strong>Porteurs d'aide&nbsp;:</strong>
-                    </h2>
-                    {% for financer in financers_with_logo %}
-                    <a href="{% url 'backer_detail_view' financer.pk financer.slug %}" class="fr-col-offset-2 fr-col-10 at-link__nodecorator">
-                        <img src="{{ financer.logo.url }}" class="fr-responsive-img" alt="{{ financer.name }}" />
-                    </a>
-                    {% endfor %}    
-                </div>
-            </div>
-            {% endif %}
-
             {% if programs %}
             <div class="fr-mb-4w fr-grid-row">
                 <div class="fr-col-1">
-                    <span class="ri-database-2-line ri-xl"></span>
+                    <span class="ri-briefcase-4-fill ri-xl"></span>
                 </div>
                 <div class="fr-col-11" id="logos-programs">
                     <h2 class="fr-text--md fr-text--normal fr-ml-1w">
@@ -304,7 +327,7 @@
                 </strong>
             </p>
 
-            <h1 class="fr-mb-2w fr-color--blue">
+            <h1 class="fr-mb-5w fr-color--blue">
                 {% if aid.european_aid %}<span title="aide européenne">🇪🇺 </span>{% endif %}
                 {% if aid.headline_name %}
                  {{ aid.headline_name | safe }}
@@ -312,29 +335,6 @@
                 {{ aid.name }}
                 {% endif %}
             </h1>
-
-            {% if financers or instructors %}
-            <div class="fr-mb-5w">
-                {% if financers %}
-                {% for financer in financers %}
-                <h2 class="fr-h4 fr-my-0 fr-color--blue">
-                    {{ financer }}
-                </h2>
-                {% endfor %}
-                {% endif %}
-
-                {% if instructors %}
-                {% for instructor in instructors %}
-                <h2 class="fr-h4 fr-my-0 fr-color--blue">
-                    {{ instructor }}
-                    {% if instructor.is_corporate %}
-                    (Privé)
-                    {% endif %}
-                </h2>
-                {% endfor %}
-                {% endif %}
-            </div>
-            {% endif %}
 
             {% if aid.name_initial %}
             <div class="fr-mb-5w">
@@ -428,7 +428,7 @@
     
             </div>
 
-            <div class="fr-mb-2w">
+            <div class="fr-mb-5w">
                 <h2 class="fr-h3 fr-mb-2w">Description</h2>
                 {% if aid.description %}
                 {% if aid.headline_description %}
