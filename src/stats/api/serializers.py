@@ -1,7 +1,14 @@
 from rest_framework import serializers
 
-from stats.models import (AidContactClickEvent, AidEligibilityTestEvent,
-                          PromotionDisplayEvent, PromotionClickEvent)
+from stats.models import (
+    AidContactClickEvent,
+    AidOriginUrlClickEvent,
+    AidApplicationUrlClickEvent,
+    AidContactClickEvent,
+    AidEligibilityTestEvent,
+    PromotionDisplayEvent,
+    PromotionClickEvent,
+)
 
 
 class AidContactClickEventSerializer(serializers.ModelSerializer):
@@ -9,7 +16,23 @@ class AidContactClickEventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AidContactClickEvent
-        fields = '__all__'
+        fields = "__all__"
+
+
+class AidOriginUrlClickEventSerializer(serializers.ModelSerializer):
+    querystring = serializers.CharField(allow_blank=True)
+
+    class Meta:
+        model = AidOriginUrlClickEvent
+        fields = "__all__"
+
+
+class AidApplicationUrlClickEventSerializer(serializers.ModelSerializer):
+    querystring = serializers.CharField(allow_blank=True)
+
+    class Meta:
+        model = AidApplicationUrlClickEvent
+        fields = "__all__"
 
 
 class AidEligibilityTestEventSerializer(serializers.ModelSerializer):
@@ -17,7 +40,7 @@ class AidEligibilityTestEventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AidEligibilityTestEvent
-        fields = '__all__'
+        fields = "__all__"
 
 
 class PromotionDisplayEventSerializer(serializers.ModelSerializer):
@@ -25,7 +48,7 @@ class PromotionDisplayEventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PromotionDisplayEvent
-        fields = '__all__'
+        fields = "__all__"
 
 
 class PromotionClickEventSerializer(serializers.ModelSerializer):
@@ -33,4 +56,4 @@ class PromotionClickEventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PromotionClickEvent
-        fields = '__all__'
+        fields = "__all__"

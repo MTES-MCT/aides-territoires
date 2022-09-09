@@ -3,12 +3,22 @@ from drf_spectacular.utils import extend_schema
 
 from core.utils import get_site_from_host
 from search.utils import clean_search_querystring
-from stats.models import (AidContactClickEvent, AidEligibilityTestEvent,
-                          PromotionDisplayEvent, PromotionClickEvent)
-from stats.api.serializers import (AidContactClickEventSerializer,
-                                   AidEligibilityTestEventSerializer,
-                                   PromotionClickEventSerializer,
-                                   PromotionDisplayEventSerializer)
+from stats.models import (
+    AidContactClickEvent,
+    AidOriginUrlClickEvent,
+    AidApplicationUrlClickEvent,
+    AidEligibilityTestEvent,
+    PromotionDisplayEvent,
+    PromotionClickEvent,
+)
+from stats.api.serializers import (
+    AidContactClickEventSerializer,
+    AidOriginUrlClickEventSerializer,
+    AidApplicationUrlClickEventSerializer,
+    AidEligibilityTestEventSerializer,
+    PromotionClickEventSerializer,
+    PromotionDisplayEventSerializer,
+)
 
 
 @extend_schema(exclude=True)
@@ -21,7 +31,39 @@ class AidContactClickEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewS
         host = self.request.get_host()
         source_cleaned = get_site_from_host(host)
         # clean querystring
-        querystring = serializer.validated_data.get('querystring')
+        querystring = serializer.validated_data.get("querystring")
+        querystring_cleaned = clean_search_querystring(querystring)
+        # save
+        serializer.save(source=source_cleaned, querystring=querystring_cleaned)
+
+
+@extend_schema(exclude=True)
+class AidOriginUrlClickEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    serializer_class = AidOriginUrlClickEventSerializer
+    queryset = AidOriginUrlClickEvent.objects.all()
+
+    def perform_create(self, serializer):
+        # clean host
+        host = self.request.get_host()
+        source_cleaned = get_site_from_host(host)
+        # clean querystring
+        querystring = serializer.validated_data.get("querystring")
+        querystring_cleaned = clean_search_querystring(querystring)
+        # save
+        serializer.save(source=source_cleaned, querystring=querystring_cleaned)
+
+
+@extend_schema(exclude=True)
+class AidApplicationUrlClickEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    serializer_class = AidApplicationUrlClickEventSerializer
+    queryset = AidApplicationUrlClickEvent.objects.all()
+
+    def perform_create(self, serializer):
+        # clean host
+        host = self.request.get_host()
+        source_cleaned = get_site_from_host(host)
+        # clean querystring
+        querystring = serializer.validated_data.get("querystring")
         querystring_cleaned = clean_search_querystring(querystring)
         # save
         serializer.save(source=source_cleaned, querystring=querystring_cleaned)
@@ -37,7 +79,7 @@ class AidEligibilityTestEventViewSet(mixins.CreateModelMixin, viewsets.GenericVi
         host = self.request.get_host()
         source_cleaned = get_site_from_host(host)
         # clean querystring
-        querystring = serializer.validated_data.get('querystring')
+        querystring = serializer.validated_data.get("querystring")
         querystring_cleaned = clean_search_querystring(querystring)
         # save
         serializer.save(source=source_cleaned, querystring=querystring_cleaned)
