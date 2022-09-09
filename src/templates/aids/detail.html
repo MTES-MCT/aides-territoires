@@ -264,7 +264,7 @@
                         <strong>Programmes&nbsp;:</strong>
                     </h2>
                     {% for program in programs %}
-                    <a href="{% url 'program_detail' program.slug %}" class="fr-col-offset-2 fr-col-10 at-link__nodecorator">
+                    <a href="{% url 'program_detail' program.slug %}" class="fr-col-10 at-link__nodecorator">
                         <img src="{{ program.logo.url }}" class="fr-responsive-img" alt="{{ program.name }}" />
                     </a>
                     {% endfor %}
@@ -302,7 +302,7 @@
 
             {% if aid.origin_url %}
             <p>
-                <a class="fr-btn fr-btn--secondary" target="_blank" rel="noopener" title="Lien vers le descriptif complet" href="{{ aid.origin_url }}">
+                <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers le descriptif complet" href="{{ aid.origin_url }}">
                     Descriptif complet
                 </a>
             </p>
@@ -310,7 +310,7 @@
 
             {% if aid.application_url %}
             <p>
-                <a class="fr-btn" target="_blank" rel="noopener" title="Lien pour candidater à l'aide" href="{{ aid.application_url }}">
+                <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l'aide" href="{{ aid.application_url }}">
                     Candidater à l'aide
                 </a>
             </p>
@@ -441,7 +441,7 @@
                 {% endif %}
             </div>
 
-            <div class="fr-mb-5w">
+            <div class="fr-mb-5w" id="contact">
                 <h2 class="fr-h3 fr-mb-2w">Contact</h2>
                 {% if idf_financer %}
                 <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-1w">
@@ -456,14 +456,14 @@
                     <ul class="fr-btns-group fr-btns-group--inline-md fr-btns-group--right">
                         {% if aid.origin_url %}
                         <li>
-                            <a class="fr-btn fr-btn--secondary" target="_blank" rel="noopener" title="Lien vers le descriptif complet" href="{{ aid.origin_url }}">
+                            <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers le descriptif complet" href="{{ aid.origin_url }}">
                                 Descriptif complet
                             </a>
                         </li>
                         {% endif %}
                         {% if aid.application_url %}
                         <li>
-                            <a class="fr-btn" target="_blank" rel="noopener" title="Lien pour candidater à l'aide" href="{{ aid.application_url }}">
+                            <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l'aide" href="{{ aid.application_url }}">
                                 Candidater à l'aide
                             </a>
                         </li>
