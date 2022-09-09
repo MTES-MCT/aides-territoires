@@ -9,7 +9,7 @@ from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.views.generic import TemplateView, ListView
 from django.utils import timezone
-from django.db.models import Sum
+from django.db.models import Count, Sum
 from django.views.generic.edit import FormMixin
 
 from aids.models import Aid, AidProject
@@ -378,18 +378,21 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
             departments_org_count, cls=DjangoJSONEncoder
         )
 
-        # Communes with a perimeter.
-        communes = (
-            Perimeter.objects.filter(
-                scale=Perimeter.SCALES.commune,
-                is_obsolete=False,
-                organization__isnull=False,
+        # Organizations with commune as a perimeter.
+        organizations = (
+            Organization.objects.filter(
+                perimeter__scale=Perimeter.SCALES.commune,
+                perimeter__is_obsolete=False,
             )
-            .distinct()
+            .annotate(users_count=Count("user", distinct=True))
+            .annotate(projects_count=Count("project", distinct=True))
             .values(
-                "code",
                 "name",
-                "organization__date_created",
+                "date_created",
+                "projects_count",
+                "users_count",
+                "perimeter__code",
+                "perimeter__name",
             )
         )
 
@@ -403,11 +406,14 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
                 return 1
 
         communes_with_org = {
-            f"{commune['code']}-{commune['name']}": {
-                "date_created": commune["organization__date_created"],
-                "age": get_age(commune["organization__date_created"]),
+            f"{organization['perimeter__code']}-{organization['perimeter__name']}": {
+                "organization_name": organization["name"],
+                "users_count": organization["users_count"],
+                "projects_count": organization["projects_count"],
+                "date_created": organization["date_created"],
+                "age": get_age(organization["date_created"]),
             }
-            for commune in communes
+            for organization in organizations
         }
         context["communes_with_org"] = json.dumps(
             communes_with_org, cls=DjangoJSONEncoder

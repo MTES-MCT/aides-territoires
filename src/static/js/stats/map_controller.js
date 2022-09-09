@@ -134,9 +134,11 @@ export default class extends Controller {
       const key = `${feature.properties.code}-${feature.properties.nom}`
       if (Object.keys(this.communesWithOrg).includes(key)) {
         correspondance.push({
+          nom: feature.properties.nom,
+          organization_name: this.communesWithOrg[key].organization_name,
           date_created: this.communesWithOrg[key].date_created,
           projects_count: this.communesWithOrg[key].projects_count,
-          nom: feature.properties.nom,
+          users_count: this.communesWithOrg[key].users_count,
         })
       }
     }
@@ -144,12 +146,15 @@ export default class extends Controller {
     this.tableTarget.innerHTML = `
       <table class="fr-table" style="width: 100%;">
         <caption>
-          Communes enregistrées :
+          Communes et leurs organisations :
         </caption>
         <thead>
           <tr>
-            <th>Nom</th>
+            <th>Commune</th>
+            <th>Organisation</th>
             <th>Date de création</th>
+            <th>Nombre de projets</th>
+            <th>Nombre de comptes</th>
           </tr>
         </thead>
         <tbody>
@@ -159,7 +164,10 @@ export default class extends Controller {
                 (item) =>
                   `
                   <td>${item.nom}</td>
+                  <td>${item.organization_name}</td>
                   <td>${new Date(item.date_created).toLocaleDateString('fr-FR')}</td>
+                  <td>${item.projects_count}</td>
+                  <td>${item.users_count}</td>
                   `
               )
               .join('</tr><tr>')}
