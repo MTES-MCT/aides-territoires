@@ -121,12 +121,6 @@ article#aid .aid-details h3 {
   position: absolute;
 }
 
-// Header style
-
-#profil::before {
-  font-size: 1.5rem;
-}
-
 // register page style
 
 #register-form legend {
@@ -455,12 +449,12 @@ form#general_search_form {
     border-radius: 50%;
   }
 
-  #search-step-2:hover {
+  #search-by-keywords:hover {
     background-color: var(--background-alt-blue-france);
   }
 
   @media screen and (max-width: 600px) {
-    #search-step-2 img {
+    #search-by-keywords img {
       display: none;
     }
   }

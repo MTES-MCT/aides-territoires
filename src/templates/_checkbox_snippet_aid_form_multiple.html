@@ -25,7 +25,7 @@
         
             
             {% if field.errors %}
-            <p id="text-input-error-desc-error" class="fr-error-text">
+            <p id="text-input-error-{{ field.name }}" class="fr-error-text">
                 {{ field.errors.0 }}
             </p>
             {% endif %}
