@@ -149,9 +149,11 @@
 <script type="module">
   import { Application } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js"
   import mapController from "{% static 'js/stats/map_controller.js' %}"
+  import tableController from "{% static 'js/stats/table_controller.js' %}"
   window.Stimulus = Application.start()
   {% setting "DEBUG" as Debug %}
   Stimulus.debug = {{ Debug|lower }}
   Stimulus.register("map", mapController)
+  Stimulus.register("table", tableController)
 </script>
 {% endblock extra_js %}

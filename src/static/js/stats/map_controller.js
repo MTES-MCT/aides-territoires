@@ -144,21 +144,59 @@ export default class extends Controller {
     }
     correspondance.sort((a, b) => b.date_created > a.date_created)
     this.tableTarget.innerHTML = `
-      <table class="fr-table" style="width: 100%;">
+      <style>
+        .fr-table {
+          width: 100%;
+        }
+        .fr-table[data-controller='table'] th::after {
+          content: " ↑↓";
+        }
+        .fr-table[data-controller='table'] th[aria-sort] {
+          background-color: var(--background-open-blue-france);
+        }
+        .fr-table[data-controller='table'] th[aria-sort='descending']::after {
+          content: " ↑";
+        }
+        .fr-table[data-controller='table'] th[aria-sort='ascending']::after {
+          content: " ↓";
+        }
+      </style>
+      <table data-controller="table" class="fr-table">
         <caption>
           Communes et leurs organisations :
         </caption>
         <thead>
           <tr>
-            <th>Commune</th>
-            <th>Organisation</th>
-            <th>Date de création</th>
-            <th>Nombre de projets</th>
-            <th>Nombre de comptes</th>
+            <th
+              data-action="click->table#sortTable"
+              data-table-target="header"
+              data-type="text"
+              >Commune</th>
+            <th
+              data-action="click->table#sortTable"
+              data-table-target="header"
+              data-type="text"
+              >Organisation</th>
+            <th
+              data-action="click->table#sortTable"
+              data-table-target="header"
+              aria-sort="descending"
+              data-type="date"
+              >Date de création</th>
+            <th
+              data-action="click->table#sortTable"
+              data-table-target="header"
+              data-type="number"
+              >Nombre de projets</th>
+            <th
+              data-action="click->table#sortTable"
+              data-table-target="header"
+              data-type="number"
+              >Nombre de comptes</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
+        <tbody data-table-target="body">
+          <tr data-table-target="row">
             ${correspondance
               .map(
                 (item) =>
@@ -170,7 +208,7 @@ export default class extends Controller {
                   <td>${item.users_count}</td>
                   `
               )
-              .join('</tr><tr>')}
+              .join('</tr><tr data-table-target="row">')}
           </tr>
         </tbody>
       </table>
