@@ -131,6 +131,25 @@
                                                     </div>
                                                 </fieldset>
                                             </div>
+
+                                            <div id="form-group-acquisition_channel" class="fr-input-group required ">
+                                                <label for="id_acquisition_channel">Comment avez-vous connu Aides-territoires&nbsp;?</label>
+                                                <select class="fr-select" name="acquisition_channel" id="id_acquisition_channel">
+                                                    <option value="" hidden>Sélectionnez une option</option>
+                                                    {% for option in form.acquisition_channel %}
+                                                    {{ option }}
+                                                    {% endfor %}
+                                                </select>
+                                                {% if form.acquisition_channel.errors %}
+                                                <p id="text-input-error-desc-error" class="fr-error-text">
+                                                    {{ form.acquisition_channel.errors.0 }}
+                                                </p>
+                                                {% endif %}
+                                            </div>
+
+                                            <div id="acquisition-channel-comment-collapse" class="fr-collapse fr-mb-3w">
+                                            {% include '_field_snippet.html' with field=form.acquisition_channel_comment %}
+                                            </div>
                                         </fieldset>
                                     </div>
                                     <div class="fr-col-12 fr-mb-3w">
@@ -172,6 +191,7 @@
 {% block extra_js %}
 {% compress js %}
 <script src="{% static 'js/accounts/toggle_beneficiary_related_fields.js' %}"></script>
+<script src="{% static 'js/accounts/toggle_acquisition_channel_related_field.js' %}"></script>
 <script src="{% static 'select2/dist/js/select2.js' %}"></script>
 <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
 <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>

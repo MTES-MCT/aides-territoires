@@ -207,6 +207,8 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
             {
                 "fields": (
                     "ml_consent",
+                    "acquisition_channel",
+                    "acquisition_channel_comment",
                     "last_login",
                     "date_created",
                     "date_updated",
