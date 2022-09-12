@@ -38,8 +38,11 @@ def is_overseas(zipcode):
     return zipcode.startswith(OVERSEAS_PREFIX)
 
 
-def get_all_related_perimeter_ids(search_perimeter_id):
+def get_all_related_perimeter_ids(search_perimeter_id, direction="both", scale=None):
     """Return a list of all perimeter ids related to the searched perimeter.
+
+    In case of direction `up`, we only retrieve the wider perimeters.
+    In case of direction `down`, we only retrieve the smaller perimeters.
 
     When we filter by a given perimeter, we must return all aids:
         - where the perimeter is wider and contains the searched perimeter ;
@@ -55,6 +58,9 @@ def get_all_related_perimeter_ids(search_perimeter_id):
         - Europe ;
         - M3M (and all other epcis in Hérault) ;
         - Montpellier (and all other communes in Hérault) ;
+
+    The `scale` parameter allows you to restrict results to a given
+    `Perimeter.SCALES` kind of perimeter.
     """
 
     # Note: the original way we adressed this was more straightforward,
@@ -64,28 +70,33 @@ def get_all_related_perimeter_ids(search_perimeter_id):
 
     # We just need to efficiently get a list of all perimeter ids related
     # to the current query.
+    q_exact_match = Q(id=search_perimeter_id)
 
     Through = Perimeter.contained_in.through
-    contains_id = (
-        Through.objects.filter(from_perimeter_id=search_perimeter_id)
-        .values("to_perimeter_id")
-        .distinct()
-    )
-    contained_id = (
-        Through.objects.filter(to_perimeter_id=search_perimeter_id)
-        .values("from_perimeter_id")
-        .distinct()
-    )
-
-    q_exact_match = Q(id=search_perimeter_id)
-    q_contains = Q(id__in=contains_id)
-    q_contained = Q(id__in=contained_id)
+    q_contains = Q()
+    q_contained = Q()
+    if direction == "both" or direction == "up":
+        contains_id = (
+            Through.objects.filter(from_perimeter_id=search_perimeter_id)
+            .values("to_perimeter_id")
+            .distinct()
+        )
+        q_contains = Q(id__in=contains_id)
+    if direction == "both" or direction == "down":
+        contained_id = (
+            Through.objects.filter(to_perimeter_id=search_perimeter_id)
+            .values("from_perimeter_id")
+            .distinct()
+        )
+        q_contained = Q(id__in=contained_id)
 
     perimeter_qs = (
         Perimeter.objects.filter(q_exact_match | q_contains | q_contained)
         .values("id")
         .distinct()
     )
+    if scale is not None:
+        perimeter_qs.filter(scale=scale)
     return perimeter_qs
 
 
