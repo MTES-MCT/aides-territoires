@@ -38,9 +38,9 @@
 {% block content %}
     <article id="map-page" class="fr-container">
         <h1>Cartographie des programmes et des porteurs d’aides partenaires de la démarche Aides-territoires</h1>
-        <div class="fr-text--lead">
+        <p class="fr-text--lead">
             Sélectionnez un département pour avoir tout le détail des aides financières et en ingénierie par porteur et par programme
-        </div>
+        </p>
         <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
             <div class="fr-col-12 fr-col-lg-7" role="presentation">
                 <div id="france-map" class="fr-mt-4w fr-mb-4w">{% include "geofr/france_departments.svg" %}</div>
@@ -74,6 +74,7 @@
                         <form id="department-search-form" method="post">
                             <div class="fr-select-group">
                                 <select class="fr-select fr-mt-3w at-live-change"
+                                        title="Choisissez un département - La sélection recharge la page"
                                         id="select-department"
                                         name="department">
                                     <option value="">Choisissez un département</option>
