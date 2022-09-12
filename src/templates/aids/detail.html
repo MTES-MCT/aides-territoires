@@ -64,7 +64,7 @@
                 </div>
                 <div class="fr-col-11">
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
-                        <strong>Porteurs d'aide&nbsp;:</strong>
+                        <strong>Porteur(s) d'aide&nbsp;:</strong>
                     </h2>
                     {% for financer in financers %}
                     <p class="fr-mb-0 fr-ml-1w">
@@ -91,7 +91,7 @@
                 </div>
                 <div class="fr-col-11">
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
-                        <strong>Instructeurs de l'aide&nbsp;:</strong>
+                        <strong>Instructeur(s) de l'aide&nbsp;:</strong>
                     </h2>
                     {% for instructor in instructors %}
                     <p class="fr-mb-0 fr-ml-1w">
@@ -261,7 +261,7 @@
                 </div>
                 <div class="fr-col-11" id="logos-programs">
                     <h2 class="fr-text--md fr-text--normal fr-ml-1w">
-                        <strong>Programmes&nbsp;:</strong>
+                        <strong>Programme(s)&nbsp;:</strong>
                     </h2>
                     {% for program in programs %}
                     <a href="{% url 'program_detail' program.slug %}" class="fr-col-10 at-link__nodecorator">
@@ -273,16 +273,26 @@
             {% endif %}
 
             {% if keywords %}
-            <div class="fr-list__none fr-mb-4w">
-                {% for keyword in keywords %}
-                {% if user_perimeter and user_targeted_audience %}
-                <a href="{% url 'search_view' %}?text={{ keyword }}&targeted_audiences={{ user_targeted_audience }}&perimeter={{ user_perimeter }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot-clé « {{ keyword }} »">{{ keyword }}</a>
-                {% elif user_targeted_audience %}
-                <a href="{% url 'search_view' %}?text={{ keyword }}&targeted_audiences={{ user_targeted_audience }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot-clé « {{ keyword }} »">{{ keyword }}</a>
-                {% else %}
-                <a href="{% url 'search_view' %}?text={{ keyword }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot-clé « {{ keyword }} »">{{ keyword }}</a>
-                {% endif %}
-                {% endfor %}
+            <div class="fr-mb-4w fr-grid-row">
+                <div class="fr-col-1">
+                    <span class="ri-double-quotes-r ri-xl"></span>
+                </div>
+                <div class="fr-col-11" id="logos-programs">
+                    <h2 class="fr-text--md fr-text--normal fr-ml-1w">
+                        <strong>Mot(s)-clé(s)&nbsp;:</strong>
+                    </h2>
+                    <div class="fr-list__none fr-mb-4w">
+                        {% for keyword in keywords %}
+                        {% if user_perimeter and user_targeted_audience %}
+                        <a href="{% url 'search_view' %}?text={{ keyword }}&targeted_audiences={{ user_targeted_audience }}&perimeter={{ user_perimeter }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot-clé « {{ keyword }} »">{{ keyword }}</a>
+                        {% elif user_targeted_audience %}
+                        <a href="{% url 'search_view' %}?text={{ keyword }}&targeted_audiences={{ user_targeted_audience }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot-clé « {{ keyword }} »">{{ keyword }}</a>
+                        {% else %}
+                        <a href="{% url 'search_view' %}?text={{ keyword }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot-clé « {{ keyword }} »">{{ keyword }}</a>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
             {% endif %}
 
