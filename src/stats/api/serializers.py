@@ -4,7 +4,6 @@ from stats.models import (
     AidContactClickEvent,
     AidOriginUrlClickEvent,
     AidApplicationUrlClickEvent,
-    AidContactClickEvent,
     AidEligibilityTestEvent,
     PromotionDisplayEvent,
     PromotionClickEvent,
