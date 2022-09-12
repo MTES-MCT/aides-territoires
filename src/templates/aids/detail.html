@@ -70,7 +70,11 @@
                 </div>
                 <div class="fr-col-11">
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
+<<<<<<< HEAD
                         <strong>Porteur(s) d’aide :</strong>
+=======
+                        <strong>Porteur(s) d'aide&nbsp;:</strong>
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                     </h2>
                     {% for financer in financers %}
                     <p class="fr-mb-0 fr-ml-1w">
@@ -80,11 +84,16 @@
                     {% if financers_with_logo %}
                     <div id="logos-financers" class="fr-mt-2w">
                         {% for financer in financers_with_logo %}
+<<<<<<< HEAD
                         <a href="{% url 'backer_detail_view' financer.pk financer.slug %}"
                            class="fr-col-10 at-link__nodecorator"
                            title="{{ financer.name }} - Ouvrir dans une nouvelle fenêtre"
                         >
                             <img src="{{ financer.logo.url }}" class="fr-responsive-img" alt="" />
+=======
+                        <a href="{% url 'backer_detail_view' financer.pk financer.slug %}" class="fr-col-offset-2 fr-col-10 at-link__nodecorator">
+                            <img src="{{ financer.logo.url }}" class="fr-responsive-img" alt="{{ financer.name }}" />
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                         </a>
                         {% endfor %}    
                     </div>
@@ -100,7 +109,11 @@
                 </div>
                 <div class="fr-col-11">
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
+<<<<<<< HEAD
                         <strong>Instructeur(s) de l’aide :</strong>
+=======
+                        <strong>Instructeur(s) de l'aide&nbsp;:</strong>
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                     </h2>
                     {% for instructor in instructors %}
                     <p class="fr-mb-0 fr-ml-1w">
@@ -126,7 +139,11 @@
                         </div>
                         <div class="fr-col-11">
                             <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
+<<<<<<< HEAD
                                 <strong>Aide locale :</strong>
+=======
+                                <strong>Aide locale&nbsp;:</strong>
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                             </h2>
                             <p class="fr-mb-0 fr-ml-1w">
                                 Cette aide est une déclinaison locale d’une <a href="{{ aid.generic_aid.get_absolute_url }}">aide nationale</a>
@@ -144,7 +161,11 @@
                         </div>
                         <div class="fr-col-11">
                             <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
+<<<<<<< HEAD
                                 <strong>Aide nationale :</strong>
+=======
+                                <strong>Aide nationale&nbsp;:</strong>
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                             </h2>
                             <p class="fr-mb-0 fr-ml-1w">
                                 Cette aide nationale <a href="#aides-locales">dispose de déclinaisons locales</a>
@@ -187,16 +208,28 @@
                 <div class="fr-col-11">
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
                         {% if aid.start_date and aid.submission_deadline and not aid.is_ongoing %}
+<<<<<<< HEAD
                         <strong>Calendrier :</strong> Du {{ aid.start_date|date }} au {{ aid.submission_deadline|date }}
                         {% elif aid.start_date and not aid.is_ongoing %}
                         <strong>Calendrier :</strong> À partir du {{ aid.start_date|date }}
                         {% elif aid.submission_deadline and not aid.is_ongoing %}
                         <strong>Calendrier :</strong> Clôture le {{aid.submission_deadline|date }}
+=======
+                        <strong>Calendrier&nbsp;:</strong> Du {{ aid.start_date|date }} au {{ aid.submission_deadline|date }}
+                        {% elif aid.start_date and not aid.is_ongoing %}
+                        <strong>Calendrier&nbsp;:</strong> À partir du {{ aid.start_date|date }}
+                        {% elif aid.submission_deadline and not aid.is_ongoing %}
+                        <strong>Calendrier&nbsp;:</strong> Clôture le {{aid.submission_deadline|date }}
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                         {% endif %}
                     </h2>
                     {% if aid.predeposit_date and not aid.is_ongoing %}
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
+<<<<<<< HEAD
                         <strong>Date de pré-dépôt :</strong> {{ aid.predeposit_date|date }}
+=======
+                        <strong>Date de pré-dépôt&nbsp;:</strong> {{ aid.predeposit_date|date }}
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                     </h2>
                     {% endif %}
                 </div>
@@ -210,7 +243,11 @@
                 </div>
                 <div class="fr-col-11">
                     <h2 class="fr-text--md fr-mb-0 fr-ml-1w">
+<<<<<<< HEAD
                         Récurrence :
+=======
+                        Récurrence&nbsp;:
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                     </h2>
                     <p class="fr-mb-0 fr-ml-1w">{{ aid.get_recurrence_display }}</p>    
                 </div>
@@ -224,7 +261,11 @@
                 </div>
                 <div class="fr-col-11">
                     <h2 class="fr-text--md fr-mb-0 fr-ml-1w">
+<<<<<<< HEAD
                         Bénéficiaires :
+=======
+                        Bénéficiaires&nbsp;:
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                     </h2>
                     <p class="fr-mb-0 fr-ml-1w">{% choices_display aid 'targeted_audiences' %}</p>
                 </div>
@@ -237,7 +278,11 @@
                 </div>
                 <div class="fr-col-11">
                     <h2 class="fr-text--md fr-mb-0 fr-ml-1w">
+<<<<<<< HEAD
                         Zone géographique couverte par l’aide :
+=======
+                        Zone géographique couverte par l’aide&nbsp;:
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                     </h2>
                     <p class="fr-mb-0 fr-ml-1w">{{ aid.perimeter }}</p>
                 </div>
@@ -250,6 +295,7 @@
                 </div>
                 <div class="fr-col-11">
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
+<<<<<<< HEAD
                         <strong>Origine de la donnée :</strong> Cette aide provient d’une source de données tierce{% if aid.import_data_source.pk == 7 %}, elle a été mise a disposition d’Aides-territoires à titre gracieux par la société Welcomeurope.{% endif %}
                     </h2>
                     {% if aid.import_data_source.pk == 7 %}
@@ -278,6 +324,17 @@
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
                         <strong>Dernière mise à jour : </strong>{{ aid.import_last_access|date }}
                     </h2>
+=======
+                        <strong>Origine de la donnée&nbsp;:</strong> Cette aide provient d'une source de données tierce{% if aid.import_data_source.pk == 7 %}, elle a été mise a disposition d'Aides-territoires à titre gracieux par la société Welcomeurope.{% endif %}
+                    </h2>
+                    {% if aid.import_data_source.pk == 7 %}
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w"><strong>URL d'origine&nbsp;: </strong>traduction à partir des données du portail officiel de la Commission européenne&nbsp;: <span class="fr-break-word"><a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home" target="_blank" rel="noopener">https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home</a></span></h2>
+                    {% else %}
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w fr-break-word"><strong>URL d'origine&nbsp;: </strong>{% if aid.import_data_url %}<a href="{{ aid.import_data_url }}" target="_blank" rel="noopener">{{ aid.import_data_url }}</a>{% else %}Inconnue{% endif %}</h2>
+                    {% endif %}
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w fr-break-word"><strong>Licence de partage&nbsp;: </strong>{{ aid.get_import_share_licence_display|default:_('NA') }}</h2>
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w fr-break-word"><strong>Dernière mise à jour&nbsp;: </strong>{{ aid.import_last_access|date }}</h2>
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                 </div>
             </div>
             {% endif %}
@@ -289,11 +346,19 @@
                 </div>
                 <div class="fr-col-11" id="logos-programs">
                     <h2 class="fr-text--md fr-text--normal fr-ml-1w">
+<<<<<<< HEAD
                         <strong>Programme(s) :</strong>
                     </h2>
                     {% for program in programs %}
                     <a href="{% url 'program_detail' program.slug %}" class="fr-col-10 at-link__nodecorator" title="{{ program.name }}">
                         <img src="{{ program.logo.url }}" class="fr-responsive-img" alt="" />
+=======
+                        <strong>Programme(s)&nbsp;:</strong>
+                    </h2>
+                    {% for program in programs %}
+                    <a href="{% url 'program_detail' program.slug %}" class="fr-col-10 at-link__nodecorator">
+                        <img src="{{ program.logo.url }}" class="fr-responsive-img" alt="{{ program.name }}" />
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                     </a>
                     {% endfor %}
                 </div>
@@ -307,7 +372,11 @@
                 </div>
                 <div class="fr-col-11" id="logos-programs">
                     <h2 class="fr-text--md fr-text--normal fr-ml-1w">
+<<<<<<< HEAD
                         <strong>Mot(s)-clé(s) :</strong>
+=======
+                        <strong>Mot(s)-clé(s)&nbsp;:</strong>
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                     </h2>
                     <div class="fr-list__none fr-mb-4w">
                         {% for keyword in keywords %}
@@ -331,7 +400,11 @@
                     </div>
                     <div class="fr-col-11">
                         <h2 class="fr-text--md fr-mb-0 fr-ml-1w">
+<<<<<<< HEAD
                             Dernière mise à jour :
+=======
+                            Dernière mise à jour&nbsp;:
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                         </h2>
                         <p class="fr-mb-0 fr-ml-1w">{{ aid.date_updated|date}}</p>
                     </div>
@@ -340,7 +413,11 @@
 
             {% if aid.origin_url %}
             <p>
+<<<<<<< HEAD
                 <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers le descriptif complet - ouvre une nouvelle fenêtre" href="{{ aid.origin_url }}">
+=======
+                <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers le descriptif complet" href="{{ aid.origin_url }}">
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                     Descriptif complet
                 </a>
             </p>
@@ -348,8 +425,13 @@
 
             {% if aid.application_url %}
             <p>
+<<<<<<< HEAD
                 <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l’aide - ouvre une nouvelle fenêtre" href="{{ aid.application_url }}">
                     Candidater à l’aide
+=======
+                <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l'aide" href="{{ aid.application_url }}">
+                    Candidater à l'aide
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                 </a>
             </p>
             {% endif %}
@@ -359,14 +441,23 @@
 
         <div class="aid-details fr-col-12 fr-col-md-8 fr-pb-3w fr-px-3w">
 
+<<<<<<< HEAD
             <p class="at-color--blue">
+=======
+            <p class="fr-color--blue">
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                 <strong>
                     {% financers_type_display aid %}
                 </strong>
             </p>
 
+<<<<<<< HEAD
             <h1 class="fr-mb-5w at-color--blue">
                 {% if aid.european_aid %}<span title="aide européenne" aria-hidden="true">🇪🇺 </span>{% endif %}
+=======
+            <h1 class="fr-mb-5w fr-color--blue">
+                {% if aid.european_aid %}<span title="aide européenne">🇪🇺 </span>{% endif %}
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                 {% if aid.headline_name %}
                  {{ aid.headline_name | safe }}
                 {% else %}
@@ -395,22 +486,35 @@
 
                 {% if aid.mobilization_steps %}
                 <p class="fr-mb-2w">
+<<<<<<< HEAD
                     <strong>Avancée du projet :</strong>
+=======
+                    <strong>Avancée du projet&nbsp;:</strong>
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                     {% choices_display aid 'mobilization_steps' %}
                 </p>
                 {% endif %}
 
                 {% if aid.destinations %}
                 <p class="fr-mb-2w">
+<<<<<<< HEAD
                     <strong>Dépenses/actions couvertes :</strong>
+=======
+                    <strong>Dépenses/actions couvertes&nbsp;:</strong>
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                     {% choices_display aid 'destinations' %}
                 </p>
                 {% endif %}
 
                 {% if aid.eligibility %}
                 <p class="fr-mb-2w">
+<<<<<<< HEAD
                     <strong>Autres critères d’éligibilité :</strong>
                     {% if aid.headline_eligibility %}
+=======
+                    <strong>Autres critères d’éligibilité&nbsp;:</strong>
+                    {% if headline_eligibility %}
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                     {{ aid.headline_eligibility|safe }}
                     {% else %}
                     {{ aid.eligibility|safe }}
@@ -429,7 +533,11 @@
 
                 {% if aid.project_examples %}
                 <p class="fr-mb-2w">
+<<<<<<< HEAD
                     <strong>Exemples de projets réalisables :</strong>
+=======
+                    <strong>Exemples de projets réalisables&nbsp;:</strong>
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                     {% if aid.headline_project_examples %}
                     {{ aid.headline_project_examples|safe }}
                     {% else %}
@@ -441,7 +549,11 @@
                 {% if aid.is_generic %}
                 {% with local_aids=aid.get_sorted_local_aids %}
                 <p class="fr-mb-1w" id="aides-locales">
+<<<<<<< HEAD
                     <strong>Déclinaisons locales :</strong> En l’absence d’aide locale, les informations relatives à cette aide nationale font foi.
+=======
+                    <strong>Déclinaisons locales&nbsp;:</strong> En l’absence d’aide locale, les informations relatives à cette aide nationale font foi.
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                 </p>
                 {% if local_aids %}
                     <div id="localAidsLinks">
@@ -481,6 +593,14 @@
 
             <div class="fr-mb-5w" id="contact">
                 <h2 class="fr-h3 fr-mb-2w">Contact</h2>
+<<<<<<< HEAD
+=======
+                {% if idf_financer %}
+                <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-1w">
+                Nous vous invitons à vous assurer que ces informations sont à jour en consultant le site de la Région Île-de-France.
+                </div>
+                {% endif %}
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                 <div>
                     {% if aid.contact %}
                     {{ aid.contact|safe }}
@@ -489,15 +609,24 @@
                     <ul class="fr-btns-group fr-btns-group--inline-md fr-btns-group--right">
                         {% if aid.origin_url %}
                         <li>
+<<<<<<< HEAD
                             <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers le descriptif complet - ouvre une nouvelle fenêtre" href="{{ aid.origin_url }}">
+=======
+                            <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers le descriptif complet" href="{{ aid.origin_url }}">
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                                 Descriptif complet
                             </a>
                         </li>
                         {% endif %}
                         {% if aid.application_url %}
                         <li>
+<<<<<<< HEAD
                             <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l’aide - ouvre une nouvelle fenêtre" href="{{ aid.application_url }}">
                                 Candidater à l’aide
+=======
+                            <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l'aide" href="{{ aid.application_url }}">
+                                Candidater à l'aide
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                             </a>
                         </li>
                         {% endif %} 
@@ -510,7 +639,8 @@
 
 <div class="fr-container fr-pt-3w fr-px-6w fr-mb-5w">
     <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-        <div id="share-aid-block" class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-4">
+
+        <div id="share-aid-block" class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-6">
             <div class="fr-card fr-card--no-arrow">
                 <div class="fr-card__body at-background-alt-green">
                     <div class="fr-card__content">
@@ -522,7 +652,11 @@
                                 Vous souhaitez diffuser cette aide ?
                             </h3>
                         </div>
+<<<<<<< HEAD
                         <p class="fr-card__desc fr-text--sm fr-mt-3w">L’outil très pratique pour partager facilement cette aide sur vos différents réseaux en un seul clic.</p>
+=======
+                        <p class="fr-card__desc fr-text--sm fr-mt-3w">L’outil très pratique pour partager facilement cette aide sur vos différents réseaux en 1 seul clic.</p>
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                     </div>
                     <div class="fr-card__footer">
                         <div class="at-centered">
@@ -536,7 +670,7 @@
         </div>
 
         {% if not search_page %}
-        <div id="add-to-project-block" class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-4">
+        <div id="add-to-project-block" class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-6">
             <div class="fr-card fr-card--no-arrow">
                 <div class="fr-card__body at-background-alt-green">
                     <div class="fr-card__content">
@@ -557,6 +691,7 @@
                             </button>
                         </div>
                     </div>    
+<<<<<<< HEAD
                 </div>
             </div>
         </div>
@@ -584,6 +719,8 @@
                             </button>
                         </div>
                     </div>    
+=======
+>>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
                 </div>
             </div>
         </div>
