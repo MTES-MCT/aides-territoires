@@ -29,7 +29,7 @@
                     <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" title="Lancer une nouvelle recherche" href="{% url 'search_view' %}?{{ current_search }}">Trouver des aides</a>
+                    <a class="fr-breadcrumb__link" title="Lancer une nouvelle recherche" href="{% url 'general_search' %}?{{ current_search }}">Trouver des aides</a>
                 </li>
                 <li>
                     <a class="fr-breadcrumb__link" title="Revenir aux résultats" href="{% url 'search_view' %}?{{ current_search }}">Résultats</a>
@@ -510,6 +510,7 @@
 
 <div class="fr-container fr-pt-3w fr-px-6w fr-mb-5w">
     <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+
         <div id="share-aid-block" class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-4">
             <div class="fr-card fr-card--no-arrow">
                 <div class="fr-card__body at-background-alt-green">
