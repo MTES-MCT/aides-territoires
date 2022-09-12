@@ -57,6 +57,14 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
         label="Votre territoire", queryset=Perimeter.objects.all(), required=True
     )
 
+    acquisition_channel = forms.ChoiceField(
+        required=True, choices=sorted(User.ACQUISITION_CHANNEL, key=lambda x: x[1])
+    )
+
+    acquisition_channel_comment = forms.CharField(
+        label="Précisez comment vous avez connu Aides-territoires", required=False
+    )
+
     class Meta:
         model = User
         fields = [
@@ -72,6 +80,8 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
             "organization_name",
             "organization_type",
             "perimeter",
+            "acquisition_channel",
+            "acquisition_channel_comment",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -101,6 +111,10 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
         if not data.get("organization_type"):
             msg = "Merci de sélectionner une option."
             self.add_error("organization_type", msg)
+
+        if not data.get("acquisition_channel"):
+            msg = "Merci de sélectionner une option."
+            self.add_error("acquisition_channel", msg)
 
         return data
 
