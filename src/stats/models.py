@@ -58,6 +58,52 @@ class AidContactClickEvent(models.Model):
         verbose_name_plural = 'Événements aide voir les contacts'
 
 
+class AidOriginUrlClickEvent(models.Model):
+    aid = models.ForeignKey(
+        'aids.Aid',
+        verbose_name=_('Aid'),
+        on_delete=models.PROTECT)
+
+    querystring = models.TextField(
+        _('Querystring'),
+        default='')
+    source = models.CharField(
+        'Source',
+        max_length=256,
+        blank=True, default='')
+
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
+
+    class Meta:
+        verbose_name = 'Événement aide lien vers la démarche en ligne'
+        verbose_name_plural = 'Événements aide lien vers la démarche en ligne'
+
+
+class AidApplicationUrlClickEvent(models.Model):
+    aid = models.ForeignKey(
+        'aids.Aid',
+        verbose_name=_('Aid'),
+        on_delete=models.PROTECT)
+
+    querystring = models.TextField(
+        _('Querystring'),
+        default='')
+    source = models.CharField(
+        'Source',
+        max_length=256,
+        blank=True, default='')
+
+    date_created = models.DateTimeField(
+        _('Date created'),
+        default=timezone.now)
+
+    class Meta:
+        verbose_name = 'Événement aide candidater'
+        verbose_name_plural = 'Événements aide candidater'
+
+
 class AidSearchEvent(models.Model):
     targeted_audiences = ChoiceArrayField(
         verbose_name=_('Targeted audiences'),
