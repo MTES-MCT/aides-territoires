@@ -58,11 +58,12 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
     )
 
     acquisition_channel = forms.ChoiceField(
-        required=True,
-        choices=sorted(User.ACQUISITION_CHANNEL, key=lambda x: x[1])
+        required=True, choices=sorted(User.ACQUISITION_CHANNEL, key=lambda x: x[1])
     )
 
-    acquisition_channel_comment = forms.CharField(label="Précisez comment vous avez connu Aides-territoires", required=False)
+    acquisition_channel_comment = forms.CharField(
+        label="Précisez comment vous avez connu Aides-territoires", required=False
+    )
 
     class Meta:
         model = User
