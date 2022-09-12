@@ -9,7 +9,6 @@ from import_export.formats import base_formats
 from organizations.models import Organization
 from organizations.resources import OrganizationResource
 from aids.constants import AUDIENCES_ALL
-from projects.models import Project
 
 
 class OrganizationTypeListFilter(admin.SimpleListFilter):
@@ -95,7 +94,7 @@ class OrganizationAdmin(ImportExportActionModelAdmin):
     ]
 
     def get_projects(self, obj):
-        projects = Project.objects.filter(organizations=obj)
+        projects = obj.project_set.all()
         projects_list = format_html('<table><tbody>')
         for project in projects:
             url = reverse("admin:projects_project_change", args=(project.pk,))
