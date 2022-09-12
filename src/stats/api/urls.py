@@ -1,6 +1,8 @@
 from rest_framework import routers
 
 from stats.api.views import (AidContactClickEventViewSet,
+                             AidOriginUrlClickEventViewSet,
+                             AidApplicationUrlClickEventViewSet,
                              AidEligibilityTestEventViewSet,
                              PromotionDisplayEventViewSet,
                              PromotionClickEventViewSet)
@@ -9,6 +11,10 @@ from stats.api.views import (AidContactClickEventViewSet,
 router = routers.SimpleRouter()
 router.register(r'aid-contact-click-events', AidContactClickEventViewSet,
                 basename='aid-contact-click-events')
+router.register(r'aid-originurl-click-events', AidOriginUrlClickEventViewSet,
+                basename='aid-originurl-click-events')
+router.register(r'aid-applicationurl-click-events', AidApplicationUrlClickEventViewSet,
+                basename='aid-applicationurl-click-events')
 router.register(r'aid-eligibility-test-events', AidEligibilityTestEventViewSet,
                 basename='aid-eligibility-test-events')
 router.register(r'promotion-display-events', PromotionDisplayEventViewSet,

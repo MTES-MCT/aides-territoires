@@ -2,9 +2,13 @@ from django.contrib import admin
 
 from core.admin import pretty_print_readonly_jsonfield
 from stats.models import (AidSearchEvent,
-                          AidViewEvent, AidContactClickEvent,
+                          AidViewEvent,
+                          AidContactClickEvent,
+                          AidOriginUrlClickEvent,
+                          AidApplicationUrlClickEvent,
                           AidEligibilityTestEvent,
-                          PromotionClickEvent, PromotionDisplayEvent,
+                          PromotionClickEvent,
+                          PromotionDisplayEvent,
                           Event)
 
 
@@ -25,6 +29,38 @@ class AidViewEventAdmin(admin.ModelAdmin):
 
 
 class AidContactClickEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+
+    list_display = ['id', 'aid', 'source', 'date_created']
+    list_filter = ['source']
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+class AidOriginUrlClickEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+
+    list_display = ['id', 'aid', 'source', 'date_created']
+    list_filter = ['source']
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+class AidApplicationUrlClickEventAdmin(admin.ModelAdmin):
     """The model is set to readonly"""
 
     list_display = ['id', 'aid', 'source', 'date_created']
@@ -132,6 +168,8 @@ class EventAdmin(admin.ModelAdmin):
 
 admin.site.register(AidViewEvent, AidViewEventAdmin)
 admin.site.register(AidContactClickEvent, AidContactClickEventAdmin)
+admin.site.register(AidOriginUrlClickEvent, AidOriginUrlClickEventAdmin)
+admin.site.register(AidApplicationUrlClickEvent, AidApplicationUrlClickEventAdmin)
 admin.site.register(AidSearchEvent, AidSearchEventAdmin)
 admin.site.register(AidEligibilityTestEvent, AidEligibilityTestEventAdmin)
 admin.site.register(PromotionDisplayEvent, PromotionDisplayEventAdmin)
