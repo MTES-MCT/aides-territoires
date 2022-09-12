@@ -75,7 +75,7 @@ def aid_types_choices_display_list(obj, field):
                     and obj.subvention_rate.upper is not None
                 ):
                     formated_string += format_html(
-                        "<strong>{}</strong> (min&nbsp;: {}&nbsp;% - max&nbsp;: {}% {})</br>",
+                        "<strong>{}</strong> ( min&nbsp;: {}&nbsp;% - max&nbsp;: {}% {})</br>",
                         value,
                         obj.subvention_rate.lower,
                         obj.subvention_rate.upper,
@@ -83,14 +83,14 @@ def aid_types_choices_display_list(obj, field):
                     )
                 elif obj.subvention_rate.lower is not None:
                     formated_string += format_html(
-                        "<strong>{}</strong> (min&nbsp;: {}&nbsp;% {})</br>",
+                        "<strong>{}</strong> ( min&nbsp;: {}&nbsp;% {} )</br>",
                         value,
                         obj.subvention_rate.lower,
                         obj.subvention_comment,
                     )
                 elif obj.subvention_rate.upper is not None:
                     formated_string += format_html(
-                        "<strong>{}</strong> (max&nbsp;: {}% {})</br>",
+                        "<strong>{}</strong> ( max&nbsp;: {}% {} )</br>",
                         value,
                         obj.subvention_rate.upper,
                         obj.subvention_comment,
@@ -112,9 +112,14 @@ def aid_types_choices_display_list(obj, field):
                 "<strong>{}</strong> (jusqu'à {}&nbsp;€)</br>", value, obj.loan_amount
             )
         elif value == "Autre aide financière":
-            formated_string += format_html(
-                "<strong>{}</strong> ({})</br>", value, obj.other_financial_aid_comment
-            )
+            if obj.other_financial_aid_comment:
+                formated_string += format_html(
+                    "<strong>{}</strong> ({})</br>",
+                    value,
+                    obj.other_financial_aid_comment,
+                )
+            else:
+                formated_string += format_html("<strong>{}</strong></br>", value)
         else:
             formated_string += format_html("<strong>{}</strong></br>", value)
     return format_html(formated_string)
