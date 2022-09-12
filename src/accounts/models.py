@@ -112,13 +112,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         ("other", "Autre"),
     )
 
-    CHANNEL_ACQUISITION = Choices(
-        ("webinar", "Webinaire de démo"),
-        ("thematic-webinar", "Webinaire thématique"),
+    ACQUISITION_CHANNEL = Choices(
+        ("webinar", "Webinaire"),
         ("animator", "Animateur local"),
-        ("trade-press", "Presse spécialisée"),
-        ("association", "Association"),
-        ("elected", "Élu"),
+        ("trade_press", "Presse spécialisée"),
+        ("word_of_mouth", "Bouche-à-oreille"),
         ("invited", "Invitation à collaborer"),
         ("other", "Autre"),
     )
@@ -222,13 +220,20 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True,
         blank=True,
     )
-    channel_acquisition = models.CharField(
+    acquisition_channel = models.CharField(
         "Canal d'acquisition",
         max_length=32,
-        choices=CHANNEL_ACQUISITION,
+        choices=ACQUISITION_CHANNEL,
         null=True,
         blank=True,
         help_text="Comment l'utilisateur a-t-il connu Aides-territoires?",
+    )
+    acquisition_channel_comment = models.CharField(
+        "Commentaire Canal d'acquisition",
+        max_length=1000,
+        null=True,
+        blank=True,
+        help_text="Comment l'utilisateur a-t-il connu Aides-territoires (champ libre)?",
     )
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)
