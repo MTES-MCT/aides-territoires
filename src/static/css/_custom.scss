@@ -54,10 +54,6 @@ article#aid .aid-details h3 {
   max-height: 6rem;
 }
 
-.search-meta .fr-tag {
-  display: initial;
-}
-
 .bg-pic {
   background: url("../img/home_aides.svg") bottom center no-repeat,linear-gradient(0deg,  var(--background-default-grey) 10%, var(--background-alt-blue-france) 100%, var(--background-alt-grey) 100% ) 0% 0%;
   background-size: 100%;
@@ -518,12 +514,8 @@ fieldset {
   text-transform: initial;
 }
 
-.search-meta .theme > span:first-of-type::before {
-  content: "> ";
-}
-
 .search-meta .theme > span + span::before {
-  content: " + ";
+  content: " + ";
 }
 
 #search-engine ul#id_aid_type {
