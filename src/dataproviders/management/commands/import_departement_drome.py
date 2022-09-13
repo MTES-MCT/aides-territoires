@@ -68,7 +68,7 @@ class Command(BaseImportCommand):
         return unique_id
 
     def extract_import_data_url(self, line):
-        return ""
+        return DATA_SOURCE.import_data_url
 
     def extract_import_share_licence(self, line):
         return DATA_SOURCE.import_licence or IMPORT_LICENCES.unknown

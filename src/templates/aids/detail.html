@@ -248,8 +248,8 @@
                     {% else %}
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w fr-break-word"><strong>URL d'origine&nbsp;: </strong>{% if aid.import_data_url %}<a href="{{ aid.import_data_url }}" target="_blank" rel="noopener">{{ aid.import_data_url }}</a>{% else %}Inconnue{% endif %}</h2>
                     {% endif %}
-                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w fr-break-word"><strong>Licence de partage&nbsp;: </strong>{{ aid.get_import_share_licence_display|default:_('NA') }}</h2>
-                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w fr-break-word"><strong>Dernière mise à jour&nbsp;: </strong>{{ aid.import_last_access|date }}</h2>
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w"><strong>Licence de partage&nbsp;: </strong>{{ aid.get_import_share_licence_display|default:_('NA') }}</h2>
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w"><strong>Dernière mise à jour&nbsp;: </strong>{{ aid.import_last_access|date }}</h2>
                 </div>
             </div>
             {% endif %}
