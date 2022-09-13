@@ -369,10 +369,13 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
             scale=Perimeter.SCALES.department, is_obsolete=False
         )
         departments_org_count = {}
+        departments_codes = []
         for department in departments:
+            departments_codes.append(department.code)
             departments_org_count[
                 department.name
             ] = department.organization_department.values("id").count()
+        context["departments_codes"] = departments_codes
         context["departments_org_max"] = max(departments_org_count.values())
         context["departments_org_count"] = json.dumps(
             departments_org_count, cls=DjangoJSONEncoder

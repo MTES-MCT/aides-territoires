@@ -20,7 +20,9 @@ export default class extends Controller {
   static targets = [
     'regions',
     'regionsOrgCount',
+    'departments',
     'departmentsOrgCount',
+    'communes',
     'communesWithOrg',
     'table',
   ]
@@ -337,8 +339,7 @@ export default class extends Controller {
   }
 
   #getDepartments() {
-    // TODISCUSS: how to use whitenoise here?
-    return fetch('/static/geojson/departements-1000m.geojson')
+    return fetch(this.departmentsTarget.dataset.src)
       .then(this.#checkResponse)
       .then((data) => {
         const departments = L.geoJson(data, {
@@ -379,8 +380,7 @@ export default class extends Controller {
   }
 
   #getCommunes(code) {
-    // TODISCUSS: how to use whitenoise here?
-    return fetch(`/static/geojson/communes-1000m-${code}.geojson`)
+    return fetch(this.communesTarget.getAttribute(`data-src-${code}`))
       .then(this.#checkResponse)
       .then((data) => {
         const communes = L.geoJson(data, {

@@ -6,7 +6,7 @@
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'leaflet/dist/leaflet.css' %}" />
 <script defer src="{% static 'leaflet/dist/leaflet.js' %}"></script>
-<link rel="stylesheet" href="/static/css/stats.css" />
+<link rel="stylesheet" href="{% static 'css/stats.css' %}" />
 {% endblock extra_head %}
 
 {% block breadcrumbs %}
@@ -95,6 +95,13 @@
       <script data-map-target="communesWithOrg" type="application/json">
         {{ communes_with_org|safe }}
       </script>
+      <script data-map-target="departments" data-src="{% static 'geojson/departements-1000m.geojson' %}"></script>
+      {% get_static_prefix as STATIC_PREFIX %}
+      <script data-map-target="communes"
+      {% for code in departments_codes %}
+        data-src-{{ code }}="{{ STATIC_PREFIX }}geojson/communes-1000m-{{ code }}.geojson"
+      {% endfor %}
+      ></script>
       <div data-map-target="table"></div>
     </div>
 </section>
