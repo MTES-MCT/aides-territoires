@@ -144,23 +144,6 @@ export default class extends Controller {
     }
     correspondance.sort((a, b) => b.date_created > a.date_created)
     this.tableTarget.innerHTML = `
-      <style>
-        .fr-table {
-          width: 100%;
-        }
-        .fr-table[data-controller='table'] th::after {
-          content: " ↑↓";
-        }
-        .fr-table[data-controller='table'] th[aria-sort] {
-          background-color: var(--background-open-blue-france);
-        }
-        .fr-table[data-controller='table'] th[aria-sort='descending']::after {
-          content: " ↑";
-        }
-        .fr-table[data-controller='table'] th[aria-sort='ascending']::after {
-          content: " ↓";
-        }
-      </style>
       <table data-controller="table" class="fr-table">
         <caption>
           Communes et leurs organisations :

@@ -6,53 +6,8 @@
 {% block extra_head %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin=""/>
 <script defer src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+<link rel="stylesheet" href="/static/css/stats.css" />
 {% endblock extra_head %}
-
-{% block extra_css %}
-<style>
-    .leaflet-container {
-        width: 1000px;
-        height: 700px;
-        margin: 0 auto 3rem auto;
-    }
-    .leaflet-control-zoom [href] {
-        background-image: inherit;
-    }
-    .info {
-        font-family: Marianne,arial,sans-serif;
-        padding: 6px 8px;
-        background: var(--background-default-grey);
-        box-shadow: 0 0 15px rgba(0,0,0,0.2);
-        border-radius: 5px;
-    }
-    .info h4 {
-        margin: 0 0 5px;
-        color: var(--text-title-grey);
-    }
-    .legend {
-        text-align: left;
-        line-height: 18px;
-        color: var(--text-title-grey);
-    }
-    .legend i {
-        width: 18px;
-        height: 18px;
-        float: left;
-        margin-right: 8px;
-        opacity: 0.7;
-    }
-    .flyto {
-      z-index: 1000;
-      position: absolute;
-      top: 80px;
-      list-style: none;
-      left: 10px;
-    }
-    .fr-table[data-fr-js-table="true"] caption {
-      top: -1rem;
-    }
-</style>
-{% endblock extra_css %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
