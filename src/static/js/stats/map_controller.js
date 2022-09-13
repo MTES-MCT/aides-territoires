@@ -151,27 +151,32 @@ export default class extends Controller {
         <thead>
           <tr>
             <th
+              scope="col"
               data-action="click->table#sortTable"
               data-table-target="header"
               data-type="text"
               >Commune</th>
             <th
+              scope="col"
               data-action="click->table#sortTable"
               data-table-target="header"
               data-type="text"
               >Organisation</th>
             <th
+              scope="col"
               data-action="click->table#sortTable"
               data-table-target="header"
               aria-sort="descending"
               data-type="date"
               >Date de création</th>
             <th
+              scope="col"
               data-action="click->table#sortTable"
               data-table-target="header"
               data-type="number"
               >Nombre de projets</th>
             <th
+              scope="col"
               data-action="click->table#sortTable"
               data-table-target="header"
               data-type="number"
@@ -184,7 +189,7 @@ export default class extends Controller {
               .map(
                 (item) =>
                   `
-                  <td>${item.nom}</td>
+                  <td scope="row">${item.nom}</td>
                   <td>${item.organization_name}</td>
                   <td>${new Date(item.date_created).toLocaleDateString('fr-FR')}</td>
                   <td>${item.projects_count}</td>

@@ -2,17 +2,18 @@
 .fr-table[data-controller='table'] {
   width: 100%;
 }
-.fr-table[data-controller='table'] th::after {
-  content: " ↑↓";
+.fr-table[data-controller='table'] thead th[scope='col'] {
+  padding: 2px;
 }
+.fr-table[data-controller='table'] thead th[scope='col'] button {
+  text-align: left;
+  width: 100%;
+  padding: .75rem;
+  font-weight: 700;
+}
+.fr-table[data-controller='table'] thead th[scope='col'] button:hover,
 .fr-table[data-controller='table'] th[aria-sort] {
   background-color: var(--background-open-blue-france);
-}
-.fr-table[data-controller='table'] th[aria-sort='descending']::after {
-  content: " ↑";
-}
-.fr-table[data-controller='table'] th[aria-sort='ascending']::after {
-  content: " ↓";
 }
 .fr-table[data-fr-js-table="true"] caption {
   top: -1rem;

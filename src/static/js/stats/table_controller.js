@@ -3,14 +3,43 @@ import { Controller } from 'https://unpkg.com/@hotwired/stimulus/dist/stimulus.j
 export default class extends Controller {
   static targets = ['header', 'body', 'row']
 
+  connect() {
+    this.headerTargets.forEach((header) => {
+      header.innerHTML = `
+        <button
+          type="button"
+          title="${header.textContent} - Activer pour trier les colonnes"
+          >
+          <span class="table-arrows">↑↓</span>
+          ${header.textContent}
+        </button>
+      `
+    })
+    const sorted = this.headerTargets.filter((header) =>
+      header.hasAttribute('aria-sort')
+    )
+    if (sorted.length) {
+      const header = sorted[0]
+      const sort = header.getAttribute('aria-sort')
+      header.querySelector('.table-arrows').innerText = sort === 'ascending' ? '↓' : '↑'
+    }
+  }
+
   sortTable(event) {
-    const current = event.target.getAttribute('aria-sort')
+    const header = event.target.closest('th')
+    const current = header.getAttribute('aria-sort')
     const sort = current === 'ascending' ? 'descending' : 'ascending'
-    this.headerTargets.forEach((header) => header.removeAttribute('aria-sort'))
-    event.target.setAttribute('aria-sort', sort)
+    // Reset all headers,
+    this.headerTargets.forEach((header) => {
+      header.removeAttribute('aria-sort')
+      header.querySelector('.table-arrows').innerText = '↑↓'
+    })
+    // then set for the current header.
+    header.setAttribute('aria-sort', sort)
+    header.querySelector('.table-arrows').innerText = sort === 'ascending' ? '↓' : '↑'
 
     let values = []
-    const columnIndex = this.#siblingIndex(event.target)
+    const columnIndex = this.#siblingIndex(header)
     const tdSelector = 'td:nth-child(' + (columnIndex + 1) + ')'
     this.rowTargets.forEach((row) => {
       const node = row.querySelector(tdSelector)
@@ -21,7 +50,7 @@ export default class extends Controller {
       values.push({ value: val, row: row })
     })
 
-    const dataType = event.target.dataset.type
+    const dataType = header.dataset.type
     const sortFunction = this.#getSortFunction(dataType)
     values.sort(sortFunction.bind(this))
     if (sort === 'descending') values = values.reverse()
