@@ -156,24 +156,24 @@ class Organization(models.Model):
             Perimeter.SCALES.department,
             Perimeter.SCALES.region,
         ]:
-            # TODISCUSS: we may want to be able to override these values?
-            if not self.perimeter_region and not self.perimeter_department:
-                # We might have EPCI across two regions.
-                regions = get_all_related_perimeters(
-                    self.perimeter.id, direction="up", scale=Perimeter.SCALES.region
-                )
-                # In that case, we arbitrarily take the first one.
-                region = regions.first()
+            # We might have EPCI across two regions.
+            regions = get_all_related_perimeters(
+                self.perimeter.id, direction="up", scale=Perimeter.SCALES.region
+            )
+            # In that case, we arbitrarily take the first one.
+            # Knowing the commune of the EPCI's siège would help.
+            region = regions.first()
 
-                # We might have EPCI across two/three departments.
-                departments = get_all_related_perimeters(
-                    self.perimeter.id, direction="up", scale=Perimeter.SCALES.department
-                )
-                # In that case, we arbitrarily take the first one.
-                department = departments.first()
+            # We might have EPCI across two/three departments.
+            departments = get_all_related_perimeters(
+                self.perimeter.id, direction="up", scale=Perimeter.SCALES.department
+            )
+            # In that case, we arbitrarily take the first one.
+            # Knowing the commune of the EPCI's siège would help.
+            department = departments.first()
 
-                self.perimeter_region = region
-                self.perimeter_department = department
+            self.perimeter_region = region
+            self.perimeter_department = department
 
     def save(self, *args, **kwargs):
         self.set_slug()
