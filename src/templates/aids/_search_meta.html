@@ -128,7 +128,7 @@
     {% block search-meta-categories %}
     {% if current_search_dict.categories %}
     {% regroup current_search_dict.categories by theme as theme_list %}
-    <div class="fr-tags-group fr-uppercase">
+    <div class="fr-tags-group at-uppercase">
         {% for theme in theme_list %}
             <p class="theme fr-tag">
                 <span class="ri-price-tag-3-line ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
@@ -140,7 +140,7 @@
         {% endfor %}
     </div>
     {% elif current_search_dict.themes %}
-    <div class="fr-tags-group fr-uppercase">
+    <div class="fr-tags-group at-uppercase">
         {% for theme in current_search_dict.themes %}
             <p class="theme fr-tag">
                 <span class="ri-price-tag-3-line ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
