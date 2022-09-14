@@ -70,7 +70,7 @@
                         {% for project in projects %}
                         <tr>
                             <td class="fr-text">
-                                <a href="{{ project.get_absolute_url }}">
+                                <a href="{{ project.get_absolute_url }}" id="project-{{ project.id }}">
                                     {{ project.name }}
                                 </a>
                             </td>
@@ -95,7 +95,16 @@
                             {% endif %}
                             </td>
                             <td class="fr-text">
-                                <button type="button" class="btn_delete fr-link fr-icon-delete-line" id="delete-project-btn-{{ project.id }}" data-fr-opened="false" aria-controls="delete-project-modal-{{ project.pk }}"></button>
+                                <button type="button"
+                                        class="fr-btn fr-icon-delete-line fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"
+                                        id="delete-project-btn-{{ project.id }}"
+                                        data-fr-opened="false"
+                                        title="Supprimer ce projet"
+                                        aria-controls="delete-project-modal-{{ project.pk }}"
+                                        aria-describedby="project-{{ project.id }}"
+                                >
+                                    Supprimer ce projet
+                                </button>
                             </td>
                         </tr>
                         {% endfor %}

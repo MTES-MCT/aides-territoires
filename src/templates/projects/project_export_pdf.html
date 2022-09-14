@@ -65,12 +65,12 @@
 
                 {% if aid.project_examples %}
                 <h3>Exemples de projets réalisables</h3>
-                {{ aid.project_examples|safe }}
+                <p>{{ aid.project_examples|safe }}</p>
                 {% endif %}
 
                 {% if aid.eligibility %}
                 <h3>Autres critères d’éligibilité</h3>
-                {{ aid.eligibility|safe }}
+                <p>{{ aid.eligibility|safe }}</p>
                 {% endif %}
             {% endif %}
 
