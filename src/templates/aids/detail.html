@@ -249,12 +249,12 @@
                     {% if aid.import_data_source.pk == 7 %}
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
                         <strong>URL d’origine : </strong>traduction à partir des données du portail officiel de la Commission européenne :
-                        <span class="fr-break-word">
+                        <span class="at-break-word">
                             <a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home" target="_blank" rel="noopener">https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home</a>
                         </span>
                     </h2>
                     {% else %}
-                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w fr-break-word">
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w at-break-word">
                         <strong>URL d’origine : </strong>
                         {% if aid.import_data_url %}
                             <a href="{{ aid.import_data_url }}" target="_blank" rel="noopener">{{ aid.import_data_url }}</a>
