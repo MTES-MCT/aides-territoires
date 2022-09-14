@@ -144,11 +144,15 @@ export default class extends Controller {
         })
       }
     }
+    const department = data.features[0].properties.departement
     correspondance.sort((a, b) => b.date_created > a.date_created)
     this.tableTarget.innerHTML = `
-      <table data-controller="table" class="fr-table">
+      <table
+        data-controller="table"
+        data-downloadable="true"
+        class="fr-table">
         <caption>
-          Communes et leurs organisations :
+          Communes et leurs organisations (${department}) :
         </caption>
         <thead>
           <tr>

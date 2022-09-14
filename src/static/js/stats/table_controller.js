@@ -4,7 +4,10 @@ export default class extends Controller {
   static targets = ['header', 'body', 'row']
 
   connect() {
+    if (this.element.dataset.downloadable) this.#attachDownloadAsCSVLink()
     this.headerTargets.forEach((header) => {
+      // Keep the original title for CSV export.
+      header.dataset.val = header.textContent
       header.innerHTML = `
         <button
           type="button"
@@ -93,10 +96,75 @@ export default class extends Controller {
   }
 
   #sortTextVal(a, b) {
-    const textA = (a.value + '').toUpperCase()
-    const textB = (b.value + '').toUpperCase()
-    if (textA < textB) return -1
-    if (textA > textB) return 1
-    return 0
+    return a.value.localeCompare(b.value, 'fr')
+  }
+
+  #attachDownloadAsCSVLink() {
+    const footer = document.createElement('tfoot')
+    const tr = document.createElement('tr')
+    const td = document.createElement('td')
+    td.setAttribute('colspan', this.headerTargets.length)
+    td.style = 'text-align: center;'
+    const downloadLink = document.createElement('a')
+    downloadLink.classList.add('fr-btn', 'fr-fi-download-line', 'fr-btn--icon-left')
+    downloadLink.href = '#'
+    downloadLink.textContent = 'Télécharger en CSV'
+    downloadLink.dataset.action = `${this.identifier}#downloadAsCSV`
+    td.appendChild(downloadLink)
+    tr.appendChild(td)
+    footer.appendChild(tr)
+    this.element.insertAdjacentElement('beforeend', footer)
+  }
+
+  downloadAsCSV(event) {
+    event.preventDefault()
+    const content = this.#getCSVContent()
+    const name = this.element
+      .querySelector('caption')
+      .textContent.replace(/[:()]/gm, '')
+      .trim()
+      .replace(/(\s)/gm, '_')
+    const filename = `export_${new Date().toLocaleDateString()}_${name}.csv`
+    const csvFile = new Blob([content], { type: 'text/csv' })
+    const fakeDownloadLink = document.createElement('a')
+    fakeDownloadLink.download = filename
+    fakeDownloadLink.href = window.URL.createObjectURL(csvFile)
+    fakeDownloadLink.style.display = 'none'
+    this.element.appendChild(fakeDownloadLink)
+    fakeDownloadLink.click()
+    fakeDownloadLink.remove()
+  }
+
+  #getCSVContent() {
+    const separator = ';'
+    let csvRows = []
+    // Only get direct children of the table in question (thead, tbody).
+    Array.from(this.element.children).forEach((node) => {
+      // Avoid adding the footer as we put the download link in it.
+      if (node.tagName === 'TFOOT') return
+      // Using scope to only get direct tr of node.
+      node.querySelectorAll(':scope > tr').forEach((tr) => {
+        let csvLine = []
+        // Again scope to only get direct children.
+        tr.querySelectorAll(':scope > th, :scope > td').forEach((td) => {
+          // Clone as to not remove anything from original.
+          let copytd = td.cloneNode(true)
+          let data
+          if (copytd.dataset.val)
+            data = copytd.dataset.val.replace(/(\r\n|\n|\r)/gm, '')
+          else {
+            Array.from(copytd.children).forEach((remove) => {
+              // Remove nested elements before getting text.
+              remove.parentNode.removeChild(remove)
+            })
+            data = copytd.textContent.replace(/(\r\n|\n|\r)/gm, '')
+          }
+          data = data.replace(/(\s\s)/gm, ' ').replace(/"/g, '""')
+          csvLine.push('"' + data + '"')
+        })
+        csvRows.push(csvLine.join(separator))
+      })
+    })
+    return csvRows.join('\n')
   }
 }
