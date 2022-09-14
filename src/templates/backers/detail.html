@@ -83,8 +83,8 @@
                 <h2>Programmes associés</h2>
                 <div id="program-logo" class="fr-grid-row fr-grid-row--middle">
                 {% for program in programs %}
-                    <a href="{% url 'program_detail' program.slug %}" class="fr-col fr-col-md-3">
-                        <img src="{{ program.logo.url }}" alt="{{ program.name }}" class="fr-responsive-img">
+                    <a href="{% url 'program_detail' program.slug %}" class="fr-col fr-col-md-3" title="{{ program.name }}">
+                        <img src="{{ program.logo.url }}" alt="" class="fr-responsive-img">
                     </a>
                 {% endfor %}
                 </div>
