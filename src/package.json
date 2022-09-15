@@ -1,5 +1,9 @@
 {
   "name": "aides-territoires",
+  "engines": {
+    "node": "16",
+    "npm": "8"
+  },
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
