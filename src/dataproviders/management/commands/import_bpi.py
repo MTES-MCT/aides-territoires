@@ -10,49 +10,47 @@ from backers.models import Backer
 from aids.models import Aid
 
 
-FEED_URI = 'https://www.bpifrance.fr/offers/export/innovation/'
+FEED_URI = "https://www.bpifrance.fr/offers/export/innovation/"
 ADMIN_ID = 1
 
 TYPES_DICT = {
-    'Avance récupérable': Aid.TYPES.recoverable_advance,
-    'Innovation': None,
-    'Accompagnement': Aid.TYPES.financial,
-    'Subvention': Aid.TYPES.grant,
-    'Prêt': Aid.TYPES.loan,
-    'Investissement': Aid.TYPES.other,
-    'Garantie': Aid.TYPES.other,
+    "Avance récupérable": Aid.TYPES.recoverable_advance,
+    "Innovation": None,
+    "Accompagnement": Aid.TYPES.financial,
+    "Subvention": Aid.TYPES.grant,
+    "Prêt": Aid.TYPES.loan,
+    "Investissement": Aid.TYPES.other,
+    "Garantie": Aid.TYPES.other,
 }
 
-SOURCE_URL = 'https://www.bpifrance.fr/'
-CONTACT_URL = 'https://www.bpifrance.fr/Contactez-nous'
+SOURCE_URL = "https://www.bpifrance.fr/"
+CONTACT_URL = "https://www.bpifrance.fr/Contactez-nous"
 
 
 class Command(BaseImportCommand):
     """Import data from the BPI data feed."""
 
     def add_arguments(self, parser):
-        parser.add_argument('data-file', nargs='?', type=str)
+        parser.add_argument("data-file", nargs="?", type=str)
 
     def fetch_data(self, **options):
-        if options['data-file']:
-            data_file = os.path.abspath(options['data-file'])
+        if options["data-file"]:
+            data_file = os.path.abspath(options["data-file"])
             data = json.load(open(data_file))
-            for line in data['data']:
+            for line in data["data"]:
                 yield line
 
         else:
             req = requests.get(FEED_URI)
-            req.encoding = 'utf-8-sig'  # We need this to take care of the bom
+            req.encoding = "utf-8-sig"  # We need this to take care of the bom
             data = json.loads(req.text)
-            for line in data['data']:
+            for line in data["data"]:
                 yield line
 
     def handle(self, *args, **options):
 
-        self.france = Perimeter.objects.get(
-            scale=Perimeter.SCALES.country,
-            code='FRA')
-        self.bpi = Backer.objects.get(slug='bpi-france')
+        self.france = Perimeter.objects.get(scale=Perimeter.SCALES.country, code="FRA")
+        self.bpi = Backer.objects.get(slug="bpi-france")
 
         super().handle(*args, **options)
 
@@ -63,7 +61,7 @@ class Command(BaseImportCommand):
         return ADMIN_ID
 
     def extract_import_uniqueid(self, line):
-        unique_id = 'BPI_{}'.format(line['ref_partenaire'])
+        unique_id = "BPI_{}".format(line["ref_partenaire"])
         return unique_id
 
     def extract_import_data_url(self, line):
@@ -76,27 +74,26 @@ class Command(BaseImportCommand):
         return None
 
     def extract_name(self, line):
-        title = line['title']
+        title = line["title"]
         return title
 
     def extract_description(self, line):
-        desc_0 = content_prettify('<p>{}</p>'.format(
-            line['baseline']))
-        desc_1 = content_prettify('<p>Nous (la BPI) {}</p>'.format(
-            line['introduction_us']))
-        desc_2 = content_prettify(line['we'])
+        desc_0 = content_prettify("<p>{}</p>".format(line["baseline"]))
+        desc_1 = content_prettify(
+            "<p>Nous (la BPI) {}</p>".format(line["introduction_us"])
+        )
+        desc_2 = content_prettify(line["we"])
         description = desc_0 + desc_1 + desc_2
         return description
 
     def extract_eligibility(self, line):
-        elig_1 = content_prettify('<p>Vous {}</p>'.format(
-            line['introduction_you']))
-        elig_2 = content_prettify(line['you'])
+        elig_1 = content_prettify("<p>Vous {}</p>".format(line["introduction_you"]))
+        elig_2 = content_prettify(line["you"])
         eligibility = elig_1 + elig_2
         return eligibility
 
     def extract_origin_url(self, line):
-        origin_url = line['linkoffer']
+        origin_url = line["linkoffer"]
         return origin_url
 
     def extract_perimeter(self, line):
@@ -133,10 +130,11 @@ class Command(BaseImportCommand):
 
     def extract_contact(self, line):
         return '<p><a href="{}">Contactez directement la BPI</a></p>'.format(
-            CONTACT_URL)
+            CONTACT_URL
+        )
 
     def extract_aid_types(self, line):
-        types = line['type'].split(';')
+        types = line["type"].split(";")
         aid_types = [TYPES_DICT.get(t, None) for t in types]
         return [t for t in aid_types if t]
 

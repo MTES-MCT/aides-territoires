@@ -14,47 +14,47 @@ from backers.models import Backer
 from aids.models import Aid
 
 
-FEED_URI = 'http://aides-developpement-nouvelle-aquitaine.fr/export/dispositifs/csv?columns=key&withDates=1&sep=pipe'  # noqa
+FEED_URI = "http://aides-developpement-nouvelle-aquitaine.fr/export/dispositifs/csv?columns=key&withDates=1&sep=pipe"  # noqa
 ADMIN_ID = 1
 
 # Convert Addna's `beneficiaire` value to our value
 AUDIENCES_DICT = {
-    'État': None,
-    'Association': Aid.AUDIENCES.association,
-    'Collectivité': Aid.AUDIENCES.epci,
-    'Entreprise': Aid.AUDIENCES.private_sector,
-    'Particulier / Citoyen': Aid.AUDIENCES.private_person,
+    "État": None,
+    "Association": Aid.AUDIENCES.association,
+    "Collectivité": Aid.AUDIENCES.epci,
+    "Entreprise": Aid.AUDIENCES.private_sector,
+    "Particulier / Citoyen": Aid.AUDIENCES.private_person,
 }
 
-ADDNA_URL = 'http://aides-dd-na.fr/'
+ADDNA_URL = "http://aides-dd-na.fr/"
 
-NOUVELLE_AQUITAINE_PERIMETER_CODE = '75'
+NOUVELLE_AQUITAINE_PERIMETER_CODE = "75"
 
 
 class Command(BaseImportCommand):
     """Import data from the DREAL data feed."""
 
     def add_arguments(self, parser):
-        parser.add_argument('data-file', nargs='?', type=str)
+        parser.add_argument("data-file", nargs="?", type=str)
 
     def fetch_data(self, **options):
-        if options['data-file']:
-            data_file = os.path.abspath(options['data-file'])
+        if options["data-file"]:
+            data_file = os.path.abspath(options["data-file"])
             with open(data_file) as csvfile:
                 csv_reader = csv.DictReader(
-                    csvfile,
-                    delimiter=';',
-                    lineterminator='\r\n')
+                    csvfile, delimiter=";", lineterminator="\r\n"
+                )
                 for csv_line in csv_reader:
                     yield csv_line
 
         else:
             req = requests.get(FEED_URI)
-            req.encoding = 'utf-8-sig'  # We need this to take care of the bom
+            req.encoding = "utf-8-sig"  # We need this to take care of the bom
             csv_reader = csv.DictReader(
                 req.iter_lines(decode_unicode=True),
-                delimiter=';',
-                lineterminator='\r\n')
+                delimiter=";",
+                lineterminator="\r\n",
+            )
 
             for csv_line in csv_reader:
                 yield csv_line
@@ -64,8 +64,8 @@ class Command(BaseImportCommand):
         self.perimeters_cache = {}
         self.financers_cache = {}
         self.nouvelle_aquitaine = Perimeter.objects.get(
-            scale=Perimeter.SCALES.region,
-            code=NOUVELLE_AQUITAINE_PERIMETER_CODE)
+            scale=Perimeter.SCALES.region, code=NOUVELLE_AQUITAINE_PERIMETER_CODE
+        )
         self.beneficiaires = []
 
         super().handle(*args, **options)
@@ -78,7 +78,7 @@ class Command(BaseImportCommand):
         return ADMIN_ID
 
     def extract_import_uniqueid(self, line):
-        unique_id = 'DREAL_NA_{}'.format(line['createdAt'])
+        unique_id = "DREAL_NA_{}".format(line["createdAt"])
         return unique_id
 
     def extract_import_data_url(self, line):
@@ -89,26 +89,25 @@ class Command(BaseImportCommand):
 
     def extract_submission_deadline(self, line):
         try:
-            closure_date = datetime.strptime(
-                line['dateCloture'], '%Y-%m-%d').date()
+            closure_date = datetime.strptime(line["dateCloture"], "%Y-%m-%d").date()
         except ValueError:
             closure_date = None
         return closure_date
 
     def extract_name(self, line):
-        title = line['titre']
+        title = line["titre"]
         return title
 
     def extract_description(self, line):
-        description = content_prettify(line['objet'])
+        description = content_prettify(line["objet"])
         return content_prettify(description)
 
     def extract_eligibility(self, line):
-        eligibility = line['publicsBeneficiairesDetails']
+        eligibility = line["publicsBeneficiairesDetails"]
         return content_prettify(eligibility)
 
     def extract_origin_url(self, line):
-        origin_url = line['URL']
+        origin_url = line["URL"]
         return origin_url
 
     # def extract_tags(self, line):
@@ -139,22 +138,22 @@ class Command(BaseImportCommand):
         the region of Nouvelle - Aquitaine.
 
         """
-        perimeters_data = line['perimetres']
+        perimeters_data = line["perimetres"]
 
         # Handle the "several perimeters in the column" scenario
-        perimeters = perimeters_data.split('<|>')
+        perimeters = perimeters_data.split("<|>")
         if len(perimeters) > 1:
-            perimeter_name = 'Nouvelle - Aquitaine'
+            perimeter_name = "Nouvelle - Aquitaine"
         else:
             perimeter_name = perimeters[0]
 
-        if perimeter_name == 'National':
-            perimeter_name = 'France'
+        if perimeter_name == "National":
+            perimeter_name = "France"
 
         # The ADDNA prefixes departments (and only departments) with their
         # INSEE code. Let's get rid of it.
-        if re.match(r'^\d{2} - ', perimeter_name):
-            perimeter_name = perimeter_name.split(' - ')[1]
+        if re.match(r"^\d{2} - ", perimeter_name):
+            perimeter_name = perimeter_name.split(" - ")[1]
 
         # Is this a known perimeter?
         if perimeter_name in self.perimeters_cache:
@@ -175,13 +174,13 @@ class Command(BaseImportCommand):
         https://github.com/DREAL-NA/aides/blob/d783fce309baf487f4ab6282dc98bccfd1c04358/app/Beneficiary.php#L28-L38
         """
 
-        audiences_data = line['publicsBeneficiaires']
+        audiences_data = line["publicsBeneficiaires"]
         target_audiences = []
         all_audiences = []
 
-        audiences = audiences_data.split('<|>')
+        audiences = audiences_data.split("<|>")
         for audience in audiences:
-            all_audiences.extend(audience.split(' | '))
+            all_audiences.extend(audience.split(" | "))
 
         for audience in set(all_audiences):
             if audience in AUDIENCES_DICT:
@@ -200,10 +199,10 @@ class Command(BaseImportCommand):
         "Agence Française pour la Biodiversité".
         """
 
-        financers_data = line['nomAttribuant']
+        financers_data = line["nomAttribuant"]
 
         financers = []
-        attribuants = financers_data.split('<|>')
+        attribuants = financers_data.split("<|>")
         for attribuant in attribuants:
             financer = self.financers_cache.get(attribuant, None)
             if financer is None:
@@ -211,15 +210,17 @@ class Command(BaseImportCommand):
                 # Since there are some differences between the spelling of
                 # the same financers between us and the search data, we
                 # perform a trigram similarity search.
-                found_financers = Backer.objects \
-                    .annotate(sml=TrigramSimilarity('name', attribuant)) \
-                    .filter(sml__gt=0.8) \
-                    .order_by('-sml')
+                found_financers = (
+                    Backer.objects.annotate(sml=TrigramSimilarity("name", attribuant))
+                    .filter(sml__gt=0.8)
+                    .order_by("-sml")
+                )
                 try:
                     financer = found_financers[0]
                 except IndexError:
-                    self.stdout.write(self.style.ERROR(
-                        'Creating financer {}'.format(attribuant)))
+                    self.stdout.write(
+                        self.style.ERROR("Creating financer {}".format(attribuant))
+                    )
                     financer = Backer.objects.create(name=attribuant)
 
             self.financers_cache[attribuant] = financer

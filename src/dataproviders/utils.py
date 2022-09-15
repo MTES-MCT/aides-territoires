@@ -9,19 +9,42 @@ from aids.models import Aid
 from categories.models import Theme, Category
 
 
-REMOVABLE_TAGS = ['script', 'style']
+REMOVABLE_TAGS = ["script", "style"]
 ALLOWED_TAGS = [
-    'p', 'ul', 'ol', 'li', 'strong', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-    'br', 'a', 'iframe',
+    "p",
+    "ul",
+    "ol",
+    "li",
+    "strong",
+    "em",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "br",
+    "a",
+    "iframe",
 ]
 ALLOWED_ATTRS = [
-    'href', 'src', 'alt', 'width', 'height', 'style',
-    'allow', 'frameborder', 'allowfullscreen',  # to display iframe
-    'target', 'rel',  # for links opening in a new tab
+    "href",
+    "src",
+    "alt",
+    "width",
+    "height",
+    "style",
+    "allow",
+    "frameborder",
+    "allowfullscreen",  # to display iframe
+    "target",
+    "rel",  # for links opening in a new tab
 ]
 
 
-def content_prettify(raw_text, more_allowed_tags=[], more_allowed_attrs=[], base_url=None):
+def content_prettify(
+    raw_text, more_allowed_tags=[], more_allowed_attrs=[], base_url=None
+):
     """
     Clean imported data.
 
@@ -41,16 +64,17 @@ def content_prettify(raw_text, more_allowed_tags=[], more_allowed_attrs=[], base
     allowed_tags = ALLOWED_TAGS + more_allowed_tags
     allowed_attrs = ALLOWED_ATTRS + more_allowed_attrs
 
-    unescaped = unescape(raw_text or '')
-    unquoted = unescaped \
-        .replace('“', '"') \
-        .replace('”', '"') \
-        .replace('’', "'") \
+    unescaped = unescape(raw_text or "")
+    unquoted = (
+        unescaped.replace("“", '"')
+        .replace("”", '"')
+        .replace("’", "'")
         .replace('target="_blank"', 'target="_blank" rel="noopener"')
-    normalized = normalize('NFKC', unquoted)
+    )
+    normalized = normalize("NFKC", unquoted)
 
     # Cleaning html markup
-    soup = bs(normalized, features='html.parser')
+    soup = bs(normalized, features="html.parser")
     tags = soup.find_all()
     for tag in tags:
         # Some tags must be removed altogether
@@ -68,16 +92,18 @@ def content_prettify(raw_text, more_allowed_tags=[], more_allowed_attrs=[], base
                         tag.attrs.pop(attr)
 
                 # Remove tags with no content
-                if not tag.contents and tag.name not in ['br', 'img', 'iframe']:
+                if not tag.contents and tag.name not in ["br", "img", "iframe"]:
                     tag.decompose()
 
                 # Remove tags with empty strings (or newlines, etc.)
-                elif tag.string and not tag.string.strip() and tag.name not in ['iframe']:
+                elif (
+                    tag.string and not tag.string.strip() and tag.name not in ["iframe"]
+                ):
                     tag.decompose()
 
                 # Replace relative urls with absolute ones
-                if tag.name == 'a' and base_url:
-                    tag['href'] = urljoin(base_url, tag['href'])
+                if tag.name == "a" and base_url:
+                    tag["href"] = urljoin(base_url, tag["href"])
 
             # Some tags are not allowed, but we do not want to remove
             # their content.
@@ -104,7 +130,11 @@ def mapping_audiences(audiences_mapping_csv_path, source_column_name, at_column_
                 for column in at_column_names:
                     if row[column]:
                         try:
-                            audience = next(choice[0] for choice in Aid.AUDIENCES if choice[1] == row[column])  # noqa
+                            audience = next(
+                                choice[0]
+                                for choice in Aid.AUDIENCES
+                                if choice[1] == row[column]
+                            )  # noqa
                             audiences_dict[row[source_column_name]].append(audience)
                         except Exception:
                             print(row[column])
@@ -112,7 +142,9 @@ def mapping_audiences(audiences_mapping_csv_path, source_column_name, at_column_
     return audiences_dict
 
 
-def mapping_categories(categories_mapping_csv_path, source_column_name, at_column_names):
+def mapping_categories(
+    categories_mapping_csv_path, source_column_name, at_column_names
+):
     """
     Method to extract categories mapping from a specified csv file
     source category --> 1 or multiple AT categories (or theme !)

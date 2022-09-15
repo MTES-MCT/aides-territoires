@@ -7,13 +7,13 @@ from geofr.models import Perimeter
 from backers.models import Backer
 
 
-OPENDATA_URL = 'https://data.laregion.fr/explore/dataset/aides-et-appels-a-projets-de-la-region-occitanie/information/'  # noqa
+OPENDATA_URL = "https://data.laregion.fr/explore/dataset/aides-et-appels-a-projets-de-la-region-occitanie/information/"  # noqa
 
-ELIGIBILITY_TXT = '''Consultez la page de l'aide pour obtenir des détails.'''
+ELIGIBILITY_TXT = """Consultez la page de l'aide pour obtenir des détails."""
 
 IGNORE_OLDER_THAN = 365
 
-OCCITANIE_PERIMETER_CODE = '76'
+OCCITANIE_PERIMETER_CODE = "76"
 OCCITANIE_FINANCER_ID = 91  # "Conseil régional d'Occitanie"
 
 
@@ -23,12 +23,12 @@ class Command(CrawlerImportCommand):
     SPIDER_CLASS = OccitanieSpider
 
     def populate_cache(self, *args, **options):
-        self.occitanie_perimeter = Perimeter.objects \
-            .filter(scale=Perimeter.SCALES.region) \
-            .filter(code=OCCITANIE_PERIMETER_CODE) \
+        self.occitanie_perimeter = (
+            Perimeter.objects.filter(scale=Perimeter.SCALES.region)
+            .filter(code=OCCITANIE_PERIMETER_CODE)
             .get()
-        self.occitanie_financer = Backer.objects.get(
-            id=OCCITANIE_FINANCER_ID)
+        )
+        self.occitanie_financer = Backer.objects.get(id=OCCITANIE_FINANCER_ID)
 
     def line_should_be_processed(self, line):
         """Ignore data older than 1 year.
@@ -49,14 +49,14 @@ class Command(CrawlerImportCommand):
 
         """
 
-        line_type = line['type']
-        date_updated = line['date_updated']
+        line_type = line["type"]
+        date_updated = line["date_updated"]
         now = datetime.now()
         delta = now - date_updated
         return line_type is not None and delta.days < IGNORE_OLDER_THAN
 
     def extract_import_uniqueid(self, line):
-        unique_id = 'OCCITANIE_{}'.format(line['uniqueid'])
+        unique_id = "OCCITANIE_{}".format(line["uniqueid"])
         return unique_id
 
     def extract_import_data_url(self, line):
@@ -66,15 +66,15 @@ class Command(CrawlerImportCommand):
         return IMPORT_LICENCES.openlicence20
 
     def extract_name(self, line):
-        title = line['title']
+        title = line["title"]
         return title
 
     def extract_description(self, line):
-        description = line['description']
+        description = line["description"]
         return description
 
     def extract_origin_url(self, line):
-        details_url = line['url']
+        details_url = line["url"]
         return details_url
 
     def extract_eligibility(self, line):
@@ -92,9 +92,9 @@ class Command(CrawlerImportCommand):
     #     return tags
 
     def extract_is_call_for_project(self, line):
-        type = line['type']
+        type = line["type"]
         if type:
-            is_call_for_project = type == 'Appels à projets'
+            is_call_for_project = type == "Appels à projets"
         else:
             is_call_for_project = super().extract_is_call_for_project(line)
         return is_call_for_project
