@@ -91,6 +91,7 @@ article#aid .aid-details h3 {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 article#aid .aid-details h3 {
@@ -98,6 +99,8 @@ article#aid .aid-details h3 {
 }
 
 >>>>>>> 83e2cdb1 (Intégrer la maquette design sur la page détail d’aide (#1031))
+=======
+>>>>>>> a457a38b (Accessibilité - Corrections rapides après l'audit (#1037))
 #match-aid-modal #form-group-aids_associated {
   display: none;
   position: absolute;
@@ -536,7 +539,11 @@ fieldset {
   text-transform: initial;
 }
 
+<<<<<<< HEAD
 .search-meta .theme>span+span::before {
+=======
+.search-meta .theme > span + span::before {
+>>>>>>> a457a38b (Accessibilité - Corrections rapides après l'audit (#1037))
   content: " + ";
 }
 
