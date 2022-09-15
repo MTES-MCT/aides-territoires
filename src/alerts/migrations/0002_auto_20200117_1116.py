@@ -6,22 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('alerts', '0001_initial'),
+        ("alerts", "0001_initial"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='alert',
-            old_name='confirmed',
-            new_name='validated',
+            model_name="alert",
+            old_name="confirmed",
+            new_name="validated",
         ),
         migrations.RemoveField(
-            model_name='alert',
-            name='date_confirmed',
+            model_name="alert",
+            name="date_confirmed",
         ),
         migrations.AddField(
-            model_name='alert',
-            name='date_validated',
-            field=models.DateTimeField(null=True, verbose_name='Date validated'),
+            model_name="alert",
+            name="date_validated",
+            field=models.DateTimeField(null=True, verbose_name="Date validated"),
         ),
     ]

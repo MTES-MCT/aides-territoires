@@ -6,12 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('alerts', '0003_import_bookmarks'),
+        ("alerts", "0003_import_bookmarks"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='alert',
-            options={'ordering': ['-date_created'], 'verbose_name': 'Alert', 'verbose_name_plural': 'Alerts'},
+            name="alert",
+            options={
+                "ordering": ["-date_created"],
+                "verbose_name": "Alert",
+                "verbose_name_plural": "Alerts",
+            },
         ),
     ]
