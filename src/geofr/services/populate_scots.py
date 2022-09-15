@@ -1,3 +1,4 @@
+'''
 import pandas
 
 from django.db import transaction
@@ -72,3 +73,4 @@ def populate_scots() -> dict:
         ).update(is_obsolete=True, date_obsolete=start_time)
 
     return {"created": nb_created, "updated": nb_updated, "obsolete": nb_obsolete}
+'''
