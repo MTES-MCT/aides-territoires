@@ -63,13 +63,13 @@
                 {% include '_field_snippet.html' with field=form.perimeter %}
             </div>
             <div id="text-research-help" class="fr-mt-2w fr-ml-1w">
-                <p><span>💡</span> Si vous laissez ces champs vides, votre recherche portera sur l’ensemble du territoire, toutes structures confondues.</p>
+                <p><span aria-hidden=”true”>💡</span> Si vous laissez ces champs vides, votre recherche portera sur l’ensemble du territoire, toutes structures confondues.</p>
             </div>
         </div>
 
         <h2 class="fr-h4 fr-mt-4w"><span class="counter">2</span> Puis affinez votre recherche</h2>
         <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w fr-mb-5w">
-            <div class="fr-select-group fr-col-12 fr-col-md-6 fr-pr-2w column--space-between fr-mb-0" id="search-step-2">
+            <div class="fr-select-group fr-col-12 fr-col-md-6 fr-pr-2w column--space-between fr-mb-0" id="search-by-keywords">
                 <div class="fr-container fr-p-0">
                     <h3 class="fr-h6">soit par mot-clé :
                         <div class="fr-hint-text">
@@ -85,7 +85,7 @@
                             Rechercher
                         </button>
                         <div class="fr-col-12 fr-col-md-12 fr-mr-1w">
-                            <p class="fr-mb-0 fr-mt-2w fr-hint-text"><strong><span class="fr-text">💡</span> 3 astuces pour optimiser votre recherche :</strong></p>
+                            <p class="fr-mb-0 fr-mt-2w fr-hint-text"><strong><span aria-hidden=”true”>💡</span> 3 astuces pour optimiser votre recherche :</strong></p>
                             <ul class="fr-hint-text">
                               <li class="fr-mx-2w">"piste cyclable" renverra les aides contenant les 2 termes "piste" et "cyclable".</li>
                               <li class="fr-mx-2w">"piste cyclable<strong>,</strong> voie douce" avec une virgule comme séparateur, renverra les aides contenant les 2 termes "piste" et "cyclable" ou les 2 termes "voie" et "douce".</li>
@@ -94,9 +94,9 @@
                         </div>
                     </div>    
                 </div>
-                <img src="{% static 'img/home_aides.svg' %}" alt="picto-aides-territoires" class="fr-responsive-img" />
+                <img src="{% static 'img/home_aides.svg' %}" alt="" class="fr-responsive-img" />
             </div>
-            <div class="fr-select-group fr-col-12 fr-col-md-6 fr-pl-2w" id="search-step-2">
+            <div class="fr-select-group fr-col-12 fr-col-md-6 fr-pl-2w" id="search-by-categories">
                 <h3 class="fr-h6">soit par thématiques :
                     <span class="fr-hint-text fr-mb-0">
                         cliquez sur une thématique, sélectionnez ensuite une ou plusieurs sous-thématiques

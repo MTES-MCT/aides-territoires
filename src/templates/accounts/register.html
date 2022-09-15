@@ -26,7 +26,7 @@
                     <div class="fr-grid-row fr-grid-row--center">
                         <div class="fr-background-main fr-col-11 fr-p-3w fr-my-7w">
                             <h1 class="fr-h5 blue-text text-center fr-mt-3w"> En route pour rejoindre Aides-territoires ! </h1>
-                            <div class="fr-px-2w fr-pt-2w"><b>En créant votre compte, vous pourrez :</b></div>
+                            <div class="fr-px-2w fr-pt-2w"><p><strong>En créant votre compte, vous pourrez :</p></strong></div>
                             <div class="fr-pl-4w fr-py-1w">
                                 <ul>
                                   <li>renseigner tous vos projets,</li>
@@ -36,8 +36,8 @@
                                 </ul>
                             </div>
                             <div class="fr-px-2w">
-                                <p class="fr-mt-1w">Et <b>si vous êtes porteur d’aides</b>, vous pourrez également gérer et diffuser toutes vos aides.</p>
-                                <p class="fr-mt-1w">Alors, n’attendez plus, et <b>créez votre compte en 1 minute !</b></p>
+                                <p class="fr-mt-1w">Et <strong>si vous êtes porteur d’aides</strong>, vous pourrez également gérer et diffuser toutes vos aides.</p>
+                                <p class="fr-mt-1w">Alors, n’attendez plus, et <strong>créez votre compte en 1 minute !</strong></p>
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                                                     {% endfor %}
                                                 </select>
                                                 {% if form.organization_type.errors %}
-                                                <p id="text-input-error-desc-error" class="fr-error-text">
+                                                <p id="text-input-error-organization-type" class="fr-error-text">
                                                     {{ form.organization_type.errors.0 }}
                                                 </p>
                                                 {% endif %}
@@ -107,7 +107,7 @@
                                                         {% endfor %}
                                                     </select>
                                                     {% if form.beneficiary_function.errors %}
-                                                    <p id="text-input-error-desc-error" class="fr-error-text">
+                                                    <p id="text-input-error-beneficiary-function" class="fr-error-text">
                                                         {{ form.beneficiary_function.errors.0 }}
                                                     </p>
                                                     {% endif %}
@@ -133,7 +133,7 @@
                                             </div>
 
                                             <div id="form-group-acquisition_channel" class="fr-input-group required ">
-                                                <label for="id_acquisition_channel">Comment avez-vous connu Aides-territoires&nbsp;?</label>
+                                                <label for="id_acquisition_channel">Comment avez-vous connu Aides-territoires ?</label>
                                                 <select class="fr-select" name="acquisition_channel" id="id_acquisition_channel">
                                                     <option value="" hidden>Sélectionnez une option</option>
                                                     {% for option in form.acquisition_channel %}

@@ -1,8 +1,8 @@
 {% load i18n aids %}
 
 {% if aids %}
-<div class="fr-table fr-display__none" id="aid_in_list">
-    <table>
+<div class="fr-table at-display__none" id="aid_in_list">
+    <table title="Liste des aides">
         <thead>
             <tr>
                 <th scope="col">Nom</th>
@@ -35,21 +35,21 @@
                 <td>
                     {% if aid.is_grant %}
                     <p class="fr-centered fr-mb-0">
-                        <span class="ri-check-line ri-xl"></span>
+                        <p class="fr-badge fr-badge--success">Oui</p>
                     </p>
                     {% endif %}
                 </td>
                 <td>
                     {% if aid.is_loan %}
                     <p class="fr-centered fr-mb-0">
-                        <span class="ri-check-line ri-xl"></span>
+                        <p class="fr-badge fr-badge--success">Oui</p>
                     </p>
                     {% endif %}
                 </td>
                 <td>
                     {% if aid.is_technical %}
                     <p class="fr-centered fr-mb-0">
-                        <span class="ri-check-line ri-xl"></span>
+                        <p class="fr-badge fr-badge--success">Oui</p>
                     </p>
                     {% endif %}
                 </td>

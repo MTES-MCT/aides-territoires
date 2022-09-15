@@ -1,7 +1,7 @@
-<div class="fr-container fr-grid-row fr-grid-row--center fr-background-alt-pink">
+<div class="fr-container fr-grid-row fr-grid-row--center at-background-alt-green fr-mb-3w">
     {% for promotion in promotions %}
     <div class="fr-col-12 fr-p-3w fr-centered">
-        <h5>{{ promotion.short_text }}</h5>
+        <h2 class="fr-h5">{{ promotion.short_text }}</h2>
         <div id="promotion-block-link">
             <a id="{{ promotion.id }}" href="{{ promotion.button_link }}" class="fr-btn">
                 {{ promotion.button_title }}

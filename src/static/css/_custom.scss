@@ -54,10 +54,6 @@ article#aid .aid-details h3 {
   max-height: 6rem;
 }
 
-.search-meta .fr-tag {
-  display: initial;
-}
-
 .bg-pic {
   background: url("../img/home_aides.svg") bottom center no-repeat,linear-gradient(0deg,  var(--background-default-grey) 10%, var(--background-alt-blue-france) 100%, var(--background-alt-grey) 100% ) 0% 0%;
   background-size: 100%;
@@ -93,20 +89,9 @@ article#aid .aid-details h3 {
   }
 }
 
-
-article#aid .aid-details h3 {
-  margin-top: 1rem;
-}
-
 #match-aid-modal #form-group-aids_associated {
   display: none;
   position: absolute;
-}
-
-// Header style
-
-#profil::before {
-  font-size: 1.5rem;
 }
 
 // register page style
@@ -437,12 +422,12 @@ form#general_search_form {
     border-radius: 50%;
   }
 
-  #search-step-2:hover {
+  #search-by-keywords:hover {
     background-color: var(--background-alt-blue-france);
   }
 
   @media screen and (max-width: 600px) {
-    #search-step-2 img {
+    #search-by-keywords img {
       display: none;
     }
   }
@@ -529,12 +514,8 @@ fieldset {
   text-transform: initial;
 }
 
-.search-meta .theme > span:first-of-type::before {
-  content: "> ";
-}
-
 .search-meta .theme > span + span::before {
-  content: " + ";
+  content: " + ";
 }
 
 #search-engine ul#id_aid_type {

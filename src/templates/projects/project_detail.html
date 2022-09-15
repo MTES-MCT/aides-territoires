@@ -1,7 +1,7 @@
 {% extends "_base.html" %}
 {% load i18n aids compress %}
 
-{% block extratitle %}Mon compte{% endblock extratitle %}
+{% block extratitle %}Mon projet « {{ project.name }} »{% endblock extratitle %}
 
 {% block extraclasses %}light{% endblock extraclasses %}
 
@@ -23,7 +23,7 @@
                     <a class="fr-breadcrumb__link" href="{% url 'project_list_view' %}">Gérer mes projets</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" aria-current="page">Votre projet</a>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mon projet</a>
                 </li>
             </ol>
         </div>
@@ -40,7 +40,7 @@
         <div class="fr-col-12 fr-col-md-9">
             <div class="fr-grid-row">
               <div class="fr-col-12 fr-col-md-9">
-                  <h1 class="fr-h3">Votre projet « {{ project.name }} »</h1>
+                  <h1 class="fr-h3">Mon projet « {{ project.name }} »</h1>
               </div>
               <div class="fr-col-12 fr-col-md-3">
                 <a href="{% url 'project_list_view' %}" class="fr-m-1w fr-tag _fr-tag--md fr-text--md fr-icon-arrow-left-line fr-tag--icon-left">Retour aux projets</a>

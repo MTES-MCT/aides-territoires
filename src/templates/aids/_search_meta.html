@@ -12,7 +12,7 @@
     {% if current_search_dict.targeted_audiences %}
     <div class="fr-tags-group">
         <p title="Bénéficiaires de l'aide" class="fr-tag">
-            <span class="ri-home-8-line ri-xl fr-mr-1w at-icon-align--sub"></span>
+            <span class="ri-home-8-line ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
             {% form_choices_display current_search_dict 'targeted_audiences' %}
         </p>
     </div>
@@ -23,7 +23,7 @@
     {% if current_search_dict.perimeter %}
     <div class="fr-tags-group">
         <p title="Périmètre" class="fr-tag">
-            <span class="ri-map-pin-fill ri-xl fr-mr-1w at-icon-align--sub"></span>
+            <span class="ri-map-pin-fill ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
             {{ current_search_dict.perimeter }}
         </p>
     </div>
@@ -44,7 +44,7 @@
     {% if current_search_dict.backers %}
     <div class="fr-tags-group">
         <p title="Porteur d’aides" class="fr-tag">
-            <span class="ri-hand-coin-line ri-xl fr-mr-1w at-icon-align--sub"></span>
+            <span class="ri-hand-coin-line ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
             {{ current_search_dict.backers|join:', ' }}
         </p>
     </div>
@@ -55,7 +55,7 @@
     {% if current_search_dict.aid_type %}
     <div class="fr-tags-group">
         <p title="Nature de l’aide" class="fr-tag">
-            <span class="ri-money-euro-circle-line ri-xl fr-mr-1w at-icon-align--sub"></span>
+            <span class="ri-money-euro-circle-line ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
             {% form_choices_display current_search_dict 'aid_type' %}
         </p>
     </div>
@@ -66,7 +66,7 @@
     {% if current_search_dict.financial_aids %}
     <div class="fr-tags-group">
         <p title="Nature de l'aide" class="fr-tag">
-            <span class="ri-money-euro-circle-line ri-xl fr-mr-1w at-icon-align--sub"></span>
+            <span class="ri-money-euro-circle-line ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
             {% form_choices_display current_search_dict 'financial_aids' %}
         </p>
     </div>
@@ -77,7 +77,7 @@
     {% if current_search_dict.technical_aids %}
     <div class="fr-tags-group">
         <p title="Nature de l’aide" class="fr-tag">
-            <span class="ri-money-euro-circle-line ri-xl fr-mr-1w at-icon-align--sub"></span>
+            <span class="ri-money-euro-circle-line ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
             {% form_choices_display current_search_dict 'technical_aids' %}
         </p>
     </div>
@@ -118,7 +118,7 @@
     {% if current_search_dict.text %}
     <div class="fr-tags-group">
         <p title="Mot-clé" class="fr-tag">
-            <span class="ri-double-quotes-r ri-xl fr-mr-1w at-icon-align--sub"></span>
+            <span class="ri-double-quotes-r ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
             {{ current_search_dict.text }}
         </p>
     </div>
@@ -128,10 +128,10 @@
     {% block search-meta-categories %}
     {% if current_search_dict.categories %}
     {% regroup current_search_dict.categories by theme as theme_list %}
-    <div class="fr-tags-group fr-uppercase">
+    <div class="fr-tags-group at-uppercase">
         {% for theme in theme_list %}
             <p class="theme fr-tag">
-                <span class="ri-price-tag-3-line ri-xl fr-mr-1w at-icon-align--sub"></span>
+                <span class="ri-price-tag-3-line ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
                 {{ theme.grouper }}
                 {% for category in theme.list %}
                     <span class="category">{{ category }}</span>
@@ -140,10 +140,10 @@
         {% endfor %}
     </div>
     {% elif current_search_dict.themes %}
-    <div class="fr-tags-group fr-uppercase">
+    <div class="fr-tags-group at-uppercase">
         {% for theme in current_search_dict.themes %}
             <p class="theme fr-tag">
-                <span class="ri-price-tag-3-line ri-xl fr-mr-1w at-icon-align--sub"></span>
+                <span class="ri-price-tag-3-line ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
                 {{ theme }}
             </p>
         {% endfor %}

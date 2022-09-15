@@ -107,10 +107,10 @@
 {% block form-actions %}
 <div class="fr-grid-row actions-row">
     <div class="fr-select-group fr-col-12 fr-col-md-3 fr-mt-2w">
-        <select name="order_by" id="id_order_by" class="fr-select">
-            <option hidden>Trier par&nbsp;: </option>
+        <select name="order_by" id="id_order_by" class="fr-select" title="Trier par">
+            <option hidden>Trier par : </option>
             {% for option in form.order_by %}
-            {{ option }}
+                {{ option }}
             {% endfor %}
         </select>
     </div>

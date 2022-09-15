@@ -34,11 +34,11 @@ h2, h3, h4, h5, h6 {
   font-weight: normal;
 }
 
-.fr-break-word {
+.at-break-word {
   word-break: break-all;
 }
 
-.fr-uppercase {
+.at-uppercase {
     text-transform: uppercase;
 }
 
@@ -59,7 +59,7 @@ h2, h3, h4, h5, h6 {
     height: 25px;
 }
 
-.fr-color--blue {
+.at-color--blue {
   color: var(--text-action-high-blue-france);
 }
 
@@ -139,7 +139,7 @@ h2, h3, h4, h5, h6 {
     display: inline;
 }
 
-.fr-display__none {
+.at-display__none {
   display: none;
 }
 

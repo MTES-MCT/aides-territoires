@@ -297,9 +297,6 @@ msgstr "Thématique"
 msgid "Category"
 msgstr "Sous-thématique"
 
-msgid "backers/"
-msgstr "partenaires/"
-
 msgid "blog/"
 msgstr "blog/"
 
@@ -439,12 +436,6 @@ msgstr "<slug:token>/validation/"
 
 msgid "programs/<slug:slug>/"
 msgstr "programmes/<slug:slug>/"
-
-msgid "backers/<int:pk>/"
-msgstr "partenaires/<int:pk>/"
-
-msgid "backers/<int:pk>-<str>/"
-msgstr "partenaires/<int:pk>-<str>/"
 
 msgid ""
 "This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
