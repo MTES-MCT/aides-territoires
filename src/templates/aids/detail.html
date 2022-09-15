@@ -283,8 +283,8 @@
                         <strong>Programme(s) :</strong>
                     </h2>
                     {% for program in programs %}
-                    <a href="{% url 'program_detail' program.slug %}" class="fr-col-10 at-link__nodecorator">
-                        <img src="{{ program.logo.url }}" class="fr-responsive-img" alt="{{ program.name }}" />
+                    <a href="{% url 'program_detail' program.slug %}" class="fr-col-10 at-link__nodecorator" title="{{ program.name }}">
+                        <img src="{{ program.logo.url }}" class="fr-responsive-img" alt="" />
                     </a>
                     {% endfor %}
                 </div>
