@@ -35,24 +35,22 @@ class AlertCreate(MessageMixin, CreateView):
                 "Nous venons de vous envoyer un e-mail afin de valider votre alerte."
             )
         else:
-            message = "Votre alerte a bien été créée&nbsp;!"
+            message = "Votre alerte a bien été créée !"
         self.messages.success(message)
         redirect_url = reverse("search_view")
         if alert.source == "aides-territoires":
-            redirect_url += "?{}".format(alert.querystring)
+            redirect_url += f"?{alert.querystring}"
         return HttpResponseRedirect(redirect_url)
 
     def form_invalid(self, form):
         querystring = form.cleaned_data.get("querystring", "")
         source = form.cleaned_data.get("source", "aides-territoires")
-        msg = _(
-            "Nous n'avons pas pu enregistrer votre alerte à cause de ces "
-            "erreurs : {}"
-        ).format(form.errors.as_text())
+        msg = f"""Nous n’avons pas pu enregistrer votre alerte à cause de ces
+        erreurs : {form.errors.as_text()}"""
         self.messages.error(msg)
         redirect_url = reverse("search_view")
         if source == "aides-territoires":
-            redirect_url += "?{}".format(querystring)
+            redirect_url += f"?{querystring}"
         return HttpResponseRedirect(redirect_url)
 
 
@@ -73,10 +71,10 @@ class AlertValidate(MessageMixin, DetailView):
             alert.validate()
             alert.save()
 
-        msg = _("You confirmed the alert creation.")
+        msg = "Vous venez de confirmer la création de l’alerte."
         self.messages.success(msg)
 
-        redirect_url = "{}?{}".format(reverse("search_view"), alert.querystring)
+        redirect_url = f"{reverse('search_view')}?{alert.querystring}"
         return HttpResponseRedirect(redirect_url)
 
 
@@ -106,15 +104,19 @@ class AlertDelete(MessageMixin, DeleteView):
         if self.request.user.is_authenticated:
             url = reverse("alert_list_view")
         else:
-            url = "{}?{}".format(reverse("search_view"), self.object.querystring)
+            url = f"{reverse('search_view')}?{self.object.querystring}"
         return url
 
     def delete(self, *args, **kwargs):
         res = super().delete(*args, **kwargs)
         msg = format_html(
-            "Votre alerte vient d'être supprimée.<br />"
-            "Pour nous aider à mieux comprendre votre choix, pourriez-vous nous expliquer la raison de votre désabonnement "  # noqa
-            f'<a href="{settings.ALERT_DELETE_FEEDBACK_FORM_URL}" target="_blank" rel="noopener">ici</a> ?'  # noqa
+            f"""
+            Votre alerte vient d'être supprimée.<br />
+            Pour nous aider à mieux comprendre votre choix, pourriez-vous
+            <a href="{settings.ALERT_DELETE_FEEDBACK_FORM_URL}" target="_blank" rel="noopener">
+                nous expliquer la raison de votre désabonnement
+                <span class="sr-only">Ouvre une nouvelle fenêtre</span>
+            </a>"""
         )
         self.messages.success(msg)
         return res
@@ -188,11 +190,9 @@ class AlertDeleteFromAccountView(ContributorAndProfileCompleteRequiredMixin, Vie
                 msg = "Votre alerte a bien été supprimée."
                 messages.success(self.request, msg)
             except Exception:
-                msg = (
-                    "Une errreur s'est produite lors de la suppression de votre alerte"
-                )
+                msg = "Une erreur s’est produite lors de la suppression de votre alerte"
                 messages.error(self.request, msg)
             success_url = reverse("alert_list_view")
             return HttpResponseRedirect(success_url)
 
-        return render(request, self.template_name, {"form": form})  # noqa
+        return render(request, self.template_name, {"form": form})

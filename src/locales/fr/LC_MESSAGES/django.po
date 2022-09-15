@@ -150,9 +150,6 @@ msgid "We could not create your alert because of those errors: {}"
 msgstr ""
 "Nous n'avons pas pu enregistrer votre alerte à cause de ces erreurs : {}"
 
-msgid "You confirmed the alert creation."
-msgstr "Vous venez de confirmer la création de l'alerte."
-
 msgid "Logo image"
 msgstr "Logo du porteur"
 
