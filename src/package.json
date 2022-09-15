@@ -1,9 +1,5 @@
 {
   "name": "aides-territoires",
-  "engines": {
-    "node": "16",
-    "npm": "8"
-  },
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^9.6.1",
-    "bootstrap": "^4.6.1",
     "chart.js": "^2.9.4",
     "chartjs-plugin-datalabels": "^0.7.0",
     "datatables.net": "^1.11.5",
