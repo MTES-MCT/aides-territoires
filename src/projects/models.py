@@ -27,6 +27,12 @@ class Project(models.Model):
     )
     author = models.ManyToManyField("accounts.User", verbose_name="Auteur", blank=True)
 
+    is_published = models.BooleanField("Publié?", default=False)
+
+    project_types = models.ManyToManyField(
+        "keywords.SynonymList", verbose_name="Types de projet", blank=True
+    )
+
     due_date = models.DateField("Date d’échéance", null=True, blank=True)
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)
