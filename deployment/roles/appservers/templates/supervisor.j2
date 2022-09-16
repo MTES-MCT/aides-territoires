@@ -1,9 +1,0 @@
-[program:{{ project_name }}]
-environment=DJANGO_SETTINGS_MODULE='{{ django_settings }}'
-directory={{ django_root }}
-command={{ gunicorn_bin }} -b localhost:8000 --timeout 120 core.wsgi:application {{ gunicorn_options }}
-user={{ user_name }}
-autostart=true
-autorestart=true
-stdout_logfile=/var/log/supervisor/{{ project_name }}.log
-redirect_stderr=true
