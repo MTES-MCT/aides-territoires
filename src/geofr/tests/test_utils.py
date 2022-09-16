@@ -30,16 +30,70 @@ def test_is_overseas():
     assert is_overseas("97414")
 
 
-def test_get_all_related_perimeters(perimeters):
-    """Finding related perimeters works as expected."""
+def test_get_all_related_perimeters_objects(perimeters):
+    related_perimeters = get_all_related_perimeters(perimeters["herault"].id)
 
-    related_perimeters_france = get_all_related_perimeters(
+    assert list(related_perimeters) == [
+        perimeters["métropole"],
+        perimeters["europe"],
+        perimeters["france"],
+        perimeters["occitanie"],
+        perimeters["herault"],
+        perimeters["montpellier"],
+        perimeters["vic"],
+    ]
+
+
+def test_get_all_related_perimeters_objects_scale(perimeters):
+    related_perimeters = get_all_related_perimeters(
+        perimeters["herault"].id, scale=Perimeter.SCALES.region
+    )
+
+    assert list(related_perimeters) == [
+        perimeters["occitanie"],
+    ]
+
+
+def test_get_all_related_perimeters_objects_upward(perimeters):
+    related_perimeters = get_all_related_perimeters(
+        perimeters["herault"].id, direction="up"
+    )
+
+    assert list(related_perimeters) == [
+        perimeters["métropole"],
+        perimeters["europe"],
+        perimeters["france"],
+        perimeters["occitanie"],
+        perimeters["herault"],
+    ]
+
+
+def test_get_all_related_perimeters_objects_downward(perimeters):
+    related_perimeters = get_all_related_perimeters(
+        perimeters["herault"].id, direction="down"
+    )
+
+    assert list(related_perimeters) == [
+        perimeters["herault"],
+        perimeters["montpellier"],
+        perimeters["vic"],
+    ]
+
+
+def test_get_all_related_perimeters_values(perimeters):
+    related_perimeters = get_all_related_perimeters(
         perimeters["herault"].id, values=["id"]
-    )  # noqa
+    )
 
-    assert {"id": perimeters["france"].id} in related_perimeters_france
-    assert {"id": perimeters["montpellier"].id} in related_perimeters_france
-    assert {"id": perimeters["aveyron"].id} not in related_perimeters_france
+    assert list(related_perimeters) == [
+        {"id": perimeters["métropole"].id},
+        {"id": perimeters["europe"].id},
+        {"id": perimeters["france"].id},
+        {"id": perimeters["occitanie"].id},
+        {"id": perimeters["herault"].id},
+        {"id": perimeters["montpellier"].id},
+        {"id": perimeters["vic"].id},
+    ]
 
 
 def test_attach_perimeters(perimeters):
