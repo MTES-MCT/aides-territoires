@@ -91,7 +91,10 @@
                         <li><strong>Clôture:</strong> {{ aid.submission_deadline|date }}</li>
                     {% endif %}
                 </ul>
-                <strong>Voir le descriptif complet sur Aides-territoires :</strong> <a href="{{ hostname }}{{ aid.get_absolute_url }}" class="at-pdf-link" target="_blank" rel="noopener">{{ hostname }}{{ aid.get_absolute_url }}</a>
+                <strong>Voir le descriptif complet sur Aides-territoires :</strong>
+                <a href="{{ hostname }}{{ aid.get_absolute_url }}" class="at-pdf-link">
+                    {{ hostname }}{{ aid.get_absolute_url }}
+                </a>
                 <hr />
             {% endfor %}
 

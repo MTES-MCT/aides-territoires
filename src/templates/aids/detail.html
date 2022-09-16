@@ -250,14 +250,17 @@
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
                         <strong>URL d’origine : </strong>traduction à partir des données du portail officiel de la Commission européenne :
                         <span class="at-break-word">
-                            <a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home" target="_blank" rel="noopener">https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home</a>
+                            <a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home" target="_blank" rel="noopener">https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home<span class="fr-sr-only"> Ouvre une nouvelle fenêtre</span></a>
                         </span>
                     </h2>
                     {% else %}
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w at-break-word">
                         <strong>URL d’origine : </strong>
                         {% if aid.import_data_url %}
-                            <a href="{{ aid.import_data_url }}" target="_blank" rel="noopener">{{ aid.import_data_url }}</a>
+                            <a href="{{ aid.import_data_url }}" target="_blank" rel="noopener">
+                                {{ aid.import_data_url }}
+                                <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span>
+                            </a>
                         {% else %}
                             Inconnue
                         {% endif %}
@@ -331,7 +334,7 @@
 
             {% if aid.origin_url %}
             <p>
-                <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers le descriptif complet" href="{{ aid.origin_url }}">
+                <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers le descriptif complet - ouvre une nouvelle fenêtre" href="{{ aid.origin_url }}">
                     Descriptif complet
                 </a>
             </p>
@@ -339,7 +342,7 @@
 
             {% if aid.application_url %}
             <p>
-                <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l'aide" href="{{ aid.application_url }}">
+                <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l’aide - ouvre une nouvelle fenêtre" href="{{ aid.application_url }}">
                     Candidater à l’aide
                 </a>
             </p>
@@ -485,14 +488,14 @@
                     <ul class="fr-btns-group fr-btns-group--inline-md fr-btns-group--right">
                         {% if aid.origin_url %}
                         <li>
-                            <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers le descriptif complet" href="{{ aid.origin_url }}">
+                            <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers le descriptif complet - ouvre une nouvelle fenêtre" href="{{ aid.origin_url }}">
                                 Descriptif complet
                             </a>
                         </li>
                         {% endif %}
                         {% if aid.application_url %}
                         <li>
-                            <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l'aide" href="{{ aid.application_url }}">
+                            <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l’aide - ouvre une nouvelle fenêtre" href="{{ aid.application_url }}">
                                 Candidater à l’aide
                             </a>
                         </li>

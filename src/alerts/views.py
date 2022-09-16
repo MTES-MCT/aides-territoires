@@ -115,7 +115,7 @@ class AlertDelete(MessageMixin, DeleteView):
             Pour nous aider à mieux comprendre votre choix, pourriez-vous
             <a href="{settings.ALERT_DELETE_FEEDBACK_FORM_URL}" target="_blank" rel="noopener">
                 nous expliquer la raison de votre désabonnement
-                <span class="sr-only">Ouvre une nouvelle fenêtre</span>
+                <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span>
             </a>"""
         )
         self.messages.success(msg)

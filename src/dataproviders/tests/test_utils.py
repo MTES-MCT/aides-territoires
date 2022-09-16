@@ -49,7 +49,7 @@ def test_prettify_creates_normalizes_external_urls():
     # URLs that open in a new window have a special warning for screen readers appened
     assert (
         """lien externe
- <span class="sr-only">
+ <span class="fr-sr-only">
   Ouvre une nouvelle fenêtre
  </span>"""
         in text

@@ -109,7 +109,7 @@ def content_prettify(
                 if tag.name == "a":
                     if "target" in tag.attrs and tag.attrs["target"] == "_blank":
                         target_warning = soup.new_tag("span")
-                        target_warning.attrs = {"class": "sr-only"}
+                        target_warning.attrs = {"class": "fr-sr-only"}
                         target_warning.string = "Ouvre une nouvelle fenêtre"
 
                         tag.append(target_warning)

@@ -54,8 +54,8 @@
                 <div class="fr-grid-row fr-grid-row--middle">
                     <div class="fr-col-12 fr-col-md-2 fr-col-lg-2">
                         <a class="fr-btn fr-mb-1w" href="{% url 'subscribe_newsletter' %}"
-                            title="S‘abonner à notre newsletter">
-                            S'abonner
+                            title="S’abonner à notre newsletter">
+                            S’abonner
                         </a>
                     </div>
                     <div class="fr-col-12 fr-col-md-6 fr-col-lg-6">
@@ -68,7 +68,7 @@
             </div>
 
             <h2 class="fr-h4">Mes alertes</h2>
-            <p>Retrouvez ici toutes les alertes auxquelles vous vous êtes abonnées.</p>
+            <p>Retrouvez ici toutes les alertes auxquelles vous vous êtes abonné.</p>
             <div class="fr-table fr-table--bordered">
                 <table class="data-table">
                     <thead>
@@ -85,8 +85,9 @@
                     <tbody>
                         <tr>
                             <td>
-                                <a href="{% url 'search_view' %}?{{ alert.querystring }}" target="_blank" rel="noopener">
-                                    {{ alert.title }}
+                                <a href="{% url 'search_view' %}?{{ alert.querystring }}" target="_blank" rel="noopener" id="alert-{{ alert.pk }}">
+                                    {{ alert.title }} 
+                                    <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span>
                                 </a>
                             </td>
                             <td>{{ alert.get_alert_frequency_display }}</td>
@@ -99,10 +100,15 @@
                                 {% endif %}
                             </td>
                             <td class="fr-text">
-                                <button class="btn_delete fr-link fr-icon-delete-line" id="delete-alert-modal-btn"
-                                    title="supprimer cette alerte" data-fr-opened="false"
-                                    aria-controls="delete-alert-modal-{{ alert.pk }}">
-                                    supprimer
+                                <button type="button"
+                                        class="fr-btn fr-icon-delete-line fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"
+                                        id="delete-alert-btn-{{ alert.pk }}"
+                                        data-fr-opened="false"
+                                        title="Supprimer cette alerte"
+                                        aria-controls="delete-alert-modal-{{ alert.pk }}"
+                                        aria-describedby="alert-{{ alert.pk }}"
+                                >
+                                    Supprimer ce projet
                                 </button>
                             </td>
                         </tr>

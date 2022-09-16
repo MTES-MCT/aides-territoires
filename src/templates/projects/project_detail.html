@@ -73,7 +73,7 @@
             {% endif %}
             <div class="fr-table">
                 <table class="data-table at-table--xl">
-                    <caption class="sr-only">
+                    <caption class="fr-sr-only">
                         Liste des aides sélectionnées :
                     </caption>
                     <thead>
@@ -92,8 +92,9 @@
                             {% for aid in aid_set %}
                             <tr>
                                 <td class="fr-text">
-                                    <a href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener">
+                                    <a href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener" id="aid-{{ aid.id }}">
                                         {{ aid.name }}
+                                        <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span>
                                     </a>
                                 </td>
                                 <td class="fr-text">
@@ -117,7 +118,8 @@
                                         <li>
                                             <a href="{% url 'backer_detail_view' financer.pk financer.slug %}" target="_blank" rel="noopener">
                                             {{ financer.name }}
-                                            </a>
+                                            <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span>
+                                        </a>
                                         </li>
                                     {% endfor %}
                                     </ul>
@@ -139,10 +141,12 @@
                                 <td class="fr-text">
                                     <button
                                         class="fr-btn fr-icon-delete-line fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"
-                                        id="delete-aid-modal-btn"
+                                        id="delete-aid-modal-btn-{{ aid.id }}"
                                         title="Supprimer cette aide"
                                         data-fr-opened="false"
-                                        aria-controls="delete-aid-modal-{{ aid.slug }}">
+                                        aria-controls="delete-aid-modal-{{ aid.slug }}"
+                                        aria-describedby="aid-{{ aid.id }}"
+                                    >
                                         Supprimer cette aide
                                     </button>
                                 </td>

@@ -610,7 +610,7 @@ class AidCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
 
         msg = f"""Votre aide a été créée. Vous pouvez poursuivre l’édition ou
         <a href="{aid.get_absolute_url()}" target="_blank">la prévisualiser
-        <span class="sr-only">Ouvre une nouvelle fenêtre</span></a>."""
+        <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span></a>."""
 
         messages.success(self.request, msg)
         return HttpResponseRedirect(self.get_success_url())
