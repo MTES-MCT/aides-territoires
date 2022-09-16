@@ -37,11 +37,13 @@ class ProjectAdmin(ImportExportActionModelAdmin):
         "nb_aids_associated",
         "display_related_aids",
         "due_date",
+        "is_published",
+        "project_types",
         "date_created",
     ]
     search_fields = ["name"]
     readonly_fields = ["date_created", "nb_aids_associated", "display_related_aids"]
-    autocomplete_fields = ["organizations", "author"]
+    autocomplete_fields = ["organizations", "author", "project_types"]
 
     def display_related_aids(self, obj):
         related_aid_html = format_html(
