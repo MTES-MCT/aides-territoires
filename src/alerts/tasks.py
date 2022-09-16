@@ -29,31 +29,32 @@ def send_alert_confirmation_email(user_email, alert_token):
     # extract the perimeter
     querydict = QueryDict(alert.querystring)
     search_form = AidSearchForm(querydict)
-    perimeter = ''
+    perimeter = ""
     if search_form.is_valid():
-        perimeter = search_form.cleaned_data.get('perimeter') or ''
+        perimeter = search_form.cleaned_data.get("perimeter") or ""
         perimeter = str(perimeter)
 
     base_url = get_base_url()
-    alert_validation_link = reverse('alert_validate_view', args=[alert_token])
-    alert_date = '{:%d/%m/%Y %H:%M:%S}'.format(alert.date_created)
+    alert_validation_link = reverse("alert_validate_view", args=[alert_token])
+    alert_date = "{:%d/%m/%Y %H:%M:%S}".format(alert.date_created)
 
     if alert.alert_frequency == Alert.FREQUENCIES.daily:
-        frequency = 'quotidien'
+        frequency = "quotidien"
     else:
-        frequency = 'hebdomadaire'
+        frequency = "hebdomadaire"
 
     data = {
-        'URL_SITE': base_url,
-        'FREQUENCE': frequency,
-        'PERIMETRE': perimeter,
-        'DATE_ALERTE': alert_date,
-        'LIEN_VALIDATION': '{}{}'.format(base_url, alert_validation_link)
+        "URL_SITE": base_url,
+        "FREQUENCE": frequency,
+        "PERIMETRE": perimeter,
+        "DATE_ALERTE": alert_date,
+        "LIEN_VALIDATION": "{}{}".format(base_url, alert_validation_link),
     }
 
     send_email_with_template(
         recipient_list=[user_email],
         template_id=settings.SIB_ALERT_CONFIRMATION_EMAIL_TEMPLATE_ID,
         data=data,
-        tags=['alerte_confirmation', settings.ENV_NAME],
-        fail_silently=False)
+        tags=["alerte_confirmation", settings.ENV_NAME],
+        fail_silently=False,
+    )

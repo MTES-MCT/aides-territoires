@@ -15,9 +15,9 @@ class AlertFactory(DjangoModelFactory):
     class Meta:
         model = Alert
 
-    email = factory.Faker('email')
-    querystring = 'text=ademe'
-    alert_frequency = 'weekly'
+    email = factory.Faker("email")
+    querystring = "text=ademe"
+    alert_frequency = "weekly"
     validated = True
     date_validated = factory.LazyFunction(two_weeks_ago)
     latest_alert_date = factory.LazyFunction(two_weeks_ago)

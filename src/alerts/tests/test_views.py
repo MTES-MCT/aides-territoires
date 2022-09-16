@@ -22,23 +22,26 @@ def test_anonymous_can_create_a_alert(client, mailoutbox):
     users = User.objects.all()
     assert users.count() == 0
 
-    url = reverse('alert_create_view')
-    res = client.post(url, data={
-        'title': 'My new search',
-        'email': 'alert-user@example.com',
-        'alert_frequency': 'daily',
-        'querystring': 'text=Ademe&call_for_projects_only=on',
-        'source': 'aides-territoires'
-    })
+    url = reverse("alert_create_view")
+    res = client.post(
+        url,
+        data={
+            "title": "My new search",
+            "email": "alert-user@example.com",
+            "alert_frequency": "daily",
+            "querystring": "text=Ademe&call_for_projects_only=on",
+            "source": "aides-territoires",
+        },
+    )
     assert res.status_code == 302
     assert alerts.count() == 1
     assert users.count() == 0
 
     alert = alerts[0]
-    assert alert.email == 'alert-user@example.com'
-    assert alert.title == 'My new search'
-    assert 'text=Ademe' in alert.querystring
-    assert 'call_for_projects_only=on' in alert.querystring
+    assert alert.email == "alert-user@example.com"
+    assert alert.title == "My new search"
+    assert "text=Ademe" in alert.querystring
+    assert "call_for_projects_only=on" in alert.querystring
     assert not alert.validated
     assert alert.date_validated is None
 
@@ -52,38 +55,44 @@ def test_anonymous_can_create_several_alerts(client, mailoutbox):
     to log in. Otherwise, it would prevent them to create several alerts
     at once.
     """
-    alerts = Alert.objects.order_by('date_created')
+    alerts = Alert.objects.order_by("date_created")
     assert alerts.count() == 0
 
     users = User.objects.all()
     assert users.count() == 0
 
-    url = reverse('alert_create_view')
-    res = client.post(url, data={
-        'title': 'My new search',
-        'email': 'alert-user@example.com',
-        'alert_frequency': 'daily',
-        'querystring': 'text=Ademe&call_for_projects_only=on',
-        'source': 'aides-territoires'
-    })
+    url = reverse("alert_create_view")
+    res = client.post(
+        url,
+        data={
+            "title": "My new search",
+            "email": "alert-user@example.com",
+            "alert_frequency": "daily",
+            "querystring": "text=Ademe&call_for_projects_only=on",
+            "source": "aides-territoires",
+        },
+    )
     assert res.status_code == 302
     assert alerts.count() == 1
     assert users.count() == 0
 
-    res = client.post(url, data={
-        'title': 'My new search 2',
-        'email': 'alert-user@example.com',
-        'alert_frequency': 'daily',
-        'querystring': 'text=Ademe&call_for_projects_only=off',
-        'source': 'aides-territoires'
-    })
+    res = client.post(
+        url,
+        data={
+            "title": "My new search 2",
+            "email": "alert-user@example.com",
+            "alert_frequency": "daily",
+            "querystring": "text=Ademe&call_for_projects_only=off",
+            "source": "aides-territoires",
+        },
+    )
     assert res.status_code == 302
     assert alerts.count() == 2
     assert users.count() == 0
 
     alert = alerts[1]
-    assert alert.email == 'alert-user@example.com'
-    assert alert.title == 'My new search 2'
+    assert alert.email == "alert-user@example.com"
+    assert alert.title == "My new search 2"
 
     # We send validation email for every alert
     assert len(mailoutbox) == 2
@@ -92,16 +101,19 @@ def test_anonymous_can_create_several_alerts(client, mailoutbox):
 def test_alert_perimeter(client, mailoutbox):
     """The search perimeter is displayed in the validation email."""
 
-    perimeter = PerimeterFactory.create(name='Bretagne')
-    perimeter_id = '{}-{}'.format(perimeter.id, perimeter.code)
-    url = reverse('alert_create_view')
-    res = client.post(url, data={
-        'title': 'Test',
-        'email': 'alert-user@example.com',
-        'alert_frequency': 'daily',
-        'querystring': 'text=Ademe&perimeter={}'.format(perimeter_id),
-        'source': 'aides-territoires'
-    })
+    perimeter = PerimeterFactory.create(name="Bretagne")
+    perimeter_id = "{}-{}".format(perimeter.id, perimeter.code)
+    url = reverse("alert_create_view")
+    res = client.post(
+        url,
+        data={
+            "title": "Test",
+            "email": "alert-user@example.com",
+            "alert_frequency": "daily",
+            "querystring": "text=Ademe&perimeter={}".format(perimeter_id),
+            "source": "aides-territoires",
+        },
+    )
     assert res.status_code == 302
     assert len(mailoutbox) == 1
     assert perimeter_id in Alert.objects.last().querystring
@@ -110,19 +122,22 @@ def test_alert_perimeter(client, mailoutbox):
 def test_alert_from_search_page(client, mailoutbox):
     """The search perimeter is displayed in the validation email."""
 
-    perimeter = PerimeterFactory.create(name='Bretagne')
-    perimeter_id = '{}-{}'.format(perimeter.id, perimeter.code)
+    perimeter = PerimeterFactory.create(name="Bretagne")
+    perimeter_id = "{}-{}".format(perimeter.id, perimeter.code)
     page = SearchPageFactory(
-        title='Minisite',
-        search_querystring='perimeter={}'.format(perimeter_id))
-    url = reverse('alert_create_view')
-    res = client.post(url, data={
-        'title': 'Test',
-        'email': 'alert-user@example.com',
-        'alert_frequency': 'daily',
-        'querystring': '',
-        'source': page.slug
-    })
+        title="Minisite", search_querystring="perimeter={}".format(perimeter_id)
+    )
+    url = reverse("alert_create_view")
+    res = client.post(
+        url,
+        data={
+            "title": "Test",
+            "email": "alert-user@example.com",
+            "alert_frequency": "daily",
+            "querystring": "",
+            "source": page.slug,
+        },
+    )
     assert res.status_code == 302
     assert len(mailoutbox) == 1
     assert perimeter_id in Alert.objects.last().querystring
@@ -131,22 +146,22 @@ def test_alert_from_search_page(client, mailoutbox):
 def test_unvalidated_alerts_creation_quotas(client):
     """There is a maximum amount of unvalidated alerts one can create."""
 
-    AlertFactory.create_batch(
-        10,
-        validated=False,
-        email='alert-user@example.com')
+    AlertFactory.create_batch(10, validated=False, email="alert-user@example.com")
 
     alerts = Alert.objects.all()
     assert alerts.count() == 10
 
-    url = reverse('alert_create_view')
-    res = client.post(url, data={
-        'title': 'My new search',
-        'email': 'alert-user@example.com',
-        'alert_frequency': 'daily',
-        'querystring': 'text=Ademe&call_for_projects_only=on',
-        'source': 'aides-territoires'
-    })
+    url = reverse("alert_create_view")
+    res = client.post(
+        url,
+        data={
+            "title": "My new search",
+            "email": "alert-user@example.com",
+            "alert_frequency": "daily",
+            "querystring": "text=Ademe&call_for_projects_only=on",
+            "source": "aides-territoires",
+        },
+    )
     assert res.status_code == 302
     assert alerts.count() == 10
 
@@ -154,21 +169,22 @@ def test_unvalidated_alerts_creation_quotas(client):
 def test_alert_creation_quotas(client):
     """There is a maximum amount of alerts one can create."""
 
-    AlertFactory.create_batch(
-        100,
-        email='alert-user@example.com')
+    AlertFactory.create_batch(100, email="alert-user@example.com")
 
     alerts = Alert.objects.all()
     assert alerts.count() == 100
 
-    url = reverse('alert_create_view')
-    res = client.post(url, data={
-        'title': 'My new search',
-        'email': 'alert-user@example.com',
-        'alert_frequency': 'daily',
-        'querystring': 'text=Ademe&call_for_projects_only=on',
-        'source': 'aides-territoires'
-    })
+    url = reverse("alert_create_view")
+    res = client.post(
+        url,
+        data={
+            "title": "My new search",
+            "email": "alert-user@example.com",
+            "alert_frequency": "daily",
+            "querystring": "text=Ademe&call_for_projects_only=on",
+            "source": "aides-territoires",
+        },
+    )
     assert res.status_code == 302
     assert alerts.count() == 100
 
@@ -178,7 +194,7 @@ def test_alert_validation_url(client):
     assert not alert.validated
     assert alert.date_validated is None
 
-    validation_url = reverse('alert_validate_view', args=[alert.token])
+    validation_url = reverse("alert_validate_view", args=[alert.token])
     res = client.get(validation_url)
     assert res.status_code == 200
 
@@ -196,7 +212,7 @@ def test_delete_alert(client):
     alerts = Alert.objects.all()
 
     alert = AlertFactory()
-    url = reverse('alert_delete_view', args=[alert.token])
+    url = reverse("alert_delete_view", args=[alert.token])
     res = client.get(url)
     assert res.status_code == 200
     assert alerts.count() == 1

@@ -9,27 +9,62 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Alert',
+            name="Alert",
             fields=[
-                ('token', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, verbose_name='Secret token')),
-                ('email', models.EmailField(max_length=254, verbose_name='Email')),
-                ('querystring', models.TextField(verbose_name='Querystring')),
-                ('title', models.CharField(max_length=250, verbose_name='Title')),
-                ('alert_frequency', models.CharField(choices=[('daily', 'Daily'), ('weekly', 'Weekly')], default='daily', max_length=32)),
-                ('confirmed', models.BooleanField(default=False, verbose_name='Confirmed?')),
-                ('date_confirmed', models.DateTimeField(null=True, verbose_name='Date confirmed')),
-                ('latest_alert_date', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Latest alert date')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
-                ('date_updated', models.DateTimeField(auto_now=True, verbose_name='Date updated')),
+                (
+                    "token",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="Secret token",
+                    ),
+                ),
+                ("email", models.EmailField(max_length=254, verbose_name="Email")),
+                ("querystring", models.TextField(verbose_name="Querystring")),
+                ("title", models.CharField(max_length=250, verbose_name="Title")),
+                (
+                    "alert_frequency",
+                    models.CharField(
+                        choices=[("daily", "Daily"), ("weekly", "Weekly")],
+                        default="daily",
+                        max_length=32,
+                    ),
+                ),
+                (
+                    "confirmed",
+                    models.BooleanField(default=False, verbose_name="Confirmed?"),
+                ),
+                (
+                    "date_confirmed",
+                    models.DateTimeField(null=True, verbose_name="Date confirmed"),
+                ),
+                (
+                    "latest_alert_date",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now,
+                        verbose_name="Latest alert date",
+                    ),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Date created"
+                    ),
+                ),
+                (
+                    "date_updated",
+                    models.DateTimeField(auto_now=True, verbose_name="Date updated"),
+                ),
             ],
             options={
-                'verbose_name': 'Alert',
-                'verbose_name_plural': 'Alerts',
+                "verbose_name": "Alert",
+                "verbose_name_plural": "Alerts",
             },
         ),
     ]

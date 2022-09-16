@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('alerts', '0005_alert_source'),
+        ("alerts", "0005_alert_source"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='alert',
-            name='alert_frequency',
-            field=models.CharField(choices=[('daily', 'Quotidiennement'), ('weekly', 'Hebdomadairement')], default='daily', max_length=32),
+            model_name="alert",
+            name="alert_frequency",
+            field=models.CharField(
+                choices=[("daily", "Quotidiennement"), ("weekly", "Hebdomadairement")],
+                default="daily",
+                max_length=32,
+            ),
         ),
     ]
