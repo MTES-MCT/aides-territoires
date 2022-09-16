@@ -12,28 +12,32 @@ from aids.models import Aid
 ADDNA = "Aides pour le Développement Durable en Nouvelle-Aquitaine"
 
 ADMIN_ID = 1
-DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S'
+DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 
-ELIGIBILITY_TXT = '''Consultez la page de l'aide pour obtenir des détails.'''
-CONTACT_TXT = '''A remplir'''
+ELIGIBILITY_TXT = """Consultez la page de l'aide pour obtenir des détails."""
+CONTACT_TXT = """A remplir"""
 
 # Convert ADDNA's `perimeter` to our `perimeters`
 PERIMETERS_DICT = {
-    'International': None,
-    'Europe': Perimeter.objects.get(code='EU'),
-    'National': Perimeter.objects.get(code='FRA'),
-    'Nouvelle - Aquitaine': Perimeter.objects.get(code='75', scale=Perimeter.SCALES.region),
-    'Creuse (23)': Perimeter.objects.get(code='23'),
-    'Corrèze (19)': Perimeter.objects.get(code='19'),
-    'Corrèze (19800)': Perimeter.objects.get(code='19'),
-    'Haute-Vienne (87)': Perimeter.objects.get(code='87'),
-    'Gironde (33)': Perimeter.objects.get(code='33'),
-    'Landes (40)': Perimeter.objects.get(code='40'),
-    'Pyrénées-Atlantiques (64)': Perimeter.objects.get(code='64'),
-    'Charente-Maritime (17)': Perimeter.objects.get(code='17'),
-    'Loire-Bretagne': Perimeter.objects.get(code='04', scale=Perimeter.SCALES.basin),
-    'Adour Garonne': Perimeter.objects.get(code='05', scale=Perimeter.SCALES.basin),
-    'Communauté d’Agglomération de La Rochelle': Perimeter.objects.get(code='241700434')
+    "International": None,
+    "Europe": Perimeter.objects.get(code="EU"),
+    "National": Perimeter.objects.get(code="FRA"),
+    "Nouvelle - Aquitaine": Perimeter.objects.get(
+        code="75", scale=Perimeter.SCALES.region
+    ),
+    "Creuse (23)": Perimeter.objects.get(code="23"),
+    "Corrèze (19)": Perimeter.objects.get(code="19"),
+    "Corrèze (19800)": Perimeter.objects.get(code="19"),
+    "Haute-Vienne (87)": Perimeter.objects.get(code="87"),
+    "Gironde (33)": Perimeter.objects.get(code="33"),
+    "Landes (40)": Perimeter.objects.get(code="40"),
+    "Pyrénées-Atlantiques (64)": Perimeter.objects.get(code="64"),
+    "Charente-Maritime (17)": Perimeter.objects.get(code="17"),
+    "Loire-Bretagne": Perimeter.objects.get(code="04", scale=Perimeter.SCALES.basin),
+    "Adour Garonne": Perimeter.objects.get(code="05", scale=Perimeter.SCALES.basin),
+    "Communauté d’Agglomération de La Rochelle": Perimeter.objects.get(
+        code="241700434"
+    ),
 }
 
 
@@ -48,22 +52,24 @@ class Command(BaseImportCommand):
     """
 
     def add_arguments(self, parser):
-        parser.add_argument('data-file', nargs=1, type=str)
+        parser.add_argument("data-file", nargs=1, type=str)
 
     def fetch_data(self, **options):
-        data_file = os.path.abspath(options['data-file'][0])
+        data_file = os.path.abspath(options["data-file"][0])
         xml_tree = ElementTree.parse(data_file)
         xml_root = xml_tree.getroot()
-        for xml_elt in xml_root.find('database'):
+        for xml_elt in xml_root.find("database"):
             # transform xml "database > table > columns" into dict
             table_dict = {}
-            for i, column in enumerate(xml_elt.findall('column')):
-                column_text = None if (column.text in ['NULL', None]) else column.text.strip()
-                table_dict[column.attrib['name']] = column_text
+            for i, column in enumerate(xml_elt.findall("column")):
+                column_text = (
+                    None if (column.text in ["NULL", None]) else column.text.strip()
+                )
+                table_dict[column.attrib["name"]] = column_text
             yield table_dict
-    
+
     def handle(self, *args, **options):
-        self.france = Perimeter.objects.get(code='FRA')
+        self.france = Perimeter.objects.get(code="FRA")
         super().handle(*args, **options)
 
     def line_should_be_processed(self, line):
@@ -73,8 +79,8 @@ class Command(BaseImportCommand):
         return ADMIN_ID
 
     def extract_import_uniqueid(self, line):
-        data_id = line['id']
-        unique_id = 'ADDNA_{}'.format(data_id)
+        data_id = line["id"]
+        unique_id = "ADDNA_{}".format(data_id)
         return unique_id
 
     def extract_import_data_url(self, line):
@@ -85,26 +91,26 @@ class Command(BaseImportCommand):
 
     def extract_name(self, line):
         """name max_length is 180"""
-        title = line['name'][:180]
+        title = line["name"][:180]
         return title
 
     def extract_description(self, line):
-        description = content_prettify(line['description'])
+        description = content_prettify(line["description"])
         return description
 
     def extract_submission_deadline(self, line):
-        submission_deadline_text = line['submission_deadline']
+        submission_deadline_text = line["submission_deadline"]
         if submission_deadline_text:
             submission_deadline = datetime.strptime(
-                submission_deadline_text,
-                DATETIME_FORMAT).date()
+                submission_deadline_text, DATETIME_FORMAT
+            ).date()
             return submission_deadline
 
     def extract_origin_url(self, line):
-        origin_url = line['origin_url']
+        origin_url = line["origin_url"]
         if not origin_url:
-            return ''  # error if None
-        clean_url = origin_url.replace(' ', '%20')
+            return ""  # error if None
+        clean_url = origin_url.replace(" ", "%20")
         return clean_url
 
     def extract_eligibility(self, line):
@@ -112,29 +118,27 @@ class Command(BaseImportCommand):
         return ELIGIBILITY_TXT
 
     def extract_contact(self, line):
-        return line['contact'] or CONTACT_TXT  # sometimes empty
+        return line["contact"] or CONTACT_TXT  # sometimes empty
 
     def extract_date_published(self, line):
-        date_published_text = line['date_created']
-        date_published = datetime.strptime(
-            date_published_text,
-            DATETIME_FORMAT).date()
+        date_published_text = line["date_created"]
+        date_published = datetime.strptime(date_published_text, DATETIME_FORMAT).date()
         return date_published
 
     def extract_perimeter(self, line):
         """Extract the perimeter value."""
-        if line['perimeter'] is None:
+        if line["perimeter"] is None:
             return self.france
-        perimeter_text = line['perimeter'].strip()
+        perimeter_text = line["perimeter"].strip()
         if perimeter_text in PERIMETERS_DICT:
             return PERIMETERS_DICT[perimeter_text]
 
     def extract_financers(self, line):
-        return [] # error if None
+        return []  # error if None
 
     def extract_project_examples(self, line):
         """Use the project_examples textfield to store metadata"""
-        content = ''
+        content = ""
         metadata = {
             "backers": "Porteur",
             "targeted_audiances": "Bénéficiaires",
@@ -143,5 +147,7 @@ class Command(BaseImportCommand):
         }
         for elem in metadata:
             if line[elem]:
-                content += '<strong>{}</strong>: {}<br /><br />'.format(metadata[elem], line[elem])
+                content += "<strong>{}</strong>: {}<br /><br />".format(
+                    metadata[elem], line[elem]
+                )
         return content

@@ -9,18 +9,32 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('dataproviders', '0002_cleanup_choices_translations'),
+        ("dataproviders", "0002_cleanup_choices_translations"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='datasource',
-            name='aid_author',
-            field=models.ForeignKey(help_text='Admin AT si vide', null=True, on_delete=django.db.models.deletion.PROTECT, related_name='import_aid_author', to=settings.AUTH_USER_MODEL, verbose_name="L'auteur par défaut de l'aide importée"),
+            model_name="datasource",
+            name="aid_author",
+            field=models.ForeignKey(
+                help_text="Admin AT si vide",
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="import_aid_author",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="L'auteur par défaut de l'aide importée",
+            ),
         ),
         migrations.AlterField(
-            model_name='datasource',
-            name='contact_team',
-            field=models.ForeignKey(limit_choices_to={'is_superuser': True}, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='import_contact_team', to=settings.AUTH_USER_MODEL, verbose_name='Contact AT team'),
+            model_name="datasource",
+            name="contact_team",
+            field=models.ForeignKey(
+                limit_choices_to={"is_superuser": True},
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="import_contact_team",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Contact AT team",
+            ),
         ),
     ]

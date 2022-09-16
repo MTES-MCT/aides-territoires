@@ -10,84 +10,140 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('geofr', '0034_cleanup_choices_translations'),
-        ('backers', '0014_reupload_medias'),
-        ('dataproviders', '0003_datasource_aid_author'),
+        ("geofr", "0034_cleanup_choices_translations"),
+        ("backers", "0014_reupload_medias"),
+        ("dataproviders", "0003_datasource_aid_author"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='datasource',
-            options={'verbose_name': 'Source de données', 'verbose_name_plural': 'Sources de données'},
+            name="datasource",
+            options={
+                "verbose_name": "Source de données",
+                "verbose_name_plural": "Sources de données",
+            },
         ),
         migrations.AlterField(
-            model_name='datasource',
-            name='aid_author',
-            field=models.ForeignKey(help_text='Mettre Admin AT par défaut', null=True, on_delete=django.db.models.deletion.PROTECT, related_name='import_aid_author', to=settings.AUTH_USER_MODEL, verbose_name="L'auteur par défaut des aides importées"),
+            model_name="datasource",
+            name="aid_author",
+            field=models.ForeignKey(
+                help_text="Mettre Admin AT par défaut",
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="import_aid_author",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="L'auteur par défaut des aides importées",
+            ),
         ),
         migrations.AlterField(
-            model_name='datasource',
-            name='backer',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='backers.backer', verbose_name="Porteur d'aides"),
+            model_name="datasource",
+            name="backer",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="backers.backer",
+                verbose_name="Porteur d'aides",
+            ),
         ),
         migrations.AlterField(
-            model_name='datasource',
-            name='contact_backer',
-            field=models.TextField(blank=True, verbose_name='Contact(s) coté porteur'),
+            model_name="datasource",
+            name="contact_backer",
+            field=models.TextField(blank=True, verbose_name="Contact(s) coté porteur"),
         ),
         migrations.AlterField(
-            model_name='datasource',
-            name='contact_team',
-            field=models.ForeignKey(limit_choices_to={'is_superuser': True}, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='import_contact_team', to=settings.AUTH_USER_MODEL, verbose_name='Contact (team AT)'),
+            model_name="datasource",
+            name="contact_team",
+            field=models.ForeignKey(
+                limit_choices_to={"is_superuser": True},
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="import_contact_team",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Contact (team AT)",
+            ),
         ),
         migrations.AlterField(
-            model_name='datasource',
-            name='date_created',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date de création'),
+            model_name="datasource",
+            name="date_created",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name="Date de création"
+            ),
         ),
         migrations.AlterField(
-            model_name='datasource',
-            name='date_last_access',
-            field=models.DateField(blank=True, null=True, verbose_name='Date du dernier accès'),
+            model_name="datasource",
+            name="date_last_access",
+            field=models.DateField(
+                blank=True, null=True, verbose_name="Date du dernier accès"
+            ),
         ),
         migrations.AlterField(
-            model_name='datasource',
-            name='date_updated',
-            field=models.DateTimeField(auto_now=True, verbose_name='Date de mise à jour'),
+            model_name="datasource",
+            name="date_updated",
+            field=models.DateTimeField(
+                auto_now=True, verbose_name="Date de mise à jour"
+            ),
         ),
         migrations.AlterField(
-            model_name='datasource',
-            name='description',
-            field=models.TextField(blank=True, verbose_name='Description complète de la source de données'),
+            model_name="datasource",
+            name="description",
+            field=models.TextField(
+                blank=True, verbose_name="Description complète de la source de données"
+            ),
         ),
         migrations.AlterField(
-            model_name='datasource',
-            name='import_api_url',
-            field=models.URLField(blank=True, help_text="L'URL utilisée par le script d'import", null=True, verbose_name="URL de l'API"),
+            model_name="datasource",
+            name="import_api_url",
+            field=models.URLField(
+                blank=True,
+                help_text="L'URL utilisée par le script d'import",
+                null=True,
+                verbose_name="URL de l'API",
+            ),
         ),
         migrations.AlterField(
-            model_name='datasource',
-            name='import_data_url',
-            field=models.URLField(blank=True, null=True, verbose_name="URL d'origine de la donnée importée"),
+            model_name="datasource",
+            name="import_data_url",
+            field=models.URLField(
+                blank=True,
+                null=True,
+                verbose_name="URL d'origine de la donnée importée",
+            ),
         ),
         migrations.AlterField(
-            model_name='datasource',
-            name='import_details',
-            field=models.TextField(blank=True, verbose_name="Détails additionels concernant l'import"),
+            model_name="datasource",
+            name="import_details",
+            field=models.TextField(
+                blank=True, verbose_name="Détails additionels concernant l'import"
+            ),
         ),
         migrations.AlterField(
-            model_name='datasource',
-            name='import_licence',
-            field=models.CharField(blank=True, choices=[('unknown', 'Inconnu'), ('openlicence20', 'Licence ouverte 2.0')], max_length=50, verbose_name='Sous quelle licence cette source a-t-elle été importée ?'),
+            model_name="datasource",
+            name="import_licence",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("unknown", "Inconnu"),
+                    ("openlicence20", "Licence ouverte 2.0"),
+                ],
+                max_length=50,
+                verbose_name="Sous quelle licence cette source a-t-elle été importée ?",
+            ),
         ),
         migrations.AlterField(
-            model_name='datasource',
-            name='name',
-            field=models.CharField(max_length=256, verbose_name='Nom'),
+            model_name="datasource",
+            name="name",
+            field=models.CharField(max_length=256, verbose_name="Nom"),
         ),
         migrations.AlterField(
-            model_name='datasource',
-            name='perimeter',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='geofr.perimeter', verbose_name='Périmètre'),
+            model_name="datasource",
+            name="perimeter",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="geofr.perimeter",
+                verbose_name="Périmètre",
+            ),
         ),
     ]

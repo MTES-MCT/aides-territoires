@@ -11,33 +11,119 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('geofr', '0032_auto_20210208_1628'),
-        ('backers', '0014_reupload_medias'),
+        ("geofr", "0032_auto_20210208_1628"),
+        ("backers", "0014_reupload_medias"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='DataSource',
+            name="DataSource",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=256, verbose_name='Name')),
-                ('description', models.TextField(blank=True, verbose_name='Full description of the data source')),
-                ('import_details', models.TextField(blank=True, verbose_name='Additional details about this import')),
-                ('import_api_url', models.URLField(blank=True, null=True, verbose_name='API url of the imported data')),
-                ('import_data_url', models.URLField(blank=True, null=True, verbose_name='Origin url of the imported data')),
-                ('import_licence', models.CharField(blank=True, choices=[('unknown', 'Unknown'), ('openlicence20', 'Open licence 2.0')], max_length=50, verbose_name='Under which license was this source imported?')),
-                ('contact_backer', models.TextField(blank=True, verbose_name='Contact backer')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
-                ('date_updated', models.DateTimeField(auto_now=True, verbose_name='Date updated')),
-                ('date_last_access', models.DateField(blank=True, null=True, verbose_name='Date of the latest access')),
-                ('backer', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='backers.backer', verbose_name='Backer')),
-                ('contact_team', models.ForeignKey(limit_choices_to={'is_superuser': True}, null=True, on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL, verbose_name='Contact AT team')),
-                ('perimeter', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='geofr.perimeter', verbose_name='Perimeter')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=256, verbose_name="Name")),
+                (
+                    "description",
+                    models.TextField(
+                        blank=True, verbose_name="Full description of the data source"
+                    ),
+                ),
+                (
+                    "import_details",
+                    models.TextField(
+                        blank=True, verbose_name="Additional details about this import"
+                    ),
+                ),
+                (
+                    "import_api_url",
+                    models.URLField(
+                        blank=True,
+                        null=True,
+                        verbose_name="API url of the imported data",
+                    ),
+                ),
+                (
+                    "import_data_url",
+                    models.URLField(
+                        blank=True,
+                        null=True,
+                        verbose_name="Origin url of the imported data",
+                    ),
+                ),
+                (
+                    "import_licence",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ("unknown", "Unknown"),
+                            ("openlicence20", "Open licence 2.0"),
+                        ],
+                        max_length=50,
+                        verbose_name="Under which license was this source imported?",
+                    ),
+                ),
+                (
+                    "contact_backer",
+                    models.TextField(blank=True, verbose_name="Contact backer"),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Date created"
+                    ),
+                ),
+                (
+                    "date_updated",
+                    models.DateTimeField(auto_now=True, verbose_name="Date updated"),
+                ),
+                (
+                    "date_last_access",
+                    models.DateField(
+                        blank=True, null=True, verbose_name="Date of the latest access"
+                    ),
+                ),
+                (
+                    "backer",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="backers.backer",
+                        verbose_name="Backer",
+                    ),
+                ),
+                (
+                    "contact_team",
+                    models.ForeignKey(
+                        limit_choices_to={"is_superuser": True},
+                        null=True,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Contact AT team",
+                    ),
+                ),
+                (
+                    "perimeter",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="geofr.perimeter",
+                        verbose_name="Perimeter",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Data Source',
-                'verbose_name_plural': 'Data Sources',
+                "verbose_name": "Data Source",
+                "verbose_name_plural": "Data Sources",
             },
         ),
     ]

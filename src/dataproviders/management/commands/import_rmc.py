@@ -12,15 +12,15 @@ from aids.models import Aid
 
 ADMIN_ID = 1
 
-BASIN_RHONE_MED_CODE = '06'
-BASIN_CORSE_CODE = '12'
+BASIN_RHONE_MED_CODE = "06"
+BASIN_CORSE_CODE = "12"
 FINANCER_ID = 53  # "Agence de l'eau Rhône-Méditerranée-Corse"
 
 
-ELIGIBILITY_TXT = '''
+ELIGIBILITY_TXT = """
 Rendez-vous sur le site de l'agence de l'eau Rhône Méditaranée Corse pour
 obtenir les informations relatives aux conditions d'éligibilité.
-'''
+"""
 
 
 # We consider that all RMC aids have the same deadline
@@ -33,10 +33,11 @@ class Command(CrawlerImportCommand):
     SPIDER_CLASS = RMCSpider
 
     def populate_cache(self, *args, **options):
-        self.perimeter = Perimeter.objects \
-            .filter(scale=Perimeter.SCALES.basin) \
-            .filter(code=BASIN_RHONE_MED_CODE) \
+        self.perimeter = (
+            Perimeter.objects.filter(scale=Perimeter.SCALES.basin)
+            .filter(code=BASIN_RHONE_MED_CODE)
             .get()
+        )
 
         self.financer = Backer.objects.get(id=FINANCER_ID)
 
@@ -44,22 +45,22 @@ class Command(CrawlerImportCommand):
         return ADMIN_ID
 
     def extract_import_uniqueid(self, line):
-        return line['uniqueid']
+        return line["uniqueid"]
 
     def extract_origin_url(self, line):
-        return line['current_url']
+        return line["current_url"]
 
     def extract_import_data_url(self, line):
-        return line['current_url']
+        return line["current_url"]
 
     def extract_import_share_licence(self, line):
         return IMPORT_LICENCES.unknown
 
     def extract_name(self, line):
-        return line['title']
+        return line["title"]
 
     def extract_description(self, line):
-        return line['description']
+        return line["description"]
 
     def extract_eligibility(self, line):
         return ELIGIBILITY_TXT
