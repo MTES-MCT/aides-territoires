@@ -114,8 +114,8 @@ class AlertDelete(MessageMixin, DeleteView):
         msg = format_html(
             "Votre alerte vient d'être supprimée.<br />"
             "Pour nous aider à mieux comprendre votre choix, pourriez-vous nous expliquer la raison de votre désabonnement "  # noqa
-            f'<a href="{settings.ALERT_DELETE_FEEDBACK_FORM_URL}" target="_blank" rel="noopener">ici</a> ?'
-        )  # noqa
+            f'<a href="{settings.ALERT_DELETE_FEEDBACK_FORM_URL}" target="_blank" rel="noopener">ici</a> ?'  # noqa
+        )
         self.messages.success(msg)
         return res
 
