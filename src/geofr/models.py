@@ -20,18 +20,25 @@ class PerimeterQuerySet(models.QuerySet):
         """
         departments = self.filter(scale=Perimeter.SCALES.department, is_obsolete=False)
         if values:
-            departments.values(*values)
+            departments = departments.values(*values)
         departments = departments.order_by("code")
         departments_list = []
 
         # perimeters currently don't have a proper slug
         for department in departments:
-            department.slug = slugify(department.name)
+            if values:
+                department["slug"] = slugify(department["name"])
+            else:
+                department.slug = slugify(department.name)
+
             departments_list.append(department)
 
         def department_code_key(department):
             """Sort the departments so that Corsican ones are between 19 and 21."""
-            code = department.code
+            if values:
+                code = department["code"]
+            else:
+                code = department.code
             if code == "2A":
                 return "20"
             elif code == "2B":

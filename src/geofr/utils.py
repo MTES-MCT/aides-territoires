@@ -1,12 +1,9 @@
 import collections
 import logging
 
-
 from django.db import transaction
 from django.db.models import Q
-from django.db.models.query import QuerySet
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.utils.text import slugify
 
 from geofr.constants import OVERSEAS_PREFIX, DEPARTMENT_TO_REGION
 from geofr.models import Perimeter, PerimeterImport
@@ -278,31 +275,3 @@ def combine_perimeters(add_perimeters, rm_perimeters):
     )
 
     return set(in_city_codes) - set(out_city_codes)
-
-
-def sort_departments(departments: QuerySet) -> list:
-    """
-    Returns a list of the departments
-    - with a slug
-    - sorted by code
-    - and so that the Corsican ones are listed between 19 and 21
-    """
-
-    departments = departments.order_by("code")
-    departments_list = []
-
-    # perimeters currently don't have a proper slug
-    for department in departments:
-        department["slug"] = slugify(department["name"])
-        departments_list.append(department)
-
-    # sort the departments so that Corsican ones are between 19 and 21
-    dept_21 = [i for i, d in enumerate(departments_list) if "21" in d.values()][0]
-    dept_2a = [i for i, d in enumerate(departments_list) if "2A" in d.values()][0]
-    departments_list.insert(dept_21, departments_list.pop(dept_2a))
-
-    dept_21 = [i for i, d in enumerate(departments_list) if "21" in d.values()][0]
-    dept_2b = [i for i, d in enumerate(departments_list) if "2B" in d.values()][0]
-    departments_list.insert(dept_21, departments_list.pop(dept_2b))
-
-    return departments_list
