@@ -12,6 +12,7 @@ from categories.models import Theme, Category
 REMOVABLE_TAGS = ["script", "style"]
 ALLOWED_TAGS = [
     "p",
+    "span",
     "ul",
     "ol",
     "li",
@@ -34,6 +35,7 @@ ALLOWED_ATTRS = [
     "width",
     "height",
     "style",
+    "class",
     "allow",
     "frameborder",
     "allowfullscreen",  # to display iframe
