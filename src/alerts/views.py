@@ -5,9 +5,9 @@ from django.contrib import messages
 from django.views.generic import CreateView, DetailView, DeleteView, ListView, View
 from django.core.exceptions import ValidationError
 from django.utils.html import format_html
-from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import render
 
 from braces.views import MessageMixin
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
