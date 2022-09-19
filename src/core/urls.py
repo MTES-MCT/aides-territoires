@@ -74,7 +74,6 @@ urlpatterns = [
     path('captcha/', include('captcha.urls')),
     path('cartographie/', include('geofr.urls')),
     path(_('programs/'), include('programs.urls')),
-    path(_('integration/'), include('integration.urls')),
     path(_('stats/'), include('stats.urls')),
     path(_('alerts/'), include('alerts.urls')),
     path(_('data/'), include('data.urls')),

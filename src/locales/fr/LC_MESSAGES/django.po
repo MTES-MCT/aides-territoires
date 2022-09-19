@@ -306,9 +306,6 @@ msgstr "programmes/"
 msgid "projects/"
 msgstr "projets/"
 
-msgid "integration/"
-msgstr "integration/"
-
 msgid "stats/"
 msgstr "stats/"
 
