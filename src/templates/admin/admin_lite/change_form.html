@@ -3,7 +3,7 @@
 {% block nav-global %}{% endblock %}
 
 {% block object-tools-items %}
-{% if has_absolute_url %}<li><a href="{{ original.get_absolute_url }}" target="_blank" rel="noopener noreferrer" class="viewsitelink">Voir sur le site</a></li>{% endif%}
+{% if has_absolute_url %}<li><a href="{{ original.get_absolute_url }}" target="_blank" rel="noopener noreferrer" class="viewsitelink" title="Voir sur le site - Ouvre une nouvelle fenêtre">Voir sur le site</a></li>{% endif%}
 {% endblock %}
 
 {% block userlinks %}{% endblock %}

@@ -38,7 +38,10 @@
             <p>Cet identifiant vous permet de connecter notre API à votre logiciel/service en ligne avec une sécurité maximale.</p>
             <div role="alert" class="fr-alert fr-alert--info">
                 <p>
-                    <a href="{% url 'swagger-ui' %}?version={{ api_version }}" target="_blank" rel="noopener">Consulter la documentation de l'API</a>
+                    <a href="{% url 'swagger-ui' %}?version={{ api_version }}" target="_blank" rel="noopener">
+                        Consulter la documentation de l’API
+                        <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span>
+                    </a>
                 </p>
             </div>
             {% if user.auth_token %}

@@ -105,6 +105,15 @@ def content_prettify(
                 if tag.name == "a" and base_url:
                     tag["href"] = urljoin(base_url, tag["href"])
 
+                # Add a warning for screenreaders on external links
+                if tag.name == "a":
+                    if "target" in tag.attrs and tag.attrs["target"] == "_blank":
+                        target_warning = soup.new_tag("span")
+                        target_warning.attrs = {"class": "fr-sr-only"}
+                        target_warning.string = "Ouvre une nouvelle fenêtre"
+
+                        tag.append(target_warning)
+
             # Some tags are not allowed, but we do not want to remove
             # their content.
             else:
