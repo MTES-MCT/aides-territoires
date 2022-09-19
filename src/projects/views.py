@@ -27,7 +27,7 @@ from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
     """Allows users to create their own projects."""
 
-    template_name = "projects/_create_project_modal.html"
+    template_name = "projects/create_project.html"
     form_class = ProjectCreateForm
     context_object_name = "project"
 
@@ -67,7 +67,6 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user
-        context["project_create_form"] = ProjectCreateForm(label_suffix="")
 
         # Here we add some data for the project_search_aid modal
         if "project_created" in self.request.GET:

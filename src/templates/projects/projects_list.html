@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load i18n static compress %}
+{% load i18n static compress dsfr_tags %}
 
 {% block extratitle %}Mes projets{% endblock extratitle %}
 
@@ -40,9 +40,7 @@
                 <span class="fr-ml-1w">Aide</span>
               </button>
             </h1>
-            <button class="fr-btn fr-icon-add-circle-line fr-btn--icon-left fr-mb-5w fr-mt-4w" id="create-project-btn"  data-fr-opened="false" aria-controls="create-project-modal">
-                Ajouter un projet
-            </button>
+            <a href="{% url 'project_create_view' %}" class="fr-btn fr-icon-add-circle-line fr-btn--icon-left fr-mb-5w fr-mt-4w" id="create-project-btn">Ajouter un projet</a>
 
             {% if request.GET.project_created %}
             <button class="at-visibility__hidden" id="project-search-aid-btn" data-fr-opened="true" aria-controls="project-search-aid-modal-{{ request.GET.project_created }}">
@@ -127,7 +125,6 @@
 {% endblock content %}
 
 {% block modals %}
-    {% include 'projects/_create_project_modal.html' %}
     {% include 'projects/_help_project_modal.html' %}
     {% if request.GET.project_created %}
     {% include 'projects/_project_search_aid_modal.html' with project=project_created %}

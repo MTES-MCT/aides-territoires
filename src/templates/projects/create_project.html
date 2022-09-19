@@ -1,7 +1,7 @@
 {% extends "_base.html" %}
-{% load i18n static compress dsfr_tags %}
+{% load i18n compress static dsfr_tags %}
 
-{% block extratitle %}Mise à jour d’un projet{% endblock extratitle %}
+{% block extratitle %}Ajouter un projet{% endblock extratitle %}
 
 {% block extraclasses %}light{% endblock extraclasses %}
 
@@ -21,10 +21,7 @@
                     <a class="fr-breadcrumb__link" href="{% url 'project_list_view' %}">Gérer mes projets</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" href="{% url 'project_detail_view' project.pk project.slug %}">Votre projet</a>
-                </li>
-                <li>
-                    <a class="fr-breadcrumb__link" aria-current="page">Modifier les informations du projet</a>
+                    <a class="fr-breadcrumb__link" aria-current="page">Ajouter un projet</a>
                 </li>
             </ol>
         </div>
@@ -40,9 +37,9 @@
         {% include 'accounts/_sidebar_menu.html' with project_admin=True %}
 
         <div class="fr-col-12 fr-col-md-9">
-            <h1 class="fr-mb-5w fr-h3">Modifier les informations du projet « {{ project.name }} »</h1>
+            <h1 class="fr-mb-5w fr-h3">Ajouter un projet</h1>
 
-            <form id="update_project" method="post">
+            <form id="create_project" method="post" action="{% url 'project_create_view' %}">
 
                 {% block form_header %}{% endblock form_header %}
                 {% csrf_token %}
@@ -54,12 +51,7 @@
                 <div class="fr-alert fr-alert--info fr-alert--sm">
                     {{ form.non_field_errors.0 }}
                </div>
-
                 {% endif %}
-
-                {% for field in form.hidden_fields %}
-                    {{ field }}
-                {% endfor %}
 
                 {% include '_field_snippet.html' with field=form.name %}
                 {% include '_field_snippet.html' with field=form.description %}
@@ -67,7 +59,7 @@
                 {% dsfr_form_field form.project_types %}
                 {% include '_field_snippet.html' with field=form.project_types_suggestion %}
                 {% include '_checkbox_snippet.html' with field=form.is_public %}
-                <a href="{% url 'project_detail_view' project.pk project.slug %}" class="btn-block fr-btn fr-mt-2w">
+                <a href="{% url 'project_list_view' %}" class="btn-block fr-btn fr-mt-2w">
                     Annuler
                 </a>
                 <button class="btn-block fr-btn fr-mt-2w" type="submit">
