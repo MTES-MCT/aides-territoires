@@ -4,7 +4,7 @@ from dsfr.forms import DsfrBaseForm
 
 from projects.constants import EXPORT_FORMAT_CHOICES
 from core.forms import (
-    AutocompleteModelChoiceField,
+    AutocompleteModelMultipleChoiceField,
     RichTextField,
 )
 
@@ -33,7 +33,7 @@ class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
         required=False,
         widget=forms.TextInput(attrs={"type": "date", "placeholder": "jj/mm/aaaa"}),
     )
-    project_types = AutocompleteModelChoiceField(
+    project_types = AutocompleteModelMultipleChoiceField(
         label="Types de projet", queryset=SynonymList.objects.all(), required=False
     )
     project_types_suggestion = forms.CharField(
@@ -77,7 +77,7 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
             label="Date d’échéance du projet",
         ),
     )
-    project_types = AutocompleteModelChoiceField(
+    project_types = AutocompleteModelMultipleChoiceField(
         label="Types de projet", queryset=SynonymList.objects.all(), required=False
     )
     project_types_suggestion = forms.CharField(
