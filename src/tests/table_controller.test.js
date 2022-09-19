@@ -6,7 +6,7 @@ const TableController = await importController('./static/js/stats/table_controll
 describe('Table', function () {
   it('Inject a button to sort columns (A11Y)', async function () {
     setupGlobalDom(`
-      <table data-controller="table">
+      <table data-controller="table" data-table-target="table">
         <thead>
           <tr>
             <th
@@ -37,7 +37,7 @@ describe('Table', function () {
 
   it('Sort textual columns', async function () {
     setupGlobalDom(`
-      <table data-controller="table">
+      <table data-controller="table" data-table-target="table">
         <thead>
           <tr>
             <th
@@ -101,7 +101,7 @@ describe('Table', function () {
 
   it('Sort textual columns with aria-sort initially set', async function () {
     setupGlobalDom(`
-      <table data-controller="table">
+      <table data-controller="table" data-table-target="table">
         <thead>
           <tr>
             <th
@@ -169,7 +169,7 @@ describe('Table', function () {
 
   it('Sort numerical columns', async function () {
     setupGlobalDom(`
-      <table data-controller="table">
+      <table data-controller="table" data-table-target="table">
         <thead>
           <tr>
             <th
@@ -233,7 +233,7 @@ describe('Table', function () {
 
   it('Sort date columns', async function () {
     setupGlobalDom(`
-      <table data-controller="table">
+      <table data-controller="table" data-table-target="table">
         <thead>
           <tr>
             <th
@@ -298,6 +298,7 @@ describe('Table', function () {
   it('Export table as CSV', async function () {
     setupGlobalDom(`
       <table data-controller="table"
+        data-table-target="table"
         data-downloadable="true">
         <caption>Communes et leurs organisations (13) :</caption>
         <thead>

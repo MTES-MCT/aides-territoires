@@ -1,8 +1,7 @@
 import { Controller } from '../../@hotwired/stimulus/dist/stimulus.js'
 
-
 export default class extends Controller {
-  static targets = ['header', 'body', 'row']
+  static targets = ['table', 'header', 'body', 'row']
 
   connect() {
     if (this.element.dataset.downloadable) this.#attachDownloadAsCSVLink()
@@ -25,7 +24,8 @@ export default class extends Controller {
     if (sorted.length) {
       const header = sorted[0]
       const sort = header.getAttribute('aria-sort')
-      header.querySelector('.table-arrows').textContent = sort === 'ascending' ? '↓' : '↑'
+      header.querySelector('.table-arrows').textContent =
+        sort === 'ascending' ? '↓' : '↑'
     }
   }
 
@@ -114,7 +114,7 @@ export default class extends Controller {
     td.appendChild(downloadLink)
     tr.appendChild(td)
     footer.appendChild(tr)
-    this.element.insertAdjacentElement('beforeend', footer)
+    this.tableTarget.insertAdjacentElement('beforeend', footer)
   }
 
   downloadAsCSV(event) {
@@ -140,7 +140,7 @@ export default class extends Controller {
     const separator = ';'
     let csvRows = []
     // Only get direct children of the table in question (thead, tbody).
-    Array.from(this.element.children).forEach((node) => {
+    Array.from(this.tableTarget.children).forEach((node) => {
       // Avoid adding the footer as we put the download link in it.
       if (node.tagName === 'TFOOT') return
       // Using scope to only get direct tr of node.
@@ -151,16 +151,15 @@ export default class extends Controller {
           // Clone as to not remove anything from original.
           let copytd = td.cloneNode(true)
           let data
-          if (copytd.dataset.val)
-            data = copytd.dataset.val.replace(/(\r\n|\n|\r)/gm, '')
+          if (copytd.dataset.val) data = copytd.dataset.val
           else {
-            Array.from(copytd.children).forEach((remove) => {
-              // Remove nested elements before getting text.
-              remove.parentNode.removeChild(remove)
-            })
-            data = copytd.textContent.replace(/(\r\n|\n|\r)/gm, '')
+            data = copytd.textContent
           }
-          data = data.replace(/(\s\s)/gm, ' ').replace(/"/g, '""')
+          data = data
+            .replace(/(\r\n|\n|\r)/gm, '')
+            .replace(/(\s\s)/gm, ' ')
+            .trim()
+            .replace(/"/g, '""')
           csvLine.push('"' + data + '"')
         })
         csvRows.push(csvLine.join(separator))

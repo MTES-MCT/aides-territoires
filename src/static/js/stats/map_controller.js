@@ -150,6 +150,7 @@ export default class extends Controller {
       <table
         data-controller="table"
         data-downloadable="true"
+        data-table-target="table"
         class="fr-table">
         <caption>
           Communes et leurs organisations (${department}) :
