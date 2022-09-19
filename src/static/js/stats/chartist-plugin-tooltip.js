@@ -117,13 +117,15 @@
 
             // CUSTOM: do not display the value if there is a meta key.
             if (value && !hasMeta) {
-              if (options.currency) {
-                if (options.currencyFormatCallback != undefined) {
-                  value = options.currencyFormatCallback(value, options);
-                } else {
-                  value = options.currency + value.replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1,');
-                }
-              }
+              // CUSTOM: remove the currency option as it induces a security
+              // concern about the regexp (spoted by SonarCloud).
+              // if (options.currency) {
+              //   if (options.currencyFormatCallback != undefined) {
+              //     value = options.currencyFormatCallback(value, options);
+              //   } else {
+              //     value = options.currency + value.replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1,');
+              //   }
+              // }
               value = '<span class="chartist-tooltip-value">' + value + '</span>';
               tooltipText += value;
             }
