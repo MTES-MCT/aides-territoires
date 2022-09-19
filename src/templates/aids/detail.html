@@ -75,7 +75,7 @@
                     <div id="logos-financers" class="fr-mt-2w">
                         {% for financer in financers_with_logo %}
                         <a href="{% url 'backer_detail_view' financer.pk financer.slug %}"
-                           class="fr-col-offset-2 fr-col-10 at-link__nodecorator"
+                           class="fr-col-10 at-link__nodecorator"
                            title="{{ financer.name }} - Ouvrir dans une nouvelle fenêtre"
                         >
                             <img src="{{ financer.logo.url }}" class="fr-responsive-img" alt="" />
