@@ -1,4 +1,4 @@
-import { Controller } from 'https://unpkg.com/@hotwired/stimulus/dist/stimulus.js'
+import { Controller } from '/static/@hotwired/stimulus/dist/stimulus.js'
 
 export default class extends Controller {
   static targets = ['header', 'body', 'row']
