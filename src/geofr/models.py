@@ -29,14 +29,17 @@ class PerimeterQuerySet(models.QuerySet):
             department.slug = slugify(department.name)
             departments_list.append(department)
 
-        # sort the departments so that Corsican ones are between 19 and 21
-        dept_21 = [i for i, d in enumerate(departments_list) if "21" == d.code][0]
-        dept_2a = [i for i, d in enumerate(departments_list) if "2A" == d.code][0]
-        departments_list.insert(dept_21, departments_list.pop(dept_2a))
+        def department_code_key(department):
+            """Sort the departments so that Corsican ones are between 19 and 21."""
+            code = department.code
+            if code == "2A":
+                return "20"
+            elif code == "2B":
+                return "20.5"
+            else:
+                return code
 
-        dept_21 = [i for i, d in enumerate(departments_list) if "21" == d.code][0]
-        dept_2b = [i for i, d in enumerate(departments_list) if "2B" == d.code][0]
-        departments_list.insert(dept_21, departments_list.pop(dept_2b))
+        departments_list = sorted(departments_list, key=department_code_key)
 
         return departments_list
 
