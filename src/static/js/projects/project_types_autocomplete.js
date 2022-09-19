@@ -2,7 +2,6 @@ $(document).ready(function () {
 
     $('select#id_project_types').select2({
         placeholder: catalog.project_types_placeholder,
-        language: 'fr',
         language: {
             inputTooShort: function() { return catalog.project_types_placeholder; },
         },
