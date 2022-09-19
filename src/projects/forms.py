@@ -38,13 +38,15 @@ class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
     )
     project_types_suggestion = forms.CharField(
         label="Type de projet suggéré",
-        help_text="Suggérez-nous un type de projet qui ne semble pas être présent dans la liste des types de projets.",
+        help_text="Suggérez-nous un type de projet qui ne semble pas être présent dans la \
+        liste des types de projets.",
         required=False,
     )
     is_public = forms.BooleanField(
         label="Souhaitez-vous rendre ce projet public sur Aides-territoires?",
-        help_text="Les informations de votre structure doivent avoir été complétées afin que ce choix soit possible.",
-        required=False,
+        help_text="Les informations de votre structure doivent avoir été complétées afin que \
+        ce choix soit possible.",
+        required=True,
     )
 
     class Meta:
@@ -80,12 +82,14 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
     )
     project_types_suggestion = forms.CharField(
         label="Type de projet suggéré",
-        help_text="Suggérez-nous un type de projet qui ne semble pas être présent dans la liste des types de projets.",
+        help_text="Suggérez-nous un type de projet qui ne semble pas être présent dans la liste \
+        des types de projets.",
         required=False,
     )
     is_public = forms.BooleanField(
         label="Souhaitez-vous rendre ce projet public sur Aides-territoires?",
-        help_text="Les informations de votre structure doivent avoir été complétées afin que ce choix soit possible.",
+        help_text="Les informations de votre structure doivent avoir été complétées afin que \
+        ce choix soit possible.",
         required=False,
     )
 
