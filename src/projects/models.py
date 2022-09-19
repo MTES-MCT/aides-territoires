@@ -40,7 +40,10 @@ class Project(models.Model):
     is_public = models.BooleanField("Ce projet est-il public?", default=False)
 
     project_types = models.ManyToManyField(
-        "keywords.SynonymList", verbose_name="Types de projet", blank=True
+        "keywords.SynonymList",
+        verbose_name="Types de projet",
+        related_name="projects",
+        blank=True,
     )
 
     project_types_suggestion = models.CharField(
