@@ -1,4 +1,5 @@
-import { Controller } from '/static/@hotwired/stimulus/dist/stimulus.js'
+import { Controller } from '../../@hotwired/stimulus/dist/stimulus.js'
+
 
 export default class extends Controller {
   static targets = ['header', 'body', 'row']
@@ -24,7 +25,7 @@ export default class extends Controller {
     if (sorted.length) {
       const header = sorted[0]
       const sort = header.getAttribute('aria-sort')
-      header.querySelector('.table-arrows').innerText = sort === 'ascending' ? '↓' : '↑'
+      header.querySelector('.table-arrows').textContent = sort === 'ascending' ? '↓' : '↑'
     }
   }
 
@@ -35,18 +36,18 @@ export default class extends Controller {
     // Reset all headers,
     this.headerTargets.forEach((header) => {
       header.removeAttribute('aria-sort')
-      header.querySelector('.table-arrows').innerText = '↑↓'
+      header.querySelector('.table-arrows').textContent = '↑↓'
     })
     // then set for the current header.
     header.setAttribute('aria-sort', sort)
-    header.querySelector('.table-arrows').innerText = sort === 'ascending' ? '↓' : '↑'
+    header.querySelector('.table-arrows').textContent = sort === 'ascending' ? '↓' : '↑'
 
     let values = []
     const columnIndex = this.#siblingIndex(header)
     const tdSelector = 'td:nth-child(' + (columnIndex + 1) + ')'
     this.rowTargets.forEach((row) => {
       const node = row.querySelector(tdSelector)
-      let val = node.innerText
+      let val = node.textContent
       if (!isNaN(val)) {
         val = parseFloat(val)
       }
@@ -128,11 +129,11 @@ export default class extends Controller {
     const csvFile = new Blob([content], { type: 'text/csv' })
     const fakeDownloadLink = document.createElement('a')
     fakeDownloadLink.download = filename
+    fakeDownloadLink.dataset.csv = content
     fakeDownloadLink.href = window.URL.createObjectURL(csvFile)
     fakeDownloadLink.style.display = 'none'
     this.element.appendChild(fakeDownloadLink)
     fakeDownloadLink.click()
-    fakeDownloadLink.remove()
   }
 
   #getCSVContent() {

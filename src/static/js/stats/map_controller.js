@@ -1,4 +1,4 @@
-import { Controller } from '/static/@hotwired/stimulus/dist/stimulus.js'
+import { Controller } from '../../@hotwired/stimulus/dist/stimulus.js'
 
 export default class extends Controller {
   departments = {}
@@ -170,9 +170,9 @@ export default class extends Controller {
               >Organisation</th>
             <th
               scope="col"
+              aria-sort="descending"
               data-action="click->table#sortTable"
               data-table-target="header"
-              aria-sort="descending"
               data-type="date"
               >Date de création</th>
             <th
