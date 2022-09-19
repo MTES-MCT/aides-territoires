@@ -37,8 +37,9 @@ class ProjectAdmin(ImportExportActionModelAdmin):
         "nb_aids_associated",
         "display_related_aids",
         "due_date",
-        "is_published",
+        "is_public",
         "project_types",
+        "project_type_suggestion" "status",
         "date_created",
     ]
     search_fields = ["name"]

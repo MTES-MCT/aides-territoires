@@ -1,11 +1,21 @@
 from uuid import uuid4
+
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 from django.urls import reverse
 
+from model_utils import Choices
+
 
 class Project(models.Model):
+
+    STATUS = Choices(
+        ("draft", "Brouillon"),
+        ("reviewable", "En revu"),
+        ("published", "Publié"),
+        ("deleted", "Supprimé"),
+    )
 
     name = models.CharField(
         "Nom du projet", max_length=256, null=False, blank=False, db_index=True
@@ -27,13 +37,24 @@ class Project(models.Model):
     )
     author = models.ManyToManyField("accounts.User", verbose_name="Auteur", blank=True)
 
-    is_published = models.BooleanField("Publié?", default=False)
+    is_public = models.BooleanField("Ce projet est-il public?", default=False)
 
     project_types = models.ManyToManyField(
         "keywords.SynonymList", verbose_name="Types de projet", blank=True
     )
 
+    project_types_suggestion = models.CharField(
+        "Type de projet suggéré", max_length=256, blank=True
+    )
+
     due_date = models.DateField("Date d’échéance", null=True, blank=True)
+
+    status = models.CharField(
+        "Statut",
+        max_length=10,
+        choices=STATUS,
+        default=STATUS.draft,
+    )
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)
 
