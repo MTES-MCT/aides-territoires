@@ -50,7 +50,6 @@ xhtml2pdf = "*"
 python-stdnum = "*"
 
 [dev-packages]
-ansible = "<4"
 django-debug-toolbar = "*"
 django-extensions = "*"
 factory-boy = "*"

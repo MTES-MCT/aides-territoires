@@ -1,9 +1,0 @@
-[program:{{ project_name }}_minisites]
-environment=DJANGO_SETTINGS_MODULE='{{ minisites_settings }}'
-directory={{ django_root }}
-command={{ gunicorn_bin }} -b localhost:8042 --timeout 120 core.wsgi:application {{ gunicorn_options }}
-user={{ user_name }}
-autostart=true
-autorestart=true
-stdout_logfile=/var/log/supervisor/{{ project_name }}_minisites.log
-redirect_stderr=true

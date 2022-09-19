@@ -84,7 +84,7 @@ Redis nous sert aussi à accélérer les requêtes (caching), il sert aussi de b
 
 Certaines données de projet sont accessible depuis une API. L'API est en lecture seule.
 
-L'interface utilise des templates HTML, avec Bootstrap et un peu de Javascript.
+L'interface utilise des templates HTML, avec le système de design de l'État et un peu de Javascript via jQuery.
 
 ### Le code
 

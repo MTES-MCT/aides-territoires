@@ -1,6 +1,0 @@
----
-- name: Configure all application servers
-  hosts: aidesterritoires
-  roles:
-    - { role: common }
-    - { role: appservers }
