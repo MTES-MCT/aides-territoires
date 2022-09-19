@@ -365,9 +365,7 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
         )
 
         # Counts by department.
-        departments = Perimeter.objects.filter(
-            scale=Perimeter.SCALES.department, is_obsolete=False
-        )
+        departments = Perimeter.objects.departments()
         departments_org_count = {}
         departments_codes = []
         for department in departments:

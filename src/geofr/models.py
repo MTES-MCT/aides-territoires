@@ -10,6 +10,37 @@ from model_utils import Choices
 from core.utils import remove_accents
 
 
+class PerimeterQuerySet(models.QuerySet):
+    def departments(self, values=None):
+        """
+        Returns a list of the departments
+        - with a slug
+        - sorted by code
+        - and so that the Corsican ones are listed between 19 and 21
+        """
+        departments = self.filter(scale=Perimeter.SCALES.department, is_obsolete=False)
+        if values:
+            departments.values(*values)
+        departments = departments.order_by("code")
+        departments_list = []
+
+        # perimeters currently don't have a proper slug
+        for department in departments:
+            department.slug = slugify(department.name)
+            departments_list.append(department)
+
+        # sort the departments so that Corsican ones are between 19 and 21
+        dept_21 = [i for i, d in enumerate(departments_list) if "21" == d.code][0]
+        dept_2a = [i for i, d in enumerate(departments_list) if "2A" == d.code][0]
+        departments_list.insert(dept_21, departments_list.pop(dept_2a))
+
+        dept_21 = [i for i, d in enumerate(departments_list) if "21" == d.code][0]
+        dept_2b = [i for i, d in enumerate(departments_list) if "2B" == d.code][0]
+        departments_list.insert(dept_21, departments_list.pop(dept_2b))
+
+        return departments_list
+
+
 class Perimeter(models.Model):
     """
     Represents a single application perimeter for an Aid.
@@ -26,6 +57,8 @@ class Perimeter(models.Model):
     existing legal borders.
     https://fr.wikipedia.org/wiki/Bassin_hydrographique
     """
+
+    objects = PerimeterQuerySet.as_manager()
 
     SCALES_TUPLE = (
         (1, "commune", "Commune"),

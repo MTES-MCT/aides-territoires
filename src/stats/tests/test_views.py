@@ -39,13 +39,13 @@ def test_organizations_displayed_by_cartographie(client, superuser, perimeters):
     }
     assert response.context["departments_org_max"] == 1
     assert response.context["departments_codes"] == [
-        "34",
         "12",
-        "28",
         "19",
         "2A",
         "2B",
         "21",
+        "28",
+        "34",
     ]
     assert json.loads(response.context["departments_org_count"]) == {
         "Hérault": 1,
