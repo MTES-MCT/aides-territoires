@@ -5,7 +5,7 @@ $(document).ready(function () {
     });
 })
 
-var SANE_ID_REGEX = new RegExp("^[0-9a-z-_]+$");
+const SANE_ID_REGEX = /^[0-9a-z-_]*$/;
 
 set_param_value = function (param, value) {
     /* update or remove a GET parameter from the current URL */
@@ -28,7 +28,7 @@ department_filter = function (return_page) {
             let new_url = window.location.origin + "/cartographie/" + department + return_page;
             window.location.replace(new_url + window.location.search);
         } else {
-            console.log("invalid id");
+            console.log("Invalid department id");
         }
     });
 
@@ -38,7 +38,7 @@ department_filter = function (return_page) {
         if (audience.match(SANE_ID_REGEX)) {
             set_param_value("target_audience", audience);
         } else {
-            console.log("invalid id");
+            console.log("Invalid target audience id");
         }
     });
 
@@ -48,7 +48,7 @@ department_filter = function (return_page) {
         if (aid_type.match(SANE_ID_REGEX)) {
             set_param_value("aid_type", aid_type);
         } else {
-            console.log("invalid id");
+            console.log("Invalid aid type id");
         }
     });
 };
