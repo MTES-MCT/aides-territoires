@@ -4,7 +4,7 @@ from django.db import migrations
 
 
 def set_regions_departments(apps, schema_editor):
-    Perimeter = apps.get_model('geofr', 'Perimeter')
+    Perimeter = apps.get_model("geofr", "Perimeter")
     perimeters = Perimeter.objects.all()
     for perimeter in perimeters:
         if perimeter.region:
@@ -17,7 +17,7 @@ def set_regions_departments(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0011_auto_20180918_1027'),
+        ("geofr", "0011_auto_20180918_1027"),
     ]
 
     operations = [

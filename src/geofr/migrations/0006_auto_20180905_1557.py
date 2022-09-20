@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0005_remove_perimeter_commune'),
+        ("geofr", "0005_remove_perimeter_commune"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='perimeter',
-            name='name',
-            field=models.CharField(db_index=True, max_length=128, verbose_name='Name'),
+            model_name="perimeter",
+            name="name",
+            field=models.CharField(db_index=True, max_length=128, verbose_name="Name"),
         ),
     ]

@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0025_perimeter_manually_created'),
+        ("geofr", "0025_perimeter_manually_created"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='perimeter',
-            name='code',
-            field=models.CharField(help_text='Internal usage only, not relevant for Ad-hoc perimeters', max_length=16, verbose_name='Code'),
+            model_name="perimeter",
+            name="code",
+            field=models.CharField(
+                help_text="Internal usage only, not relevant for Ad-hoc perimeters",
+                max_length=16,
+                verbose_name="Code",
+            ),
         ),
     ]

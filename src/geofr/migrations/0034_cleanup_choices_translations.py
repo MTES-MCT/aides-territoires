@@ -7,28 +7,54 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0033_auto_20210422_1817'),
+        ("geofr", "0033_auto_20210422_1817"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='perimeter',
-            name='country',
-            field=models.CharField(default='FRA', max_length=3, verbose_name='Pays'),
+            model_name="perimeter",
+            name="country",
+            field=models.CharField(default="FRA", max_length=3, verbose_name="Pays"),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='departments',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=3), blank=True, default=list, size=None, verbose_name='Départements'),
+            model_name="perimeter",
+            name="departments",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.CharField(max_length=3),
+                blank=True,
+                default=list,
+                size=None,
+                verbose_name="Départements",
+            ),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='regions',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=2), blank=True, default=list, size=None, verbose_name='Régions'),
+            model_name="perimeter",
+            name="regions",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.CharField(max_length=2),
+                blank=True,
+                default=list,
+                size=None,
+                verbose_name="Régions",
+            ),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='scale',
-            field=models.PositiveIntegerField(choices=[(1, 'Commune'), (5, 'EPCI'), (8, 'Bassin hydrographique'), (10, 'Département'), (15, 'Région'), (16, 'Outre-mer'), (17, 'Métropole'), (18, 'Ad-hoc'), (20, 'Pays'), (25, 'Continent')], verbose_name='Scale'),
+            model_name="perimeter",
+            name="scale",
+            field=models.PositiveIntegerField(
+                choices=[
+                    (1, "Commune"),
+                    (5, "EPCI"),
+                    (8, "Bassin hydrographique"),
+                    (10, "Département"),
+                    (15, "Région"),
+                    (16, "Outre-mer"),
+                    (17, "Métropole"),
+                    (18, "Ad-hoc"),
+                    (20, "Pays"),
+                    (25, "Continent"),
+                ],
+                verbose_name="Scale",
+            ),
         ),
     ]

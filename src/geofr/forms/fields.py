@@ -8,7 +8,7 @@ class RegionField(forms.ChoiceField):
 
     def __init__(self, *args, **kwargs):
 
-        kwargs['choices'] = REGIONS
+        kwargs["choices"] = REGIONS
         super().__init__(**kwargs)
 
 
@@ -17,5 +17,5 @@ class DepartmentField(forms.ChoiceField):
 
     def __init__(self, *args, **kwargs):
 
-        kwargs['choices'] = DEPARTMENTS
+        kwargs["choices"] = DEPARTMENTS
         super().__init__(**kwargs)

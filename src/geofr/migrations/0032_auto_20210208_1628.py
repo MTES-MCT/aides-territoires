@@ -7,12 +7,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0031_perimeter_unaccented_name'),
+        ("geofr", "0031_perimeter_unaccented_name"),
     ]
 
     operations = [
         migrations.AddIndex(
-            model_name='perimeter',
-            index=django.contrib.postgres.indexes.GinIndex(fields=['unaccented_name'], name='unaccented_name_trgm', opclasses=['gin_trgm_ops']),
+            model_name="perimeter",
+            index=django.contrib.postgres.indexes.GinIndex(
+                fields=["unaccented_name"],
+                name="unaccented_name_trgm",
+                opclasses=["gin_trgm_ops"],
+            ),
         ),
     ]

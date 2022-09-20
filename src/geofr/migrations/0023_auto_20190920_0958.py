@@ -6,13 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0022_update_perimeter_links'),
+        ("geofr", "0022_update_perimeter_links"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='perimeter',
-            name='scale',
-            field=models.PositiveIntegerField(choices=[(1, 'Commune'), (5, 'EPCI'), (8, 'Drainage basin'), (10, 'Department'), (15, 'Region'), (16, 'Overseas'), (17, 'Mainland'), (18, 'Ad-hoc'), (20, 'Country'), (25, 'Continent')], verbose_name='Scale'),
+            model_name="perimeter",
+            name="scale",
+            field=models.PositiveIntegerField(
+                choices=[
+                    (1, "Commune"),
+                    (5, "EPCI"),
+                    (8, "Drainage basin"),
+                    (10, "Department"),
+                    (15, "Region"),
+                    (16, "Overseas"),
+                    (17, "Mainland"),
+                    (18, "Ad-hoc"),
+                    (20, "Country"),
+                    (25, "Continent"),
+                ],
+                verbose_name="Scale",
+            ),
         ),
     ]
