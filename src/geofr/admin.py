@@ -3,9 +3,14 @@ from django.contrib import admin
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
-from geofr.models import Perimeter, PerimeterImport
+from geofr.models import Perimeter, PerimeterImport, PerimeterData
 from geofr.admin_views import PerimeterUpload, PerimeterCombine
 from django.contrib.postgres.fields import ArrayField
+
+
+class PerimeterDataInline(admin.TabularInline):
+    model = PerimeterData
+    extra = 0
 
 
 class PerimeterAdminForm(forms.ModelForm):
@@ -41,6 +46,10 @@ class PerimeterAdmin(admin.ModelAdmin):
     search_fields = ["id", "name", "code"]
     ordering = ["-date_created"]
     # readonly_fields ? managed below
+
+    inlines = [
+        PerimeterDataInline,
+    ]
 
     class Media:
         css = {"all": ("css/admin.css",)}
