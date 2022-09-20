@@ -15,31 +15,30 @@ def logo_upload_to(instance, filename):
 
     _, extension = splitext(filename)
     name = instance.slug
-    filename = 'blog/{}_logo{}'.format(name, extension)
+    filename = "blog/{}_logo{}".format(name, extension)
     return filename
 
 
 class BlogPostWorkflow(xwf_models.Workflow):
     """Defines statuses for Posts."""
 
-    log_model = ''
+    log_model = ""
 
     states = Choices(
-        ('draft', 'Brouillon'),
-        ('reviewable', 'En revue'),
-        ('published', 'Publié'),
-        ('deleted', 'Supprimé'),
+        ("draft", "Brouillon"),
+        ("reviewable", "En revue"),
+        ("published", "Publié"),
+        ("deleted", "Supprimé"),
     )
-    initial_state = 'draft'
+    initial_state = "draft"
     transitions = (
-        ('submit', 'draft', 'reviewable'),
-        ('publish', 'reviewable', 'published'),
-        ('unpublish', ('reviewable', 'published'), 'draft'),
+        ("submit", "draft", "reviewable"),
+        ("publish", "reviewable", "published"),
+        ("unpublish", ("reviewable", "published"), "draft"),
     )
 
 
 class BlogPostQuerySet(models.QuerySet):
-
     def published(self):
         """Only returns published objects."""
 
@@ -50,74 +49,76 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
 
     objects = BlogPostQuerySet.as_manager()
 
-    title = models.CharField(
-        'Titre',
-        max_length=256,
-        db_index=True)
+    title = models.CharField("Titre", max_length=256, db_index=True)
     slug = models.SlugField(
-        "Fragment d'URL",
-        help_text='Laisser vide pour autoremplir.',
-        blank=True)
+        "Fragment d'URL", help_text="Laisser vide pour autoremplir.", blank=True
+    )
     short_text = models.TextField(
         "Texte d'introduction",
         help_text="Introduction concise (inférieure à 256 caractères).",
         max_length=256,
-        null=True, blank=True)
-    text = models.TextField(
-        "Contenu",
-        blank=False)
+        null=True,
+        blank=True,
+    )
+    text = models.TextField("Contenu", blank=False)
     logo = models.FileField(
         "Illustration",
-        help_text='Évitez les fichiers trop lourds. Préférez les fichiers svg.',
+        help_text="Évitez les fichiers trop lourds. Préférez les fichiers svg.",
         upload_to=logo_upload_to,
-        null=True, blank=True)
+        null=True,
+        blank=True,
+    )
     author = models.ForeignKey(
-        'accounts.User',
-        verbose_name='Auteur',
+        "accounts.User",
+        verbose_name="Auteur",
         on_delete=models.PROTECT,
-        related_name='blog_posts',
-        null=True)
+        related_name="blog_posts",
+        null=True,
+    )
 
     category = models.ForeignKey(
-        'BlogPostCategory',
+        "BlogPostCategory",
         verbose_name="Catégorie de l'article de blog",
         on_delete=models.PROTECT,
-        related_name='categories',
-        null=True, blank=True)
+        related_name="categories",
+        null=True,
+        blank=True,
+    )
 
-    status = xwf_models.StateField(
-        BlogPostWorkflow,
-        verbose_name='Statut')
+    status = xwf_models.StateField(BlogPostWorkflow, verbose_name="Statut")
 
     # SEO
     meta_title = models.CharField(
-        _('Meta title'),
+        _("Meta title"),
         max_length=180,
-        blank=True, default='',
-        help_text=_('This will be displayed in SERPs. '
-                    'Keep it under 60 characters. '
-                    'Leave empty and we will reuse the post\'s title.'))
+        blank=True,
+        default="",
+        help_text=_(
+            "This will be displayed in SERPs. "
+            "Keep it under 60 characters. "
+            "Leave empty and we will reuse the post's title."
+        ),
+    )
     meta_description = models.TextField(
-        _('Meta description'),
-        blank=True, default='',
+        _("Meta description"),
+        blank=True,
+        default="",
         max_length=256,
-        help_text=_('This will be displayed in SERPs. '
-                    'Keep it under 120 characters.'))
+        help_text=_(
+            "This will be displayed in SERPs. " "Keep it under 120 characters."
+        ),
+    )
 
-    date_created = models.DateTimeField(
-        'Date de création',
-        default=timezone.now)
-    date_updated = models.DateTimeField(
-        'Date de mise à jour',
-        auto_now=True)
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+    date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
     date_published = models.DateTimeField(
-        'Première date de publication',
-        null=True, blank=True)
+        "Première date de publication", null=True, blank=True
+    )
 
     class Meta:
-        verbose_name = 'Article de blog'
-        verbose_name_plural = 'Articles de blog'
-        ordering = ['-date_created']
+        verbose_name = "Article de blog"
+        verbose_name_plural = "Articles de blog"
+        ordering = ["-date_created"]
 
     def __str__(self):
         return self.title
@@ -137,7 +138,7 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
         return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('blog_post_detail_view', args=[self.slug])
+        return reverse("blog_post_detail_view", args=[self.slug])
 
     def is_draft(self):
         return self.status == BlogPostWorkflow.states.draft
@@ -148,28 +149,18 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
 
 class BlogPostCategory(models.Model):
 
-    name = models.CharField(
-        'Nom',
-        max_length=256,
-        db_index=True)
+    name = models.CharField("Nom", max_length=256, db_index=True)
     slug = models.SlugField(
-        "Fragment d'URL",
-        help_text='Laisser vide pour autoremplir.',
-        unique=True)
-    description = models.TextField(
-        'Description',
-        blank=False)
+        "Fragment d'URL", help_text="Laisser vide pour autoremplir.", unique=True
+    )
+    description = models.TextField("Description", blank=False)
 
-    date_created = models.DateTimeField(
-        'Date de création',
-        default=timezone.now)
-    date_updated = models.DateTimeField(
-        'Date de mise à jour',
-        auto_now=True)
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+    date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
 
     class Meta:
-        verbose_name = 'Catégorie des articles de blog'
-        verbose_name_plural = 'Catégories des articles de blog'
+        verbose_name = "Catégorie des articles de blog"
+        verbose_name_plural = "Catégories des articles de blog"
 
     def __str__(self):
         return self.name
@@ -184,87 +175,79 @@ class BlogPostCategory(models.Model):
         return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('blog_post_list_view', kwargs={'category': self.slug})
+        return reverse("blog_post_list_view", kwargs={"category": self.slug})
 
 
 class PromotionPostWorkflow(xwf_models.Workflow):
     """Defines statuses for Promotion posts."""
 
-    log_model = ''
+    log_model = ""
 
     states = Choices(
-        ('draft', 'Brouillon'),
-        ('reviewable', 'En revue'),
-        ('published', 'Publié'),
-        ('deleted', 'Supprimé'),
+        ("draft", "Brouillon"),
+        ("reviewable", "En revue"),
+        ("published", "Publié"),
+        ("deleted", "Supprimé"),
     )
-    initial_state = 'draft'
+    initial_state = "draft"
     transitions = (
-        ('submit', 'draft', 'reviewable'),
-        ('publish', 'reviewable', 'published'),
-        ('unpublish', ('reviewable', 'published'), 'draft'),
+        ("submit", "draft", "reviewable"),
+        ("publish", "reviewable", "published"),
+        ("unpublish", ("reviewable", "published"), "draft"),
     )
 
 
 class PromotionPost(xwf_models.WorkflowEnabled, models.Model):
 
-    title = models.CharField(
-        'Titre',
-        max_length=256,
-        db_index=True)
+    title = models.CharField("Titre", max_length=256, db_index=True)
     slug = models.SlugField(
-        "Fragment d'URL",
-        help_text='Laisser vide pour autoremplir.',
-        blank=True)
+        "Fragment d'URL", help_text="Laisser vide pour autoremplir.", blank=True
+    )
     short_text = models.TextField(
         "Texte d'introduction",
         help_text="Introduction concise (inférieure à 256 caractères).",
         max_length=256,
-        null=True, blank=True)
+        null=True,
+        blank=True,
+    )
 
-    button_link = models.URLField(
-        'Lien du bouton',
-        blank=False)
-    button_title = models.CharField(
-        'Titre du bouton',
-        max_length=120,
-        db_index=True)
+    button_link = models.URLField("Lien du bouton", blank=False)
+    button_title = models.CharField("Titre du bouton", max_length=120, db_index=True)
 
     perimeter = models.ForeignKey(
-        'geofr.Perimeter',
-        verbose_name='Périmètre',
+        "geofr.Perimeter",
+        verbose_name="Périmètre",
         on_delete=models.PROTECT,
-        null=True, blank=True)
+        null=True,
+        blank=True,
+    )
     categories = models.ManyToManyField(
-        'categories.Category',
-        verbose_name='Sous-thématiques',
-        related_name='promotionsPost',
-        blank=True)
+        "categories.Category",
+        verbose_name="Sous-thématiques",
+        related_name="promotionsPost",
+        blank=True,
+    )
     programs = models.ManyToManyField(
-        'programs.Program',
-        verbose_name='Programmes',
-        related_name='promotionsPost',
-        blank=True)
+        "programs.Program",
+        verbose_name="Programmes",
+        related_name="promotionsPost",
+        blank=True,
+    )
     backers = models.ManyToManyField(
-        'backers.Backer',
+        "backers.Backer",
         verbose_name="Porteurs d'aides",
-        related_name='promotionsPost',
-        blank=True)
+        related_name="promotionsPost",
+        blank=True,
+    )
 
-    status = xwf_models.StateField(
-        PromotionPostWorkflow,
-        verbose_name='Statut')
+    status = xwf_models.StateField(PromotionPostWorkflow, verbose_name="Statut")
 
-    date_created = models.DateTimeField(
-        'Date de création',
-        default=timezone.now)
-    date_updated = models.DateTimeField(
-        'Date de mise à jour',
-        auto_now=True)
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+    date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
 
     class Meta:
-        verbose_name = 'Communication promotionnelle'
-        verbose_name_plural = 'Communications promotionnelles'
+        verbose_name = "Communication promotionnelle"
+        verbose_name_plural = "Communications promotionnelles"
 
     def __str__(self):
         return self.title
