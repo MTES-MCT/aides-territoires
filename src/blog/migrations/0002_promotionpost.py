@@ -9,33 +9,116 @@ import django_xworkflows.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0014_reupload_medias'),
-        ('geofr', '0033_auto_20210422_1817'),
-        ('categories', '0004_auto_20200217_1136'),
-        ('programs', '0009_auto_20210506_1832'),
-        ('blog', '0001_initial'),
+        ("backers", "0014_reupload_medias"),
+        ("geofr", "0033_auto_20210422_1817"),
+        ("categories", "0004_auto_20200217_1136"),
+        ("programs", "0009_auto_20210506_1832"),
+        ("blog", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PromotionPost',
+            name="PromotionPost",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(db_index=True, max_length=256, verbose_name='Title')),
-                ('slug', models.SlugField(blank=True, help_text='Let it empty so it will be autopopulated.', verbose_name='Slug')),
-                ('short_text', models.TextField(blank=True, help_text='A short, concise introduction', max_length=256, null=True, verbose_name='Short text')),
-                ('button_link', models.URLField(verbose_name='Button link')),
-                ('button_title', models.CharField(db_index=True, max_length=120, verbose_name='Button title')),
-                ('status', django_xworkflows.models.StateField(max_length=16, verbose_name='Status', workflow=django_xworkflows.models._SerializedWorkflow(initial_state='draft', name='PromotionPostWorkflow', states=['draft', 'reviewable', 'published', 'deleted']))),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
-                ('backers', models.ManyToManyField(blank=True, related_name='promotionsPost', to='backers.Backer', verbose_name='Backer')),
-                ('categories', models.ManyToManyField(blank=True, related_name='promotionsPost', to='categories.Category', verbose_name='Categories')),
-                ('perimeter', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='geofr.perimeter', verbose_name='Perimeter')),
-                ('programs', models.ManyToManyField(blank=True, related_name='promotionsPost', to='programs.Program', verbose_name='Programs')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        db_index=True, max_length=256, verbose_name="Title"
+                    ),
+                ),
+                (
+                    "slug",
+                    models.SlugField(
+                        blank=True,
+                        help_text="Let it empty so it will be autopopulated.",
+                        verbose_name="Slug",
+                    ),
+                ),
+                (
+                    "short_text",
+                    models.TextField(
+                        blank=True,
+                        help_text="A short, concise introduction",
+                        max_length=256,
+                        null=True,
+                        verbose_name="Short text",
+                    ),
+                ),
+                ("button_link", models.URLField(verbose_name="Button link")),
+                (
+                    "button_title",
+                    models.CharField(
+                        db_index=True, max_length=120, verbose_name="Button title"
+                    ),
+                ),
+                (
+                    "status",
+                    django_xworkflows.models.StateField(
+                        max_length=16,
+                        verbose_name="Status",
+                        workflow=django_xworkflows.models._SerializedWorkflow(
+                            initial_state="draft",
+                            name="PromotionPostWorkflow",
+                            states=["draft", "reviewable", "published", "deleted"],
+                        ),
+                    ),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Date created"
+                    ),
+                ),
+                (
+                    "backers",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="promotionsPost",
+                        to="backers.Backer",
+                        verbose_name="Backer",
+                    ),
+                ),
+                (
+                    "categories",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="promotionsPost",
+                        to="categories.Category",
+                        verbose_name="Categories",
+                    ),
+                ),
+                (
+                    "perimeter",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="geofr.perimeter",
+                        verbose_name="Perimeter",
+                    ),
+                ),
+                (
+                    "programs",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="promotionsPost",
+                        to="programs.Program",
+                        verbose_name="Programs",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Promotion post',
-                'verbose_name_plural': 'Promotion posts',
+                "verbose_name": "Promotion post",
+                "verbose_name_plural": "Promotion posts",
             },
             bases=(django_xworkflows.models.BaseWorkflowEnabled, models.Model),
         ),

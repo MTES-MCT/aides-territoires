@@ -1,0 +1,121 @@
+{% extends '_base.html' %}
+{% load settings static %}
+
+{% block extratitle %}Statistiques sur carte - Comptes Utilisateurs{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'leaflet/dist/leaflet.css' %}" />
+<script defer src="{% static 'leaflet/dist/leaflet.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/stats.css' %}" />
+{% endblock extra_head %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'dashboard_view' %}">Dashboard</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Statistiques sur carte</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="fr-container">
+    <div data-controller="map"
+      data-action="map:moveend->map#switchShapes"
+      data-map-regions-org-max-value="{{ regions_org_max }}"
+      data-map-departments-org-max-value="{{ departments_org_max }}"
+      >
+      <div>
+        <ul class="flyto info legend">
+          <li>
+            <a href="#metropole"
+              data-action="map#flyTo"
+              data-latlon="[46.227, 2.213]"
+              data-zoom="5.5"
+              >Métropole</a>
+          </li>
+          <li>
+            <a href="#martinique"
+              data-action="map#flyTo"
+              data-latlon="[14.64733448410248, -60.9863181099044]"
+              data-zoom="10.5"
+              >Martinique</a>
+          </li>
+          <li>
+            <a href="#guadeloupe"
+              data-action="map#flyTo"
+              data-latlon="[16.22198290921609, -61.49184374055841]"
+              data-zoom="10.5"
+              >Guadeloupe</a>
+          </li>
+          <li>
+            <a href="reunion"
+              data-action="map#flyTo"
+              data-latlon="[-21.0981335232285, 55.519057070196396]"
+              data-zoom="10.5"
+              >La Réunion</a>
+          </li>
+          <li>
+            <a href="mayotte"
+              data-action="map#flyTo"
+              data-latlon="[-12.8205731179995, 45.163326586369074]"
+              data-zoom="10.5"
+              >Mayotte</a>
+          </li>
+          <li>
+            <a href="guyane"
+              data-action="map#flyTo"
+              data-latlon="[4.0093516128835835, -53.124561798899116]"
+              data-zoom="9"
+              >Guyane</a>
+          </li>
+        </ul>
+      </div>
+      <script data-map-target="regions" type="application/json">
+        {{ regions_geojson|safe }}
+      </script>
+      <script data-map-target="regionsOrgCount" type="application/json">
+        {{ regions_org_count|safe }}
+      </script>
+      <script data-map-target="departmentsOrgCount" type="application/json">
+        {{ departments_org_count|safe }}
+      </script>
+      <script data-map-target="communesWithOrg" type="application/json">
+        {{ communes_with_org|safe }}
+      </script>
+      <script data-map-target="departments" data-src="{% static 'geojson/departements-1000m.geojson' %}"></script>
+      {% get_static_prefix as STATIC_PREFIX %}
+      <script data-map-target="communes"
+      {% for code in departments_codes %}
+        data-src-{{ code }}="{{ STATIC_PREFIX }}geojson/communes-1000m-{{ code }}.geojson"
+      {% endfor %}
+      ></script>
+      <div data-map-target="table"></div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script type="module">
+  import { Application } from "{% static '@hotwired/stimulus/dist/stimulus.js' %}"
+  import mapController from "{% static 'js/stats/map_controller.js' %}"
+  import tableController from "{% static 'js/stats/table_controller.js' %}"
+  window.Stimulus = Application.start()
+  {% setting "DEBUG" as Debug %}
+  Stimulus.debug = {{ Debug|lower }}
+  Stimulus.register("map", mapController)
+  Stimulus.register("table", tableController)
+</script>
+{% endblock extra_js %}

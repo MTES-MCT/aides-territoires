@@ -1,0 +1,60 @@
+/* Sortable tables. */
+.fr-table[data-controller='table'] {
+  width: 100%;
+}
+.fr-table[data-controller='table'] thead th[scope='col'] {
+  padding: 2px;
+}
+.fr-table[data-controller='table'] thead th[scope='col'] button {
+  text-align: left;
+  width: 100%;
+  padding: .75rem;
+  font-weight: 700;
+}
+.fr-table[data-controller='table'] thead th[scope='col'] button:hover,
+.fr-table[data-controller='table'] th[aria-sort] {
+  background-color: var(--background-open-blue-france);
+}
+.fr-table[data-fr-js-table="true"] caption {
+  top: -1rem;
+}
+
+/* Map related styles. */
+.leaflet-container {
+    width: 1000px;
+    height: 700px;
+    margin: 0 auto 3rem auto;
+}
+.leaflet-control-zoom [href] {
+    background-image: inherit;
+}
+.info {
+    font-family: Marianne,arial,sans-serif;
+    padding: 6px 8px;
+    background: var(--background-default-grey);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: var(--text-title-grey);
+}
+.legend {
+    text-align: left;
+    line-height: 18px;
+    color: var(--text-title-grey);
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+.flyto {
+  z-index: 1000;
+  position: absolute;
+  top: 80px;
+  list-style: none;
+  left: 10px;
+}

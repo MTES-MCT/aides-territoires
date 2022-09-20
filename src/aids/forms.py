@@ -17,7 +17,7 @@ from core.forms import (
 )
 from core.utils import remove_accents, parse_query
 from geofr.models import Perimeter
-from geofr.utils import get_all_related_perimeter_ids
+from geofr.utils import get_all_related_perimeters
 from backers.models import Backer
 from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
@@ -755,8 +755,8 @@ class BaseAidSearchForm(DsfrBaseForm):
          - M3M (and all other epcis in Hérault) ;
          - Montpellier (and all other communes in Hérault) ;
         """
-        perimeter_qs = get_all_related_perimeter_ids(search_perimeter.id)
-        qs = qs.filter(perimeter__in=perimeter_qs)
+        perimeter_ids = get_all_related_perimeters(search_perimeter.id, values=["id"])
+        qs = qs.filter(perimeter__in=perimeter_ids)
         return qs
 
     def generic_aid_filter(self, qs):

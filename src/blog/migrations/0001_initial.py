@@ -11,45 +11,162 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='BlogPostCategory',
+            name="BlogPostCategory",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(db_index=True, max_length=256, verbose_name='Name')),
-                ('slug', models.SlugField(help_text='Let it empty so it will be autopopulated.', unique=True, verbose_name='Slug')),
-                ('description', models.TextField(verbose_name='Description of the category')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        db_index=True, max_length=256, verbose_name="Name"
+                    ),
+                ),
+                (
+                    "slug",
+                    models.SlugField(
+                        help_text="Let it empty so it will be autopopulated.",
+                        unique=True,
+                        verbose_name="Slug",
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(verbose_name="Description of the category"),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Date created"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Blog Post Category',
-                'verbose_name_plural': 'Blog Post Categories',
+                "verbose_name": "Blog Post Category",
+                "verbose_name_plural": "Blog Post Categories",
             },
         ),
         migrations.CreateModel(
-            name='BlogPost',
+            name="BlogPost",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(db_index=True, max_length=256, verbose_name='Title')),
-                ('slug', models.SlugField(blank=True, help_text='Let it empty so it will be autopopulated.', verbose_name='Slug')),
-                ('short_text', models.TextField(blank=True, help_text='A short, concise introduction', max_length=256, null=True, verbose_name='Short text')),
-                ('text', models.TextField(verbose_name='Full text of the post')),
-                ('logo', models.FileField(blank=True, help_text='Make sure the file is not too heavy. Prefer svg files.', null=True, upload_to=blog.models.logo_upload_to, verbose_name='Logo image')),
-                ('status', django_xworkflows.models.StateField(max_length=16, verbose_name='Status', workflow=django_xworkflows.models._SerializedWorkflow(initial_state='draft', name='BlogPostWorkflow', states=['draft', 'reviewable', 'published', 'deleted']))),
-                ('meta_title', models.CharField(blank=True, default='', help_text="This will be displayed in SERPs. Keep it under 60 characters. Leave empty and we will reuse the post's title.", max_length=180, verbose_name='Meta title')),
-                ('meta_description', models.TextField(blank=True, default='', help_text='This will be displayed in SERPs. Keep it under 120 characters.', max_length=256, verbose_name='Meta description')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
-                ('date_updated', models.DateTimeField(auto_now=True, verbose_name='Date updated')),
-                ('date_published', models.DateTimeField(blank=True, null=True, verbose_name='First publication date')),
-                ('category', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='categories', to='blog.blogpostcategory', verbose_name='Post category')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        db_index=True, max_length=256, verbose_name="Title"
+                    ),
+                ),
+                (
+                    "slug",
+                    models.SlugField(
+                        blank=True,
+                        help_text="Let it empty so it will be autopopulated.",
+                        verbose_name="Slug",
+                    ),
+                ),
+                (
+                    "short_text",
+                    models.TextField(
+                        blank=True,
+                        help_text="A short, concise introduction",
+                        max_length=256,
+                        null=True,
+                        verbose_name="Short text",
+                    ),
+                ),
+                ("text", models.TextField(verbose_name="Full text of the post")),
+                (
+                    "logo",
+                    models.FileField(
+                        blank=True,
+                        help_text="Make sure the file is not too heavy. Prefer svg files.",
+                        null=True,
+                        upload_to=blog.models.logo_upload_to,
+                        verbose_name="Logo image",
+                    ),
+                ),
+                (
+                    "status",
+                    django_xworkflows.models.StateField(
+                        max_length=16,
+                        verbose_name="Status",
+                        workflow=django_xworkflows.models._SerializedWorkflow(
+                            initial_state="draft",
+                            name="BlogPostWorkflow",
+                            states=["draft", "reviewable", "published", "deleted"],
+                        ),
+                    ),
+                ),
+                (
+                    "meta_title",
+                    models.CharField(
+                        blank=True,
+                        default="",
+                        help_text="This will be displayed in SERPs. Keep it under 60 characters. Leave empty and we will reuse the post's title.",
+                        max_length=180,
+                        verbose_name="Meta title",
+                    ),
+                ),
+                (
+                    "meta_description",
+                    models.TextField(
+                        blank=True,
+                        default="",
+                        help_text="This will be displayed in SERPs. Keep it under 120 characters.",
+                        max_length=256,
+                        verbose_name="Meta description",
+                    ),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Date created"
+                    ),
+                ),
+                (
+                    "date_updated",
+                    models.DateTimeField(auto_now=True, verbose_name="Date updated"),
+                ),
+                (
+                    "date_published",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="First publication date"
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="categories",
+                        to="blog.blogpostcategory",
+                        verbose_name="Post category",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Blog Post',
-                'verbose_name_plural': 'Blog Posts',
-                'ordering': ['-date_created'],
+                "verbose_name": "Blog Post",
+                "verbose_name_plural": "Blog Posts",
+                "ordering": ["-date_created"],
             },
             bases=(django_xworkflows.models.BaseWorkflowEnabled, models.Model),
         ),

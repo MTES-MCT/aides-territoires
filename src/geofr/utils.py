@@ -1,12 +1,9 @@
 import collections
 import logging
 
-
 from django.db import transaction
 from django.db.models import Q
-from django.db.models.query import QuerySet
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.utils.text import slugify
 
 from geofr.constants import OVERSEAS_PREFIX, DEPARTMENT_TO_REGION
 from geofr.models import Perimeter, PerimeterImport
@@ -38,8 +35,13 @@ def is_overseas(zipcode):
     return zipcode.startswith(OVERSEAS_PREFIX)
 
 
-def get_all_related_perimeter_ids(search_perimeter_id):
-    """Return a list of all perimeter ids related to the searched perimeter.
+def get_all_related_perimeters(
+    search_perimeter_id, direction="both", scale=None, values=None
+):
+    """Return a list of all perimeters related to the searched perimeter.
+
+    In case of direction `up`, we only retrieve the wider perimeters.
+    In case of direction `down`, we only retrieve the smaller perimeters.
 
     When we filter by a given perimeter, we must return all aids:
         - where the perimeter is wider and contains the searched perimeter ;
@@ -55,6 +57,12 @@ def get_all_related_perimeter_ids(search_perimeter_id):
         - Europe ;
         - M3M (and all other epcis in Hérault) ;
         - Montpellier (and all other communes in Hérault) ;
+
+    The `scale` parameter allows you to restrict results to a given
+    `Perimeter.SCALES` kind of perimeter.
+
+    The `values` list parameter allows you to return values instead of
+    instances of Perimeters.
     """
 
     # Note: the original way we adressed this was more straightforward,
@@ -64,29 +72,32 @@ def get_all_related_perimeter_ids(search_perimeter_id):
 
     # We just need to efficiently get a list of all perimeter ids related
     # to the current query.
+    q_exact_match = Q(id=search_perimeter_id)
 
     Through = Perimeter.contained_in.through
-    contains_id = (
-        Through.objects.filter(from_perimeter_id=search_perimeter_id)
-        .values("to_perimeter_id")
-        .distinct()
-    )
-    contained_id = (
-        Through.objects.filter(to_perimeter_id=search_perimeter_id)
-        .values("from_perimeter_id")
-        .distinct()
-    )
+    q_contains = Q()
+    q_contained = Q()
+    if direction == "both" or direction == "up":
+        contains_id = (
+            Through.objects.filter(from_perimeter_id=search_perimeter_id)
+            .values("to_perimeter_id")
+            .distinct()
+        )
+        q_contains = Q(id__in=contains_id)
+    if direction == "both" or direction == "down":
+        contained_id = (
+            Through.objects.filter(to_perimeter_id=search_perimeter_id)
+            .values("from_perimeter_id")
+            .distinct()
+        )
+        q_contained = Q(id__in=contained_id)
 
-    q_exact_match = Q(id=search_perimeter_id)
-    q_contains = Q(id__in=contains_id)
-    q_contained = Q(id__in=contained_id)
-
-    perimeter_qs = (
-        Perimeter.objects.filter(q_exact_match | q_contains | q_contained)
-        .values("id")
-        .distinct()
-    )
-    return perimeter_qs
+    perimeter_qs = Perimeter.objects.filter(q_exact_match | q_contains | q_contained)
+    if scale is not None:
+        perimeter_qs = perimeter_qs.filter(scale=scale)
+    if values is not None:
+        perimeter_qs = perimeter_qs.values(*values)
+    return perimeter_qs.distinct()
 
 
 def extract_perimeters_from_file(perimeter_list_file: InMemoryUploadedFile) -> list:
@@ -264,31 +275,3 @@ def combine_perimeters(add_perimeters, rm_perimeters):
     )
 
     return set(in_city_codes) - set(out_city_codes)
-
-
-def sort_departments(departments: QuerySet) -> list:
-    """
-    Returns a list of the departments
-    - with a slug
-    - sorted by code
-    - and so that the Corsican ones are listed between 19 and 21
-    """
-
-    departments = departments.order_by("code")
-    departments_list = []
-
-    # perimeters currently don't have a proper slug
-    for department in departments:
-        department["slug"] = slugify(department["name"])
-        departments_list.append(department)
-
-    # sort the departments so that Corsican ones are between 19 and 21
-    dept_21 = [i for i, d in enumerate(departments_list) if "21" in d.values()][0]
-    dept_2a = [i for i, d in enumerate(departments_list) if "2A" in d.values()][0]
-    departments_list.insert(dept_21, departments_list.pop(dept_2a))
-
-    dept_21 = [i for i, d in enumerate(departments_list) if "21" in d.values()][0]
-    dept_2b = [i for i, d in enumerate(departments_list) if "2B" in d.values()][0]
-    departments_list.insert(dept_21, departments_list.pop(dept_2b))
-
-    return departments_list

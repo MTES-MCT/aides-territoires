@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --require jsdom-global/register tests/"
   },
   "author": "",
   "license": "ISC",
@@ -17,10 +18,17 @@
     "jquery": "^3.5.1",
     "jquery-resizable-dom": "^0.35.0",
     "postcss-cli": "^10.0.0",
+    "leaflet": "^1.8.0",
     "select2": "^4.0.13",
+    "stimulus": "^3.1.0",
     "trumbowyg": "^2.21.0"
   },
   "devDependencies": {
-    "eslint": "^5.16.0"
+    "chai": "^4.3.6",
+    "eslint": "^5.16.0",
+    "jsdom": "^20.0.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^10.0.0",
+    "replace-in-file": "^6.3.5"
   }
 }

@@ -4,26 +4,20 @@ from django.db import migrations
 
 
 def generate_perimeters(apps, schema_editor):
-    Perimeter = apps.get_model('geofr', 'Perimeter')
+    Perimeter = apps.get_model("geofr", "Perimeter")
 
     Perimeter.objects.create(
-        scale=17,  # mainland,
-        code='FRA-MET',
-        name='Métropole',
-        is_overseas=False)
+        scale=17, code="FRA-MET", name="Métropole", is_overseas=False  # mainland,
+    )
     Perimeter.objects.create(
-        scale=16,  # overseas,
-        code='FRA-OM',
-        name='Outre-mer',
-        is_overseas=True)
+        scale=16, code="FRA-OM", name="Outre-mer", is_overseas=True  # overseas,
+    )
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0018_auto_20190430_1517'),
+        ("geofr", "0018_auto_20190430_1517"),
     ]
 
-    operations = [
-        migrations.RunPython(generate_perimeters, migrations.RunPython.noop)
-    ]
+    operations = [migrations.RunPython(generate_perimeters, migrations.RunPython.noop)]

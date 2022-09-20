@@ -7,6 +7,12 @@ class PageView(DetailView):
     context_object_name = "page"
     template_name = "pages/detail.html"
 
+    def get(self, request, *args, **kwargs):
+        url = self.kwargs.get("url")
+        if not url.endswith("/"):
+            return HttpResponsePermanentRedirect(url + "/")
+        return super().get(request, *args, **kwargs)
+
     def get_object(self):
         url = self.kwargs.get("url")
         if not url.startswith("/"):

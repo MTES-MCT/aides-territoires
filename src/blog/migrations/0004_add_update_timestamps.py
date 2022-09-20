@@ -6,18 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0003_cleanup_fields_translations'),
+        ("blog", "0003_cleanup_fields_translations"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='blogpostcategory',
-            name='date_updated',
-            field=models.DateTimeField(auto_now=True, verbose_name='Date de mise à jour'),
+            model_name="blogpostcategory",
+            name="date_updated",
+            field=models.DateTimeField(
+                auto_now=True, verbose_name="Date de mise à jour"
+            ),
         ),
         migrations.AddField(
-            model_name='promotionpost',
-            name='date_updated',
-            field=models.DateTimeField(auto_now=True, verbose_name='Date de mise à jour'),
+            model_name="promotionpost",
+            name="date_updated",
+            field=models.DateTimeField(
+                auto_now=True, verbose_name="Date de mise à jour"
+            ),
         ),
     ]

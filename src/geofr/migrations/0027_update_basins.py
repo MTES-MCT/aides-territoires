@@ -2,19 +2,18 @@
 
 from django.db import migrations
 
-def update_basin_name(apps, schema_editor):
-    Perimeter = apps.get_model('geofr', 'Perimeter')
 
-    #Rhône-Méditerranée
-    Perimeter.objects.filter(scale=8, code='06').update(name='Rhône-Méditerranée')
+def update_basin_name(apps, schema_editor):
+    Perimeter = apps.get_model("geofr", "Perimeter")
+
+    # Rhône-Méditerranée
+    Perimeter.objects.filter(scale=8, code="06").update(name="Rhône-Méditerranée")
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0026_auto_20191104_1511'),
+        ("geofr", "0026_auto_20191104_1511"),
     ]
 
-    operations = [
-        migrations.RunPython(update_basin_name, migrations.RunPython.noop)
-    ]
+    operations = [migrations.RunPython(update_basin_name, migrations.RunPython.noop)]

@@ -7,18 +7,20 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0032_auto_20210208_1628'),
+        ("geofr", "0032_auto_20210208_1628"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='perimeter',
-            name='date_created',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created'),
+            model_name="perimeter",
+            name="date_created",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name="Date created"
+            ),
         ),
         migrations.AddField(
-            model_name='perimeter',
-            name='date_updated',
-            field=models.DateTimeField(auto_now=True, verbose_name='Date updated'),
+            model_name="perimeter",
+            name="date_updated",
+            field=models.DateTimeField(auto_now=True, verbose_name="Date updated"),
         ),
     ]

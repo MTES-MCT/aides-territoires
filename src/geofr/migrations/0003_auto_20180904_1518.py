@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0002_remove_perimeter_country'),
+        ("geofr", "0002_remove_perimeter_country"),
     ]
 
     operations = [
         migrations.AlterUniqueTogether(
-            name='perimeter',
-            unique_together={('scale', 'code')},
+            name="perimeter",
+            unique_together={("scale", "code")},
         ),
     ]

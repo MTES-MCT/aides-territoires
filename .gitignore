@@ -10,3 +10,5 @@ aides.iml
 .pytest_cache/
 
 AT_svg/
+
+src/tests/tmp

@@ -7,17 +7,21 @@ from django.contrib.postgres.indexes import GinIndex
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0015_auto_20180926_1140'),
+        ("geofr", "0015_auto_20180926_1140"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='perimeter',
-            name='name',
-            field=models.CharField(max_length=128, verbose_name='Name'),
+            model_name="perimeter",
+            name="name",
+            field=models.CharField(max_length=128, verbose_name="Name"),
         ),
         migrations.AddIndex(
-            model_name='perimeter',
-            index=GinIndex(fields=['name'], name='geofr_perim_name_a1369f_gin', opclasses=['gin_trgm_ops']),
+            model_name="perimeter",
+            index=GinIndex(
+                fields=["name"],
+                name="geofr_perim_name_a1369f_gin",
+                opclasses=["gin_trgm_ops"],
+            ),
         ),
     ]

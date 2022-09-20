@@ -10,21 +10,21 @@ from geofr.utils import attach_perimeters
 # Source for those values is a buried table in a 70 pages pdf here:
 # http://www.sandre.eaufrance.fr/urn.php?urn=urn:sandre:dictionnaire:COM::entite:CircAdminBassin:ressource:3.0:::html
 DRAINAGE_BASINS = {
-    '01': 'Artois-Picardie',
-    '02': 'Rhin-Meuse',
-    '03': 'Seine-Normandie',
-    '04': 'Loire-Bretagne',
-    '05': 'Adour-Garonne',
-    '06': 'Rhône-Méditerranée',
-    '07': 'Guadeloupe',
-    '08': 'Martinique',
-    '09': 'Guyane',
-    '10': 'Réunion',
-    '11': 'Mayotte',
-    '12': 'Corse',
+    "01": "Artois-Picardie",
+    "02": "Rhin-Meuse",
+    "03": "Seine-Normandie",
+    "04": "Loire-Bretagne",
+    "05": "Adour-Garonne",
+    "06": "Rhône-Méditerranée",
+    "07": "Guadeloupe",
+    "08": "Martinique",
+    "09": "Guyane",
+    "10": "Réunion",
+    "11": "Mayotte",
+    "12": "Corse",
 }
 
-OVERSEAS_BASINS = ('07', '08', '09', '10', '11')
+OVERSEAS_BASINS = ("07", "08", "09", "10", "11")
 
 
 class Command(BaseCommand):
@@ -64,7 +64,7 @@ class Command(BaseCommand):
     """
 
     def add_arguments(self, parser):
-        parser.add_argument('csv_file', nargs=1, type=str)
+        parser.add_argument("csv_file", nargs=1, type=str)
 
     def handle(self, *args, **options):
 
@@ -78,7 +78,8 @@ class Command(BaseCommand):
                 scale=Perimeter.SCALES.basin,
                 code=code,
                 name=basin_name,
-                is_overseas=code in OVERSEAS_BASINS)
+                is_overseas=code in OVERSEAS_BASINS,
+            )
             basin_to_commune[code] = list()
             if created:
                 nb_created += 1
@@ -86,21 +87,23 @@ class Command(BaseCommand):
                 nb_updated += 1
 
         # Import data from csv file
-        csv_path = os.path.abspath(options['csv_file'][0])
+        csv_path = os.path.abspath(options["csv_file"][0])
         with open(csv_path) as csv_file:
-            reader = csv.DictReader(csv_file, delimiter=',')
+            reader = csv.DictReader(csv_file, delimiter=",")
             for row in reader:
-                commune_code = row['CdCommune']
-                basin_code = row['NumCircAdminBassin']
+                commune_code = row["CdCommune"]
+                basin_code = row["NumCircAdminBassin"]
                 basin_to_commune[basin_code].append(commune_code)
 
-        basins = Perimeter.objects \
-            .filter(scale=Perimeter.SCALES.basin)
+        basins = Perimeter.objects.filter(scale=Perimeter.SCALES.basin)
 
         for basin in basins:
             basin_code = basin.code
             commune_codes = basin_to_commune[basin_code]
             attach_perimeters(basin, commune_codes)
 
-        self.stdout.write(self.style.SUCCESS(
-            '%d basins created, %d updated.' % (nb_created, nb_updated)))
+        self.stdout.write(
+            self.style.SUCCESS(
+                "%d basins created, %d updated." % (nb_created, nb_updated)
+            )
+        )

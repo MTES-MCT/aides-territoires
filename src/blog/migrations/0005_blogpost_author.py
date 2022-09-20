@@ -9,13 +9,19 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('blog', '0004_add_update_timestamps'),
+        ("blog", "0004_add_update_timestamps"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='blogpost',
-            name='author',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='blog_posts', to=settings.AUTH_USER_MODEL, verbose_name='Auteur'),
+            model_name="blogpost",
+            name="author",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="blog_posts",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Auteur",
+            ),
         ),
     ]

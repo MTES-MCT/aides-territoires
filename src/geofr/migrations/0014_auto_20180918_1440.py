@@ -7,18 +7,30 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0013_auto_20180918_1050'),
+        ("geofr", "0013_auto_20180918_1050"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='perimeter',
-            name='departments',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=3), blank=True, default=list, size=None, verbose_name='Departments'),
+            model_name="perimeter",
+            name="departments",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.CharField(max_length=3),
+                blank=True,
+                default=list,
+                size=None,
+                verbose_name="Departments",
+            ),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='regions',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=2), blank=True, default=list, size=None, verbose_name='Regions'),
+            model_name="perimeter",
+            name="regions",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.CharField(max_length=2),
+                blank=True,
+                default=list,
+                size=None,
+                verbose_name="Regions",
+            ),
         ),
     ]

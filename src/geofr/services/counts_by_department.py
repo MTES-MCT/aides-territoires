@@ -1,7 +1,7 @@
 from django.db.models import Count
 from aids.constants import FINANCIAL_AIDS_LIST, TECHNICAL_AIDS_LIST
 from aids.models import Aid
-from geofr.utils import get_all_related_perimeter_ids
+from geofr.utils import get_all_related_perimeters
 
 from django.db.models.query import QuerySet
 from django.db.models import Q
@@ -16,7 +16,7 @@ def get_backers_count_by_department(
     """
     For a given department, returns a list of backers with  the number of associated live aids
     """
-    related_perimeters = get_all_related_perimeter_ids(dep_id)
+    related_perimeters = get_all_related_perimeters(dep_id, values=["id"])
     live_aids = Aid.objects.live()
 
     backers = Backer.objects.prefetch_related("financed_aids")
@@ -152,7 +152,7 @@ def get_programs_count_by_department(
     """
     For a given department, returns a list of programs with the number of associated live aids
     """
-    related_perimeters = get_all_related_perimeter_ids(dep_id)
+    related_perimeters = get_all_related_perimeters(dep_id, values=["id"])
     live_aids = Aid.objects.live()
 
     programs = Program.objects.prefetch_related("aids")
@@ -280,7 +280,7 @@ def get_live_aids_total_by_department(dep_id: str) -> int:
     """
     For a given department, returns the number of live aids
     """
-    related_perimeters = get_all_related_perimeter_ids(dep_id)
+    related_perimeters = get_all_related_perimeters(dep_id, values=["id"])
     return Aid.objects.live().filter(perimeter_id__in=related_perimeters).count()
 
 
@@ -288,7 +288,7 @@ def get_categories_total_by_department(dep_id: str) -> int:
     """
     For a given department, returns the number of categories
     """
-    related_perimeters = get_all_related_perimeter_ids(dep_id)
+    related_perimeters = get_all_related_perimeters(dep_id, values=["id"])
     live_aids = Aid.objects.live()
     return (
         Category.objects.prefetch_related("aids")

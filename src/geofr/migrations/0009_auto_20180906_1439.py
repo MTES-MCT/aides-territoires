@@ -6,13 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0008_auto_20180906_1426'),
+        ("geofr", "0008_auto_20180906_1426"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='perimeter',
-            name='scale',
-            field=models.PositiveIntegerField(choices=[(1, 'Commune'), (5, 'EPCI'), (10, 'Department'), (15, 'Region'), (20, 'Country'), (25, 'Continent')], verbose_name='Scale'),
+            model_name="perimeter",
+            name="scale",
+            field=models.PositiveIntegerField(
+                choices=[
+                    (1, "Commune"),
+                    (5, "EPCI"),
+                    (10, "Department"),
+                    (15, "Region"),
+                    (20, "Country"),
+                    (25, "Continent"),
+                ],
+                verbose_name="Scale",
+            ),
         ),
     ]

@@ -10,6 +10,47 @@ from model_utils import Choices
 from core.utils import remove_accents
 
 
+class PerimeterQuerySet(models.QuerySet):
+    def departments(self, values=None):
+        """
+        Returns a list of the departments
+        - with a slug
+        - sorted by code
+        - and so that the Corsican ones are listed between 19 and 21
+        """
+        departments = self.filter(scale=Perimeter.SCALES.department, is_obsolete=False)
+        if values:
+            departments = departments.values(*values)
+        departments = departments.order_by("code")
+        departments_list = []
+
+        # perimeters currently don't have a proper slug
+        for department in departments:
+            if values:
+                department["slug"] = slugify(department["name"])
+            else:
+                department.slug = slugify(department.name)
+
+            departments_list.append(department)
+
+        def department_code_key(department):
+            """Sort the departments so that Corsican ones are between 19 and 21."""
+            if values:
+                code = department["code"]
+            else:
+                code = department.code
+            if code == "2A":
+                return "20"
+            elif code == "2B":
+                return "20.5"
+            else:
+                return code
+
+        departments_list = sorted(departments_list, key=department_code_key)
+
+        return departments_list
+
+
 class Perimeter(models.Model):
     """
     Represents a single application perimeter for an Aid.
@@ -26,6 +67,8 @@ class Perimeter(models.Model):
     existing legal borders.
     https://fr.wikipedia.org/wiki/Bassin_hydrographique
     """
+
+    objects = PerimeterQuerySet.as_manager()
 
     SCALES_TUPLE = (
         (1, "commune", "Commune"),

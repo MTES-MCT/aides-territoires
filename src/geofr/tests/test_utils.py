@@ -5,10 +5,9 @@ from geofr.utils import (
     attach_perimeters_check,
     department_from_zipcode,
     is_overseas,
-    get_all_related_perimeter_ids,
+    get_all_related_perimeters,
     attach_perimeters,
     attach_epci_perimeters,
-    sort_departments,
 )
 from geofr.factories import PerimeterFactory
 
@@ -30,16 +29,70 @@ def test_is_overseas():
     assert is_overseas("97414")
 
 
-def test_get_all_related_perimeter_ids(perimeters):
-    """Finding related perimeters works as expected."""
+def test_get_all_related_perimeters_objects(perimeters):
+    related_perimeters = get_all_related_perimeters(perimeters["herault"].id)
 
-    related_perimeters_france = get_all_related_perimeter_ids(
-        perimeters["herault"].id
-    )  # noqa
+    assert list(related_perimeters) == [
+        perimeters["métropole"],
+        perimeters["europe"],
+        perimeters["france"],
+        perimeters["occitanie"],
+        perimeters["herault"],
+        perimeters["montpellier"],
+        perimeters["vic"],
+    ]
 
-    assert {"id": perimeters["france"].id} in related_perimeters_france
-    assert {"id": perimeters["montpellier"].id} in related_perimeters_france
-    assert {"id": perimeters["aveyron"].id} not in related_perimeters_france
+
+def test_get_all_related_perimeters_objects_scale(perimeters):
+    related_perimeters = get_all_related_perimeters(
+        perimeters["herault"].id, scale=Perimeter.SCALES.region
+    )
+
+    assert list(related_perimeters) == [
+        perimeters["occitanie"],
+    ]
+
+
+def test_get_all_related_perimeters_objects_upward(perimeters):
+    related_perimeters = get_all_related_perimeters(
+        perimeters["herault"].id, direction="up"
+    )
+
+    assert list(related_perimeters) == [
+        perimeters["métropole"],
+        perimeters["europe"],
+        perimeters["france"],
+        perimeters["occitanie"],
+        perimeters["herault"],
+    ]
+
+
+def test_get_all_related_perimeters_objects_downward(perimeters):
+    related_perimeters = get_all_related_perimeters(
+        perimeters["herault"].id, direction="down"
+    )
+
+    assert list(related_perimeters) == [
+        perimeters["herault"],
+        perimeters["montpellier"],
+        perimeters["vic"],
+    ]
+
+
+def test_get_all_related_perimeters_values(perimeters):
+    related_perimeters = get_all_related_perimeters(
+        perimeters["herault"].id, values=["id"]
+    )
+
+    assert list(related_perimeters) == [
+        {"id": perimeters["métropole"].id},
+        {"id": perimeters["europe"].id},
+        {"id": perimeters["france"].id},
+        {"id": perimeters["occitanie"].id},
+        {"id": perimeters["herault"].id},
+        {"id": perimeters["montpellier"].id},
+        {"id": perimeters["vic"].id},
+    ]
 
 
 def test_attach_perimeters(perimeters):
@@ -122,25 +175,3 @@ def test_attach_epci_perimeters_with_codes(perimeters, user):
     assert adhoc in perimeters["vic"].contained_in.all()
     assert adhoc in perimeters["herault"].contained_in.all()
     assert adhoc in perimeters["rodez"].contained_in.all()
-
-
-def test_sort_departments_actually_sorts_departments(perimeters):
-    """The Corsican departments are at the '20' position in the list"""
-    departments = Perimeter.objects.filter(scale=Perimeter.SCALES.department)
-    departments_list = sort_departments(departments.values("id", "name", "code"))
-
-    dept_19 = [i for i, d in enumerate(departments_list) if "19" in d.values()][0]
-    dept_2a = [i for i, d in enumerate(departments_list) if "2A" in d.values()][0]
-    dept_2b = [i for i, d in enumerate(departments_list) if "2B" in d.values()][0]
-    dept_21 = [i for i, d in enumerate(departments_list) if "21" in d.values()][0]
-
-    assert dept_19 < dept_2a < dept_2b < dept_21
-
-
-def test_sort_departments_adds_a_slug(perimeters):
-    departments = Perimeter.objects.filter(scale=Perimeter.SCALES.department)
-    departments_list = sort_departments(departments.values("id", "name", "code"))
-
-    aveyron = departments_list[0]
-
-    assert aveyron["slug"] == "aveyron"

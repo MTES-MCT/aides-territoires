@@ -10,27 +10,34 @@ from core.utils import remove_accents
 
 
 def unaccent_names(apps, schema_editor):
-    Perimeter = apps.get_model('geofr', 'Perimeter')
-    Perimeter.objects.update(unaccented_name=Unaccent(models.F('name')))
+    Perimeter = apps.get_model("geofr", "Perimeter")
+    Perimeter.objects.update(unaccented_name=Unaccent(models.F("name")))
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0030_perimeter_is_visible_to_users_init'),
+        ("geofr", "0030_perimeter_is_visible_to_users_init"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='perimeter',
-            name='unaccented_name',
-            field=models.CharField(null=True, max_length=128, verbose_name='Name without accent (for indexing purpose)'),
+            model_name="perimeter",
+            name="unaccented_name",
+            field=models.CharField(
+                null=True,
+                max_length=128,
+                verbose_name="Name without accent (for indexing purpose)",
+            ),
             preserve_default=False,
         ),
         migrations.RunPython(unaccent_names, migrations.RunPython.noop),
         migrations.AlterField(
-            model_name='perimeter',
-            name='unaccented_name',
-            field=models.CharField(max_length=128, verbose_name='Name without accent (for indexing purpose)')
-        )
+            model_name="perimeter",
+            name="unaccented_name",
+            field=models.CharField(
+                max_length=128,
+                verbose_name="Name without accent (for indexing purpose)",
+            ),
+        ),
     ]

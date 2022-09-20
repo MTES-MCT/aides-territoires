@@ -9,17 +9,45 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('flatpages', '0001_initial'),
+        ("flatpages", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Page',
+            name="Page",
             fields=[
-                ('flatpage_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='flatpages.FlatPage')),
-                ('meta_title', models.CharField(blank=True, default='', help_text='This will be displayed in SERPs. Keep it under 60 characters. Leave empty and we will reuse the page title.', max_length=180, verbose_name='Meta title')),
-                ('meta_description', models.TextField(blank=True, default='', help_text='This will be displayed in SERPs. Keep it under 120 characters.', max_length=256, verbose_name='Meta description')),
+                (
+                    "flatpage_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="flatpages.FlatPage",
+                    ),
+                ),
+                (
+                    "meta_title",
+                    models.CharField(
+                        blank=True,
+                        default="",
+                        help_text="This will be displayed in SERPs. Keep it under 60 characters. Leave empty and we will reuse the page title.",
+                        max_length=180,
+                        verbose_name="Meta title",
+                    ),
+                ),
+                (
+                    "meta_description",
+                    models.TextField(
+                        blank=True,
+                        default="",
+                        help_text="This will be displayed in SERPs. Keep it under 120 characters.",
+                        max_length=256,
+                        verbose_name="Meta description",
+                    ),
+                ),
             ],
-            bases=('flatpages.flatpage',),
+            bases=("flatpages.flatpage",),
         ),
     ]
