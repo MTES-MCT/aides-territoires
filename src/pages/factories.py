@@ -8,5 +8,5 @@ class PageFactory(DjangoModelFactory):
     class Meta:
         model = Page
 
-    title = factory.Faker('company')
-    url = factory.Sequence(lambda n: '/page_{}/'.format(n))
+    title = factory.Faker("company")
+    url = factory.Sequence(lambda n: "/page_{}/".format(n))

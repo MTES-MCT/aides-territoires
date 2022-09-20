@@ -7,14 +7,20 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0024_reupload_files'),
-        ('pages', '0001_initial'),
+        ("search", "0024_reupload_files"),
+        ("pages", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='page',
-            name='minisite',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='search.searchpage', verbose_name='Minisite'),
+            model_name="page",
+            name="minisite",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="search.searchpage",
+                verbose_name="Minisite",
+            ),
         ),
     ]
