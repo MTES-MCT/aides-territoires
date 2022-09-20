@@ -389,30 +389,51 @@
               data-table-target="header"
               data-type="text"
               >Périmètre</th>
+            <th
+              scope="col"
+              data-action="click->table#sortTable"
+              data-table-target="header"
+              data-type="text"
+              >Porteur</th>
           </tr>
         </thead>
         <tbody data-table-target="body">
           {% for aid_stats in top_aids_pages %}
-          <tr data-table-target="row">
-            <td {% if forloop.first %}scope="row"{% endif %}>
-              {% if aid_stats.aid_or_name.get_absolute_url %}
-                <a href="{{ aid_stats.aid_or_name.get_absolute_url }}">
+            {% with has_aid=aid_stats.aid_or_name.get_absolute_url %}
+            <tr data-table-target="row">
+              <td {% if forloop.first %}scope="row"{% endif %}>
+                {% if has_aid %}
+                  <a href="{{ has_aid }}">
+                    {{ aid_stats.aid_or_name }}
+                  </a>
+                {% else %}
                   {{ aid_stats.aid_or_name }}
-                </a>
-              {% else %}
-                {{ aid_stats.aid_or_name }}
-              {% endif %}
-            </td>
-            <td>{{ aid_stats.nb_visits }}</td>
-            <td>{{ aid_stats.nb_uniq_visitors }}</td>
-            <td>
-              {% if aid_stats.aid_or_name.get_absolute_url %}
-                {{ aid_stats.aid_or_name.perimeter.get_scale_display }}
-              {% else %}
-                -
-              {% endif %}
-            </td>
-          </tr>
+                {% endif %}
+              </td>
+              <td>{{ aid_stats.nb_visits }}</td>
+              <td>{{ aid_stats.nb_uniq_visitors }}</td>
+              <td>
+                {% if has_aid %}
+                  {{ aid_stats.aid_or_name.perimeter.get_scale_display }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+              <td>
+                {% if has_aid %}
+                  {% with beneficiary=aid_stats.aid_or_name.author.beneficiary_organization %}
+                    {% if beneficiary.pk %}
+                      {{ aid_stats.aid_or_name.author.beneficiary_organization }}
+                    {% else %}
+                      -
+                    {% endif %}
+                  {% endwith %}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+            </tr>
+            {% endwith %}
           {% endfor %}
         </tbody>
       </table>
