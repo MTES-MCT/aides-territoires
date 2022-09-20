@@ -1,12 +1,15 @@
+import json
 import requests
 import datetime
 from datetime import timedelta
 from time import strftime, gmtime
+from pathlib import Path
 
 from django.conf import settings
+from django.core.serializers.json import DjangoJSONEncoder
 from django.views.generic import TemplateView, ListView
 from django.utils import timezone
-from django.db.models import Sum
+from django.db.models import Count, Sum
 from django.views.generic.edit import FormMixin
 
 from aids.models import Aid, AidProject
@@ -335,6 +338,87 @@ class UsersStatsView(SuperUserRequiredMixin, FormMixin, ListView):
         )
         context["nb_users"] = User.objects.all().count()
 
+        return context
+
+
+class CartoStatsView(SuperUserRequiredMixin, TemplateView):
+    template_name = "stats/carto_stats.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["regions_geojson"] = (
+            Path(".").resolve() / "static" / "geojson" / "regions-1000m.geojson"
+        ).read_text()
+
+        # Counts by region.
+        regions = Perimeter.objects.filter(
+            scale=Perimeter.SCALES.region, is_obsolete=False
+        )
+        regions_org_count = {}
+        for region in regions:
+            regions_org_count[region.name] = region.organization_region.values(
+                "id"
+            ).count()
+        context["regions_org_max"] = max(regions_org_count.values())
+        context["regions_org_count"] = json.dumps(
+            regions_org_count, cls=DjangoJSONEncoder
+        )
+
+        # Counts by department.
+        departments = Perimeter.objects.departments()
+        departments_org_count = {}
+        departments_codes = []
+        for department in departments:
+            departments_codes.append(department.code)
+            departments_org_count[
+                department.name
+            ] = department.organization_department.values("id").count()
+        context["departments_codes"] = departments_codes
+        context["departments_org_max"] = max(departments_org_count.values())
+        context["departments_org_count"] = json.dumps(
+            departments_org_count, cls=DjangoJSONEncoder
+        )
+
+        # Organizations with commune as a perimeter.
+        organizations = (
+            Organization.objects.filter(
+                perimeter__scale=Perimeter.SCALES.commune,
+                perimeter__is_obsolete=False,
+            )
+            .annotate(users_count=Count("user", distinct=True))
+            .annotate(projects_count=Count("project", distinct=True))
+            .values(
+                "name",
+                "date_created",
+                "projects_count",
+                "users_count",
+                "perimeter__code",
+                "perimeter__name",
+            )
+        )
+
+        def get_age(date_):
+            now = datetime.datetime.now(timezone.utc)
+            if now - datetime.timedelta(days=30) < date_:
+                return 3
+            if now - datetime.timedelta(days=90) < date_:
+                return 2
+            else:
+                return 1
+
+        communes_with_org = {
+            f"{organization['perimeter__code']}-{organization['perimeter__name']}": {
+                "organization_name": organization["name"],
+                "users_count": organization["users_count"],
+                "projects_count": organization["projects_count"],
+                "date_created": organization["date_created"],
+                "age": get_age(organization["date_created"]),
+            }
+            for organization in organizations
+        }
+        context["communes_with_org"] = json.dumps(
+            communes_with_org, cls=DjangoJSONEncoder
+        )
         return context
 
 

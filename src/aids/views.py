@@ -44,7 +44,7 @@ from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from programs.models import Program
 from projects.models import Project
-from geofr.utils import get_all_related_perimeter_ids
+from geofr.utils import get_all_related_perimeters
 from blog.models import PromotionPost
 from search.utils import clean_search_form
 from stats.models import AidViewEvent
@@ -157,7 +157,9 @@ class SearchView(SearchMixin, FormMixin, ListView):
 
         searched_perimeter = self.form.cleaned_data.get("perimeter", None)
         if searched_perimeter:
-            searched_perimeter = get_all_related_perimeter_ids(searched_perimeter.id)
+            searched_perimeter = get_all_related_perimeters(
+                searched_perimeter.id, values=["id"]
+            )
             promotions = promotions.filter(
                 Q(perimeter__in=searched_perimeter) | Q(perimeter__isnull=True)
             )

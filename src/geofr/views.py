@@ -8,7 +8,6 @@ from geofr.services.counts_by_department import (
     get_programs_count_by_department,
 )
 from geofr.models import Perimeter
-from geofr.utils import sort_departments
 from organizations.constants import ORGANIZATION_TYPE
 from programs.models import Program
 
@@ -18,11 +17,9 @@ class MapView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        departments = Perimeter.objects.filter(
-            scale=Perimeter.SCALES.department
-        ).values("id", "name", "code", "backers_count", "programs_count")
-
-        departments_list = sort_departments(departments)
+        departments_list = Perimeter.objects.departments(
+            values=["id", "name", "code", "backers_count", "programs_count"]
+        )
 
         context["departments"] = departments_list
         context["departments_json"] = json.dumps(departments_list)
@@ -38,18 +35,19 @@ class DepartmentView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        departments = Perimeter.objects.filter(scale=Perimeter.SCALES.department)
-        departments_list = sort_departments(departments.values("id", "name", "code"))
-        current_dept = departments.get(code=kwargs["code"])
+        departments_list = Perimeter.objects.departments(values=["id", "name", "code"])
+        current_dept = [
+            dep for dep in departments_list if dep["code"] == kwargs["code"]
+        ][0]
 
         target_audience = self.request.GET.get("target_audience")
         aid_type = self.request.GET.get("aid_type")
 
         backers_list = get_backers_count_by_department(
-            current_dept.id, target_audience=target_audience, aid_type=aid_type
+            current_dept["id"], target_audience=target_audience, aid_type=aid_type
         )
         programs_list = get_programs_count_by_department(
-            current_dept.id, target_audience=target_audience, aid_type=aid_type
+            current_dept["id"], target_audience=target_audience, aid_type=aid_type
         )
 
         captions = {
@@ -75,15 +73,16 @@ class DepartmentBackersView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        departments = Perimeter.objects.filter(scale=Perimeter.SCALES.department)
-        departments_list = sort_departments(departments.values("id", "name", "code"))
-        current_dept = departments.get(code=kwargs["code"])
+        departments_list = Perimeter.objects.departments(values=["id", "name", "code"])
+        current_dept = [
+            dep for dep in departments_list if dep["code"] == kwargs["code"]
+        ][0]
 
         target_audience = self.request.GET.get("target_audience")
         aid_type = self.request.GET.get("aid_type")
 
         backers_list = get_backers_count_by_department(
-            current_dept.id, target_audience=target_audience, aid_type=aid_type
+            current_dept["id"], target_audience=target_audience, aid_type=aid_type
         )
 
         if aid_type == "financial":
@@ -92,7 +91,7 @@ class DepartmentBackersView(TemplateView):
             caption_aid_type = " en ingénierie"
         else:
             caption_aid_type = ""
-        caption = f"{current_dept.name } : {backers_list.count()} "
+        caption = f"{current_dept['name'] } : {backers_list.count()} "
         caption += f"porteurs d‘aides{caption_aid_type} présents"
 
         context["departments"] = departments_list
@@ -112,15 +111,16 @@ class DepartmentProgramsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        departments = Perimeter.objects.filter(scale=Perimeter.SCALES.department)
-        departments_list = sort_departments(departments.values("id", "name", "code"))
-        current_dept = departments.get(code=kwargs["code"])
+        departments_list = Perimeter.objects.departments(values=["id", "name", "code"])
+        current_dept = [
+            dep for dep in departments_list if dep["code"] == kwargs["code"]
+        ][0]
 
         target_audience = self.request.GET.get("target_audience")
         aid_type = self.request.GET.get("aid_type")
 
         programs_list = get_programs_count_by_department(
-            current_dept.id, target_audience=target_audience, aid_type=aid_type
+            current_dept["id"], target_audience=target_audience, aid_type=aid_type
         )
 
         if aid_type == "financial":
@@ -129,7 +129,7 @@ class DepartmentProgramsView(TemplateView):
             caption_aid_type = " techniques"
         else:
             caption_aid_type = ""
-        caption = f"{current_dept.name } : {programs_list.count()} "
+        caption = f"{current_dept['name'] } : {programs_list.count()} "
         caption += f"programmes{caption_aid_type} présents"
 
         context["departments"] = departments_list
