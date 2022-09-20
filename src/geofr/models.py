@@ -238,3 +238,31 @@ class PerimeterImport(models.Model):
 
     def __str__(self):
         return f"{self.id} - {self.adhoc_perimeter.name}"
+
+
+class PerimeterData(models.Model):
+    """
+    allows to import extra data for perimeters
+    """
+
+    perimeter = models.ForeignKey(
+        "geofr.Perimeter",
+        verbose_name="périmètre",
+        on_delete=models.CASCADE,
+        help_text="Périmètre pour lequel les données sont importées",
+    )
+
+    # should be property but this is a reserved keyword in Python
+    prop = models.CharField(verbose_name="propriété", max_length=100)
+    value = models.CharField(verbose_name="valeur", max_length=255)
+
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+    date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
+
+    def __str__(self):
+        return f"{self.perimeter} – {self.prop}: {self.value}"
+
+    class Meta:
+        verbose_name = "donnée de périmètre"
+        verbose_name_plural = "données de périmètre"
+        unique_together = (("perimeter", "prop"),)
