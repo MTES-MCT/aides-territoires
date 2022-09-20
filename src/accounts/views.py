@@ -96,6 +96,14 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
         return context
 
 
+class RegisterCommuneView(AnonymousRequiredMixin, CreateView):
+    """Allow mayors and staff of communes to quickly create an account and organization."""
+
+    template_name = "accounts/register_commune.html"
+    form_class = RegisterForm
+    success_url = reverse_lazy("register_success")
+
+
 class RegisterSuccessView(AnonymousRequiredMixin, TemplateView):
     """Display success message after register action."""
 

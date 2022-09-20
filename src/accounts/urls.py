@@ -9,6 +9,7 @@ from accounts.views import (
     LoginView,
     TokenLoginView,
     RegisterView,
+    RegisterCommuneView,
     RegisterSuccessView,
     ContributorProfileView,
     UserDashboardView,
@@ -27,6 +28,7 @@ from accounts.views import (
 
 urlpatterns = [
     path("inscription/", RegisterView.as_view(), name="register"),
+    path("inscription-mairie/", RegisterCommuneView.as_view(), name="register_commune"),
     path("inscription-succès/", RegisterSuccessView.as_view(), name="register_success"),
     path(
         "connexion/",
