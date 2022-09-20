@@ -181,6 +181,50 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
         return context
 
 
+class PublicProjectDetailView(DetailView):
+    template_name = "projects/public_project_detail.html"
+    context_object_name = "project"
+
+    def get_object(self, queryset=None):
+        """
+        Require `self.queryset` and a `pk` AND `slug` argument in the URLconf.
+        """
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        slug = self.kwargs.get(self.slug_url_kwarg)
+        if pk is not None and slug is not None:
+            queryset = queryset.filter(pk=pk, slug=slug)
+
+        if pk is None and slug is None:
+            raise AttributeError(
+                "Generic detail view %s must be called with either an object "
+                "pk or a slug in the URLconf." % self.__class__.__name__
+            )
+
+        try:
+            obj = queryset.get()
+            if obj.is_public is False:
+                raise PermissionDenied()
+            elif obj.status != Project.STATUS.published:
+                raise PermissionDenied()
+        except queryset.model.DoesNotExist:
+            raise Http404()
+        return obj
+
+    def get_queryset(self):
+        queryset = Project.objects.prefetch_related("aid_set")
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["aid_set"] = self.object.aid_set.all()
+        context["AidProject"] = AidProject.objects.filter(project=self.object.pk)
+
+        return context
+
+
 class ProjectDeleteView(ContributorAndProfileCompleteRequiredMixin, DeleteView):
     """Delete an existing project."""
 

@@ -6,7 +6,7 @@
             <div class="fr-card__content">
                 <h2 class="fr-card__title fr-h5 fr-mb-1w">
 
-                    <a class="fr-card__link at-color--blue" href="#">
+                    <a class="fr-card__link at-color--blue" href="{% url 'public_project_detail_view' pk=project.id slug=project.slug %}">
                         {{ project.name }}
                     </a>
                 </h2>
