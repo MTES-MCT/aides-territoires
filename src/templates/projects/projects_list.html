@@ -65,6 +65,7 @@
                             <th scope="col" class="fr-text">Date création</th>
                             <th scope="col" class="fr-text">Date d’échéance</th>
                             <th scope="col" class="fr-text">Créé par</th>
+                            <th scope="col" class="fr-text">Projet public</th>
                             <th scope="col" class="fr-text">Action</th>
                         </tr>
                     </thead>
@@ -96,6 +97,13 @@
                             {% endif %}
                             {% endfor %}
                             {% endif %}
+                            </td>
+                            <td class="fr-text">
+                                {% if project.is_public %}
+                                <p class="fr-mb-0 fr-badge fr-badge--success">Oui</p>
+                                {% else %}
+                                <p class="fr-mb-0 fr-badge fr-badge--error">Non</p>              
+                                {% endif %}
                             </td>
                             <td class="fr-text">
                                 <button type="button"
