@@ -112,6 +112,27 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
         return context
 
 
+class PublicProjectListView(ListView):
+    """A list of all the public projects"""
+
+    template_name = "projects/public_projects_list.html"
+    context_object_name = "projects"
+    paginate_by = 18
+    paginator_class = AidPaginator
+
+    def get_queryset(self):
+        queryset = Project.objects.filter(
+            is_public=True,
+            status=Project.STATUS.published,
+        )
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user
+        return context
+
+
 class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
     template_name = "projects/project_detail.html"
     context_object_name = "project"
