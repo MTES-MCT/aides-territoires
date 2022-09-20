@@ -1,11 +1,12 @@
 $(document).ready(function () {
 
+    var URL_FRAGMENT_REGEX = new RegExp("^[0-9a-z-_/]+$");
+
     $('#select').on('change', function () {
-        var url = $(this).val(); // get selected value
-        if (url) { // require a URL
-            window.location = url; // redirect
+        let url_fragment = $(this).val();
+        if (url_fragment.match(URL_FRAGMENT_REGEX)) {
+            window.location.replace(url_fragment);
         }
         return false;
     });
-
 })
