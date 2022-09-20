@@ -122,6 +122,9 @@
 .charts-legend-regular2 {
   background: var(--yellow-tournesol-850-200);
 }
+.charts-legend-regular3 {
+  background: var(--success-425-625);
+}
 .charts-legend-accent {
   background: var(--background-action-high-blue-france);
 }
@@ -161,4 +164,9 @@
 .ct-series-c .ct-bar,
 .ct-series-c .ct-point {
   stroke: var(--yellow-tournesol-850-200);
+}
+.ct-series-d .ct-line,
+.ct-series-d .ct-bar,
+.ct-series-d .ct-point {
+  stroke: var(--success-425-625);
 }

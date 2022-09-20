@@ -368,6 +368,15 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
             ).count()
             for week in last_10_weeks
         ]
+        context["nb_inscriptions_with_created_alert_serie"] = [
+            Alert.objects.filter(validated=True)
+            .filter(
+                date_created__lte=week,
+                date_created__gt=week - datetime.timedelta(days=7),
+            )
+            .count()
+            for week in last_10_weeks
+        ]
 
         week_inscriptions_communes_counts = [
             User.objects.filter(

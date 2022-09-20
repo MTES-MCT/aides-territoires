@@ -130,21 +130,27 @@
     </script>
 
     <h3 class="fr-mt-5w">
-      🆕 Nombre d’inscriptions totales <span class="charts-legend charts-legend-accent"></span>,
-      avec une aide <span class="charts-legend charts-legend-regular"></span>,
-      avec un projet <span class="charts-legend charts-legend-regular2"></span> :
+      🆕 Nombre d’inscriptions totales <span class="charts-legend charts-legend-accent"></span> :
     </h3>
     <div class="charts">
       <div id="chart-inscriptions" class="ct-chart"></div>
     </div>
+    <div class="charts-legends">
+      <ul>
+        <li><span class="charts-legend charts-legend-regular"></span> Avec une aide</li>
+        <li><span class="charts-legend charts-legend-regular2"></span> Avec un projet</li>
+        <li><span class="charts-legend charts-legend-regular3"></span> Alertes créées cette semaine</li>
+      </ul>
+    </div>
 
-        <script>
+    <script>
       new Chartist.Bar('#chart-inscriptions', {
         labels: {{ nb_inscriptions_weeks|safe }},
         series: [
           {{ nb_inscriptions_serie }},
           {{ nb_inscriptions_with_created_aid_serie }},
-          {{ nb_inscriptions_with_created_project_serie }}
+          {{ nb_inscriptions_with_created_project_serie }},
+          {{ nb_inscriptions_with_created_alert_serie }}
         ]
       }, {
         // stackBars: true,
@@ -161,12 +167,16 @@
     </script>
 
     <h3 class="fr-mt-5w">
-      📍 Nombre d’inscriptions communes <span class="charts-legend charts-legend-accent"></span>,
-      avec une aide <span class="charts-legend charts-legend-regular"></span>,
-      avec un projet <span class="charts-legend charts-legend-regular2"></span> :
+      📍 Nombre d’inscriptions communes <span class="charts-legend charts-legend-accent"></span> :
     </h3>
     <div class="charts">
       <div id="chart-inscriptions-communes" class="ct-chart"></div>
+    </div>
+    <div class="charts-legends">
+      <ul>
+        <li><span class="charts-legend charts-legend-regular"></span> Avec une aide</li>
+        <li><span class="charts-legend charts-legend-regular2"></span> Avec un projet</li>
+      </ul>
     </div>
 
     <script>
@@ -294,14 +304,14 @@
 
   <div class="fr-container fr-mb-5w">
 
-    <h5 class="fr-mt-5w">🧲 10 principales sources d’entrées :</h5>
+    <h5 class="fr-mt-5w">🧲 Principales sources d’entrées :</h5>
     <div
       class="fr-table fr-table--layout-fixed fr-table--no-caption"
       data-controller="table"
       data-downloadable="true"
       >
       <table data-table-target="table">
-        <caption>10 principales sources d’entrées</caption>
+        <caption>Principales sources d’entrées</caption>
         <thead>
           <tr>
             <th
