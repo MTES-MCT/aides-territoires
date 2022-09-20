@@ -60,7 +60,7 @@
         plugins: [
           Chartist.plugins.fillDonut({
             items: [{
-              content: '<p><strong>{{ pourcent_communes }}% des communes</strong><br>Objectif : 10&#8239;000 <span class="charts-legend charts-legend-regular"></span></p>',
+              content: '<p><strong><a href="{% url 'carto_stats' %}">{{ nb_communes }} communes</a></strong><br>Objectif : 10&#8239;000 <span class="charts-legend charts-legend-regular"></span></p>',
               offsetY: -20
             }]
           })
@@ -197,7 +197,7 @@
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
-                <a class="fr-tile__link" href="#">Communes</a><br />
+                <a class="fr-tile__link" href="{% url 'carto_stats' %}">Communes</a><br />
                 <span class="fr-hint-text">{{ total_communes|intcomma }}</span>
               </p>
             </div>
@@ -227,7 +227,7 @@
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
-                <a class="fr-tile__link" href="#">Départements</a><br />
+                <a class="fr-tile__link" href="{% url 'carto_stats' %}">Départements</a><br />
                 <span class="fr-hint-text">{{ total_departments|intcomma }}</span>
               </p>
             </div>
@@ -242,7 +242,7 @@
           <div class="fr-tile fr-enlarge-link">
             <div class="fr-tile__body">
               <p class="fr-tile__title">
-                <a class="fr-tile__link" href="#">Régions</a><br />
+                <a class="fr-tile__link" href="{% url 'carto_stats' %}">Régions</a><br />
                 <span class="fr-hint-text">{{ total_regions|intcomma }}</span>
               </p>
             </div>
