@@ -25,7 +25,8 @@ class ProjectAdmin(ImportExportActionModelAdmin):
     resource_class = ProjectResource
     formats = [base_formats.CSV, base_formats.XLSX]
     form = ProjectForm
-    list_display = ["name", "date_created"]
+    list_display = ["name", "date_created", "is_public", "status"]
+    list_filter = ["is_public", "status"]
     prepopulated_fields = {"slug": ("name",)}
     fields = [
         "name",
