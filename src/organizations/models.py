@@ -106,6 +106,14 @@ class Organization(models.Model):
     beneficiaries = models.ManyToManyField(
         "accounts.User", verbose_name="Bénéficiaires", blank=True
     )
+
+    favorite_projects = models.ManyToManyField(
+        "projects.Project",
+        verbose_name="Projets favoris",
+        related_name="organization_favorite",
+        blank=True,
+    )
+
     perimeter = models.ForeignKey(
         "geofr.Perimeter",
         verbose_name="Périmètre de la structure",
