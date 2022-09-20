@@ -6,18 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0034_cleanup_choices_translations'),
+        ("geofr", "0034_cleanup_choices_translations"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='perimeter',
-            name='backers_count',
-            field=models.PositiveSmallIntegerField(blank=True, null=True, verbose_name='nombre de porteurs'),
+            model_name="perimeter",
+            name="backers_count",
+            field=models.PositiveSmallIntegerField(
+                blank=True, null=True, verbose_name="nombre de porteurs"
+            ),
         ),
         migrations.AddField(
-            model_name='perimeter',
-            name='programs_count',
-            field=models.PositiveSmallIntegerField(blank=True, null=True, verbose_name='nombre de programmes'),
+            model_name="perimeter",
+            name="programs_count",
+            field=models.PositiveSmallIntegerField(
+                blank=True, null=True, verbose_name="nombre de programmes"
+            ),
         ),
     ]

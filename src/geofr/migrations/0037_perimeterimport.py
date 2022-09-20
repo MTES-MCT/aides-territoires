@@ -11,21 +11,74 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('geofr', '0036_auto_20220316_1426'),
+        ("geofr", "0036_auto_20220316_1426"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PerimeterImport',
+            name="PerimeterImport",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('city_codes', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=5), help_text="Liste d'identifiants INSEE de communes", size=None, verbose_name='périmètres contenus')),
-                ('is_imported', models.BooleanField(default=False, verbose_name='import effectué ?')),
-                ('date_imported', models.DateTimeField(blank=True, null=True, verbose_name='date d’import')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date de création')),
-                ('date_updated', models.DateTimeField(auto_now=True, verbose_name='Date de mise à jour')),
-                ('adhoc_perimeter', models.ForeignKey(help_text='Périmètre à définir', on_delete=django.db.models.deletion.CASCADE, to='geofr.perimeter', verbose_name='périmètre adhoc')),
-                ('author', models.ForeignKey(help_text='Créateur du périmètre', on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL, verbose_name='Auteur')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "city_codes",
+                    django.contrib.postgres.fields.ArrayField(
+                        base_field=models.CharField(max_length=5),
+                        help_text="Liste d'identifiants INSEE de communes",
+                        size=None,
+                        verbose_name="périmètres contenus",
+                    ),
+                ),
+                (
+                    "is_imported",
+                    models.BooleanField(
+                        default=False, verbose_name="import effectué ?"
+                    ),
+                ),
+                (
+                    "date_imported",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="date d’import"
+                    ),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now,
+                        verbose_name="Date de création",
+                    ),
+                ),
+                (
+                    "date_updated",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="Date de mise à jour"
+                    ),
+                ),
+                (
+                    "adhoc_perimeter",
+                    models.ForeignKey(
+                        help_text="Périmètre à définir",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="geofr.perimeter",
+                        verbose_name="périmètre adhoc",
+                    ),
+                ),
+                (
+                    "author",
+                    models.ForeignKey(
+                        help_text="Créateur du périmètre",
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Auteur",
+                    ),
+                ),
             ],
         ),
     ]

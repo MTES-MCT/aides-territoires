@@ -6,55 +6,59 @@ from model_utils import Choices
 
 
 SCALES = Choices(
-    (1, 'commune', _('Commune')),
-    (5, 'epci', _('EPCI')),
-    (8, 'basin', _('Drainage basin')),
-    (10, 'department', _('Department')),
-    (15, 'region', _('Region')),
-    (16, 'overseas', _('Overseas')),
-    (17, 'mainland', _('Mainland')),
-    (18, 'adhoc', _('Ad-hoc')),
-    (20, 'country', _('Country')),
-    (25, 'continent', _('Continent')),
+    (1, "commune", _("Commune")),
+    (5, "epci", _("EPCI")),
+    (8, "basin", _("Drainage basin")),
+    (10, "department", _("Department")),
+    (15, "region", _("Region")),
+    (16, "overseas", _("Overseas")),
+    (17, "mainland", _("Mainland")),
+    (18, "adhoc", _("Ad-hoc")),
+    (20, "country", _("Country")),
+    (25, "continent", _("Continent")),
 )
 
 
 def create_mainland_overseas_perimeters(apps, schema_editor):
     """Handle mainland and overseas perimeters.
 
-     - update mainland and overseas existing perimeters to the `adhoc` type;
-     - set the `contained_in` link for all perimeters.
+    - update mainland and overseas existing perimeters to the `adhoc` type;
+    - set the `contained_in` link for all perimeters.
     """
 
-    Perimeter = apps.get_model('geofr', 'Perimeter')
+    Perimeter = apps.get_model("geofr", "Perimeter")
     PerimeterContainedIn = Perimeter.contained_in.through
     containments = []
 
     mainland = Perimeter.objects.get(scale=SCALES.mainland)
     mainland.scale = SCALES.adhoc
-    mainland.name = 'France métropolitaine'
+    mainland.name = "France métropolitaine"
     mainland.save()
 
-    mainland_perimeters = Perimeter.objects \
-        .filter(is_overseas=False) \
-        .values_list('id', flat=True)
+    mainland_perimeters = Perimeter.objects.filter(is_overseas=False).values_list(
+        "id", flat=True
+    )
     for perimeter_id in mainland_perimeters:
-        containments.append(PerimeterContainedIn(
-            from_perimeter_id=perimeter_id,
-            to_perimeter_id=mainland.id))
+        containments.append(
+            PerimeterContainedIn(
+                from_perimeter_id=perimeter_id, to_perimeter_id=mainland.id
+            )
+        )
 
     overseas = Perimeter.objects.get(scale=SCALES.overseas)
     overseas.scale = SCALES.adhoc
-    overseas.name = 'Outre-mer'
+    overseas.name = "Outre-mer"
     overseas.save()
 
-    overseas_perimeters = Perimeter.objects \
-        .filter(is_overseas=True) \
-        .values_list('id', flat=True)
+    overseas_perimeters = Perimeter.objects.filter(is_overseas=True).values_list(
+        "id", flat=True
+    )
     for perimeter_id in overseas_perimeters:
-        containments.append(PerimeterContainedIn(
-            from_perimeter_id=perimeter_id,
-            to_perimeter_id=overseas.id))
+        containments.append(
+            PerimeterContainedIn(
+                from_perimeter_id=perimeter_id, to_perimeter_id=overseas.id
+            )
+        )
 
     PerimeterContainedIn.objects.bulk_create(containments)
 
@@ -62,7 +66,7 @@ def create_mainland_overseas_perimeters(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0023_auto_20190920_0958'),
+        ("geofr", "0023_auto_20190920_0958"),
     ]
 
     operations = [

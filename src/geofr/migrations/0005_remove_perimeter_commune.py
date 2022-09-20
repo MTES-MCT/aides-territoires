@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0004_auto_20180905_1149'),
+        ("geofr", "0004_auto_20180905_1149"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='perimeter',
-            name='commune',
+            model_name="perimeter",
+            name="commune",
         ),
     ]

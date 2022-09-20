@@ -6,23 +6,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0003_auto_20180904_1518'),
+        ("geofr", "0003_auto_20180904_1518"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='perimeter',
-            name='continent',
-            field=models.CharField(default='EU', max_length=2, verbose_name='Continent'),
+            model_name="perimeter",
+            name="continent",
+            field=models.CharField(
+                default="EU", max_length=2, verbose_name="Continent"
+            ),
         ),
         migrations.AddField(
-            model_name='perimeter',
-            name='country',
-            field=models.CharField(default='FRA', max_length=3, verbose_name='Country'),
+            model_name="perimeter",
+            name="country",
+            field=models.CharField(default="FRA", max_length=3, verbose_name="Country"),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='department',
-            field=models.CharField(blank=True, max_length=3, verbose_name='Department'),
+            model_name="perimeter",
+            name="department",
+            field=models.CharField(blank=True, max_length=3, verbose_name="Department"),
         ),
     ]

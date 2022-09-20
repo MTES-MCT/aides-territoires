@@ -7,7 +7,7 @@ def init_is_visible_to_users_field(apps, schema_editor):
     """
     Set is_visible_to_users to False for manually_created Perimeters
     """
-    Perimeter = apps.get_model('geofr', 'Perimeter')
+    Perimeter = apps.get_model("geofr", "Perimeter")
     perimeters = Perimeter.objects.all()
     for perimeter in perimeters:
         if perimeter.manually_created:
@@ -18,9 +18,7 @@ def init_is_visible_to_users_field(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0029_perimeter_is_visible_to_users'),
+        ("geofr", "0029_perimeter_is_visible_to_users"),
     ]
 
-    operations = [
-        migrations.RunPython(init_is_visible_to_users_field)
-    ]
+    operations = [migrations.RunPython(init_is_visible_to_users_field)]

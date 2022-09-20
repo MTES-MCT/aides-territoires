@@ -22,7 +22,9 @@ class Command(BaseCommand):
             department.programs_count = get_programs_count_by_department(
                 department.id
             ).count()
-            department.live_aids_count = get_live_aids_total_by_department(department.id)
+            department.live_aids_count = get_live_aids_total_by_department(
+                department.id
+            )
             department.categories_count = get_categories_total_by_department(
                 department.id
             )

@@ -11,8 +11,8 @@ SCALES = _Perimeter.SCALES
 def set_perimeters(apps, schema_editor):
     """Set new perimeter field value."""
 
-    Aid = apps.get_model('aids', 'Aid')
-    Perimeter = apps.get_model('geofr', 'Perimeter')
+    Aid = apps.get_model("aids", "Aid")
+    Perimeter = apps.get_model("geofr", "Perimeter")
     aids = Aid.objects.all()
 
     try:
@@ -25,21 +25,21 @@ def set_perimeters(apps, schema_editor):
 
     for aid in aids:
 
-        if aid.application_perimeter == 'europe':
+        if aid.application_perimeter == "europe":
             aid.perimeter = europe
-        elif aid.application_perimeter == 'france':
+        elif aid.application_perimeter == "france":
             aid.perimeter = france
-        elif aid.application_perimeter == 'region':
+        elif aid.application_perimeter == "region":
             region = Perimeter.objects.get(
-                scale=SCALES.region,
-                code=aid.application_region)
+                scale=SCALES.region, code=aid.application_region
+            )
             aid.perimeter = region
-        elif aid.application_perimeter == 'department':
+        elif aid.application_perimeter == "department":
             department = Perimeter.objects.get(
-                scale=SCALES.department,
-                code=aid.application_department)
+                scale=SCALES.department, code=aid.application_department
+            )
             aid.perimeter = department
-        elif aid.application_perimeter == 'overseas':
+        elif aid.application_perimeter == "overseas":
             aid.perimeter = france
 
         aid.save()
@@ -48,8 +48,8 @@ def set_perimeters(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0069_auto_20190916_1104'),
-        ('geofr', '0009_auto_20180906_1439'),
+        ("aids", "0069_auto_20190916_1104"),
+        ("geofr", "0009_auto_20180906_1439"),
     ]
 
     operations = [

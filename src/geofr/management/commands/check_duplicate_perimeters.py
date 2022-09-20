@@ -8,7 +8,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Get all the adhoc perimeters relations
-        adhoc_contains = Perimeter.objects.filter(scale=18).values_list("id", "contains")
+        adhoc_contains = Perimeter.objects.filter(scale=18).values_list(
+            "id", "contains"
+        )
 
         # Group them by perimeter
         adhoc_perimeters_dict = {}

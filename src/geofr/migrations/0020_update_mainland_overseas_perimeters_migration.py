@@ -4,25 +4,19 @@ from django.db import migrations
 
 
 def update_perimeters(apps, schema_editor):
-    Perimeter = apps.get_model('geofr', 'Perimeter')
+    Perimeter = apps.get_model("geofr", "Perimeter")
 
     # Mainland
-    Perimeter.objects \
-        .filter(scale=17) \
-        .update(name='France')
+    Perimeter.objects.filter(scale=17).update(name="France")
 
     # Overseas
-    Perimeter.objects \
-        .filter(scale=16) \
-        .update(name='France')
+    Perimeter.objects.filter(scale=16).update(name="France")
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0019_generate_mainland_overseas_migration'),
+        ("geofr", "0019_generate_mainland_overseas_migration"),
     ]
 
-    operations = [
-        migrations.RunPython(update_perimeters, migrations.RunPython.noop)
-    ]
+    operations = [migrations.RunPython(update_perimeters, migrations.RunPython.noop)]

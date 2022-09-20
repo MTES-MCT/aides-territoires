@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0020_update_mainland_overseas_perimeters_migration'),
+        ("geofr", "0020_update_mainland_overseas_perimeters_migration"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='perimeter',
-            name='contained_in',
-            field=models.ManyToManyField(blank=True, to='geofr.Perimeter', verbose_name='Contained in'),
+            model_name="perimeter",
+            name="contained_in",
+            field=models.ManyToManyField(
+                blank=True, to="geofr.Perimeter", verbose_name="Contained in"
+            ),
         ),
     ]

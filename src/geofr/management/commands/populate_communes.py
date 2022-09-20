@@ -7,6 +7,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         result = populate_communes()
-        self.stdout.write(self.style.SUCCESS(
-            f"{result['created']} created, {result['updated']} updated."
-        ))
+        self.stdout.write(
+            self.style.SUCCESS(
+                f"{result['created']} created, {result['updated']} updated."
+            )
+        )

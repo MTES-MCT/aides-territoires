@@ -10,6 +10,8 @@ class Command(BaseCommand):
     @transaction.atomic()
     def handle(self, *args, **options):
         result = populate_departments()
-        self.stdout.write(self.style.SUCCESS(
-            f"{result['created']} created, {result['updated']} updated."
-        ))
+        self.stdout.write(
+            self.style.SUCCESS(
+                f"{result['created']} created, {result['updated']} updated."
+            )
+        )

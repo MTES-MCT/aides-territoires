@@ -7,15 +7,15 @@ from model_utils import Choices
 
 
 SCALES = Choices(
-    (1, 'commune', _('Commune')),
-    (5, 'epci', _('EPCI')),
-    (8, 'basin', _('Drainage basin')),
-    (10, 'department', _('Department')),
-    (15, 'region', _('Region')),
-    (16, 'overseas', _('Overseas')),
-    (17, 'mainland', _('Mainland')),
-    (20, 'country', _('Country')),
-    (25, 'continent', _('Continent')),
+    (1, "commune", _("Commune")),
+    (5, "epci", _("EPCI")),
+    (8, "basin", _("Drainage basin")),
+    (10, "department", _("Department")),
+    (15, "region", _("Region")),
+    (16, "overseas", _("Overseas")),
+    (17, "mainland", _("Mainland")),
+    (20, "country", _("Country")),
+    (25, "continent", _("Continent")),
 )
 
 
@@ -27,10 +27,10 @@ def update_links(apps, schema_editor):
     it will be ran only once.
 
     """
-    Perimeter = apps.get_model('geofr', 'Perimeter')
-    perimeters = Perimeter.objects \
-        .exclude(scale__in=(SCALES.country, SCALES.continent)) \
-        .order_by('scale')
+    Perimeter = apps.get_model("geofr", "Perimeter")
+    perimeters = Perimeter.objects.exclude(
+        scale__in=(SCALES.country, SCALES.continent)
+    ).order_by("scale")
 
     PerimeterContainedIn = Perimeter.contained_in.through
     containments = []
@@ -49,38 +49,44 @@ def update_links(apps, schema_editor):
     for perimeter in perimeters:
         if counter % 100 == 0:
             pc = counter / nb_perimeters * 100.0
-            print('{} / {} ({:.2f}%%)'.format(counter, nb_perimeters, pc))
+            print("{} / {} ({:.2f}%%)".format(counter, nb_perimeters, pc))
 
-        containing_perimeters = Perimeter.objects \
-            .filter(
-                (Q(scale=SCALES.epci) & Q(code=perimeter.epci)) |
-                (Q(scale=SCALES.department) & Q(code__in=perimeter.departments)) |
-                (Q(scale=SCALES.region) & Q(code__in=perimeter.regions)) |
-                (Q(scale=SCALES.basin) & Q(code=perimeter.basin)))
+        containing_perimeters = Perimeter.objects.filter(
+            (Q(scale=SCALES.epci) & Q(code=perimeter.epci))
+            | (Q(scale=SCALES.department) & Q(code__in=perimeter.departments))
+            | (Q(scale=SCALES.region) & Q(code__in=perimeter.regions))
+            | (Q(scale=SCALES.basin) & Q(code=perimeter.basin))
+        )
 
         for containing in containing_perimeters:
-            containments.append(PerimeterContainedIn(
-                from_perimeter_id=perimeter.id,
-                to_perimeter_id=containing.id))
+            containments.append(
+                PerimeterContainedIn(
+                    from_perimeter_id=perimeter.id, to_perimeter_id=containing.id
+                )
+            )
 
-        containments.append(PerimeterContainedIn(
-            from_perimeter_id=perimeter.id,
-            to_perimeter_id=france.id))
-        containments.append(PerimeterContainedIn(
-            from_perimeter_id=perimeter.id,
-            to_perimeter_id=europe.id))
+        containments.append(
+            PerimeterContainedIn(
+                from_perimeter_id=perimeter.id, to_perimeter_id=france.id
+            )
+        )
+        containments.append(
+            PerimeterContainedIn(
+                from_perimeter_id=perimeter.id, to_perimeter_id=europe.id
+            )
+        )
 
         counter += 1
 
-    containments.append(PerimeterContainedIn(
-        from_perimeter_id=france.id,
-        to_perimeter_id=europe.id))
+    containments.append(
+        PerimeterContainedIn(from_perimeter_id=france.id, to_perimeter_id=europe.id)
+    )
 
     PerimeterContainedIn.objects.bulk_create(containments)
 
 
 def remove_links(apps, schema_editor):
-    Perimeter = apps.get_model('geofr', 'Perimeter')
+    Perimeter = apps.get_model("geofr", "Perimeter")
     PerimeterContainedIn = Perimeter.contained_in.through
     PerimeterContainedIn.objects.all().delete()
 
@@ -88,7 +94,7 @@ def remove_links(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0021_perimeter_contained_in'),
+        ("geofr", "0021_perimeter_contained_in"),
     ]
 
     operations = [

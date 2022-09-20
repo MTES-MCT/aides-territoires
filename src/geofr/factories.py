@@ -9,11 +9,11 @@ class PerimeterFactory(DjangoModelFactory):
 
     class Meta:
         model = Perimeter
-        django_get_or_create = ('scale', 'code')
+        django_get_or_create = ("scale", "code")
 
     scale = Perimeter.SCALES.region
-    code = factory.Sequence(lambda n: '%08d' % n)
-    name = factory.Faker('company')
+    code = factory.Sequence(lambda n: "%08d" % n)
+    name = factory.Faker("company")
 
     @factory.post_generation
     def contained_in(self, create, extracted, **kwargs):

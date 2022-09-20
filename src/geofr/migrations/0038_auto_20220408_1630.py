@@ -6,22 +6,32 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0037_perimeterimport'),
+        ("geofr", "0037_perimeterimport"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='perimeterimport',
-            options={'verbose_name': 'import périmètre', 'verbose_name_plural': 'imports périmètre'},
+            name="perimeterimport",
+            options={
+                "verbose_name": "import périmètre",
+                "verbose_name_plural": "imports périmètre",
+            },
         ),
         migrations.AddField(
-            model_name='perimeter',
-            name='date_obsolete',
-            field=models.DateTimeField(blank=True, help_text='Date de mise à jour des périmètres à laquelle             ce périmètre ne figurait plus dans les sources officielles', null=True, verbose_name="date d'obsolescence"),
+            model_name="perimeter",
+            name="date_obsolete",
+            field=models.DateTimeField(
+                blank=True,
+                help_text="Date de mise à jour des périmètres à laquelle             ce périmètre ne figurait plus dans les sources officielles",
+                null=True,
+                verbose_name="date d'obsolescence",
+            ),
         ),
         migrations.AddField(
-            model_name='perimeter',
-            name='is_obsolete',
-            field=models.BooleanField(default=False, verbose_name="Ce périmètre n'existe plus"),
+            model_name="perimeter",
+            name="is_obsolete",
+            field=models.BooleanField(
+                default=False, verbose_name="Ce périmètre n'existe plus"
+            ),
         ),
     ]
