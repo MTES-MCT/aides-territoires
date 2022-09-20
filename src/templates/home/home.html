@@ -167,7 +167,14 @@
     <div class="fr-container fr-pb-5w">
         <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-md-11">
-                <h2>Ils ont utilisés Aides-territoires pour leur projet...</h2>
+                <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+                <h2 class="fr-col-md-10">Ils ont utilisé <span class="at-color--blue">Aides-territoires</span> pour leur projet...</h2>
+                <p>
+                    <a href="{% url 'public_project_list_view' %}" class="fr-btn fr-btn--secondary">
+                    Voir plus de projets
+                    </a>
+                </p>
+                </div>
                 <div class="fr-grid-row">
                 {% for project in public_projects.all %}
                 {% include 'projects/_public_project_card.html' with project=project %}
