@@ -10,149 +10,245 @@ import django_xworkflows.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0014_reupload_medias'),
-        ('programs', '0009_auto_20210506_1832'),
-        ('geofr', '0034_cleanup_choices_translations'),
-        ('categories', '0005_alter_theme_short_description'),
-        ('blog', '0002_promotionpost'),
+        ("backers", "0014_reupload_medias"),
+        ("programs", "0009_auto_20210506_1832"),
+        ("geofr", "0034_cleanup_choices_translations"),
+        ("categories", "0005_alter_theme_short_description"),
+        ("blog", "0002_promotionpost"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='blogpost',
-            options={'ordering': ['-date_created'], 'verbose_name': 'Article de blog', 'verbose_name_plural': 'Articles de blog'},
+            name="blogpost",
+            options={
+                "ordering": ["-date_created"],
+                "verbose_name": "Article de blog",
+                "verbose_name_plural": "Articles de blog",
+            },
         ),
         migrations.AlterModelOptions(
-            name='blogpostcategory',
-            options={'verbose_name': 'Catégorie des articles de blog', 'verbose_name_plural': 'Catégories des articles de blog'},
+            name="blogpostcategory",
+            options={
+                "verbose_name": "Catégorie des articles de blog",
+                "verbose_name_plural": "Catégories des articles de blog",
+            },
         ),
         migrations.AlterModelOptions(
-            name='promotionpost',
-            options={'verbose_name': 'Communication promotionnelle', 'verbose_name_plural': 'Communications promotionnelles'},
+            name="promotionpost",
+            options={
+                "verbose_name": "Communication promotionnelle",
+                "verbose_name_plural": "Communications promotionnelles",
+            },
         ),
         migrations.AlterField(
-            model_name='blogpost',
-            name='category',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='categories', to='blog.blogpostcategory', verbose_name="Catégorie de l'article de blog"),
+            model_name="blogpost",
+            name="category",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="categories",
+                to="blog.blogpostcategory",
+                verbose_name="Catégorie de l'article de blog",
+            ),
         ),
         migrations.AlterField(
-            model_name='blogpost',
-            name='date_created',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date de création'),
+            model_name="blogpost",
+            name="date_created",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name="Date de création"
+            ),
         ),
         migrations.AlterField(
-            model_name='blogpost',
-            name='date_published',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='Première date de publication'),
+            model_name="blogpost",
+            name="date_published",
+            field=models.DateTimeField(
+                blank=True, null=True, verbose_name="Première date de publication"
+            ),
         ),
         migrations.AlterField(
-            model_name='blogpost',
-            name='date_updated',
-            field=models.DateTimeField(auto_now=True, verbose_name='Date de mise à jour'),
+            model_name="blogpost",
+            name="date_updated",
+            field=models.DateTimeField(
+                auto_now=True, verbose_name="Date de mise à jour"
+            ),
         ),
         migrations.AlterField(
-            model_name='blogpost',
-            name='logo',
-            field=models.FileField(blank=True, help_text='Évitez les fichiers trop lourds. Préférez les fichiers svg.', null=True, upload_to=blog.models.logo_upload_to, verbose_name='Illustration'),
+            model_name="blogpost",
+            name="logo",
+            field=models.FileField(
+                blank=True,
+                help_text="Évitez les fichiers trop lourds. Préférez les fichiers svg.",
+                null=True,
+                upload_to=blog.models.logo_upload_to,
+                verbose_name="Illustration",
+            ),
         ),
         migrations.AlterField(
-            model_name='blogpost',
-            name='short_text',
-            field=models.TextField(blank=True, help_text='Introduction concise (inférieure à 256 caractères).', max_length=256, null=True, verbose_name="Texte d'introduction"),
+            model_name="blogpost",
+            name="short_text",
+            field=models.TextField(
+                blank=True,
+                help_text="Introduction concise (inférieure à 256 caractères).",
+                max_length=256,
+                null=True,
+                verbose_name="Texte d'introduction",
+            ),
         ),
         migrations.AlterField(
-            model_name='blogpost',
-            name='slug',
-            field=models.SlugField(blank=True, help_text='Laisser vide pour autoremplir.', verbose_name="Fragment d'URL"),
+            model_name="blogpost",
+            name="slug",
+            field=models.SlugField(
+                blank=True,
+                help_text="Laisser vide pour autoremplir.",
+                verbose_name="Fragment d'URL",
+            ),
         ),
         migrations.AlterField(
-            model_name='blogpost',
-            name='status',
-            field=django_xworkflows.models.StateField(max_length=16, verbose_name='Statut', workflow=django_xworkflows.models._SerializedWorkflow(initial_state='draft', name='BlogPostWorkflow', states=['draft', 'reviewable', 'published', 'deleted'])),
+            model_name="blogpost",
+            name="status",
+            field=django_xworkflows.models.StateField(
+                max_length=16,
+                verbose_name="Statut",
+                workflow=django_xworkflows.models._SerializedWorkflow(
+                    initial_state="draft",
+                    name="BlogPostWorkflow",
+                    states=["draft", "reviewable", "published", "deleted"],
+                ),
+            ),
         ),
         migrations.AlterField(
-            model_name='blogpost',
-            name='text',
-            field=models.TextField(verbose_name='Contenu'),
+            model_name="blogpost",
+            name="text",
+            field=models.TextField(verbose_name="Contenu"),
         ),
         migrations.AlterField(
-            model_name='blogpost',
-            name='title',
-            field=models.CharField(db_index=True, max_length=256, verbose_name='Titre'),
+            model_name="blogpost",
+            name="title",
+            field=models.CharField(db_index=True, max_length=256, verbose_name="Titre"),
         ),
         migrations.AlterField(
-            model_name='blogpostcategory',
-            name='date_created',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date de création'),
+            model_name="blogpostcategory",
+            name="date_created",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name="Date de création"
+            ),
         ),
         migrations.AlterField(
-            model_name='blogpostcategory',
-            name='description',
-            field=models.TextField(verbose_name='Description'),
+            model_name="blogpostcategory",
+            name="description",
+            field=models.TextField(verbose_name="Description"),
         ),
         migrations.AlterField(
-            model_name='blogpostcategory',
-            name='name',
-            field=models.CharField(db_index=True, max_length=256, verbose_name='Nom'),
+            model_name="blogpostcategory",
+            name="name",
+            field=models.CharField(db_index=True, max_length=256, verbose_name="Nom"),
         ),
         migrations.AlterField(
-            model_name='blogpostcategory',
-            name='slug',
-            field=models.SlugField(help_text='Laisser vide pour autoremplir.', unique=True, verbose_name="Fragment d'URL"),
+            model_name="blogpostcategory",
+            name="slug",
+            field=models.SlugField(
+                help_text="Laisser vide pour autoremplir.",
+                unique=True,
+                verbose_name="Fragment d'URL",
+            ),
         ),
         migrations.AlterField(
-            model_name='promotionpost',
-            name='backers',
-            field=models.ManyToManyField(blank=True, related_name='promotionsPost', to='backers.Backer', verbose_name="Porteurs d'aides"),
+            model_name="promotionpost",
+            name="backers",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="promotionsPost",
+                to="backers.Backer",
+                verbose_name="Porteurs d'aides",
+            ),
         ),
         migrations.AlterField(
-            model_name='promotionpost',
-            name='button_link',
-            field=models.URLField(verbose_name='Lien du bouton'),
+            model_name="promotionpost",
+            name="button_link",
+            field=models.URLField(verbose_name="Lien du bouton"),
         ),
         migrations.AlterField(
-            model_name='promotionpost',
-            name='button_title',
-            field=models.CharField(db_index=True, max_length=120, verbose_name='Titre du bouton'),
+            model_name="promotionpost",
+            name="button_title",
+            field=models.CharField(
+                db_index=True, max_length=120, verbose_name="Titre du bouton"
+            ),
         ),
         migrations.AlterField(
-            model_name='promotionpost',
-            name='categories',
-            field=models.ManyToManyField(blank=True, related_name='promotionsPost', to='categories.Category', verbose_name='Sous-thématiques'),
+            model_name="promotionpost",
+            name="categories",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="promotionsPost",
+                to="categories.Category",
+                verbose_name="Sous-thématiques",
+            ),
         ),
         migrations.AlterField(
-            model_name='promotionpost',
-            name='date_created',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date de création'),
+            model_name="promotionpost",
+            name="date_created",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name="Date de création"
+            ),
         ),
         migrations.AlterField(
-            model_name='promotionpost',
-            name='perimeter',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='geofr.perimeter', verbose_name='Périmètre'),
+            model_name="promotionpost",
+            name="perimeter",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="geofr.perimeter",
+                verbose_name="Périmètre",
+            ),
         ),
         migrations.AlterField(
-            model_name='promotionpost',
-            name='programs',
-            field=models.ManyToManyField(blank=True, related_name='promotionsPost', to='programs.Program', verbose_name='Programmes'),
+            model_name="promotionpost",
+            name="programs",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="promotionsPost",
+                to="programs.Program",
+                verbose_name="Programmes",
+            ),
         ),
         migrations.AlterField(
-            model_name='promotionpost',
-            name='short_text',
-            field=models.TextField(blank=True, help_text='Introduction concise (inférieure à 256 caractères).', max_length=256, null=True, verbose_name="Texte d'introduction"),
+            model_name="promotionpost",
+            name="short_text",
+            field=models.TextField(
+                blank=True,
+                help_text="Introduction concise (inférieure à 256 caractères).",
+                max_length=256,
+                null=True,
+                verbose_name="Texte d'introduction",
+            ),
         ),
         migrations.AlterField(
-            model_name='promotionpost',
-            name='slug',
-            field=models.SlugField(blank=True, help_text='Laisser vide pour autoremplir.', verbose_name="Fragment d'URL"),
+            model_name="promotionpost",
+            name="slug",
+            field=models.SlugField(
+                blank=True,
+                help_text="Laisser vide pour autoremplir.",
+                verbose_name="Fragment d'URL",
+            ),
         ),
         migrations.AlterField(
-            model_name='promotionpost',
-            name='status',
-            field=django_xworkflows.models.StateField(max_length=16, verbose_name='Statut', workflow=django_xworkflows.models._SerializedWorkflow(initial_state='draft', name='PromotionPostWorkflow', states=['draft', 'reviewable', 'published', 'deleted'])),
+            model_name="promotionpost",
+            name="status",
+            field=django_xworkflows.models.StateField(
+                max_length=16,
+                verbose_name="Statut",
+                workflow=django_xworkflows.models._SerializedWorkflow(
+                    initial_state="draft",
+                    name="PromotionPostWorkflow",
+                    states=["draft", "reviewable", "published", "deleted"],
+                ),
+            ),
         ),
         migrations.AlterField(
-            model_name='promotionpost',
-            name='title',
-            field=models.CharField(db_index=True, max_length=256, verbose_name='Titre'),
+            model_name="promotionpost",
+            name="title",
+            field=models.CharField(db_index=True, max_length=256, verbose_name="Titre"),
         ),
     ]
