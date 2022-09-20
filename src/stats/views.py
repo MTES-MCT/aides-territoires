@@ -265,28 +265,34 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
             :100
         ]  # The `limit` parameter does not look to be effective.
 
-        def aid_from_label(label):
+        def get_slug(label):
             if label.startswith("/aides/"):
                 prefix_length = len("/aides/")
-                slug = label[prefix_length:-1]
+                return label[prefix_length:-1]
             else:
                 # Aids (slug) at the root for portals.
-                slug = label[1:-1]
-            # Handle cases where the aid does not exist (outdated database).
-            aid = Aid.objects.filter(slug=slug).first()
-            # In that case, we fallback to a guessed name from the slug.
-            name = slug[5:].replace("-", " ").capitalize()
-            return aid if aid is not None else name
+                return label[1:-1]
 
+        # It is a bit ugly but we try to get all Aids in one query,
+        # hence the slug dance.
+        slugs_pages = {get_slug(page["label"]): page for page in matomo_top_aids_pages}
+        aids = Aid.objects.filter(slug__in=list(slugs_pages.keys())).select_related(
+            "perimeter", "author__beneficiary_organization"
+        )
+        slugs_aids = {aid.slug: aid for aid in aids}
         top_aids_pages = [
             {
-                "aid_or_name": aid_from_label(page["label"]),
+                # In that case, we fallback to a guessed name from the slug.
+                "aid_or_name": slugs_aids.get(
+                    slug, slug[5:].replace("-", " ").capitalize()
+                ),
                 "nb_visits": page["nb_visits"],
+                # For bigger ranges, matomo changes the name of the key.
                 "nb_uniq_visitors": page.get(
                     "nb_uniq_visitors", page.get("sum_daily_nb_uniq_visitors")
                 ),
             }
-            for page in matomo_top_aids_pages
+            for slug, page in slugs_pages.items()
         ]
         context["top_aids_pages"] = top_aids_pages
 
@@ -343,8 +349,7 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
         ]
         week_inscriptions_counts = [
             User.objects.filter(
-                date_created__lte=week,
-                date_created__gt=week - datetime.timedelta(days=7),
+                date_created__range=[week - datetime.timedelta(days=7), week],
             ).count()
             for week in last_10_weeks
         ]
@@ -354,16 +359,14 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
         context["nb_inscriptions_serie"] = week_inscriptions_counts
         context["nb_inscriptions_with_created_aid_serie"] = [
             User.objects.filter(
-                date_created__lte=week,
-                date_created__gt=week - datetime.timedelta(days=7),
+                date_created__range=[week - datetime.timedelta(days=7), week],
                 aids__isnull=False,
             ).count()
             for week in last_10_weeks
         ]
         context["nb_inscriptions_with_created_project_serie"] = [
             User.objects.filter(
-                date_created__lte=week,
-                date_created__gt=week - datetime.timedelta(days=7),
+                date_created__range=[week - datetime.timedelta(days=7), week],
                 project__isnull=False,
             ).count()
             for week in last_10_weeks
@@ -371,8 +374,7 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
         context["nb_inscriptions_with_created_alert_serie"] = [
             Alert.objects.filter(validated=True)
             .filter(
-                date_created__lte=week,
-                date_created__gt=week - datetime.timedelta(days=7),
+                date_created__range=[week - datetime.timedelta(days=7), week],
             )
             .count()
             for week in last_10_weeks
@@ -380,8 +382,7 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
 
         week_inscriptions_communes_counts = [
             User.objects.filter(
-                date_created__lte=week,
-                date_created__gt=week - datetime.timedelta(days=7),
+                date_created__range=[week - datetime.timedelta(days=7), week],
                 beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
             ).count()
             for week in last_10_weeks
