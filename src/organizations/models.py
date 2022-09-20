@@ -140,6 +140,9 @@ class Organization(models.Model):
         verbose_name = "Structure"
         verbose_name_plural = "Structures"
 
+    def details_completed(self):
+        return self.zip_code and self.city_name and self.perimeter is not None
+
     def __str__(self):
         return self.name
 

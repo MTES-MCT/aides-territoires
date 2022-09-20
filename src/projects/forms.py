@@ -44,8 +44,6 @@ class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
     )
     is_public = forms.BooleanField(
         label="Souhaitez-vous rendre ce projet public sur Aides-territoires?",
-        help_text="Les informations de votre structure doivent avoir été complétées afin que \
-        ce choix soit possible.",
         required=True,
     )
 
@@ -88,8 +86,6 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
     )
     is_public = forms.BooleanField(
         label="Souhaitez-vous rendre ce projet public sur Aides-territoires?",
-        help_text="Les informations de votre structure doivent avoir été complétées afin que \
-        ce choix soit possible.",
         required=False,
     )
 

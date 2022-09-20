@@ -58,7 +58,19 @@
                 {% include '_calendar_snippet.html' with field=form.due_date %}
                 {% dsfr_form_field form.project_types %}
                 {% include '_field_snippet.html' with field=form.project_types_suggestion %}
+                {% if org_is_commune %}
+                {% if org_details_completed %}
                 {% include '_checkbox_snippet.html' with field=form.is_public %}
+                {% else %}
+                <div class="fr-checkbox-group" required="">
+                    <input type="checkbox" name="is_public" required="" id="id_is_public" disabled>
+                    <label for="id_is_public">Souhaitez-vous rendre ce projet public sur Aides-territoires?</label>                 
+                    <div class="fr-hint-text">
+                    Les informations de votre structure doivent avoir été complétées afin que ce choix soit possible.
+                    </div> 
+                </div>
+                {% endif %}
+                {% endif %}
                 <a href="{% url 'project_list_view' %}" class="btn-block fr-btn fr-mt-2w">
                     Annuler
                 </a>
