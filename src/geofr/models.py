@@ -84,34 +84,34 @@ class Perimeter(models.Model):
     )
     SCALES = Choices(*SCALES_TUPLE)
 
-    scale = models.PositiveIntegerField(_("Scale"), choices=SCALES)
-    name = models.CharField(_("Name"), max_length=128)
+    scale = models.PositiveIntegerField("Échelle", choices=SCALES)
+    name = models.CharField("Nom", max_length=128)
     code = models.CharField(
-        _("Code"),
+        "Code",
         max_length=16,
-        help_text=_("Internal usage only, not relevant for Ad-hoc perimeters"),
+        help_text="Usage interne uniquement, non pertinent pour les périmètres Ad-hoc.",
     )
 
     contained_in = models.ManyToManyField(
         "geofr.Perimeter",
-        verbose_name=_("Contained in"),
+        verbose_name="Contenu dans",
         related_name="contains",
         blank=True,
     )
-    manually_created = models.BooleanField(_("Manually created"), default=False)
+    manually_created = models.BooleanField("Création manuelle", default=False)
     is_visible_to_users = models.BooleanField(
-        _("The perimeter is visible to users"), default=True
+        "Le périmètre est visible pour les utilisateurs", default=True
     )
     date_obsolete = models.DateTimeField(
-        "date d'obsolescence",
+        "date d’obsolescence",
         help_text="Date de mise à jour des périmètres à laquelle \
             ce périmètre ne figurait plus dans les sources officielles",
         blank=True,
         null=True,
     )
-    is_obsolete = models.BooleanField("Ce périmètre n'existe plus", default=False)
+    is_obsolete = models.BooleanField("Ce périmètre n’existe plus", default=False)
 
-    continent = models.CharField(_("Continent"), max_length=2, default="EU")
+    continent = models.CharField("Continent", max_length=2, default="EU")
     country = models.CharField("Pays", max_length=3, default="FRA")  # ISO_3166-3 codes
     regions = ArrayField(  # Array of region codes (INSEE COG)
         verbose_name="Régions",
@@ -125,17 +125,17 @@ class Perimeter(models.Model):
         default=list,
         blank=True,
     )
-    epci = models.CharField(_("EPCI"), max_length=32, blank=True)  # INSEE COG
+    epci = models.CharField("EPCI", max_length=32, blank=True)  # INSEE COG
     basin = models.CharField(
-        _("Drainage basin"), max_length=32, blank=True  # Sandre code
+        "Bassin hydrographique", max_length=32, blank=True, help_text="Code Sandre"
     )
     zipcodes = ArrayField(
-        verbose_name=_("Zip codes"),
+        verbose_name="Codes postaux",
         base_field=models.CharField(max_length=8),
         null=True,
         blank=True,
     )
-    is_overseas = models.BooleanField(verbose_name=_("Is overseas?"), null=True)
+    is_overseas = models.BooleanField(verbose_name="En Outre-mer ?", null=True)
 
     # Counters: used only at Department level
     # script-updated nightly
@@ -162,15 +162,14 @@ class Perimeter(models.Model):
     # Since it's kinda hard to add an index on an unaccent expression, it's
     # just easier to store an index the unaccented version of the name.
     unaccented_name = models.CharField(
-        _("Name without accent (for indexing purpose)"), max_length=128
+        "Nom sans accents (pour l’indexation)", max_length=128
     )
 
-    date_created = models.DateTimeField(_("Date created"), default=timezone.now)
-    date_updated = models.DateTimeField(_("Date updated"), auto_now=True)
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+    date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
 
     class Meta:
-        verbose_name = _("Perimeter")
-        verbose_name_plural = _("Perimeters")
+        verbose_name = "périmètre"
         unique_together = (("scale", "code"),)
         indexes = [
             GinIndex(name="name_trgm", fields=["name"], opclasses=["gin_trgm_ops"]),

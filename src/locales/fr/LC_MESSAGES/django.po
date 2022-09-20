@@ -376,36 +376,6 @@ msgstr "Périmètres à soustraire"
 msgid "Those perimeters will be substracted from the combined perimeters"
 msgstr "Ces périmètres seront enlevés du périmètre combiné."
 
-msgid "Scale"
-msgstr "Échelle"
-
-msgid "Code"
-msgstr "Code"
-
-msgid "Internal usage only, not relevant for Ad-hoc perimeters"
-msgstr "Usage interne uniquement, non pertinent pour les périmètres Ad-hoc."
-
-msgid "Contained in"
-msgstr "Contenu dans"
-
-msgid "Manually created"
-msgstr "Création manuelle"
-
-msgid "The perimeter is visible to users"
-msgstr "Le périmètre est visible pour les utilisateurs"
-
-msgid "Zip codes"
-msgstr "Codes postaux"
-
-msgid "Is overseas?"
-msgstr "En Outre-mer ?"
-
-msgid "Name without accent (for indexing purpose)"
-msgstr "Nom sans accents (pour l'index)"
-
-msgid "Perimeters"
-msgstr "Périmètres"
-
 msgid "verb"
 msgstr "verbe"
 
