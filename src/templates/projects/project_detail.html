@@ -48,13 +48,37 @@
             </div>
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                Date d’échéance du projet :
+                Date d'échéance du projet&nbsp;:
                 {% if project.due_date %}
                 {{ project.due_date|date:'d/m/y' }}
                 {% else %}
                 aucune
                 {% endif %}
             </p>
+
+            {% if project.is_public %}
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                Publicité du projet&nbsp;:
+                {% if project.is_public and is_published %}
+                Votre projet est actuellement publié.
+                {% else %}
+                Votre projet est actuellement en cours de vérification par notre équipe. Il sera publié dès validation.
+                {% endif %}
+            </p>
+            {% endif %}
+
+            {% if project.project_types.all %}
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">Types de projet&nbsp;:
+            {% for project_type in project.project_types.all %}
+            {% if forloop.last %}
+            <span>{{ project_type }}</span>
+            {% else %}
+            <span>{{ project_type }},</span>
+            {% endif %}
+            {% endfor %}
+            </p>
+            {% endif %}
+
             {% if project.description %}
                 <section class="fr-accordion fr-mb-5w">
                     <h3 class="fr-accordion__title">
@@ -71,6 +95,9 @@
             {% else %}
             <p class="fr-mb-5w fr-pl-2w fr-text--sm">Description du projet : aucune</p>
             {% endif %}
+
+
+
             <div class="fr-table">
                 <table class="data-table at-table--xl">
                     <caption class="fr-sr-only">

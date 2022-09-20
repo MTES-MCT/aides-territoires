@@ -39,7 +39,7 @@ class ProjectAdmin(ImportExportActionModelAdmin):
         "due_date",
         "is_public",
         "project_types",
-        "project_type_suggestion",
+        "project_types_suggestion",
         "status",
         "date_created",
     ]
