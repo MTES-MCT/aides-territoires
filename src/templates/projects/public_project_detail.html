@@ -157,6 +157,9 @@
             </div>
 
             <div class="fr-container fr-centered">
+                <button class="fr-btn" data-fr-opened="false" aria-controls="add-to-favorite-modal--{{ project.pk }}">
+                    Ajouter ce projet à mes favoris
+                </button>
             </div>
         </div>
     </div>
@@ -164,4 +167,5 @@
 {% endblock content %}
 
 {% block modals %}
+    {% include 'projects/_add_to_favorite_modal.html' with project=project %}
 {% endblock modals %}

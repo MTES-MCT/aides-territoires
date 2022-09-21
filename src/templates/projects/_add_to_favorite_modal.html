@@ -1,0 +1,36 @@
+<dialog aria-labelledby="fr-modal-title-add-to-favorite" role="dialog" id="add-to-favorite-modal--{{ project.pk }}" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="add-to-favorite-modal">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h2 id="fr-modal-title-add-to-favorite--{{ project.pk }}" class="fr-modal__title"><span class="fr-icon-arrow-right-line fr-icon--lg"></span>Ajouter ce projet à mes favoris</h2>
+                        {% if user.is_authenticated %}
+                        <form id="add_to_favorite" method="post" action="{% url 'add_project_to_favorite_view' request.user.beneficiary_organization.pk %}">
+                            <section>
+                                <div class="content">
+                                    {% csrf_token %}
+                                    <div id="form-group-favorite_projects">
+                                        <input type="checkbox" checked hidden name="favorite_projects" value="{{ project.pk }}" id="{{ project.pk }}" />
+                                    </div>
+                                    <footer>
+                                        <button class="btn-block fr-btn fr-mt-2w" type="submit">
+                                            Ajouter ce projet
+                                        </button>
+                                        <button class="btn-block fr-btn fr-btn--secondary" type="button" title="Fermer la fenêtre modale" aria-controls="add-to-favorite-modal--{{ project.pk }}">Annuler</button>
+                                    </footer>
+                                </div>
+                            </section>
+                        </form>
+                        {% else %}
+                        <p><a href="{% url 'login' %}?next={% url 'public_project_detail_view' pk=project.pk slug=project.slug %}?open-modal=true">Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin d’ajouter ce projet à vos favoris !</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>

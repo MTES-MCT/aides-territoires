@@ -5,6 +5,7 @@ from core.forms.fields import AutocompleteModelChoiceField
 from geofr.models import Perimeter
 from organizations.models import Organization
 from organizations.constants import ORGANIZATION_TYPE_WITH_DEFAULT
+from projects.models import Project
 
 from dsfr.forms import DsfrBaseForm
 
@@ -90,3 +91,19 @@ class OrganizationUpdateForm(forms.ModelForm, DsfrBaseForm):
         for visible in self.visible_fields():
             if type(visible.field.widget) == OrganizationTypeWidget:
                 visible.field.widget.attrs["class"] = "fr-select"
+
+
+class AddProjectToFavoriteForm(forms.ModelForm, DsfrBaseForm):
+    """allow user to add a public project to its favorite-projects-list."""
+
+    favorite_projects = AutocompleteModelChoiceField(
+        label="Projet à ajouter aux projets favoris",
+        queryset=Project.objects.filter(
+            is_public=True, status=Project.STATUS.published
+        ),
+        required=False,
+    )
+
+    class Meta:
+        model = Organization
+        fields = ["favorite_projects"]

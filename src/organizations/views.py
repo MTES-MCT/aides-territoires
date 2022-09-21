@@ -7,9 +7,14 @@ from django.core.exceptions import PermissionDenied
 
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 
-from organizations.forms import OrganizationCreateForm, OrganizationUpdateForm
+from organizations.forms import (
+    OrganizationCreateForm,
+    OrganizationUpdateForm,
+    AddProjectToFavoriteForm,
+)
 from accounts.models import User
 from organizations.models import Organization
+from projects.models import Project
 
 
 class OrganizationCreateView(CreateView):
@@ -98,3 +103,46 @@ class OrganizationUpdateView(ContributorAndProfileCompleteRequiredMixin, UpdateV
         context = super().get_context_data(**kwargs)
         context["organization"] = self.object
         return context
+
+
+class AddProjectToFavoriteView(ContributorAndProfileCompleteRequiredMixin, UpdateView):
+    """Add project to favorite-projects-list of the organization."""
+
+    template_name = "projects/_add_to_favorite_modal.html"
+    form_class = AddProjectToFavoriteForm
+    context_object_name = "organization"
+    model = Organization
+
+    def form_valid(self, form):
+
+        organization = form.save(commit=False)
+
+        if self.request.POST.get("favorite_projects"):
+            # add the project to the favorite_projects_list
+            project_pk = self.request.POST.get("favorite_projects")
+
+            try:
+                project = Project.objects.get(pk=project_pk)
+                if (
+                    project.is_public == True
+                    and project.status == Project.STATUS.published
+                ):
+                    organization.favorite_projects.add(project_pk)
+                    organization.save()
+                else:
+                    raise PermissionDenied()
+            except Exception:
+                raise PermissionDenied()
+
+            # retrieve project's data to create successful message
+            project_obj = Project.objects.get(pk=project_pk)
+            project_name = project_obj.name
+            project_slug = project_obj.slug
+            project_url = reverse(
+                "public_project_detail_view", args=[project_pk, project_slug]
+            )
+            msg = f"Le projet «{project_name}» a bien été ajouté à vos projets favoris</a>"
+            messages.success(self.request, msg)
+
+        url = reverse("public_project_detail_view", args=[project_pk, project_slug])
+        return HttpResponseRedirect(url)
