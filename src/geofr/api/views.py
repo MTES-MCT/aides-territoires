@@ -6,10 +6,14 @@ from drf_spectacular.utils import extend_schema
 
 from core.utils import remove_accents
 from core.api.pagination import ApiPagination
-from geofr.models import Perimeter
+from geofr.models import Perimeter, PerimeterData
 from geofr.api import doc as api_doc
-from geofr.api.serializers import PerimeterSerializer, PerimeterScaleSerializer
-
+from geofr.api.serializers import (
+    PerimeterDataSerializer,
+    PerimeterSerializer,
+    PerimeterScaleSerializer,
+)
+from django.shortcuts import get_object_or_404
 
 MIN_SEARCH_LENGTH = 1
 
@@ -60,6 +64,26 @@ class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         description="Si vous cherchez une API Adresse : \
         https://api.gouv.fr/les-api/base-adresse-nationale",
         parameters=api_doc.perimeters_api_parameters,
+        tags=[Perimeter._meta.verbose_name_plural],
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, args, kwargs)
+
+
+class PerimeterDataViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = PerimeterDataSerializer
+
+    def get_queryset(self):
+        qs = PerimeterData.objects.all()
+        perimeter_code = self.request.query_params.get("perimeter_code", "")
+        qs = qs.filter(perimeter__code=perimeter_code)
+
+        return qs
+
+    @extend_schema(
+        summary="Lister les données supplémentaires sur un périmètre",
+        description="Utilisé pour des périmètres de commune uniquement.",
+        parameters=api_doc.perimeterdata_api_parameters,
         tags=[Perimeter._meta.verbose_name_plural],
     )
     def list(self, request, *args, **kwargs):
