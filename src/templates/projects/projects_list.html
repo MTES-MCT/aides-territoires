@@ -41,10 +41,13 @@
               </button>
             </h1>
 
+            {% if org_is_commune_or_epci %}
             <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
                 <p><strong>Vous pouvez à présent rendre public vos projets.</strong></p>
                 <p>Les projets que vous rendez publics sont consultables par tout utilisateur. Cela permettra à des porteurs d'aides et à vos pairs sur d'autres communes de vous proposer des aides correspondant à votre projet.</p>
             </div>
+            {% endif %}
+
         <a href="{% url 'project_create_view' %}" class="fr-btn fr-icon-add-circle-line fr-btn--icon-left fr-mb-5w fr-mt-4w" id="create-project-btn">Ajouter un projet</a>
 
             {% if request.GET.project_created %}

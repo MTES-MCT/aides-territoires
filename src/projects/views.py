@@ -50,8 +50,8 @@ class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         org_type = self.request.user.beneficiary_organization.organization_type[0]
         org_details = self.request.user.beneficiary_organization.details_completed()
-        if org_type == "commune":
-            context["org_is_commune"] = True
+        if org_type == "commune" or org_type == "epci":
+            context["org_is_commune_or_epci"] = True
             if org_details:
                 context["org_details_completed"] = True
         return context
@@ -78,8 +78,8 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user
         org_type = self.request.user.beneficiary_organization.organization_type[0]
-        if org_type == "commune":
-            context["org_is_commune"] = True
+        if org_type == "commune" or org_type == "epci":
+            context["org_is_commune_or_epci"] = True
 
         # Here we add some data for the project_search_aid modal
         if "project_created" in self.request.GET:
@@ -331,8 +331,8 @@ class ProjectUpdateView(
         context["project"] = self.object
         org_type = self.request.user.beneficiary_organization.organization_type[0]
         org_details = self.request.user.beneficiary_organization.details_completed()
-        if org_type == "commune":
-            context["org_is_commune"] = True
+        if org_type == "commune" or org_type == "epci":
+            context["org_is_commune_or_epci"] = True
             if org_details:
                 context["org_details_completed"] = True
         return context
