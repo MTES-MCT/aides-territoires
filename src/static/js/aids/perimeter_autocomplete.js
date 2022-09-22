@@ -1,8 +1,14 @@
 $(document).ready(function () {
-
     // hide "custom" perimeters in the user part of the website
-    var RESTRICT_TO_VISIBLE_PERIMETERS = $('#perimeter').length || $('#search-form').length || $('#advanced-search-form').length || $('#general_search_form').length || $('#register-page').length;
-    var RESTRICT_TO_NON_OBSOLETE_PERIMETERS = $('#perimeter').length || $('#search-form').length || $('#advanced-search-form').length || $('#general_search_form').length || $('#register-page').length;
+    var RESTRICT_TO_VISIBLE_PERIMETERS = $('#perimeter').length || $('#search-form').length || $('#advanced-search-form').length || $('#general_search_form').length || $('#register-page').length || $('#register-commune-page').length;
+    var RESTRICT_TO_NON_OBSOLETE_PERIMETERS = $('#perimeter').length || $('#search-form').length || $('#advanced-search-form').length || $('#general_search_form').length || $('#register-page').length || $('#register-commune-page').length;
+
+    // Filter on scale on certain forms
+    let scale = null;
+    let RESTRICT_TO_COMMUNES = $('#register-commune-page').length
+    if (RESTRICT_TO_COMMUNES) {
+        scale = 'commune';
+    }
 
     $('select#id_perimeter').select2({
         placeholder: catalog.perimeter_placeholder,
@@ -17,10 +23,13 @@ $(document).ready(function () {
             dataType: 'json',
             delay: 100,
             data: function (params) {
-                var query = {
+                let query = {
                     q: params.term,
                     is_visible_to_users: RESTRICT_TO_VISIBLE_PERIMETERS ? true : false,
                     is_non_obsolete: RESTRICT_TO_NON_OBSOLETE_PERIMETERS ? true : false,
+                }
+                if (scale) {
+                    query.scale = scale;
                 }
                 return query;
             },
@@ -36,7 +45,7 @@ $(document).ready(function () {
             },
         },
         theme: "select2-dsfr",
-        dropdownAutoWidth : true,
+        dropdownAutoWidth: true,
         width: "auto",
     });
 });
