@@ -9,6 +9,9 @@ class Command(BaseCommand):
         result = import_mayors()
         self.stdout.write(
             self.style.SUCCESS(
-                f"{result['nb_treated']} created or updated, {result['nb_not_treated']} not treated."
+                f"""
+                {result['nb_treated']} created or updated,
+                {result['nb_not_treated']} not treated.
+                """
             )
         )

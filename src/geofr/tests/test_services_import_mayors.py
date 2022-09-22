@@ -43,9 +43,7 @@ def test_import_row(client, perimeters):
 
     # Importing a second time updates the already existing Perimeterdata entry
     sample_commune["Nom de l'élu"] = "Nouveau Nom"
-    result = import_row(sample_commune)
-
-    assert result is False
+    import_row(sample_commune)
 
     mayor_first_name.refresh_from_db()
     mayor_last_name.refresh_from_db()

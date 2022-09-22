@@ -13,7 +13,6 @@ from geofr.api.serializers import (
     PerimeterSerializer,
     PerimeterScaleSerializer,
 )
-from django.shortcuts import get_object_or_404
 
 MIN_SEARCH_LENGTH = 1
 

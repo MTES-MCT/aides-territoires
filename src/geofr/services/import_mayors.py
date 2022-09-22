@@ -1,5 +1,4 @@
 from django.db import transaction
-from django.utils import timezone
 
 from geofr.models import Perimeter, PerimeterData
 
@@ -7,7 +6,6 @@ import csv
 import requests
 import io
 from contextlib import closing
-
 
 """
 Imports the list of mayors
