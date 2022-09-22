@@ -119,6 +119,10 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
         return data
 
 
+class RegisterCommuneForm(RegisterForm):
+    pass
+
+
 class LoginForm(AuthenticationForm, DsfrBaseForm):
     error_messages = {
         "invalid_login": "Saisissez une adresse e-mail et un mot de passe valides.",

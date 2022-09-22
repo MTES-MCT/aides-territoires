@@ -32,6 +32,7 @@ from accounts.mixins import (
 )
 from accounts.forms import (
     RegisterForm,
+    RegisterCommuneForm,
     PasswordResetForm,
     PasswordResetConfirmForm,
     ContributorProfileForm,
@@ -100,8 +101,34 @@ class RegisterCommuneView(AnonymousRequiredMixin, CreateView):
     """Allow mayors and staff of communes to quickly create an account and organization."""
 
     template_name = "accounts/register_commune.html"
-    form_class = RegisterForm
+    form_class = RegisterCommuneForm
     success_url = reverse_lazy("register_success")
+
+    def form_valid(self, form):
+
+        organization_name = self.request.POST.get("organization_name", None)
+        organization_perimeter_id = int(
+            self.request.POST.get("perimeter", None).partition("-")[0]
+        )
+        organization_perimeter = Perimeter.objects.get(id=organization_perimeter_id)
+
+        user = form.save(commit=False)
+        organization = Organization.objects.create(
+            name=organization_name,
+            organization_type=["commune"],
+            perimeter=organization_perimeter,
+        )
+        user.beneficiary_organization = organization
+
+        user.save()
+        organization.beneficiaries.add(user.pk)
+
+        send_connection_email.delay(user.email)
+        track_goal(self.request.session, settings.GOAL_REGISTER_ID)
+        msg = "Vous êtes bien enregistré&nbsp;!"
+        messages.success(self.request, msg)
+
+        return super().form_valid(form)
 
 
 class RegisterSuccessView(AnonymousRequiredMixin, TemplateView):
