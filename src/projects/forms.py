@@ -37,7 +37,7 @@ class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
         label="Types de projet", queryset=SynonymList.objects.all(), required=False
     )
     project_types_suggestion = forms.CharField(
-        label="Type de projet suggéré",
+        label="Autre type de projet",
         help_text="Suggérez-nous un type de projet qui ne semble pas être présent dans la \
         liste des types de projets.",
         required=False,
@@ -79,7 +79,7 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
         label="Types de projet", queryset=SynonymList.objects.all(), required=False
     )
     project_types_suggestion = forms.CharField(
-        label="Type de projet suggéré",
+        label="Autre type de projet",
         help_text="Suggérez-nous un type de projet qui ne semble pas être présent dans la liste \
         des types de projets.",
         required=False,
