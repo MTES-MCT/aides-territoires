@@ -8,6 +8,7 @@ from projects.views import (
     FavoriteProjectListView,
     ProjectDetailView,
     PublicProjectDetailView,
+    FavoriteProjectDetailView,
     ProjectDeleteView,
     ProjectUpdateView,
 )
@@ -30,9 +31,14 @@ urlpatterns = [
         "<int:pk>-<slug:slug>/", ProjectDetailView.as_view(), name="project_detail_view"
     ),
     path(
-        "projet-public/<int:pk>-<slug:slug>/",
+        "projets-publics/<int:pk>-<slug:slug>/",
         PublicProjectDetailView.as_view(),
         name="public_project_detail_view",
+    ),
+    path(
+        "projets-favoris/<int:pk>-<slug:slug>/",
+        FavoriteProjectDetailView.as_view(),
+        name="favorite_project_detail_view",
     ),
     path(
         "supprimer/<int:pk>/", ProjectDeleteView.as_view(), name="project_delete_view"

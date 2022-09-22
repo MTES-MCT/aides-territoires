@@ -1,0 +1,185 @@
+{% extends "_base.html" %}
+{% load i18n aids compress %}
+
+{% block extratitle %}Mon projet favori « {{ project.name }} »{% endblock extratitle %}
+
+{% block extraclasses %}light{% endblock extraclasses %}
+
+{% block sectionid %}user-account{% endblock sectionid %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'favorite_project_list_view' %}">Mes projets favoris</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mon projet favori « {{ project.name }} »</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' with favorite_project_admin=True %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <div class="fr-grid-row">
+              <div class="fr-col-12 fr-col-md-9">
+                  <h1 class="fr-h3">Mon projet favori « {{ project.name }} »</h1>
+              </div>
+              <div class="fr-col-12 fr-col-md-3">
+                <a href="{% url 'favorite_project_list_view' %}" class="fr-m-1w fr-tag _fr-tag--md fr-text--md fr-icon-arrow-left-line fr-tag--icon-left">Retour aux projets favoris</a>
+              </div>
+            </div>
+
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                Date de création du projet&nbsp;:
+                {{ project.date_created|date:'d/m/y' }}
+            </p>
+
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                Date d'échéance du projet&nbsp;:
+                {% if project.due_date %}
+                {{ project.due_date|date:'d/m/y' }}
+                {% else %}
+                aucune
+                {% endif %}
+            </p>
+
+            {% if project.project_types.all %}
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">Types de projet&nbsp;:
+            {% for project_type in project.project_types.all %}
+            {% if forloop.last %}
+            <span>{{ project_type }}</span>
+            {% else %}
+            <span>{{ project_type }},</span>
+            {% endif %}
+            {% endfor %}
+            </p>
+            {% endif %}
+
+            {% if project.description %}
+                <section class="fr-accordion fr-mb-5w">
+                    <h3 class="fr-accordion__title">
+                        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="project-description">
+                            <span class="fr-text--sm fr-mb-0">
+                                Voir la description de ce projet
+                            </span>
+                        </button>
+                    </h3>
+                    <div class="fr-collapse" id="project-description">
+                        {{ project.description|safe }}
+                    </div>
+                </section>
+            {% else %}
+            <p class="fr-mb-5w fr-pl-2w fr-text--sm">Description du projet : aucune</p>
+            {% endif %}
+
+
+            <div class="fr-table">
+                <table class="data-table at-table--xl">
+                    <caption class="fr-sr-only">
+                        Liste des aides sélectionnées :
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="fr-text">Nom</th>
+                            <th scope="col" class="fr-text">Echéance</th>
+                            <th scope="col" class="fr-text">Type d'aide</th>
+                            <th scope="col" class="fr-text">Porteur d'aides</th>
+                            <th scope="col" class="fr-text">Ajoutée le</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            {% if aid_set %}
+                            {% for aid in aid_set %}
+                            <tr>
+                                <td class="fr-text">
+                                    <a href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener" id="aid-{{ aid.id }}">
+                                        {{ aid.name }}
+                                        <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span>
+                                    </a>
+                                </td>
+                                <td class="fr-text">
+                                    <span>{{ aid.submission_deadline|date:'d/m/Y' }}</span>
+                                    {% if aid.is_ongoing %}
+                                        <p class="fr-badge fr-badge--info fr-badge--sm">Permanente</p>
+                                    {% elif aid.has_approaching_deadline %}
+                                        <p class="fr-badge fr-badge--new fr-badge--sm">Échéance proche</p>                       
+                                    {% elif aid.has_expired %}
+                                        <p class="fr-badge fr-badge--warning fr-badge--sm">Expirée</p>
+                                    {% endif %}
+                               </td>
+
+                                </td>
+                                <td class="fr-text">
+                                    {% choices_display aid 'aid_types' %}
+                                </td>
+                                <td class="fr-text">
+                                    <ul>
+                                    {% for financer in aid.financers.all %}
+                                        <li>
+                                            <a href="{% url 'backer_detail_view' financer.pk financer.slug %}" target="_blank" rel="noopener">
+                                            {{ financer.name }}
+                                            <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span>
+                                        </a>
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                                </td>       
+                                {% for aidproject in AidProject %}
+                                {% if aidproject.aid == aid %}
+                                <td class="fr-text">
+                                    {{ aidproject.date_created|date:'d/m/y' }}
+                                </td>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                        <tbody>
+                            <tr>
+                                <td colspan="6" class="fr-text at-centered-important">
+                                    Aucune aide n'a été ajouté à ce projet pour l’instant
+                                </td>
+                            </tr>
+                        </tbody>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- <a href="{% url 'project_list_view' %}" class="fr-btn">
+                <span class="ri-arrow-left-line fr-pr-1w"></span>
+                Retour aux projets
+            </a> -->
+            <div class="fr-container fr-centered">
+                <p>
+                  <a href="#" class="fr-btn fr-btn--icon-left">Suggérer une aide pour ce projet</a>
+                </p>
+                <p>
+                  <a href="#" class="fr-btn fr-btn-secondary fr-btn--icon-left">Supprimer ce projet des favoris</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block modals %}
+{% endblock modals %}

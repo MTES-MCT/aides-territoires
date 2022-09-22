@@ -47,6 +47,7 @@
                         <tr>
                             <th scope="col" class="fr-text">Nom</th>
                             <th scope="col" class="fr-text">Nombre d’aides ajoutées</th>
+                            <th scope="col" class="fr-text">Date de création</th>
                             <th scope="col" class="fr-text">Date d’échéance</th>
                             <th scope="col" class="fr-text">Porté par</th>
                         </tr>
@@ -56,7 +57,7 @@
                         {% for project in projects %}
                         <tr>
                             <td class="fr-text">
-                                <a href="{{ project.get_absolute_url }}" id="project-{{ project.id }}">
+                                <a href="{% url 'favorite_project_detail_view' pk=project.pk slug=project.slug%}" id="project-{{ project.id }}">
                                     {{ project.name }}
                                 </a>
                             </td>
@@ -67,6 +68,7 @@
                                 <span>Ce projet n'a pas encore d'aides associées.</span>
                             {% endif %}
                             </td>
+                            <td class="fr-text">{{ project.date_created|date:'d/m/y' }}</td>
                             <td class="fr-text">{{ project.due_date|date:'d/m/y' }}</td>
                             <td class="fr-text">
                             {% if project.organizations.all %}
