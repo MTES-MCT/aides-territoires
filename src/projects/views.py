@@ -112,6 +112,29 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
         return context
 
 
+class FavoriteProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
+    """User Favorite Projects Dashboard"""
+
+    template_name = "projects/favorite_projects_list.html"
+    context_object_name = "projects"
+    paginate_by = 18
+    paginator_class = AidPaginator
+
+    def get_queryset(self):
+        if self.request.user.beneficiary_organization is not None:
+            queryset = Project.objects.filter(
+                organization_favorite=self.request.user.beneficiary_organization
+            )
+        else:
+            queryset = Project.objects.none()
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user
+        return context
+
+
 class PublicProjectListView(ListView):
     """A list of all the public projects"""
 

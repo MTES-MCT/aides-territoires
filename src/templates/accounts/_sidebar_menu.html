@@ -26,6 +26,9 @@
                    <a class="fr-sidemenu__link" href="{% url 'project_list_view' %}" target="_self" {% if project_admin %}aria-current="page"{% endif %} rel="noopener">Gérer mes projets</a>
                </li>
                {% endif %}
+                <li class="fr-sidemenu__item {% if project_admin %}fr-sidemenu__item--active{% endif %}">
+                   <a class="fr-sidemenu__link" href="{% url 'favorite_project_list_view' %}" target="_self" {% if favorite_project_admin %}aria-current="page"{% endif %} rel="noopener">Mes projets favoris</a>
+               </li>
                 <li class="fr-sidemenu__item {% if alert_list %}fr-sidemenu__item--active{% endif %}">
                     <a class="fr-sidemenu__link" href="{% url 'alert_list_view' %}" target="_self" {% if alert_list %}aria-current="page"{% endif %} rel="noopener">Gérer mes alertes</a>
                 </li>
