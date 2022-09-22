@@ -198,9 +198,6 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
         context["AidProject"] = AidProject.objects.filter(project=self.object.pk)
         context["project_update_form"] = ProjectUpdateForm(label_suffix="")
         context["form"] = ProjectExportForm
-        if self.object.is_public and self.object.status == Project.STATUS.published:
-            context["is_published"] = True
-
         return context
 
 

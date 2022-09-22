@@ -69,6 +69,9 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+    def is_published(self):
+        return self.status == Project.STATUS.published
+
     def get_absolute_url(self):
         url_args = [self.id]
         if self.slug:

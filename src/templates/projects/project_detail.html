@@ -59,7 +59,7 @@
             {% if project.is_public %}
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
                 Publicité du projet&nbsp;:
-                {% if project.is_public and is_published %}
+                {% if project.is_public and project.is_published %}
                 Votre projet est actuellement publié.
                 {% else %}
                 Votre projet est actuellement en cours de vérification par notre équipe. Il sera publié dès validation.
