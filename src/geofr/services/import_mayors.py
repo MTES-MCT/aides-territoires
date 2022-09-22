@@ -22,9 +22,6 @@ def import_mayors() -> dict:
     """
     Imports data abouts mayors of communes
     """
-    start_time = timezone.now()
-
-    mayors = {}
     nb_treated = 0
     nb_not_treated = 0
 

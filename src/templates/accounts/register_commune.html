@@ -48,9 +48,10 @@
             {% endfor %}
             <div id="registration-initial">
                 <fieldset>
+                    <legend>Entrez votre fonction et votre commune</legend>
                     <div id="form-group-beneficiary_function" class="fr-select-group">
-                        <label for="id_beneficiary_function">Votre fonction</label>
-                        <select class="fr-select" name="beneficiary_function" id="id_beneficiary_function">
+                        <label for="id_beneficiary_function">Votre fonction*</label>
+                        <select class="fr-select" name="beneficiary_function" id="id_beneficiary_function" required>
                             <option value="" hidden>Sélectionnez votre fonction</option>
                             <option value="elected">Maire</option>
                             <option value="elected">Autre élu</option>

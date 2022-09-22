@@ -1,4 +1,4 @@
-fetchMayorData = function (perimeter_id) {
+const fetchMayorData = function (perimeter_id) {
     // Retrieves the data about mayors and fills the proper fields
     $.ajax({
         type: 'GET',
