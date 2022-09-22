@@ -39,15 +39,14 @@ scale_param = OpenApiParameter(
 )
 perimeters_api_parameters.append(scale_param)
 
-perimeter_code_param = OpenApiParameter(
-    name="perimeter_code",
+perimeter_id_param = OpenApiParameter(
+    name="perimeter_id",
     type=OpenApiTypes.STR,
     location=OpenApiParameter.QUERY,
     description="Show the extra data for the specified perimeter",
     examples=[
-        OpenApiExample("Paris", value="75056"),
-        OpenApiExample("Dinan", value="22050"),
+        OpenApiExample("Sigean", value="75056"),
         OpenApiExample("", value=""),
     ],
 )
-perimeterdata_api_parameters.append(perimeter_code_param)
+perimeterdata_api_parameters.append(perimeter_id_param)

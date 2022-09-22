@@ -75,8 +75,8 @@ class PerimeterDataViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
     def get_queryset(self):
         qs = PerimeterData.objects.all()
-        perimeter_code = self.request.query_params.get("perimeter_code", "")
-        qs = qs.filter(perimeter__code=perimeter_code)
+        perimeter_id = self.request.query_params.get("perimeter_id", "")
+        qs = qs.filter(perimeter__id=perimeter_id)
 
         return qs
 
