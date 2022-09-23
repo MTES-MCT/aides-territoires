@@ -3,6 +3,7 @@ import { Controller } from '../../@hotwired/stimulus/dist/stimulus.js'
 export default class extends Controller {
   departments = {}
   communes = {}
+  communesData = {}
   zoomFrance = 5.5
   centerFrance = [46.227, 2.213]
   defaultFillStyle = {
@@ -116,9 +117,11 @@ export default class extends Controller {
 
     if (this.communes[currentDepartmentCode]) {
       this.map.addLayer(this.communes[currentDepartmentCode])
+      this.#updateTable(this.communesData[currentDepartmentCode])
     } else {
       this.#getCommunes(currentDepartmentCode).then(({ communes, data }) => {
         this.communes[currentDepartmentCode] = communes
+        this.communesData[currentDepartmentCode] = data
         this.map.addLayer(communes)
         this.#updateTable(data)
       })
