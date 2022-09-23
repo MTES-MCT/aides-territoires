@@ -384,16 +384,16 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
             Organization.objects.filter(
                 perimeter__scale=Perimeter.SCALES.commune,
                 perimeter__is_obsolete=False,
+                organization_type=["commune"],
             )
-            .annotate(users_count=Count("user", distinct=True))
             .annotate(projects_count=Count("project", distinct=True))
             .values(
                 "name",
                 "date_created",
                 "projects_count",
-                "users_count",
                 "perimeter__code",
                 "perimeter__name",
+                "user__email",
             )
         )
 
@@ -409,7 +409,7 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
         communes_with_org = {
             f"{organization['perimeter__code']}-{organization['perimeter__name']}": {
                 "organization_name": organization["name"],
-                "users_count": organization["users_count"],
+                "user_email": organization["user__email"],
                 "projects_count": organization["projects_count"],
                 "date_created": organization["date_created"],
                 "age": get_age(organization["date_created"]),

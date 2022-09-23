@@ -26,6 +26,7 @@ def test_organizations_displayed_by_cartographie(client, superuser, perimeters):
     client.force_login(superuser)
     organization = OrganizationFactory()
     organization.perimeter = perimeters["montpellier"]
+    organization.organization_type = ["commune"]
     organization.save()
     response = client.get(reverse("carto_stats"))
     assert response.status_code == 200
@@ -61,5 +62,5 @@ def test_organizations_displayed_by_cartographie(client, superuser, perimeters):
     assert "date_created" in communes_with_org["34172-Montpellier"]
     assert "organization_name" in communes_with_org["34172-Montpellier"]
     assert "projects_count" in communes_with_org["34172-Montpellier"]
-    assert "users_count" in communes_with_org["34172-Montpellier"]
+    assert "user_email" in communes_with_org["34172-Montpellier"]
     assert "age" in communes_with_org["34172-Montpellier"]
