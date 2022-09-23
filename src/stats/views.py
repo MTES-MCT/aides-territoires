@@ -356,9 +356,11 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
         )
         regions_org_count = {}
         for region in regions:
-            regions_org_count[region.name] = region.organization_region.values(
-                "id"
-            ).count()
+            regions_org_count[region.name] = (
+                region.organization_region.filter(organization_type=["commune"])
+                .values("id")
+                .count()
+            )
         context["regions_org_max"] = max(regions_org_count.values())
         context["regions_org_count"] = json.dumps(
             regions_org_count, cls=DjangoJSONEncoder
@@ -370,9 +372,11 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
         departments_codes = []
         for department in departments:
             departments_codes.append(department.code)
-            departments_org_count[
-                department.name
-            ] = department.organization_department.values("id").count()
+            departments_org_count[department.name] = (
+                department.organization_department.filter(organization_type=["commune"])
+                .values("id")
+                .count()
+            )
         context["departments_codes"] = departments_codes
         context["departments_org_max"] = max(departments_org_count.values())
         context["departments_org_count"] = json.dumps(
