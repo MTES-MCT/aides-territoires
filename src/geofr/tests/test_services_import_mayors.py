@@ -81,7 +81,7 @@ def test_insert_email_row(client, perimeters):
             ],
             "email": "mairie@ville-montpellier.fr",
             "telephone": "04 67 34 70 00",
-            "url": "http://www.montpellier.fr",
+            "url": "https://www.montpellier.fr",
             "zonage": {"communes": ["34172 Montpellier"]},
         },
     }
