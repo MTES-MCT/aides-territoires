@@ -1,11 +1,11 @@
 import pytest
 from geofr.models import Perimeter, PerimeterData
-from geofr.services.import_mayors import import_row
+from geofr.services.import_mayors import insert_email_row, insert_mayor_row
 
 pytestmark = pytest.mark.django_db
 
 
-def test_import_row(client, perimeters):
+def test_insert_mayor_row(client, perimeters):
 
     sample_commune = {
         "Code du département": "34",
@@ -26,7 +26,7 @@ def test_import_row(client, perimeters):
     montpellier = Perimeter.objects.get(name="Montpellier")
 
     # Import adds a PerimeterData entry
-    result = import_row(sample_commune)
+    result = insert_mayor_row(sample_commune)
 
     assert result is True
 
@@ -43,7 +43,7 @@ def test_import_row(client, perimeters):
 
     # Importing a second time updates the already existing Perimeterdata entry
     sample_commune["Nom de l'élu"] = "Nouveau Nom"
-    import_row(sample_commune)
+    insert_mayor_row(sample_commune)
 
     mayor_first_name.refresh_from_db()
     mayor_last_name.refresh_from_db()
@@ -52,3 +52,49 @@ def test_import_row(client, perimeters):
     assert mayor_last_name.value == "Nouveau Nom"
 
     assert PerimeterData.objects.count() == 2
+
+
+def test_insert_email_row(client, perimeters):
+    sample_commune = {
+        "type": "Feature",
+        "geometry": {"type": "Point", "coordinates": [3.896091, 43.5994487]},
+        "properties": {
+            "id": "mairie-34172-01",
+            "codeInsee": "34172",
+            "pivotLocal": "mairie",
+            "nom": "Mairie - Montpellier",
+            "adresses": [
+                {
+                    "type": "géopostale",
+                    "lignes": ["1 place Georges-Frèche"],
+                    "codePostal": "34267",
+                    "commune": "Montpellier Cedex 2",
+                    "coordonnees": [3.896091, 43.5994487],
+                }
+            ],
+            "horaires": [
+                {
+                    "du": "lundi",
+                    "au": "vendredi",
+                    "heures": [{"de": "08:30:00", "a": "17:30:00"}],
+                }
+            ],
+            "email": "mairie@ville-montpellier.fr",
+            "telephone": "04 67 34 70 00",
+            "url": "http://www.montpellier.fr",
+            "zonage": {"communes": ["34172 Montpellier"]},
+        },
+    }
+
+    montpellier = Perimeter.objects.get(name="Montpellier")
+
+    # Import adds a PerimeterData entry
+    result = insert_email_row(sample_commune)
+
+    assert result is True
+
+    mairie_email = PerimeterData.objects.get(
+        perimeter=montpellier, prop="mairie_email"
+    ).value
+
+    assert mairie_email == "mairie@ville-montpellier.fr"

@@ -15,6 +15,11 @@ const fetchMayorData = function (perimeter_id) {
                 if (entry.prop === "mayor_last_name") {
                     $("#id_last_name").val(entry.value);
                 }
+
+                if (entry.prop === "mairie_email") {
+                    $("#id_email").val(entry.value);
+                }
+
             });
         },
     })
