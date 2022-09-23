@@ -360,7 +360,7 @@
             </p>
 
             <h1 class="fr-mb-5w at-color--blue">
-                {% if aid.european_aid %}<span title="aide européenne">🇪🇺 </span>{% endif %}
+                {% if aid.european_aid %}<span title="aide européenne" aria-hidden="true">🇪🇺 </span>{% endif %}
                 {% if aid.headline_name %}
                  {{ aid.headline_name | safe }}
                 {% else %}
