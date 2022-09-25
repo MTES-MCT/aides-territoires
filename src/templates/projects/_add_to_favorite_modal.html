@@ -4,10 +4,12 @@
             <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
                 <div class="fr-modal__body">
                     <div class="fr-modal__header">
-                        <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="add-to-favorite-modal">Fermer</button>
+                        <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="add-to-favorite-modal--{{ project.pk }}">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        <h2 id="fr-modal-title-add-to-favorite--{{ project.pk }}" class="fr-modal__title"><span class="fr-icon-arrow-right-line fr-icon--lg"></span>Ajouter ce projet à mes favoris</h2>
+                        <h2 id="fr-modal-title-add-to-favorite--{{ project.pk }}" class="fr-modal__title fr-mt-0"><span class="fr-icon-arrow-right-line fr-icon--lg"></span>Ajouter ce projet à mes favoris</h2>
+                        <p class="fr-mb-2w">Vous pouvez désormais suivre vos projets favoris, pour vous inspirer, suivre leur actualité et les aides qui y sont rattachées/suggérées</p>
+                        <p>Si vous accompagnez plusieurs collectivités, vous pouvez ainsi suivre en parallèle leurs projets via votre compte, et leur conseiller des aides, tout en partageant ces informations avec la communauté Aides-territoires.</p>
                         {% if user.is_authenticated %}
                         <form id="add_to_favorite" method="post" action="{% url 'add_project_to_favorite_view' request.user.beneficiary_organization.pk %}">
                             <section>

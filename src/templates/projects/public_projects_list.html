@@ -38,7 +38,7 @@
             <h1>
                 {% with paginator.count as nb_projects %}
                 <span class="result-count">
-                    {{ nb_projects }} projet{% if nb_projects > 1 %}s{% endif %} public{% if nb_projects > 1 %}s{% endif %}
+                    {{ nb_projects }} résultat{% if nb_projects > 1 %}s{% endif %}
                 </span>
                 {% endwith %}
             </h1>
@@ -51,7 +51,7 @@
                 {% else %}
                 <div class="empty-result fr-mb-5w">
                     <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
-                        <p>Nous n’avons pu trouver aucun projet public.</p>
+                        <p>Nous n’avons pu trouver aucun résultat.</p>
                     </div>
                 </div>
                 {% endif %}
