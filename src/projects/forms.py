@@ -16,12 +16,21 @@ from keywords.models import SynonymList
 class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
     """allow user to create project."""
 
-    name = forms.CharField(label="Nom de votre projet", required=True)
+    name = forms.CharField(
+        label="Nom de votre projet",
+        required=True,
+        help_text=(
+            "Donnez un nom explicite : préférez 'végétalisation du quartier des coteaux' \
+             à 'quartier des coteaux'"
+        ),
+    )
     description = RichTextField(
-        label="Description du projet",
+        label="Description publique de votre projet",
         required=True,
         widget=forms.Textarea(
-            attrs={"placeholder": "Entrez ici la description de votre projet"}
+            attrs={
+                "placeholder": "Entrez ici une description plus précise de votre projet"
+            }
         ),
     )
     organizations = forms.ModelMultipleChoiceField(
@@ -34,12 +43,18 @@ class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
         widget=forms.TextInput(attrs={"type": "date", "placeholder": "jj/mm/aaaa"}),
     )
     project_types = AutocompleteModelMultipleChoiceField(
-        label="Types de projet", queryset=SynonymList.objects.all(), required=False
+        label="Types de projet",
+        queryset=SynonymList.objects.all(),
+        required=False,
+        help_text=(
+            "Cette information nous aide à identifier les meilleures aides pour votre projet, \
+             et à le retrouver plus facilement. Si vous ne trouvez pas le type de projet qui vous \
+              correspond, vous pouvez en proposer un nouveau dans le champ 'Autre type de projet'."
+        ),
     )
     project_types_suggestion = forms.CharField(
         label="Autre type de projet",
-        help_text="Suggérez-nous un type de projet qui ne semble pas être présent dans la \
-        liste des types de projets.",
+        help_text="Suggérez-nous un autre type de projet",
         required=False,
     )
     is_public = forms.BooleanField(
@@ -62,12 +77,22 @@ class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
 
 class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
 
-    name = forms.CharField(label="Nom du projet", max_length=256, required=True)
+    name = forms.CharField(
+        label="Nom du projet",
+        max_length=256,
+        required=True,
+        help_text=(
+            "Donnez un nom explicite : préférez 'végétalisation du quartier des coteaux' \
+             à 'quartier des coteaux'"
+        ),
+    )
     description = RichTextField(
-        label="Description du projet",
+        label="Description publique de votre projet",
         required=False,
         widget=forms.Textarea(
-            attrs={"placeholder": "Entrez ici la description de votre projet"}
+            attrs={
+                "placeholder": "Entrez ici une description plus précise de votre projet"
+            }
         ),
     )
     due_date = (
@@ -76,12 +101,18 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
         ),
     )
     project_types = AutocompleteModelMultipleChoiceField(
-        label="Types de projet", queryset=SynonymList.objects.all(), required=False
+        label="Types de projet",
+        queryset=SynonymList.objects.all(),
+        required=False,
+        help_text=(
+            "Cette information nous aide à identifier les meilleures aides pour votre projet, \
+             et à le retrouver plus facilement. Si vous ne trouvez pas le type de projet qui vous \
+              correspond, vous pouvez en proposer un nouveau dans le champ 'Autre type de projet'."
+        ),
     )
     project_types_suggestion = forms.CharField(
         label="Autre type de projet",
-        help_text="Suggérez-nous un type de projet qui ne semble pas être présent dans la liste \
-        des types de projets.",
+        help_text="Suggérez-nous un autre type de projet.",
         required=False,
     )
     is_public = forms.BooleanField(
