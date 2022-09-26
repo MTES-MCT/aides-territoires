@@ -34,6 +34,10 @@ class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
     def form_valid(self, form):
 
         project = form.save(commit=False)
+        if project.is_public == True:
+            project.status = Project.STATUS.reviewable
+        else:
+            project.status = Project.STATUS.draft
         project.save()
         form.save_m2m()
         project.author.add(self.request.user)
@@ -354,6 +358,14 @@ class ProjectUpdateView(
         return super().get_queryset()
 
     def form_valid(self, form):
+
+        project = form.save(commit=False)
+        if project.is_public == True:
+            project.status = Project.STATUS.reviewable
+        else:
+            project.status = Project.STATUS.draft
+        project.save()
+        form.save_m2m()
         response = super().form_valid(form)
 
         msg = "Le projet a bien été mis à jour."

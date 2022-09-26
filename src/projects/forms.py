@@ -59,7 +59,7 @@ class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
     )
     is_public = forms.BooleanField(
         label="Souhaitez-vous rendre ce projet public sur Aides-territoires?",
-        required=True,
+        required=False,
     )
 
     class Meta:
@@ -88,7 +88,7 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
     )
     description = RichTextField(
         label="Description publique de votre projet",
-        required=False,
+        required=True,
         widget=forms.Textarea(
             attrs={
                 "placeholder": "Entrez ici une description plus précise de votre projet"
