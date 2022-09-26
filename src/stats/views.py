@@ -296,7 +296,6 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
             context["nb_epci"] * 100 / context["total_epci"], 1
         )
 
-<<<<<<< HEAD
         return context
 
     def get_context_data(self, **kwargs):
@@ -316,38 +315,6 @@ class DashboardConsultationView(DashboardBaseView, TemplateView):
         end_date = context["end_date"]
         start_date_range = context["start_date_range"]
         end_date_range = context["end_date_range"]
-=======
-        def get_slug(label):
-            if label.startswith("/aides/"):
-                prefix_length = len("/aides/")
-                return label[prefix_length:-1]
-            else:
-                # Aids (slug) at the root for portals.
-                return label[1:-1]
-
-        # It is a bit ugly but we try to get all Aids in one query,
-        # hence the slug dance.
-        slugs_pages = {get_slug(page["label"]): page for page in matomo_top_aids_pages}
-        aids = Aid.objects.filter(slug__in=list(slugs_pages.keys())).select_related(
-            "perimeter", "author__beneficiary_organization"
-        )
-        slugs_aids = {aid.slug: aid for aid in aids}
-        top_aids_pages = [
-            {
-                # In that case, we fallback to a guessed name from the slug.
-                "aid_or_name": slugs_aids.get(
-                    slug, slug[5:].replace("-", " ").capitalize()
-                ),
-                "nb_visits": page["nb_visits"],
-                # For bigger ranges, matomo changes the name of the key.
-                "nb_uniq_visitors": page.get(
-                    "nb_uniq_visitors", page.get("sum_daily_nb_uniq_visitors")
-                ),
-            }
-            for slug, page in slugs_pages.items()
-        ]
-        context["top_aids_pages"] = top_aids_pages
->>>>>>> a7524284 (Optimisation des requêtes)
 
         matomo_visits_summary = self.get_matomo_stats(
             "VisitsSummary.get", date_=f"{start_date},{end_date}"
@@ -456,36 +423,7 @@ class DashboardAcquisitionView(DashboardBaseView, TemplateView):
         # Display the graph+table of new users for the given range.
         user_inscriptions = (
             User.objects.filter(
-<<<<<<< HEAD
                 date_created__range=[start_date_range, end_date_range],
-=======
-                date_created__range=[week - datetime.timedelta(days=7), week],
-            ).count()
-            for week in last_10_weeks
-        ]
-        context["nb_inscriptions_weeks"] = [
-            week.date().isoformat() for week in last_10_weeks
-        ]
-        context["nb_inscriptions_serie"] = week_inscriptions_counts
-        context["nb_inscriptions_with_created_aid_serie"] = [
-            User.objects.filter(
-                date_created__range=[week - datetime.timedelta(days=7), week],
-                aids__isnull=False,
-            ).count()
-            for week in last_10_weeks
-        ]
-        context["nb_inscriptions_with_created_project_serie"] = [
-            User.objects.filter(
-                date_created__range=[week - datetime.timedelta(days=7), week],
-                project__isnull=False,
-            ).count()
-            for week in last_10_weeks
-        ]
-        context["nb_inscriptions_with_created_alert_serie"] = [
-            Alert.objects.filter(validated=True)
-            .filter(
-                date_created__range=[week - datetime.timedelta(days=7), week],
->>>>>>> a7524284 (Optimisation des requêtes)
             )
             .order_by("-date_created")
             .values(
@@ -510,7 +448,6 @@ class DashboardAcquisitionView(DashboardBaseView, TemplateView):
                 )
         context["user_inscriptions"] = user_inscriptions
 
-<<<<<<< HEAD
         current_date = start_date_range
         nb_user_days = []
         nb_user_inscriptions = []
@@ -521,103 +458,6 @@ class DashboardAcquisitionView(DashboardBaseView, TemplateView):
             current_date += timedelta(days=1)
         context["nb_user_days"] = nb_user_days
         context["nb_user_inscriptions_serie"] = nb_user_inscriptions
-=======
-        week_inscriptions_communes_counts = [
-            User.objects.filter(
-                date_created__range=[week - datetime.timedelta(days=7), week],
-                beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
-            ).count()
-            for week in last_10_weeks
-        ]
-        context["nb_inscriptions_communes_weeks"] = [
-            week.date().isoformat() for week in last_10_weeks
-        ]
-        context["nb_inscriptions_communes_serie"] = week_inscriptions_communes_counts
-        context["nb_inscriptions_communes_with_created_aid_serie"] = [
-            User.objects.filter(
-                date_created__lte=week,
-                date_created__gt=week - datetime.timedelta(days=7),
-                beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
-                aids__isnull=False,
-            ).count()
-            for week in last_10_weeks
-        ]
-        context["nb_inscriptions_communes_with_created_project_serie"] = [
-            User.objects.filter(
-                date_created__lte=week,
-                date_created__gt=week - datetime.timedelta(days=7),
-                beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
-                project__isnull=False,
-            ).count()
-            for week in last_10_weeks
-        ]
-
-        context["nb_vu_weeks"] = [week.date().isoformat() for week in last_10_weeks]
-        context["nb_vu_serie_values"] = list(nb_vu_serie_items.values())
-        context["nb_vu_serie_max"] = max(context["nb_vu_serie_values"])
-
-        # general stats:
-        context["nb_beneficiary_accounts"] = User.objects.filter(
-            is_beneficiary=True
-        ).count()
-        context["nb_organizations"] = Organization.objects.count()
-        context["nb_projects"] = Project.objects.count()
-        context["nb_aids_live"] = aids_live_qs.count()
-        context["nb_aids_matching_projects"] = (
-            aids_live_qs.exclude(projects=None).distinct().count()
-        )
-        context["nb_active_financers"] = Backer.objects.has_financed_aids().count()
-        context["nb_searchPage"] = SearchPage.objects.count()
-
-        # stats 'Collectivités':
-        context["nb_communes"] = (
-            Organization.objects.filter(organization_type__contains=["commune"])
-            .exclude(perimeter_id__isnull="True")
-            .values("city_name", "perimeter_id")
-            .distinct()
-            .count()
-        )
-        context["objectif_communes"] = 10000
-        context["pourcent_communes"] = round(
-            context["nb_communes"] * 100 / context["total_communes"], 1
-        )
-        context["nb_epci"] = (
-            Organization.objects.filter(organization_type__contains=["epci"])
-            .exclude(perimeter_id__isnull="True")
-            .values("name", "perimeter_id")
-            .distinct()
-            .count()
-        )
-        context["objectif_epci"] = 941  # 75%.
-        context["pourcent_epci"] = round(
-            context["nb_epci"] * 100 / context["total_epci"], 1
-        )
-        context["nb_departments"] = (
-            Organization.objects.filter(organization_type__contains=["department"])
-            .exclude(perimeter_id__isnull="True")
-            .values("name", "perimeter_id")
-            .distinct()
-            .count()
-        )
-        context["nb_regions"] = (
-            Organization.objects.filter(organization_type__contains=["region"])
-            .exclude(perimeter_id__isnull="True")
-            .values("name", "perimeter_id")
-            .distinct()
-            .count()
-        )
-
-        # stats 'Consultation':
-        context["nb_viewed_aids"] = AidViewEvent.objects.filter(
-            date_created__range=[start_date_range, end_date_range]
-        ).count()
-        context["nb_visits"] = matomo_visits_summary["nb_visits"]
-        context["bounce_rate"] = matomo_visits_summary["bounce_rate"]
-        context["avg_time_on_site"] = strftime(
-            "%Mm%Ss", gmtime(matomo_visits_summary["avg_time_on_site"])
-        )
-        context["nb_pageviews"] = matomo_actions["nb_pageviews"]
->>>>>>> a7524284 (Optimisation des requêtes)
 
         # stats 'Acquisition':
         context["nb_direct_visitors"] = matomo_referrers[
