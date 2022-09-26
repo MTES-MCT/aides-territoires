@@ -348,10 +348,13 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
         ]
         week_inscriptions_counts = []
         week_inscriptions_communes_counts = []
+        week_inscriptions_epcis_counts = []
         nb_inscriptions_with_created_aid_serie = []
         nb_inscriptions_with_created_aid_communes_serie = []
+        nb_inscriptions_with_created_aid_epcis_serie = []
         nb_inscriptions_with_created_project_serie = []
         nb_inscriptions_with_created_project_communes_serie = []
+        nb_inscriptions_with_created_project_epcis_serie = []
         for week in last_10_weeks:
             users = (
                 User.objects.filter(
@@ -373,6 +376,16 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
                     )
                 )
                 .annotate(
+                    aids_epci_subscription_count=Count(
+                        "aids",
+                        filter=Q(
+                            aids__isnull=False,
+                            beneficiary_organization__perimeter__scale=Perimeter.SCALES.epci,
+                        ),
+                        distinct=True,
+                    )
+                )
+                .annotate(
                     project_subscription_count=Count(
                         "project", filter=Q(project__isnull=False), distinct=True
                     )
@@ -387,11 +400,26 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
                         distinct=True,
                     )
                 )
+                .annotate(
+                    project_epci_subscription_count=Count(
+                        "project",
+                        filter=Q(
+                            project__isnull=False,
+                            beneficiary_organization__perimeter__scale=Perimeter.SCALES.epci,
+                        ),
+                        distinct=True,
+                    )
+                )
             )
             week_inscriptions_counts.append(len(users))
             week_inscriptions_communes_counts.append(
                 users.filter(
                     beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune
+                ).count()
+            )
+            week_inscriptions_epcis_counts.append(
+                users.filter(
+                    beneficiary_organization__perimeter__scale=Perimeter.SCALES.epci
                 ).count()
             )
             user_aids_subscription_counts = sum(
@@ -400,11 +428,17 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
             user_aids_commune_subscription_counts = sum(
                 user.aids_commune_subscription_count for user in users
             )
+            user_aids_epci_subscription_counts = sum(
+                user.aids_epci_subscription_count for user in users
+            )
             user_project_subscription_counts = sum(
                 user.project_subscription_count for user in users
             )
             user_project_commune_subscription_counts = sum(
                 user.project_commune_subscription_count for user in users
+            )
+            user_project_epci_subscription_counts = sum(
+                user.project_epci_subscription_count for user in users
             )
             nb_inscriptions_with_created_aid_serie.append(user_aids_subscription_counts)
             nb_inscriptions_with_created_project_serie.append(
@@ -415,6 +449,12 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
             )
             nb_inscriptions_with_created_project_communes_serie.append(
                 user_project_commune_subscription_counts
+            )
+            nb_inscriptions_with_created_aid_epcis_serie.append(
+                user_aids_epci_subscription_counts
+            )
+            nb_inscriptions_with_created_project_epcis_serie.append(
+                user_project_epci_subscription_counts
             )
 
         context["nb_inscriptions_weeks"] = [
@@ -436,9 +476,6 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
             for week in last_10_weeks
         ]
 
-        context["nb_inscriptions_communes_weeks"] = [
-            week.date().isoformat() for week in last_10_weeks
-        ]
         context["nb_inscriptions_communes_serie"] = week_inscriptions_communes_counts
         context[
             "nb_inscriptions_communes_with_created_aid_serie"
@@ -446,6 +483,14 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
         context[
             "nb_inscriptions_communes_with_created_project_serie"
         ] = nb_inscriptions_with_created_project_communes_serie
+
+        context["nb_inscriptions_epcis_serie"] = week_inscriptions_epcis_counts
+        context[
+            "nb_inscriptions_epcis_with_created_aid_serie"
+        ] = nb_inscriptions_with_created_aid_epcis_serie
+        context[
+            "nb_inscriptions_epcis_with_created_project_serie"
+        ] = nb_inscriptions_with_created_project_epcis_serie
 
         context["nb_vu_weeks"] = [week.date().isoformat() for week in last_10_weeks]
         context["nb_vu_serie_values"] = list(nb_vu_serie_items.values())
