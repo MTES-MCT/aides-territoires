@@ -10,7 +10,7 @@ from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.views.generic import TemplateView, ListView
 from django.utils import timezone
-from django.db.models import Count, Sum
+from django.db.models import Count, Q, Sum
 from django.views.generic.edit import FormMixin
 
 from aids.models import Aid, AidProject
@@ -243,12 +243,6 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
         context["total_epci"] = Perimeter.objects.filter(
             scale=Perimeter.SCALES.epci, is_obsolete=False
         ).count()
-        context["total_departments"] = Perimeter.objects.filter(
-            scale=Perimeter.SCALES.department, is_obsolete=False
-        ).count()
-        context["total_regions"] = Perimeter.objects.filter(
-            scale=Perimeter.SCALES.region, is_obsolete=False
-        ).count()
 
         matomo_top_aids_pages = self.get_matomo_stats(
             "Actions.getPageUrls",
@@ -276,8 +270,11 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
         # It is a bit ugly but we try to get all Aids in one query,
         # hence the slug dance.
         slugs_pages = {get_slug(page["label"]): page for page in matomo_top_aids_pages}
-        aids = Aid.objects.filter(slug__in=list(slugs_pages.keys())).select_related(
-            "perimeter", "author__beneficiary_organization"
+        aids = (
+            Aid.objects.filter(slug__in=list(slugs_pages.keys()))
+            .select_related("perimeter")
+            .prefetch_related("financers")
+            .annotate(aidproject_count=Count("aidproject", distinct=True))
         )
         slugs_aids = {aid.slug: aid for aid in aids}
         top_aids_pages = [
@@ -294,7 +291,9 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
             }
             for slug, page in slugs_pages.items()
         ]
-        context["top_aids_pages"] = top_aids_pages
+        context["top_aids_pages"] = sorted(
+            top_aids_pages, key=lambda a: a["nb_visits"], reverse=True
+        )
 
         aids_live_qs = Aid.objects.live()
         matomo_visits_summary = self.get_matomo_stats(
@@ -347,30 +346,87 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
             datetime.datetime.fromisoformat(week)  # - datetime.timedelta(days=75)
             for week in list(nb_vu_serie_items.keys())
         ]
-        week_inscriptions_counts = [
-            User.objects.filter(
-                date_created__range=[week - datetime.timedelta(days=7), week],
-            ).count()
-            for week in last_10_weeks
-        ]
+        week_inscriptions_counts = []
+        week_inscriptions_communes_counts = []
+        nb_inscriptions_with_created_aid_serie = []
+        nb_inscriptions_with_created_aid_communes_serie = []
+        nb_inscriptions_with_created_project_serie = []
+        nb_inscriptions_with_created_project_communes_serie = []
+        for week in last_10_weeks:
+            users = (
+                User.objects.filter(
+                    date_created__range=[week - datetime.timedelta(days=7), week],
+                )
+                .annotate(
+                    aids_subscription_count=Count(
+                        "aids", filter=Q(aids__isnull=False), distinct=True
+                    )
+                )
+                .annotate(
+                    aids_commune_subscription_count=Count(
+                        "aids",
+                        filter=Q(
+                            aids__isnull=False,
+                            beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
+                        ),
+                        distinct=True,
+                    )
+                )
+                .annotate(
+                    project_subscription_count=Count(
+                        "project", filter=Q(project__isnull=False), distinct=True
+                    )
+                )
+                .annotate(
+                    project_commune_subscription_count=Count(
+                        "project",
+                        filter=Q(
+                            project__isnull=False,
+                            beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
+                        ),
+                        distinct=True,
+                    )
+                )
+            )
+            week_inscriptions_counts.append(len(users))
+            week_inscriptions_communes_counts.append(
+                users.filter(
+                    beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune
+                ).count()
+            )
+            user_aids_subscription_counts = sum(
+                user.aids_subscription_count for user in users
+            )
+            user_aids_commune_subscription_counts = sum(
+                user.aids_commune_subscription_count for user in users
+            )
+            user_project_subscription_counts = sum(
+                user.project_subscription_count for user in users
+            )
+            user_project_commune_subscription_counts = sum(
+                user.project_commune_subscription_count for user in users
+            )
+            nb_inscriptions_with_created_aid_serie.append(user_aids_subscription_counts)
+            nb_inscriptions_with_created_project_serie.append(
+                user_project_subscription_counts
+            )
+            nb_inscriptions_with_created_aid_communes_serie.append(
+                user_aids_commune_subscription_counts
+            )
+            nb_inscriptions_with_created_project_communes_serie.append(
+                user_project_commune_subscription_counts
+            )
+
         context["nb_inscriptions_weeks"] = [
             week.date().isoformat() for week in last_10_weeks
         ]
         context["nb_inscriptions_serie"] = week_inscriptions_counts
-        context["nb_inscriptions_with_created_aid_serie"] = [
-            User.objects.filter(
-                date_created__range=[week - datetime.timedelta(days=7), week],
-                aids__isnull=False,
-            ).count()
-            for week in last_10_weeks
-        ]
-        context["nb_inscriptions_with_created_project_serie"] = [
-            User.objects.filter(
-                date_created__range=[week - datetime.timedelta(days=7), week],
-                project__isnull=False,
-            ).count()
-            for week in last_10_weeks
-        ]
+        context[
+            "nb_inscriptions_with_created_aid_serie"
+        ] = nb_inscriptions_with_created_aid_serie
+        context[
+            "nb_inscriptions_with_created_project_serie"
+        ] = nb_inscriptions_with_created_project_serie
         context["nb_inscriptions_with_created_alert_serie"] = [
             Alert.objects.filter(validated=True)
             .filter(
@@ -380,35 +436,16 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
             for week in last_10_weeks
         ]
 
-        week_inscriptions_communes_counts = [
-            User.objects.filter(
-                date_created__range=[week - datetime.timedelta(days=7), week],
-                beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
-            ).count()
-            for week in last_10_weeks
-        ]
         context["nb_inscriptions_communes_weeks"] = [
             week.date().isoformat() for week in last_10_weeks
         ]
         context["nb_inscriptions_communes_serie"] = week_inscriptions_communes_counts
-        context["nb_inscriptions_communes_with_created_aid_serie"] = [
-            User.objects.filter(
-                date_created__lte=week,
-                date_created__gt=week - datetime.timedelta(days=7),
-                beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
-                aids__isnull=False,
-            ).count()
-            for week in last_10_weeks
-        ]
-        context["nb_inscriptions_communes_with_created_project_serie"] = [
-            User.objects.filter(
-                date_created__lte=week,
-                date_created__gt=week - datetime.timedelta(days=7),
-                beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
-                project__isnull=False,
-            ).count()
-            for week in last_10_weeks
-        ]
+        context[
+            "nb_inscriptions_communes_with_created_aid_serie"
+        ] = nb_inscriptions_with_created_aid_communes_serie
+        context[
+            "nb_inscriptions_communes_with_created_project_serie"
+        ] = nb_inscriptions_with_created_project_communes_serie
 
         context["nb_vu_weeks"] = [week.date().isoformat() for week in last_10_weeks]
         context["nb_vu_serie_values"] = list(nb_vu_serie_items.values())
@@ -449,20 +486,6 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
         context["objectif_epci"] = 941  # 75%.
         context["pourcent_epci"] = round(
             context["nb_epci"] * 100 / context["total_epci"], 1
-        )
-        context["nb_departments"] = (
-            Organization.objects.filter(organization_type__contains=["department"])
-            .exclude(perimeter_id__isnull="True")
-            .values("name", "perimeter_id")
-            .distinct()
-            .count()
-        )
-        context["nb_regions"] = (
-            Organization.objects.filter(organization_type__contains=["region"])
-            .exclude(perimeter_id__isnull="True")
-            .values("name", "perimeter_id")
-            .distinct()
-            .count()
         )
 
         # stats 'Consultation':
