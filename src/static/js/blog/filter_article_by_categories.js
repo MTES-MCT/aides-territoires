@@ -1,11 +1,14 @@
 $(document).ready(function () {
 
+    const URL_FRAGMENT_REGEX = /^[0-9a-z-_/]+$/;
+
     $('#select').on('change', function () {
-        var url = $(this).val(); // get selected value
-        if (url) { // require a URL
-            window.location = url; // redirect
+        let url_fragment = $(this).val();
+        if (url_fragment.match(URL_FRAGMENT_REGEX)) {
+            window.location.replace(url_fragment);
+        } else {
+            console.log("Invalid URL fragment");
         }
         return false;
     });
-
 })
