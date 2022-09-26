@@ -7,12 +7,27 @@
                 <h2 class="fr-card__title fr-h5 fr-mb-1w">
 
                     <a class="fr-card__link at-color--blue" href="{% url 'public_project_detail_view' pk=project.id slug=project.slug %}">
+                        {% if user.is_authenticated %}
                         {{ project.name }}
+                        {% else %}
+                        {% for project_type in project.project_types.all %}
+                        {{ project_type }}
+                        {% endfor%}
+                        {% endif %}
+                        
                     </a>
                 </h2>
                 <div class="fr-card__desc">
                     <p class="fr-mb-1w fr-mt-0 fr-text--sm at-color--blue">
-                       {{ project.organizations.first.name }} ({{ project.organizations.first.zip_code }})
+                    {% if user.is_authenticated %}
+                    {{ project.organizations.first.name }} ({{ project.organizations.first.zip_code }})
+                    {% else %}
+                    {% for department in project.organizations.first.perimeter.contained_in.all %}
+                    {% if department.scale == 10 %}
+                    ({{ department.name }})
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
                     </p>
                 </div>
             </div>

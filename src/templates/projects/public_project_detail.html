@@ -20,7 +20,21 @@
                     <a class="fr-breadcrumb__link" href="{% url 'public_project_list_view' %}">Projets publics</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" aria-current="page">Projet public « {{ project.name }} »</a>
+                    <a class="fr-breadcrumb__link" aria-current="page">
+                    {% if user.is_authenticated %}
+                    Projet public « {{ project.name }} »
+                    {% else %}
+                    Projet public
+                    {% for project_type in project.project_types.all %}
+                    {{ project_type }}
+                    {% endfor%}
+                    {% for department in project.organizations.first.perimeter.contained_in.all %}
+                    {% if department.scale == 10 %}
+                    ({{ department.name }})
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    </a>
                 </li>
             </ol>
         </div>
@@ -33,8 +47,23 @@
     <div class="fr-grid-row">
 
         <div class="fr-col-12">
-            <h1 class="fr-h3">Projet public « {{ project.name }} »</h1>
+            <h1 class="fr-h3">
+            {% if user.is_authenticated %}
+            Projet public « {{ project.name }} »
+            {% else %}
+            Projet public
+            {% for project_type in project.project_types.all %}
+            {{ project_type }}
+            {% endfor%}
+            {% for department in project.organizations.first.perimeter.contained_in.all %}
+            {% if department.scale == 10 %}
+            ({{ department.name }})
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            </h1>
 
+            {% if user_is_authenticated %}
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
                 Date d'échéance du projet&nbsp;:
                 {% if project.due_date %}
@@ -82,8 +111,6 @@
             {% else %}
             <p class="fr-mb-5w fr-pl-2w fr-text--sm">Description du projet : aucune</p>
             {% endif %}
-
-
 
             <div class="fr-table">
                 <table class="data-table at-table--xl">
@@ -161,6 +188,13 @@
                     Ajouter ce projet à mes favoris
                 </button>
             </div>
+
+            {% else %}
+            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
+                <p><strong>L'affichage complet de cette page est réservé aux utilisateurs connectés.</strong></p>
+                <p><a href="{% url 'login' %}?next={% url 'public_project_detail_view' pk=project.pk slug=project.slug %}?open-modal=true">Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin d'afficher les informations relatives à ce projet !</p>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
