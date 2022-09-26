@@ -404,7 +404,7 @@
                 {% if aid.eligibility %}
                 <p class="fr-mb-2w">
                     <strong>Autres critères d’éligibilité :</strong>
-                    {% if headline_eligibility %}
+                    {% if aid.headline_eligibility %}
                     {{ aid.headline_eligibility|safe }}
                     {% else %}
                     {{ aid.eligibility|safe }}
