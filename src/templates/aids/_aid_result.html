@@ -12,7 +12,7 @@
                 {% endif %}
 
                 <a class="fr-card__link" href="{% url 'aid_detail_view' aid.slug %}{% if integration %}?integration=integration{% endif %}">
-                    {% if aid.european_aid %}<span title="aide européenne">🇪🇺 </span>{% endif %}{{ aid.name }}
+                    {% if aid.european_aid %}<span title="aide européenne" aria-hidden="true">🇪🇺 </span>{% endif %}{{ aid.name }}
                 </a>
             </h2>
             <div class="fr-card__desc">

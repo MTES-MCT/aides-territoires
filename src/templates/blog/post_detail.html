@@ -48,7 +48,7 @@
                 {% if post.author %}
                 <div class="fr-grid-row fr-grid-row--middle fr-my-5w">
                     {% if post.author.image %}
-                    <img id="post-author-img" src="{{ post.author.image.url }}" alt="{{ post.author.full_name }}" class="fr-col-12">
+                        <img id="post-author-img" src="{{ post.author.image.url }}" alt="" class="fr-col-12">
                     {% endif %}      
                     <div class="fr-mt-2w">
                         <p class="fr-ml-1w fr-mb-0"><strong>{{ post.author.full_name }}</strong></p>
