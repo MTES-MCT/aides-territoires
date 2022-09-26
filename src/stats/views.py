@@ -275,7 +275,6 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
             .select_related("perimeter")
             .prefetch_related("financers")
             .annotate(aidproject_count=Count("aidproject", distinct=True))
-            .order_by("pk")
         )
         slugs_aids = {aid.slug: aid for aid in aids}
         top_aids_pages = [
