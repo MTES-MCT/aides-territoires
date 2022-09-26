@@ -57,6 +57,10 @@ class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
         help_text="Suggérez-nous un autre type de projet",
         required=False,
     )
+    contract_link = forms.ChoiceField(
+        label="Appartenance à un plan/programme/contrat",
+        required=False,
+    )
     is_public = forms.BooleanField(
         label="Souhaitez-vous rendre ce projet public sur Aides-territoires?",
         required=False,
@@ -71,8 +75,15 @@ class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
             "due_date",
             "project_types",
             "project_types_suggestion",
+            "contract_link",
             "is_public",
         ]
+
+    def __init__(self, *args, **kwargs):
+        super(ProjectCreateForm, self).__init__(*args, **kwargs)
+        self.fields["contract_link"].choices = [
+            ("", "Ce projet appartient-il à un programme?")
+        ] + Project.CONTRACT_LINK
 
 
 class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
@@ -115,6 +126,11 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
         help_text="Suggérez-nous un autre type de projet.",
         required=False,
     )
+    contract_link = forms.ChoiceField(
+        label="Appartenance à un plan/programme/contrat",
+        choices=Project.CONTRACT_LINK,
+        required=False,
+    )
     is_public = forms.BooleanField(
         label="Souhaitez-vous rendre ce projet public sur Aides-territoires?",
         required=False,
@@ -128,6 +144,7 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
             "due_date",
             "project_types",
             "project_types_suggestion",
+            "contract_link",
             "is_public",
         ]
         widgets = {
@@ -135,6 +152,12 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
                 attrs={"type": "date", "placeholder": "jj/mm/aaaa"}
             ),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(ProjectUpdateForm, self).__init__(*args, **kwargs)
+        self.fields["contract_link"].choices = [
+            ("", "Ce projet appartient-il à un programme?")
+        ] + Project.CONTRACT_LINK
 
 
 class ProjectExportForm(forms.ModelForm):

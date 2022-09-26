@@ -17,6 +17,10 @@ class Project(models.Model):
         ("deleted", "Supprimé"),
     )
 
+    CONTRACT_LINK = Choices(
+        ("CRTE", "CRTE"),
+    )
+
     name = models.CharField(
         "Nom du projet", max_length=256, null=False, blank=False, db_index=True
     )
@@ -38,6 +42,14 @@ class Project(models.Model):
     author = models.ManyToManyField("accounts.User", verbose_name="Auteur", blank=True)
 
     is_public = models.BooleanField("Ce projet est-il public?", default=False)
+
+    contract_link = models.CharField(
+        "Appartenance à un plan/programme/contrat",
+        max_length=10,
+        choices=CONTRACT_LINK,
+        blank=True,
+        null=True,
+    )
 
     project_types = models.ManyToManyField(
         "keywords.SynonymList",

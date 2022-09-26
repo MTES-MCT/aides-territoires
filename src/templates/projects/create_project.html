@@ -58,6 +58,9 @@
                 {% include '_calendar_snippet.html' with field=form.due_date %}
                 {% dsfr_form_field form.project_types %}
                 {% include '_field_snippet.html' with field=form.project_types_suggestion %}
+                {% include '_field_snippet.html' with field=form.contract_link %}
+
+
                 {% if org_is_commune_or_epci %}
                 {% if org_details_completed %}
                 {% include '_checkbox_snippet.html' with field=form.is_public %}
@@ -76,6 +79,7 @@
                     <p>Vous pourrez également suivre les projets qui vous intéressent, et partager votre expérience avec vos pairs.</p>
                 </div>
                 {% endif %}
+
                 <a href="{% url 'project_list_view' %}" class="btn-block fr-btn fr-mt-2w">
                     Annuler
                 </a>

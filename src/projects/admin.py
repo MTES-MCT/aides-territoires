@@ -26,7 +26,7 @@ class ProjectAdmin(ImportExportActionModelAdmin):
     formats = [base_formats.CSV, base_formats.XLSX]
     form = ProjectForm
     list_display = ["name", "date_created", "is_public", "status"]
-    list_filter = ["is_public", "status"]
+    list_filter = ["is_public", "status", "contract_link"]
     prepopulated_fields = {"slug": ("name",)}
     fields = [
         "name",
@@ -39,6 +39,7 @@ class ProjectAdmin(ImportExportActionModelAdmin):
         "display_related_aids",
         "due_date",
         "is_public",
+        "contract_link",
         "project_types",
         "project_types_suggestion",
         "status",
