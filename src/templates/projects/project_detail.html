@@ -80,11 +80,11 @@
             {% endif %}
 
             {% if project.description %}
-                <section class="fr-accordion fr-mb-5w">
+                <section class="fr-accordion fr-mb-0">
                     <h3 class="fr-accordion__title">
                         <button class="fr-accordion__btn" aria-expanded="false" aria-controls="project-description">
                             <span class="fr-text--sm fr-mb-0">
-                                Voir la description de ce projet
+                                Voir la description publique de ce projet
                             </span>
                         </button>
                     </h3>
@@ -93,9 +93,25 @@
                     </div>
                 </section>
             {% else %}
-            <p class="fr-mb-5w fr-pl-2w fr-text--sm">Description du projet : aucune</p>
+            <p class="fr-mb-0 fr-pl-2w fr-text--sm">Description du projet : aucune</p>
             {% endif %}
 
+            {% if project.private_description %}
+                <section class="fr-accordion fr-mb-5w">
+                    <h3 class="fr-accordion__title">
+                        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="project-private-description">
+                            <span class="fr-text--sm fr-mb-0">
+                                Voir la description privée de ce projet
+                            </span>
+                        </button>
+                    </h3>
+                    <div class="fr-collapse" id="project-private-description">
+                        {{ project.private_description|safe }}
+                    </div>
+                </section>
+            {% else %}
+            <p class="fr-mb-5w fr-pl-2w fr-text--sm">Description privée du projet : aucune</p>
+            {% endif %}
 
 
             <div class="fr-table">

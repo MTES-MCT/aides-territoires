@@ -33,6 +33,13 @@ class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
             }
         ),
     )
+    private_description = RichTextField(
+        label="Description privée de votre projet",
+        required=False,
+        widget=forms.Textarea(
+            attrs={"placeholder": "Informations réservées à vos collaborateurs."}
+        ),
+    )
     organizations = forms.ModelMultipleChoiceField(
         label="Créateur du projet", queryset=Organization.objects.all(), required=False
     )
@@ -71,6 +78,7 @@ class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
         fields = [
             "name",
             "description",
+            "private_description",
             "organizations",
             "due_date",
             "project_types",
@@ -104,6 +112,13 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
             attrs={
                 "placeholder": "Entrez ici une description plus précise de votre projet"
             }
+        ),
+    )
+    private_description = RichTextField(
+        label="Description privée de votre projet",
+        required=False,
+        widget=forms.Textarea(
+            attrs={"placeholder": "Informations réservées à vos collaborateurs."}
         ),
     )
     due_date = (
@@ -141,6 +156,7 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
         fields = [
             "name",
             "description",
+            "private_description",
             "due_date",
             "project_types",
             "project_types_suggestion",

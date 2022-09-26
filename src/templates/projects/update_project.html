@@ -63,6 +63,7 @@
 
                 {% include '_field_snippet.html' with field=form.name %}
                 {% include '_field_snippet.html' with field=form.description %}
+                {% include '_field_snippet.html' with field=form.private_description %}
                 {% include '_calendar_snippet.html' with field=form.due_date %}
                 {% dsfr_form_field form.project_types %}
                 {% include '_field_snippet.html' with field=form.project_types_suggestion %}
