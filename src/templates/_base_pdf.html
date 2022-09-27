@@ -82,7 +82,10 @@
         {% endblock header %}
 
         <div id="footer_content">
-            {% block footer %}<p>Page <pdf:pagenumber></p>{% endblock footer %}
+            {% block footer %}<p>Page <pdf:pagenumber /> </p>{% endblock footer %}
+            {# If the pagenumber is at the end of the string, it will be printed twice #}
+            {# A simple space is enough to solve this though #}
+            {# cf. https://github.com/xhtml2pdf/xhtml2pdf/issues/106 #}
         </div>
 
 
@@ -101,30 +104,28 @@
         </main>
 
         {% block postface %}
-            <footer class="at-pdf-footer" role="contentinfo">
-                <div class="fr-container">
-                    <div class="at-pdf-footer__body">
-                        <div class="at-pdf-footer__content">
-                            <h2>À propos</h2>
-                            <p class="at-pdf-footer__content-desc">
-                                Aides-territoires est une startup d’État portée par la Direction
-                                Générale de l’Aménagement, du Logement et de la Nature (DGALN) avec le
-                                soutien de l’Agence Nationale de Cohésion des Territoires (ANCT) et de
-                                la Direction Générale des Infrastructures de Transport et de la Mer
-                                (DGITM).
-                            </p>
-                        </div>
+            <div class="fr-container">
+                <div class="at-pdf-footer__body">
+                    <div class="at-pdf-footer__content">
+                        <h2>À propos</h2>
+                        <p class="at-pdf-footer__content-desc">
+                            Aides-territoires est une startup d’État portée par la Direction
+                            Générale de l’Aménagement, du Logement et de la Nature (DGALN) avec le
+                            soutien de l’Agence Nationale de Cohésion des Territoires (ANCT) et de
+                            la Direction Générale des Infrastructures de Transport et de la Mer
+                            (DGITM).
+                        </p>
                     </div>
-
-                <div class="at-pdf-footer__bottom-copy">
-                    <p>
-                        Sauf mention contraire, tous les textes de ce document sont sous
-                        <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank" rel="noopener" title="Licence etalab-2.0 - ouvre une nouvelle fenêtre">
-                            licence etalab-2.0
-                        </a>
-                    </p>
                 </div>
-            </footer>
+
+            <div class="at-pdf-footer__bottom-copy">
+                <p>
+                    Sauf mention contraire, tous les textes de ce document sont sous
+                    <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank" rel="noopener" title="Licence etalab-2.0 - ouvre une nouvelle fenêtre">
+                        licence etalab-2.0
+                    </a>
+                </p>
+            </div>
         {% endblock postface %}
 
     </body>

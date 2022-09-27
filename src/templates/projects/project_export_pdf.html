@@ -17,7 +17,7 @@
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
                 Date d’échéance du projet :
                 {% if project.due_date %}
-                {{ project.due_date|date }}
+                    {{ project.due_date|date }}
                 {% else %}
                 aucune
                 {% endif %}
@@ -37,25 +37,37 @@
             <table aria-describedby="aids-table" repeat="1">
                 <tr>
                     <th>Titre de l’aide</th>
+                    <th>Porteur</th>
                     <th>Nature</th>
-                    <th>Récurrence</th>
-                    <th>Date d’échéance</th>
+                    <th>Récurrence et date d’échéance</th>
                 </tr>
 
                 {% for aid in aid_set %}
                     <tr>
-                        <td>{{ aid.name }}</td>
+                        <td>
+                            <a href="#anchor-aid-{{ aid.id }}">{{ aid.name }}</a>
+                        </td>
+                        <td>
+                            {% for financer in aid.financers.all %}
+                                {{ financer.name }}
+                            {% endfor %}
+                        </td>
                         <td>{% choices_display aid 'aid_types' %}</td>
-                        <td>{{ aid.get_recurrence_display }}</td>
-                        <td>{% if aid.submission_deadline %}{{ aid.submission_deadline }}{% endif %} </td>
+                        <td>
+                            {{ aid.get_recurrence_display }}
+                            {% if aid.submission_deadline %}
+                                <br />Échéance : {{ aid.submission_deadline }}
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
             </table>
             <pdf:nextpage />
 
             {# Aid detail #}
-            <h2 id="aids-table">Présentation détaillée des différents dispositifs</h2>
+            <h2 id="aids-table">Détail des fiches aides sélectionnées</h2>
             {% for aid in aid_set %}
+                <a name="anchor-aid-{{ aid.id }}"></a>
                 <h3>{{ aid.name }}</h3>
                 <p>{{ aid.description|safe }}</p>
 
@@ -120,12 +132,12 @@
                 <pdf:nextpage />
             {% endfor %}
 
+            <p>
+                Export valable en date du <strong>{{ today|date }}</strong>, pensez à revenir régulièrement sur Aides-territoires
+                pour rester informé des nouveaux dispositifs d’aides mobilisables.
+            </p>
+
         </div>
     </div>
 </div>
 {% endblock content %}
-
-{% block footer %}
-<p>Page <pdf:pagenumber /> — Export valable en date du {{ today|date }}, pensez à revenir régulièrement sur Aides-territoires
-pour rester informé des nouveaux dispositifs d’aides mobilisables.</p>
-{% endblock footer %}
