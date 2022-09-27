@@ -780,7 +780,7 @@ class AidSearchForm(BaseAidSearchForm):
     """The main search result filter form."""
 
     targeted_audiences = forms.MultipleChoiceField(
-        label="La structure", required=False, choices=Aid.AUDIENCES
+        label="Le bénéficiaire", required=False, choices=Aid.AUDIENCES
     )
 
 
