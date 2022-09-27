@@ -37,7 +37,7 @@ def export_aids_as_csv(aids_id_list, author_id):
 
 @app.task
 def export_aids_as_xlsx(aids_id_list, author_id):
-    export_aids(users_id_list, author_id, file_format="xlsx")
+    export_aids(aids_id_list, author_id, file_format="xlsx")
 
 
 def export_users(users_id_list, author_id, file_format):
