@@ -250,7 +250,7 @@ REST_FRAMEWORK = {
 }
 
 # Bump minor if the modification is retro-compatible, major othewise
-CURRENT_API_VERSION = "1.5"
+CURRENT_API_VERSION = "1.6"
 
 # The file path that's user for storing the json dump on S3
 ALL_AIDS_DUMP_FILE_PATH = "aids/all-aids.json"

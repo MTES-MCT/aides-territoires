@@ -1,0 +1,166 @@
+{% extends "_base.html" %}
+{% load i18n static form_utils compress dsfr_tags %}
+
+{% block extraclasses %}light{% endblock extraclasses %}
+
+{% block sectionid %}register-commune-page{% endblock sectionid %}
+
+{% block extra_head %}
+<meta property="og:title" content="Aides-territoires | Inscription d’une commune" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="Trouvez les aides pertinentes pour financer et accompagner les projets de votre territoire" />
+<meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
+<meta property="og:site_name" content="Aides-territoires" />
+<meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
+<meta property="og:image:alt" content="Logo : Aides-territoires" />
+{% endblock extra_head %}
+
+{% block extratitle %}Inscrivez votre mairie en 30 secondes pour financer vos projets locaux !{% endblock extratitle %}
+
+{% block content %}
+<div class="fr-container">
+    <div class="fr-background-main fr-col-11 fr-p-3w fr-my-7w">
+        <h1 class="fr-h5 blue-text text-center fr-mt-3w">
+            Inscrivez votre mairie en 30 secondes pour financer vos projets locaux !
+        </h1>
+        <div class="fr-mt-2w align-end">
+            {% url 'login' as login_url %}
+            <a href="{{ login_url }}" class="fr-tag">
+                Déjà inscrit ? Se connecter
+            </a>
+        </div>
+
+        <p>
+            Nous vous proposons un formulaire pré-rempli,
+            n’hésitez pas à modifier/rectifier les informations, notamment le champ email de contacter.
+        </p>
+
+        <p>
+            Les champs marqués d’un astérisque sont obligatoires.
+        </p>
+
+        <form method="post" novalidate id="register-form">
+            {% csrf_token %}
+            {{ form.media }}
+
+            {% include '_form_header.html' with form=form %}
+            {% for field in form %}
+                {% if field.errors %}
+                    <div class="fieldWrapper">
+                        {{ field.errors }}
+                        {{ field.label_tag }} {{ field }}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div id="registration-initial">
+                <fieldset>
+                    <legend>Entrez votre fonction et votre commune</legend>
+                    <div id="form-group-beneficiary_function" class="fr-select-group">
+                        <label for="id_beneficiary_function">Votre fonction*</label>
+                        <select class="fr-select" name="beneficiary_function" id="id_beneficiary_function" required>
+                            <option value="" hidden>Sélectionnez votre fonction</option>
+                            <option value="mayor">Maire</option>
+                            <option value="elected">Autre élu</option>
+                            <option value="town_clerk">Secrétaire de mairie</option>
+                            <option value="agent">Agent territorial</option>
+                            <option value="other">Autre</option>
+                        </select>
+                        {% if form.beneficiary_function.errors %}
+                            <p id="text-input-error-beneficiary-function" class="fr-error-text">
+                                {{ form.beneficiary_function.errors.0 }}
+                            </p>
+                        {% endif %}
+                    </div>
+                    {% include '_field_snippet.html' with field=form.perimeter %}
+                </fieldset>
+            </div>
+
+            <div id="registration-hidden-fields" class="at-display__none">
+                    <div id="form-group-organization_type" class="fr-input-group required ">
+                        <label for="id_organization_type">Vous êtes une</label>
+                        <select class="fr-select" name="organization_type" id="id_organization_type">
+                            <option value="commune" selected=>Commune</option>
+                        </select>
+                    </div>
+                    {% include '_field_snippet.html' with field=form.acquisition_channel_comment %}
+
+                    <div class="fr-checkbox-group">
+                        <input type="checkbox" name="is_beneficiary" id="id_is_beneficiary" checked>
+                        <label for="id_is_beneficiary">Trouver des aides</label>
+                    </div>
+
+                    <div class="fr-checkbox-group">
+                        <input type="checkbox" name="is_contributor" id="id_is_contributor"checked>
+                        <label for="id_is_contributor">Publier des aides</label>
+                    </div>
+
+                    <div id="form-group-acquisition_channel" class="fr-input-group required ">
+                        <label for="id_acquisition_channel">Comment avez-vous connu Aides-territoires ?</label>
+                        <select class="fr-select" name="acquisition_channel" id="id_acquisition_channel">
+                            <option value="other" selected>Autre</option>
+                        </select>
+                        
+                    </div>
+                </div>
+
+            <div id="registration-full" class="at-display__none">
+                <fieldset>
+                    <legend>Informations personnelles</legend>
+                    {% include '_field_snippet.html' with field=form.first_name %}
+                    {% include '_field_snippet.html' with field=form.last_name %}
+                    {% include '_field_snippet.html' with field=form.email %}
+                    {% include '_field_snippet.html' with field=form.password1 %}
+                    {% include '_field_snippet.html' with field=form.password2 %}
+                </fieldset>
+                <fieldset>
+                    <legend>Informations professionnelles</legend>
+
+                    {% include '_field_snippet.html' with field=form.organization_name %}
+                    {% include '_field_snippet.html' with field=form.beneficiary_role %}
+                </fieldset>
+                <div class="fr-col-12 fr-mb-3w">
+                    <div class="fr-alert fr-alert--info fr-alert--sm fr-my-2w">
+                        <p>
+                            En créant un compte, vous acceptez que vos données soient traitées en accord avec
+                            <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener" title="notre politique de confidentialité - ouvre une nouvelle fenêtre">
+                                notre politique de confidentialité
+                            </a>.
+                        </p>
+                    </div>
+                </div>
+                <div class="fr-col-12 text-center fr-mb-3w">
+                    <button type="submit" class="fr-btn">
+                        Je crée mon compte
+                    </button>
+                </div>
+                <div class="fr-col-12 fr-mb-3w">
+                    <div class="fr-alert fr-alert--info fr-alert--sm">
+                        <p>
+                            Si vous n’arrivez pas à vous inscrire,
+                            <a href="{% url 'contact' %}">n’hésitez pas à nous contacter.</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_css %}
+{% compress css %}
+{% endcompress %}
+{% endblock extra_css %}
+
+{% block extra_js %}
+    {% compress js %}
+        <script src="{% static 'select2/dist/js/select2.js' %}"></script>
+        <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+        <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
+        <script src="{% static 'js/accounts/register_commune.js' %}"></script>
+    {% endcompress %}
+{% endblock extra_js %}

@@ -107,7 +107,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     """Represents a single user account (one physical person)."""
 
     FUNCTION_TYPE = Choices(
+        ("mayor", "Maire"),
         ("elected", "Élu"),
+        ("town_clerk", "Secrétaire de mairie"),
         ("agent", "Agent territorial"),
         ("other", "Autre"),
     )

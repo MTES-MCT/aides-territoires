@@ -7,6 +7,7 @@ from geofr.models import Perimeter
 # We keep a list of all parameters here,
 # to make it easier to included them in the doc
 perimeters_api_parameters = []
+perimeterdata_api_parameters = []
 
 q_param = OpenApiParameter(
     name="q",
@@ -38,8 +39,14 @@ scale_param = OpenApiParameter(
 )
 perimeters_api_parameters.append(scale_param)
 
-# is_visible_to_users_param = OpenApiParameter(
-#     name='is_visible_to_users',
-#     type=OpenApiTypes.BOOL,
-#     location=OpenApiParameter.QUERY,
-#     description="Renvoyer les périmètres cachés.")
+perimeter_id_param = OpenApiParameter(
+    name="perimeter_id",
+    type=OpenApiTypes.STR,
+    location=OpenApiParameter.QUERY,
+    description="Show the extra data for the specified perimeter",
+    examples=[
+        OpenApiExample("Sigean", value="75056"),
+        OpenApiExample("", value=""),
+    ],
+)
+perimeterdata_api_parameters.append(perimeter_id_param)

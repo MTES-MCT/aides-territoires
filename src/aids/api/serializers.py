@@ -332,6 +332,11 @@ class AidSerializer15(BaseAidSerializer):
         )
 
 
+# No changes for aids in this release
+class AidSerializer16(AidSerializer15):
+    pass
+
+
 class AidSerializerLatest(AidSerializer15):
     pass
 

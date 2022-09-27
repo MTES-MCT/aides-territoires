@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from geofr.models import Perimeter
+from geofr.models import Perimeter, PerimeterData
 
 
 class PerimeterSerializer(serializers.ModelSerializer):
@@ -21,3 +21,14 @@ class PerimeterSerializer(serializers.ModelSerializer):
 class PerimeterScaleSerializer(serializers.Serializer):
     id = serializers.CharField()
     name = serializers.CharField()
+
+
+class PerimeterDataSerializer(serializers.ModelSerializer):
+    id = serializers.CharField()
+    perimeter = serializers.CharField()
+    prop = serializers.CharField()
+    value = serializers.CharField()
+
+    class Meta:
+        model = PerimeterData
+        fields = ("id", "perimeter", "prop", "value")
