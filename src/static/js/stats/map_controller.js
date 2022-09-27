@@ -3,6 +3,7 @@ import { Controller } from '../../@hotwired/stimulus/dist/stimulus.js'
 export default class extends Controller {
   departments = {}
   communes = {}
+  communesData = {}
   zoomFrance = 5.5
   centerFrance = [46.227, 2.213]
   defaultFillStyle = {
@@ -116,9 +117,11 @@ export default class extends Controller {
 
     if (this.communes[currentDepartmentCode]) {
       this.map.addLayer(this.communes[currentDepartmentCode])
+      this.#updateTable(this.communesData[currentDepartmentCode])
     } else {
       this.#getCommunes(currentDepartmentCode).then(({ communes, data }) => {
         this.communes[currentDepartmentCode] = communes
+        this.communesData[currentDepartmentCode] = data
         this.map.addLayer(communes)
         this.#updateTable(data)
       })
@@ -140,7 +143,7 @@ export default class extends Controller {
           organization_name: this.communesWithOrg[key].organization_name,
           date_created: this.communesWithOrg[key].date_created,
           projects_count: this.communesWithOrg[key].projects_count,
-          users_count: this.communesWithOrg[key].users_count,
+          user_email: this.communesWithOrg[key].user_email,
         })
       }
     }
@@ -186,8 +189,8 @@ export default class extends Controller {
               scope="col"
               data-action="click->table#sortTable"
               data-table-target="header"
-              data-type="number"
-              >Nombre de comptes</th>
+              data-type="text"
+              >Courriels</th>
           </tr>
         </thead>
         <tbody data-table-target="body">
@@ -200,7 +203,7 @@ export default class extends Controller {
                   <td>${item.organization_name}</td>
                   <td>${new Date(item.date_created).toLocaleDateString('fr-FR')}</td>
                   <td>${item.projects_count}</td>
-                  <td>${item.users_count}</td>
+                  <td>${item.user_email}</td>
                   `
               )
               .join('</tr><tr data-table-target="row">')}
@@ -248,7 +251,7 @@ export default class extends Controller {
         return this._div
       },
       update: function (props, orgCount) {
-        let message = '<h4>Organisations</h4>'
+        let message = '<h4>Périmètre</h4>'
         if (!props) {
           message += 'Survoler une zone'
         } else {
