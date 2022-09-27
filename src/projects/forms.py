@@ -93,6 +93,14 @@ class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
             ("", "Ce projet appartient-il à un programme?")
         ] + Project.CONTRACT_LINK
 
+    def clean(self):
+        data = super().clean()
+        if not any((data.get("project_types"), data.get("project_types_suggestion"))):
+            msg = "Merci de remplir au moins un des champs parmi 'Types de projet' et 'Autre type de projet'."
+            self.add_error("project_types", msg)
+            self.add_error("project_types_suggestion", msg)
+        return data
+
 
 class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
 
@@ -174,6 +182,14 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
         self.fields["contract_link"].choices = [
             ("", "Ce projet appartient-il à un programme?")
         ] + Project.CONTRACT_LINK
+
+    def clean(self):
+        data = super().clean()
+        if not any((data.get("project_types"), data.get("project_types_suggestion"))):
+            msg = "Merci de remplir au moins un des champs parmi 'Types de projet' et 'Autre type de projet'."
+            self.add_error("project_types", msg)
+            self.add_error("project_types_suggestion", msg)
+        return data
 
 
 class ProjectExportForm(forms.ModelForm):
