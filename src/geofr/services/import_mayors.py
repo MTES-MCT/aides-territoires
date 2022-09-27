@@ -81,7 +81,7 @@ def insert_mayor_row(row: dict) -> bool:
         )
     else:
         print(
-            f"WARNING: several Commune perimeters found for row {commune_name} ({commune_insee})"
+            f"WARNING: several Commune perimeters found for {commune_name} ({commune_insee})"
         )
 
     return False
@@ -130,8 +130,8 @@ def insert_email_row(commune: dict) -> bool:
 
         try:
             validate_email(mairie_email)
-        except ValidationError as e:
-            print(f"WARNING: Invalid email for entry {mairie_name} ({commune_insee})")
+        except ValidationError:
+            print(f"WARNING: Invalid email for {mairie_name} ({commune_insee})")
             return False
 
         matching_perimeters = Perimeter.objects.filter(
@@ -152,11 +152,11 @@ def insert_email_row(commune: dict) -> bool:
             ignore_list = ["délégué", "arrondissement"]
             if not any(x in mairie_name for x in ignore_list):
                 print(
-                    f"WARNING: Commune perimeter not found for entry {mairie_name} ({commune_insee})"
+                    f"WARNING: Commune perimeter not found for {mairie_name} ({commune_insee})"
                 )
         else:
             print(
-                f"WARNING: several Commune perimeters found for entry {mairie_name} ({commune_insee})"
+                f"WARNING: several Commune perimeters found for {mairie_name} ({commune_insee})"
             )
     else:
         f"WARNING: the commune {mairie_name} has no registered email address"
