@@ -30,6 +30,15 @@
             </a>
         </div>
 
+        <p>
+            Nous vous proposons un formulaire pré-rempli,
+            n’hésitez pas à modifier/rectifier les informations, notamment le champ email de contacter.
+        </p>
+
+        <p>
+            Les champs marqués d’un astérisque sont obligatoires.
+        </p>
+
         <form method="post" novalidate id="register-form">
             {% csrf_token %}
             {{ form.media }}
@@ -53,8 +62,9 @@
                         <label for="id_beneficiary_function">Votre fonction*</label>
                         <select class="fr-select" name="beneficiary_function" id="id_beneficiary_function" required>
                             <option value="" hidden>Sélectionnez votre fonction</option>
-                            <option value="elected">Maire</option>
+                            <option value="mayor">Maire</option>
                             <option value="elected">Autre élu</option>
+                            <option value="town_clerk">Secrétaire de mairie</option>
                             <option value="agent">Agent territorial</option>
                             <option value="other">Autre</option>
                         </select>
@@ -151,6 +161,6 @@
         <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
         <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
         <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
-        <script src="{% static 'js/aids/register_commune.js' %}"></script>
+        <script src="{% static 'js/accounts/register_commune.js' %}"></script>
     {% endcompress %}
 {% endblock extra_js %}

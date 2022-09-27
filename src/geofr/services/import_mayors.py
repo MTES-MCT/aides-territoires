@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from django.db import transaction
 
 from geofr.models import Perimeter, PerimeterData
@@ -126,6 +128,12 @@ def insert_email_row(commune: dict) -> bool:
     if "email" in commune["properties"]:
         mairie_email = commune["properties"]["email"]
 
+        try:
+            validate_email(mairie_email)
+        except ValidationError as e:
+            print(f"WARNING: Invalid email for entry {mairie_name} ({commune_insee})")
+            return False
+
         matching_perimeters = Perimeter.objects.filter(
             code=commune_insee, scale=Perimeter.SCALES.commune, is_obsolete=False
         )
@@ -138,16 +146,17 @@ def insert_email_row(commune: dict) -> bool:
                 prop="mairie_email",
                 defaults={"value": mairie_email},
             )
-
             return True
 
         elif matching_perimeters.count() == 0:
-            print(
-                f"WARNING: Commune perimeter not found for row {mairie_name} ({commune_insee})"
-            )
+            ignore_list = ["délégué", "arrondissement"]
+            if not any(x in mairie_name for x in ignore_list):
+                print(
+                    f"WARNING: Commune perimeter not found for entry {mairie_name} ({commune_insee})"
+                )
         else:
             print(
-                f"WARNING: several Commune perimeters found for row {mairie_name} ({commune_insee})"
+                f"WARNING: several Commune perimeters found for entry {mairie_name} ({commune_insee})"
             )
     else:
         f"WARNING: the commune {mairie_name} has no registered email address"

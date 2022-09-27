@@ -7,19 +7,20 @@ const fetchMayorData = function (perimeter_id) {
         success: function (data) {
             $.each(data.results, function (i) {
                 let entry = data.results[i];
-                console.log(entry);
-                if (entry.prop === "mayor_first_name") {
-                    $("#id_first_name").val(entry.value);
-                }
-
-                if (entry.prop === "mayor_last_name") {
-                    $("#id_last_name").val(entry.value);
-                }
-
                 if (entry.prop === "mairie_email") {
                     $("#id_email").val(entry.value);
                 }
 
+                if ($("#id_beneficiary_function").find('option:selected').text() == "Maire") {
+                    $("#id_beneficiary_role").val("Maire");
+                    if (entry.prop === "mayor_first_name") {
+                        $("#id_first_name").val(entry.value);
+                    }
+
+                    if (entry.prop === "mayor_last_name") {
+                        $("#id_last_name").val(entry.value);
+                    }
+                }
             });
         },
     })
@@ -41,12 +42,8 @@ $(document).ready(function () {
             target[property] = value;
 
             if (target["beneficiary_function"] && target["perimeter"]) {
+                fetchMayorData(target["perimeter"]);
                 $("#registration-full").show('fast');
-
-                if ($("#id_beneficiary_function").find('option:selected').text() == "Maire") {
-                    $("#id_beneficiary_role").val("Maire");
-                    fetchMayorData(target["perimeter"]);
-                }
             }
         }
     });
