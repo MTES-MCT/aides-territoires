@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.query import QuerySet
 from django.utils import timezone
 from django.utils.text import slugify
 from django.contrib.postgres.fields import ArrayField
@@ -241,7 +242,12 @@ class PerimeterImport(models.Model):
 
 class PerimeterData(models.Model):
     """
-    allows to import extra data for perimeters
+    Allows to import extra data for perimeters, without adding extra fields to the main model for
+    things that concern only a subset of EPCIs (only communes for now)
+    This allows for a triplet-style storing of data, with
+    perimeter - property - value
+
+    The list of currently used properties is available through the get_properties() method
     """
 
     perimeter = models.ForeignKey(
@@ -260,6 +266,10 @@ class PerimeterData(models.Model):
 
     def __str__(self):
         return f"{self.perimeter} – {self.prop}: {self.value}"
+
+    @classmethod
+    def get_properties(cls) -> QuerySet:
+        return PerimeterData.objects.values_list("prop", flat=True).distinct()
 
     class Meta:
         verbose_name = "donnée de périmètre"

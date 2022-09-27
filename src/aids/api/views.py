@@ -19,6 +19,7 @@ from aids.api.serializers import (
     AidSerializer12,
     AidSerializer13,
     AidSerializer14,
+    AidSerializer15,
     AidSerializerLatest,
     AidAudienceSerializer,
     AidTypeSerializer,
@@ -89,6 +90,8 @@ class AidViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gene
 
         if version == settings.CURRENT_API_VERSION or version is None:
             serializer_class = AidSerializerLatest
+        elif version == '1.5':
+            serializer_class = AidSerializer15
         elif version == '1.4':
             serializer_class = AidSerializer14
         elif version == '1.3':
