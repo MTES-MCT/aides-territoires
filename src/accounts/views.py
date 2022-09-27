@@ -86,7 +86,7 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
 
         send_connection_email.delay(user.email)
         track_goal(self.request.session, settings.GOAL_REGISTER_ID)
-        msg = "Vous êtes bien enregistré&nbsp;!"
+        msg = "Vous êtes bien enregistré !"
         messages.success(self.request, msg)
 
         return super().form_valid(form)
@@ -125,7 +125,7 @@ class RegisterCommuneView(AnonymousRequiredMixin, CreateView):
 
         send_connection_email.delay(user.email)
         track_goal(self.request.session, settings.GOAL_REGISTER_ID)
-        msg = "Vous êtes bien enregistré&nbsp;!"
+        msg = "Vous êtes bien enregistré !"
         messages.success(self.request, msg)
 
         return super().form_valid(form)
