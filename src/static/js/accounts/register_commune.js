@@ -11,7 +11,7 @@ const fetchMayorData = function (perimeter_id) {
                     $("#id_email").val(entry.value);
                 }
 
-                if ($("#id_beneficiary_function").find('option:selected').text() == "Maire") {
+                if ($("#id_beneficiary_function").val() == "mayor") {
                     $("#id_beneficiary_role").val("Maire");
                     if (entry.prop === "mayor_first_name") {
                         $("#id_first_name").val(entry.value);
