@@ -95,7 +95,7 @@
                     <div id="form-group-acquisition_channel" class="fr-input-group required ">
                         <label for="id_acquisition_channel">Comment avez-vous connu Aides-territoires ?</label>
                         <select class="fr-select" name="acquisition_channel" id="id_acquisition_channel" hidden>
-                            <option value="other" selected>Autre</option>
+                            <option value="animator" selected>Animateur local</option>
                         </select>
                         
                     </div>
@@ -142,12 +142,13 @@
 {% endblock content %}
 
 {% block extra_css %}
-{% compress css %}
-{% endcompress %}
+    {% compress css %}
+    {% endcompress %}
 {% endblock extra_css %}
 
 {% block extra_js %}
     {% compress js %}
+        <script src="{% static 'js/accounts/toggle_acquisition_channel_related_field.js' %}"></script>
         <script src="{% static 'select2/dist/js/select2.js' %}"></script>
         <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
         <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
