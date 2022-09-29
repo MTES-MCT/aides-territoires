@@ -124,12 +124,13 @@ class RegisterCommuneView(AnonymousRequiredMixin, CreateView):
         user.save()
         organization.beneficiaries.add(user.pk)
 
+        response = super().form_valid(form)
         send_connection_email.delay(user.email)
         track_goal(self.request.session, settings.GOAL_REGISTER_ID)
         msg = "Vous êtes bien enregistré !"
         messages.success(self.request, msg)
 
-        return super().form_valid(form)
+        return response
 
 
 class RegisterSuccessView(AnonymousRequiredMixin, TemplateView):
