@@ -19,7 +19,7 @@
 })(this);
 
 $(document).ready(function () {
-    // If a "source" URL parameter is set, set the 
+    // If a "source" URL parameter is set, set its value in the acquisition_channel_comment field,
     let searchParams = new URLSearchParams(window.location.search);
     if (searchParams.has('source')) {
         let source = searchParams.get('source');
