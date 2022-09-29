@@ -54,6 +54,26 @@ class UserResource(resources.ModelResource):
         column_name="Nombre d'aides",
     )
 
+    org_type = fields.Field(
+        column_name="Type de structure",
+    )
+
+    org_zipcode = fields.Field(
+        column_name="Code postal de la structure",
+    )
+
+    def dehydrate_org_zipcode(self, obj):
+        if obj.beneficiary_organization:
+            return obj.beneficiary_organization.zip_code
+        else:
+            return ""
+
+    def dehydrate_org_type(self, obj):
+        if obj.beneficiary_organization:
+            return obj.beneficiary_organization.organization_type[0]
+        else:
+            return ""
+
     def dehydrate_perimeter(self, obj):
         if obj.beneficiary_organization:
             if obj.beneficiary_organization.perimeter:
@@ -78,7 +98,7 @@ class UserResource(resources.ModelResource):
             return ""
 
     def dehydrate_nb_aids(self, obj):
-        return obj.aid_count
+        return obj.aids.count()
 
     class Meta:
         model = User

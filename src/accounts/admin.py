@@ -15,6 +15,8 @@ from core.constants import YES_NO_CHOICES
 from accounts.resources import UserResource
 from aids.models import Aid
 from accounts.models import User, UserLastConnexion
+from exporting.tasks import export_users_as_csv, export_users_as_xlsx
+from exporting.utils import get_admin_export_message
 
 
 class AuthorFilter(InputFilter):
@@ -101,6 +103,7 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
     """Admin module for users."""
 
     resource_class = UserResource
+    actions = ["export_csv", "export_xlsx"]
     formats = [base_formats.CSV, base_formats.XLSX]
     list_display = [
         "email",
@@ -304,6 +307,27 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
         return super().change_view(
             request, object_id, form_url=form_url, extra_context=context
         )
+
+    def show_export_message(self, request):
+        self.message_user(request, get_admin_export_message())
+
+    def export_csv(self, request, queryset):
+        users_id_list = list(queryset.values_list("id", flat=True))
+        export_users_as_csv.delay(users_id_list, request.user.id)
+        self.show_export_message(request)
+
+    export_csv.short_description = (
+        "Exporter les utilisateurs sélectionnés en CSV en tâche de fond"
+    )
+
+    def export_xlsx(self, request, queryset):
+        users_id_list = list(queryset.values_list("id", flat=True))
+        export_users_as_xlsx.delay(users_id_list, request.user.id)
+        self.show_export_message(request)
+
+    export_xlsx.short_description = (
+        "Exporter les utilisateurs sélectionnés en XLSX en tâche de fond"
+    )
 
 
 class UserLastConnexionAdmin(admin.ModelAdmin):
