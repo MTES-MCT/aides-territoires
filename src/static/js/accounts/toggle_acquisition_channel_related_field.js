@@ -19,6 +19,12 @@
 })(this);
 
 $(document).ready(function () {
+    // If a "source" URL parameter is set, set the 
+    let searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.has('source')) {
+        let source = searchParams.get('source');
+        $("#id_acquisition_channel_comment").val(source);
+    }
 
     // Only display acquisition_channel related field when the `other`
     // option is selected.
@@ -30,4 +36,6 @@ $(document).ready(function () {
     registerForm.on('change', function () {
         toggleAcquisitionChannelCommentField(registerForm, AcquisitionChannelCommentFieldDiv);
     });
+
+
 });
