@@ -815,3 +815,21 @@ class AidProject(models.Model):
         null=True,
     )
     date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+
+class SuggestedAidProject(models.Model):
+
+    aid = models.ForeignKey(
+        "Aid", on_delete=models.CASCADE, verbose_name="Aide suggérée", blank=True
+    )
+    project = models.ForeignKey(
+        "projects.Project", on_delete=models.CASCADE, verbose_name="Projet", blank=True
+    )
+    creator = models.ForeignKey(
+        "accounts.User",
+        on_delete=models.SET_NULL,
+        verbose_name="Créateur",
+        blank=True,
+        null=True,
+    )
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
