@@ -89,7 +89,7 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
         self.fields["first_name"].widget.attrs.update({"autofocus": True})
         self.fields["email"].widget.attrs.update(
             {
-                "placeholder": "Merci de bien vérifier l'adresse saisie.",
+                "placeholder": "Merci de bien vérifier l’adresse saisie.",
                 "autofocus": False,
             }
         )
@@ -128,6 +128,9 @@ class RegisterCommuneForm(RegisterForm):
             ou si vous souhaitez en utiliser un autre, personnel par exemple.<br />
             Nous enverrons un e-mail de confirmation à cette adresse avant de valider le compte.
             """,
+    )
+    perimeter = AutocompleteModelChoiceField(
+        label="Votre commune", queryset=Perimeter.objects.all(), required=True
     )
 
 

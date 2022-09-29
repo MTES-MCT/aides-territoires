@@ -51,17 +51,6 @@
             {{ form.media }}
 
             {% include '_form_header.html' with form=form %}
-            {% for field in form %}
-                {% if field.errors %}
-                    <div class="fieldWrapper">
-                        {{ field.errors }}
-                        {{ field.label_tag }} {{ field }}
-                        {% if field.help_text %}
-                        <p class="help">{{ field.help_text|safe }}</p>
-                        {% endif %}
-                    </div>
-                {% endif %}
-            {% endfor %}
             <div id="registration-initial">
                 <fieldset>
                     <legend>Entrez votre fonction et votre commune</legend>
@@ -114,7 +103,7 @@
                     {{ form.organization_name.as_hidden }}
                 </div>
 
-            <div id="registration-full" class="at-display__none">
+            <div id="registration-full"{% if not form.errors %} class="at-display__none"{% endif %}>
                 <fieldset>
                     <legend>Informations personnelles</legend>
                     {% include '_field_snippet.html' with field=form.first_name %}
