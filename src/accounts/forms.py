@@ -120,7 +120,15 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
 
 
 class RegisterCommuneForm(RegisterForm):
-    pass
+    email = forms.EmailField(
+        label="Votre adresse e-mail",
+        required=True,
+        help_text="""
+            Vous pouvez modifier l’email de contact s’il n’est pas exact
+            ou si vous souhaitez en utiliser un autre, personnel par exemple.<br />
+            Nous enverrons un e-mail de confirmation à cette adresse avant de valider le compte.
+            """,
+    )
 
 
 class LoginForm(AuthenticationForm, DsfrBaseForm):

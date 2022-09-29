@@ -30,13 +30,20 @@
             </a>
         </div>
 
-        <p>
-            Nous vous proposons un formulaire pré-rempli,
-            n’hésitez pas à modifier/rectifier les informations, notamment le champ email de contacter.
-        </p>
+        <div class="fr-notice fr-notice--info fr-mb-2w">
+            <div class="fr-container">
+                <div class="fr-notice__body">
+                    <p class="fr-notice__title">
+                        Nous vous proposons un formulaire pré-rempli,
+                        n’hésitez pas à modifier/rectifier les informations,
+                        notamment le champ email de contact.
+                    </p>
+                </div>
+            </div>
+        </div>
 
         <p>
-            Les champs marqués d’un astérisque sont obligatoires.
+            Les champs marqués d’un astérisque (*) sont obligatoires.
         </p>
 
         <form method="post" novalidate id="register-form">
@@ -63,9 +70,8 @@
                         <select class="fr-select" name="beneficiary_function" id="id_beneficiary_function" required>
                             <option value="" hidden>Sélectionnez votre fonction</option>
                             <option value="mayor">Maire</option>
-                            <option value="elected">Autre élu</option>
+                            <option value="elected">Adjoint ou conseiller</option>
                             <option value="town_clerk">Secrétaire de mairie</option>
-                            <option value="agent">Agent territorial</option>
                             <option value="other">Autre</option>
                         </select>
                         {% if form.beneficiary_function.errors %}
@@ -81,29 +87,31 @@
             <div id="registration-hidden-fields" class="at-display__none">
                     <div id="form-group-organization_type" class="fr-input-group required ">
                         <label for="id_organization_type">Vous êtes une</label>
-                        <select class="fr-select" name="organization_type" id="id_organization_type">
+                        <select class="fr-select" name="organization_type" id="id_organization_type" hidden>
                             <option value="commune" selected=>Commune</option>
                         </select>
                     </div>
-                    {% include '_field_snippet.html' with field=form.acquisition_channel_comment %}
+                    {{form.acquisition_channel_comment.as_hidden }}
 
                     <div class="fr-checkbox-group">
-                        <input type="checkbox" name="is_beneficiary" id="id_is_beneficiary" checked>
+                        <input type="checkbox" name="is_beneficiary" id="id_is_beneficiary" checked hidden>
                         <label for="id_is_beneficiary">Trouver des aides</label>
                     </div>
 
                     <div class="fr-checkbox-group">
-                        <input type="checkbox" name="is_contributor" id="id_is_contributor"checked>
+                        <input type="checkbox" name="is_contributor" id="id_is_contributor"checked hidden>
                         <label for="id_is_contributor">Publier des aides</label>
                     </div>
 
                     <div id="form-group-acquisition_channel" class="fr-input-group required ">
                         <label for="id_acquisition_channel">Comment avez-vous connu Aides-territoires ?</label>
-                        <select class="fr-select" name="acquisition_channel" id="id_acquisition_channel">
+                        <select class="fr-select" name="acquisition_channel" id="id_acquisition_channel" hidden>
                             <option value="other" selected>Autre</option>
                         </select>
                         
                     </div>
+
+                    {{ form.organization_name.as_hidden }}
                 </div>
 
             <div id="registration-full" class="at-display__none">
@@ -114,12 +122,6 @@
                     {% include '_field_snippet.html' with field=form.email %}
                     {% include '_field_snippet.html' with field=form.password1 %}
                     {% include '_field_snippet.html' with field=form.password2 %}
-                </fieldset>
-                <fieldset>
-                    <legend>Informations professionnelles</legend>
-
-                    {% include '_field_snippet.html' with field=form.organization_name %}
-                    {% include '_field_snippet.html' with field=form.beneficiary_role %}
                 </fieldset>
                 <div class="fr-col-12 fr-mb-3w">
                     <div class="fr-alert fr-alert--info fr-alert--sm fr-my-2w">
