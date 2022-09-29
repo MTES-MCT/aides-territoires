@@ -12,7 +12,6 @@ const fetchMayorData = function (perimeter_id) {
                 }
 
                 if ($("#id_beneficiary_function").val() == "mayor") {
-                    $("#id_beneficiary_role").val("Maire");
                     if (entry.prop === "mayor_first_name") {
                         $("#id_first_name").val(entry.value);
                     }
@@ -22,7 +21,6 @@ const fetchMayorData = function (perimeter_id) {
                     }
                 } else {
                     // Reinit these fields if "Mayor" had previously been selected
-                    $("#id_beneficiary_role").val("");
                     $("#id_first_name").val("");
                     $("#id_last_name").val("");
                 }
