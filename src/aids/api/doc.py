@@ -71,7 +71,7 @@ aid_type = OpenApiParameter(
     name="aid_type",
     type=OpenApiTypes.STR,
     location=OpenApiParameter.QUERY,
-    description="Nature de l'aide.",
+    description="Nature de l’aide.",
     enum=[id for (id, name) in AID_TYPE_CHOICES],
     examples=[
         OpenApiExample("", value=""),
@@ -85,7 +85,7 @@ financial_aids = OpenApiParameter(
     name="financial_aids",
     type=OpenApiTypes.STR,
     location=OpenApiParameter.QUERY,
-    description="Type d'aides financières."
+    description="Type d’aides financières."
     "<br /><br />"
     "Voir aussi `/api/aids/types/` pour la liste complète.",
     enum=[id for (id, name) in FINANCIAL_AIDS + OTHER_AIDS],
@@ -98,7 +98,7 @@ technical_aids = OpenApiParameter(
     name="technical_aids",
     type=OpenApiTypes.STR,
     location=OpenApiParameter.QUERY,
-    description="Type d'aides en ingénierie."
+    description="Type d’aides en ingénierie."
     "<br /><br />"
     "Voir aussi `/api/aids/types/` pour la liste complète.",
     enum=[id for (id, name) in TECHNICAL_AIDS],
@@ -150,7 +150,7 @@ call_for_projects_only = OpenApiParameter(
     name="call_for_projects_only",
     type=OpenApiTypes.BOOL,
     location=OpenApiParameter.QUERY,
-    description="Appels à projets / Appels à manifestation d'intérêt uniquement.",
+    description="Appels à projets / Appels à manifestation d’intérêt uniquement.",
     examples=[
         OpenApiExample("", value=""),
         OpenApiExample("true", value=True),
@@ -166,7 +166,7 @@ perimeter = OpenApiParameter(
     "<br /><br />"
     "Voir `/api/perimeters/` pour la liste complète."
     "<br /><br />"
-    "Note : passer seulement l'id du périmètre suffit (perimeter=70973).",
+    "Note : passer seulement l’id du périmètre suffit (perimeter=70973).",
     examples=[
         OpenApiExample("", value=""),
         OpenApiExample(
@@ -182,7 +182,7 @@ backers = OpenApiParameter(
     name="backers",
     type={"type": "array", "items": {"type": "string"}},
     location=OpenApiParameter.QUERY,
-    description="Porteurs d'aides."
+    description="Porteurs d’aides."
     "<br /><br />"
     "Voir `/api/backers/` pour la liste complète."
     "<br /><br />"
@@ -190,7 +190,7 @@ backers = OpenApiParameter(
     "<br />"
     "- possible de passer plusieurs porteurs (recherche OU)"
     "<br />"
-    "- passer seulement l'id du (ou des) porteur(s) d'aides suffit (backers=22)",
+    "- passer seulement l’id du (ou des) porteur(s) d’aides suffit (backers=22)",
     examples=[
         OpenApiExample("", value=""),
         OpenApiExample("22-ademe", value="22-ademe"),
@@ -205,7 +205,7 @@ programs = OpenApiParameter(
     name="programs",
     type={"type": "array", "items": {"type": "string"}},
     location=OpenApiParameter.QUERY,
-    description="Programmes d'aides."
+    description="Programmes d’aides."
     "<br /><br />"
     "Voir `/api/programs/` pour la liste complète."
     "<br /><br />"
@@ -268,13 +268,13 @@ origin_url = OpenApiParameter(
     name="origin_url",
     type=OpenApiTypes.URI,
     location=OpenApiParameter.QUERY,
-    description="URL d'origine.",
+    description="URL d’origine.",
     examples=[
         OpenApiExample("", value=""),
         OpenApiExample(
             "URL",
-            value="http://www.cress-aura.org/actus/mon-ess-lecole-quest-ce-que-cest",
-        ),  # noqa
+            value="https://appelsaprojets.ademe.fr/aap/AURASTC2019-54",
+        ),
     ],
 )
 aids_api_parameters.append(origin_url)
@@ -297,12 +297,12 @@ prevent_generic_filter = OpenApiParameter(
     name="prevent_generic_filter",
     type=OpenApiTypes.STR,
     location=OpenApiParameter.QUERY,
-    description="Ce paramètre permet d'empêcher le filtrage par défaut \
+    description="Ce paramètre permet d’empêcher le filtrage par défaut \
     des aides génériques et locales. Quand ce paramètre est présent, \
-    le résultat de l'API va lister toutes les variantes génériques et locales d'une aide. \
-    Il faut donc s'attendre à ce qu'il y ait des aides en doublon."
+    le résultat de l’API va lister toutes les variantes génériques et locales d’une aide. \
+    Il faut donc s’attendre à ce qu'il y ait des aides en doublon."
     "<br /><br />"
-    "Note : la valeur du paramètre, ici 'yes', n'a pas d'importance, \
+    "Note : la valeur du paramètre, ici 'yes', n’a pas d’importance, \
     puisque la simple présence de ce paramètre suffit.",
     examples=[
         OpenApiExample("", value=""),
@@ -315,11 +315,11 @@ published = OpenApiParameter(
     name="published",
     type=OpenApiTypes.STR,
     location=OpenApiParameter.QUERY,
-    description="Ce paramètre permet d'empêcher l'exclusion par défaut \
+    description="Ce paramètre permet d’empêcher l’exclusion par défaut \
     des aides clôturées. Quand ce paramètre est présent, \
-    le résultat de l'API va lister toutes les aides publiées (clôturées ou non)."
+    le résultat de l’API va lister toutes les aides publiées (clôturées ou non)."
     "<br /><br />"
-    "Note : la valeur du paramètre, ici 'true', n'a pas d'importance, \
+    "Note : la valeur du paramètre, ici 'true', n’a pas d’importance, \
     puisque la simple présence de ce paramètre suffit.",
     examples=[
         OpenApiExample("", value=""),
