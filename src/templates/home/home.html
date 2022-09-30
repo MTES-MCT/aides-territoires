@@ -117,7 +117,7 @@
                             </div>
                             <div class="fr-card__header">
                                 <div class="fr-card__img">
-                                    <img class="fr-responsive-img" src="{% static 'img/portails.jpg' %}" alt="" />
+                                    <img class="fr-responsive-img" src="{% static 'img/portails.jpg' %}" alt="" loading="lazy" />
                                 </div>
                             </div>
                         </div>
@@ -135,7 +135,7 @@
                             </div>
                             <div class="fr-card__header">
                                 <div class="fr-card__img">
-                                    <img class="fr-responsive-img" src="{% static 'img/europe.jpg' %}" alt="" />
+                                    <img class="fr-responsive-img" src="{% static 'img/europe.jpg' %}" alt="" loading="lazy" />
                                 </div>
                             </div>
                         </div>
@@ -153,7 +153,7 @@
                             </div>
                             <div class="fr-card__header">
                                 <div class="fr-card__img">
-                                    <img class="fr-responsive-img" src="{% static 'img/plan-de-relance.jpg' %}" alt="" />
+                                    <img class="fr-responsive-img" src="{% static 'img/plan-de-relance.jpg' %}" alt="" loading="lazy" />
                                 </div>
                             </div>
                         </div>
@@ -175,7 +175,7 @@
                                 <div class="fr-col-xs-12 fr-p-3w">
                                     <a href="{{ selected_backer.get_absolute_url }}" class="at-link__nodecorator">
                                     {% if selected_backer.logo %}
-                                        <img src="{{ selected_backer.logo.url }}" alt="Logo : {{ selected_backer.name }} " />
+                                        <img src="{{ selected_backer.logo.url }}" alt="Logo : {{ selected_backer.name }} " loading="lazy" />
                                     {% endif %}
                                     </a>
                                 </div>
