@@ -108,6 +108,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     FUNCTION_TYPE = Choices(
         ("mayor", "Maire"),
+        ("deputy_mayor", "Adjoint au maire"),
+        ("municipal_councilor", "Conseiller municipal"),
         ("elected", "Élu"),
         ("town_clerk", "Secrétaire de mairie"),
         ("agent", "Agent territorial"),
