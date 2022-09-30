@@ -354,41 +354,61 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
         regions = Perimeter.objects.filter(
             scale=Perimeter.SCALES.region, is_obsolete=False
         )
-        regions_org_count = {}
+        regions_org_communes_count = {}
+        regions_org_epcis_count = {}
         for region in regions:
-            regions_org_count[region.name] = (
+            regions_org_communes_count[region.name] = (
                 region.organization_region.filter(organization_type=["commune"])
                 .values("id")
                 .count()
             )
-        context["regions_org_max"] = max(regions_org_count.values())
-        context["regions_org_count"] = json.dumps(
-            regions_org_count, cls=DjangoJSONEncoder
+            regions_org_epcis_count[region.name] = (
+                region.organization_region.filter(organization_type=["epci"])
+                .values("id")
+                .count()
+            )
+        context["regions_org_communes_max"] = max(regions_org_communes_count.values())
+        context["regions_org_communes_count"] = json.dumps(
+            regions_org_communes_count, cls=DjangoJSONEncoder
+        )
+        context["regions_org_epcis_count"] = json.dumps(
+            regions_org_epcis_count, cls=DjangoJSONEncoder
         )
 
         # Counts by department.
         departments = Perimeter.objects.departments()
-        departments_org_count = {}
+        departments_org_communes_count = {}
+        departments_org_epcis_count = {}
         departments_codes = []
         for department in departments:
             departments_codes.append(department.code)
-            departments_org_count[department.name] = (
+            departments_org_communes_count[department.name] = (
                 department.organization_department.filter(organization_type=["commune"])
                 .values("id")
                 .count()
             )
+            departments_org_epcis_count[department.name] = (
+                department.organization_department.filter(organization_type=["epci"])
+                .values("id")
+                .count()
+            )
         context["departments_codes"] = departments_codes
-        context["departments_org_max"] = max(departments_org_count.values())
-        context["departments_org_count"] = json.dumps(
-            departments_org_count, cls=DjangoJSONEncoder
+        context["departments_org_communes_max"] = max(
+            departments_org_communes_count.values()
+        )
+        context["departments_org_communes_count"] = json.dumps(
+            departments_org_communes_count, cls=DjangoJSONEncoder
+        )
+        context["departments_org_epcis_count"] = json.dumps(
+            departments_org_epcis_count, cls=DjangoJSONEncoder
         )
 
         # Organizations with commune as a perimeter.
         organizations = (
             Organization.objects.filter(
-                perimeter__scale=Perimeter.SCALES.commune,
+                perimeter__scale__in=[Perimeter.SCALES.commune, Perimeter.SCALES.epci],
                 perimeter__is_obsolete=False,
-                organization_type=["commune"],
+                organization_type__overlap=["commune", "epci"],
             )
             .annotate(projects_count=Count("project", distinct=True))
             .values(
@@ -398,6 +418,7 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
                 "perimeter__code",
                 "perimeter__name",
                 "user__email",
+                "organization_type",
             )
         )
 
@@ -419,10 +440,23 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
                 "age": get_age(organization["date_created"]),
             }
             for organization in organizations
+            if organization["organization_type"] == ["commune"]
+        }
+        epcis_with_org = {
+            f"{organization['perimeter__code']}-{organization['perimeter__name']}": {
+                "organization_name": organization["name"],
+                "user_email": organization["user__email"],
+                "projects_count": organization["projects_count"],
+                "date_created": organization["date_created"],
+                "age": 4,
+            }
+            for organization in organizations
+            if organization["organization_type"] == ["epci"]
         }
         context["communes_with_org"] = json.dumps(
             communes_with_org, cls=DjangoJSONEncoder
         )
+        context["epcis_with_org"] = json.dumps(epcis_with_org, cls=DjangoJSONEncoder)
         return context
 
 

@@ -34,8 +34,8 @@
 <section class="fr-container">
     <div data-controller="map"
       data-action="map:moveend->map#switchShapes"
-      data-map-regions-org-max-value="{{ regions_org_max }}"
-      data-map-departments-org-max-value="{{ departments_org_max }}"
+      data-map-regions-org-communes-max-value="{{ regions_org_communes_max }}"
+      data-map-departments-org-communes-max-value="{{ departments_org_communes_max }}"
       >
       <div>
         <ul class="flyto info legend">
@@ -86,14 +86,23 @@
       <script data-map-target="regions" type="application/json">
         {{ regions_geojson|safe }}
       </script>
-      <script data-map-target="regionsOrgCount" type="application/json">
-        {{ regions_org_count|safe }}
+      <script data-map-target="regionsOrgCommunesCount" type="application/json">
+        {{ regions_org_communes_count|safe }}
       </script>
-      <script data-map-target="departmentsOrgCount" type="application/json">
-        {{ departments_org_count|safe }}
+      <script data-map-target="regionsOrgEpcisCount" type="application/json">
+        {{ regions_org_epcis_count|safe }}
+      </script>
+      <script data-map-target="departmentsOrgCommunesCount" type="application/json">
+        {{ departments_org_communes_count|safe }}
+      </script>
+      <script data-map-target="departmentsOrgEpcisCount" type="application/json">
+        {{ departments_org_epcis_count|safe }}
       </script>
       <script data-map-target="communesWithOrg" type="application/json">
         {{ communes_with_org|safe }}
+      </script>
+      <script data-map-target="epcisWithOrg" type="application/json">
+        {{ epcis_with_org|safe }}
       </script>
       <script data-map-target="departments" data-src="{% static 'geojson/departements-1000m.geojson' %}"></script>
       {% get_static_prefix as STATIC_PREFIX %}
@@ -102,7 +111,7 @@
         data-src-{{ code }}="{{ STATIC_PREFIX }}geojson/communes-1000m-{{ code }}.geojson"
       {% endfor %}
       ></script>
-      <div data-map-target="table"></div>
+      <div data-map-target="tables"></div>
     </div>
 </section>
 {% endblock %}

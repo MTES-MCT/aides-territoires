@@ -1,9 +1,14 @@
 /* Sortable tables. */
 .fr-table[data-controller='table'] {
-  width: 100%;
+  overflow: auto;
+  height: 500px;
+  display: block;
 }
 .fr-table[data-controller='table'] thead th[scope='col'] {
   padding: 2px;
+  position: sticky;
+  top: 0;
+  background-color: var(--background-contrast-grey);
 }
 .fr-table[data-controller='table'] thead th[scope='col'] button {
   text-align: left;
@@ -12,7 +17,7 @@
   font-weight: 700;
 }
 .fr-table[data-controller='table'] thead th[scope='col'] button:hover,
-.fr-table[data-controller='table'] th[aria-sort] {
+.fr-table[data-controller='table'] th[scope='col'][aria-sort] {
   background-color: var(--background-open-blue-france);
 }
 .fr-table[data-fr-js-table="true"] caption {
