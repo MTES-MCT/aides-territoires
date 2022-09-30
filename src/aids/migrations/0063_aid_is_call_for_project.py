@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0062_auto_20190312_1001'),
+        ("aids", "0062_auto_20190312_1001"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='is_call_for_project',
-            field=models.BooleanField(blank=True, null=True, verbose_name='Call for project / Call for expressions of interest'),
+            model_name="aid",
+            name="is_call_for_project",
+            field=models.BooleanField(
+                blank=True,
+                null=True,
+                verbose_name="Call for project / Call for expressions of interest",
+            ),
         ),
     ]

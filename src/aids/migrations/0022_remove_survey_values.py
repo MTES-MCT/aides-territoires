@@ -10,19 +10,19 @@ def remove_survey_values(apps, schema_editor):
 
     """
 
-    Aid = apps.get_model('aids', 'Aid')
+    Aid = apps.get_model("aids", "Aid")
 
     aids = Aid.objects.all()
 
     for aid in aids:
-        if 'survey' in aid.destinations and 'service' not in aid.destinations:
-            aid.destinations = aid.destinations + ['service']
+        if "survey" in aid.destinations and "service" not in aid.destinations:
+            aid.destinations = aid.destinations + ["service"]
 
-        if 'survey' in aid.destinations:
-            aid.destinations.remove('survey')
+        if "survey" in aid.destinations:
+            aid.destinations.remove("survey")
 
-        if 'other' in aid.destinations:
-            aid.destinations.remove('other')
+        if "other" in aid.destinations:
+            aid.destinations.remove("other")
 
         aid.save()
 
@@ -30,7 +30,7 @@ def remove_survey_values(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0021_auto_20180913_1007'),
+        ("aids", "0021_auto_20180913_1007"),
     ]
 
     operations = [

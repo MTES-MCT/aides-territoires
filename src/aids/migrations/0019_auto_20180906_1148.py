@@ -6,28 +6,28 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0018_auto_20180906_1058'),
+        ("aids", "0018_auto_20180906_1058"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='aid',
-            name='aid_types_detail',
+            model_name="aid",
+            name="aid_types_detail",
         ),
         migrations.RemoveField(
-            model_name='aid',
-            name='destinations_detail',
+            model_name="aid",
+            name="destinations_detail",
         ),
         migrations.RemoveField(
-            model_name='aid',
-            name='maximal_population',
+            model_name="aid",
+            name="maximal_population",
         ),
         migrations.RemoveField(
-            model_name='aid',
-            name='minimal_population',
+            model_name="aid",
+            name="minimal_population",
         ),
         migrations.RemoveField(
-            model_name='aid',
-            name='targeted_audiances_detail',
+            model_name="aid",
+            name="targeted_audiances_detail",
         ),
     ]

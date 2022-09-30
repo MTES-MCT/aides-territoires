@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0150_aid_create_aidproject'),
+        ("aids", "0150_aid_create_aidproject"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='author_notification',
-            field=models.BooleanField(default=True, help_text="Un email doit-il être envoyé à l'auteur de cette aide         au moment de sa publication\xa0?", verbose_name="Envoyer un email à l'auteur de l'aide ?"),
+            model_name="aid",
+            name="author_notification",
+            field=models.BooleanField(
+                default=True,
+                help_text="Un email doit-il être envoyé à l'auteur de cette aide         au moment de sa publication\xa0?",
+                verbose_name="Envoyer un email à l'auteur de l'aide ?",
+            ),
         ),
     ]

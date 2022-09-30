@@ -7,13 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0007_auto_20180815_1105'),
+        ("aids", "0007_auto_20180815_1105"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='keywords',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=64), blank=True, null=True, size=20, verbose_name='Keywords'),
+            model_name="aid",
+            name="keywords",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.CharField(max_length=64),
+                blank=True,
+                null=True,
+                size=20,
+                verbose_name="Keywords",
+            ),
         ),
     ]

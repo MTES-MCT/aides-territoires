@@ -7,13 +7,34 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0083_auto_20191105_1047'),
+        ("aids", "0083_auto_20191105_1047"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='targeted_audiances',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Commune'), ('epci', 'Audiance EPCI'), ('department', 'Department'), ('region', 'Region'), ('association', 'Association'), ('private_sector', 'Private sector'), ('public_org', 'Public organization'), ('lessor', 'Audiance lessor'), ('researcher', 'Research'), ('private_person', 'Individual'), ('other', 'Other')], max_length=32), blank=True, null=True, size=None, verbose_name='Targeted audiances'),
+            model_name="aid",
+            name="targeted_audiances",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("commune", "Commune"),
+                        ("epci", "Audiance EPCI"),
+                        ("department", "Department"),
+                        ("region", "Region"),
+                        ("association", "Association"),
+                        ("private_sector", "Private sector"),
+                        ("public_org", "Public organization"),
+                        ("lessor", "Audiance lessor"),
+                        ("researcher", "Research"),
+                        ("private_person", "Individual"),
+                        ("other", "Other"),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                null=True,
+                size=None,
+                verbose_name="Targeted audiances",
+            ),
         ),
     ]

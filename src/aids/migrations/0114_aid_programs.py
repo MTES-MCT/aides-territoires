@@ -6,14 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('programs', '0005_remove_program_aids'),
-        ('aids', '0113_merge_20200923_0900'),
+        ("programs", "0005_remove_program_aids"),
+        ("aids", "0113_merge_20200923_0900"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='programs',
-            field=models.ManyToManyField(related_name='aids', to='programs.Program', verbose_name='Programs'),
+            model_name="aid",
+            name="programs",
+            field=models.ManyToManyField(
+                related_name="aids", to="programs.Program", verbose_name="Programs"
+            ),
         ),
     ]

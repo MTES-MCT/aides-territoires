@@ -7,18 +7,41 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0020_auto_20180912_1555'),
+        ("aids", "0020_auto_20180912_1555"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='destinations',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('service', 'Service (AMO, survey)'), ('works', 'Works'), ('supply', 'Supply')], max_length=32), size=None, verbose_name='Destinations'),
+            model_name="aid",
+            name="destinations",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("service", "Service (AMO, survey)"),
+                        ("works", "Works"),
+                        ("supply", "Supply"),
+                    ],
+                    max_length=32,
+                ),
+                size=None,
+                verbose_name="Destinations",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='targeted_audiances',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Commune'), ('department', 'Department'), ('region', 'Region'), ('epci', 'EPCI')], max_length=32), size=None, verbose_name='Targeted audiances'),
+            model_name="aid",
+            name="targeted_audiances",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("commune", "Commune"),
+                        ("department", "Department"),
+                        ("region", "Region"),
+                        ("epci", "EPCI"),
+                    ],
+                    max_length=32,
+                ),
+                size=None,
+                verbose_name="Targeted audiances",
+            ),
         ),
     ]

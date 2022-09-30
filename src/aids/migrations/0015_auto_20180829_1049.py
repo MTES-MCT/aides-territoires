@@ -7,13 +7,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0014_remove_choices_from_destinations'),
+        ("aids", "0014_remove_choices_from_destinations"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='destinations',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('survey', 'Survey'), ('supply', 'Supply'), ('service', 'Service (AMO)'), ('works', 'Works'), ('other', 'Other')], max_length=32), size=None, verbose_name='Destinations'),
+            model_name="aid",
+            name="destinations",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("survey", "Survey"),
+                        ("supply", "Supply"),
+                        ("service", "Service (AMO)"),
+                        ("works", "Works"),
+                        ("other", "Other"),
+                    ],
+                    max_length=32,
+                ),
+                size=None,
+                verbose_name="Destinations",
+            ),
         ),
     ]

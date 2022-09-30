@@ -7,22 +7,35 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0002_aid_author'),
+        ("aids", "0002_aid_author"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='aid',
-            options={'verbose_name': 'Aid', 'verbose_name_plural': 'Aids'},
+            name="aid",
+            options={"verbose_name": "Aid", "verbose_name_plural": "Aids"},
         ),
         migrations.RemoveField(
-            model_name='aid',
-            name='mobilization_step',
+            model_name="aid",
+            name="mobilization_step",
         ),
         migrations.AddField(
-            model_name='aid',
-            name='mobilization_steps',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(choices=[('preop', 'Preoperational'), ('op', 'Operational'), ('postop', 'Postoperation')], default='preop', max_length=32), default=[], size=None, verbose_name='Mobilization step'),
+            model_name="aid",
+            name="mobilization_steps",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("preop", "Preoperational"),
+                        ("op", "Operational"),
+                        ("postop", "Postoperation"),
+                    ],
+                    default="preop",
+                    max_length=32,
+                ),
+                default=[],
+                size=None,
+                verbose_name="Mobilization step",
+            ),
             preserve_default=False,
         ),
     ]

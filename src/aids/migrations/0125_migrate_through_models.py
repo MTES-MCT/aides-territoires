@@ -4,27 +4,23 @@ from django.db import migrations
 
 
 def migrate_through_data(apps, schema_editor):
-    Aid = apps.get_model('aids', 'Aid')
+    Aid = apps.get_model("aids", "Aid")
 
-    AidFinancer = apps.get_model('aids', 'AidFinancer')
+    AidFinancer = apps.get_model("aids", "AidFinancer")
     Aid_financers_through = Aid.financers.through
     for through in Aid_financers_through.objects.all():
-        AidFinancer.objects.create(
-            aid=through.aid,
-            backer=through.backer)
+        AidFinancer.objects.create(aid=through.aid, backer=through.backer)
 
-    AidInstructor = apps.get_model('aids', 'AidInstructor')
+    AidInstructor = apps.get_model("aids", "AidInstructor")
     Aid_instructors_through = Aid.instructors.through
     for through in Aid_instructors_through.objects.all():
-        AidInstructor.objects.create(
-            aid=through.aid,
-            backer=through.backer)
+        AidInstructor.objects.create(aid=through.aid, backer=through.backer)
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0124_aidfinancer_aidinstructor'),
+        ("aids", "0124_aidfinancer_aidinstructor"),
     ]
 
     operations = [

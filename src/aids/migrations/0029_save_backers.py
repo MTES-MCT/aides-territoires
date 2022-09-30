@@ -4,7 +4,7 @@ from django.db import migrations
 
 
 def save_backers(apps, schema_editor):
-    Aid = apps.get_model('aids', 'Aid')
+    Aid = apps.get_model("aids", "Aid")
     aids = Aid.objects.all()
     for aid in aids:
         aid.backers.add(aid.backer)
@@ -14,7 +14,7 @@ def save_backers(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0028_aid_backers'),
+        ("aids", "0028_aid_backers"),
     ]
 
     operations = [

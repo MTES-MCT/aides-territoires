@@ -7,26 +7,43 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0067_auto_20190625_1130'),
+        ("aids", "0067_auto_20190625_1130"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Amendment',
-            fields=[
-            ],
+            name="Amendment",
+            fields=[],
             options={
-                'constraints': [],
-                'verbose_name': 'Amendment',
-                'indexes': [],
-                'verbose_name_plural': 'Amendments',
-                'proxy': True,
+                "constraints": [],
+                "verbose_name": "Amendment",
+                "indexes": [],
+                "verbose_name_plural": "Amendments",
+                "proxy": True,
             },
-            bases=('aids.aid',),
+            bases=("aids.aid",),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='aid_types',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('grant', 'Grant'), ('loan', 'Loan'), ('recoverable_advance', 'Recoverable advance'), ('interest_subsidy', 'Interest subsidy'), ('guidance', 'Guidance'), ('networking', 'Networking'), ('valorisation', 'Valorisation')], max_length=32), blank=True, help_text='Specify the aid type or types.', null=True, size=None, verbose_name='Aid types'),
+            model_name="aid",
+            name="aid_types",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("grant", "Grant"),
+                        ("loan", "Loan"),
+                        ("recoverable_advance", "Recoverable advance"),
+                        ("interest_subsidy", "Interest subsidy"),
+                        ("guidance", "Guidance"),
+                        ("networking", "Networking"),
+                        ("valorisation", "Valorisation"),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                help_text="Specify the aid type or types.",
+                null=True,
+                size=None,
+                verbose_name="Aid types",
+            ),
         ),
     ]

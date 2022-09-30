@@ -6,14 +6,22 @@ from django.db import migrations
 def remove_types_values(apps, schema_editor):
     """Remove deleted values in aid types field."""
 
-    Aid = apps.get_model('aids', 'Aid')
+    Aid = apps.get_model("aids", "Aid")
     aids = Aid.objects.all()
 
     for aid in aids:
-        for value in ('convention', 'training', 'guarantee',
-                      'low_interest_rate_loan', 'capital_investment',
-                      'tax_benefit', 'return_fund', 'engineering',
-                      'communication', 'other'):
+        for value in (
+            "convention",
+            "training",
+            "guarantee",
+            "low_interest_rate_loan",
+            "capital_investment",
+            "tax_benefit",
+            "return_fund",
+            "engineering",
+            "communication",
+            "other",
+        ):
             if value in aid.aid_types:
                 aid.aid_types.remove(value)
 
@@ -23,10 +31,9 @@ def remove_types_values(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0023_remove_audiances_values'),
+        ("aids", "0023_remove_audiances_values"),
     ]
 
     operations = [
-        migrations.RunPython(
-            remove_types_values, migrations.RunPython.noop),
+        migrations.RunPython(remove_types_values, migrations.RunPython.noop),
     ]

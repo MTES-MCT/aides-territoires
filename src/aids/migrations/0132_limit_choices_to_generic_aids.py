@@ -7,13 +7,22 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0131_convert_generic_fk_to_boolean'),
+        ("aids", "0131_convert_generic_fk_to_boolean"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='generic_aid',
-            field=models.ForeignKey(blank=True, help_text='Generic aid associated to a local aid', limit_choices_to={'is_generic': True}, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='local_aids', to='aids.aid', verbose_name='Generic aid'),
+            model_name="aid",
+            name="generic_aid",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Generic aid associated to a local aid",
+                limit_choices_to={"is_generic": True},
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="local_aids",
+                to="aids.aid",
+                verbose_name="Generic aid",
+            ),
         ),
     ]

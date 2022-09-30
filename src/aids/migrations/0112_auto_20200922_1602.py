@@ -6,17 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0111_aid_short_name'),
+        ("aids", "0111_aid_short_name"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='aid',
-            name='short_name',
+            model_name="aid",
+            name="short_name",
         ),
         migrations.AddField(
-            model_name='aid',
-            name='short_title',
-            field=models.CharField(blank=True, help_text='A shorter, more concise title', max_length=64, verbose_name='Short title'),
+            model_name="aid",
+            name="short_title",
+            field=models.CharField(
+                blank=True,
+                help_text="A shorter, more concise title",
+                max_length=64,
+                verbose_name="Short title",
+            ),
         ),
     ]

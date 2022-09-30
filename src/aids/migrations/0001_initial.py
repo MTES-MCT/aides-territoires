@@ -9,44 +9,299 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Aid',
+            name="Aid",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=256, verbose_name='Name')),
-                ('description', models.TextField(verbose_name='Description')),
-                ('diffusion_perimeter', models.CharField(choices=[('europe', 'Europe'), ('france', 'France'), ('region', 'Region'), ('department', 'Department'), ('commune', 'Commune'), ('mainland', 'Mainland'), ('overseas', 'Overseas'), ('other', 'Other')], max_length=32, verbose_name='Diffusion perimeter')),
-                ('diffusion_perimeter_detail', models.CharField(blank=True, max_length=256, verbose_name='Diffusion perimeter detail')),
-                ('application_perimeter', models.CharField(choices=[('europe', 'Europe'), ('france', 'France'), ('region', 'Region'), ('department', 'Department'), ('commune', 'Commune'), ('mainland', 'Mainland'), ('overseas', 'Overseas'), ('other', 'Other')], max_length=32, verbose_name='Application perimeter')),
-                ('mobilization_step', models.CharField(choices=[('preop', 'Preoperational'), ('op', 'Operational'), ('postop', 'Postoperation')], default='preop', max_length=32, verbose_name='Mobilization step')),
-                ('status', models.CharField(choices=[('draft', 'Draft'), ('reviewable', 'Review required'), ('published', 'Published')], default='draft', max_length=23, verbose_name='Status')),
-                ('url', models.URLField(blank=True, verbose_name='URL')),
-                ('minimal_population', models.PositiveIntegerField(verbose_name='Minimal population')),
-                ('maximal_population', models.PositiveIntegerField(verbose_name='Maximal population')),
-                ('targeted_audiances', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(choices=[('commune', 'Commune'), ('department', 'Department'), ('region', 'Region'), ('epci', 'EPCI'), ('company', 'Company'), ('civil_society', 'Civil society'), ('association', 'Association'), ('other', 'Other')], max_length=32), blank=True, size=None, verbose_name='Targeted audiances')),
-                ('targeted_audiances_detail', models.CharField(blank=True, max_length=256, verbose_name='Targeted audiances detail')),
-                ('is_funding', models.BooleanField(default=True, verbose_name='Is this a funding aid?')),
-                ('aid_types', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(choices=[('grant', 'Grant'), ('convention', 'Convention'), ('training', 'Training'), ('interest_subsidy', 'Interest subsidy'), ('loan', 'Loan'), ('recoverable_advance', 'Recoverable advance'), ('guarantee', 'Guarantee'), ('low_interest_rate_loan', 'Low interest rate loan'), ('capital investment', 'Capital investment'), ('tax_benefit', 'Tax benefit'), ('return_fund', 'Return fund'), ('engineering', 'Engineering'), ('guidance', 'Guidance'), ('valorisation', 'Valorisation'), ('communication', 'Communication'), ('other', 'Other')], max_length=32), blank=True, size=None, verbose_name='Aid types')),
-                ('aid_types_detail', models.CharField(blank=True, max_length=256, verbose_name='Aid types detail')),
-                ('destinations', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(choices=[('investment', 'Investment'), ('operation', 'Operation'), ('survey', 'Survey'), ('supply', 'Supply'), ('service', 'Service (AMO)'), ('works', 'Works'), ('other', 'Other')], max_length=32), blank=True, size=None, verbose_name='Destinations')),
-                ('destinations_detail', models.CharField(blank=True, max_length=256, verbose_name='Destinations detail')),
-                ('thematics', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(choices=[('sustainable_management', 'Sustainable management'), ('local_development', 'Local development'), ('infrastructure_networks', 'Infrastructure and networks'), ('solidarity_social_cohesion', 'Solidarity and social cohesion')], max_length=32), blank=True, size=None, verbose_name='Thematics')),
-                ('thematics_detail', models.CharField(blank=True, max_length=256, verbose_name='Thematics detail')),
-                ('start_date', models.DateField(blank=True, null=True, verbose_name='Start date')),
-                ('predeposit_date', models.DateField(blank=True, null=True, verbose_name='Predeposit date')),
-                ('submission_deadline', models.DateField(blank=True, null=True, verbose_name='Submission deadline')),
-                ('subvention_rate', models.DecimalField(decimal_places=2, max_digits=6, verbose_name='Subvention rate')),
-                ('contact_email', models.EmailField(blank=True, max_length=254, verbose_name='Contact email')),
-                ('contact_phone', models.CharField(blank=True, max_length=20, verbose_name='Contact phone number')),
-                ('contact_detail', models.CharField(blank=True, max_length=256, verbose_name='Contact detail')),
-                ('publication_status', models.CharField(choices=[('open', 'Open'), ('planned', 'Planned'), ('closed', 'closed')], default='open', max_length=23, verbose_name='Status')),
-                ('keywords', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=64), blank=True, size=20, verbose_name='Keywords')),
-                ('open_to_third_party', models.BooleanField(default=True, verbose_name='Open to third party?')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=256, verbose_name="Name")),
+                ("description", models.TextField(verbose_name="Description")),
+                (
+                    "diffusion_perimeter",
+                    models.CharField(
+                        choices=[
+                            ("europe", "Europe"),
+                            ("france", "France"),
+                            ("region", "Region"),
+                            ("department", "Department"),
+                            ("commune", "Commune"),
+                            ("mainland", "Mainland"),
+                            ("overseas", "Overseas"),
+                            ("other", "Other"),
+                        ],
+                        max_length=32,
+                        verbose_name="Diffusion perimeter",
+                    ),
+                ),
+                (
+                    "diffusion_perimeter_detail",
+                    models.CharField(
+                        blank=True,
+                        max_length=256,
+                        verbose_name="Diffusion perimeter detail",
+                    ),
+                ),
+                (
+                    "application_perimeter",
+                    models.CharField(
+                        choices=[
+                            ("europe", "Europe"),
+                            ("france", "France"),
+                            ("region", "Region"),
+                            ("department", "Department"),
+                            ("commune", "Commune"),
+                            ("mainland", "Mainland"),
+                            ("overseas", "Overseas"),
+                            ("other", "Other"),
+                        ],
+                        max_length=32,
+                        verbose_name="Application perimeter",
+                    ),
+                ),
+                (
+                    "mobilization_step",
+                    models.CharField(
+                        choices=[
+                            ("preop", "Preoperational"),
+                            ("op", "Operational"),
+                            ("postop", "Postoperation"),
+                        ],
+                        default="preop",
+                        max_length=32,
+                        verbose_name="Mobilization step",
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("draft", "Draft"),
+                            ("reviewable", "Review required"),
+                            ("published", "Published"),
+                        ],
+                        default="draft",
+                        max_length=23,
+                        verbose_name="Status",
+                    ),
+                ),
+                ("url", models.URLField(blank=True, verbose_name="URL")),
+                (
+                    "minimal_population",
+                    models.PositiveIntegerField(verbose_name="Minimal population"),
+                ),
+                (
+                    "maximal_population",
+                    models.PositiveIntegerField(verbose_name="Maximal population"),
+                ),
+                (
+                    "targeted_audiances",
+                    django.contrib.postgres.fields.ArrayField(
+                        base_field=models.CharField(
+                            choices=[
+                                ("commune", "Commune"),
+                                ("department", "Department"),
+                                ("region", "Region"),
+                                ("epci", "EPCI"),
+                                ("company", "Company"),
+                                ("civil_society", "Civil society"),
+                                ("association", "Association"),
+                                ("other", "Other"),
+                            ],
+                            max_length=32,
+                        ),
+                        blank=True,
+                        size=None,
+                        verbose_name="Targeted audiances",
+                    ),
+                ),
+                (
+                    "targeted_audiances_detail",
+                    models.CharField(
+                        blank=True,
+                        max_length=256,
+                        verbose_name="Targeted audiances detail",
+                    ),
+                ),
+                (
+                    "is_funding",
+                    models.BooleanField(
+                        default=True, verbose_name="Is this a funding aid?"
+                    ),
+                ),
+                (
+                    "aid_types",
+                    django.contrib.postgres.fields.ArrayField(
+                        base_field=models.CharField(
+                            choices=[
+                                ("grant", "Grant"),
+                                ("convention", "Convention"),
+                                ("training", "Training"),
+                                ("interest_subsidy", "Interest subsidy"),
+                                ("loan", "Loan"),
+                                ("recoverable_advance", "Recoverable advance"),
+                                ("guarantee", "Guarantee"),
+                                ("low_interest_rate_loan", "Low interest rate loan"),
+                                ("capital investment", "Capital investment"),
+                                ("tax_benefit", "Tax benefit"),
+                                ("return_fund", "Return fund"),
+                                ("engineering", "Engineering"),
+                                ("guidance", "Guidance"),
+                                ("valorisation", "Valorisation"),
+                                ("communication", "Communication"),
+                                ("other", "Other"),
+                            ],
+                            max_length=32,
+                        ),
+                        blank=True,
+                        size=None,
+                        verbose_name="Aid types",
+                    ),
+                ),
+                (
+                    "aid_types_detail",
+                    models.CharField(
+                        blank=True, max_length=256, verbose_name="Aid types detail"
+                    ),
+                ),
+                (
+                    "destinations",
+                    django.contrib.postgres.fields.ArrayField(
+                        base_field=models.CharField(
+                            choices=[
+                                ("investment", "Investment"),
+                                ("operation", "Operation"),
+                                ("survey", "Survey"),
+                                ("supply", "Supply"),
+                                ("service", "Service (AMO)"),
+                                ("works", "Works"),
+                                ("other", "Other"),
+                            ],
+                            max_length=32,
+                        ),
+                        blank=True,
+                        size=None,
+                        verbose_name="Destinations",
+                    ),
+                ),
+                (
+                    "destinations_detail",
+                    models.CharField(
+                        blank=True, max_length=256, verbose_name="Destinations detail"
+                    ),
+                ),
+                (
+                    "thematics",
+                    django.contrib.postgres.fields.ArrayField(
+                        base_field=models.CharField(
+                            choices=[
+                                ("sustainable_management", "Sustainable management"),
+                                ("local_development", "Local development"),
+                                (
+                                    "infrastructure_networks",
+                                    "Infrastructure and networks",
+                                ),
+                                (
+                                    "solidarity_social_cohesion",
+                                    "Solidarity and social cohesion",
+                                ),
+                            ],
+                            max_length=32,
+                        ),
+                        blank=True,
+                        size=None,
+                        verbose_name="Thematics",
+                    ),
+                ),
+                (
+                    "thematics_detail",
+                    models.CharField(
+                        blank=True, max_length=256, verbose_name="Thematics detail"
+                    ),
+                ),
+                (
+                    "start_date",
+                    models.DateField(blank=True, null=True, verbose_name="Start date"),
+                ),
+                (
+                    "predeposit_date",
+                    models.DateField(
+                        blank=True, null=True, verbose_name="Predeposit date"
+                    ),
+                ),
+                (
+                    "submission_deadline",
+                    models.DateField(
+                        blank=True, null=True, verbose_name="Submission deadline"
+                    ),
+                ),
+                (
+                    "subvention_rate",
+                    models.DecimalField(
+                        decimal_places=2, max_digits=6, verbose_name="Subvention rate"
+                    ),
+                ),
+                (
+                    "contact_email",
+                    models.EmailField(
+                        blank=True, max_length=254, verbose_name="Contact email"
+                    ),
+                ),
+                (
+                    "contact_phone",
+                    models.CharField(
+                        blank=True, max_length=20, verbose_name="Contact phone number"
+                    ),
+                ),
+                (
+                    "contact_detail",
+                    models.CharField(
+                        blank=True, max_length=256, verbose_name="Contact detail"
+                    ),
+                ),
+                (
+                    "publication_status",
+                    models.CharField(
+                        choices=[
+                            ("open", "Open"),
+                            ("planned", "Planned"),
+                            ("closed", "closed"),
+                        ],
+                        default="open",
+                        max_length=23,
+                        verbose_name="Status",
+                    ),
+                ),
+                (
+                    "keywords",
+                    django.contrib.postgres.fields.ArrayField(
+                        base_field=models.CharField(max_length=64),
+                        blank=True,
+                        size=20,
+                        verbose_name="Keywords",
+                    ),
+                ),
+                (
+                    "open_to_third_party",
+                    models.BooleanField(
+                        default=True, verbose_name="Open to third party?"
+                    ),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Date created"
+                    ),
+                ),
             ],
         ),
     ]

@@ -4,20 +4,19 @@ from django.db import migrations
 
 
 def generic_fk_to_boolean(apps, schema_editor):
-    Aid = apps.get_model('aids', 'Aid')
+    Aid = apps.get_model("aids", "Aid")
     aids = Aid.objects.filter(local_aids__isnull=False)
     for aid in aids:
         aid.is_generic = True
         aid.save()
 
+
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0130_generic_aid_as_boolean'),
+        ("aids", "0130_generic_aid_as_boolean"),
     ]
 
     operations = [
-        migrations.RunPython(
-            generic_fk_to_boolean,
-            migrations.RunPython.noop)
+        migrations.RunPython(generic_fk_to_boolean, migrations.RunPython.noop)
     ]

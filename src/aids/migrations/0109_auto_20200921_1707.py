@@ -7,13 +7,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0108_auto_20200615_1055'),
+        ("aids", "0108_auto_20200615_1055"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='aid',
-            old_name='targeted_audiances',
-            new_name='targeted_audiences'
+            model_name="aid",
+            old_name="targeted_audiances",
+            new_name="targeted_audiences",
         ),
     ]

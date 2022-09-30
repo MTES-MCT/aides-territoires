@@ -7,13 +7,15 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0153_alter_aid_targeted_audiences'),
+        ("aids", "0153_alter_aid_targeted_audiences"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='date_updated',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date de mise à jour'),
+            model_name="aid",
+            name="date_updated",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name="Date de mise à jour"
+            ),
         ),
     ]

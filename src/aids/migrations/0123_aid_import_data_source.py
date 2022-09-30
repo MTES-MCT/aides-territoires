@@ -7,14 +7,20 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('dataproviders', '0001_initial'),
-        ('aids', '0122_auto_20210318_1456'),
+        ("dataproviders", "0001_initial"),
+        ("aids", "0122_auto_20210318_1456"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='import_data_source',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='aids', to='dataproviders.datasource', verbose_name='Data Source'),
+            model_name="aid",
+            name="import_data_source",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="aids",
+                to="dataproviders.datasource",
+                verbose_name="Data Source",
+            ),
         ),
     ]

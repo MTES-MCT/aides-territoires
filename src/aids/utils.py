@@ -6,7 +6,7 @@ from django.db.models.query import QuerySet
 from geofr.models import Perimeter
 
 # The regex to detect existing title prefixes for duplicate aids
-CLONE_PREFIX_RE = r'^\[Copie( \d{2}h\d{2})?\] '
+CLONE_PREFIX_RE = r"^\[Copie( \d{2}h\d{2})?\] "
 #                   ^                           | Starts with...
 #                    \[Copie               \]   | the string "[Copie] "...
 #                           (            )?     | containing an optional...
@@ -24,8 +24,8 @@ def generate_clone_title(aid_title, now=None):
     """
     now = now or timezone.now()
 
-    title_without_prefix = re.sub(CLONE_PREFIX_RE, r'', aid_title)
-    new_title = f'[Copie {now:%Hh%M}] {title_without_prefix}'
+    title_without_prefix = re.sub(CLONE_PREFIX_RE, r"", aid_title)
+    new_title = f"[Copie {now:%Hh%M}] {title_without_prefix}"
     return new_title
 
 
@@ -48,9 +48,7 @@ def filter_generic_aids(qs: QuerySet, search_perimeter: Perimeter = None) -> Que
     local_aids = qs.local_aids().filter(generic_aid__in=generic_aids)
     # We use a python list for better performance
     local_aids_list = local_aids.values_list(
-        'pk',
-        'perimeter__scale',
-        'generic_aid__pk'
+        "pk", "perimeter__scale", "generic_aid__pk"
     )
     aids_to_exclude = []
     if not search_perimeter:

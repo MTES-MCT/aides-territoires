@@ -15,29 +15,27 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         now = timezone.now()
         yesterday = now - timedelta(days=1)
-        new_aids = Aid.objects \
-            .filter(date_created__gte=yesterday) \
-            .order_by('author') \
-            .select_related('author')
+        new_aids = (
+            Aid.objects.filter(date_created__gte=yesterday)
+            .order_by("author")
+            .select_related("author")
+        )
 
         nb_aids = new_aids.count()
         if nb_aids == 0:
-            self.stdout.write('We could not find any new aids.')
+            self.stdout.write("We could not find any new aids.")
             return
 
         site = Site.objects.get_current()
-        email_body = render_to_string('emails/new_aids_alert_body.txt', {
-            'new_aids': new_aids,
-            'domain': site.domain,
-        })
-        email_subject = '{} nouvelles aides au {:%d/%m/%Y}'.format(
-            nb_aids, now)
+        email_body = render_to_string(
+            "emails/new_aids_alert_body.txt",
+            {
+                "new_aids": new_aids,
+                "domain": site.domain,
+            },
+        )
+        email_subject = "{} nouvelles aides au {:%d/%m/%Y}".format(nb_aids, now)
         email_from = settings.DEFAULT_FROM_EMAIL
         email_to = [settings.CONTACT_EMAIL]
 
-        send_mail(
-            email_subject,
-            email_body,
-            email_from,
-            email_to,
-            fail_silently=False)
+        send_mail(email_subject, email_body, email_from, email_to, fail_silently=False)

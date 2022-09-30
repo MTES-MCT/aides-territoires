@@ -7,15 +7,20 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0001_initial'),
-        ('aids', '0003_auto_20180814_1609'),
+        ("backers", "0001_initial"),
+        ("aids", "0003_auto_20180814_1609"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='backer',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.PROTECT, to='backers.Backer', verbose_name='Backer'),
+            model_name="aid",
+            name="backer",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="backers.Backer",
+                verbose_name="Backer",
+            ),
             preserve_default=False,
         ),
     ]

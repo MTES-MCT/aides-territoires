@@ -6,18 +6,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0070_auto_20191008_1547'),
+        ("aids", "0070_auto_20191008_1547"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='amendment_author_email',
-            field=models.EmailField(blank=True, max_length=254, null=True, verbose_name='Amendment author email'),
+            model_name="aid",
+            name="amendment_author_email",
+            field=models.EmailField(
+                blank=True,
+                max_length=254,
+                null=True,
+                verbose_name="Amendment author email",
+            ),
         ),
         migrations.AddField(
-            model_name='aid',
-            name='amendment_author_org',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Amendment author organization'),
+            model_name="aid",
+            name="amendment_author_org",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Amendment author organization"
+            ),
         ),
     ]

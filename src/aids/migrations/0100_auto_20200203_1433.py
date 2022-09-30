@@ -7,13 +7,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0099_reformat_contacts'),
+        ("aids", "0099_reformat_contacts"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='project_examples',
-            field=models.TextField(blank=True, verbose_name='Project examples'),
+            model_name="aid",
+            name="project_examples",
+            field=models.TextField(blank=True, verbose_name="Project examples"),
         ),
     ]

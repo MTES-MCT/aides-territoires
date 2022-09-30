@@ -8,23 +8,36 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0030_auto_20180920_1449'),
+        ("aids", "0030_auto_20180920_1449"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='author',
-            field=models.ForeignKey(help_text='Who is submitting the aid?', null=True, on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL, verbose_name='Author'),
+            model_name="aid",
+            name="author",
+            field=models.ForeignKey(
+                help_text="Who is submitting the aid?",
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Author",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='eligibility',
-            field=models.TextField(blank=True, verbose_name='Eligibility'),
+            model_name="aid",
+            name="eligibility",
+            field=models.TextField(blank=True, verbose_name="Eligibility"),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='subvention_rate',
-            field=models.DecimalField(blank=True, decimal_places=2, help_text='If this is a subvention aid, specify the rate.', max_digits=6, null=True, verbose_name='Subvention rate (in %)'),
+            model_name="aid",
+            name="subvention_rate",
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=2,
+                help_text="If this is a subvention aid, specify the rate.",
+                max_digits=6,
+                null=True,
+                verbose_name="Subvention rate (in %)",
+            ),
         ),
     ]

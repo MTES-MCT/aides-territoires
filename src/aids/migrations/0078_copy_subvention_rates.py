@@ -4,9 +4,8 @@ from django.db import migrations
 
 
 def copy_subvention_rate(apps, schema_editor):
-    Aid = apps.get_model('aids', 'Aid')
-    aids = Aid.objects \
-        .filter(subvention_rate__isnull=False)
+    Aid = apps.get_model("aids", "Aid")
+    aids = Aid.objects.filter(subvention_rate__isnull=False)
     for aid in aids:
         aid.subvention_rate_range = (None, int(aid.subvention_rate))
         aid.save()
@@ -15,9 +14,7 @@ def copy_subvention_rate(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0077_aid_subvention_rate_range'),
+        ("aids", "0077_aid_subvention_rate_range"),
     ]
 
-    operations = [
-        migrations.RunPython(copy_subvention_rate)
-    ]
+    operations = [migrations.RunPython(copy_subvention_rate)]
