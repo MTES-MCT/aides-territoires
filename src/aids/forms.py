@@ -838,40 +838,49 @@ class AidMatchProjectForm(forms.ModelForm, DsfrBaseForm):
 class SuggestAidMatchProjectForm(DsfrBaseForm):
     """allow user to suggest an aid to an existing project."""
 
-    project = forms.ModelChoiceField(
+    project = forms.ModelMultipleChoiceField(
         queryset=Project.objects.filter(
             is_public=True, status=Project.STATUS.published
         ),
+        widget=forms.CheckboxSelectMultiple,
         required=True,
     )
-    aid = forms.URLField(
+    aid = forms.CharField(
         label="Url de l'aide que vous souhaitez suggérer",
         required=True,
-        help_text="Coller ici l'url de la page de l'aide que vous souhaitez suggérer pour le projet.",
+        help_text="Coller ici l'url de l'aide que vous souhaitez suggérer pour le projet.",
     )
 
     def clean_aid(self):
         aid_url = self.cleaned_data["aid"]
-        project = self.cleaned_data["project"]
+        projects = self.cleaned_data["project"]
+        origin_page = self.data["_page"]
+
         if self.data.get("aid"):
             try:
-                aid_slug = str(aid_url.partition("aides/")[2])
-                aid_slug = str(aid_slug.partition("/")[0])
-                aid = Aid.objects.get(slug=aid_slug)
-                if SuggestedAidProject.objects.filter(
-                    aid=aid.pk, project=project.pk
-                ).exists():
-                    msg = "Cette aide a déjà été suggérée pour ce projet."
-                    self.add_error("aid", msg)
-                    return aid_url
-                elif AidProject.objects.filter(aid=aid.pk, project=project.pk).exists():
-                    msg = "Cette aide est déjà associée à ce projet."
-                    self.add_error("aid", msg)
-                    return aid_url
+                if origin_page == "aid_detail_page":
+                    aid = Aid.objects.get(slug=aid_url)
                 else:
-                    return aid
-            except Exception as e:
-                print(e)
-                msg = "Cette url ne correspond pas à une aide actuellement publiée. Merci de saisir une url correcte."
+                    aid_slug = str(aid_url.partition("aides/")[2])
+                    aid_slug = str(aid_slug.partition("/")[0])
+                    aid = Aid.objects.get(slug=aid_slug)
+
+                for project in projects:
+                    if SuggestedAidProject.objects.filter(
+                        aid=aid.pk, project=project.pk
+                    ).exists():
+                        msg = "Cette aide a déjà été suggérée pour ce projet."
+                        self.add_error("aid", msg)
+                        return aid_url
+                    elif AidProject.objects.filter(
+                        aid=aid.pk, project=project.pk
+                    ).exists():
+                        msg = "Cette aide est déjà associée à ce projet."
+                        self.add_error("aid", msg)
+                        return aid_url
+                return aid
+            except Exception:
+                msg = "Cette url ne correspond pas à une aide actuellement publiée. \
+                Merci de saisir une url correcte."
                 self.add_error("aid", msg)
                 return aid_url

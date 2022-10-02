@@ -510,7 +510,7 @@
 <div class="fr-container fr-pt-3w fr-px-6w fr-mb-5w">
     <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
 
-        <div id="share-aid-block" class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-6">
+        <div id="share-aid-block" class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-4">
             <div class="fr-card fr-card--no-arrow">
                 <div class="fr-card__body at-background-alt-green">
                     <div class="fr-card__content">
@@ -536,7 +536,7 @@
         </div>
 
         {% if not search_page %}
-        <div id="add-to-project-block" class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-6">
+        <div id="add-to-project-block" class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-4">
             <div class="fr-card fr-card--no-arrow">
                 <div class="fr-card__body at-background-alt-green">
                     <div class="fr-card__content">
@@ -562,6 +562,33 @@
         </div>
         {% endif %}
 
+        {% if not search_page %}
+        <div id="add-to-project-block" class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-4">
+            <div class="fr-card fr-card--no-arrow">
+                <div class="fr-card__body at-background-alt-green">
+                    <div class="fr-card__content">
+                        <div class="fr-card__title fr-grid-row fr-grid-row--gutters fr-grid-row--center fr-grid-row--middle fr-grid-row--bottom">
+                            <div class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-2 fr-centered">
+                                <span class="ri-list-check ri-2x fr-text--normal"></span>
+                            </div>
+                            <h3 class="fr-h5 fr-col-xs-12 fr-col-lg-10 fr-my-0">
+                                Cette aide correspond à un de vos projets publics favoris ?
+                            </h3>
+                        </div>
+                        <p class="fr-card__desc fr-text--sm fr-mt-3w">Suggérez-la à l'équipe porteuse du projet.</p>
+                    </div>
+                    <div class="fr-card__footer">
+                        <div class="fr-centered">
+                            <button class="fr-btn" data-fr-opened="{% if error_aid %}true{% endif %}" aria-controls="suggest-aid-modal">
+                                Suggérer cette aide pour un projet
+                            </button>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
     </div>
 </div>
 
@@ -572,6 +599,7 @@
     {% include 'alerts/_alert_modal.html' %}
     {% include 'eligibility/_eligibility_test_modal.html' %}
     {% include 'projects/_match_aid_modal.html' %}
+    {% include 'projects/_suggest_aid_modal.html' with project=project %}
 {% endblock modals %}
 
 {% block extra_js %}

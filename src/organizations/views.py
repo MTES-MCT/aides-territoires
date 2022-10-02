@@ -124,7 +124,7 @@ class AddProjectToFavoriteView(ContributorAndProfileCompleteRequiredMixin, Updat
             try:
                 project = Project.objects.get(pk=project_pk)
                 if (
-                    project.is_public == True
+                    project.is_public is True
                     and project.status == Project.STATUS.published
                 ):
                     organization.favorite_projects.add(project_pk)
@@ -138,9 +138,6 @@ class AddProjectToFavoriteView(ContributorAndProfileCompleteRequiredMixin, Updat
             project_obj = Project.objects.get(pk=project_pk)
             project_name = project_obj.name
             project_slug = project_obj.slug
-            project_url = reverse(
-                "public_project_detail_view", args=[project_pk, project_slug]
-            )
             msg = f"Le projet «{project_name}» a bien été ajouté à vos projets favoris</a>"
             messages.success(self.request, msg)
 

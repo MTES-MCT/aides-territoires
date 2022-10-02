@@ -300,6 +300,7 @@ class AidDetailView(DetailView):
     """Display an aid detail."""
 
     template_name = "aids/detail.html"
+    context_object_name = "aid"
 
     def get_queryset(self):
         """Get the queryset.
@@ -470,11 +471,17 @@ class AidDetailView(DetailView):
         context["keywords"] = sorted(categories_keywords_list)
 
         context["alert_form"] = AlertForm(label_suffix="")
+
         if self.request.user.is_authenticated:
             context["aid_match_project_form"] = AidMatchProjectForm(label_suffix="")
+            context["suggest_aid_form"] = SuggestAidMatchProjectForm
+            context["aid_detail_page"] = True
             if self.request.user.beneficiary_organization:
                 context["projects"] = Project.objects.filter(
                     organizations=self.request.user.beneficiary_organization.pk
+                ).order_by("name")
+                context["favorite_projects"] = Project.objects.filter(
+                    organization_favorite=self.request.user.beneficiary_organization
                 ).order_by("name")
 
         if self.request.user.is_authenticated:
@@ -839,39 +846,66 @@ class AidUnmatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateVi
 class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, FormView):
     """Associate a suggested aid to an existing project."""
 
-    template_name = "projects/public_project_detail.html"
     form_class = SuggestAidMatchProjectForm
 
     def form_valid(self, form):
         aid = form.cleaned_data["aid"]
-        project = form.cleaned_data["project"]
+        projects = form.cleaned_data["project"]
 
-        if project and aid:
+        if projects and aid:
             try:
-                if project.is_public and project.status == Project.STATUS.published:
-                    aid.suggested_projects.add(
-                        project.pk, through_defaults={"creator": self.request.user}
-                    )
-                    aid.save()
-                else:
-                    raise PermissionDenied()
-            except Exception as e:
-                print(f"Exception : {e}")
+                for project in projects:
+                    if project.is_public and project.status == Project.STATUS.published:
+                        aid.suggested_projects.add(
+                            project.pk, through_defaults={"creator": self.request.user}
+                        )
+                        aid.save()
+                    else:
+                        raise PermissionDenied()
+            except Exception:
                 raise PermissionDenied()
+
+        origin_page = self.request.POST.get("_page", None)
+
+        if origin_page == "aid_detail_page":
+            success_url = reverse("aid_detail_view", args=[aid.slug])
+        elif origin_page == "favorite_project_page":
+            success_url = reverse(
+                "favorite_project_detail_view", args=[project.pk, project.slug]
+            )
+        else:
+            success_url = reverse(
+                "public_project_detail_view", args=[project.pk, project.slug]
+            )
 
         msg = f"Merci! L’aide a bien été suggérée pour le projet « {project.name} »"
         messages.success(self.request, msg)
-        success_url = reverse(
-            "public_project_detail_view", args=[project.pk, project.slug]
-        )
+
         return HttpResponseRedirect(success_url)
+
+    def get_template_names(self):
+        origin_page = self.request.POST.get("_page", None)
+
+        if origin_page == "aid_detail_page":
+            return ["aids/detail.html"]
+        elif origin_page == "favorite_project_page":
+            return ["projects/favorite_project_detail.html"]
+        else:
+            return ["projects/public_project_detail.html"]
 
     def form_invalid(self, form):
         """If the form is invalid, render the invalid form."""
         error = "erreur"
-        project = form.cleaned_data["project"]
+        origin_page = self.request.POST.get("_page", None)
+        if origin_page == "aid_detail_page":
+            aid = Aid.objects.get(slug=form.cleaned_data["aid"])
+            project = None
+        else:
+            aid = None
+            project = form.cleaned_data["project"][0]
+
         return self.render_to_response(
             self.get_context_data(
-                suggest_aid_form=form, error_aid=error, project=project
+                suggest_aid_form=form, error_aid=error, project=project, aid=aid
             ),
         )
