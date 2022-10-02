@@ -200,6 +200,10 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
         context["user"] = self.request.user
         context["aid_set"] = self.object.aid_set.all()
         context["AidProject"] = AidProject.objects.filter(project=self.object.pk)
+        context["SuggestedAidProject"] = SuggestedAidProject.objects.filter(
+            project=self.object.pk
+        )
+        context["suggested_aid"] = self.object.suggested_aid.all()
         context["project_update_form"] = ProjectUpdateForm(label_suffix="")
         context["form"] = ProjectExportForm
         return context
