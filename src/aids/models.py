@@ -306,6 +306,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     projects = models.ManyToManyField(
         "projects.Project", through="AidProject", verbose_name="Projets", blank=True
     )
+    suggested_projects = models.ManyToManyField(
+        "projects.Project",
+        through="SuggestedAidProject",
+        related_name="suggested_aid",
+        verbose_name="Projets suggérés",
+        blank=True,
+    )
     eligibility = models.TextField("Éligibilité", blank=True)
     perimeter = models.ForeignKey(
         "geofr.Perimeter",
