@@ -1,0 +1,38 @@
+<dialog aria-labelledby="fr-modal-title-add-to-favorite" role="dialog" id="suggest-aid-modal--{{ project.pk }}" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="suggest-aid-modal--{{ project.pk }}">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h2 id="fr-modal-title-suggest-aid-modal--{{ project.pk }}" class="fr-modal__title fr-mt-0"><span class="fr-icon-arrow-right-line fr-icon--lg"></span>Suggérer une aide pour ce projet</h2>
+                        <p class="fr-mb-2w">Vous pouvez désormais suggérer une aide présente sur Aides-territoires pour ce projet.</p>
+                        {% if user.is_authenticated %}
+                        <form id="suggest-aid-modal" method="post" action="{% url 'suggest_aid_view' %}">
+                            <section>
+                                <div class="content">
+                                    {% csrf_token %}
+                                    <div id="form-group-project">
+                                        <input type="checkbox" checked hidden name="project" value="{{ project.pk }}" id="{{ project.pk }}" />
+                                    </div>
+                                    {% include '_field_snippet.html' with field=suggest_aid_form.aid %}
+                                    <footer>
+                                        <button class="btn-block fr-btn fr-mt-2w" type="submit">
+                                            Suggérer une aide
+                                        </button>
+                                        <button class="btn-block fr-btn fr-btn--secondary" type="button" title="Fermer la fenêtre modale" aria-controls="suggest-aid-modal--{{ project.pk }}">Annuler</button>
+                                    </footer>
+                                </div>
+                            </section>
+                        </form>
+                        {% else %}
+                        <p><a href="{% url 'login' %}?next={% url 'public_project_detail_view' pk=project.pk slug=project.slug %}>Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin d’ajouter ce projet à vos favoris !</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>

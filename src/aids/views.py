@@ -25,6 +25,7 @@ from django.views.generic.edit import FormMixin
 from django.urls import reverse
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
+from django.core.exceptions import PermissionDenied
 
 from braces.views import MessageMixin
 
@@ -36,6 +37,7 @@ from aids.forms import (
     AdvancedAidFilterForm,
     DraftListAidFilterForm,
     AidMatchProjectForm,
+    SuggestAidMatchProjectForm,
 )
 from aids.models import Aid
 from aids.mixins import AidEditMixin, AidCopyMixin
@@ -832,3 +834,44 @@ class AidUnmatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateVi
         project_slug = self.request.POST.get("project-slug")
         url = reverse("project_detail_view", args=[project_pk, project_slug])
         return HttpResponseRedirect(url)
+
+
+class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, FormView):
+    """Associate a suggested aid to an existing project."""
+
+    template_name = "projects/public_project_detail.html"
+    form_class = SuggestAidMatchProjectForm
+
+    def form_valid(self, form):
+        aid = form.cleaned_data["aid"]
+        project = form.cleaned_data["project"]
+
+        if project and aid:
+            try:
+                if project.is_public and project.status == Project.STATUS.published:
+                    aid.suggested_projects.add(
+                        project.pk, through_defaults={"creator": self.request.user}
+                    )
+                    aid.save()
+                else:
+                    raise PermissionDenied()
+            except Exception as e:
+                print(f"Exception : {e}")
+                raise PermissionDenied()
+
+        msg = f"Merci! L’aide a bien été suggérée pour le projet « {project.name} »"
+        messages.success(self.request, msg)
+        success_url = reverse(
+            "public_project_detail_view", args=[project.pk, project.slug]
+        )
+        return HttpResponseRedirect(success_url)
+
+    def form_invalid(self, form):
+        """If the form is invalid, render the invalid form."""
+        error = "erreur"
+        project = form.cleaned_data["project"]
+        return self.render_to_response(
+            self.get_context_data(
+                suggest_aid_form=form, error_aid=error, project=project
+            ),
+        )

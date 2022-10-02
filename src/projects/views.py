@@ -20,7 +20,7 @@ from projects.forms import ProjectCreateForm, ProjectExportForm, ProjectUpdateFo
 from projects.models import Project
 from aids.models import AidProject, Aid
 from aids.views import AidPaginator
-from aids.forms import AidSearchForm
+from aids.forms import AidSearchForm, SuggestAidMatchProjectForm
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 
 
@@ -243,6 +243,7 @@ class PublicProjectDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["aid_set"] = self.object.aid_set.all()
         context["AidProject"] = AidProject.objects.filter(project=self.object.pk)
+        context["suggest_aid_form"] = SuggestAidMatchProjectForm
 
         return context
 

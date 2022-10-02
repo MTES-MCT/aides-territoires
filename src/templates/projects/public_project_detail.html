@@ -179,6 +179,9 @@
                 <button class="fr-btn" data-fr-opened="false" aria-controls="add-to-favorite-modal--{{ project.pk }}">
                     Ajouter ce projet à mes favoris
                 </button>
+                <button class="fr-btn" data-fr-opened="{% if error_aid %}true{% endif %}" aria-controls="suggest-aid-modal--{{ project.pk }}">
+                    Suggérer une aide pour ce projet
+                </button>
             </div>
 
             {% else %}
@@ -194,4 +197,5 @@
 
 {% block modals %}
     {% include 'projects/_add_to_favorite_modal.html' with project=project %}
+    {% include 'projects/_suggest_aid_modal.html' with project=project %}
 {% endblock modals %}

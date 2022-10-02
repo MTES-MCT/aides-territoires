@@ -24,7 +24,7 @@ from categories.models import Category, Theme
 from programs.models import Program
 from projects.models import Project
 from keywords.models import SynonymList
-from aids.models import Aid, AidWorkflow
+from aids.models import Aid, AidWorkflow, SuggestedAidProject, AidProject
 from aids.constants import (
     AUDIENCES_GROUPED,
     FINANCIAL_AIDS_LIST,
@@ -833,3 +833,45 @@ class AidMatchProjectForm(forms.ModelForm, DsfrBaseForm):
     class Meta:
         model = Aid
         fields = ["projects"]
+
+
+class SuggestAidMatchProjectForm(DsfrBaseForm):
+    """allow user to suggest an aid to an existing project."""
+
+    project = forms.ModelChoiceField(
+        queryset=Project.objects.filter(
+            is_public=True, status=Project.STATUS.published
+        ),
+        required=True,
+    )
+    aid = forms.URLField(
+        label="Url de l'aide que vous souhaitez suggérer",
+        required=True,
+        help_text="Coller ici l'url de la page de l'aide que vous souhaitez suggérer pour le projet.",
+    )
+
+    def clean_aid(self):
+        aid_url = self.cleaned_data["aid"]
+        project = self.cleaned_data["project"]
+        if self.data.get("aid"):
+            try:
+                aid_slug = str(aid_url.partition("aides/")[2])
+                aid_slug = str(aid_slug.partition("/")[0])
+                aid = Aid.objects.get(slug=aid_slug)
+                if SuggestedAidProject.objects.filter(
+                    aid=aid.pk, project=project.pk
+                ).exists():
+                    msg = "Cette aide a déjà été suggérée pour ce projet."
+                    self.add_error("aid", msg)
+                    return aid_url
+                elif AidProject.objects.filter(aid=aid.pk, project=project.pk).exists():
+                    msg = "Cette aide est déjà associée à ce projet."
+                    self.add_error("aid", msg)
+                    return aid_url
+                else:
+                    return aid
+            except Exception as e:
+                print(e)
+                msg = "Cette url ne correspond pas à une aide actuellement publiée. Merci de saisir une url correcte."
+                self.add_error("aid", msg)
+                return aid_url
