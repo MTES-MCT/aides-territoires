@@ -175,6 +175,77 @@
                 </table>
             </div>
 
+            <div class="fr-table">
+                <table class="data-table at-table--xl">
+                    <caption class="sr-only">
+                        Liste des aides suggérées :
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="fr-text">Nom</th>
+                            <th scope="col" class="fr-text">Echéance</th>
+                            <th scope="col" class="fr-text">Type d'aide</th>
+                            <th scope="col" class="fr-text">Porteur d'aides</th>
+                            <th scope="col" class="fr-text">Suggérée le</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            {% if suggested_aid %}
+                            {% for aid in suggested_aid %}
+                            <tr>
+                                <td class="fr-text">
+                                    <a href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener">
+                                        {{ aid.name }}
+                                    </a>
+                                </td>
+                                <td class="fr-text">
+                                    <span>{{ aid.submission_deadline|date:'d/m/Y' }}</span>
+                                    {% if aid.is_ongoing %}
+                                        <p class="fr-badge fr-badge--info fr-badge--sm">Permanente</p>
+                                    {% elif aid.has_approaching_deadline %}
+                                        <p class="fr-badge fr-badge--new fr-badge--sm">Échéance proche</p>                       
+                                    {% elif aid.has_expired %}
+                                        <p class="fr-badge fr-badge--warning fr-badge--sm">Expirée</p>
+                                    {% endif %}
+                               </td>
+
+                                </td>
+                                <td class="fr-text">
+                                    {% choices_display aid 'aid_types' %}
+                                </td>
+                                <td class="fr-text">
+                                    <ul>
+                                    {% for financer in aid.financers.all %}
+                                        <li>
+                                            <a href="{% url 'backer_detail_view' financer.pk financer.slug %}" target="_blank" rel="noopener">
+                                            {{ financer.name }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                                </td>       
+                                {% for suggestedaidproject in SuggestedAidProject %}
+                                {% if suggestedaidproject.aid == aid %}
+                                <td class="fr-text">
+                                    {{ suggestedaidproject.date_created|date:'d/m/y' }}
+                                </td>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                        <tbody>
+                            <tr>
+                                <td colspan="6" class="fr-text at-centered-important">
+                                    Aucune aide n'a été suggérée pour ce projet pour l’instant
+                                </td>
+                            </tr>
+                        </tbody>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
             <div class="fr-container fr-centered">
                 <button class="fr-btn" data-fr-opened="false" aria-controls="add-to-favorite-modal--{{ project.pk }}">
                     Ajouter ce projet à mes favoris

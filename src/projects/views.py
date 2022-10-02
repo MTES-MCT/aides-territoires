@@ -18,7 +18,7 @@ from projects.services.export import export_project
 from projects.tasks import send_project_deleted_email
 from projects.forms import ProjectCreateForm, ProjectExportForm, ProjectUpdateForm
 from projects.models import Project
-from aids.models import AidProject, Aid
+from aids.models import AidProject, Aid, SuggestedAidProject
 from aids.views import AidPaginator
 from aids.forms import AidSearchForm, SuggestAidMatchProjectForm
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
@@ -236,15 +236,20 @@ class PublicProjectDetailView(DetailView):
         return obj
 
     def get_queryset(self):
-        queryset = Project.objects.prefetch_related("aid_set")
+        queryset = Project.objects.prefetch_related("suggested_aid").prefetch_related(
+            "aid_set"
+        )
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["aid_set"] = self.object.aid_set.all()
         context["AidProject"] = AidProject.objects.filter(project=self.object.pk)
+        context["SuggestedAidProject"] = SuggestedAidProject.objects.filter(
+            project=self.object.pk
+        )
         context["suggest_aid_form"] = SuggestAidMatchProjectForm
-
+        context["suggested_aid"] = self.object.suggested_aid.all()
         return context
 
 
