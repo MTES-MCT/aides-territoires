@@ -857,6 +857,16 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
 
     form_class = SuggestAidMatchProjectForm
 
+    def get_origin_page(self):
+        if self.request.session.get("origin_page", None):
+            origin_page = self.request.session.get("origin_page", None)
+        else:
+            self.request.session["origin_page"] = self.request.POST.get(
+                "origin_page", None
+            )
+            origin_page = self.request.session.get("origin_page", None)
+        return origin_page
+
     def form_valid(self, form):
         aid = form.cleaned_data["aid"]
         projects = form.cleaned_data["project"]
@@ -874,7 +884,7 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
             except Exception:
                 raise PermissionDenied()
 
-        origin_page = self.request.POST.get("_page", None)
+        origin_page = self.get_origin_page()
 
         if origin_page == "aid_detail_page":
             success_url = reverse("aid_detail_view", args=[aid.slug])
@@ -887,13 +897,14 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
                 "public_project_detail_view", args=[project.pk, project.slug]
             )
 
+        del self.request.session["origin_page"]
         msg = f"Merci! L’aide a bien été suggérée pour le projet « {project.name} »"
         messages.success(self.request, msg)
 
         return HttpResponseRedirect(success_url)
 
     def get_template_names(self):
-        origin_page = self.request.POST.get("_page", None)
+        origin_page = self.get_origin_page()
 
         if origin_page == "aid_detail_page":
             return ["aids/detail.html"]
@@ -905,16 +916,27 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
     def form_invalid(self, form):
         """If the form is invalid, render the invalid form."""
         error = "erreur"
-        origin_page = self.request.POST.get("_page", None)
+
+        post_values = self.request.POST.copy()
+        post_values["origin_page"] = self.get_origin_page()
+        post_values["aid"] = form.data["aid"]
+        post_values["project"] = form.data["project"]
+        form = SuggestAidMatchProjectForm(post_values)
+
+        origin_page = self.get_origin_page()
+
         if origin_page == "aid_detail_page":
-            aid = Aid.objects.get(slug=form.cleaned_data["aid"])
+            aid = Aid.objects.get(slug=form.data["aid"])
             project = None
         else:
             aid = None
-            project = form.cleaned_data["project"][0]
+            project = Project.objects.get(pk=form.data["project"])
 
         return self.render_to_response(
             self.get_context_data(
-                suggest_aid_form=form, error_aid=error, project=project, aid=aid
+                suggest_aid_form=form,
+                error_aid=error,
+                project=project,
+                aid=aid,
             ),
         )

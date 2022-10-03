@@ -851,10 +851,15 @@ class SuggestAidMatchProjectForm(DsfrBaseForm):
         help_text="Coller ici l'url de l'aide que vous souhaitez suggérer pour le projet.",
     )
 
+    def get_origin_page_from_post_data(self):
+
+        origin_page = self.data.get("origin_page", None)
+        return origin_page
+
     def clean_aid(self):
         aid_url = self.cleaned_data["aid"]
         projects = self.cleaned_data["project"]
-        origin_page = self.data["_page"]
+        origin_page = self.get_origin_page_from_post_data()
 
         if self.data.get("aid"):
             try:
