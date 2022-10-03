@@ -14,6 +14,7 @@ from aids.views import (
     AidMatchProjectView,
     AidUnmatchProjectView,
     SuggestAidMatchProjectView,
+    SuggestedAidUnmatchProjectView,
 )
 
 urlpatterns = [
@@ -64,5 +65,10 @@ urlpatterns = [
         "suggérer-une-aide/",
         SuggestAidMatchProjectView.as_view(),
         name="suggest_aid_view",
+    ),
+    path(
+        "rejeter-une-aide-suggérée/<slug:slug>/",
+        SuggestedAidUnmatchProjectView.as_view(),
+        name="reject_suggested_aid_view",
     ),
 ]

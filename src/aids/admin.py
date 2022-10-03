@@ -671,14 +671,16 @@ class AidProjectAdmin(admin.ModelAdmin):
 
 
 class SuggestedAidProjectAdmin(admin.ModelAdmin):
-    list_display = ["aid", "project", "is_associated", "date_created"]
+    list_display = ["aid", "project", "is_associated", "is_rejected", "date_created"]
     readonly_fields = [
         "aid",
         "project",
         "creator",
         "is_associated",
+        "is_rejected",
         "date_created",
         "date_associated",
+        "date_rejected",
     ]
 
 

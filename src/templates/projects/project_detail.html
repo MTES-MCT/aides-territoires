@@ -271,7 +271,7 @@
                                 {% endfor %}
                                 <td class="fr-text">
                                     <button
-                                        class="fr-btn fr-icon-shopping-cart-2-line fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"
+                                        class="fr-btn fr-icon-checkbox-circle-fill fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"
                                         id="associate-suggested-aid-modal-btn-{{ aid.id }}"
                                         title="Associer cette aide"
                                         data-fr-opened="false"
@@ -279,6 +279,16 @@
                                         aria-describedby="aid-{{ aid.id }}"
                                     >
                                         Associer cette aide
+                                    </button>
+                                    <button
+                                        class="fr-btn fr-icon-close-circle-fill fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"
+                                        id="remove-suggested-aid-modal-btn-{{ aid.id }}"
+                                        title="Supprimer cette aide"
+                                        data-fr-opened="false"
+                                        aria-controls="remove-suggested-aid-modal-{{ aid.slug }}"
+                                        aria-describedby="aid-{{ aid.id }}"
+                                    >
+                                        Supprimer cette aide
                                     </button>
                                 </td>
                             </tr>
@@ -338,6 +348,7 @@
     {% if suggested_aid %}
         {% for aid in suggested_aid %}    
             {% include 'projects/_associate_suggested_aid_modal.html' with aid=aid.slug %}
+            {% include 'projects/_remove_suggested_aid_modal.html' with aid=aid.slug %}
         {% endfor %}
     {% endif %}
 {% endblock modals %}

@@ -844,10 +844,21 @@ class SuggestedAidProject(models.Model):
         help_text="Cette aide a-t-elle été acceptée par le porteur du projet ?",
         default=False,
     )
+    is_rejected = models.BooleanField(
+        "Aide rejetée ?",
+        help_text="Cette aide a-t-elle été rejetée par le porteur du projet ?",
+        default=False,
+    )
     date_created = models.DateTimeField("Date de création", default=timezone.now)
     date_associated = models.DateTimeField(
         "Date d'association",
         help_text="Date à laquelle cette aide a été acceptée par le porteur du projet",
+        null=True,
+        blank=True,
+    )
+    date_rejected = models.DateTimeField(
+        "Date de rejet",
+        help_text="Date à laquelle cette aide a été rejetée par le porteur du projet",
         null=True,
         blank=True,
     )

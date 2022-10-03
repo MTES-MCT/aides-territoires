@@ -204,7 +204,8 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
             project=self.object.pk
         )
         context["suggested_aid"] = self.object.suggested_aid.filter(
-            suggestedaidproject__is_associated=False
+            suggestedaidproject__is_associated=False,
+            suggestedaidproject__is_rejected=False,
         )
         context["project_update_form"] = ProjectUpdateForm(label_suffix="")
         context["form"] = ProjectExportForm
@@ -257,7 +258,8 @@ class PublicProjectDetailView(DetailView):
         )
         context["suggest_aid_form"] = SuggestAidMatchProjectForm
         context["suggested_aid"] = self.object.suggested_aid.filter(
-            suggestedaidproject__is_associated=False
+            suggestedaidproject__is_associated=False,
+            suggestedaidproject__is_rejected=False,
         )
         if self.request.user.is_authenticated:
             if (
@@ -295,7 +297,8 @@ class FavoriteProjectDetailView(ContributorAndProfileCompleteRequiredMixin, Deta
             if obj.is_public is False or obj.status != Project.STATUS.published:
                 raise PermissionDenied()
             elif (
-                obj.organization_favorite != self.request.user.beneficiary_organization
+                self.request.user.beneficiary_organization
+                not in obj.organization_favorite.all()
             ):
                 raise PermissionDenied()
         except queryset.model.DoesNotExist:
@@ -318,7 +321,8 @@ class FavoriteProjectDetailView(ContributorAndProfileCompleteRequiredMixin, Deta
         )
         context["suggest_aid_form"] = SuggestAidMatchProjectForm
         context["suggested_aid"] = self.object.suggested_aid.filter(
-            suggestedaidproject__is_associated=False
+            suggestedaidproject__is_associated=False,
+            suggestedaidproject__is_rejected=False,
         )
         return context
 

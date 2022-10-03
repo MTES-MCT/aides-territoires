@@ -940,3 +940,30 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
                 aid=aid,
             ),
         )
+
+
+class SuggestedAidUnmatchProjectView(
+    ContributorAndProfileCompleteRequiredMixin, UpdateView
+):
+    """remove the association between a suggested aid and a project."""
+
+    context_object_name = "aid"
+    form_class = AidMatchProjectForm
+    model = Aid
+
+    def form_valid(self, form):
+
+        aid = form.save(commit=False)
+        project_pk = int(self.request.POST.get("project-pk"))
+        suggested_aidproject = SuggestedAidProject.objects.get(
+            aid=aid.pk, project=project_pk
+        )
+        suggested_aidproject.is_rejected = True
+        suggested_aidproject.date_rejected = timezone.now()
+        suggested_aidproject.save()
+
+        msg = "L’aide a bien été supprimée de la liste des aides suggérées pour votre projet."
+        messages.success(self.request, msg)
+        project_slug = self.request.POST.get("project-slug")
+        url = reverse("project_detail_view", args=[project_pk, project_slug])
+        return HttpResponseRedirect(url)
