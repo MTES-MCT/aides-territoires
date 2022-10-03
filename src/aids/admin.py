@@ -662,10 +662,24 @@ class AmendmentAdmin(admin.ModelAdmin):
 
 class AidProjectAdmin(admin.ModelAdmin):
     list_display = ["aid", "project", "creator", "date_created"]
+    readonly_fields = [
+        "aid",
+        "project",
+        "creator",
+        "date_created",
+    ]
 
 
 class SuggestedAidProjectAdmin(admin.ModelAdmin):
-    list_display = ["aid", "project", "creator", "date_created"]
+    list_display = ["aid", "project", "is_associated", "date_created"]
+    readonly_fields = [
+        "aid",
+        "project",
+        "creator",
+        "is_associated",
+        "date_created",
+        "date_associated",
+    ]
 
 
 admin.site.register(Aid, AidAdmin)

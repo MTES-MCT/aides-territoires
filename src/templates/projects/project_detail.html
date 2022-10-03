@@ -218,6 +218,7 @@
                             <th scope="col" class="fr-text">Type d'aide</th>
                             <th scope="col" class="fr-text">Porteur d'aides</th>
                             <th scope="col" class="fr-text">Suggérée le</th>
+                            <th scope="col" class="fr-text">Action</th>
                         </tr>
                     </thead>
                         <tbody>
@@ -262,6 +263,18 @@
                                 </td>
                                 {% endif %}
                                 {% endfor %}
+                                <td class="fr-text">
+                                    <button
+                                        class="fr-btn fr-icon-shopping-cart-2-line fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"
+                                        id="associate-suggested-aid-modal-btn-{{ aid.id }}"
+                                        title="Associer cette aide"
+                                        data-fr-opened="false"
+                                        aria-controls="associate-suggested-aid-modal-{{ aid.slug }}"
+                                        aria-describedby="aid-{{ aid.id }}"
+                                    >
+                                        Associer cette aide
+                                    </button>
+                                </td>
                             </tr>
                             {% endfor %}
                         {% else %}
@@ -314,6 +327,11 @@
     {% if aid_set %}
         {% for aid in aid_set %}    
             {% include 'projects/_delete_aid_modal.html' with aid=aid.slug %}
+        {% endfor %}
+    {% endif %}
+    {% if suggested_aid %}
+        {% for aid in suggested_aid %}    
+            {% include 'projects/_associate_suggested_aid_modal.html' with aid=aid.slug %}
         {% endfor %}
     {% endif %}
 {% endblock modals %}

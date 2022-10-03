@@ -203,7 +203,9 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
         context["SuggestedAidProject"] = SuggestedAidProject.objects.filter(
             project=self.object.pk
         )
-        context["suggested_aid"] = self.object.suggested_aid.all()
+        context["suggested_aid"] = self.object.suggested_aid.filter(
+            suggestedaidproject__is_associated=False
+        )
         context["project_update_form"] = ProjectUpdateForm(label_suffix="")
         context["form"] = ProjectExportForm
         return context
@@ -254,7 +256,9 @@ class PublicProjectDetailView(DetailView):
             project=self.object.pk
         )
         context["suggest_aid_form"] = SuggestAidMatchProjectForm
-        context["suggested_aid"] = self.object.suggested_aid.all()
+        context["suggested_aid"] = self.object.suggested_aid.filter(
+            suggestedaidproject__is_associated=False
+        )
         return context
 
 
@@ -303,8 +307,9 @@ class FavoriteProjectDetailView(ContributorAndProfileCompleteRequiredMixin, Deta
             project=self.object.pk
         )
         context["suggest_aid_form"] = SuggestAidMatchProjectForm
-        context["suggested_aid"] = self.object.suggested_aid.all()
-
+        context["suggested_aid"] = self.object.suggested_aid.filter(
+            suggestedaidproject__is_associated=False
+        )
         return context
 
 

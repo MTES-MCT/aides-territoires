@@ -839,4 +839,15 @@ class SuggestedAidProject(models.Model):
         blank=True,
         null=True,
     )
+    is_associated = models.BooleanField(
+        "Aide associée ?",
+        help_text="Cette aide a-t-elle été acceptée par le porteur du projet ?",
+        default=False,
+    )
     date_created = models.DateTimeField("Date de création", default=timezone.now)
+    date_associated = models.DateTimeField(
+        "Date d'association",
+        help_text="Date à laquelle cette aide a été acceptée par le porteur du projet",
+        null=True,
+        blank=True,
+    )

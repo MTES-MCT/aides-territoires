@@ -39,7 +39,7 @@ from aids.forms import (
     AidMatchProjectForm,
     SuggestAidMatchProjectForm,
 )
-from aids.models import Aid
+from aids.models import Aid, SuggestedAidProject
 from aids.mixins import AidEditMixin, AidCopyMixin
 from alerts.forms import AlertForm
 from categories.models import Category
@@ -481,7 +481,7 @@ class AidDetailView(DetailView):
                     organizations=self.request.user.beneficiary_organization.pk
                 ).order_by("name")
                 context["favorite_projects"] = Project.objects.filter(
-                    organization_favorite=self.request.user.beneficiary_organization
+                    organization_favorite=self.request.user.beneficiary_organization,
                 ).order_by("name")
 
         if self.request.user.is_authenticated:
@@ -796,6 +796,16 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
                 project_url = reverse(
                     "project_detail_view", args=[project, project_slug]
                 )
+
+                if self.request.POST.get("_page", None) == "suggested_aid":
+                    suggestedaidproject_obj = SuggestedAidProject.objects.get(
+                        aid=aid.pk, project=project_obj.pk
+                    )
+                    suggestedaidproject_obj.is_associated = True
+                    suggestedaidproject_obj.date_associated = timezone.now()
+                    suggestedaidproject_obj.save()
+                    url = project_url
+
                 msg = f"L’aide a bien été associée au projet <a href='{project_url}'>{project_name}</a>"  # noqa
                 messages.success(self.request, msg)
 
@@ -817,7 +827,6 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
             msg = f"Votre nouveau projet <a href='{project_url}'>{project.name}</a> a bien été créé et l’aide a été associée."  # noqa
             messages.success(self.request, msg)
 
-        url = reverse("aid_detail_view", args=[aid.slug])
         return HttpResponseRedirect(url)
 
 

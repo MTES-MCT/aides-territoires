@@ -1,0 +1,36 @@
+<dialog aria-labelledby="fr-modal-title-add-to-favorite" role="dialog" id="associate-suggested-aid-modal-{{ aid }}" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="associate-suggested-aid-modal-{{ aid }}">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h2 id="fr-modal-title-associate-suggested-aid-modal" class="fr-modal__title fr-mt-0"><span class="fr-icon-arrow-right-line fr-icon--lg"></span>Associer cette aide à votre projet</h2>
+                        <p class="fr-mb-2w">Vous pouvez désormais suggérer une aide présente sur Aides-territoires pour ce projet.</p>
+                        {% if user.is_authenticated %}
+                        <form id="associate-suggested-aid" method="post" action="{% url 'aid_match_project_view' aid %}">
+                            <section>
+                                <div class="content">
+                                    {% csrf_token %}
+
+                                    <div id="form-group-projects">
+                                        <input checked type="hidden" name="projects" value="{{ project.id }}" id="{{ project.id }}" />
+                                    </div>
+                                    <footer>
+                                        <button class="btn-block fr-btn fr-mt-2w" name="_page" value="suggested_aid" type="submit">
+                                            Associer cette aide à votre projet
+                                        </button>
+                                        <button class="btn-block fr-btn fr-btn--secondary" type="button" title="Fermer la fenêtre modale" aria-controls="associate-suggested-aid-modal-{{ aid }}">Annuler</button>
+                                    </footer>
+                                </div>
+                            </section>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
