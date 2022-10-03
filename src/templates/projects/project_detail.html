@@ -58,11 +58,13 @@
 
             {% if project.is_public %}
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                Publicité du projet&nbsp;:
+                Projet public&nbsp;:
                 {% if project.is_public and project.is_published %}
-                Votre projet est actuellement publié.
+                <span class="fr-mb-0 fr-badge fr-badge--success">Oui</span>
+                {% elif project.is_public %}
+                <span class="fr-mb-0 fr-badge fr-badge--new">En&nbsp;cours</span>
                 {% else %}
-                Votre projet est actuellement en cours de vérification par notre équipe. Il sera publié dès validation.
+                <span class="fr-mb-0 fr-badge fr-badge--error">Non</span>
                 {% endif %}
             </p>
             {% endif %}
