@@ -33,9 +33,11 @@ class HomeView(TemplateView):
         context["nb_backers"] = Backer.objects.has_financed_aids().count()
         context["subset_selected_backers"] = subset_selected_backers
         context["skiplinks"] = [{"link": "#intro", "label": "Contenu"}]
-        context["public_projects"] = Project.objects.filter(
-            is_public=True, status=Project.STATUS.published
-        ).all()
+        context["public_projects"] = (
+            Project.objects.filter(is_public=True, status=Project.STATUS.published)
+            .all()
+            .order_by("-date_created")[:3]
+        )
 
         return context
 
