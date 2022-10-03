@@ -220,6 +220,7 @@
                             <th scope="col" class="fr-text">Type d'aide</th>
                             <th scope="col" class="fr-text">Porteur d'aides</th>
                             <th scope="col" class="fr-text">Suggérée le</th>
+                            <th scope="col" class="fr-text">Suggérée par</th>
                             <th scope="col" class="fr-text">Action</th>
                         </tr>
                     </thead>
@@ -263,6 +264,9 @@
                                 <td class="fr-text">
                                     {{ suggestedaidproject.date_created|date:'d/m/y' }}
                                 </td>
+                                <td class="fr-text">
+                                    {{ suggestedaidproject.creator.beneficiary_organization.name }}
+                                </td>                                
                                 {% endif %}
                                 {% endfor %}
                                 <td class="fr-text">
