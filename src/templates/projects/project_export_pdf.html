@@ -67,7 +67,8 @@
             {# Aid detail #}
             <h2 id="aids-table">Détail des fiches aides sélectionnées</h2>
             {% for aid in aid_set %}
-                <a id="anchor-aid-{{ aid.id }}"></a>
+                {# name is an obsolete attribute for web but it is the correct one for PDFs #}
+                <a name="anchor-aid-{{ aid.id }}"></a>
                 <h3>{{ aid.name }}</h3>
                 <p>{{ aid.description|safe }}</p>
 
