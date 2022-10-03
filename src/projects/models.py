@@ -27,11 +27,9 @@ class Project(models.Model):
     slug = models.SlugField(
         "Fragment d’URL", help_text="Laisser vide pour autoremplir.", blank=True
     )
-    description = models.TextField(
-        "Description publique du projet", default="", blank=True
-    )
+    description = models.TextField("Description du projet", default="", blank=True)
     private_description = models.TextField(
-        "Description privée du projet", default="", blank=True
+        "Notes internes du projet", default="", blank=True
     )
     key_words = models.TextField(
         "Mots-clés",

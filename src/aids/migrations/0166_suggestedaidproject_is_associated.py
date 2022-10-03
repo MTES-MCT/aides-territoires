@@ -6,18 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0165_aid_suggested_projects'),
+        ("aids", "0165_aid_suggested_projects"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='suggestedaidproject',
-            name='date_associated',
-            field=models.DateTimeField(blank=True, help_text='Date à laquelle cette aide a été acceptée par le porteur du projet', null=True, verbose_name="Date d'association"),
+            model_name="suggestedaidproject",
+            name="date_associated",
+            field=models.DateTimeField(
+                blank=True,
+                help_text="Date à laquelle cette aide a été acceptée par le porteur du projet",
+                null=True,
+                verbose_name="Date d'association",
+            ),
         ),
         migrations.AddField(
-            model_name='suggestedaidproject',
-            name='is_associated',
-            field=models.BooleanField(default=False, help_text='Cette aide a-t-elle été acceptée par le porteur du projet ?', verbose_name='Aide associée ?'),
+            model_name="suggestedaidproject",
+            name="is_associated",
+            field=models.BooleanField(
+                default=False,
+                help_text="Cette aide a-t-elle été acceptée par le porteur du projet ?",
+                verbose_name="Aide associée ?",
+            ),
         ),
     ]

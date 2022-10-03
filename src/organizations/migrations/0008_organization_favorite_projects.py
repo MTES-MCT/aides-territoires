@@ -6,14 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('projects', '0012_public_fields'),
-        ('organizations', '0007_add_region_and_department_fields'),
+        ("projects", "0012_alter_project_options"),
+        ("organizations", "0007_add_region_and_department_fields"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='organization',
-            name='favorite_projects',
-            field=models.ManyToManyField(blank=True, related_name='organization_favorite', to='projects.Project', verbose_name='Projets favoris'),
+            model_name="organization",
+            name="favorite_projects",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="organization_favorite",
+                to="projects.Project",
+                verbose_name="Projets favoris",
+            ),
         ),
     ]

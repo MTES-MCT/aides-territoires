@@ -6,14 +6,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('projects', '0014_add_field_private_description'),
-        ('aids', '0164_suggestedaidproject'),
+        ("projects", "0012_alter_project_options"),
+        ("aids", "0164_suggestedaidproject"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='suggested_projects',
-            field=models.ManyToManyField(blank=True, related_name='suggested_aid', through='aids.SuggestedAidProject', to='projects.Project', verbose_name='Projets suggérés'),
+            model_name="aid",
+            name="suggested_projects",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="suggested_aid",
+                through="aids.SuggestedAidProject",
+                to="projects.Project",
+                verbose_name="Projets suggérés",
+            ),
         ),
     ]

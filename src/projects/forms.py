@@ -25,7 +25,7 @@ class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
         ),
     )
     description = RichTextField(
-        label="Description publique de votre projet",
+        label="Description de votre projet",
         required=True,
         widget=forms.Textarea(
             attrs={
@@ -34,7 +34,7 @@ class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
         ),
     )
     private_description = RichTextField(
-        label="Description privée de votre projet",
+        label="Notes internes de votre projet",
         required=False,
         widget=forms.Textarea(
             attrs={"placeholder": "Informations réservées à vos collaborateurs."}
@@ -115,7 +115,7 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
         ),
     )
     description = RichTextField(
-        label="Description publique de votre projet",
+        label="Description de votre projet",
         required=True,
         widget=forms.Textarea(
             attrs={
@@ -124,7 +124,7 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
         ),
     )
     private_description = RichTextField(
-        label="Description privée de votre projet",
+        label="Notes internes de votre projet",
         required=False,
         widget=forms.Textarea(
             attrs={"placeholder": "Informations réservées à vos collaborateurs."}
