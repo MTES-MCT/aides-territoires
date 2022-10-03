@@ -22,7 +22,7 @@
                 <li>
                     <a class="fr-breadcrumb__link" aria-current="page">
                     {% if user.is_authenticated %}
-                    Projet public « {{ project.name }} »
+                    Projet&nbsp;:« {{ project.name }} »
                     {% else %}
                     Projet public
                     {% for project_type in project.project_types.all %}
@@ -49,7 +49,7 @@
         <div class="fr-col-12">
             <h1 class="fr-h3 fr-mb-5w">
             {% if user.is_authenticated %}
-            Projet public « {{ project.name }} »
+            Projet&nbsp;: « {{ project.name }} »
             {% else %}
             Projet public
             {% for project_type in project.project_types.all %}
