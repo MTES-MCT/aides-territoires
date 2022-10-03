@@ -34,6 +34,7 @@ class Project(models.Model):
     class Meta:
         verbose_name = "projet"
         verbose_name_plural = "projets"
+        ordering = ["-id"]
 
     def __str__(self):
         return self.name
@@ -47,6 +48,10 @@ class Project(models.Model):
     @property
     def id_slug(self):
         return "{}-{}".format(self.id, self.slug)
+
+    @property
+    def organization(self):
+        return self.organizations.first()
 
     def set_slug(self):
         """Set the object's slug"""

@@ -48,7 +48,7 @@
             </div>
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                Date d'échéance du projet :
+                Date d’échéance du projet :
                 {% if project.due_date %}
                 {{ project.due_date|date:'d/m/y' }}
                 {% else %}
@@ -80,8 +80,8 @@
                         <tr>
                             <th scope="col" class="fr-text">Nom</th>
                             <th scope="col" class="fr-text">Echéance</th>
-                            <th scope="col" class="fr-text">Type d'aide</th>
-                            <th scope="col" class="fr-text">Porteur d'aides</th>
+                            <th scope="col" class="fr-text">Type d’aide</th>
+                            <th scope="col" class="fr-text">Porteur d’aides</th>
                             <th scope="col" class="fr-text">Ajoutée le</th>
                             <th scope="col" class="fr-text">Par</th>
                             <th scope="col" class="fr-text">Action</th>
@@ -108,7 +108,6 @@
                                     {% endif %}
                                </td>
 
-                                </td>
                                 <td class="fr-text">
                                     {% choices_display aid 'aid_types' %}
                                 </td>
@@ -155,7 +154,7 @@
                         {% else %}
                         <tbody>
                             <tr>
-                                <td colspan="6" class="fr-text at-centered-important">
+                                <td colspan="7" class="fr-text at-centered-important">
                                     Vous n’avez ajouté aucune aide à ce projet pour l’instant
                                 </td>
                             </tr>

@@ -6,14 +6,39 @@
         <title>{% block title %}Aides-territoires | {% block extratitle %}Aides publiques pour les collectivités{% endblock extratitle %}{% endblock title %}</title>
         {# xhtml2pdf doesn't allow linking to external stylesheets #}
         <style type="text/css">
+        @page {
+            size: a4 portrait;
+
+            @frame header_frame {           /* Static Header Frame */
+                -pdf-frame-content: header_content;
+                left: 50pt; width: 512pt; top: 50pt; height: 80pt;
+            }
+
+            @frame content_frame {          /* Content Frame */
+                left: 50pt; width: 512pt; top: 130pt; height: 582pt;
+            }
+
+            @frame footer_frame {           /* Static Footer Frame */
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 712pt; height: 40pt;
+            }
+        }
+
         body {
             font-family: Helvetica;
             font-size: 12px;
         }
 
-        h1, h2, h3 {
+        h1, h2, h3, h4 {
             background-color: #f5f5fe;
             padding: 1em 1em 0 1em;
+        }
+
+        #footer_content {
+            border-top: 1px solid #666;
+            padding-top: 1em;
+            color: #666;
+            font-style: italic;
         }
 
         .at-pdf-link {
@@ -27,43 +52,58 @@
         }
 
         .at-pdf-footer__logo { height: 50px;}
+
+        td, th {
+            border: 1px solid #000;
+            padding: 1em;
+        }
         </style>
     </head>
     <body>
         {% block header %}
-        <header role="banner" class="at-pdf-header">
-            <div class="at-pdf-header__body">
-                <div class="fr-container">
-                    <div class="at-pdf-header__body-row">
-                        <div class="at-pdf-header__brand fr-enlarge-link">
-                            <div class="at-pdf-header__brand-top">
-                                <div class="at-pdf-header__operator">
-                                    <img src="{% static 'img/logo_AT_courbes.svg' %}" style="width:150px" alt="Aides-territoires" />
+        <div id="header_content">
+            <header role="banner"  class="at-pdf-header">
+                <div class="at-pdf-header__body">
+                    <div class="fr-container">
+                        <div class="at-pdf-header__body-row">
+                            <div class="at-pdf-header__brand fr-enlarge-link">
+                                <div class="at-pdf-header__brand-top">
+                                    <div class="at-pdf-header__operator">
+                                        <img src="{% static 'img/logo_gouv.svg' %}" style="width:150px" alt="Gouvernement" />
+                                        <img src="{% static 'img/logo_AT_courbes.svg' %}" style="width:150px" alt="Aides-territoires" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div>Aides-territoires est un service public numérique qui facilite la recherche
-                        d’aides financières et d’ingénierie des collectivités territoriales et de leurs
-                        partenaires locaux en regroupant les dispositifs auxquels ils peuvent prétendre sur
-                        un portail unique.</div>
-
                     </div>
                 </div>
-            </div>
-        </header>
-        <hr />
+            </header>
+        </div>
         {% endblock header %}
 
+        <div id="footer_content">
+            {% block footer %}<p>Page <pdf:pagenumber /> </p>{% endblock footer %}
+            {# If the pagenumber is at the end of the string, it will be printed twice #}
+            {# A simple space is enough to solve this though #}
+            {# cf. https://github.com/xhtml2pdf/xhtml2pdf/issues/106 #}
+        </div>
+
+
         <main role="main" class="at-pdf-container-fluid" id="at-main">
+            {% block intro %}
+                <div>Aides-territoires est un service public numérique qui facilite la recherche
+                d’aides, financières et d’ingénierie, et la réalisation des projets des collectivités
+                territoriales en regroupant les dispositifs auxquels elles peuvent prétendre sur
+                un portail unique.</div>
+            {% endblock intro %}
             {% block main %}
             <div class="main-content">
                 {% block content %}{% endblock content %}
             </div>
             {% endblock main %}
         </main>
-        {% block footer %}
-        <footer class="at-pdf-footer" role="contentinfo" id="footer">
+
+        {% block postface %}
             <div class="fr-container">
                 <div class="at-pdf-footer__body">
                     <div class="at-pdf-footer__content">
@@ -78,36 +118,15 @@
                     </div>
                 </div>
 
-                <div class="at-pdf-footer__partners">
-                    <h2 class="at-pdf-footer__partners-title">Nos partenaires</h2>
-                    <div class="at-pdf-footer__partners-logos">
-                        <div class="at-pdf-footer__partners-main">
-                            <a class="at-pdf-footer__partners-link" href="https://agence-cohesion-territoires.gouv.fr/" title="Agence nationale de la cohésion des territoires">
-                                <img class="at-pdf-footer__logo" src="{% static 'img/logo-anct.svg' %}" alt="" />
-                            </a>
-                            <a class="at-pdf-footer__partners-link" href="https://www.francemobilites.fr/" title="France Mobilités">
-                                <img class="at-pdf-footer__logo" src="{% static 'img/logo-francemobilites.svg' %}" alt="" />
-                            </a>
-                            <a class="at-pdf-footer__partners-link" href="https://www.cohesion-territoires.gouv.fr/la-fabrique-numerique-lincubateur-de-services-numeriques-du-pole-ministeriel" title="Fabrique Numérique">
-                                <img class="at-pdf-footer__logo" src="{% static 'img/logo-fabriquenumerique.svg' %}" alt="" />
-                            </a>
-                            <a class="at-pdf-footer__partners-link" href="https://beta.gouv.fr/" title="Beta.gouv.fr">
-                                <img class="at-pdf-footer__logo" src="{% static 'img/logo-betagouvfr.svg' %}" alt="" />
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="at-pdf-footer__bottom-copy">
-                    <p>
-                        Sauf mention contraire, tous les textes de ce document sont sous
-                        <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank" rel="noopener" title="Licence etalab-2.0 - ouvre une nouvelle fenêtre">
-                            licence etalab-2.0
-                        </a>
-                    </p>
-                </div>
+            <div class="at-pdf-footer__bottom-copy">
+                <p>
+                    Sauf mention contraire, tous les textes de ce document sont sous
+                    <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank" rel="noopener" title="Licence etalab-2.0 - ouvre une nouvelle fenêtre">
+                        licence etalab-2.0
+                    </a>
+                </p>
             </div>
-        </footer>
-        {% endblock footer %}
+        {% endblock postface %}
+
     </body>
 </html>
