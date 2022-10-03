@@ -1,0 +1,25 @@
+{% load i18n pagination %}
+<div class="fr-callout fr-fi-information-line">
+    <h3 class="fr-callout__title">Connectez-vous pour optimiser votre recherche</h3>
+    <p class="fr-callout__text">
+        Sauvegarder des aides, créer des alertes par email, partager les dispositifs avec votre équipe...
+    </p>
+
+    <ul class="fr-btns-group fr-btns-group--inline-md fr-btns-group--icon-left">
+        <li>
+            <a class="fr-btn fr-icon-lock-line" href="{% url 'login' %}" target="_blank" rel="noopener" title="Se connecter - ouvre une nouvelle fenêtre">
+                Se connecter
+            </a>
+        </li>
+        <li>
+            <a class="fr-btn fr-icon-account-line" href="{% url 'register' %}" target="_blank" rel="noopener" title="S’inscrire - ouvre une nouvelle fenêtre">
+                S’inscrire
+            </a>
+        </li>
+    </ul>
+
+    {% if is_paginated %}
+        <a href="{% url_to_page page_obj.next_page_number %}">Voir la suite des résultats sans créer de compte</a>
+    {% endif %}
+
+</div>
