@@ -259,6 +259,12 @@ class PublicProjectDetailView(DetailView):
         context["suggested_aid"] = self.object.suggested_aid.filter(
             suggestedaidproject__is_associated=False
         )
+        if self.request.user.is_authenticated:
+            if (
+                self.request.user.beneficiary_organization
+                in self.object.organization_favorite.all()
+            ):
+                context["organization_own_project"] = True
         return context
 
 
@@ -287,6 +293,10 @@ class FavoriteProjectDetailView(ContributorAndProfileCompleteRequiredMixin, Deta
         try:
             obj = queryset.get()
             if obj.is_public is False or obj.status != Project.STATUS.published:
+                raise PermissionDenied()
+            elif (
+                obj.organization_favorite != self.request.user.beneficiary_organization
+            ):
                 raise PermissionDenied()
         except queryset.model.DoesNotExist:
             raise Http404()

@@ -246,6 +246,7 @@
                 </table>
             </div>
 
+            {% if not organization_own_project %}
             <div class="fr-container fr-centered">
                 <button class="fr-btn" data-fr-opened="false" aria-controls="add-to-favorite-modal--{{ project.pk }}">
                     Ajouter ce projet à mes favoris
@@ -254,6 +255,7 @@
                     Suggérer une aide pour ce projet
                 </button>
             </div>
+            {% endif %}
 
             {% else %}
             <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">

@@ -124,13 +124,13 @@ class AddProjectToFavoriteView(ContributorAndProfileCompleteRequiredMixin, Updat
             try:
                 project = Project.objects.get(pk=project_pk)
                 if (
-                    project.is_public is True
-                    and project.status == Project.STATUS.published
+                    project.is_public is False
+                    or project.status != Project.STATUS.published
                 ):
+                    raise PermissionDenied()
+                else:
                     organization.favorite_projects.add(project_pk)
                     organization.save()
-                else:
-                    raise PermissionDenied()
             except Exception:
                 raise PermissionDenied()
 
