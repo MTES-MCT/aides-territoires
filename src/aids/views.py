@@ -900,7 +900,7 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
             )
 
         del self.request.session["origin_page"]
-        msg = f"Merci! L’aide a bien été suggérée!"
+        msg = "Merci! L’aide a bien été suggérée!"
         messages.success(self.request, msg)
 
         return HttpResponseRedirect(success_url)
