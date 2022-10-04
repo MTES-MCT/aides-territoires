@@ -98,6 +98,25 @@ def test_anonymous_can_create_several_alerts(client, mailoutbox):
     assert len(mailoutbox) == 2
 
 
+def test_anonymous_have_a_connect_message_in_the_modale(client):
+    """The button is only present for anonymous users on portals, not the main site"""
+    url = reverse("search_view")
+    res = client.get(url)
+    assert (
+        "Connectez-vous pour être notifié des nouvelles aides" in res.content.decode()
+    )
+
+
+def test_logged_user_have_the_alert_creation_in_the_modale(client, contributor):
+    client.force_login(contributor)
+    url = reverse("search_view")
+    res = client.get(url)
+    assert (
+        "En créant une alerte, vous acceptez que vos données soient traitées"
+        in res.content.decode()
+    )
+
+
 def test_alert_perimeter(client, mailoutbox):
     """The search perimeter is displayed in the validation email."""
 
