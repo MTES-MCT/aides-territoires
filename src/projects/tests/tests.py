@@ -192,7 +192,7 @@ def test_project_owner_can_associate_suggested_aid_to_project(client):
     )
     assert project in aid.projects.all()
     suggested_aid.refresh_from_db()
-    assert suggested_aid.is_associated == True
+    assert suggested_aid.is_associated is True
     res = client.get(detail_project_page, follow=True)
     assert "L’aide a bien été associée au projet" in res.content.decode()
 
@@ -232,7 +232,7 @@ def test_project_owner_can_reject_a_suggested_aid(client):
     )
     assert project not in aid.projects.all()
     suggested_aid.refresh_from_db()
-    assert suggested_aid.is_rejected == True
+    assert suggested_aid.is_rejected is True
     res = client.get(detail_project_page, follow=True)
     assert (
         "L’aide a bien été supprimée de la liste des aides suggérées pour votre projet."
