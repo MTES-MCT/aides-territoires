@@ -255,14 +255,7 @@ class PublicProjectDetailView(DetailView):
         context["aid_set"] = self.object.aid_set.all()
         context["public_project_page"] = True
         context["AidProject"] = AidProject.objects.filter(project=self.object.pk)
-        context["SuggestedAidProject"] = SuggestedAidProject.objects.filter(
-            project=self.object.pk
-        )
         context["suggest_aid_form"] = SuggestAidMatchProjectForm
-        context["suggested_aid"] = self.object.suggested_aid.filter(
-            suggestedaidproject__is_associated=False,
-            suggestedaidproject__is_rejected=False,
-        )
         if (
             self.request.user.is_authenticated
             and self.request.user.beneficiary_organization
@@ -318,14 +311,7 @@ class FavoriteProjectDetailView(ContributorAndProfileCompleteRequiredMixin, Deta
         context["favorite_project_page"] = True
         context["aid_set"] = self.object.aid_set.all()
         context["AidProject"] = AidProject.objects.filter(project=self.object.pk)
-        context["SuggestedAidProject"] = SuggestedAidProject.objects.filter(
-            project=self.object.pk
-        )
         context["suggest_aid_form"] = SuggestAidMatchProjectForm
-        context["suggested_aid"] = self.object.suggested_aid.filter(
-            suggestedaidproject__is_associated=False,
-            suggestedaidproject__is_rejected=False,
-        )
         return context
 
 
