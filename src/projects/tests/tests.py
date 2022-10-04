@@ -103,7 +103,6 @@ def test_anonymous_user_cant_access_public_project_complete_informations(client)
     project = ProjectFactory(
         status=Project.STATUS.published,
         is_public=True,
-        description="a public description",
     )
     url = reverse("public_project_detail_view", args=[project.pk, project.slug])
     res = client.get(url)
@@ -117,7 +116,6 @@ def test_authenticated_user_can_access_public_project_complete_informations(
     project = ProjectFactory(
         status=Project.STATUS.published,
         is_public=True,
-        description="a public description",
     )
     url = reverse("public_project_detail_view", args=[project.pk, project.slug])
     client.force_login(user)
@@ -134,7 +132,6 @@ def test_authenticated_user_can_add_public_project_to_favorite(client):
     project = ProjectFactory(
         status=Project.STATUS.published,
         is_public=True,
-        description="a public description",
     )
     project.organizations.add(public_project_organization)
     project.save()
@@ -171,7 +168,6 @@ def test_project_owner_can_associate_suggested_aid_to_project(client):
     project = ProjectFactory(
         status=Project.STATUS.published,
         is_public=True,
-        description="a public description",
     )
     project.organizations.add(user_organization.pk)
     project.save()
@@ -195,6 +191,7 @@ def test_project_owner_can_associate_suggested_aid_to_project(client):
         "project_detail_view", args=[project.pk, project.slug]
     )
     assert project in aid.projects.all()
+    suggested_aid.refresh_from_db()
     assert suggested_aid.is_associated == True
     res = client.get(detail_project_page, follow=True)
     assert "L’aide a bien été associée au projet" in res.content.decode()
@@ -211,7 +208,6 @@ def test_project_owner_can_reject_a_suggested_aid(client):
     project = ProjectFactory(
         status=Project.STATUS.published,
         is_public=True,
-        description="a public description",
     )
     project.organizations.add(user_organization.pk)
     project.save()
@@ -235,6 +231,7 @@ def test_project_owner_can_reject_a_suggested_aid(client):
         "project_detail_view", args=[project.pk, project.slug]
     )
     assert project not in aid.projects.all()
+    suggested_aid.refresh_from_db()
     assert suggested_aid.is_rejected == True
     res = client.get(detail_project_page, follow=True)
     assert (
@@ -263,7 +260,6 @@ def test_authenticated_user_can_suggest_aid_with_url(client):
     project = ProjectFactory(
         status=Project.STATUS.published,
         is_public=True,
-        description="a public description",
     )
     project.organizations.add(user_organization.pk)
     project.organization_favorite.add(project_owner_organization.pk)
@@ -315,7 +311,6 @@ def test_authenticated_user_can_suggest_aid_from_aid_detail_page(client):
     project = ProjectFactory(
         status=Project.STATUS.published,
         is_public=True,
-        description="a public description",
     )
     project.organizations.add(user_organization.pk)
     project.organization_favorite.add(project_owner_organization.pk)
