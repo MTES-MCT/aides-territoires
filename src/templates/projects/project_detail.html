@@ -81,6 +81,9 @@
             </p>
             {% endif %}
 
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">Appartenance à un plan/programme/contrat&nbsp;: <span>{% if project.contract_link %}{{ project.get_contract_link_display }}{% else %}aucun{% endif %}</span></p>
+
+
             {% if project.description %}
                 <section class="fr-accordion fr-mb-0">
                     <h3 class="fr-accordion__title">
