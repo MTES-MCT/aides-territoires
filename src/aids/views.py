@@ -482,6 +482,8 @@ class AidDetailView(DetailView):
                 ).order_by("name")
                 context["favorite_projects"] = Project.objects.filter(
                     organization_favorite=self.request.user.beneficiary_organization,
+                    is_public=True,
+                    status=Project.STATUS.published,
                 ).order_by("name")
 
         if self.request.user.is_authenticated:
@@ -898,7 +900,7 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
             )
 
         del self.request.session["origin_page"]
-        msg = f"Merci! L’aide a bien été suggérée pour le projet « {project.name} »"
+        msg = f"Merci! L’aide a bien été suggérée!"
         messages.success(self.request, msg)
 
         return HttpResponseRedirect(success_url)

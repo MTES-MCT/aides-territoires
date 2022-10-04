@@ -29,14 +29,14 @@
                                                     {% if project in aid.suggested_projects.all %}
                                                     <input checked disabled type="checkbox" name="project" value="{{ project.pk }}" id="{{ project.pk }}" />
                                                     {% else %}
-                                                    <input type="checkbox" name="project" value="{{ project.pk}}" id="{{ project.pk }}" />
+                                                    <input type="checkbox" name="project" value="{{ project.pk }}" id="{{ project.pk }}" />
                                                     {% endif %}
                                                     <label for="{{ project.pk }}" class="fr-label">{{ project.name }}</label>
                                                 </li>
                                                 {% endfor %}
                                             </ul>
                                         </div>
-                                        <div id="form-group-aid" class="fr-input-group fr-input-group--error required ">
+                                        <div id="form-group-aid" class="fr-input-group fr-input-group--error required">
                                             <input name="aid" value="{{ aid.slug }}" type="hidden" class="fr-input" required="" id="id_aid">
                                         </div>
                                         {% else %}
@@ -77,9 +77,9 @@
                         </form>
                         {% else %}
                         {% if public_project_page %}
-                        <p><a href="{% url 'login' %}?next={% url 'public_project_detail_view' pk=project.pk slug=project.slug %}>Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin de suggérer une aide !</p>
+                        <p><a href="{% url 'login' %}?next={% url 'public_project_detail_view' pk=project.pk slug=project.slug %}">Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin de suggérer une aide !</p>
                         {% else %}
-                        <p><a href="{% url 'login' %}>Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin de suggérer une aide !</p>
+                        <p><a href="{% url 'login' %}">Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin de suggérer une aide !</p>
                         {% endif %}
                         {% endif %}
                     </div>

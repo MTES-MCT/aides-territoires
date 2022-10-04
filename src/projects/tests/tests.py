@@ -6,6 +6,7 @@ from accounts.factories import UserFactory
 from organizations.factories import OrganizationFactory
 from projects.factories import ProjectFactory
 from projects.models import Project
+from aids.factories import AidFactory, SuggestedAidProjectFactory
 
 pytestmark = pytest.mark.django_db
 
@@ -36,6 +37,7 @@ def test_public_project_status_by_default_is_reviewable(client, perimeters):
     )
 
     assert res.status_code == 302
+    assert Project.objects.count() == 1
     project = Project.objects.first()
     assert project.is_public is True
     assert project.status == Project.STATUS.reviewable
@@ -71,7 +73,7 @@ def test_project_type_or_project_types_suggestion_fields_is_needed_to_make_a_pro
     )
 
     assert res.status_code == 200
-    Project.objects.count() == 0
+    assert Project.objects.count() == 0
     assert (
         "Merci de remplir au moins un des champs parmi &#x27;Types de projet&#x27;"
         in res.content.decode()
@@ -153,5 +155,88 @@ def test_authenticated_user_can_add_public_project_to_favorite(client):
     res = client.get(public_project_page, follow=True)
     assert (
         f"Le projet «{project.name}» a bien été ajouté à vos projets favoris"
+        in res.content.decode()
+    )
+
+
+def test_project_owner_can_associate_suggested_aid_to_project(client):
+    user = UserFactory(email="public@project.creator")
+    user_organization = OrganizationFactory()
+    user_organization.organization_type = ["commune"]
+    user_organization.beneficiaries.add(user.pk)
+    user_organization.save()
+    user.beneficiary_organization = user_organization
+    user.save()
+    project = ProjectFactory(
+        status=Project.STATUS.published,
+        is_public=True,
+        description="a public description",
+    )
+    project.organizations.add(user_organization.pk)
+    project.save()
+    aid = AidFactory()
+    suggested_aid = SuggestedAidProjectFactory()
+    suggested_aid.creator = user
+    suggested_aid.project = project
+    suggested_aid.aid = aid
+    suggested_aid.save()
+
+    client.force_login(user)
+
+    aid_match_project_url = reverse("aid_match_project_view", args=[aid.slug])
+    res = client.post(
+        aid_match_project_url,
+        {"projects": [project.pk], "_page": "suggested_aid"},
+    )
+
+    assert res.status_code == 302
+    detail_project_page = reverse(
+        "project_detail_view", args=[project.pk, project.slug]
+    )
+    assert project in aid.projects.all()
+    assert suggested_aid.is_associated == True
+    res = client.get(detail_project_page, follow=True)
+    assert "L’aide a bien été associée au projet" in res.content.decode()
+
+
+def test_project_owner_can_reject_a_suggested_aid(client):
+    user = UserFactory(email="public@project.creator")
+    user_organization = OrganizationFactory()
+    user_organization.organization_type = ["commune"]
+    user_organization.beneficiaries.add(user.pk)
+    user_organization.save()
+    user.beneficiary_organization = user_organization
+    user.save()
+    project = ProjectFactory(
+        status=Project.STATUS.published,
+        is_public=True,
+        description="a public description",
+    )
+    project.organizations.add(user_organization.pk)
+    project.save()
+    aid = AidFactory()
+    suggested_aid = SuggestedAidProjectFactory()
+    suggested_aid.creator = user
+    suggested_aid.project = project
+    suggested_aid.aid = aid
+    suggested_aid.save()
+
+    client.force_login(user)
+
+    reject_suggested_aid_url = reverse("reject_suggested_aid_view", args=[aid.slug])
+    res = client.post(
+        reject_suggested_aid_url,
+        {"project-pk": [project.pk]},
+    )
+
+    assert res.status_code == 302
+    detail_project_page = reverse(
+        "project_detail_view", args=[project.pk, project.slug]
+    )
+    assert project not in aid.projects.all()
+    assert suggested_aid.is_rejected == True
+    res = client.get(detail_project_page, follow=True)
+    assert (
+        "L’aide a bien été supprimée de la liste des aides suggérées pour votre projet."
         in res.content.decode()
     )

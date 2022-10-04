@@ -127,7 +127,9 @@ class FavoriteProjectListView(ContributorAndProfileCompleteRequiredMixin, ListVi
     def get_queryset(self):
         if self.request.user.beneficiary_organization is not None:
             queryset = Project.objects.filter(
-                organization_favorite=self.request.user.beneficiary_organization
+                organization_favorite=self.request.user.beneficiary_organization,
+                is_public=True,
+                status=Project.STATUS.published,
             )
         else:
             queryset = Project.objects.none()

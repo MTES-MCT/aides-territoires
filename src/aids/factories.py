@@ -2,8 +2,9 @@ import factory
 from factory import fuzzy
 from factory.django import DjangoModelFactory
 
-from aids.models import Aid
+from aids.models import Aid, SuggestedAidProject
 from accounts.factories import UserFactory
+from projects.factories import ProjectFactory
 
 
 class FuzzyMultipleChoice(fuzzy.BaseFuzzyAttribute):
@@ -28,18 +29,18 @@ class AidFactory(DjangoModelFactory):
     class Meta:
         model = Aid
 
-    name = factory.Faker('company')
+    name = factory.Faker("company")
     author = factory.SubFactory(UserFactory)
-    description = factory.Faker('text')
-    eligibility = factory.Faker('text')
+    description = factory.Faker("text")
+    eligibility = factory.Faker("text")
     mobilization_steps = FuzzyMultipleChoice(Aid.STEPS)
-    origin_url = factory.Faker('url')
+    origin_url = factory.Faker("url")
     targeted_audiences = FuzzyMultipleChoice(Aid.AUDIENCES)
     aid_types = FuzzyMultipleChoice(Aid.TYPES)
     destinations = FuzzyMultipleChoice(Aid.DESTINATIONS)
-    contact = factory.Faker('name')
-    recurrence = 'oneoff'
-    status = 'published'
+    contact = factory.Faker("name")
+    recurrence = "oneoff"
+    status = "published"
 
     @factory.post_generation
     def financers(self, create, extracted, **kwargs):
@@ -58,3 +59,14 @@ class AidFactory(DjangoModelFactory):
         obj.set_search_vector_unaccented(financers=[])
         obj.save()
         return obj
+
+
+class SuggestedAidProjectFactory(DjangoModelFactory):
+    """Factory for suggestedaidproject."""
+
+    class Meta:
+        model = SuggestedAidProject
+
+    aid = factory.SubFactory(AidFactory)
+    project = factory.SubFactory(ProjectFactory)
+    creator = factory.SubFactory(UserFactory)
