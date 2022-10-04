@@ -294,10 +294,10 @@ class FavoriteProjectDetailView(ContributorAndProfileCompleteRequiredMixin, Deta
 
         try:
             obj = queryset.get()
-            if obj.is_public is False or obj.status != Project.STATUS.published:
-                raise PermissionDenied()
-            elif (
-                self.request.user.beneficiary_organization
+            if (
+                obj.is_public is False
+                or obj.status != Project.STATUS.published
+                or self.request.user.beneficiary_organization
                 not in obj.organization_favorite.all()
             ):
                 raise PermissionDenied()
