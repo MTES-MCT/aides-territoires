@@ -7,8 +7,13 @@
                         <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="suggest-aid-modal">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        <h2 id="fr-modal-title-suggest-aid-modal" class="fr-modal__title fr-mt-0"><span class="fr-icon-arrow-right-line fr-icon--lg"></span>Suggérer une aide pour ce projet</h2>
-                        <p class="fr-mb-2w">Vous pouvez désormais suggérer une aide présente sur Aides-territoires pour ce projet.</p>
+                        <h2 id="fr-modal-title-suggest-aid-modal" class="fr-modal__title fr-mt-0">
+                            <span class="fr-icon-arrow-right-line fr-icon--lg"></span>
+                            Suggérer une aide {% if not aid_detail_page %} pour ce projet {% endif %}
+                        </h2>
+                        <p class="fr-mb-2w">
+                        Vous pouvez désormais suggérer une aide présente sur Aides-territoires{% if aid_detail_page %}.{% else %} pour ce projet.{% endif %}
+                        </p>
                         {% if user.is_authenticated %}
                         <form id="suggest-aid-modal" method="post" action="{% url 'suggest_aid_view' %}">
                             <section>
@@ -35,7 +40,7 @@
                                             <input name="aid" value="{{ aid.slug }}" type="hidden" class="fr-input" required="" id="id_aid">
                                         </div>
                                         {% else %}
-                                        <p>Vous n’avez pas encore créé de projet</p>
+                                        <p>Vous n’avez pas encore ajouté de projet à vos favoris</p>
                                         {% endif %}
                                         
 
@@ -57,7 +62,7 @@
                                                 Suggérer une aide
                                             </button>
                                         {% elif aid_detail_page %}
-                                            <button class="btn-block fr-btn fr-mt-2w" name="origin_page" value="aid_detail_page" type="submit">
+                                            <button class="btn-block fr-btn fr-mt-2w" name="origin_page" value="aid_detail_page" type="submit" {% if not favorite_projects %} disabled {% endif %}>
                                                 Suggérer une aide
                                             </button>
                                         {% else %}
