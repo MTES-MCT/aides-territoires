@@ -7,6 +7,7 @@ from organizations.factories import OrganizationFactory
 from projects.factories import ProjectFactory
 from projects.models import Project
 from aids.factories import AidFactory, SuggestedAidProjectFactory
+from aids.models import SuggestedAidProject
 
 pytestmark = pytest.mark.django_db
 
@@ -240,3 +241,104 @@ def test_project_owner_can_reject_a_suggested_aid(client):
         "L’aide a bien été supprimée de la liste des aides suggérées pour votre projet."
         in res.content.decode()
     )
+
+
+def test_authenticated_user_can_suggest_aid_with_url(client):
+    user = UserFactory(email="friendly@user.test")
+    user_organization = OrganizationFactory()
+    user_organization.organization_type = ["commune"]
+    user_organization.beneficiaries.add(user.pk)
+    user_organization.save()
+    user.beneficiary_organization = user_organization
+    user.save()
+
+    project_owner = UserFactory(email="project@owner.test")
+    project_owner_organization = OrganizationFactory()
+    project_owner_organization.organization_type = ["commune"]
+    project_owner_organization.beneficiaries.add(project_owner.pk)
+    project_owner_organization.save()
+    project_owner.beneficiary_organization = project_owner_organization
+    project_owner.save()
+
+    project = ProjectFactory(
+        status=Project.STATUS.published,
+        is_public=True,
+        description="a public description",
+    )
+    project.organizations.add(user_organization.pk)
+    project.organization_favorite.add(project_owner_organization.pk)
+    project.save()
+
+    aid = AidFactory()
+    aid_url = f"https://aides-territoires.beta.gouv.fr{aid.get_absolute_url()}"
+
+    client.force_login(user)
+
+    suggested_aid_url = reverse("suggest_aid_view")
+    res = client.post(
+        suggested_aid_url,
+        {
+            "project": [project.pk],
+            "aid": aid_url,
+            "origin_page": "public_project_page",
+        },
+    )
+
+    assert res.status_code == 302
+    public_project_detail_page = reverse(
+        "public_project_detail_view", args=[project.pk, project.slug]
+    )
+    assert SuggestedAidProject.objects.count() == 1
+    assert SuggestedAidProject.objects.first().aid == aid
+    assert SuggestedAidProject.objects.first().project == project
+    res = client.get(public_project_detail_page, follow=True)
+    assert "Merci! L’aide a bien été suggérée!" in res.content.decode()
+
+
+def test_authenticated_user_can_suggest_aid_from_aid_detail_page(client):
+    user = UserFactory(email="friendly@user.test")
+    user_organization = OrganizationFactory()
+    user_organization.organization_type = ["commune"]
+    user_organization.beneficiaries.add(user.pk)
+    user_organization.save()
+    user.beneficiary_organization = user_organization
+    user.save()
+
+    project_owner = UserFactory(email="project@owner.test")
+    project_owner_organization = OrganizationFactory()
+    project_owner_organization.organization_type = ["commune"]
+    project_owner_organization.beneficiaries.add(project_owner.pk)
+    project_owner_organization.save()
+    project_owner.beneficiary_organization = project_owner_organization
+    project_owner.save()
+
+    project = ProjectFactory(
+        status=Project.STATUS.published,
+        is_public=True,
+        description="a public description",
+    )
+    project.organizations.add(user_organization.pk)
+    project.organization_favorite.add(project_owner_organization.pk)
+    project.save()
+
+    aid = AidFactory()
+
+    client.force_login(user)
+
+    suggested_aid_url = reverse("suggest_aid_view")
+    res = client.post(
+        suggested_aid_url,
+        {
+            "project": [project.pk],
+            "aid": aid.slug,
+            "origin_page": "aid_detail_page",
+        },
+    )
+
+    assert res.status_code == 302
+    aid_detail_page = reverse("aid_detail_view", args=[aid.slug])
+    assert SuggestedAidProject.objects.count() == 1
+    assert SuggestedAidProject.objects.first().aid == aid
+    assert SuggestedAidProject.objects.first().project == project
+    res = client.get(aid_detail_page, follow=True)
+    assert "Merci! L’aide a bien été suggérée!" in res.content.decode()
