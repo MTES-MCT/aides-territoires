@@ -10,11 +10,16 @@
     </div>
     {% endif %}
 
-    {% if field.label %}<label for="{{ field.id_for_label }}">{{ field.label }}</label>{% endif %}
+    {% if field.label %}
+        <label for="{{ field.id_for_label }}">
+            {{ field.label }}{% if field.field.required %} *{% endif %}
 
-    {% if field.help_text %}
-        <div class="fr-hint-text">{{ field.help_text }}</div>
+            {% if field.help_text %}
+                <span class="fr-hint-text">{{ field.help_text }}</span>
+            {% endif %}
+        </label>
     {% endif %}
+
 
     {% if field.errors %}
     <p id="text-input-error-{{ field.name }}" class="fr-error-text">

@@ -216,10 +216,6 @@ h6 {
 
 // Form general rules
 
-form .fr-input-group.required>label::after {
-  content: "*";
-}
-
 form .fr-input-group>ul>li,
 form .fr-checkbox-group>ul>li,
 form .fr-radio-group>ul>li {
