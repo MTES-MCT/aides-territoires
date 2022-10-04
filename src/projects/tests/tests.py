@@ -10,7 +10,7 @@ from projects.models import Project
 pytestmark = pytest.mark.django_db
 
 
-def test_public_project_status_by_default_is_reviewable(client, user, perimeters):
+def test_public_project_status_by_default_is_reviewable(client, perimeters):
     organization = OrganizationFactory()
     organization.organization_type = ["commune"]
     organization.zip_code = 34080
@@ -36,7 +36,6 @@ def test_public_project_status_by_default_is_reviewable(client, user, perimeters
     )
 
     assert res.status_code == 302
-    Project.objects.count() == 1
     project = Project.objects.first()
     assert project.is_public is True
     assert project.status == Project.STATUS.reviewable
@@ -46,7 +45,7 @@ def test_public_project_status_by_default_is_reviewable(client, user, perimeters
 
 
 def test_project_type_or_project_types_suggestion_fields_is_needed_to_make_a_project_public(
-    client, user, perimeters
+    client, perimeters
 ):
     organization = OrganizationFactory()
     organization.organization_type = ["commune"]
