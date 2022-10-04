@@ -261,12 +261,12 @@ class PublicProjectDetailView(DetailView):
             suggestedaidproject__is_associated=False,
             suggestedaidproject__is_rejected=False,
         )
-        if self.request.user.is_authenticated:
-            if (
-                self.request.user.beneficiary_organization
-                in self.object.organizations.all()
-            ):
-                context["organization_own_project"] = True
+        if (
+            self.request.user.is_authenticated
+            and self.request.user.beneficiary_organization
+            in self.object.organizations.all()
+        ):
+            context["organization_own_project"] = True
         return context
 
 
