@@ -43,6 +43,8 @@
 
                                         {% csrf_token %}
 
+                                        <p>Les champs marqués d’un astérisque (*) sont obligatoires</p>
+
                                         {% if not search_page and user.is_authenticated %}
                                             <input type="email" name="email" hidden value="{{ user.email }}" id="id_email" />
                                         {% else %}
