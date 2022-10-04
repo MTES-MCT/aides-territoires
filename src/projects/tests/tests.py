@@ -122,3 +122,37 @@ def test_authenticated_user_can_access_public_project_complete_informations(
     res = client.get(url)
     assert res.status_code == 200
     assert project.description in res.content.decode()
+
+
+def test_authenticated_user_can_add_public_project_to_favorite(client, user):
+    public_project_organization = OrganizationFactory()
+    user_organization = OrganizationFactory()
+    user_organization.organization_type = ["commune"]
+    user_organization.save()
+    project = ProjectFactory(
+        status=Project.STATUS.published,
+        is_public=True,
+        description="a public description",
+    )
+    project.organizations.add(public_project_organization)
+    project.save()
+    user = UserFactory(
+        email="public@project.creator", beneficiary_organization=user_organization
+    )
+
+    client.force_login(user)
+
+    add_project_to_favorite_url = reverse(
+        "add_project_to_favorite_view", args=[user_organization.pk]
+    )
+    res = client.post(add_project_to_favorite_url, {"favorite_projects": project.pk})
+
+    assert res.status_code == 302
+    public_project_page = reverse(
+        "public_project_detail_view", args=[project.pk, project.slug]
+    )
+    res = client.get(public_project_page, follow=True)
+    assert (
+        f"Le projet «{project.name}» a bien été ajouté à vos projets favoris"
+        in res.content.decode()
+    )
