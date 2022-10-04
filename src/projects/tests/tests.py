@@ -123,7 +123,7 @@ def test_authenticated_user_can_access_public_project_complete_informations(
     assert project.description in res.content.decode()
 
 
-def test_authenticated_user_can_add_public_project_to_favorite(client, user):
+def test_authenticated_user_can_add_public_project_to_favorite(client):
     public_project_organization = OrganizationFactory()
     user_organization = OrganizationFactory()
     user_organization.organization_type = ["commune"]
