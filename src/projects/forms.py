@@ -97,7 +97,7 @@ class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
         data = super().clean()
         if not any((data.get("project_types"), data.get("project_types_suggestion"))):
             msg = "Merci de remplir au moins un des champs parmi 'Types de projet' \
-             et 'Autre type de projet'."
+            et 'Autre type de projet'."
             self.add_error("project_types", msg)
             self.add_error("project_types_suggestion", msg)
         return data

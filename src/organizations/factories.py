@@ -10,5 +10,5 @@ class OrganizationFactory(DjangoModelFactory):
     class Meta:
         model = Organization
 
-    name = factory.Faker('first_name')
+    name = factory.Faker("first_name")
     organization_type = FuzzyMultipleChoice(Organization.ORGANIZATION_TYPE)
