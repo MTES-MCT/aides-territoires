@@ -76,11 +76,11 @@
                             </section>
                         </form>
                         {% else %}
-                        {% if aid_detail_page %}
+                        {% if public_project_page %}
+                        <p><a href="{% url 'login' %}?next={% url 'public_project_detail_view' pk=project.pk slug=project.slug %}>Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin de suggérer une aide !</p>
                         {% else %}
-                        <p><a href="{% url 'login' %}>Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin d’ajouter ce projet à vos favoris !</p>
+                        <p><a href="{% url 'login' %}>Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin de suggérer une aide !</p>
                         {% endif %}
-                        <p><a href="{% url 'login' %}?next={% url 'public_project_detail_view' pk=project.pk slug=project.slug %}>Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin d’ajouter ce projet à vos favoris !</p>
                         {% endif %}
                     </div>
                 </div>
