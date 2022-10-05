@@ -264,27 +264,6 @@ msgstr "Votre alerte a été supprimée."
 msgid "The email notification settings was updated."
 msgstr "Configuration d'alerte mise à jour."
 
-msgid "Add this aid to the following bundles:"
-msgstr "Ajouter cette aide aux listes suivantes :"
-
-msgid "Add this aid to a new bundle:"
-msgstr "Ajouter cette aide à une nouvelle liste :"
-
-msgid "Give a name to your new bundle."
-msgstr "Donnez un nom à votre nouvelle liste."
-
-msgid "Bundle name"
-msgstr "Nom de la liste"
-
-msgid "Bundle"
-msgstr "Liste"
-
-msgid "Bundles"
-msgstr "Listes"
-
-msgid "The new bundle was created successfuly"
-msgstr "Votre nouvelle liste d'aide à été créée."
-
 msgid "Short description"
 msgstr "Brève description"
 
@@ -777,47 +756,6 @@ msgstr "Prévisualisation de l'aide"
 
 msgid "Results"
 msgstr "Résultats"
-
-msgid "Aid bundles"
-msgstr "Listes d'aides"
-
-msgid "My aid bundles"
-msgstr "Mes listes d'aides"
-
-msgid ""
-"You don't have any aid bundle yet. To create one, just browse aids normally "
-"and use the \"Add to a bundle\" button."
-msgstr ""
-"Vous n'avez créé aucune liste d'aides personnalisée pour le moment. Pour en "
-"créer une, consultez la page de n'importe quelle aide et utilisez le bouton "
-"« Ajouter à une liste »."
-
-msgid "All aid programs"
-msgstr "Tous les programmes d'aides"
-
-msgid "Your structure"
-msgstr "La structure"
-
-msgid "Your perimeter"
-msgstr "Le territoire"
-
-msgid "Your themes"
-msgstr "Les thématiques d'aides"
-
-msgid "Your categories"
-msgstr "Les sous-thématiques d'aides"
-
-#, python-format
-msgid "<span class=\"counter\">%(total_aids)s</span> aids match your research"
-msgstr ""
-"<span class=\"counter\">%(total_aids)s</span> aides correspondent à votre "
-"recherche"
-
-msgid "Your project"
-msgstr "Votre projet"
-
-msgid "upload"
-msgstr "upload"
 
 msgid "Image"
 msgstr "Image"
