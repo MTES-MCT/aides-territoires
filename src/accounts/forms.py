@@ -40,13 +40,9 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
         label="Votre adresse e-mail",
         required=True,
         help_text="""
-            <ul>
-                <li>Par exemple : prenom.nom@domaine.fr</li>
-                <li>
-                    Nous enverrons un e-mail de confirmation à cette adresse
-                    avant de valider le compte.
-                </li>
-            </ul>""",
+            Par exemple : prenom.nom@domaine.fr<br />
+            Nous enverrons un e-mail de confirmation à cette adresse avant de valider le compte.
+            """,
     )
     beneficiary_role = forms.CharField(
         label="Votre rôle", max_length=128, required=False
@@ -131,6 +127,7 @@ class RegisterCommuneForm(RegisterForm):
         label="Votre adresse e-mail",
         required=True,
         help_text="""
+            Par exemple : prenom.nom@domaine.fr<br />
             Vous pouvez modifier l’email de contact s’il n’est pas exact
             ou si vous souhaitez en utiliser un autre, personnel par exemple.<br />
             Nous enverrons un e-mail de confirmation à cette adresse avant de valider le compte.
@@ -147,7 +144,11 @@ class LoginForm(AuthenticationForm, DsfrBaseForm):
         "inactive": "Ce compte n’est actuellement pas actif.",
     }
 
-    username = forms.EmailField(label="Votre adresse e-mail", required=True)
+    username = forms.EmailField(
+        label="Votre adresse e-mail",
+        help_text="Par exemple : prenom.nom@domaine.fr",
+        required=True,
+    )
     password = forms.CharField(
         label="Votre mot de passe",
         required=True,
@@ -165,7 +166,11 @@ class LoginForm(AuthenticationForm, DsfrBaseForm):
 class PasswordResetForm(DsfrBaseForm):
     """Password reset request form."""
 
-    username = forms.EmailField(label="Votre adresse e-mail", required=True)
+    username = forms.EmailField(
+        label="Votre adresse e-mail",
+        help_text="Par exemple : prenom.nom@domaine.fr",
+        required=True,
+    )
 
 
 class PasswordResetConfirmForm(forms.ModelForm, DsfrBaseForm):
@@ -334,6 +339,7 @@ class InviteCollaboratorForm(DsfrBaseForm):
     last_name = forms.CharField(label="Son nom", required=True)
     email = forms.EmailField(
         label="Son adresse e-mail",
+        help_text="Par exemple : prenom.nom@domaine.fr",
         required=True,
     )
 

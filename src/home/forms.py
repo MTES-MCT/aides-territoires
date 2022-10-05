@@ -31,7 +31,11 @@ class ContactForm(DsfrBaseForm):
         required=False,
     )
     last_name = forms.CharField(label="Votre nom", required=False)
-    email = forms.EmailField(label="Votre adresse e-mail", required=True)
+    email = forms.EmailField(
+        label="Votre adresse e-mail",
+        help_text="Par exemple : prenom.nom@domaine.fr",
+        required=True,
+    )
     phone = forms.CharField(
         label="Votre numéro de téléphone", max_length=16, required=False
     )
