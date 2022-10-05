@@ -42,6 +42,8 @@
         <div class="fr-col-12 fr-col-md-9">
             <h1 class="fr-mb-5w fr-h3">Modifier les informations du projet « {{ project.name }} »</h1>
 
+            <p>Les champs marqués d’un astérisque (*) sont obligatoires.</p>
+
             <form id="update_project" method="post">
 
                 {% include 'projects/_create_or_update_project_form.html' with form=form %}

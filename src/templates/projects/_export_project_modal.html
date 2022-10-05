@@ -8,6 +8,9 @@
                     </div>
                     <div class="fr-modal__content">
                         <h1 id="fr-modal-title-export-project" class="fr-modal__title"><span class="fr-icon-arrow-right-line fr-icon--lg"></span>Exporter ce projet</h1>
+
+                        <p>Les champs marqués d’un astérisque (*) sont obligatoires.</p>
+
                         <form id="invite_collaborator" method="post" action="{% url 'project_export_view' project %}">
                             <div class="content">
                                 {% csrf_token %}
@@ -19,7 +22,6 @@
                                 </footer>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>
