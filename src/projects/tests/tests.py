@@ -3,7 +3,7 @@ import pytest
 from django.urls import reverse
 
 from accounts.factories import UserFactory
-from organizations.factories import OrganizationFactory
+from organizations.factories import OrganizationFactory, CommuneOrganizationFactory
 from projects.factories import ProjectFactory
 from projects.models import Project
 from aids.factories import AidFactory, SuggestedAidProjectFactory
@@ -13,10 +13,7 @@ pytestmark = pytest.mark.django_db
 
 
 def test_public_project_status_by_default_is_reviewable(client, perimeters):
-    organization = OrganizationFactory()
-    organization.organization_type = ["commune"]
-    organization.zip_code = 34080
-    organization.city_name = "Montpellier"
+    organization = CommuneOrganizationFactory()
     organization.perimeter = perimeters["montpellier"]
     organization.save()
 
@@ -50,10 +47,7 @@ def test_public_project_status_by_default_is_reviewable(client, perimeters):
 def test_project_type_or_project_types_suggestion_fields_is_needed_to_make_a_project_public(
     client, perimeters
 ):
-    organization = OrganizationFactory()
-    organization.organization_type = ["commune"]
-    organization.zip_code = 34080
-    organization.city_name = "Montpellier"
+    organization = CommuneOrganizationFactory()
     organization.perimeter = perimeters["montpellier"]
     organization.save()
 
@@ -125,10 +119,8 @@ def test_authenticated_user_can_access_public_project_complete_informations(
 
 
 def test_authenticated_user_can_add_public_project_to_favorite(client):
-    public_project_organization = OrganizationFactory()
-    user_organization = OrganizationFactory()
-    user_organization.organization_type = ["commune"]
-    user_organization.save()
+    public_project_organization = CommuneOrganizationFactory()
+    user_organization = CommuneOrganizationFactory()
     project = ProjectFactory(
         status=Project.STATUS.published,
         is_public=True,
@@ -159,8 +151,7 @@ def test_authenticated_user_can_add_public_project_to_favorite(client):
 
 def test_project_owner_can_associate_suggested_aid_to_project(client):
     user = UserFactory(email="public@project.creator")
-    user_organization = OrganizationFactory()
-    user_organization.organization_type = ["commune"]
+    user_organization = CommuneOrganizationFactory()
     user_organization.beneficiaries.add(user.pk)
     user_organization.save()
     user.beneficiary_organization = user_organization
@@ -199,8 +190,7 @@ def test_project_owner_can_associate_suggested_aid_to_project(client):
 
 def test_project_owner_can_reject_a_suggested_aid(client):
     user = UserFactory(email="public@project.creator")
-    user_organization = OrganizationFactory()
-    user_organization.organization_type = ["commune"]
+    user_organization = CommuneOrganizationFactory()
     user_organization.beneficiaries.add(user.pk)
     user_organization.save()
     user.beneficiary_organization = user_organization
@@ -242,16 +232,14 @@ def test_project_owner_can_reject_a_suggested_aid(client):
 
 def test_authenticated_user_can_suggest_aid_with_url(client):
     user = UserFactory(email="friendly@user.test")
-    user_organization = OrganizationFactory()
-    user_organization.organization_type = ["commune"]
+    user_organization = CommuneOrganizationFactory()
     user_organization.beneficiaries.add(user.pk)
     user_organization.save()
     user.beneficiary_organization = user_organization
     user.save()
 
     project_owner = UserFactory(email="project@owner.test")
-    project_owner_organization = OrganizationFactory()
-    project_owner_organization.organization_type = ["commune"]
+    project_owner_organization = CommuneOrganizationFactory()
     project_owner_organization.beneficiaries.add(project_owner.pk)
     project_owner_organization.save()
     project_owner.beneficiary_organization = project_owner_organization
@@ -293,16 +281,14 @@ def test_authenticated_user_can_suggest_aid_with_url(client):
 
 def test_authenticated_user_can_suggest_aid_from_aid_detail_page(client):
     user = UserFactory(email="friendly@user.test")
-    user_organization = OrganizationFactory()
-    user_organization.organization_type = ["commune"]
+    user_organization = CommuneOrganizationFactory()
     user_organization.beneficiaries.add(user.pk)
     user_organization.save()
     user.beneficiary_organization = user_organization
     user.save()
 
     project_owner = UserFactory(email="project@owner.test")
-    project_owner_organization = OrganizationFactory()
-    project_owner_organization.organization_type = ["commune"]
+    project_owner_organization = CommuneOrganizationFactory()
     project_owner_organization.beneficiaries.add(project_owner.pk)
     project_owner_organization.save()
     project_owner.beneficiary_organization = project_owner_organization
