@@ -3,7 +3,7 @@ import pytest
 from django.urls import reverse
 
 from accounts.factories import UserFactory
-from organizations.factories import OrganizationFactory, CommuneOrganizationFactory
+from organizations.factories import CommuneOrganizationFactory
 from projects.factories import ProjectFactory
 from projects.models import Project
 from aids.factories import AidFactory, SuggestedAidProjectFactory
