@@ -19,6 +19,10 @@ class Project(models.Model):
 
     CONTRACT_LINK = Choices(
         ("CRTE", "CRTE"),
+        ("PVD", "Petites Villes de Demain"),
+        ("ACV1", "Action Coeur de Ville 1"),
+        ("ACV2", "Action Coeur de Ville 2"),
+        ("PCAET", "PCAET"),
     )
 
     name = models.CharField(
