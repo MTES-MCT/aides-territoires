@@ -273,7 +273,7 @@ origin_url = OpenApiParameter(
         OpenApiExample("", value=""),
         OpenApiExample(
             "URL",
-            value="http://www.cress-aura.org/actus/mon-ess-lecole-quest-ce-que-cest",
+            value="https://appelsaprojets.ademe.fr/aap/AURASTC2019-54",
         ),  # noqa
     ],
 )
