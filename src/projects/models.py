@@ -12,7 +12,7 @@ class Project(models.Model):
 
     STATUS = Choices(
         ("draft", "Brouillon"),
-        ("reviewable", "En revu"),
+        ("reviewable", "En revue"),
         ("published", "Publié"),
         ("deleted", "Supprimé"),
     )
