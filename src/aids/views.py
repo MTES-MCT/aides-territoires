@@ -25,6 +25,7 @@ from django.views.generic.edit import FormMixin
 from django.urls import reverse
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
+from django.core.exceptions import PermissionDenied
 
 from braces.views import MessageMixin
 
@@ -36,8 +37,9 @@ from aids.forms import (
     AdvancedAidFilterForm,
     DraftListAidFilterForm,
     AidMatchProjectForm,
+    SuggestAidMatchProjectForm,
 )
-from aids.models import Aid
+from aids.models import Aid, SuggestedAidProject
 from aids.mixins import AidEditMixin, AidCopyMixin
 from alerts.forms import AlertForm
 from categories.models import Category
@@ -298,6 +300,7 @@ class AidDetailView(DetailView):
     """Display an aid detail."""
 
     template_name = "aids/detail.html"
+    context_object_name = "aid"
 
     def get_queryset(self):
         """Get the queryset.
@@ -468,11 +471,19 @@ class AidDetailView(DetailView):
         context["keywords"] = sorted(categories_keywords_list)
 
         context["alert_form"] = AlertForm(label_suffix="")
+
         if self.request.user.is_authenticated:
             context["aid_match_project_form"] = AidMatchProjectForm(label_suffix="")
+            context["suggest_aid_form"] = SuggestAidMatchProjectForm
+            context["aid_detail_page"] = True
             if self.request.user.beneficiary_organization:
                 context["projects"] = Project.objects.filter(
                     organizations=self.request.user.beneficiary_organization.pk
+                ).order_by("name")
+                context["favorite_projects"] = Project.objects.filter(
+                    organization_favorite=self.request.user.beneficiary_organization,
+                    is_public=True,
+                    status=Project.STATUS.published,
                 ).order_by("name")
 
         if self.request.user.is_authenticated:
@@ -787,6 +798,16 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
                 project_url = reverse(
                     "project_detail_view", args=[project, project_slug]
                 )
+
+                if self.request.POST.get("_page", None) == "suggested_aid":
+                    suggestedaidproject_obj = SuggestedAidProject.objects.get(
+                        aid=aid.pk, project=project_obj.pk
+                    )
+                    suggestedaidproject_obj.is_associated = True
+                    suggestedaidproject_obj.date_associated = timezone.now()
+                    suggestedaidproject_obj.save()
+                    url = project_url
+
                 msg = f"L’aide a bien été associée au projet <a href='{project_url}'>{project_name}</a>"  # noqa
                 messages.success(self.request, msg)
 
@@ -808,7 +829,6 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
             msg = f"Votre nouveau projet <a href='{project_url}'>{project.name}</a> a bien été créé et l’aide a été associée."  # noqa
             messages.success(self.request, msg)
 
-        url = reverse("aid_detail_view", args=[aid.slug])
         return HttpResponseRedirect(url)
 
 
@@ -828,6 +848,123 @@ class AidUnmatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateVi
         aid.save()
 
         msg = "L’aide a bien été supprimée."
+        messages.success(self.request, msg)
+        project_slug = self.request.POST.get("project-slug")
+        url = reverse("project_detail_view", args=[project_pk, project_slug])
+        return HttpResponseRedirect(url)
+
+
+class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, FormView):
+    """Associate a suggested aid to an existing project."""
+
+    form_class = SuggestAidMatchProjectForm
+
+    def get_origin_page(self):
+        if self.request.session.get("origin_page", None):
+            origin_page = self.request.session.get("origin_page", None)
+        else:
+            self.request.session["origin_page"] = self.request.POST.get(
+                "origin_page", None
+            )
+            origin_page = self.request.session.get("origin_page", None)
+        return origin_page
+
+    def form_valid(self, form):
+        aid = form.cleaned_data["aid"]
+        projects = form.cleaned_data["project"]
+
+        if projects and aid:
+            try:
+                for project in projects:
+                    if project.is_public and project.status == Project.STATUS.published:
+                        aid.suggested_projects.add(
+                            project.pk, through_defaults={"creator": self.request.user}
+                        )
+                        aid.save()
+                    else:
+                        raise PermissionDenied()
+            except Exception:
+                raise PermissionDenied()
+
+        origin_page = self.get_origin_page()
+
+        if origin_page == "aid_detail_page":
+            success_url = reverse("aid_detail_view", args=[aid.slug])
+        elif origin_page == "favorite_project_page":
+            success_url = reverse(
+                "favorite_project_detail_view", args=[project.pk, project.slug]
+            )
+        else:
+            success_url = reverse(
+                "public_project_detail_view", args=[project.pk, project.slug]
+            )
+
+        del self.request.session["origin_page"]
+        msg = "Merci! L’aide a bien été suggérée!"
+        messages.success(self.request, msg)
+
+        return HttpResponseRedirect(success_url)
+
+    def get_template_names(self):
+        origin_page = self.get_origin_page()
+
+        if origin_page == "aid_detail_page":
+            return ["aids/detail.html"]
+        elif origin_page == "favorite_project_page":
+            return ["projects/favorite_project_detail.html"]
+        else:
+            return ["projects/public_project_detail.html"]
+
+    def form_invalid(self, form):
+        """If the form is invalid, render the invalid form."""
+        error = "erreur"
+
+        post_values = self.request.POST.copy()
+        post_values["origin_page"] = self.get_origin_page()
+        post_values["aid"] = form.data["aid"]
+        post_values["project"] = form.data["project"]
+        form = SuggestAidMatchProjectForm(post_values)
+
+        origin_page = self.get_origin_page()
+
+        if origin_page == "aid_detail_page":
+            aid = Aid.objects.get(slug=form.data["aid"])
+            project = None
+        else:
+            aid = None
+            project = Project.objects.get(pk=form.data["project"])
+
+        return self.render_to_response(
+            self.get_context_data(
+                suggest_aid_form=form,
+                error_aid=error,
+                project=project,
+                aid=aid,
+            ),
+        )
+
+
+class SuggestedAidUnmatchProjectView(
+    ContributorAndProfileCompleteRequiredMixin, UpdateView
+):
+    """remove the association between a suggested aid and a project."""
+
+    context_object_name = "aid"
+    form_class = AidMatchProjectForm
+    model = Aid
+
+    def form_valid(self, form):
+
+        aid = form.save(commit=False)
+        project_pk = int(self.request.POST.get("project-pk"))
+        suggested_aidproject = SuggestedAidProject.objects.get(
+            aid=aid.pk, project=project_pk
+        )
+        suggested_aidproject.is_rejected = True
+        suggested_aidproject.date_rejected = timezone.now()
+        suggested_aidproject.save()
+
+        msg = "L’aide a bien été supprimée de la liste des aides suggérées pour votre projet."
         messages.success(self.request, msg)
         project_slug = self.request.POST.get("project-slug")
         url = reverse("project_detail_view", args=[project_pk, project_slug])

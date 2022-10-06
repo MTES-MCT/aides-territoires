@@ -17,23 +17,21 @@
 
                         <p>En cliquant sur le bouton ci-dessous, vous supprimerez définitivement votre projet. Il n'y a pas d'annulation possible.</p>
                         <form id="delete-form-project-{{ project }}" action="{% url 'project_delete_view' project %}" method="post">
-                            <section>
-                                <div class="content">
-                                    {% csrf_token %}
-                                </div>
-                                <footer>
-                                    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--right">
-                                        <li>
-                                            <button class="btn-block fr-btn fr-btn--secondary" type="button" title="Fermer la fenêtre modale" aria-controls="delete-project-modal-{{ project }}">Annuler</button>
-                                        </li>
-                                        <li>
-                                            <button type="submit" class="fr-btn">
-                                                Supprimer ce projet
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </footer>
-                            </section>
+                            <div class="content">
+                                {% csrf_token %}
+                            </div>
+                            <footer>
+                                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--right">
+                                    <li>
+                                        <button class="btn-block fr-btn fr-btn--secondary" type="button" title="Fermer la fenêtre modale" aria-controls="delete-project-modal-{{ project }}">Annuler</button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" class="fr-btn">
+                                            Supprimer ce projet
+                                        </button>
+                                    </li>
+                                </ul>
+                            </footer>
                         </form>
                     </div>
                 </div>

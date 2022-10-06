@@ -1,0 +1,134 @@
+{% extends "_base.html" %}
+{% load static i18n aids compress %}
+
+{% block extratitle %}projet public « {{ project.name }} »{% endblock extratitle %}
+
+{% block extraclasses %}light{% endblock extraclasses %}
+
+{% block sectionid %}user-account{% endblock sectionid %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'public_project_list_view' %}">Projets publics</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">
+                    {% if user.is_authenticated %}
+                    Projet&nbsp;:« {{ project.name }} »
+                    {% else %}
+                    Projet public
+                    {% for project_type in project.project_types.all %}
+                    {{ project_type }}
+                    {% endfor%}
+                    {% for department in project.organizations.first.perimeter.contained_in.all %}
+                    {% if department.scale == 10 %}
+                    ({{ department.name }})
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    </a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        <div class="fr-col-12">
+            <h1 class="fr-h3 fr-mb-5w">
+            {% if user.is_authenticated %}
+            Projet&nbsp;: « {{ project.name }} »
+            {% else %}
+            Projet public
+            {% for project_type in project.project_types.all %}
+            {{ project_type }}
+            {% endfor%}
+            {% for department in project.organizations.first.perimeter.contained_in.all %}
+            {% if department.scale == 10 %}
+            ({{ department.name }})
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            </h1>
+
+            {% if user.is_authenticated %}
+            <div class="fr-grid-row fr-grid-row--gutters fr-background-alt">
+                <img class="fr-col-12 fr-col-md-7" src="{% static 'img/portails.jpg' %}" alt="" height="450px">
+                <div class="fr-col-12 fr-col-md-5">
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-5w"><strong>Structure porteuse&nbsp;:</strong> {{ project.organizations.first.name }}</h2>
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Territoire du projet&nbsp;:</strong> {{ project.organizations.first.perimeter.name }} ({{ project.organizations.first.zip_code }})</h2>
+                    <h2 class="fr-text--md fr-text--normal fr-mb-5w fr-mt-2w"><strong>Date d'échéance du projet&nbsp;:</strong>
+                    {% if project.due_date %}
+                    {{ project.due_date|date:'d/m/y' }}
+                    {% else %}
+                    aucune
+                    {% endif %}
+                    </h2>
+                </div>
+            </div>
+
+            <div class="fr-grid-row fr-grid-row--gutters fr-my-5w">
+                <div class="fr-col-12 fr-col-md-7">
+                    <h2 class="fr-h4">Description du projet</h2>
+                    <div>
+                        {{ project.description|safe }}
+                    </div>
+                </div>
+                <div class="fr-col-12 fr-col-md-5">
+                {% if project.project_types.all %}
+                <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Types de projet&nbsp;:</strong>
+                    {% for project_type in project.project_types.all %}
+                    {% if forloop.last %}
+                    <span>{{ project_type }}</span>
+                    {% else %}
+                    <span>{{ project_type }},</span>
+                    {% endif %}
+                    {% endfor %}
+                </h2>
+                {% endif %}
+                {% if project.contract_link %}
+                <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Appartenance à un plan/programme/contrat&nbsp;:</strong> {{ project.get_contract_link_display }}</h2>
+                {% endif %}
+                </div>
+            </div>
+
+            {% include "projects/favorite_or_public_project_aids_list.html" %}
+
+            {% if not organization_own_project %}
+            <div class="fr-container fr-centered">
+                <button class="fr-btn" data-fr-opened="false" aria-controls="add-to-favorite-modal--{{ project.pk }}">
+                    Ajouter ce projet à mes favoris
+                </button>
+                <button class="fr-btn" data-fr-opened="{% if error_aid %}true{% endif %}" aria-controls="suggest-aid-modal">
+                    Suggérer une aide pour ce projet
+                </button>
+            </div>
+            {% endif %}
+
+            {% else %}
+            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
+                <p><strong>L'affichage complet de cette page est réservé aux utilisateurs connectés.</strong></p>
+                <p><a href="{% url 'login' %}?next={% url 'public_project_detail_view' pk=project.pk slug=project.slug %}?open-modal=true">Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin d'afficher les informations relatives à ce projet !</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block modals %}
+    {% include 'projects/_add_to_favorite_modal.html' with project=project %}
+    {% include 'projects/_suggest_aid_modal.html' with project=project %}
+{% endblock modals %}

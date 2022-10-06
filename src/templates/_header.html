@@ -78,7 +78,10 @@
                         <a class="fr-nav__link" href="{% url 'home' %}" target="_self">Accueil</a>
                     </li>
                     <li class="fr-nav__item">
-                        <a class="fr-nav__link" href="/portails/" target="_self">Portails</a>
+                        <a class="fr-nav__link" href="{% url 'public_project_list_view' %}" target="_self">Projets</a>
+                    </li>
+                    <li class="fr-nav__item">
+                        <a class="fr-nav__link" href="{% url 'map_view' %}" target="_self">Cartographie</a>
                     </li>
                     <li class="fr-nav__item">
                         <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-actualites">Actualités</button>
@@ -94,7 +97,7 @@
                         </div>
                     </li>
                     <li class="fr-nav__item">
-                        <a class="fr-nav__link" href="{% url 'map_view' %}" target="_self">Cartographie</a>
+                        <a class="fr-nav__link" href="/portails/" target="_self">Portails</a>
                     </li>
                     <li class="fr-nav__item">
                         <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-en-savoir-plus">En savoir plus</button>

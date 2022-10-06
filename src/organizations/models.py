@@ -106,6 +106,14 @@ class Organization(models.Model):
     beneficiaries = models.ManyToManyField(
         "accounts.User", verbose_name="Bénéficiaires", blank=True
     )
+
+    favorite_projects = models.ManyToManyField(
+        "projects.Project",
+        verbose_name="Projets favoris",
+        related_name="organization_favorite",
+        blank=True,
+    )
+
     perimeter = models.ForeignKey(
         "geofr.Perimeter",
         verbose_name="Périmètre de la structure",
@@ -139,6 +147,9 @@ class Organization(models.Model):
     class Meta:
         verbose_name = "Structure"
         verbose_name_plural = "Structures"
+
+    def details_completed(self):
+        return self.zip_code and self.city_name and self.perimeter is not None
 
     def __str__(self):
         return self.name

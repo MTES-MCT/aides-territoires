@@ -1,0 +1,117 @@
+{% extends "_base.html" %}
+{% load i18n static compress dsfr_tags %}
+
+{% block extratitle %}Mes projets favoris{% endblock extratitle %}
+
+{% block extraclasses %}light{% endblock extraclasses %}
+
+{% block sectionid %}user-account{% endblock sectionid %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mes projets favoris</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' with favorite_project_admin=True %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <h1 class="fr-h3">Mes projets favoris
+            </h1>
+
+            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
+                <p class="fr-mb-2w">Vous pouvez désormais suivre vos projets favoris, pour vous inspirer, suivre leur actualité et les aides qui y sont rattachées/suggérées</p>
+                <p>Si vous accompagnez plusieurs collectivités, vous pouvez ainsi suivre en parallèle leurs projets via votre compte, et leur conseiller des aides, tout en partageant ces informations avec la communauté Aides-territoires.</p>
+            </div>
+
+            <div class="fr-table">
+                <table class="data-table at-table--xl">
+                    <caption>
+                        Liste de vos projets favoris
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="fr-text">Nom</th>
+                            <th scope="col" class="fr-text">Nombre d’aides ajoutées</th>
+                            <th scope="col" class="fr-text">Date de création</th>
+                            <th scope="col" class="fr-text">Date d’échéance</th>
+                            <th scope="col" class="fr-text">Porté par</th>
+                        </tr>
+                    </thead>
+                    {% if projects %}
+                    <tbody>
+                        {% for project in projects %}
+                        <tr>
+                            <td class="fr-text">
+                                <a href="{% url 'favorite_project_detail_view' pk=project.pk slug=project.slug%}" id="project-{{ project.id }}">
+                                    {{ project.name }}
+                                </a>
+                            </td>
+                            <td class="fr-text">
+                                {% if project.aid_set.all %}
+                                    {{ project.aid_set.all.count }}
+                                {% else %}
+                                <span>Ce projet n'a pas encore d'aides associées.</span>
+                            {% endif %}
+                            </td>
+                            <td class="fr-text">{{ project.date_created|date:'d/m/y' }}</td>
+                            <td class="fr-text">{{ project.due_date|date:'d/m/y' }}</td>
+                            <td class="fr-text">
+                            {% if project.organizations.all %}
+                            {% for organization in project.organizations.all %}
+                            {{ organization.name }} ({{ organization.zip_code }})
+                            {% endfor %}
+                            {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% else %}
+                    <tbody>
+                        <tr>
+                            <td colspan="6" class="at-centered-important">
+                                Vous n’avez aucun projet favori pour l’instant
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endif %}
+                </table>
+            </div>
+            {% include '_pagination.html' %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_css %}
+{% compress css %}
+{% endcompress %}
+<link rel="stylesheet" href="{% static 'trumbowyg/dist/ui/trumbowyg.css' %}" type="text/css" />
+{% endblock extra_css %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="{% static 'trumbowyg/dist/trumbowyg.js' %}"></script>
+<script src="{% static 'trumbowyg/dist/langs/fr.js' %}"></script>
+<script src="{% static 'js/enable_rich_text_editor_simple.js' %}"></script>
+{% endcompress %}
+{% endblock extra_js %}

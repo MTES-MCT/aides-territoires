@@ -18,22 +18,26 @@ from projects.services.export import export_project
 from projects.tasks import send_project_deleted_email
 from projects.forms import ProjectCreateForm, ProjectExportForm, ProjectUpdateForm
 from projects.models import Project
-from aids.models import AidProject, Aid
+from aids.models import AidProject, Aid, SuggestedAidProject
 from aids.views import AidPaginator
-from aids.forms import AidSearchForm
+from aids.forms import AidSearchForm, SuggestAidMatchProjectForm
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 
 
 class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
     """Allows users to create their own projects."""
 
-    template_name = "projects/_create_project_modal.html"
+    template_name = "projects/create_project.html"
     form_class = ProjectCreateForm
     context_object_name = "project"
 
     def form_valid(self, form):
 
         project = form.save(commit=False)
+        if project.is_public is True:
+            project.status = Project.STATUS.reviewable
+        else:
+            project.status = Project.STATUS.draft
         project.save()
         form.save_m2m()
         project.author.add(self.request.user)
@@ -45,6 +49,16 @@ class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
         project = f"project_created={project.pk}"
         url = f"{url}?{project}"
         return HttpResponseRedirect(url)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        org_type = self.request.user.beneficiary_organization.organization_type[0]
+        org_details = self.request.user.beneficiary_organization.details_completed()
+        if org_type == "commune" or org_type == "epci":
+            context["org_is_commune_or_epci"] = True
+            if org_details:
+                context["org_details_completed"] = True
+        return context
 
 
 class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
@@ -67,7 +81,9 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user
-        context["project_create_form"] = ProjectCreateForm(label_suffix="")
+        org_type = self.request.user.beneficiary_organization.organization_type[0]
+        if org_type == "commune" or org_type == "epci":
+            context["org_is_commune_or_epci"] = True
 
         # Here we add some data for the project_search_aid modal
         if "project_created" in self.request.GET:
@@ -97,6 +113,52 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
             context["perimeter"] = perimeter
             context["audience"] = audience
             context["text_encoded"] = text_encoded
+        return context
+
+
+class FavoriteProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
+    """User Favorite Projects Dashboard"""
+
+    template_name = "projects/favorite_projects_list.html"
+    context_object_name = "projects"
+    paginate_by = 18
+    paginator_class = AidPaginator
+
+    def get_queryset(self):
+        if self.request.user.beneficiary_organization is not None:
+            queryset = Project.objects.filter(
+                organization_favorite=self.request.user.beneficiary_organization,
+                is_public=True,
+                status=Project.STATUS.published,
+            )
+        else:
+            queryset = Project.objects.none()
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user
+        return context
+
+
+class PublicProjectListView(ListView):
+    """A list of all the public projects"""
+
+    template_name = "projects/public_projects_list.html"
+    context_object_name = "projects"
+    paginate_by = 18
+    paginator_class = AidPaginator
+
+    def get_queryset(self):
+        queryset = Project.objects.filter(
+            is_public=True,
+            status=Project.STATUS.published,
+        )
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user
         return context
 
 
@@ -140,9 +202,116 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
         context["user"] = self.request.user
         context["aid_set"] = self.object.aid_set.all()
         context["AidProject"] = AidProject.objects.filter(project=self.object.pk)
+        context["SuggestedAidProject"] = SuggestedAidProject.objects.filter(
+            project=self.object.pk
+        )
+        context["suggested_aid"] = self.object.suggested_aid.filter(
+            suggestedaidproject__is_associated=False,
+            suggestedaidproject__is_rejected=False,
+        )
         context["project_update_form"] = ProjectUpdateForm(label_suffix="")
         context["form"] = ProjectExportForm
+        return context
 
+
+class PublicProjectDetailView(DetailView):
+    template_name = "projects/public_project_detail.html"
+    context_object_name = "project"
+
+    def get_object(self, queryset=None):
+        """
+        Require `self.queryset` and a `pk` AND `slug` argument in the URLconf.
+        """
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        slug = self.kwargs.get(self.slug_url_kwarg)
+        if pk is not None and slug is not None:
+            queryset = queryset.filter(pk=pk, slug=slug)
+
+        if pk is None and slug is None:
+            raise AttributeError(
+                "Generic detail view %s must be called with either an object "
+                "pk or a slug in the URLconf." % self.__class__.__name__
+            )
+
+        try:
+            obj = queryset.get()
+            if obj.is_public is False or obj.status != Project.STATUS.published:
+                raise PermissionDenied()
+        except queryset.model.DoesNotExist:
+            raise Http404()
+        return obj
+
+    def get_queryset(self):
+        queryset = Project.objects.prefetch_related("suggested_aid").prefetch_related(
+            "aid_set"
+        )
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["aid_set"] = self.object.aid_set.all()
+        context["public_project_page"] = True
+        context["AidProject"] = AidProject.objects.filter(project=self.object.pk)
+        context["suggest_aid_form"] = SuggestAidMatchProjectForm
+        if (
+            self.request.user.is_authenticated
+            and self.request.user.beneficiary_organization
+            in self.object.organizations.all()
+        ):
+            context["organization_own_project"] = True
+        return context
+
+
+class FavoriteProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
+    template_name = "projects/favorite_project_detail.html"
+    context_object_name = "project"
+
+    def get_object(self, queryset=None):
+        """
+        Require `self.queryset` and a `pk` AND `slug` argument in the URLconf.
+        """
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        slug = self.kwargs.get(self.slug_url_kwarg)
+        if pk is not None and slug is not None:
+            queryset = queryset.filter(pk=pk, slug=slug)
+
+        if pk is None and slug is None:
+            raise AttributeError(
+                "Generic detail view %s must be called with either an object "
+                "pk or a slug in the URLconf." % self.__class__.__name__
+            )
+
+        try:
+            obj = queryset.get()
+            if (
+                obj.is_public is False
+                or obj.status != Project.STATUS.published
+                or self.request.user.beneficiary_organization
+                not in obj.organization_favorite.all()
+            ):
+                raise PermissionDenied()
+        except queryset.model.DoesNotExist:
+            raise Http404()
+        return obj
+
+    def get_queryset(self):
+        queryset = Project.objects.prefetch_related("suggested_aid").prefetch_related(
+            "aid_set"
+        )
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["favorite_project_page"] = True
+        context["aid_set"] = self.object.aid_set.all()
+        context["AidProject"] = AidProject.objects.filter(project=self.object.pk)
+        context["suggest_aid_form"] = SuggestAidMatchProjectForm
         return context
 
 
@@ -215,6 +384,14 @@ class ProjectUpdateView(
         return super().get_queryset()
 
     def form_valid(self, form):
+
+        project = form.save(commit=False)
+        if project.is_public is True:
+            project.status = Project.STATUS.reviewable
+        else:
+            project.status = Project.STATUS.draft
+        project.save()
+        form.save_m2m()
         response = super().form_valid(form)
 
         msg = "Le projet a bien été mis à jour."
@@ -229,6 +406,12 @@ class ProjectUpdateView(
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["project"] = self.object
+        org_type = self.request.user.beneficiary_organization.organization_type[0]
+        org_details = self.request.user.beneficiary_organization.details_completed()
+        if org_type == "commune" or org_type == "epci":
+            context["org_is_commune_or_epci"] = True
+            if org_details:
+                context["org_details_completed"] = True
         return context
 
 

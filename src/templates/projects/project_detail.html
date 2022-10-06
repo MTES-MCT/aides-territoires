@@ -48,15 +48,44 @@
             </div>
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                Date d’échéance du projet :
+                Date d'échéance du projet&nbsp;:
                 {% if project.due_date %}
                 {{ project.due_date|date:'d/m/y' }}
                 {% else %}
                 aucune
                 {% endif %}
             </p>
+
+            {% if project.is_public %}
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                Projet public&nbsp;:
+                {% if project.is_public and project.is_published %}
+                <span class="fr-mb-0 fr-badge fr-badge--success">Oui</span>
+                {% elif project.is_public %}
+                <span class="fr-mb-0 fr-badge fr-badge--new">En&nbsp;cours</span>
+                {% else %}
+                <span class="fr-mb-0 fr-badge fr-badge--error">Non</span>
+                {% endif %}
+            </p>
+            {% endif %}
+
+            {% if project.project_types.all %}
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">Types de projet&nbsp;:
+            {% for project_type in project.project_types.all %}
+            {% if forloop.last %}
+            <span>{{ project_type }}</span>
+            {% else %}
+            <span>{{ project_type }},</span>
+            {% endif %}
+            {% endfor %}
+            </p>
+            {% endif %}
+
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">Appartenance à un plan/programme/contrat&nbsp;: <span>{% if project.contract_link %}{{ project.get_contract_link_display }}{% else %}aucun{% endif %}</span></p>
+
+
             {% if project.description %}
-                <section class="fr-accordion fr-mb-5w">
+                <section class="fr-accordion fr-mb-0">
                     <h3 class="fr-accordion__title">
                         <button class="fr-accordion__btn" aria-expanded="false" aria-controls="project-description">
                             <span class="fr-text--sm fr-mb-0">
@@ -69,11 +98,28 @@
                     </div>
                 </section>
             {% else %}
-            <p class="fr-mb-5w fr-pl-2w fr-text--sm">Description du projet : aucune</p>
+            <p class="fr-mb-0 fr-pl-2w fr-text--sm">Description du projet : aucune</p>
             {% endif %}
-            <div class="fr-table">
+
+            {% if project.private_description %}
+                <section class="fr-accordion fr-mb-5w">
+                    <h3 class="fr-accordion__title">
+                        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="project-private-description">
+                            <span class="fr-text--sm fr-mb-0">
+                                Voir les notes internes de ce projet
+                            </span>
+                        </button>
+                    </h3>
+                    <div class="fr-collapse" id="project-private-description">
+                        {{ project.private_description|safe }}
+                    </div>
+                </section>
+            {% endif %}
+
+
+            <div class="fr-table fr-mt-5w">
                 <table class="data-table at-table--xl">
-                    <caption class="fr-sr-only">
+                    <caption>
                         Liste des aides sélectionnées :
                     </caption>
                     <thead>
@@ -164,6 +210,104 @@
                 </table>
             </div>
 
+            {% if project.is_public and project.is_published %}
+            <div class="fr-table">
+                <table class="data-table at-table--xl">
+                    <caption>
+                        Liste des aides suggérées :
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="fr-text">Nom</th>
+                            <th scope="col" class="fr-text">Echéance</th>
+                            <th scope="col" class="fr-text">Type d'aide</th>
+                            <th scope="col" class="fr-text">Porteur d'aides</th>
+                            <th scope="col" class="fr-text">Suggérée le</th>
+                            <th scope="col" class="fr-text">Suggérée par</th>
+                            <th scope="col" class="fr-text">Action</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            {% if suggested_aid %}
+                            {% for aid in suggested_aid %}
+                            <tr>
+                                <td class="fr-text">
+                                    <a href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener" id="aid-{{ aid.id }}">
+                                        {{ aid.name }}
+                                    </a>
+                                </td>
+                                <td class="fr-text">
+                                    <span>{{ aid.submission_deadline|date:'d/m/Y' }}</span>
+                                    {% if aid.is_ongoing %}
+                                        <p class="fr-badge fr-badge--info fr-badge--sm">Permanente</p>
+                                    {% elif aid.has_approaching_deadline %}
+                                        <p class="fr-badge fr-badge--new fr-badge--sm">Échéance proche</p>                       
+                                    {% elif aid.has_expired %}
+                                        <p class="fr-badge fr-badge--warning fr-badge--sm">Expirée</p>
+                                    {% endif %}
+                               </td>
+                                <td class="fr-text">
+                                    {% choices_display aid 'aid_types' %}
+                                </td>
+                                <td class="fr-text">
+                                    <ul>
+                                    {% for financer in aid.financers.all %}
+                                        <li>
+                                            <a href="{% url 'backer_detail_view' financer.pk financer.slug %}" target="_blank" rel="noopener">
+                                            {{ financer.name }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                                </td>       
+                                {% for suggestedaidproject in SuggestedAidProject %}
+                                {% if suggestedaidproject.aid == aid %}
+                                <td class="fr-text">
+                                    {{ suggestedaidproject.date_created|date:'d/m/y' }}
+                                </td>
+                                <td class="fr-text">
+                                    {{ suggestedaidproject.creator.beneficiary_organization.name }}
+                                </td>                                
+                                {% endif %}
+                                {% endfor %}
+                                <td class="fr-text">
+                                    <button
+                                        class="fr-btn fr-icon-checkbox-circle-fill fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"
+                                        id="associate-suggested-aid-modal-btn-{{ aid.id }}"
+                                        title="Associer cette aide"
+                                        data-fr-opened="false"
+                                        aria-controls="associate-suggested-aid-modal-{{ aid.slug }}"
+                                        aria-describedby="aid-{{ aid.id }}"
+                                    >
+                                        Associer cette aide
+                                    </button>
+                                    <button
+                                        class="fr-btn fr-icon-close-circle-fill fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"
+                                        id="remove-suggested-aid-modal-btn-{{ aid.id }}"
+                                        title="Supprimer cette aide"
+                                        data-fr-opened="false"
+                                        aria-controls="remove-suggested-aid-modal-{{ aid.slug }}"
+                                        aria-describedby="aid-{{ aid.id }}"
+                                    >
+                                        Supprimer cette aide
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                        <tbody>
+                            <tr>
+                                <td colspan="6" class="fr-text at-centered-important">
+                                    Aucune aide n'a été suggérée pour ce projet pour l’instant
+                                </td>
+                            </tr>
+                        </tbody>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+
             <!-- <a href="{% url 'project_list_view' %}" class="fr-btn">
                 <span class="ri-arrow-left-line fr-pr-1w"></span>
                 Retour aux projets
@@ -200,6 +344,12 @@
     {% if aid_set %}
         {% for aid in aid_set %}    
             {% include 'projects/_delete_aid_modal.html' with aid=aid.slug %}
+        {% endfor %}
+    {% endif %}
+    {% if suggested_aid %}
+        {% for aid in suggested_aid %}    
+            {% include 'projects/_associate_suggested_aid_modal.html' with aid=aid.slug %}
+            {% include 'projects/_remove_suggested_aid_modal.html' with aid=aid.slug %}
         {% endfor %}
     {% endif %}
 {% endblock modals %}

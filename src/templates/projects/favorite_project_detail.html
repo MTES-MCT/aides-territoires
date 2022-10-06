@@ -1,0 +1,112 @@
+{% extends "_base.html" %}
+{% load i18n aids compress %}
+
+{% block extratitle %}Mon projet favori « {{ project.name }} »{% endblock extratitle %}
+
+{% block extraclasses %}light{% endblock extraclasses %}
+
+{% block sectionid %}user-account{% endblock sectionid %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'favorite_project_list_view' %}">Mes projets favoris</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mon projet favori « {{ project.name }} »</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' with favorite_project_admin=True %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <div class="fr-grid-row">
+              <div class="fr-col-12 fr-col-md-9">
+                  <h1 class="fr-h3">Mon projet favori « {{ project.name }} »</h1>
+              </div>
+              <div class="fr-col-12 fr-col-md-3">
+                <a href="{% url 'favorite_project_list_view' %}" class="fr-m-1w fr-tag _fr-tag--md fr-text--md fr-icon-arrow-left-line fr-tag--icon-left">Retour aux projets favoris</a>
+              </div>
+            </div>
+
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                Date de création du projet&nbsp;:
+                {{ project.date_created|date:'d/m/y' }}
+            </p>
+
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                Date d'échéance du projet&nbsp;:
+                {% if project.due_date %}
+                {{ project.due_date|date:'d/m/y' }}
+                {% else %}
+                aucune
+                {% endif %}
+            </p>
+
+            {% if project.project_types.all %}
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">Types de projet&nbsp;:
+            {% for project_type in project.project_types.all %}
+            {% if forloop.last %}
+            <span>{{ project_type }}</span>
+            {% else %}
+            <span>{{ project_type }},</span>
+            {% endif %}
+            {% endfor %}
+            </p>
+            {% endif %}
+
+            {% if project.description %}
+                <section class="fr-accordion fr-mb-5w">
+                    <h3 class="fr-accordion__title">
+                        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="project-description">
+                            <span class="fr-text--sm fr-mb-0">
+                                Voir la description de ce projet
+                            </span>
+                        </button>
+                    </h3>
+                    <div class="fr-collapse" id="project-description">
+                        {{ project.description|safe }}
+                    </div>
+                </section>
+            {% else %}
+            <p class="fr-mb-5w fr-pl-2w fr-text--sm">Description du projet : aucune</p>
+            {% endif %}
+
+            {% include "projects/favorite_or_public_project_aids_list.html" %}
+
+            <div class="fr-container fr-centered">
+<!--                 <button class="fr-btn fr-btn--secondary" data-fr-opened="false" aria-controls="}">
+                    Supprimer ce projet de mes favoris
+                </button> -->
+                <button class="fr-btn" data-fr-opened="{% if error_aid %}true{% endif %}" aria-controls="suggest-aid-modal">
+                    Suggérer une aide pour ce projet
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block modals %}
+    {% include 'projects/_suggest_aid_modal.html' with aid=aid %}
+{% endblock modals %}
+

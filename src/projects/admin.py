@@ -25,23 +25,30 @@ class ProjectAdmin(ImportExportActionModelAdmin):
     resource_class = ProjectResource
     formats = [base_formats.CSV, base_formats.XLSX]
     form = ProjectForm
-    list_display = ["name", "date_created"]
+    list_display = ["name", "date_created", "is_public", "status"]
+    list_filter = ["is_public", "status", "contract_link"]
     prepopulated_fields = {"slug": ("name",)}
     fields = [
         "name",
         "slug",
         "description",
+        "private_description",
         "key_words",
         "author",
         "organizations",
         "nb_aids_associated",
         "display_related_aids",
         "due_date",
+        "is_public",
+        "contract_link",
+        "project_types",
+        "project_types_suggestion",
+        "status",
         "date_created",
     ]
     search_fields = ["name"]
     readonly_fields = ["date_created", "nb_aids_associated", "display_related_aids"]
-    autocomplete_fields = ["organizations", "author"]
+    autocomplete_fields = ["organizations", "author", "project_types"]
 
     def display_related_aids(self, obj):
         related_aid_html = format_html(

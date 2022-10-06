@@ -17,24 +17,22 @@
                         <p><strong>Souhaitez-vous chercher des aides maintenant ?</strong></p>
                         <p><span aria-hidden=”true”>💡</span> Pour trouver des aides spécifiques à votre projet, n’hésitez pas à élargir le champ lexical ou à mettre des synonymes.</p>
                         {% endif %}
-                        <section>
-                            <footer>
-                                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--right">
-                                    <li>
-                                        <button class="btn-block fr-btn fr-btn--secondary" type="button" title="Fermer la fenêtre modale" aria-controls="project-search-aid-modal-{{ project }}">Non merci</button>
-                                    </li>
-                                    <li>
-                                        {% if aid_results > 0 %}
-                                            <a href="{% url 'search_view' %}?text={{ text_encoded }}&perimeter={{ perimeter }}&targeted_audiences={{ audience }}" class="fr-btn">
-                                        {% else %}
-                                            <a href="{% url 'search_view' %}?perimeter={{ perimeter }}&targeted_audiences={{ audience }}" class="fr-btn">
-                                        {% endif %}
-                                        OK, j’y vais!
-                                        </a>
-                                    </li>
-                                </ul>
-                            </footer>
-                        </section>
+                        <footer>
+                            <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--right">
+                                <li>
+                                    <button class="btn-block fr-btn fr-btn--secondary" type="button" title="Fermer la fenêtre modale" aria-controls="project-search-aid-modal-{{ project }}">Non merci</button>
+                                </li>
+                                <li>
+                                    {% if aid_results > 0 %}
+                                        <a href="{% url 'search_view' %}?text={{ text_encoded }}&perimeter={{ perimeter }}&targeted_audiences={{ audience }}" class="fr-btn">
+                                    {% else %}
+                                        <a href="{% url 'search_view' %}?perimeter={{ perimeter }}&targeted_audiences={{ audience }}" class="fr-btn">
+                                    {% endif %}
+                                    OK, j’y vais!
+                                    </a>
+                                </li>
+                            </ul>
+                        </footer>
                     </div>
                 </div>
             </div>

@@ -7,6 +7,7 @@ from home.tasks import send_contact_form_email
 from aids.models import Aid
 from backers.models import Backer
 from categories.models import Category
+from projects.models import Project
 
 
 class HomeView(TemplateView):
@@ -32,6 +33,11 @@ class HomeView(TemplateView):
         context["nb_backers"] = Backer.objects.has_financed_aids().count()
         context["subset_selected_backers"] = subset_selected_backers
         context["skiplinks"] = [{"link": "#intro", "label": "Contenu"}]
+        context["public_projects"] = (
+            Project.objects.filter(is_public=True, status=Project.STATUS.published)
+            .all()
+            .order_by("-date_created")[:3]
+        )
 
         return context
 

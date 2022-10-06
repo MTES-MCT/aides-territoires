@@ -1,0 +1,72 @@
+{% load aids %}
+
+<div class="fr-table">
+    <table class="data-table at-table--xl">
+        <caption class="fr-sr-only">
+            Liste des aides sélectionnées :
+        </caption>
+        <thead>
+            <tr>
+                <th scope="col" class="fr-text">Nom</th>
+                <th scope="col" class="fr-text">Echéance</th>
+                <th scope="col" class="fr-text">Type d'aide</th>
+                <th scope="col" class="fr-text">Porteur d'aides</th>
+                <th scope="col" class="fr-text">Ajoutée le</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% if aid_set %}
+                {% for aid in aid_set %}
+                <tr>
+                    <td class="fr-text">
+                        <a href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener" id="aid-{{ aid.id }}">
+                            {{ aid.name }}
+                            <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span>
+                        </a>
+                    </td>
+                    <td class="fr-text">
+                        <span>{{ aid.submission_deadline|date:'d/m/Y' }}</span>
+                        {% if aid.is_ongoing %}
+                            <p class="fr-badge fr-badge--info fr-badge--sm">Permanente</p>
+                        {% elif aid.has_approaching_deadline %}
+                            <p class="fr-badge fr-badge--new fr-badge--sm">Échéance proche</p>                       
+                        {% elif aid.has_expired %}
+                            <p class="fr-badge fr-badge--warning fr-badge--sm">Expirée</p>
+                        {% endif %}
+                   </td>
+                    <td class="fr-text">
+                        {% choices_display aid 'aid_types' %}
+                    </td>
+                    <td class="fr-text">
+                        <ul>
+                        {% for financer in aid.financers.all %}
+                            <li>
+                                <a href="{% url 'backer_detail_view' financer.pk financer.slug %}" target="_blank" rel="noopener">
+                                {{ financer.name }}
+                                <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span>
+                            </a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </td>       
+                    {% for aidproject in AidProject %}
+                    {% if aidproject.aid == aid %}
+                    <td class="fr-text">
+                        {{ aidproject.date_created|date:'d/m/y' }}
+                    </td>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            {% else %}
+            <tbody>
+                <tr>
+                    <td colspan="6" class="fr-text at-centered-important">
+                        Aucune aide n'a été ajouté à ce projet pour l’instant
+                    </td>
+                </tr>
+            </tbody>
+            {% endif %}
+        </tbody>
+    </table>
+</div>

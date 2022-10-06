@@ -1,0 +1,43 @@
+{% load dsfr_tags %}
+
+<p>Les champs marqués d’un astérisque (*) sont obligatoires.</p> 
+
+{% block form_header %}{% endblock form_header %}
+{% csrf_token %}
+{{ form.media }}
+
+{% include '_form_header.html' with form=form %}
+
+{% if form.non_field_errors %}
+<div class="fr-alert fr-alert--info fr-alert--sm">
+    {{ form.non_field_errors.0 }}
+</div>
+{% endif %}
+
+{% include '_field_snippet.html' with field=form.name %}
+{% include '_field_snippet.html' with field=form.description %}
+{% include '_field_snippet.html' with field=form.private_description %}
+{% include '_calendar_snippet.html' with field=form.due_date %}
+{% dsfr_form_field form.project_types %}
+{% include '_field_snippet.html' with field=form.project_types_suggestion %}
+{% include '_field_snippet.html' with field=form.contract_link %}
+
+
+{% if org_is_commune_or_epci %}
+{% if org_details_completed %}
+{% include '_checkbox_snippet.html' with field=form.is_public %}
+{% else %}
+<div class="fr-checkbox-group" required="">
+    <input type="checkbox" name="is_public" required="" id="id_is_public" disabled>
+    <label for="id_is_public">Souhaitez-vous rendre ce projet public sur Aides-territoires?</label>                 
+    <div class="fr-hint-text">
+    Les informations de votre structure doivent avoir été complétées afin que ce choix soit possible.
+    </div> 
+</div>
+{% endif %}
+<div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
+    <p>Les projets que vous rendez publics sont visibles et consultables par tout utilisateur connecté.</p>
+    <p>Pourquoi&nbsp;? Rendre vos projets publics permettra à d’autres collectivités de s’inspirer, de vous aider en vous partageant des aides, mais également à des porteurs d’aides ou des accompagnateurs (dont les services déconcentrés) d’identifier vos projets et de mieux vous accompagner&nbsp;!</p>
+    <p>Vous pourrez également suivre les projets qui vous intéressent, et partager votre expérience avec vos pairs.</p>
+</div>
+{% endif %}

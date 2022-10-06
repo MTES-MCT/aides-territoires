@@ -4,10 +4,12 @@ from django.db.models import F
 from django.contrib.postgres.search import SearchRank
 
 from rest_framework import viewsets, mixins
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from core.api.pagination import ApiPagination
 from keywords.models import SynonymList
-from keywords.api.serializers import SynonymListSerializer
+from keywords.api.serializers import SynonymListSerializer, SynonymClassicListSerializer
 
 
 class SynonymListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -34,3 +36,9 @@ class SynonymListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)
+
+    @action(detail=False, url_path="classic-list")
+    def classic_list(self, request):
+        classic = self.get_queryset()
+        classic_serializer = SynonymClassicListSerializer(classic, many=True).data
+        return Response(classic_serializer)

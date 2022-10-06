@@ -1,0 +1,85 @@
+{% extends "_base.html" %}
+{% load i18n compress static %}
+
+{% block extratitle %}Projets publics{% endblock extratitle %}
+
+{% block extra_head %}
+<meta property="og:title" content="Aides-territoires | Toutes les aides pour les acteurs locaux  🏡" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="Trouvez les aides pertinentes pour financer et accompagner les projets de votre territoire" />
+<meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
+<meta property="og:site_name" content="Aides-territoires" />
+<meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
+<meta property="og:image:alt" content="Logo : Aides-territoires" />
+{% endblock extra_head %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Projets publics</a>
+                </li>
+           </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="fr-container">
+    <div>
+        <div class="fr-col-md-12">
+            <h1>
+                {% with paginator.count as nb_projects %}
+                <span class="result-count">
+                    {{ nb_projects }} résultat{% if nb_projects > 1 %}s{% endif %}
+                </span>
+                {% endwith %}
+            </h1>
+
+            {% if not user.is_authenticated %}
+            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
+                <p class="fr-mt-2w"><strong>L'affichage complet de cette page est réservé aux utilisateurs connectés.</strong></p>
+                <p><a href="{% url 'login' %}?next={% url 'public_project_list_view'%}">Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin d'afficher toutes les informations relatives aux projets !</p>
+            </div>
+            {% else %}
+            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
+                <p class="fr-mt-2w"><strong>Découvrez ici les projets rendus publics par les collectivités, conseillez-leur des aides, inspirez-vous, et suivez-les en les ajoutant à vos favoris. </strong></p>
+            </div>
+            {% endif %}
+
+            <div class="fr-grid-row" id="projects-list">
+                {% if projects %}
+                {% for project in projects %}
+                {% include "projects/_public_project_card.html" %}
+                {% endfor %}
+                {% else %}
+                <div class="empty-result fr-mb-5w">
+                    <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
+                        <p>Nous n’avons pu trouver aucun résultat.</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% include '_pagination.html' %}
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_css %}
+{% compress css %}
+{% endcompress %}
+{% endblock extra_css %}
+
+{% block extra_js %}
+{% compress js %}
+{% endcompress %}
+{% endblock extra_js %}

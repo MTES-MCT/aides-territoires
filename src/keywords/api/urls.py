@@ -4,7 +4,7 @@ from keywords.api.views import SynonymListViewSet
 
 
 router = routers.SimpleRouter()
-router.register('', SynonymListViewSet, basename='synonymLists')
+router.register("", SynonymListViewSet, basename="synonymLists")
 
 
 urlpatterns = router.urls

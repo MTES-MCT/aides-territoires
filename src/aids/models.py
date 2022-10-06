@@ -306,6 +306,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     projects = models.ManyToManyField(
         "projects.Project", through="AidProject", verbose_name="Projets", blank=True
     )
+    suggested_projects = models.ManyToManyField(
+        "projects.Project",
+        through="SuggestedAidProject",
+        related_name="suggested_aid",
+        verbose_name="Projets suggérés",
+        blank=True,
+    )
     eligibility = models.TextField("Éligibilité", blank=True)
     perimeter = models.ForeignKey(
         "geofr.Perimeter",
@@ -815,3 +822,43 @@ class AidProject(models.Model):
         null=True,
     )
     date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+
+class SuggestedAidProject(models.Model):
+
+    aid = models.ForeignKey(
+        "Aid", on_delete=models.CASCADE, verbose_name="Aide suggérée", blank=True
+    )
+    project = models.ForeignKey(
+        "projects.Project", on_delete=models.CASCADE, verbose_name="Projet", blank=True
+    )
+    creator = models.ForeignKey(
+        "accounts.User",
+        on_delete=models.SET_NULL,
+        verbose_name="Créateur",
+        blank=True,
+        null=True,
+    )
+    is_associated = models.BooleanField(
+        "Aide associée ?",
+        help_text="Cette aide a-t-elle été acceptée par le porteur du projet ?",
+        default=False,
+    )
+    is_rejected = models.BooleanField(
+        "Aide rejetée ?",
+        help_text="Cette aide a-t-elle été rejetée par le porteur du projet ?",
+        default=False,
+    )
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+    date_associated = models.DateTimeField(
+        "Date d'association",
+        help_text="Date à laquelle cette aide a été acceptée par le porteur du projet",
+        null=True,
+        blank=True,
+    )
+    date_rejected = models.DateTimeField(
+        "Date de rejet",
+        help_text="Date à laquelle cette aide a été rejetée par le porteur du projet",
+        null=True,
+        blank=True,
+    )

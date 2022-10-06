@@ -16,7 +16,14 @@ from core.services.json_compare import json_compare
 from accounts.admin import AuthorFilter
 from admin_lite.mixins import WithViewPermission
 from aids.forms import AidAdminForm
-from aids.models import Aid, AidWorkflow, AidFinancer, AidInstructor, AidProject
+from aids.models import (
+    Aid,
+    AidWorkflow,
+    AidFinancer,
+    AidInstructor,
+    AidProject,
+    SuggestedAidProject,
+)
 from aids.resources import AidResource
 from aids.utils import generate_clone_title
 from core.admin import InputFilter, pretty_print_readonly_jsonfield
@@ -655,9 +662,30 @@ class AmendmentAdmin(admin.ModelAdmin):
 
 class AidProjectAdmin(admin.ModelAdmin):
     list_display = ["aid", "project", "creator", "date_created"]
+    readonly_fields = [
+        "aid",
+        "project",
+        "creator",
+        "date_created",
+    ]
+
+
+class SuggestedAidProjectAdmin(admin.ModelAdmin):
+    list_display = ["aid", "project", "is_associated", "is_rejected", "date_created"]
+    readonly_fields = [
+        "aid",
+        "project",
+        "creator",
+        "is_associated",
+        "is_rejected",
+        "date_created",
+        "date_associated",
+        "date_rejected",
+    ]
 
 
 admin.site.register(Aid, AidAdmin)
 admin.site.register(DeletedAid, DeletedAidAdmin)
 admin.site.register(Amendment, AmendmentAdmin)
 admin.site.register(AidProject, AidProjectAdmin)
+admin.site.register(SuggestedAidProject, SuggestedAidProjectAdmin)
