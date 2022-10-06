@@ -580,68 +580,6 @@ msgstr "Aides en brouillon"
 msgid "Home"
 msgstr "Accueil"
 
-msgid "Fill out the required data"
-msgstr "Remplir les données requises"
-
-msgid ""
-"You have a contributor account. Fill in the form below to update your "
-"profile."
-msgstr ""
-"Vous bénéficiez d’un compte contributeur. Vous pouvez mettre à jour vos "
-"informations ci-dessous."
-
-msgid "We will use this data to help validate the aids your contribute."
-msgstr ""
-"Ces informations nous sont essentielles pour garantir la qualité des données "
-"présentes sur le site."
-
-msgid "Log in to your contributor account"
-msgstr "Connexion à votre compte contributeur"
-
-msgid "Sorry, it looks like something went wrong. We could not log you in."
-msgstr ""
-"Désolé, il semble que quelque chose se soit mal passé. Nous n'avons pu "
-"accéder à votre demande de connexion."
-
-msgid "Update your profile"
-msgstr "Mettre à jour votre profil"
-
-msgid "Create an account to broadcast your aids"
-msgstr "Créez un compte pour diffuser vos aides"
-
-#, python-format
-msgid ""
-"If you want to browse our aids catalog, <a href=\"%(search_url)s\"> use our "
-"search form</a>."
-msgstr ""
-"Si vous souhaitez bénéficier des aides financières et en ingénierie des "
-"porteurs, <a href=\"%(search_url)s\">utilisez notre recherche</a>."
-
-#, python-format
-msgid ""
-"Do you already have an account? <a href=\"%(login_url)s\">Proceed to the "
-"login form.</a>"
-msgstr ""
-"Vous disposez déjà d'un compte ? <a href=\"%(login_url)s\">Rendez-vous sur "
-"la page de connexion.</a>"
-
-msgid "Create an account"
-msgstr "Créer un compte"
-
-msgid "You registered successfully"
-msgstr "Compte créé"
-
-msgid "Thank you for registering an account"
-msgstr "Merci d'avoir créé un compte"
-
-msgid ""
-"<strong>One more step is required before your account is active</strong> : "
-"check your mailbox and click on the confirmation link."
-msgstr ""
-"<strong>Une étape supplémentaire est nécessaire avant d'activer votre "
-"compte</strong> : consultez votre messagerie et cliquez sur le lien de "
-"confirmation."
-
 msgid "Aids by this author"
 msgstr "Aides par cet auteur"
 

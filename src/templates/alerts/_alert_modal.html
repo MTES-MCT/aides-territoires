@@ -7,46 +7,71 @@
                         <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="alert-search-modal">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        <h2 id="fr-modal-title-alert-search" class="fr-modal__title">
-                            <span class="fr-icon-arrow-right-line fr-icon--lg"></span>Soyez notifié des nouvelles aides correspondant à votre recherche
-                        </h2>
+                        {% if not search_page and not user.is_authenticated %}
+                            <h2 id="fr-modal-title-alert-search" class="fr-modal__title">
+                                <span class="fr-icon-arrow-right-line fr-icon--lg"></span>Connectez-vous pour être notifié des nouvelles aides correspondant
+                                à votre recherche, et gérer les paramètres de vos alertes
+                            </h2>
+                            <p>
+                                Les boutons ci-dessous ouvrent un onglet séparé. Une fois connecté, vous pourrez
+                                revenir ici et actualiser la page pour continuer la création de l’alerte.
+                            </p>
+                            <ul class="fr-btns-group fr-btns-group--inline-md fr-btns-group--icon-left">
+                                <li>
+                                    <a class="fr-btn fr-icon-lock-line" href="{% url 'login' %}" target="_blank" rel="noopener" title="Se connecter - ouvre une nouvelle fenêtre">
+                                        Se connecter
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="fr-btn fr-icon-account-line" href="{% url 'register' %}" target="_blank" rel="noopener" title="S’inscrire - ouvre une nouvelle fenêtre">
+                                        S’inscrire
+                                    </a>
+                                </li>
+                            </ul>
+                        {% else  %}
+                            <h2 id="fr-modal-title-alert-search" class="fr-modal__title">
+                                <span class="fr-icon-arrow-right-line fr-icon--lg"></span>Soyez notifié des nouvelles aides correspondant à votre recherche
+                            </h2>
 
-                        <form id="alert-form" action="{% url 'alert_create_view' %}" method="post">
-                            <div>
-                                <div class="content">
-                                    <div class="fr-mb-3w">
-                                        <h3 class="fr-h6">Les filtres sélectionnés</h3>
-                                        {% include 'aids/_search_meta.html' with display="all" %}
+                            <form id="alert-form" action="{% url 'alert_create_view' %}" method="post">
+                                <div>
+                                    <div class="content">
+                                        <div class="fr-mb-3w">
+                                            <h3 class="fr-h6">Les filtres sélectionnés</h3>
+                                            {% include 'aids/_search_meta.html' with display="all" %}
+                                        </div>
+
+                                        {% csrf_token %}
+
+                                        <p>Les champs marqués d’un astérisque (*) sont obligatoires.</p>
+
+                                        {% if not search_page and user.is_authenticated %}
+                                            <input type="email" name="email" hidden value="{{ user.email }}" id="id_email" />
+                                        {% else %}
+                                            {% include '_field_snippet.html' with field=alert_form.email %}
+                                        {% endif %}
+
+                                        {% include '_field_snippet.html' with field=alert_form.title %}
+                                        {% include '_field_snippet.html' with field=alert_form.alert_frequency %}
+
+                                        <div class="fr-alert fr-alert--info fr-alert--sm fr-my-2w">
+                                            <p>
+                                                En créant une alerte, vous acceptez que vos données soient traitées en accord avec
+                                                <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener" title="Notre politique de confidentialité - Ouvre une nouvelle fenêtre">
+                                                    notre politique de confidentialité
+                                                </a>. 
+                                            </p>
+                                        </div>
                                     </div>
 
-                                    {% csrf_token %}
-
-                                    {% if not search_page and user.is_authenticated %}
-                                    <input type="email" name="email" hidden value="{{ user.email }}" id="id_email" />
-                                    {% else %}
-                                    {% include '_field_snippet.html' with field=alert_form.email %}
-                                    {% endif %}
-
-                                    {% include '_field_snippet.html' with field=alert_form.title %}
-                                    {% include '_field_snippet.html' with field=alert_form.alert_frequency %}
-
-                                    <div class="fr-alert fr-alert--info fr-alert--sm fr-my-2w">
-                                        <p>
-                                            En créant une alerte, vous acceptez que vos données soient traitées en accord avec
-                                            <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener" title="Notre politique de confidentialité - Ouvre une nouvelle fenêtre">
-                                                notre politique de confidentialité
-                                            </a>. 
-                                        </p>
-                                    </div>
+                                    <footer>
+                                        <button class="btn-block fr-btn" type="submit">
+                                        Créer une alerte
+                                        </button>
+                                    </footer>
                                 </div>
-
-                                <footer>
-                                    <button class="btn-block fr-btn" type="submit">
-                                       Créer une alerte
-                                    </button>
-                                </footer>
-                            </div>
-                        </form>
+                            </form>
+                        {% endif %}
                     </div>
                 </div>
             </div>

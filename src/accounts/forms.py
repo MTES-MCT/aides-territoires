@@ -19,7 +19,7 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
     ORGANIZATION_TYPE = Choices(
         ("farmer", "Agriculteur"),
         ("association", "Association"),
-        ("special", "Collectivité d'outre-mer à statuts particuliers"),
+        ("special", "Collectivité d’outre-mer à statuts particuliers"),
         ("commune", "Commune"),
         ("department", "Département"),
         ("private_sector", "Entreprise privée"),
@@ -27,7 +27,7 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
         ("epci", "Intercommunalité / Pays"),
         (
             "public_org",
-            "Établissement public (école, bibliothèque…) / Service de l'État",
+            "Établissement public (école, bibliothèque…) / Service de l’État",
         ),
         ("private_person", "Particulier"),
         ("region", "Région"),
@@ -39,7 +39,14 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
     email = forms.EmailField(
         label="Votre adresse e-mail",
         required=True,
-        help_text="Nous enverrons un e-mail de confirmation à cette adresse avant de valider le compte.",  # noqa
+        help_text="""
+            <ul>
+                <li>Par exemple : prenom.nom@domaine.fr</li>
+                <li>
+                    Nous enverrons un e-mail de confirmation à cette adresse
+                    avant de valider le compte.
+                </li>
+            </ul>""",
     )
     beneficiary_role = forms.CharField(
         label="Votre rôle", max_length=128, required=False
@@ -137,7 +144,7 @@ class RegisterCommuneForm(RegisterForm):
 class LoginForm(AuthenticationForm, DsfrBaseForm):
     error_messages = {
         "invalid_login": "Saisissez une adresse e-mail et un mot de passe valides.",
-        "inactive": "Ce compte n'est actuellement pas actif.",
+        "inactive": "Ce compte n’est actuellement pas actif.",
     }
 
     username = forms.EmailField(label="Votre adresse e-mail", required=True)
@@ -149,7 +156,7 @@ class LoginForm(AuthenticationForm, DsfrBaseForm):
     )
 
     def clean_username(self):
-        """Don't prevent users to login when they user uppercase emails."""
+        """Don't prevent users to login when they enter uppercase emails."""
 
         username = self.cleaned_data["username"]
         return username.lower()
@@ -162,7 +169,7 @@ class PasswordResetForm(DsfrBaseForm):
 
 
 class PasswordResetConfirmForm(forms.ModelForm, DsfrBaseForm):
-    """Change password after reset's request form."""
+    """Change password after reset request form."""
 
     new_password = forms.CharField(
         label="Choisissez un nouveau mot de passe",
@@ -278,7 +285,7 @@ class ContributorProfileForm(forms.ModelForm, DsfrBaseForm):
         data = super().clean()
 
         if not any((data.get("is_contributor"), data.get("is_beneficiary"))):
-            msg = "Merci de cocher au moins l'une des options."
+            msg = "Merci de cocher au moins une des options."
             self.add_error("is_beneficiary", msg)
             self.add_error("is_contributor", msg)
 
