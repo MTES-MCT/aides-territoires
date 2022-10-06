@@ -232,7 +232,7 @@
                             {% for aid in suggested_aid %}
                             <tr>
                                 <td class="fr-text">
-                                    <a href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener">
+                                    <a href="{{ aid.get_absolute_url }}" target="_blank" rel="noopener" id="aid-{{ aid.id }}">
                                         {{ aid.name }}
                                     </a>
                                 </td>
@@ -246,8 +246,6 @@
                                         <p class="fr-badge fr-badge--warning fr-badge--sm">Expirée</p>
                                     {% endif %}
                                </td>
-
-                                </td>
                                 <td class="fr-text">
                                     {% choices_display aid 'aid_types' %}
                                 </td>

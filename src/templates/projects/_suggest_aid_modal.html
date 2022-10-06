@@ -16,71 +16,69 @@
                         </p>
                         {% if user.is_authenticated %}
                         <form id="suggest-aid-modal" method="post" action="{% url 'suggest_aid_view' %}">
-                            <section>
-                                <div class="content">
-                                    {% csrf_token %}
+                            <div class="content">
+                                {% csrf_token %}
 
-                                    {% if aid_detail_page %}
-                                        {% if favorite_projects %}
-                                        <div class="fr-form-group">
-                                            <fieldset class="fr-fieldset">
-                                                <legend class="fr-fieldset__legend fr-text--regular" id='checkboxes-legend'>
-                                                    Liste des vos projets favoris
-                                                </legend>
-                                                <div class="fr-fieldset__content">
-                                                    {% for project in favorite_projects %}
-                                                    {% if project in aid.suggested_projects.all %}
-                                                    <div class="fr-checkbox-group">
-                                                        <input checked disabled type="checkbox" id="{{ project.pk }}" name="project" value="{{ project.pk }}">
-                                                        <label class="fr-label" for="{{ project.pk }}">{{ project.name }}
-                                                        </label>
-                                                    </div>
-                                                    {% else %}
-                                                    <div class="fr-checkbox-group">
-                                                        <input type="checkbox" id="{{ project.pk }}" name="project" value="{{ project.pk }}">
-                                                        <label class="fr-label" for="{{ project.pk }}">{{ project.name }}
-                                                        </label>
-                                                    </div>
-                                                    {% endif %}
-                                                    {% endfor %}
+                                {% if aid_detail_page %}
+                                    {% if favorite_projects %}
+                                    <div class="fr-form-group">
+                                        <fieldset class="fr-fieldset">
+                                            <legend class="fr-fieldset__legend fr-text--regular" id='checkboxes-legend'>
+                                                Liste des vos projets favoris
+                                            </legend>
+                                            <div class="fr-fieldset__content">
+                                                {% for project in favorite_projects %}
+                                                {% if project in aid.suggested_projects.all %}
+                                                <div class="fr-checkbox-group">
+                                                    <input checked disabled type="checkbox" id="{{ project.pk }}" name="project" value="{{ project.pk }}">
+                                                    <label class="fr-label" for="{{ project.pk }}">{{ project.name }}
+                                                    </label>
                                                 </div>
-                                            </fieldset>
-                                        </div>
-                                        <div id="form-group-aid" class="fr-input-group fr-input-group--error required">
-                                            <input name="aid" value="{{ aid.slug }}" type="hidden" class="fr-input" required="" id="id_aid">
-                                        </div>
-                                        {% else %}
-                                        <p>Vous n’avez pas encore ajouté de projet à vos favoris</p>
-                                        {% endif %}
+                                                {% else %}
+                                                <div class="fr-checkbox-group">
+                                                    <input type="checkbox" id="{{ project.pk }}" name="project" value="{{ project.pk }}">
+                                                    <label class="fr-label" for="{{ project.pk }}">{{ project.name }}
+                                                    </label>
+                                                </div>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div id="form-group-aid" class="fr-input-group fr-input-group--error required">
+                                        <input name="aid" value="{{ aid.slug }}" type="hidden" class="fr-input" required="" id="id_aid">
+                                    </div>
                                     {% else %}
-                                        <div id="form-group-project">
-                                            <input type="checkbox" checked hidden name="project" value="{{ project.pk }}" id="{{ project.pk }}" />
-                                        </div>
-                                        {% include '_field_snippet.html' with field=suggest_aid_form.aid %}
+                                    <p>Vous n’avez pas encore ajouté de projet à vos favoris</p>
                                     {% endif %}
+                                {% else %}
+                                    <div id="form-group-project">
+                                        <input type="checkbox" checked hidden name="project" value="{{ project.pk }}" id="{{ project.pk }}" />
+                                    </div>
+                                    {% include '_field_snippet.html' with field=suggest_aid_form.aid %}
+                                {% endif %}
 
-                                    <footer>
-                                        {% if public_project_page %}
-                                            <button class="btn-block fr-btn fr-mt-2w" name="origin_page" value="public_project_page" type="submit">
-                                                Suggérer une aide
-                                            </button>
-                                        {% elif favorite_project_page %}
-                                            <button class="btn-block fr-btn fr-mt-2w" name="origin_page" value="favorite_project_page" type="submit">
-                                                Suggérer une aide
-                                            </button>
-                                        {% elif aid_detail_page %}
-                                            <button class="btn-block fr-btn fr-mt-2w" name="origin_page" value="aid_detail_page" type="submit" {% if not favorite_projects %} disabled {% endif %}>
-                                                Suggérer une aide
-                                            </button>
-                                        {% else %}
-                                            <button class="btn-block fr-btn fr-mt-2w" type="submit">
-                                                Suggérer une aide
-                                            </button>
-                                        {% endif %}
-                                        <button class="btn-block fr-btn fr-btn--secondary" type="button" title="Fermer la fenêtre modale" aria-controls="suggest-aid-modal">Annuler</button>
-                                    </footer>
-                                </div>
-                            </section>
+                                <footer>
+                                    {% if public_project_page %}
+                                        <button class="btn-block fr-btn fr-mt-2w" name="origin_page" value="public_project_page" type="submit">
+                                            Suggérer une aide
+                                        </button>
+                                    {% elif favorite_project_page %}
+                                        <button class="btn-block fr-btn fr-mt-2w" name="origin_page" value="favorite_project_page" type="submit">
+                                            Suggérer une aide
+                                        </button>
+                                    {% elif aid_detail_page %}
+                                        <button class="btn-block fr-btn fr-mt-2w" name="origin_page" value="aid_detail_page" type="submit" {% if not favorite_projects %} disabled {% endif %}>
+                                            Suggérer une aide
+                                        </button>
+                                    {% else %}
+                                        <button class="btn-block fr-btn fr-mt-2w" type="submit">
+                                            Suggérer une aide
+                                        </button>
+                                    {% endif %}
+                                    <button class="btn-block fr-btn fr-btn--secondary" type="button" title="Fermer la fenêtre modale" aria-controls="suggest-aid-modal">Annuler</button>
+                                </footer>
+                            </div>
                         </form>
                         {% else %}
                         {% if public_project_page %}

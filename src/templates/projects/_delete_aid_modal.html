@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<dialog aria-labelledby="fr-modal-title-delete-aid" role="dialog" id="delete-aid-modal-{{ aid }}" class="fr-modal">
+<dialog aria-labelledby="fr-modal-title-delete-aid--{{ aid }}" role="dialog" id="delete-aid-modal-{{ aid }}" class="fr-modal">
     <div class="fr-container fr-container--fluid fr-container-md">
         <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
@@ -9,29 +9,27 @@
                         <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="delete-aid-modal-{{ aid }}">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        <h2 id="fr-modal-title-delete-aid" class="fr-modal__title"><span class="fr-icon-arrow-right-line fr-icon--lg"></span>Supprimer cette aide</h2>
+                        <h2 id="fr-modal-title-delete-aid--{{ aid }}" class="fr-modal__title"><span class="fr-icon-arrow-right-line fr-icon--lg"></span>Supprimer cette aide</h2>
 
                         <p>En cliquant sur le bouton ci-dessous, vous supprimerez définitivement cette aide de votre projet.</p>
                         <form action="{% url 'aid_unmatch_project_view' aid %}" method="post">
-                            <section>
-                                <div class="content">
-                                    {% csrf_token %}
-                                    <input name="project-pk" value="{{ project.pk }}" type="hidden" />
-                                    <input name="project-slug" value="{{ project.slug }}" type="hidden" />
-                                </div>
-                                <footer>
-                                    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--right">
-                                        <li>
-                                            <button class="btn-block fr-btn fr-btn--secondary" type="button" title="Fermer la fenêtre modale" aria-controls="delete-aid-modal-{{ aid }}">Annuler</button>
-                                        </li>
-                                        <li>
-                                            <button type="submit" class="fr-btn">
-                                                Supprimer cette aide
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </footer>
-                            </section>
+                            <div class="content">
+                                {% csrf_token %}
+                                <input name="project-pk" value="{{ project.pk }}" type="hidden" />
+                                <input name="project-slug" value="{{ project.slug }}" type="hidden" />
+                            </div>
+                            <footer>
+                                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--right">
+                                    <li>
+                                        <button class="btn-block fr-btn fr-btn--secondary" type="button" title="Fermer la fenêtre modale" aria-controls="delete-aid-modal-{{ aid }}">Annuler</button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" class="fr-btn">
+                                            Supprimer cette aide
+                                        </button>
+                                    </li>
+                                </ul>
+                            </footer>
                         </form>
                     </div>
                 </div>
