@@ -6,13 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0146_auto_20210806_1549'),
+        ("aids", "0146_auto_20210806_1549"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='name_initial',
-            field=models.CharField(blank=True, help_text='Comment cette aide s’intitule-t-elle au sein de votre structure ? Exemple : AAP Mob’Biodiv', max_length=180, null=True, verbose_name='Nom initial'),
+            model_name="aid",
+            name="name_initial",
+            field=models.CharField(
+                blank=True,
+                help_text="Comment cette aide s’intitule-t-elle au sein de votre structure ? Exemple : AAP Mob’Biodiv",
+                max_length=180,
+                null=True,
+                verbose_name="Nom initial",
+            ),
         ),
     ]

@@ -6,11 +6,11 @@ from django.db import migrations
 def remove_audiances_values(apps, schema_editor):
     """Remove deleted values in aid audiances field."""
 
-    Aid = apps.get_model('aids', 'Aid')
+    Aid = apps.get_model("aids", "Aid")
     aids = Aid.objects.all()
 
     for aid in aids:
-        for field in ('company', 'civil_society', 'association', 'other'):
+        for field in ("company", "civil_society", "association", "other"):
             if field in aid.targeted_audiances:
                 aid.targeted_audiances.remove(field)
 
@@ -20,10 +20,9 @@ def remove_audiances_values(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0022_remove_survey_values'),
+        ("aids", "0022_remove_survey_values"),
     ]
 
     operations = [
-        migrations.RunPython(
-            remove_audiances_values, migrations.RunPython.noop),
+        migrations.RunPython(remove_audiances_values, migrations.RunPython.noop),
     ]

@@ -7,37 +7,123 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0005_aid_eligibility'),
+        ("aids", "0005_aid_eligibility"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='aid',
-            name='thematics_detail',
+            model_name="aid",
+            name="thematics_detail",
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='aid_types',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('grant', 'Grant'), ('convention', 'Convention'), ('training', 'Training'), ('interest_subsidy', 'Interest subsidy'), ('loan', 'Loan'), ('recoverable_advance', 'Recoverable advance'), ('guarantee', 'Guarantee'), ('low_interest_rate_loan', 'Low interest rate loan'), ('capital investment', 'Capital investment'), ('tax_benefit', 'Tax benefit'), ('return_fund', 'Return fund'), ('engineering', 'Engineering'), ('guidance', 'Guidance'), ('valorisation', 'Valorisation'), ('communication', 'Communication'), ('other', 'Other')], max_length=32), blank=True, size=None, verbose_name='Aid types'),
+            model_name="aid",
+            name="aid_types",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("grant", "Grant"),
+                        ("convention", "Convention"),
+                        ("training", "Training"),
+                        ("interest_subsidy", "Interest subsidy"),
+                        ("loan", "Loan"),
+                        ("recoverable_advance", "Recoverable advance"),
+                        ("guarantee", "Guarantee"),
+                        ("low_interest_rate_loan", "Low interest rate loan"),
+                        ("capital investment", "Capital investment"),
+                        ("tax_benefit", "Tax benefit"),
+                        ("return_fund", "Return fund"),
+                        ("engineering", "Engineering"),
+                        ("guidance", "Guidance"),
+                        ("valorisation", "Valorisation"),
+                        ("communication", "Communication"),
+                        ("other", "Other"),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                size=None,
+                verbose_name="Aid types",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='destinations',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('investment', 'Investment'), ('operation', 'Operation'), ('survey', 'Survey'), ('supply', 'Supply'), ('service', 'Service (AMO)'), ('works', 'Works'), ('other', 'Other')], max_length=32), blank=True, size=None, verbose_name='Destinations'),
+            model_name="aid",
+            name="destinations",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("investment", "Investment"),
+                        ("operation", "Operation"),
+                        ("survey", "Survey"),
+                        ("supply", "Supply"),
+                        ("service", "Service (AMO)"),
+                        ("works", "Works"),
+                        ("other", "Other"),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                size=None,
+                verbose_name="Destinations",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='mobilization_steps',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('preop', 'Preoperational'), ('op', 'Operational'), ('postop', 'Postoperation')], default='preop', max_length=32), size=None, verbose_name='Mobilization step'),
+            model_name="aid",
+            name="mobilization_steps",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("preop", "Preoperational"),
+                        ("op", "Operational"),
+                        ("postop", "Postoperation"),
+                    ],
+                    default="preop",
+                    max_length=32,
+                ),
+                size=None,
+                verbose_name="Mobilization step",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='targeted_audiances',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Commune'), ('department', 'Department'), ('region', 'Region'), ('epci', 'EPCI'), ('company', 'Company'), ('civil_society', 'Civil society'), ('association', 'Association'), ('other', 'Other')], max_length=32), blank=True, size=None, verbose_name='Targeted audiances'),
+            model_name="aid",
+            name="targeted_audiances",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("commune", "Commune"),
+                        ("department", "Department"),
+                        ("region", "Region"),
+                        ("epci", "EPCI"),
+                        ("company", "Company"),
+                        ("civil_society", "Civil society"),
+                        ("association", "Association"),
+                        ("other", "Other"),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                size=None,
+                verbose_name="Targeted audiances",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='thematics',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('sustainable_management', 'Sustainable management'), ('local_development', 'Local development'), ('infrastructure_networks', 'Infrastructure and networks'), ('solidarity_social_cohesion', 'Solidarity and social cohesion')], max_length=32), blank=True, size=None, verbose_name='Thematics'),
+            model_name="aid",
+            name="thematics",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("sustainable_management", "Sustainable management"),
+                        ("local_development", "Local development"),
+                        ("infrastructure_networks", "Infrastructure and networks"),
+                        (
+                            "solidarity_social_cohesion",
+                            "Solidarity and social cohesion",
+                        ),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                size=None,
+                verbose_name="Thematics",
+            ),
         ),
     ]

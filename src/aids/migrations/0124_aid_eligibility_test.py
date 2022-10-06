@@ -7,14 +7,21 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('eligibility', '0002_eligibilitytest'),
-        ('aids', '0123_aid_import_data_source'),
+        ("eligibility", "0002_eligibilitytest"),
+        ("aids", "0123_aid_import_data_source"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='eligibility_test',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='aids', to='eligibility.eligibilitytest', verbose_name='Eligibility test'),
+            model_name="aid",
+            name="eligibility_test",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="aids",
+                to="eligibility.eligibilitytest",
+                verbose_name="Eligibility test",
+            ),
         ),
     ]

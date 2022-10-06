@@ -6,15 +6,14 @@ from django.db import migrations
 def remove_choices_from_destinations(apps, schema_editor):
     """Remove "investment" and "operation" from `destinations` field."""
 
-    Aid = apps.get_model('aids', 'Aid')
-    aids = Aid.objects.all().filter(destinations__overlap=['investment',
-                                                           'operation'])
+    Aid = apps.get_model("aids", "Aid")
+    aids = Aid.objects.all().filter(destinations__overlap=["investment", "operation"])
     for aid in aids:
-        if 'investment' in aid.destinations:
-            aid.destinations.remove('investment')
+        if "investment" in aid.destinations:
+            aid.destinations.remove("investment")
 
-        if 'operation' in aid.destinations:
-            aid.destinations.remove('operation')
+        if "operation" in aid.destinations:
+            aid.destinations.remove("operation")
 
         aid.save()
 
@@ -22,9 +21,7 @@ def remove_choices_from_destinations(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0013_auto_20180828_1548'),
+        ("aids", "0013_auto_20180828_1548"),
     ]
 
-    operations = [
-        migrations.RunPython(remove_choices_from_destinations)
-    ]
+    operations = [migrations.RunPython(remove_choices_from_destinations)]

@@ -21,14 +21,14 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         qs = Aid.objects.live()
         serializer = AidSerializerLatest(qs, many=True)
-        aids_api_url = urljoin(get_base_url(), reverse('aids-list'))
-        api_url = urljoin(get_base_url(), reverse('aids-all'))
+        aids_api_url = urljoin(get_base_url(), reverse("aids-list"))
+        api_url = urljoin(get_base_url(), reverse("aids-all"))
         data = {
-            'timestamp': timezone.now(),
-            'api_url': api_url,
-            'aids_api_url': aids_api_url,
-            'count': qs.count(),
-            'results': serializer.data,
+            "timestamp": timezone.now(),
+            "api_url": api_url,
+            "aids_api_url": aids_api_url,
+            "count": qs.count(),
+            "results": serializer.data,
         }
         json_data = JSONRenderer().render(data)
         file_obj = ContentFile(json_data)

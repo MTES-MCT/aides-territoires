@@ -6,23 +6,31 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0138_cleanup_fields_translations'),
+        ("aids", "0138_cleanup_fields_translations"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='loan_amount',
-            field=models.PositiveIntegerField(blank=True, null=True, verbose_name='Montant du prêt'),
+            model_name="aid",
+            name="loan_amount",
+            field=models.PositiveIntegerField(
+                blank=True, null=True, verbose_name="Montant du prêt"
+            ),
         ),
         migrations.AddField(
-            model_name='aid',
-            name='other_financial_aid_comment',
-            field=models.CharField(blank=True, max_length=100, verbose_name='Autre aide financière (commentaire optionnel)'),
+            model_name="aid",
+            name="other_financial_aid_comment",
+            field=models.CharField(
+                blank=True,
+                max_length=100,
+                verbose_name="Autre aide financière (commentaire optionnel)",
+            ),
         ),
         migrations.AddField(
-            model_name='aid',
-            name='recoverable_advance_amount',
-            field=models.PositiveIntegerField(blank=True, null=True, verbose_name="Montant de l'avance récupérable"),
+            model_name="aid",
+            name="recoverable_advance_amount",
+            field=models.PositiveIntegerField(
+                blank=True, null=True, verbose_name="Montant de l'avance récupérable"
+            ),
         ),
     ]

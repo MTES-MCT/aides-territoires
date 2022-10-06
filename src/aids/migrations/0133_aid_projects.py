@@ -6,14 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('projects', '0005_auto_20210430_1323'),
-        ('aids', '0132_limit_choices_to_generic_aids'),
+        ("projects", "0005_auto_20210430_1323"),
+        ("aids", "0132_limit_choices_to_generic_aids"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='projects',
-            field=models.ManyToManyField(blank=True, related_name='aids', to='projects.Project', verbose_name='Projects'),
+            model_name="aid",
+            name="projects",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="aids",
+                to="projects.Project",
+                verbose_name="Projects",
+            ),
         ),
     ]

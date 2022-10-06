@@ -6,25 +6,25 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0014_reupload_medias'),
-        ('aids', '0128_auto_20210413_1107'),
+        ("backers", "0014_reupload_medias"),
+        ("aids", "0128_auto_20210413_1107"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='aidfinancer',
-            options={'ordering': ['order', 'backer__name']},
+            name="aidfinancer",
+            options={"ordering": ["order", "backer__name"]},
         ),
         migrations.AlterModelOptions(
-            name='aidinstructor',
-            options={'ordering': ['order', 'backer__name']},
+            name="aidinstructor",
+            options={"ordering": ["order", "backer__name"]},
         ),
         migrations.AlterUniqueTogether(
-            name='aidfinancer',
-            unique_together={('aid', 'backer')},
+            name="aidfinancer",
+            unique_together={("aid", "backer")},
         ),
         migrations.AlterUniqueTogether(
-            name='aidinstructor',
-            unique_together={('aid', 'backer')},
+            name="aidinstructor",
+            unique_together={("aid", "backer")},
         ),
     ]

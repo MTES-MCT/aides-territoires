@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0063_aid_is_call_for_project'),
+        ("aids", "0063_aid_is_call_for_project"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='date_published',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='First publication date'),
+            model_name="aid",
+            name="date_published",
+            field=models.DateTimeField(
+                blank=True, null=True, verbose_name="First publication date"
+            ),
         ),
     ]

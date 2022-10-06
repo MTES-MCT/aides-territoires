@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0085_auto_20191118_1129'),
+        ("aids", "0085_auto_20191118_1129"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='start_date',
-            field=models.DateField(help_text='When is the application opening?', null=True, verbose_name='Start date'),
+            model_name="aid",
+            name="start_date",
+            field=models.DateField(
+                help_text="When is the application opening?",
+                null=True,
+                verbose_name="Start date",
+            ),
         ),
     ]

@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0049_auto_20181115_1606'),
+        ("aids", "0049_auto_20181115_1606"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='is_imported',
-            field=models.BooleanField(default=False, verbose_name='Is imported from a third-party?'),
+            model_name="aid",
+            name="is_imported",
+            field=models.BooleanField(
+                default=False, verbose_name="Is imported from a third-party?"
+            ),
         ),
     ]

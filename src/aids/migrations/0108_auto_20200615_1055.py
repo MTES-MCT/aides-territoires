@@ -7,18 +7,31 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0107_update_destinations_field'),
+        ("aids", "0107_update_destinations_field"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='destinations',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('supply', 'Supply'), ('investment', 'Investment')], max_length=32), blank=True, null=True, size=None, verbose_name='Destinations'),
+            model_name="aid",
+            name="destinations",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[("supply", "Supply"), ("investment", "Investment")],
+                    max_length=32,
+                ),
+                blank=True,
+                null=True,
+                size=None,
+                verbose_name="Destinations",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='name',
-            field=models.CharField(help_text="Use an infinitive form to make the aid's purpose clear", max_length=180, verbose_name='Name'),
+            model_name="aid",
+            name="name",
+            field=models.CharField(
+                help_text="Use an infinitive form to make the aid's purpose clear",
+                max_length=180,
+                verbose_name="Name",
+            ),
         ),
     ]

@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0159_aid_european_aid'),
+        ("aids", "0159_aid_european_aid"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='import_data_mention',
-            field=models.CharField(blank=True, max_length=900, null=True, verbose_name='Mention du partenariat avec le propriétaire de la donnée'),
+            model_name="aid",
+            name="import_data_mention",
+            field=models.CharField(
+                blank=True,
+                max_length=900,
+                null=True,
+                verbose_name="Mention du partenariat avec le propriétaire de la donnée",
+            ),
         ),
     ]

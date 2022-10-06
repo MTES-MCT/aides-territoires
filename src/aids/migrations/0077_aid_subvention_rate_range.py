@@ -7,13 +7,18 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0076_auto_20191031_1158'),
+        ("aids", "0076_auto_20191031_1158"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='subvention_rate_range',
-            field=django.contrib.postgres.fields.ranges.IntegerRangeField(blank=True, help_text='If this is a subvention aid, specify the rate.', null=True, verbose_name='Subvention rate (in %)'),
+            model_name="aid",
+            name="subvention_rate_range",
+            field=django.contrib.postgres.fields.ranges.IntegerRangeField(
+                blank=True,
+                help_text="If this is a subvention aid, specify the rate.",
+                null=True,
+                verbose_name="Subvention rate (in %)",
+            ),
         ),
     ]

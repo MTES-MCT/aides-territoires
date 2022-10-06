@@ -6,23 +6,32 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0061_auto_20190306_1520'),
+        ("aids", "0061_auto_20190306_1520"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='import_data_url',
-            field=models.URLField(blank=True, null=True, verbose_name='Origin url of the imported data'),
+            model_name="aid",
+            name="import_data_url",
+            field=models.URLField(
+                blank=True, null=True, verbose_name="Origin url of the imported data"
+            ),
         ),
         migrations.AddField(
-            model_name='aid',
-            name='import_last_access',
-            field=models.DateField(blank=True, null=True, verbose_name='Date of the latest access'),
+            model_name="aid",
+            name="import_last_access",
+            field=models.DateField(
+                blank=True, null=True, verbose_name="Date of the latest access"
+            ),
         ),
         migrations.AddField(
-            model_name='aid',
-            name='import_share_licence',
-            field=models.CharField(blank=True, choices=[('unknown', 'Unknown'), ('openlicence20', 'Open licence 2.0')], max_length=50, verbose_name='Under which license was this aid shared?'),
+            model_name="aid",
+            name="import_share_licence",
+            field=models.CharField(
+                blank=True,
+                choices=[("unknown", "Unknown"), ("openlicence20", "Open licence 2.0")],
+                max_length=50,
+                verbose_name="Under which license was this aid shared?",
+            ),
         ),
     ]

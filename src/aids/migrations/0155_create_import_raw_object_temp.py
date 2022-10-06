@@ -6,23 +6,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0154_alter_aid_date_updated'),
+        ("aids", "0154_alter_aid_date_updated"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='import_raw_object_calendar',
-            field=models.JSONField(editable=False, null=True, verbose_name='Donnée JSON brute du calendrier'),
+            model_name="aid",
+            name="import_raw_object_calendar",
+            field=models.JSONField(
+                editable=False,
+                null=True,
+                verbose_name="Donnée JSON brute du calendrier",
+            ),
         ),
         migrations.AddField(
-            model_name='aid',
-            name='import_raw_object_temp',
-            field=models.JSONField(editable=False, null=True, verbose_name='Donnée JSON brute temporaire'),
+            model_name="aid",
+            name="import_raw_object_temp",
+            field=models.JSONField(
+                editable=False, null=True, verbose_name="Donnée JSON brute temporaire"
+            ),
         ),
         migrations.AddField(
-            model_name='aid',
-            name='import_raw_object_temp_calendar',
-            field=models.JSONField(editable=False, null=True, verbose_name='Donnée JSON brute temporaire du calendrier'),
+            model_name="aid",
+            name="import_raw_object_temp_calendar",
+            field=models.JSONField(
+                editable=False,
+                null=True,
+                verbose_name="Donnée JSON brute temporaire du calendrier",
+            ),
         ),
     ]

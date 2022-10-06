@@ -9,25 +9,68 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('projects', '0007_project_due_date'),
+        ("projects", "0007_project_due_date"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('aids', '0149_remove_aid_projects'),
+        ("aids", "0149_remove_aid_projects"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='AidProject',
+            name="AidProject",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date de création')),
-                ('aid', models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, to='aids.aid', verbose_name='Aide')),
-                ('creator', models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Créateur')),
-                ('project', models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, to='projects.project', verbose_name='Projet')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now,
+                        verbose_name="Date de création",
+                    ),
+                ),
+                (
+                    "aid",
+                    models.ForeignKey(
+                        blank=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="aids.aid",
+                        verbose_name="Aide",
+                    ),
+                ),
+                (
+                    "creator",
+                    models.ForeignKey(
+                        blank=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Créateur",
+                    ),
+                ),
+                (
+                    "project",
+                    models.ForeignKey(
+                        blank=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="projects.project",
+                        verbose_name="Projet",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='aid',
-            name='projects',
-            field=models.ManyToManyField(blank=True, through='aids.AidProject', to='projects.Project', verbose_name='Projets'),
+            model_name="aid",
+            name="projects",
+            field=models.ManyToManyField(
+                blank=True,
+                through="aids.AidProject",
+                to="projects.Project",
+                verbose_name="Projets",
+            ),
         ),
     ]

@@ -6,19 +6,30 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0014_reupload_medias'),
-        ('aids', '0126_auto_20210413_1100'),
+        ("backers", "0014_reupload_medias"),
+        ("aids", "0126_auto_20210413_1100"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='financers',
-            field=models.ManyToManyField(related_name='financed_aids', through='aids.AidFinancer', to='backers.Backer', verbose_name='Financers'),
+            model_name="aid",
+            name="financers",
+            field=models.ManyToManyField(
+                related_name="financed_aids",
+                through="aids.AidFinancer",
+                to="backers.Backer",
+                verbose_name="Financers",
+            ),
         ),
         migrations.AddField(
-            model_name='aid',
-            name='instructors',
-            field=models.ManyToManyField(blank=True, related_name='instructed_aids', through='aids.AidInstructor', to='backers.Backer', verbose_name='Instructors'),
+            model_name="aid",
+            name="instructors",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="instructed_aids",
+                through="aids.AidInstructor",
+                to="backers.Backer",
+                verbose_name="Instructors",
+            ),
         ),
     ]

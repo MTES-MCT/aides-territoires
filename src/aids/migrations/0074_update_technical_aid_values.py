@@ -3,17 +3,16 @@
 from django.db import migrations
 
 
-old_technical_aid_types = ['networking', 'valorisation', 'guidance']
+old_technical_aid_types = ["networking", "valorisation", "guidance"]
 
 
 def update_technical_aid_values(apps, schema_editor):
-    Aid = apps.get_model('aids', 'Aid')
-    technical_aids = Aid.objects \
-        .filter(aid_types__overlap=old_technical_aid_types)
+    Aid = apps.get_model("aids", "Aid")
+    technical_aids = Aid.objects.filter(aid_types__overlap=old_technical_aid_types)
 
     # Django does not implement postgres' `array_append`, so…
     for aid in technical_aids:
-        aid.aid_types.append('technical')
+        aid.aid_types.append("technical")
 
         for aid_type in old_technical_aid_types:
             if aid_type in aid.aid_types:
@@ -25,9 +24,11 @@ def update_technical_aid_values(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0073_auto_20191029_1140'),
+        ("aids", "0073_auto_20191029_1140"),
     ]
 
     operations = [
-        migrations.RunPython(update_technical_aid_values, reverse_code=migrations.RunPython.noop)
+        migrations.RunPython(
+            update_technical_aid_values, reverse_code=migrations.RunPython.noop
+        )
     ]

@@ -8,18 +8,39 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0042_auto_20181025_0923'),
+        ("aids", "0042_auto_20181025_0923"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='tags',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=50), default=list, size=16, verbose_name='Tags'),
+            model_name="aid",
+            name="tags",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.CharField(max_length=50),
+                default=list,
+                size=16,
+                verbose_name="Tags",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='targeted_audiances',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Commune'), ('department', 'Department'), ('region', 'Region'), ('epci', 'Audiance EPCI'), ('lessor', 'Audiance lessor'), ('association', 'Association'), ('private person', 'Private person'), ('researcher', 'Researcher')], max_length=32), size=None, verbose_name='Targeted audiances'),
+            model_name="aid",
+            name="targeted_audiances",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("commune", "Commune"),
+                        ("department", "Department"),
+                        ("region", "Region"),
+                        ("epci", "Audiance EPCI"),
+                        ("lessor", "Audiance lessor"),
+                        ("association", "Association"),
+                        ("private person", "Private person"),
+                        ("researcher", "Researcher"),
+                    ],
+                    max_length=32,
+                ),
+                size=None,
+                verbose_name="Targeted audiances",
+            ),
         ),
     ]

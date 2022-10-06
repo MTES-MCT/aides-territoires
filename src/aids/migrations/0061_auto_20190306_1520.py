@@ -6,18 +6,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0060_auto_20190219_1115'),
+        ("aids", "0060_auto_20190219_1115"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='import_uniqueid',
-            field=models.CharField(blank=True, max_length=200, null=True, unique=True, verbose_name='Unique identifier for imported data'),
+            model_name="aid",
+            name="import_uniqueid",
+            field=models.CharField(
+                blank=True,
+                max_length=200,
+                null=True,
+                unique=True,
+                verbose_name="Unique identifier for imported data",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='origin_url',
-            field=models.URLField(blank=True, verbose_name='Origin URL'),
+            model_name="aid",
+            name="origin_url",
+            field=models.URLField(blank=True, verbose_name="Origin URL"),
         ),
     ]

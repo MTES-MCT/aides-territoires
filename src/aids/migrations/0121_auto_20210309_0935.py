@@ -9,13 +9,20 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('aids', '0120_merge_20210222_0957'),
+        ("aids", "0120_merge_20210222_0957"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='author',
-            field=models.ForeignKey(help_text='Who is submitting the aid?', null=True, on_delete=django.db.models.deletion.PROTECT, related_name='aids', to=settings.AUTH_USER_MODEL, verbose_name='Author'),
+            model_name="aid",
+            name="author",
+            field=models.ForeignKey(
+                help_text="Who is submitting the aid?",
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="aids",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Author",
+            ),
         ),
     ]

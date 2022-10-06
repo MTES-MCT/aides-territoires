@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0129_auto_20210413_1118'),
+        ("aids", "0129_auto_20210413_1118"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='is_generic',
-            field=models.BooleanField(default=False, verbose_name='Is generic aid'),
+            model_name="aid",
+            name="is_generic",
+            field=models.BooleanField(default=False, verbose_name="Is generic aid"),
         ),
     ]

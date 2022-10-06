@@ -7,13 +7,15 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0140_auto_20210625_1453'),
+        ("aids", "0140_auto_20210625_1453"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='search_vector_unaccented',
-            field=django.contrib.postgres.search.SearchVectorField(null=True, verbose_name='Search vector unaccented'),
+            model_name="aid",
+            name="search_vector_unaccented",
+            field=django.contrib.postgres.search.SearchVectorField(
+                null=True, verbose_name="Search vector unaccented"
+            ),
         ),
     ]

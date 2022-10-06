@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0057_merge_20190215_1555'),
+        ("aids", "0057_merge_20190215_1555"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='import_uniqueid',
-            field=models.CharField(blank=True, max_length=20, null=True, verbose_name='Unique identifier for imported data'),
+            model_name="aid",
+            name="import_uniqueid",
+            field=models.CharField(
+                blank=True,
+                max_length=20,
+                null=True,
+                verbose_name="Unique identifier for imported data",
+            ),
         ),
     ]

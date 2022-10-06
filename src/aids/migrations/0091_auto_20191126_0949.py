@@ -6,19 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0003_backer_is_corporate'),
-        ('aids', '0090_auto_20191125_1526'),
+        ("backers", "0003_backer_is_corporate"),
+        ("aids", "0090_auto_20191125_1526"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='instructors',
-            field=models.ManyToManyField(related_name='instructors_aids', to='backers.Backer', verbose_name='Instructors'),
+            model_name="aid",
+            name="instructors",
+            field=models.ManyToManyField(
+                related_name="instructors_aids",
+                to="backers.Backer",
+                verbose_name="Instructors",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='financers',
-            field=models.ManyToManyField(related_name='financers_aids', to='backers.Backer', verbose_name='Financers'),
+            model_name="aid",
+            name="financers",
+            field=models.ManyToManyField(
+                related_name="financers_aids",
+                to="backers.Backer",
+                verbose_name="Financers",
+            ),
         ),
     ]

@@ -7,13 +7,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0037_auto_20181002_1350'),
+        ("aids", "0037_auto_20181002_1350"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='targeted_audiances',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Commune'), ('department', 'Department'), ('region', 'Region'), ('epci', 'Audiance EPCI')], max_length=32), size=None, verbose_name='Targeted audiances'),
+            model_name="aid",
+            name="targeted_audiances",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("commune", "Commune"),
+                        ("department", "Department"),
+                        ("region", "Region"),
+                        ("epci", "Audiance EPCI"),
+                    ],
+                    max_length=32,
+                ),
+                size=None,
+                verbose_name="Targeted audiances",
+            ),
         ),
     ]

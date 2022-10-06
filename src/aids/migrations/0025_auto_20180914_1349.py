@@ -9,58 +9,133 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0024_remove_choices_from_types'),
+        ("aids", "0024_remove_choices_from_types"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='aid_types',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('Financial aids', (('grant', 'Grant'), ('loan', 'Loan'), ('recoverable_advance', 'Recoverable advance'), ('interest_subsidy', 'Interest subsidy'))), ('Technical and methodological aids', (('guidance', 'Guidance'), ('networking', 'Networking'), ('valorisation', 'Valorisation')))], max_length=32), help_text='Specify the help type or types.', size=None, verbose_name='Aid types'),
+            model_name="aid",
+            name="aid_types",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        (
+                            "Financial aids",
+                            (
+                                ("grant", "Grant"),
+                                ("loan", "Loan"),
+                                ("recoverable_advance", "Recoverable advance"),
+                                ("interest_subsidy", "Interest subsidy"),
+                            ),
+                        ),
+                        (
+                            "Technical and methodological aids",
+                            (
+                                ("guidance", "Guidance"),
+                                ("networking", "Networking"),
+                                ("valorisation", "Valorisation"),
+                            ),
+                        ),
+                    ],
+                    max_length=32,
+                ),
+                help_text="Specify the help type or types.",
+                size=None,
+                verbose_name="Aid types",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='author',
-            field=models.ForeignKey(help_text='Who is submitting the aid?', on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL, verbose_name='Author'),
+            model_name="aid",
+            name="author",
+            field=models.ForeignKey(
+                help_text="Who is submitting the aid?",
+                on_delete=django.db.models.deletion.PROTECT,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Author",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='backer',
-            field=models.ForeignKey(help_text='On a national level if appropriate', on_delete=django.db.models.deletion.PROTECT, to='backers.Backer', verbose_name='Backer'),
+            model_name="aid",
+            name="backer",
+            field=models.ForeignKey(
+                help_text="On a national level if appropriate",
+                on_delete=django.db.models.deletion.PROTECT,
+                to="backers.Backer",
+                verbose_name="Backer",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='description',
-            field=models.TextField(max_length=500, verbose_name='Short description'),
+            model_name="aid",
+            name="description",
+            field=models.TextField(max_length=500, verbose_name="Short description"),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='perimeter',
-            field=models.ForeignKey(blank=True, help_text='What is the aid broadcasting perimeter?', null=True, on_delete=django.db.models.deletion.PROTECT, to='geofr.Perimeter', verbose_name='Perimeter'),
+            model_name="aid",
+            name="perimeter",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="What is the aid broadcasting perimeter?",
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="geofr.Perimeter",
+                verbose_name="Perimeter",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='predeposit_date',
-            field=models.DateField(blank=True, help_text='When is the pre-deposit date, if applicable?', null=True, verbose_name='Predeposit date'),
+            model_name="aid",
+            name="predeposit_date",
+            field=models.DateField(
+                blank=True,
+                help_text="When is the pre-deposit date, if applicable?",
+                null=True,
+                verbose_name="Predeposit date",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='recurrence',
-            field=models.CharField(blank=True, choices=[('oneoff', 'One off'), ('ongoing', 'Ongoing'), ('recurring', 'Recurring')], help_text='Is this a one-off aid, is it recurring or ongoing?', max_length=16, verbose_name='Recurrence'),
+            model_name="aid",
+            name="recurrence",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("oneoff", "One off"),
+                    ("ongoing", "Ongoing"),
+                    ("recurring", "Recurring"),
+                ],
+                help_text="Is this a one-off aid, is it recurring or ongoing?",
+                max_length=16,
+                verbose_name="Recurrence",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='start_date',
-            field=models.DateField(blank=True, help_text='When is the application opening?', null=True, verbose_name='Start date'),
+            model_name="aid",
+            name="start_date",
+            field=models.DateField(
+                blank=True,
+                help_text="When is the application opening?",
+                null=True,
+                verbose_name="Start date",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='submission_deadline',
-            field=models.DateField(blank=True, help_text='When is the submission deadline?', null=True, verbose_name='Submission deadline'),
+            model_name="aid",
+            name="submission_deadline",
+            field=models.DateField(
+                blank=True,
+                help_text="When is the submission deadline?",
+                null=True,
+                verbose_name="Submission deadline",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='subvention_rate',
-            field=models.DecimalField(blank=True, decimal_places=2, help_text='If this is a subvention aid, specify the rate.', max_digits=6, null=True, verbose_name='Subvention rate'),
+            model_name="aid",
+            name="subvention_rate",
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=2,
+                help_text="If this is a subvention aid, specify the rate.",
+                max_digits=6,
+                null=True,
+                verbose_name="Subvention rate",
+            ),
         ),
     ]
