@@ -8,13 +8,19 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0066_auto_20190625_1043'),
+        ("aids", "0066_auto_20190625_1043"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='author',
-            field=models.ForeignKey(help_text='Who is submitting the aid?', null=True, on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL, verbose_name='Author'),
+            model_name="aid",
+            name="author",
+            field=models.ForeignKey(
+                help_text="Who is submitting the aid?",
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Author",
+            ),
         ),
     ]

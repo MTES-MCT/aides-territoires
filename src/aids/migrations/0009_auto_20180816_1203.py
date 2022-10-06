@@ -7,18 +7,53 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0008_auto_20180815_1502'),
+        ("aids", "0008_auto_20180815_1502"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='aid_types',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('grant', 'Grant'), ('convention', 'Convention'), ('training', 'Training'), ('interest_subsidy', 'Interest subsidy'), ('loan', 'Loan'), ('recoverable_advance', 'Recoverable advance'), ('guarantee', 'Guarantee'), ('low_interest_rate_loan', 'Low interest rate loan'), ('capital investment', 'Capital investment'), ('tax_benefit', 'Tax benefit'), ('return_fund', 'Return fund'), ('engineering', 'Engineering'), ('guidance', 'Guidance'), ('accompaniment', 'Accompaniment'), ('valorisation', 'Valorisation'), ('communication', 'Communication'), ('other', 'Other')], max_length=32), size=None, verbose_name='Aid types'),
+            model_name="aid",
+            name="aid_types",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("grant", "Grant"),
+                        ("convention", "Convention"),
+                        ("training", "Training"),
+                        ("interest_subsidy", "Interest subsidy"),
+                        ("loan", "Loan"),
+                        ("recoverable_advance", "Recoverable advance"),
+                        ("guarantee", "Guarantee"),
+                        ("low_interest_rate_loan", "Low interest rate loan"),
+                        ("capital investment", "Capital investment"),
+                        ("tax_benefit", "Tax benefit"),
+                        ("return_fund", "Return fund"),
+                        ("engineering", "Engineering"),
+                        ("guidance", "Guidance"),
+                        ("accompaniment", "Accompaniment"),
+                        ("valorisation", "Valorisation"),
+                        ("communication", "Communication"),
+                        ("other", "Other"),
+                    ],
+                    max_length=32,
+                ),
+                size=None,
+                verbose_name="Aid types",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='publication_status',
-            field=models.CharField(choices=[('open', 'Open'), ('planned', 'Planned'), ('closed', 'closed'), ('unknown', 'Unknown')], default='open', max_length=23, verbose_name='Status'),
+            model_name="aid",
+            name="publication_status",
+            field=models.CharField(
+                choices=[
+                    ("open", "Open"),
+                    ("planned", "Planned"),
+                    ("closed", "closed"),
+                    ("unknown", "Unknown"),
+                ],
+                default="open",
+                max_length=23,
+                verbose_name="Status",
+            ),
         ),
     ]

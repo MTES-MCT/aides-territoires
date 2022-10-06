@@ -6,14 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0004_aid_backer'),
+        ("aids", "0004_aid_backer"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='eligibility',
-            field=models.TextField(default='', verbose_name='Eligibility'),
+            model_name="aid",
+            name="eligibility",
+            field=models.TextField(default="", verbose_name="Eligibility"),
             preserve_default=False,
         ),
     ]

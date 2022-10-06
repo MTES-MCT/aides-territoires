@@ -7,13 +7,36 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0109_auto_20200921_1707'),
+        ("aids", "0109_auto_20200921_1707"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='targeted_audiences',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Communes'), ('epci', 'Audience EPCI'), ('unions', 'Intermunicipal unions'), ('department', 'Departments'), ('region', 'Regions'), ('association', 'Associations'), ('private_sector', 'Private sector'), ('public_cies', 'Local public companies'), ('public_org', 'Public organization'), ('researcher', 'Research'), ('private_person', 'Individuals'), ('farmer', 'Farmers'), ('other', 'Other')], max_length=32), blank=True, null=True, size=None, verbose_name='Targeted audiences'),
+            model_name="aid",
+            name="targeted_audiences",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("commune", "Communes"),
+                        ("epci", "Audience EPCI"),
+                        ("unions", "Intermunicipal unions"),
+                        ("department", "Departments"),
+                        ("region", "Regions"),
+                        ("association", "Associations"),
+                        ("private_sector", "Private sector"),
+                        ("public_cies", "Local public companies"),
+                        ("public_org", "Public organization"),
+                        ("researcher", "Research"),
+                        ("private_person", "Individuals"),
+                        ("farmer", "Farmers"),
+                        ("other", "Other"),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                null=True,
+                size=None,
+                verbose_name="Targeted audiences",
+            ),
         ),
     ]

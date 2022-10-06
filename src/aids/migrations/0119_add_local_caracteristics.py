@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0118_add_fk_to_generic_aid'),
+        ("aids", "0118_add_fk_to_generic_aid"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='local_characteristics',
-            field=models.TextField(blank=True, verbose_name='Local characteristics'),
+            model_name="aid",
+            name="local_characteristics",
+            field=models.TextField(blank=True, verbose_name="Local characteristics"),
         ),
     ]

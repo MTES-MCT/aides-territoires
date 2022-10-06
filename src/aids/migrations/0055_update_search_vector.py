@@ -5,34 +5,27 @@ from django.contrib.postgres.search import SearchVector
 from django.db.models import Value
 
 dependencies = [
-    ('backers', '0002_auto_20180921_1056.py'),
+    ("backers", "0002_auto_20180921_1056.py"),
 ]
 
 
 def update_search_vector(apps, schema_editor):
-    Aid = apps.get_model('aids.Aid')
-    Backer = apps.get_model('backers.Backer')
+    Aid = apps.get_model("aids.Aid")
+    Backer = apps.get_model("backers.Backer")
     aids = Aid.objects.all()
     for aid in aids:
         backers = Backer.objects.filter(aids=aid)
-        search_vector = \
-            SearchVector(Value(aid.name), weight='A', config='french') + \
-            SearchVector(
-                Value(aid.eligibility),
-                weight='D',
-                config='french') + \
-            SearchVector(
-                Value(aid.description),
-                weight='B',
-                config='french') + \
-            SearchVector(
-                Value(' '.join(aid.tags)),
-                weight='A',
-                config='french') + \
-            SearchVector(
-                Value(' '.join(backer.name for backer in backers)),
-                weight='D',
-                config='french')
+        search_vector = (
+            SearchVector(Value(aid.name), weight="A", config="french")
+            + SearchVector(Value(aid.eligibility), weight="D", config="french")
+            + SearchVector(Value(aid.description), weight="B", config="french")
+            + SearchVector(Value(" ".join(aid.tags)), weight="A", config="french")
+            + SearchVector(
+                Value(" ".join(backer.name for backer in backers)),
+                weight="D",
+                config="french",
+            )
+        )
         aid.search_vector = search_vector
         aid.save()
 
@@ -40,9 +33,11 @@ def update_search_vector(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0054_auto_20190115_1124'),
+        ("aids", "0054_auto_20190115_1124"),
     ]
 
     operations = [
-        migrations.RunPython(update_search_vector, reverse_code=migrations.RunPython.noop)
+        migrations.RunPython(
+            update_search_vector, reverse_code=migrations.RunPython.noop
+        )
     ]

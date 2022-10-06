@@ -7,13 +7,21 @@ import django_xworkflows.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0040_auto_20181023_1247'),
+        ("aids", "0040_auto_20181023_1247"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='status',
-            field=django_xworkflows.models.StateField(max_length=16, verbose_name='Status', workflow=django_xworkflows.models._SerializedWorkflow(initial_state='draft', name='AidWorkflow', states=['draft', 'reviewable', 'published'])),
+            model_name="aid",
+            name="status",
+            field=django_xworkflows.models.StateField(
+                max_length=16,
+                verbose_name="Status",
+                workflow=django_xworkflows.models._SerializedWorkflow(
+                    initial_state="draft",
+                    name="AidWorkflow",
+                    states=["draft", "reviewable", "published"],
+                ),
+            ),
         ),
     ]

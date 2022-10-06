@@ -7,25 +7,61 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0014_reupload_medias'),
-        ('aids', '0124_aid_eligibility_test'),
+        ("backers", "0014_reupload_medias"),
+        ("aids", "0124_aid_eligibility_test"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='AidInstructor',
+            name="AidInstructor",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('aid', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='aids.aid')),
-                ('backer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='backers.backer')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "aid",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="aids.aid"
+                    ),
+                ),
+                (
+                    "backer",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="backers.backer"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='AidFinancer',
+            name="AidFinancer",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('aid', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='aids.aid')),
-                ('backer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='backers.backer')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "aid",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="aids.aid"
+                    ),
+                ),
+                (
+                    "backer",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="backers.backer"
+                    ),
+                ),
             ],
         ),
     ]

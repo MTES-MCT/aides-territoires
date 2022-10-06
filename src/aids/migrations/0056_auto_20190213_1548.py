@@ -6,13 +6,9 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0055_update_search_vector'),
+        ("aids", "0055_update_search_vector"),
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='aid',
-            old_name='url',
-            new_name='origin_url'
-        ),
+        migrations.RenameField(model_name="aid", old_name="url", new_name="origin_url"),
     ]

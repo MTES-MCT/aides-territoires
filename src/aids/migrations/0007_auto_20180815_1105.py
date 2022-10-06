@@ -7,38 +7,103 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0006_auto_20180815_1059'),
+        ("aids", "0006_auto_20180815_1059"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='aid_types',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('grant', 'Grant'), ('convention', 'Convention'), ('training', 'Training'), ('interest_subsidy', 'Interest subsidy'), ('loan', 'Loan'), ('recoverable_advance', 'Recoverable advance'), ('guarantee', 'Guarantee'), ('low_interest_rate_loan', 'Low interest rate loan'), ('capital investment', 'Capital investment'), ('tax_benefit', 'Tax benefit'), ('return_fund', 'Return fund'), ('engineering', 'Engineering'), ('guidance', 'Guidance'), ('valorisation', 'Valorisation'), ('communication', 'Communication'), ('other', 'Other')], max_length=32), size=None, verbose_name='Aid types'),
+            model_name="aid",
+            name="aid_types",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("grant", "Grant"),
+                        ("convention", "Convention"),
+                        ("training", "Training"),
+                        ("interest_subsidy", "Interest subsidy"),
+                        ("loan", "Loan"),
+                        ("recoverable_advance", "Recoverable advance"),
+                        ("guarantee", "Guarantee"),
+                        ("low_interest_rate_loan", "Low interest rate loan"),
+                        ("capital investment", "Capital investment"),
+                        ("tax_benefit", "Tax benefit"),
+                        ("return_fund", "Return fund"),
+                        ("engineering", "Engineering"),
+                        ("guidance", "Guidance"),
+                        ("valorisation", "Valorisation"),
+                        ("communication", "Communication"),
+                        ("other", "Other"),
+                    ],
+                    max_length=32,
+                ),
+                size=None,
+                verbose_name="Aid types",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='destinations',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('investment', 'Investment'), ('operation', 'Operation'), ('survey', 'Survey'), ('supply', 'Supply'), ('service', 'Service (AMO)'), ('works', 'Works'), ('other', 'Other')], max_length=32), size=None, verbose_name='Destinations'),
+            model_name="aid",
+            name="destinations",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("investment", "Investment"),
+                        ("operation", "Operation"),
+                        ("survey", "Survey"),
+                        ("supply", "Supply"),
+                        ("service", "Service (AMO)"),
+                        ("works", "Works"),
+                        ("other", "Other"),
+                    ],
+                    max_length=32,
+                ),
+                size=None,
+                verbose_name="Destinations",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='maximal_population',
-            field=models.PositiveIntegerField(blank=True, null=True, verbose_name='Maximal population'),
+            model_name="aid",
+            name="maximal_population",
+            field=models.PositiveIntegerField(
+                blank=True, null=True, verbose_name="Maximal population"
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='minimal_population',
-            field=models.PositiveIntegerField(blank=True, null=True, verbose_name='Minimal population'),
+            model_name="aid",
+            name="minimal_population",
+            field=models.PositiveIntegerField(
+                blank=True, null=True, verbose_name="Minimal population"
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='subvention_rate',
-            field=models.DecimalField(blank=True, decimal_places=2, max_digits=6, null=True, verbose_name='Subvention rate'),
+            model_name="aid",
+            name="subvention_rate",
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=2,
+                max_digits=6,
+                null=True,
+                verbose_name="Subvention rate",
+            ),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='targeted_audiances',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Commune'), ('department', 'Department'), ('region', 'Region'), ('epci', 'EPCI'), ('company', 'Company'), ('civil_society', 'Civil society'), ('association', 'Association'), ('other', 'Other')], max_length=32), size=None, verbose_name='Targeted audiances'),
+            model_name="aid",
+            name="targeted_audiances",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("commune", "Commune"),
+                        ("department", "Department"),
+                        ("region", "Region"),
+                        ("epci", "EPCI"),
+                        ("company", "Company"),
+                        ("civil_society", "Civil society"),
+                        ("association", "Association"),
+                        ("other", "Other"),
+                    ],
+                    max_length=32,
+                ),
+                size=None,
+                verbose_name="Targeted audiances",
+            ),
         ),
     ]

@@ -17,25 +17,22 @@ def reformat_contacts(apps, schema_editor):
 
     Thus, we just convert those raw text lists to html.
     """
-    Aid = apps.get_model('aids', 'Aid')
+    Aid = apps.get_model("aids", "Aid")
     for aid in Aid.objects.all():
         contact = aid.contact
-        if '\n' in contact and '<li>' not in contact:
-            contact = contact.replace('\r', '')
-            contact_elements = filter(None, contact.split('\n'))
-            html_elements = [
-                '<li>{}</li>'.format(elt) for elt in contact_elements]
+        if "\n" in contact and "<li>" not in contact:
+            contact = contact.replace("\r", "")
+            contact_elements = filter(None, contact.split("\n"))
+            html_elements = ["<li>{}</li>".format(elt) for elt in contact_elements]
 
-            aid.contact = '<ul>{}</ul>'.format(''.join(html_elements))
+            aid.contact = "<ul>{}</ul>".format("".join(html_elements))
             aid.save()
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0098_auto_20191220_1103'),
+        ("aids", "0098_auto_20191220_1103"),
     ]
 
-    operations = [
-        migrations.RunPython(reformat_contacts)
-    ]
+    operations = [migrations.RunPython(reformat_contacts)]

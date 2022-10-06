@@ -5,18 +5,14 @@ from django.db.models import F
 
 
 def set_first_publication_date(apps, schema_migration):
-    Aid = apps.get_model('aids.Aid')
-    Aid.objects \
-        .filter(status='published') \
-        .update(date_published=F('date_created'))
+    Aid = apps.get_model("aids.Aid")
+    Aid.objects.filter(status="published").update(date_published=F("date_created"))
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0064_aid_date_published'),
+        ("aids", "0064_aid_date_published"),
     ]
 
-    operations = [
-        migrations.RunPython(set_first_publication_date)
-    ]
+    operations = [migrations.RunPython(set_first_publication_date)]

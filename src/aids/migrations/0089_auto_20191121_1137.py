@@ -7,13 +7,36 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0088_merge_20191121_1137'),
+        ("aids", "0088_merge_20191121_1137"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='targeted_audiances',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Communes'), ('epci', 'Audiance EPCI'), ('unions', 'Intermunicipal unions'), ('department', 'Departments'), ('region', 'Regions'), ('association', 'Associations'), ('private_sector', 'Private sector'), ('public_org', 'Public organizations'), ('lessor', 'Audiance lessors'), ('researcher', 'Research'), ('private_person', 'Individuals'), ('farmer', 'Farmers'), ('other', 'Other')], max_length=32), blank=True, null=True, size=None, verbose_name='Targeted audiances'),
+            model_name="aid",
+            name="targeted_audiances",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("commune", "Communes"),
+                        ("epci", "Audiance EPCI"),
+                        ("unions", "Intermunicipal unions"),
+                        ("department", "Departments"),
+                        ("region", "Regions"),
+                        ("association", "Associations"),
+                        ("private_sector", "Private sector"),
+                        ("public_org", "Public organizations"),
+                        ("lessor", "Audiance lessors"),
+                        ("researcher", "Research"),
+                        ("private_person", "Individuals"),
+                        ("farmer", "Farmers"),
+                        ("other", "Other"),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                null=True,
+                size=None,
+                verbose_name="Targeted audiances",
+            ),
         ),
     ]

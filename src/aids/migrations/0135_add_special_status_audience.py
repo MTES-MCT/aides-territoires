@@ -9,22 +9,21 @@ def add_special_status_audience(apps, schema_editor):
     audience, we want it to be widely applied to any aid
     attached to any collectivity.
     """
-    Aid = apps.get_model('aids', 'Aid')
-    aids = Aid.objects.filter(targeted_audiences__overlap= \
-        ['commune', 'epci', 'department', 'region'])
+    Aid = apps.get_model("aids", "Aid")
+    aids = Aid.objects.filter(
+        targeted_audiences__overlap=["commune", "epci", "department", "region"]
+    )
     for aid in aids:
-        aid.targeted_audiences.append('special')
+        aid.targeted_audiences.append("special")
         aid.save()
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0134_aid_import_raw_object'),
+        ("aids", "0134_aid_import_raw_object"),
     ]
 
     operations = [
-        migrations.RunPython(
-            add_special_status_audience,
-            migrations.RunPython.noop)
+        migrations.RunPython(add_special_status_audience, migrations.RunPython.noop)
     ]

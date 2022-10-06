@@ -4,16 +4,14 @@ from django.db import migrations
 
 
 def set_import_ids_to_none(apps, schema_editor):
-    Aid = apps.get_model('aids', 'Aid')
-    Aid.objects.filter(import_uniqueid='').update(import_uniqueid=None)
+    Aid = apps.get_model("aids", "Aid")
+    Aid.objects.filter(import_uniqueid="").update(import_uniqueid=None)
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0058_auto_20190219_1112'),
+        ("aids", "0058_auto_20190219_1112"),
     ]
 
-    operations = [
-        migrations.RunPython(set_import_ids_to_none)
-    ]
+    operations = [migrations.RunPython(set_import_ids_to_none)]

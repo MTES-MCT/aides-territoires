@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0055_update_search_vector'),
+        ("aids", "0055_update_search_vector"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='new_backer',
-            field=models.CharField(blank=True, max_length=256, verbose_name='New backer'),
+            model_name="aid",
+            name="new_backer",
+            field=models.CharField(
+                blank=True, max_length=256, verbose_name="New backer"
+            ),
         ),
     ]

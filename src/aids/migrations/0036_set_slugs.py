@@ -6,11 +6,11 @@ from django.utils.text import slugify
 
 
 def set_slugs(apps, schema_editor):
-    Aid = apps.get_model('aids', 'Aid')
+    Aid = apps.get_model("aids", "Aid")
     aids = Aid.objects.all()
     for aid in aids:
         # Let's prepend random chars to prevent slug duplicates
-        full_title = '{}-{}'.format(str(uuid4())[:4], aid.name)
+        full_title = "{}-{}".format(str(uuid4())[:4], aid.name)
         aid.slug = slugify(full_title)[:50]
         aid.save()
 
@@ -18,7 +18,7 @@ def set_slugs(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0035_aid_slug'),
+        ("aids", "0035_aid_slug"),
     ]
 
     operations = [

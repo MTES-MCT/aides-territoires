@@ -6,32 +6,32 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0033_aid_date_updated'),
+        ("aids", "0033_aid_date_updated"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='aid',
-            name='application_department',
+            model_name="aid",
+            name="application_department",
         ),
         migrations.RemoveField(
-            model_name='aid',
-            name='application_perimeter',
+            model_name="aid",
+            name="application_perimeter",
         ),
         migrations.RemoveField(
-            model_name='aid',
-            name='application_region',
+            model_name="aid",
+            name="application_region",
         ),
         migrations.RemoveField(
-            model_name='aid',
-            name='is_funding',
+            model_name="aid",
+            name="is_funding",
         ),
         migrations.RemoveField(
-            model_name='aid',
-            name='open_to_third_party',
+            model_name="aid",
+            name="open_to_third_party",
         ),
         migrations.RemoveField(
-            model_name='aid',
-            name='publication_status',
+            model_name="aid",
+            name="publication_status",
         ),
     ]

@@ -7,26 +7,39 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0103_auto_20200302_1043'),
+        ("aids", "0103_auto_20200302_1043"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='DeletedAid',
-            fields=[
-            ],
+            name="DeletedAid",
+            fields=[],
             options={
-                'verbose_name': 'Deleted aid',
-                'verbose_name_plural': 'Deleted aids',
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
+                "verbose_name": "Deleted aid",
+                "verbose_name_plural": "Deleted aids",
+                "proxy": True,
+                "indexes": [],
+                "constraints": [],
             },
-            bases=('aids.aid',),
+            bases=("aids.aid",),
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='destinations',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('service', 'Service (AMO, survey)'), ('works', 'Works'), ('supply', 'Supply'), ('investment', 'Investment')], max_length=32), blank=True, null=True, size=None, verbose_name='Destinations'),
+            model_name="aid",
+            name="destinations",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("service", "Service (AMO, survey)"),
+                        ("works", "Works"),
+                        ("supply", "Supply"),
+                        ("investment", "Investment"),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                null=True,
+                size=None,
+                verbose_name="Destinations",
+            ),
         ),
     ]

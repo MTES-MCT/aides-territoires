@@ -7,13 +7,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0075_auto_20191029_1444'),
+        ("aids", "0075_auto_20191029_1444"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='name',
-            field=models.CharField(help_text='A good title describes the purpose of the help and should speak to the recipient.', max_length=180, verbose_name='Name'),
+            model_name="aid",
+            name="name",
+            field=models.CharField(
+                help_text="A good title describes the purpose of the help and should speak to the recipient.",
+                max_length=180,
+                verbose_name="Name",
+            ),
         ),
     ]

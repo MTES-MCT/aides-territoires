@@ -24,7 +24,7 @@ def field_diff(aid, amendment, field):
         diff = []
 
     html_diff = [make_html_diff_line(line) for line in diff]
-    return mark_safe('<pre>{}</pre>'.format('\n'.join(html_diff)))
+    return mark_safe("<pre>{}</pre>".format("\n".join(html_diff)))
 
 
 def extract_value(obj, field):
@@ -49,12 +49,12 @@ def extract_value(obj, field):
         choices = model_field.choices
         if choices:
             data_dict = dict(choices)
-            val = [data_dict.get(raw_val, '')]
+            val = [data_dict.get(raw_val, "")]
         else:
             val = raw_val.splitlines()
 
     elif isinstance(raw_val, list):
-        if hasattr(model_field, 'base_field'):
+        if hasattr(model_field, "base_field"):
             choices = model_field.base_field.choices
         else:
             choices = model_field.choices
@@ -68,7 +68,7 @@ def extract_value(obj, field):
     elif isinstance(model_field, models.ManyToManyField):
         val = list(raw_val.all())
     else:
-        val = ['{}'.format(raw_val)]
+        val = ["{}".format(raw_val)]
 
     return val
 
@@ -82,14 +82,17 @@ def make_html_diff_line(line):
         return None
 
     prefix = line[0]
-    content = line[2:].rstrip('\n')
+    content = line[2:].rstrip("\n")
     diff_class = {
-        '+': 'add',
-        '-': 'rm',
-        '?': 'context',
-        ' ': 'common',
+        "+": "add",
+        "-": "rm",
+        "?": "context",
+        " ": "common",
     }.get(prefix)
     html = format_html(
         '<div class="diff-line {}"><span class="prefix">{} </span>{}</div>',
-        diff_class, prefix, content)
+        diff_class,
+        prefix,
+        content,
+    )
     return html

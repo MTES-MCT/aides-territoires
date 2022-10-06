@@ -6,17 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0029_save_backers'),
+        ("aids", "0029_save_backers"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='aid',
-            name='backer',
+            model_name="aid",
+            name="backer",
         ),
         migrations.AlterField(
-            model_name='aid',
-            name='backers',
-            field=models.ManyToManyField(help_text='On a national level if appropriate', related_name='aids', to='backers.Backer', verbose_name='Backers'),
+            model_name="aid",
+            name="backers",
+            field=models.ManyToManyField(
+                help_text="On a national level if appropriate",
+                related_name="aids",
+                to="backers.Backer",
+                verbose_name="Backers",
+            ),
         ),
     ]

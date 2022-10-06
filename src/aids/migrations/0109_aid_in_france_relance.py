@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0108_auto_20200615_1055'),
+        ("aids", "0108_auto_20200615_1055"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='in_france_relance',
-            field=models.BooleanField(default=False, help_text='Is this aid a part of the France Relance program?', verbose_name='France Relance?'),
+            model_name="aid",
+            name="in_france_relance",
+            field=models.BooleanField(
+                default=False,
+                help_text="Is this aid a part of the France Relance program?",
+                verbose_name="France Relance?",
+            ),
         ),
     ]

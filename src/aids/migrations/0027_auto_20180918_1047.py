@@ -7,13 +7,29 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0026_aid_application_url'),
+        ("aids", "0026_aid_application_url"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='aid_types',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('grant', 'Grant'), ('loan', 'Loan'), ('recoverable_advance', 'Recoverable advance'), ('interest_subsidy', 'Interest subsidy'), ('guidance', 'Guidance'), ('networking', 'Networking'), ('valorisation', 'Valorisation')], max_length=32), help_text='Specify the help type or types.', size=None, verbose_name='Aid types'),
+            model_name="aid",
+            name="aid_types",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("grant", "Grant"),
+                        ("loan", "Loan"),
+                        ("recoverable_advance", "Recoverable advance"),
+                        ("interest_subsidy", "Interest subsidy"),
+                        ("guidance", "Guidance"),
+                        ("networking", "Networking"),
+                        ("valorisation", "Valorisation"),
+                    ],
+                    max_length=32,
+                ),
+                help_text="Specify the help type or types.",
+                size=None,
+                verbose_name="Aid types",
+            ),
         ),
     ]

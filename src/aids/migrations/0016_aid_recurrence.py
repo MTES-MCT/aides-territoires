@@ -6,13 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0015_auto_20180829_1049'),
+        ("aids", "0015_auto_20180829_1049"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aid',
-            name='recurrence',
-            field=models.CharField(blank=True, choices=[('oneoff', 'One off'), ('ongoing', 'Ongoing'), ('recurring', 'Recurring')], max_length=16, verbose_name='Recurrence'),
+            model_name="aid",
+            name="recurrence",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("oneoff", "One off"),
+                    ("ongoing", "Ongoing"),
+                    ("recurring", "Recurring"),
+                ],
+                max_length=16,
+                verbose_name="Recurrence",
+            ),
         ),
     ]

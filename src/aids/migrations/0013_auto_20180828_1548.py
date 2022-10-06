@@ -7,13 +7,37 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0012_remove_accompaniment'),
+        ("aids", "0012_remove_accompaniment"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='aid_types',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('grant', 'Grant'), ('convention', 'Convention'), ('training', 'Training'), ('interest_subsidy', 'Interest subsidy'), ('loan', 'Loan'), ('recoverable_advance', 'Recoverable advance'), ('guarantee', 'Guarantee'), ('low_interest_rate_loan', 'Low interest rate loan'), ('capital investment', 'Capital investment'), ('tax_benefit', 'Tax benefit'), ('return_fund', 'Return fund'), ('engineering', 'Engineering'), ('guidance', 'Guidance'), ('valorisation', 'Valorisation'), ('communication', 'Communication'), ('other', 'Other')], max_length=32), size=None, verbose_name='Aid types'),
+            model_name="aid",
+            name="aid_types",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("grant", "Grant"),
+                        ("convention", "Convention"),
+                        ("training", "Training"),
+                        ("interest_subsidy", "Interest subsidy"),
+                        ("loan", "Loan"),
+                        ("recoverable_advance", "Recoverable advance"),
+                        ("guarantee", "Guarantee"),
+                        ("low_interest_rate_loan", "Low interest rate loan"),
+                        ("capital investment", "Capital investment"),
+                        ("tax_benefit", "Tax benefit"),
+                        ("return_fund", "Return fund"),
+                        ("engineering", "Engineering"),
+                        ("guidance", "Guidance"),
+                        ("valorisation", "Valorisation"),
+                        ("communication", "Communication"),
+                        ("other", "Other"),
+                    ],
+                    max_length=32,
+                ),
+                size=None,
+                verbose_name="Aid types",
+            ),
         ),
     ]

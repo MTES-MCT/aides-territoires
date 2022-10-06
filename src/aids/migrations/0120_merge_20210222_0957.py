@@ -6,9 +6,8 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0118_auto_20210216_1000'),
-        ('aids', '0119_add_local_caracteristics'),
+        ("aids", "0118_auto_20210216_1000"),
+        ("aids", "0119_add_local_caracteristics"),
     ]
 
-    operations = [
-    ]
+    operations = []

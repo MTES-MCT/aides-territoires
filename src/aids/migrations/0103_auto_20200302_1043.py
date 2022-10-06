@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0102_auto_20200302_1041'),
+        ("aids", "0102_auto_20200302_1041"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aid',
-            name='project_examples',
-            field=models.TextField(blank=True, default='', verbose_name='Project examples'),
+            model_name="aid",
+            name="project_examples",
+            field=models.TextField(
+                blank=True, default="", verbose_name="Project examples"
+            ),
         ),
     ]

@@ -6,16 +6,22 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0144_alter_aid_targeted_audiences'),
+        ("aids", "0144_alter_aid_targeted_audiences"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='amendment',
-            options={'verbose_name': 'Amendement', 'verbose_name_plural': 'Amendements'},
+            name="amendment",
+            options={
+                "verbose_name": "Amendement",
+                "verbose_name_plural": "Amendements",
+            },
         ),
         migrations.AlterModelOptions(
-            name='deletedaid',
-            options={'verbose_name': 'Aide supprimée', 'verbose_name_plural': 'Aides supprimées'},
+            name="deletedaid",
+            options={
+                "verbose_name": "Aide supprimée",
+                "verbose_name_plural": "Aides supprimées",
+            },
         ),
     ]
