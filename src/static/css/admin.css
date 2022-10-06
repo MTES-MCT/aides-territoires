@@ -62,13 +62,12 @@ div.field-categories select {
     width: 100%;
 }
 
-div.form-row > div > input[type=text],
+div.form-row>div>input[type=text],
 div.form-row textarea,
 div.form-row .vLargeTextField,
 div.form-row select,
 div.form-row input[type=email],
-div.form-row input[type=url]
-{
+div.form-row input[type=url] {
     box-sizing: border-box;
     width: 800px !important;
 }
@@ -109,47 +108,47 @@ div.inline-error ul li {
     background-color: #fff;
     color: black;
     font-size: 100%;
-  }
-  
-  .formated-path {
+}
+
+.formated-path {
     margin-left: 1.5rem !important;
-  }
-  
-  .formated-path li {
+}
+
+.formated-path li {
     display: inline;
-    
-  }
-  
-  .formated-path li+li::before {
+
+}
+
+.formated-path li+li::before {
     content: " > ";
-  }
-  
-  
-  .added-entries-path,
-  ins {
+}
+
+
+.added-entries-path,
+ins {
     color: #0f600b;
-  }
-  
-  .removed-entries-path,
-  del {
+}
+
+.removed-entries-path,
+del {
     color: #9b1317;
-  }
-  
-  ins {
+}
+
+ins {
     background-color: #f4fef4;
     padding: 0.2rem;
-  }
-  
-  
-  del {
+}
+
+
+del {
     background-color: #fef4f4;
     padding: 0.2rem;
-  }
-  
-  .added-entries-values,
-  .removed-entries-values,
-  .changed-entries-values {
+}
+
+.added-entries-values,
+.removed-entries-values,
+.changed-entries-values {
     margin-bottom: 1rem;
     margin-left: 3rem;
     line-height: 1.6rem;
-  }
+}
