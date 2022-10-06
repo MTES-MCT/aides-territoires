@@ -10,12 +10,12 @@ ul.aid-categories ul::before {
   content: "> "
 }
 
-ul.aid-categories ul li + li::before {
+ul.aid-categories ul li+li::before {
   content: " + "
 }
 
-#aid > .aid-content > .aid-details p {
-    margin-bottom: 1rem;
+#aid>.aid-content>.aid-details p {
+  margin-bottom: 1rem;
 }
 
 #aid .deadline-data {
@@ -42,7 +42,8 @@ article#aid .aid-details h3 {
   margin-top: 1rem;
 }
 
-#logos-financers a, #logos-programs a {
+#logos-financers a,
+#logos-programs a {
   background-image: none !important;
 }
 
@@ -55,7 +56,7 @@ article#aid .aid-details h3 {
 }
 
 .bg-pic {
-  background: url("../img/home_aides.svg") bottom center no-repeat,linear-gradient(0deg,  var(--background-default-grey) 10%, var(--background-alt-blue-france) 100%, var(--background-alt-grey) 100% ) 0% 0%;
+  background: url("../img/home_aides.svg") bottom center no-repeat, linear-gradient(0deg, var(--background-default-grey) 10%, var(--background-alt-blue-france) 100%, var(--background-alt-grey) 100%) 0% 0%;
   background-size: 100%;
   height: 100%;
   overflow: hidden;
@@ -97,8 +98,8 @@ article#aid .aid-details h3 {
 // register page style
 
 #register-form legend {
-  font-size: 1.5rem!important;
-  line-height: 2rem!important;
+  font-size: 1.5rem !important;
+  line-height: 2rem !important;
   margin: 1rem 0;
   font-weight: bold;
 }
@@ -106,14 +107,14 @@ article#aid .aid-details h3 {
 // Home style
 
 div #what-image {
-    margin-top: -150px;
+  margin-top: -150px;
 
-    #home-main-image {
-        float: right;
-        width: 700px;
-        max-width: 100%;
-        display: block;
-    }
+  #home-main-image {
+    float: right;
+    width: 700px;
+    max-width: 100%;
+    display: block;
+  }
 }
 
 div#how img {
@@ -121,9 +122,9 @@ div#how img {
 }
 
 @media screen and (max-width: 1000px) {
-    div #what-image {
-        margin-top: 0;
-    }
+  div #what-image {
+    margin-top: 0;
+  }
 }
 
 .home section#partner img {
@@ -141,73 +142,73 @@ section#aid-edit {
   padding: 0 !important;
 
   div.form-sidebar {
-      display: block;
-      position: sticky;
-      top: 0;
-      z-index: 5;
-      background-color: var(--background-alt-blue-france);
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background-color: var(--background-alt-blue-france);
 
-      @media screen and (max-width: 1000px) {
-        display: none;
-      }
+    @media screen and (max-width: 1000px) {
+      display: none;
+    }
   }
 
   & #nav-form {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      font-size: 1rem;
-      cursor: pointer;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1rem;
+    cursor: pointer;
 
-      & a {
-          font-weight: bold;
-          text-decoration: none !important;
-          --underline-img: none;
+    & a {
+      font-weight: bold;
+      text-decoration: none !important;
+      --underline-img: none;
+    }
+
+    & a.active {
+      color: var(--text-active-blue-france) !important;
+    }
+
+    .list-group-item {
+      background-color: inherit;
+      border: none;
+      text-align: center;
+
+      span.counter {
+        display: inline-block;
+        width: 1.5rem;
+        height: 1.5rem;
+        text-align: center;
+        vertical-align: baseline;
+        border: 2px solid var(--border-active-blue-france);
+        background-color: var(--background-active-blue-france);
+        color: var(--text-inverted-blue-france);
+        border-radius: 50%;
+        font-size: 0.85rem;
+        line-height: 1.5;
+        margin-right: 0.2rem;
       }
-
-      & a.active {
-          color: var(--text-active-blue-france) !important;
-      }
-
-      .list-group-item  {
-          background-color: inherit;
-          border: none;
-          text-align: center;
-
-          span.counter {
-              display: inline-block;
-              width: 1.5rem;
-              height: 1.5rem;
-              text-align: center;
-              vertical-align: baseline;
-              border: 2px solid var(--border-active-blue-france);
-              background-color: var(--background-active-blue-france);
-              color: var(--text-inverted-blue-france);
-              border-radius: 50%;
-              font-size: 0.85rem;
-              line-height: 1.5;
-              margin-right: 0.2rem;
-          }
-      }
+    }
   }
 
   .separator::before {
-      color: var(--border-active-blue-france) !important;
-      font-size: 2.8rem;
+    color: var(--border-active-blue-france) !important;
+    font-size: 2.8rem;
   }
 
   .list-group-item.active {
-      background-color: inherit;
+    background-color: inherit;
 
-      span.counter {
-        border: 2px solid var(--border-active-blue-france) !important;
-        background-color: var(--background-open-blue-france) !important;
-        color: var(--text-active-blue-france) !important;
-      }
+    span.counter {
+      border: 2px solid var(--border-active-blue-france) !important;
+      background-color: var(--background-open-blue-france) !important;
+      color: var(--text-active-blue-france) !important;
+    }
   }
 
   .trumbowyg-box {
-    z-index:  2;
+    z-index: 2;
     background-color: var(--background-default-grey);
   }
 
@@ -216,7 +217,7 @@ section#aid-edit {
   }
 
   .trumbowyg-fullscreen {
-      z-index: 9999 !important;
+    z-index: 9999 !important;
   }
 }
 
@@ -224,7 +225,7 @@ section#aid-edit {
   border: solid 1px var(--border-action-high-blue-france);
 }
 
-section#aid-edit form.main-form > fieldset .fr-btn {
+section#aid-edit form.main-form>fieldset .fr-btn {
   margin-left: 36%;
 
   @media screen and (max-width: 1000px) {
@@ -232,7 +233,7 @@ section#aid-edit form.main-form > fieldset .fr-btn {
   }
 }
 
-section#aid-edit form.main-form > fieldset {
+section#aid-edit form.main-form>fieldset {
   position: relative;
   min-width: 0;
   padding: 0;
@@ -247,7 +248,7 @@ section#aid-edit form.main-form > fieldset {
   }
 }
 
-section#aid-edit form.main-form > fieldset > legend {
+section#aid-edit form.main-form>fieldset>legend {
   font-size: 1.5rem;
   color: var(--text-active-blue-france);
   line-height: 2rem;
@@ -255,7 +256,7 @@ section#aid-edit form.main-form > fieldset > legend {
   font-weight: bold;
 }
 
-section#aid-edit form.main-form > fieldset:not(:last-of-type)::after {
+section#aid-edit form.main-form>fieldset:not(:last-of-type)::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -266,7 +267,7 @@ section#aid-edit form.main-form > fieldset:not(:last-of-type)::after {
   border-bottom: 2px solid var(--border-plain-blue-france);
 }
 
-section#aid-edit form.main-form > fieldset + fieldset {
+section#aid-edit form.main-form>fieldset+fieldset {
   margin-top: 8rem !important;
 }
 
@@ -282,25 +283,25 @@ section#aid-edit form.main-form {
   max-height: none;
 }
 
-section#aid-edit form.main-form > fieldset > div#instructor-fields-accordion {
+section#aid-edit form.main-form>fieldset>div#instructor-fields-accordion {
   display: block;
 }
 
-section#aid-edit form.main-form > fieldset > div#calendar-fields,
-section#aid-edit form.main-form > fieldset > div#subvention-fields,
-section#aid-edit form.main-form > fieldset > div#recoverable-advance-fields,
-section#aid-edit form.main-form > fieldset > div#other-financial-aid-fields,
-section#aid-edit form.main-form > fieldset > div#loan-fields {
+section#aid-edit form.main-form>fieldset>div#calendar-fields,
+section#aid-edit form.main-form>fieldset>div#subvention-fields,
+section#aid-edit form.main-form>fieldset>div#recoverable-advance-fields,
+section#aid-edit form.main-form>fieldset>div#other-financial-aid-fields,
+section#aid-edit form.main-form>fieldset>div#loan-fields {
   display: inline;
 }
 
-section#aid-edit form.main-form > fieldset > div,
-section#aid-edit form.main-form > fieldset div#calendar-fields-collapse > div,
-section#aid-edit form.main-form > fieldset div#instructor-fields > div,
-section#aid-edit form.main-form > fieldset div#subvention-fields-collapse > div,
-section#aid-edit form.main-form > fieldset div#recoverable-advance-fields-collapse > div,
-section#aid-edit form.main-form > fieldset div#other-financial-aid-fields-collapse > div,
-section#aid-edit form.main-form > fieldset div#loan-fields-collapse > div {
+section#aid-edit form.main-form>fieldset>div,
+section#aid-edit form.main-form>fieldset div#calendar-fields-collapse>div,
+section#aid-edit form.main-form>fieldset div#instructor-fields>div,
+section#aid-edit form.main-form>fieldset div#subvention-fields-collapse>div,
+section#aid-edit form.main-form>fieldset div#recoverable-advance-fields-collapse>div,
+section#aid-edit form.main-form>fieldset div#other-financial-aid-fields-collapse>div,
+section#aid-edit form.main-form>fieldset div#loan-fields-collapse>div {
   display: flex;
 
   @media screen and (max-width: 1000px) {
@@ -309,48 +310,48 @@ section#aid-edit form.main-form > fieldset div#loan-fields-collapse > div {
   }
 }
 
-section#aid-edit form.main-form > fieldset .help-form,
-section#aid-edit form.main-form > fieldset > div#calendar-fields-collapse > div > .help-form,
-section#aid-edit form.main-form > fieldset div#instructor-fields > div > .help-form,
-section#aid-edit form.main-form > fieldset div#subvention-fields-collapse > div > .help-form,
-section#aid-edit form.main-form > fieldset div#recoverable-advance-fields-collapse > div > .help-form,
-section#aid-edit form.main-form > fieldset div#other-financial-aid-fields-collapse > div > .help-form,
-section#aid-edit form.main-form > fieldset div#loan-fields-collapse > div > .help-form {
+section#aid-edit form.main-form>fieldset .help-form,
+section#aid-edit form.main-form>fieldset>div#calendar-fields-collapse>div>.help-form,
+section#aid-edit form.main-form>fieldset div#instructor-fields>div>.help-form,
+section#aid-edit form.main-form>fieldset div#subvention-fields-collapse>div>.help-form,
+section#aid-edit form.main-form>fieldset div#recoverable-advance-fields-collapse>div>.help-form,
+section#aid-edit form.main-form>fieldset div#other-financial-aid-fields-collapse>div>.help-form,
+section#aid-edit form.main-form>fieldset div#loan-fields-collapse>div>.help-form {
   flex: 0 0 33.3333333333%;
   max-width: 33.3333333333%;
 
   @media screen and (max-width: 1000px) {
-        width: 100%;
-        order: 2;
-        padding-right: 0;
-        padding-left: 0;
-        flex: none;
-        max-width: 100%;
+    width: 100%;
+    order: 2;
+    padding-right: 0;
+    padding-left: 0;
+    flex: none;
+    max-width: 100%;
   }
 
 }
 
 section#aid-edit #form-group-name .part-form label::after,
 section#aid-edit #form-group-financers .part-form label::after,
-section#aid-edit #form-group-aid_types .part-form > legend::after,
-section#aid-edit #form-group-description .part-form > label::after,
-section#aid-edit #form-group-categories .part-form > label::after,
-section#aid-edit #form-group-recurrence .part-form > label::after,
-section#aid-edit #form-group-mobilization_steps .part-form > legend::after,
-section#aid-edit #form-group-contact .part-form > label::after,
-section#aid-edit #form-group-perimeter .part-form > label::after, 
-section#aid-edit #form-group-targeted_audiences .part-form > legend::after {
-  content:'*';
+section#aid-edit #form-group-aid_types .part-form>legend::after,
+section#aid-edit #form-group-description .part-form>label::after,
+section#aid-edit #form-group-categories .part-form>label::after,
+section#aid-edit #form-group-recurrence .part-form>label::after,
+section#aid-edit #form-group-mobilization_steps .part-form>legend::after,
+section#aid-edit #form-group-contact .part-form>label::after,
+section#aid-edit #form-group-perimeter .part-form>label::after,
+section#aid-edit #form-group-targeted_audiences .part-form>legend::after {
+  content: '*';
   margin-left: 0.2rem;
 }
 
-section#aid-edit form.main-form > fieldset .part-form,
-section#aid-edit form.main-form > fieldset > div#calendar-fields-collapse > div > .part-form,
-section#aid-edit form.main-form > fieldset div#instructor-fields > div > .part-form,
-section#aid-edit form.main-form > fieldset div#subvention-fields-collapse > div > .part-form,
-section#aid-edit form.main-form > fieldset div#recoverable-fields-collapse > div > .part-form,
-section#aid-edit form.main-form > fieldset div#other-financial-aid-fields-collapse > div > .part-form,
-section#aid-edit form.main-form > fieldset div#loan-fields-collapse > div > .part-form {
+section#aid-edit form.main-form>fieldset .part-form,
+section#aid-edit form.main-form>fieldset>div#calendar-fields-collapse>div>.part-form,
+section#aid-edit form.main-form>fieldset div#instructor-fields>div>.part-form,
+section#aid-edit form.main-form>fieldset div#subvention-fields-collapse>div>.part-form,
+section#aid-edit form.main-form>fieldset div#recoverable-fields-collapse>div>.part-form,
+section#aid-edit form.main-form>fieldset div#other-financial-aid-fields-collapse>div>.part-form,
+section#aid-edit form.main-form>fieldset div#loan-fields-collapse>div>.part-form {
   flex: 0 0 66.6666666667%;
   max-width: 66.6666666667%;
   padding-left: 2rem;
@@ -358,12 +359,12 @@ section#aid-edit form.main-form > fieldset div#loan-fields-collapse > div > .par
   margin-bottom: 2rem;
 
   @media screen and (max-width: 1000px) {
-      width: 100%;
-      order: 1;
-      padding-right: 0;
-      padding-left: 0;
-      flex: none;
-      max-width: 100%;
+    width: 100%;
+    order: 1;
+    padding-right: 0;
+    padding-left: 0;
+    flex: none;
+    max-width: 100%;
   }
 
   label {
@@ -371,7 +372,8 @@ section#aid-edit form.main-form > fieldset div#loan-fields-collapse > div > .par
   }
 }
 
-form div.fr-checkbox-group fieldset legend, form div.multiple-input fieldset legend {
+form div.fr-checkbox-group fieldset legend,
+form div.multiple-input fieldset legend {
   font-size: 1em !important;
   font-style: italic;
   margin-bottom: 0;
@@ -433,52 +435,52 @@ form#general_search_form {
   }
 }
 
-div#search-steps form div.fr-input-group > label {
-    display: none;
+div#search-steps form div.fr-input-group>label {
+  display: none;
 }
 
 .select2-hidden-accessible {
-    border: 0 !important;
-    clip: rect(0 0 0 0) !important;
-    -webkit-clip-path: inset(50%) !important;
-    clip-path: inset(50%) !important;
-    height: 1px !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-    position: absolute !important;
-    width: 1px !important;
-    white-space: nowrap !important;
+  border: 0 !important;
+  clip: rect(0 0 0 0) !important;
+  -webkit-clip-path: inset(50%) !important;
+  clip-path: inset(50%) !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  white-space: nowrap !important;
 }
 
 div#search-steps form#perimeter div#form-group-perimeter,
 div#search-steps form#text-research-form div#form-group-text {
-    width: 30rem;
-    max-width: 100%;
-    display: inline-block;
-    margin-right: .5rem;
-    margin-bottom: 0;
+  width: 30rem;
+  max-width: 100%;
+  display: inline-block;
+  margin-right: .5rem;
+  margin-bottom: 0;
 
-    @media screen and (max-width: 1000px) {
-      width: 17rem;
-    }
+  @media screen and (max-width: 1000px) {
+    width: 17rem;
+  }
 }
 
-div#search-steps form#theme label > span {
-    display: block;
-    text-transform: initial;
-    font-size: 0.9rem;
-    font-weight: normal;
-    margin-bottom: 1rem;
+div#search-steps form#theme label>span {
+  display: block;
+  text-transform: initial;
+  font-size: 0.9rem;
+  font-weight: normal;
+  margin-bottom: 1rem;
 }
 
 div#search-steps form#text-research-form div#form-group-text input {
-    display: block;
-    width: 100%;
-    padding: 0.375rem 0.75rem;
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
 }
 
 div#search-steps form#theme .fr-toggle__label {
-    display: block;
+  display: block;
 }
 
 div#search-steps form#audience .fr-btn {
@@ -491,14 +493,14 @@ fieldset {
   border: none;
 }
 
-#contact-form .fr-input-group > textarea {
+#contact-form .fr-input-group>textarea {
   height: auto;
 }
 
 // Alert modal
 
-#alert-search-modal .fr-input-group > input,
-#alert-search-modal .fr-input-group > select {
+#alert-search-modal .fr-input-group>input,
+#alert-search-modal .fr-input-group>select {
   width: 100%;
   margin-top: 0.5rem;
 }
@@ -510,11 +512,11 @@ fieldset {
   left: -9999px;
 }
 
-.search-meta .theme > span {
+.search-meta .theme>span {
   text-transform: initial;
 }
 
-.search-meta .theme > span + span::before {
+.search-meta .theme>span+span::before {
   content: " + ";
 }
 
@@ -581,33 +583,33 @@ section#post-content img {
 // Map form
 @media screen and (max-width: 768px) {
   #map-back-button {
-      display: none;
+    display: none;
   }
 }
 
 #france-map {
-    text-align: center;
-    max-width: 800px;
-    margin: auto;
+  text-align: center;
+  max-width: 800px;
+  margin: auto;
 }
 
 .land {
-    fill: var(--blue-france-main-525);
-    stroke: var(--background-default-grey);
-    cursor: pointer;
+  fill: var(--blue-france-main-525);
+  stroke: var(--background-default-grey);
+  cursor: pointer;
 }
 
 .land:hover {
-    fill: var(--background-action-high-blue-france);
+  fill: var(--background-action-high-blue-france);
 }
 
 #tooltip {
-    position: absolute; 
-    background-color: var(--border-action-high-grey);
-    color: var(--text-inverted-grey);
-    padding: 0.5rem;
-    font-size: 1rem;
-    pointer-events : none;
+  position: absolute;
+  background-color: var(--border-action-high-grey);
+  color: var(--text-inverted-grey);
+  padding: 0.5rem;
+  font-size: 1rem;
+  pointer-events: none;
 }
 
 // Honeypot antispam field on contact form

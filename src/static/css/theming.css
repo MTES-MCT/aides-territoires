@@ -57,21 +57,22 @@ div.breadcrumbs a {
 /* Fix admin background-color & font-color */
 
 .dashboard-module h2,
-div.breadcrumbs, 
+div.breadcrumbs,
 .module h2,
 .module caption,
 .inline-group h2,
-.button, input[type=submit],
+.button,
+input[type=submit],
 input[type=button],
 .submit-row input,
-a.button, 
+a.button,
 .select2-results__option--highlighted[aria-selected] {
     background: #3a3188 !important;
     color: #fff !important;
 }
 
-div.module > table > tbody a:link,
-div.module > table > tbody a:visited {
+div.module>table>tbody a:link,
+div.module>table>tbody a:visited {
     color: #3a3188 !important;
 }
 
@@ -90,7 +91,7 @@ div.module > table > tbody a:visited {
     text-overflow: inherit;
 }
 
-.field-backer .related-widget-wrapper > .select2 {
+.field-backer .related-widget-wrapper>.select2 {
     width: 90% !important;
 }
 
@@ -101,7 +102,7 @@ div.module > table > tbody a:visited {
     display: none !important;
 }
 
-.main.shifted > #nav-sidebar + .content {
+.main.shifted>#nav-sidebar+.content {
     max-width: 100%;
 }
 
@@ -115,7 +116,7 @@ div.module > table > tbody a:visited {
 
 /* improve trumbowyg editor preview */
 
-.trumbowyg-editor > h1::after {
+.trumbowyg-editor>h1::after {
     content: "";
     color: transparent;
     background-color: #DB1C83;
@@ -130,23 +131,23 @@ div.module > table > tbody a:visited {
     margin-left: 0;
 }
 
-.trumbowyg-editor > h2 {
+.trumbowyg-editor>h2 {
     font-size: 20px;
     color: var(--body-fg) !important;
     background-color: #fff !important;
 }
 
-.trumbowyg-editor > h3 {
+.trumbowyg-editor>h3 {
     font-size: 17px;
     color: var(--body-fg) !important;
 }
 
-.trumbowyg-editor > h4 {
+.trumbowyg-editor>h4 {
     font-size: 14px;
     color: var(--body-fg) !important;
 }
 
-.trumbowyg-editor ul > li {
+.trumbowyg-editor ul>li {
     list-style: square !important;
 }
 
