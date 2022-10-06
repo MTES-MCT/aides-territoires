@@ -599,7 +599,9 @@
     {% include 'alerts/_alert_modal.html' %}
     {% include 'eligibility/_eligibility_test_modal.html' %}
     {% include 'projects/_match_aid_modal.html' %}
+    {% if not search_page %}
     {% include 'projects/_suggest_aid_modal.html' with project=project %}
+    {% endif %}
 {% endblock modals %}
 
 {% block extra_js %}
