@@ -15,7 +15,7 @@ h6 {
   margin-top: 0;
 }
 
-.at-centered {
+.fr-centered {
   text-align: center;
 }
 
@@ -122,10 +122,6 @@ h6 {
   background-color: var(--background-alt-pink-tuile);
 }
 
-.at-background-alt-green {
-  background-color: var(--background-alt-green-menthe);
-}
-
 .fr-footer-content__link {
   font-weight: 700;
   font-size: medium;
@@ -195,11 +191,6 @@ h6 {
 
 .at-height--30 {
   height: 30em;
-  // Custom classes for tabs
-}
-
-.at-tabs__panel--opaque {
-  background-color: var(--background-default-grey);
 }
 
 // Used to make a header button look like a normal one 
