@@ -7,10 +7,8 @@ var catalog = {
     perimeter_placeholder: 'Votre ville, intercommunalité, département…',
     perimeter_url: '{% url "perimeters-list" %}',
     text_placeholder: 'Ex: rénovation énergétique, vélo, tiers lieu, etc.',
-    {% if not search_page %}
     text_url: '{% url "synonymLists-list" %}',
-    {% endif %}
-    project_types_url: '{% url "synonymLists-classic-list" %}',
+    project_types_url: 'https://aides-territoires.beta.gouv.fr/api/synonymlists/classic-list/',
     project_types_placeholder: 'Sélectionnez un type de projet',
     autocomplete_placeholder: 'Saisissez quelques caractères pour des suggestions.',
     programs_placeholder: 'Sélectionnez un programme', 
