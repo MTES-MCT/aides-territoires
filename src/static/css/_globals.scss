@@ -44,11 +44,7 @@ h6 {
 }
 
 .at-uppercase {
-<<<<<<< HEAD
   text-transform: uppercase;
-=======
-    text-transform: uppercase;
->>>>>>> a457a38b (Accessibilité - Corrections rapides après l'audit (#1037))
 }
 
 .fr-width-fix-100 {
@@ -193,18 +189,17 @@ h6 {
   display: table;
 }
 
-<<<<<<< HEAD
 .at-position--relative {
   position: relative;
 }
 
 .at-height--30 {
   height: 30em;
-=======
-// Custom classes for tabs
+  // Custom classes for tabs
+}
+
 .at-tabs__panel--opaque {
   background-color: var(--background-default-grey);
->>>>>>> 774b3d53 (First version)
 }
 
 // Used to make a header button look like a normal one 
