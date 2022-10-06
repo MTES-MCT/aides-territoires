@@ -22,19 +22,29 @@
 
                                     {% if aid_detail_page %}
                                         {% if favorite_projects %}
-                                        <div id="form-group-project" class="fr-checkbox-group">
-                                            <ul id="id_project">
-                                                {% for project in favorite_projects %}
-                                                <li class="fr-list__none">
+                                        <div class="fr-form-group">
+                                            <fieldset class="fr-fieldset">
+                                                <legend class="fr-fieldset__legend fr-text--regular" id='checkboxes-legend'>
+                                                    Liste des vos projets favoris
+                                                </legend>
+                                                <div class="fr-fieldset__content">
+                                                    {% for project in favorite_projects %}
                                                     {% if project in aid.suggested_projects.all %}
-                                                    <input checked disabled type="checkbox" name="project" value="{{ project.pk }}" id="{{ project.pk }}" />
+                                                    <div class="fr-checkbox-group">
+                                                        <input checked disabled type="checkbox" id="{{ project.pk }}" name="project" value="{{ project.pk }}">
+                                                        <label class="fr-label" for="{{ project.pk }}">{{ project.name }}
+                                                        </label>
+                                                    </div>
                                                     {% else %}
-                                                    <input type="checkbox" name="project" value="{{ project.pk }}" id="{{ project.pk }}" />
+                                                    <div class="fr-checkbox-group">
+                                                        <input type="checkbox" id="{{ project.pk }}" name="project" value="{{ project.pk }}">
+                                                        <label class="fr-label" for="{{ project.pk }}">{{ project.name }}
+                                                        </label>
+                                                    </div>
                                                     {% endif %}
-                                                    <label for="{{ project.pk }}" class="fr-label">{{ project.name }}</label>
-                                                </li>
-                                                {% endfor %}
-                                            </ul>
+                                                    {% endfor %}
+                                                </div>
+                                            </fieldset>
                                         </div>
                                         <div id="form-group-aid" class="fr-input-group fr-input-group--error required">
                                             <input name="aid" value="{{ aid.slug }}" type="hidden" class="fr-input" required="" id="id_aid">
@@ -42,9 +52,6 @@
                                         {% else %}
                                         <p>Vous n’avez pas encore ajouté de projet à vos favoris</p>
                                         {% endif %}
-                                        
-
-        
                                     {% else %}
                                         <div id="form-group-project">
                                             <input type="checkbox" checked hidden name="project" value="{{ project.pk }}" id="{{ project.pk }}" />
