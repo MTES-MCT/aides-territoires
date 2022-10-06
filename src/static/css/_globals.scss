@@ -44,11 +44,7 @@ h6 {
 }
 
 .at-uppercase {
-<<<<<<< HEAD
   text-transform: uppercase;
-=======
-    text-transform: uppercase;
->>>>>>> a457a38b (Accessibilité - Corrections rapides après l'audit (#1037))
 }
 
 .at-button-align-end {
@@ -200,6 +196,12 @@ h6 {
 
 .at-height--30 {
   height: 30em;
+}
+
+// Custom classes for tabs
+
+.at-tabs__panel--opaque {
+  background-color: var(--background-default-grey);
 }
 
 // Used to make a header button look like a normal one 

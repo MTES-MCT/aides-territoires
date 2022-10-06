@@ -9,6 +9,8 @@ from categories.models import Category
 from home.forms import ContactForm
 from home.tasks import send_contact_form_email
 from projects.models import Project
+from minisites.mixins import SearchMixin
+from projects.models import Project
 
 
 class HomeView(FormView):
