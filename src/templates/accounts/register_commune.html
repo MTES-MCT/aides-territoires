@@ -59,7 +59,8 @@
                         <select class="fr-select" name="beneficiary_function" id="id_beneficiary_function" required>
                             <option value="" hidden>Sélectionnez votre fonction</option>
                             <option value="mayor">Maire</option>
-                            <option value="elected">Adjoint ou conseiller</option>
+                            <option value="deputy_mayor">Adjoint au maire</option>
+                            <option value="municipal_councilor">Conseiller municipal</option>
                             <option value="town_clerk">Secrétaire de mairie</option>
                             <option value="other">Autre</option>
                         </select>
@@ -95,7 +96,7 @@
                     <div id="form-group-acquisition_channel" class="fr-input-group required ">
                         <label for="id_acquisition_channel">Comment avez-vous connu Aides-territoires ?</label>
                         <select class="fr-select" name="acquisition_channel" id="id_acquisition_channel" hidden>
-                            <option value="other" selected>Autre</option>
+                            <option value="animator" selected>Animateur local</option>
                         </select>
                         
                     </div>
@@ -142,12 +143,13 @@
 {% endblock content %}
 
 {% block extra_css %}
-{% compress css %}
-{% endcompress %}
+    {% compress css %}
+    {% endcompress %}
 {% endblock extra_css %}
 
 {% block extra_js %}
     {% compress js %}
+        <script src="{% static 'js/accounts/toggle_acquisition_channel_related_field.js' %}"></script>
         <script src="{% static 'select2/dist/js/select2.js' %}"></script>
         <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
         <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>

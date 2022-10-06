@@ -68,13 +68,4 @@ $(document).ready(function () {
         let perimeter_name = $(this).find('option:selected').text();
         $("#id_organization_name").val("Commune de " + perimeter_name.split(' (')[0]);
     });
-
-    // Set the source from URL
-    let searchParams = new URLSearchParams(window.location.search);
-    if (searchParams.has('source')) {
-        let source = searchParams.get('source');
-        console.log("source: " + source);
-        $("#id_acquisition_channel_comment").val(source);
-    }
-
 });

@@ -9,58 +9,107 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('organizations', '0005_alter_organization_organization_type'),
-        ('geofr', '0038_auto_20220408_1630'),
-        ('accounts', '0027_user_join_organization_date'),
+        ("organizations", "0005_alter_organization_organization_type"),
+        ("geofr", "0038_auto_20220408_1630"),
+        ("accounts", "0027_user_join_organization_date"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='user',
-            options={'ordering': ['-date_created'], 'verbose_name': 'Utilisateur', 'verbose_name_plural': 'Utilisateurs'},
+            name="user",
+            options={
+                "ordering": ["-date_created"],
+                "verbose_name": "Utilisateur",
+                "verbose_name_plural": "Utilisateurs",
+            },
         ),
         migrations.AlterModelOptions(
-            name='userlastconnexion',
-            options={'verbose_name': 'Dernière connexion de l’utilisateur', 'verbose_name_plural': 'Dernières connexions des utilisateurs'},
+            name="userlastconnexion",
+            options={
+                "verbose_name": "Dernière connexion de l’utilisateur",
+                "verbose_name_plural": "Dernières connexions des utilisateurs",
+            },
         ),
         migrations.AlterField(
-            model_name='user',
-            name='animator_perimeter',
-            field=models.ForeignKey(blank=True, help_text='Sur quel périmètre l’animateur local est-il responsable ?', null=True, on_delete=django.db.models.deletion.PROTECT, related_name='animators', to='geofr.perimeter', verbose_name='Périmètre d’animation'),
+            model_name="user",
+            name="animator_perimeter",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Sur quel périmètre l’animateur local est-il responsable ?",
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="animators",
+                to="geofr.perimeter",
+                verbose_name="Périmètre d’animation",
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='image',
-            field=models.FileField(blank=True, help_text='Assurez vous que l’image n’est pas trop lourde.', null=True, upload_to=accounts.models.logo_upload_to, verbose_name='Avatar de l’utilisateur'),
+            model_name="user",
+            name="image",
+            field=models.FileField(
+                blank=True,
+                help_text="Assurez vous que l’image n’est pas trop lourde.",
+                null=True,
+                upload_to=accounts.models.logo_upload_to,
+                verbose_name="Avatar de l’utilisateur",
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='invitation_author',
-            field=models.ForeignKey(blank=True, help_text='utilisateur qui a invité cet utilisateur a rejoindre sa structure', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='invited_user', to=settings.AUTH_USER_MODEL, verbose_name='Auteur de l’invitation'),
+            model_name="user",
+            name="invitation_author",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="utilisateur qui a invité cet utilisateur a rejoindre sa structure",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="invited_user",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Auteur de l’invitation",
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='invitation_date',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='Date de l’invitation'),
+            model_name="user",
+            name="invitation_date",
+            field=models.DateTimeField(
+                blank=True, null=True, verbose_name="Date de l’invitation"
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='join_organization_date',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='Date d’acceptation de l’invitation'),
+            model_name="user",
+            name="join_organization_date",
+            field=models.DateTimeField(
+                blank=True, null=True, verbose_name="Date d’acceptation de l’invitation"
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='ml_consent',
-            field=models.BooleanField(default=False, verbose_name='A donné son consentement pour recevoir l’actualité'),
+            model_name="user",
+            name="ml_consent",
+            field=models.BooleanField(
+                default=False,
+                verbose_name="A donné son consentement pour recevoir l’actualité",
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='proposed_organization',
-            field=models.ForeignKey(blank=True, help_text='L’utilisateur a reçu une proposition pour rejoindre cette structure', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='invited_user', to='organizations.organization', verbose_name='Structure proposée'),
+            model_name="user",
+            name="proposed_organization",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="L’utilisateur a reçu une proposition pour rejoindre cette structure",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="invited_user",
+                to="organizations.organization",
+                verbose_name="Structure proposée",
+            ),
         ),
         migrations.AlterField(
-            model_name='userlastconnexion',
-            name='user',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Utilisateur'),
+            model_name="userlastconnexion",
+            name="user",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Utilisateur",
+            ),
         ),
     ]
