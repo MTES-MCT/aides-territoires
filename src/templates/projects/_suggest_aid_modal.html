@@ -1,4 +1,4 @@
-<dialog aria-labelledby="fr-modal-title-add-to-favorite" role="dialog" id="suggest-aid-modal" class="fr-modal">
+<dialog aria-labelledby="fr-modal-title-suggest-aid-modal" role="dialog" id="suggest-aid-modal" class="fr-modal">
     <div class="fr-container fr-container--fluid fr-container-md">
         <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
@@ -15,7 +15,7 @@
                         Vous pouvez désormais suggérer une aide présente sur <a href="{% url 'general_search' %}" target="_blank" rel="noopener" title="Trouver des aides - ouvre une nouvelle fenêtre">Aides-territoires</a>{% if aid_detail_page %}.{% else %} pour ce projet.{% endif %}
                         </p>
                         {% if user.is_authenticated %}
-                        <form id="suggest-aid-modal" method="post" action="{% url 'suggest_aid_view' %}">
+                        <form id="suggest-aid-modal-form" method="post" action="{% url 'suggest_aid_view' %}">
                             <div class="content">
                                 {% csrf_token %}
 
