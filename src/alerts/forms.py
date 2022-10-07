@@ -13,7 +13,7 @@ class AlertForm(forms.ModelForm, DsfrBaseForm):
         help_text="Nous enverrons un e-mail pour confirmer votre adresse",
         required=True,
         error_messages={
-            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr"
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr."
         },
     )
     title = forms.CharField(

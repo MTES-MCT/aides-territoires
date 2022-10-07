@@ -36,7 +36,7 @@ class ContactForm(DsfrBaseForm):
         help_text="Par exemple : prenom.nom@domaine.fr",
         required=True,
         error_messages={
-            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr"
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr."
         },
     )
     phone = forms.CharField(

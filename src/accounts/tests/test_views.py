@@ -186,8 +186,12 @@ def test_register_form_expects_valid_data(client, perimeters):
             "is_contributor": False,
         },
     )
+    print(res.content.decode())
     assert res.status_code == 200
-    assert "Saisissez une adresse e-mail valide." in res.content.decode()
+    assert (
+        "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr."
+        in res.content.decode()
+    )
 
 
 def test_register_form_with_unique_email(client, user, mailoutbox, perimeters):

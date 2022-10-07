@@ -44,7 +44,7 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
             Nous enverrons un e-mail de confirmation à cette adresse avant de valider le compte.
             """,
         error_messages={
-            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr"
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr."
         },
     )
     beneficiary_role = forms.CharField(
@@ -142,7 +142,7 @@ class RegisterCommuneForm(RegisterForm):
             Nous enverrons un e-mail de confirmation à cette adresse avant de valider le compte.
             """,
         error_messages={
-            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr"
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr."
         },
     )
     perimeter = AutocompleteModelChoiceField(
@@ -161,7 +161,7 @@ class LoginForm(AuthenticationForm, DsfrBaseForm):
         help_text="Par exemple : prenom.nom@domaine.fr",
         required=True,
         error_messages={
-            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr"
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr."
         },
     )
     password = forms.CharField(
@@ -194,7 +194,7 @@ class PasswordResetForm(DsfrBaseForm):
         help_text="Par exemple : prenom.nom@domaine.fr",
         required=True,
         error_messages={
-            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr"
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr."
         },
     )
 
@@ -383,7 +383,7 @@ class InviteCollaboratorForm(DsfrBaseForm):
         help_text="Par exemple : prenom.nom@domaine.fr",
         required=True,
         error_messages={
-            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr"
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr."
         },
     )
 
