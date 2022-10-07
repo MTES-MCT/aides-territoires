@@ -43,6 +43,9 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
             Par exemple : prenom.nom@domaine.fr<br />
             Nous enverrons un e-mail de confirmation à cette adresse avant de valider le compte.
             """,
+        error_messages={
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr"
+        },
     )
     beneficiary_role = forms.CharField(
         label="Votre rôle", max_length=128, required=False
@@ -132,6 +135,9 @@ class RegisterCommuneForm(RegisterForm):
             ou si vous souhaitez en utiliser un autre, personnel par exemple.<br />
             Nous enverrons un e-mail de confirmation à cette adresse avant de valider le compte.
             """,
+        error_messages={
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr"
+        },
     )
     perimeter = AutocompleteModelChoiceField(
         label="Votre commune", queryset=Perimeter.objects.all(), required=True
@@ -148,6 +154,9 @@ class LoginForm(AuthenticationForm, DsfrBaseForm):
         label="Votre adresse e-mail",
         help_text="Par exemple : prenom.nom@domaine.fr",
         required=True,
+        error_messages={
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr"
+        },
     )
     password = forms.CharField(
         label="Votre mot de passe",
@@ -170,6 +179,9 @@ class PasswordResetForm(DsfrBaseForm):
         label="Votre adresse e-mail",
         help_text="Par exemple : prenom.nom@domaine.fr",
         required=True,
+        error_messages={
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr"
+        },
     )
 
 
@@ -341,6 +353,9 @@ class InviteCollaboratorForm(DsfrBaseForm):
         label="Son adresse e-mail",
         help_text="Par exemple : prenom.nom@domaine.fr",
         required=True,
+        error_messages={
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr"
+        },
     )
 
     def __init__(self, *args, **kwargs):
