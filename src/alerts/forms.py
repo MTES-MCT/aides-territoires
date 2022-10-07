@@ -31,6 +31,11 @@ class AlertForm(forms.ModelForm, DsfrBaseForm):
         model = Alert
         fields = ["email", "title", "alert_frequency", "querystring", "source"]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["email"].widget.attrs.update({"autocomplete": "email"})
+
     def clean(self):
         """
         Enforce the unvalidated alert quota.

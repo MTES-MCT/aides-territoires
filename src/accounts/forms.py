@@ -92,13 +92,19 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["first_name"].widget.attrs.update({"autofocus": True})
+        self.fields["first_name"].widget.attrs.update(
+            {"autofocus": True, "autocomplete": "given-name"}
+        )
+        self.fields["last_name"].widget.attrs.update({"autocomplete": "family-name"})
         self.fields["email"].widget.attrs.update(
             {
                 "placeholder": "Merci de bien vérifier l’adresse saisie.",
                 "autofocus": False,
+                "autocomplete": "email",
             }
         )
+        self.fields["password1"].widget.attrs.update({"autocomplete": "new-password"})
+        self.fields["password2"].widget.attrs.update({"autocomplete": "new-password"})
 
     def clean_email(self):
         email = self.cleaned_data["email"]
@@ -171,6 +177,14 @@ class LoginForm(AuthenticationForm, DsfrBaseForm):
         username = self.cleaned_data["username"]
         return username.lower()
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["username"].widget.attrs.update({"autocomplete": "email"})
+        self.fields["password"].widget.attrs.update(
+            {"autocomplete": "current-password"}
+        )
+
 
 class PasswordResetForm(DsfrBaseForm):
     """Password reset request form."""
@@ -183,6 +197,11 @@ class PasswordResetForm(DsfrBaseForm):
             "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr"
         },
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["username"].widget.attrs.update({"autocomplete": "email"})
 
 
 class PasswordResetConfirmForm(forms.ModelForm, DsfrBaseForm):
@@ -209,6 +228,16 @@ class PasswordResetConfirmForm(forms.ModelForm, DsfrBaseForm):
             "new_password",
             "new_password2",
         ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["new_password"].widget.attrs.update(
+            {"autocomplete": "new-password"}
+        )
+        self.fields["new_password2"].widget.attrs.update(
+            {"autocomplete": "new-password"}
+        )
 
     def _post_clean(self):
         super()._post_clean()

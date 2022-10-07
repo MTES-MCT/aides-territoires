@@ -71,3 +71,14 @@ class ContactForm(DsfrBaseForm):
         error_messages={"invalid": "Le texte entré ne correspond pas à l’image"},
         widget=CustomCaptchaTextInput,
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["first_name"].widget.attrs.update({"autocomplete": "given-name"})
+        self.fields["last_name"].widget.attrs.update({"autocomplete": "family-name"})
+        self.fields["email"].widget.attrs.update(
+            {
+                "autocomplete": "email",
+            }
+        )
+        self.fields["phone"].widget.attrs.update({"autocomplete": "tel-national"})
