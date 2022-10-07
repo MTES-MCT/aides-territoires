@@ -6,7 +6,7 @@ $(document).ready(function () {
     submitBtn.prop('disabled', true);
     checkboxesEnabled.each(function(index) {
     	$(this).on('click', function() {
-			if($(".fr-form-group input[type='checkbox']:checked:not(:disabled)").length) {
+			if($("#form-group-favorite-projects input[type='checkbox']:checked:not(:disabled)").length) {
     			submitBtn.prop('disabled', false);
 			} else {
     			submitBtn.prop('disabled', true);
