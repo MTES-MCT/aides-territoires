@@ -15,7 +15,7 @@
                         Vous pouvez désormais suggérer une aide présente sur <a href="{% url 'general_search' %}" target="_blank" rel="noopener" title="Trouver des aides - ouvre une nouvelle fenêtre">Aides-territoires</a>{% if aid_detail_page %}.{% else %} pour ce projet.{% endif %}
                         </p>
                         {% if user.is_authenticated %}
-                        <form id="suggest-aid-modal" method="post" action="{% url 'suggest_aid_view' %}">
+                        <form id="suggest-aid-modal-form" method="post" action="{% url 'suggest_aid_view' %}">
                             <div class="content">
                                 {% csrf_token %}
 
@@ -25,10 +25,13 @@
                                         <fieldset class="fr-fieldset">
                                             <legend class="fr-fieldset__legend fr-text--regular" id='checkboxes-legend'>
                                                 Liste des vos projets favoris
+                                                <span class="fr-hint-text">
+                                                Cochez au moins un projet favori dans la liste pour suggérer cette aide.
+                                                </span>
                                             </legend>
                                             <div class="fr-fieldset__content">
                                                 {% for project in favorite_projects %}
-                                                {% if project in aid.suggested_projects.all %}
+                                                {% if project in aid.suggested_projects.all or project in aid.projects.all %}
                                                 <div class="fr-checkbox-group">
                                                     <input checked disabled type="checkbox" id="{{ project.pk }}" name="project" value="{{ project.pk }}">
                                                     <label class="fr-label" for="{{ project.pk }}">{{ project.name }}
