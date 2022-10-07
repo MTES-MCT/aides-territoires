@@ -93,7 +93,7 @@ export default class extends Controller {
     if (this.map.hasLayer(this.regions)) return
     this.map.addLayer(this.regions)
     this.legend.setContent(this.#generateLegendContent(this.scaleRegions))
-    this.tableTarget.innerHTML = ''
+    if (this.tableTarget) this.tableTarget.innerHTML = ''
   }
 
   #switchToDepartmentLevel() {
@@ -111,7 +111,7 @@ export default class extends Controller {
       })
     }
     this.legend.setContent(this.#generateLegendContent(this.scaleDepartments))
-    this.tableTarget.innerHTML = ''
+    if (this.tableTarget) this.tableTarget.innerHTML = ''
   }
 
   #switchToCommuneLevel() {
@@ -139,6 +139,7 @@ export default class extends Controller {
       })
     }
     this.legend.setContent(`
+      <i style="background:black;"></i> Probable incohérence<br>
       <i style="background:${this.#getAgeColor(3)};"></i> Ces 30 derniers jours<br>
       <i style="background:${this.#getAgeColor(2)};"></i> Dans le dernier trimestre<br>
       <i style="background:${this.#getAgeColor(1)};"></i> Inscription plus ancienne<br>
@@ -152,21 +153,25 @@ export default class extends Controller {
     for (const feature of data.features) {
       const key = `${feature.properties.code}-${feature.properties.nom}`
       if (Object.keys(this.communesWithOrg).includes(key)) {
-        correspondanceCommunes.push({
-          nom: feature.properties.nom,
-          organization_name: this.communesWithOrg[key].organization_name,
-          date_created: this.communesWithOrg[key].date_created,
-          projects_count: this.communesWithOrg[key].projects_count,
-          user_email: this.communesWithOrg[key].user_email,
+        this.communesWithOrg[key].forEach((org) => {
+          correspondanceCommunes.push({
+            nom: feature.properties.nom,
+            organization_name: org.organization_name,
+            date_created: org.date_created,
+            projects_count: org.projects_count,
+            user_email: org.user_email,
+          })
         })
       }
       if (Object.keys(this.epcisWithOrg).includes(key)) {
-        correspondanceEpcis.push({
-          nom: feature.properties.nom,
-          organization_name: this.epcisWithOrg[key].organization_name,
-          date_created: this.epcisWithOrg[key].date_created,
-          projects_count: this.epcisWithOrg[key].projects_count,
-          user_email: this.epcisWithOrg[key].user_email,
+        this.epcisWithOrg[key].forEach((org) => {
+          correspondanceEpcis.push({
+            nom: feature.properties.nom,
+            organization_name: org.organization_name,
+            date_created: org.date_created,
+            projects_count: org.projects_count,
+            user_email: org.user_email,
+          })
         })
       }
     }
@@ -174,9 +179,8 @@ export default class extends Controller {
     correspondanceCommunes.sort((a, b) => b.date_created > a.date_created)
     correspondanceEpcis.sort((a, b) => b.date_created > a.date_created)
     this.tablesTarget.innerHTML = `
-      <h2>${
-        correspondanceCommunes.length
-      } communes et leurs organisations (département ${department})
+      <h2>
+        Communes et leurs organisations (département ${department})
       </h2>
       <table
         data-controller="table"
@@ -237,9 +241,7 @@ export default class extends Controller {
         </tbody>
       </table>
       <h2>
-        ${
-          correspondanceEpcis.length
-        } EPCI et leurs organisations (département ${department})
+        EPCI et leurs organisations (département ${department})
       </h2>
       <table
         data-controller="table"
@@ -353,12 +355,12 @@ export default class extends Controller {
           if (communeCount) {
             message += `<b>${props.nom}</b><br>${communeCount} communes / ${epciCount} EPCI`
           } else {
+            message += `<b>${props.nom}</b>`
             if (props.date_created) {
-              message += `<b>${
-                props.nom
-              }</b><br>${props.date_created.toLocaleDateString('fr-FR')}`
-            } else {
-              message += `<b>${props.nom}</b>`
+              message += ` (${props.date_created.toLocaleDateString('fr-FR')})`
+            }
+            if (props.extraInfo) {
+              message += `<br>${props.extraInfo}`
             }
           }
         }
@@ -504,14 +506,23 @@ export default class extends Controller {
         const communes = L.geoJson(data, {
           style: (feature) => {
             const key = `${feature.properties.code}-${feature.properties.nom}`
-            let age = 0
+            let additionalStyles = {}
             if (Object.keys(this.communesWithOrg).includes(key)) {
-              age = this.communesWithOrg[key].age
-            } else if (Object.keys(this.epcisWithOrg).includes(key)) {
-              age = this.epcisWithOrg[key].age
+              const communes = this.communesWithOrg[key]
+              if (communes.length == 1) {
+                additionalStyles.fillColor = this.#getAgeColor(communes[0].age)
+              } else {
+                // Make visible communes with more than one entry!
+                additionalStyles.fillColor = 'black'
+              }
+
             }
-            const fillColor = { fillColor: this.#getAgeColor(age) }
-            return { ...this.defaultFillStyle, ...fillColor }
+            if (Object.keys(this.epcisWithOrg).includes(key)) {
+              additionalStyles.dashArray = ''
+              additionalStyles.weight = 2
+              additionalStyles.color = this.styles.getPropertyValue('--info-425-625')
+            }
+            return { ...this.defaultFillStyle, ...additionalStyles }
           },
           onEachFeature: (_feature, layer) => {
             layer.on({
@@ -527,13 +538,26 @@ export default class extends Controller {
                 const key = `${properties.code}-${properties.nom}`
                 const epciHasOrg = Object.keys(this.epcisWithOrg).includes(key)
                 const communeHasOrg = Object.keys(this.communesWithOrg).includes(key)
+                properties.extraInfo = ''
                 if (communeHasOrg) {
-                  const communeProperties = this.communesWithOrg[key]
+                  const communes = this.communesWithOrg[key]
+                  const communeProperties = communes[0]
                   properties.date_created = new Date(communeProperties['date_created'])
-                } else if (epciHasOrg) {
-                  const epciProperties = this.epcisWithOrg[key]
-                  properties.date_created = new Date(epciProperties['date_created'])
-                  properties.nom = epciProperties['organization_name']
+                  if (communes.length > 1) {
+                    properties.extraInfo += communes.map(commune => {
+                      return `⚠️ ${commune['organization_name']}`
+                    }).join('<br>')
+                    properties.extraInfo += '<br>'
+                  }
+                }
+                if (epciHasOrg) {
+                  properties.extraInfo += this.epcisWithOrg[key]
+                    .map((epci) => {
+                      return `${epci['organization_name']} (${new Date(
+                        epci['date_created']
+                      ).toLocaleDateString('fr-FR')})`
+                    })
+                    .join('<br>')
                 }
                 this.info.update(properties, {}, {})
               },

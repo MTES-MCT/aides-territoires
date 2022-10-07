@@ -1,6 +1,7 @@
 import json
 import requests
 import datetime
+from collections import defaultdict
 from datetime import timedelta
 from time import strftime, gmtime
 from pathlib import Path
@@ -16,6 +17,7 @@ from aids.models import Aid, AidProject
 from accounts.models import User
 from backers.models import Backer
 from geofr.models import Perimeter
+from geofr.utils import get_all_related_perimeters
 from stats.models import AidViewEvent, Event, AidSearchEvent, AidContactClickEvent
 from organizations.models import Organization
 from projects.models import Project
@@ -383,12 +385,20 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
         for department in departments:
             departments_codes.append(department.code)
             departments_org_communes_count[department.name] = (
-                department.organization_department.filter(organization_type=["commune"])
+                department.organization_department.filter(
+                    organization_type=["commune"],
+                    perimeter__scale=Perimeter.SCALES.commune,
+                    perimeter__is_obsolete=False,
+                )
                 .values("id")
                 .count()
             )
             departments_org_epcis_count[department.name] = (
-                department.organization_department.filter(organization_type=["epci"])
+                department.organization_department.filter(
+                    organization_type=["epci"],
+                    perimeter__scale=Perimeter.SCALES.epci,
+                    perimeter__is_obsolete=False,
+                )
                 .values("id")
                 .count()
             )
@@ -404,11 +414,11 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
         )
 
         # Organizations with commune as a perimeter.
-        organizations = (
+        organizations_communes = (
             Organization.objects.filter(
-                perimeter__scale__in=[Perimeter.SCALES.commune, Perimeter.SCALES.epci],
+                perimeter__scale=Perimeter.SCALES.commune,
                 perimeter__is_obsolete=False,
-                organization_type__overlap=["commune", "epci"],
+                organization_type=["commune"],
             )
             .annotate(projects_count=Count("project", distinct=True))
             .values(
@@ -431,31 +441,89 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
             else:
                 return 1
 
-        communes_with_org = {
-            f"{organization['perimeter__code']}-{organization['perimeter__name']}": {
+        communes_with_org = defaultdict(list)
+        for organization in organizations_communes:
+            key = f"{organization['perimeter__code']}-{organization['perimeter__name']}"
+            content = {
                 "organization_name": organization["name"],
                 "user_email": organization["user__email"],
                 "projects_count": organization["projects_count"],
                 "date_created": organization["date_created"],
                 "age": get_age(organization["date_created"]),
             }
-            for organization in organizations
-            if organization["organization_type"] == ["commune"]
-        }
-        epcis_with_org = {
-            f"{organization['perimeter__code']}-{organization['perimeter__name']}": {
-                "organization_name": organization["name"],
-                "user_email": organization["user__email"],
-                "projects_count": organization["projects_count"],
-                "date_created": organization["date_created"],
-                "age": 4,
-            }
-            for organization in organizations
-            if organization["organization_type"] == ["epci"]
-        }
+            if key in communes_with_org:
+                already_exists = False
+                for commune in communes_with_org[key]:
+                    if commune["organization_name"] == organization["name"]:
+                        already_exists = True
+                        commune[
+                            "user_email"
+                        ] = f'{commune["user_email"]}, {organization["user__email"]}'
+                if not already_exists:
+                    communes_with_org[key].append(content)
+            else:
+                communes_with_org[key].append(content)
         context["communes_with_org"] = json.dumps(
             communes_with_org, cls=DjangoJSONEncoder
         )
+
+        # Organizations with EPCI as a perimeter.
+        organizations_epcis = (
+            Organization.objects.filter(
+                perimeter__scale=Perimeter.SCALES.epci,
+                perimeter__is_obsolete=False,
+                organization_type=["epci"],
+            )
+            .annotate(projects_count=Count("project", distinct=True))
+            .values(
+                "name",
+                "date_created",
+                "projects_count",
+                "perimeter__id",
+                "user__email",
+            )
+        )
+        epcis_with_org = defaultdict(list)
+        communes_perimeters = {}
+        for organization in organizations_epcis:
+            # Cache commune perimeters for a given perimeter id.
+            perimeter_id = organization["perimeter__id"]
+            if perimeter_id in communes_perimeters:
+                perimeters = communes_perimeters[perimeter_id]
+            else:
+                perimeters = get_all_related_perimeters(
+                    perimeter_id,
+                    direction="down",
+                    scale=Perimeter.SCALES.commune,
+                    values=["code", "name"],
+                )
+                communes_perimeters[perimeter_id] = perimeters
+
+            for perimeter in perimeters:
+                key = f"{perimeter['code']}-{perimeter['name']}"
+                content = {
+                    "organization_name": organization["name"],
+                    "user_email": organization["user__email"],
+                    "projects_count": organization["projects_count"],
+                    "date_created": organization["date_created"],
+                    "age": 4,
+                }
+                if key in epcis_with_org:
+                    already_exists = False
+                    for epci in epcis_with_org[key]:
+                        if epci["organization_name"] == organization["name"]:
+                            already_exists = True
+                            epci[
+                                "user_email"
+                            ] = f'{epci["user_email"]}, {organization["user__email"]}'
+                            epci["projects_count"] = (
+                                epci["projects_count"] + organization["projects_count"]
+                            )
+                    if not already_exists:
+                        epcis_with_org[key].append(content)
+                else:
+                    epcis_with_org[key].append(content)
+
         context["epcis_with_org"] = json.dumps(epcis_with_org, cls=DjangoJSONEncoder)
         return context
 
