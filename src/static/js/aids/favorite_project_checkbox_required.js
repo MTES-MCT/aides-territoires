@@ -1,7 +1,7 @@
 $(document).ready(function () {
     // Disable submit button until at least one enabled checkbox was checked
     let submitBtn = $('form#suggest-aid-modal-form button[type=submit]');
-    let checkboxesEnabled = $("#from-group-favorite-projects input[type='checkbox']:not(:disabled)");
+    let checkboxesEnabled = $("#form-group-favorite-projects input[type='checkbox']:not(:disabled)");
 
     submitBtn.prop('disabled', true);
     checkboxesEnabled.each(function(index) {
