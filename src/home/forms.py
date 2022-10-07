@@ -55,7 +55,7 @@ class ContactForm(DsfrBaseForm):
             attrs={
                 "placeholder": "Exemple: Mairie de Château-Thierry / Chargé de mission habitat"
             }
-        ),  # noqa
+        ),
         required=False,
     )
 
