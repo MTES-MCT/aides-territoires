@@ -5,6 +5,7 @@ import json
 import locale
 import requests
 import re
+import math
 from datetime import datetime
 
 from django.utils import timezone
@@ -99,8 +100,18 @@ class Command(BaseImportCommand):
             headers = {"accept": "application/json", "content-type": "application/json"}
             req = requests.get(DATA_SOURCE.import_api_url)
             data = json.loads(req.text)
+            page_number = math.ceil(data["count"] / 20.0)
+            list_results = []
+            for page in range(page_number):
+                offset = 20 * page
+                req = requests.get(
+                    f"{DATA_SOURCE.import_api_url}?limit=20&offset={offset}"
+                )
+                data = json.loads(req.text)
+                for result in data["results"]:
+                    list_results.append(result)
             self.stdout.write("Total number of aids: {}".format(data["count"]))
-            for line in data["results"]:
+            for line in list_results:
                 yield line
 
     def line_should_be_processed(self, line):
@@ -115,6 +126,9 @@ class Command(BaseImportCommand):
 
     def extract_import_data_url(self, line):
         return OPENDATA_URL
+
+    def extract_import_data_mention(self, line):
+        return "Ces données sont mises à disposition par le Ministère de la Culture."
 
     def extract_import_share_licence(self, line):
         return DATA_SOURCE.import_licence or IMPORT_LICENCES.unknown
@@ -174,8 +188,11 @@ class Command(BaseImportCommand):
         Split the string, loop on the values and match to our AUDIENCES
         """
 
-        if line.get("public", ""):
-            audiences = line.get("public", "").split(", ")
+        if line.get("public", "") or line.get("eztag_cible", []):
+            if line.get("eztag_cible", []):
+                audiences = line.get("eztag_cible", "")
+            elif line.get("public", ""):
+                audiences = line.get("public", "").split(", ")
 
             aid_audiences = []
             for audience in audiences:
@@ -259,7 +276,10 @@ class Command(BaseImportCommand):
                 deadline = line.get("deadline")
                 if "1er" in deadline:
                     deadline = re.sub("1er", "1", line.get("deadline"))
-                submission_deadline = datetime.strptime(deadline, "%d %B %Y")
+                try:
+                    submission_deadline = datetime.strptime(deadline, "%d %B %Y")
+                except Exception:
+                    submission_deadline = None
                 return submission_deadline
         else:
             pass
