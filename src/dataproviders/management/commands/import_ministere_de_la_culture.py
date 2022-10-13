@@ -98,14 +98,14 @@ class Command(BaseImportCommand):
                 yield line
         else:
             headers = {"accept": "application/json", "content-type": "application/json"}
-            req = requests.get(DATA_SOURCE.import_api_url)
+            req = requests.get(DATA_SOURCE.import_api_url, headers=headers,)
             data = json.loads(req.text)
             page_number = math.ceil(data["count"] / 20.0)
             list_results = []
             for page in range(page_number):
                 offset = 20 * page
                 req = requests.get(
-                    f"{DATA_SOURCE.import_api_url}?limit=20&offset={offset}"
+                    f"{DATA_SOURCE.import_api_url}?limit=20&offset={offset}", headers=headers,
                 )
                 data = json.loads(req.text)
                 for result in data["results"]:
@@ -203,8 +203,6 @@ class Command(BaseImportCommand):
                         self.style.ERROR(f"Audience {audience} not mapped")
                     )
             return aid_audiences
-        else:
-            pass
 
     def extract_categories(self, line):
         """
@@ -235,16 +233,14 @@ class Command(BaseImportCommand):
                     keyword = Keyword.objects.get(name=category)
                     keyword_list = []
                     keyword_list.append(keyword)
-                    keyword_pk = Keyword.objects.get(name=category).pk
                     keywords.extend(keyword_list)
-                except:
+                except Exception:
                     try:
                         keyword = Keyword.objects.create(name=category)
                         keyword_list = []
                         keyword_list.append(keyword)
-                        keyword_pk = Keyword.objects.get(name=category).pk
                         keywords.extend(keyword_list)
-                    except:
+                    except Exception:
                         pass
         return keywords
 
@@ -275,14 +271,12 @@ class Command(BaseImportCommand):
                 locale.setlocale(locale.LC_TIME, "fr_FR.UTF-8")
                 deadline = line.get("deadline")
                 if "1er" in deadline:
-                    deadline = re.sub("1er", "1", line.get("deadline"))
+                    deadline = line.get("deadline").replace("1er", "1")
                 try:
                     submission_deadline = datetime.strptime(deadline, "%d %B %Y")
                 except Exception:
                     submission_deadline = None
                 return submission_deadline
-        else:
-            pass
 
     def extract_recurrence(self, line):
         if line.get("deadline"):
