@@ -821,6 +821,39 @@ class AidProject(models.Model):
         blank=True,
         null=True,
     )
+    aid_requested = models.BooleanField(
+        "Aide demandée ?",
+        help_text="Cette aide a-t-elle été demandée par le porteur du projet ?",
+        default=False,
+    )
+    aid_obtained = models.BooleanField(
+        "Aide obtenue ?",
+        help_text="Cette aide a-t-elle été obtenue par le porteur du projet ?",
+        default=False,
+    )
+    aid_denied = models.BooleanField(
+        "Aide refusée ?",
+        help_text="Cette aide a-t-elle été refusée au porteur du projet ?",
+        default=False,
+    )
+    date_denied = models.DateTimeField(
+        "Date du refus",
+        help_text="Date à laquelle cette aide a été refusée au porteur du projet",
+        null=True,
+        blank=True,
+    )
+    date_obtained = models.DateTimeField(
+        "Date de l'obtention",
+        help_text="Date à laquelle cette aide a été obtenue par le porteur du projet",
+        null=True,
+        blank=True,
+    )
+    date_requested = models.DateTimeField(
+        "Date de la demande",
+        help_text="Date à laquelle cette aide a été demandée par le porteur du projet",
+        null=True,
+        blank=True,
+    )
     date_created = models.DateTimeField("Date de création", default=timezone.now)
 
 
