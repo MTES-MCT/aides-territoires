@@ -16,7 +16,11 @@
 <section id="stats" class="fr-container">
   <h2 class="fr-mt-0w">Statistiques globales :</h2>
   <div class="fr-container">
+<<<<<<< HEAD
     <div class="fr-grid-row fr-mb-2w fr-pt-0w fr-p-0w fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w at-centered fr-grid-row--bottom">
+=======
+    <div class="fr-grid-row fr-mb-2w fr-pt-0w fr-p-0w fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w fr-centered fr-grid-row--bottom">
+>>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
         <div class="fr-col-12 fr-col-lg-12 fr-p-2w">
         <div role="alert" class="fr-alert fr-alert--success fr-alert--sm fr-mb-2w fr-grid--center">
           <p class="fr-text--lg"><strong><a href="{% url 'users_stats' %}">{{ nb_beneficiary_accounts|intcomma }} comptes utilisateurs</a></strong>, répartis en <strong><a href="{% url 'organizations_stats' %}">{{ nb_organizations|intcomma }} structures</a></strong>, ont créé <strong><a href="{% url 'projects_stats' %}">{{ nb_projects|intcomma }} projets</a></strong>
@@ -40,7 +44,11 @@
       </ul>
     </div>
 
+<<<<<<< HEAD
     <script nonce="{{ request.csp_nonce }}">
+=======
+    <script>
+>>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
       new Chartist.Pie('#chart-communes', {
         series: [
           {{ nb_communes }},
@@ -181,7 +189,11 @@
 {% endblock content %}
 
 {% block extra_js %}
+<<<<<<< HEAD
 <script type="module" nonce="{{ request.csp_nonce }}">
+=======
+<script type="module">
+>>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
   import { Application } from "{% static '@hotwired/stimulus/dist/stimulus.js' %}"
   import tableController from "{% static 'js/stats/table_controller.js' %}"
   window.Stimulus = Application.start()

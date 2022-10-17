@@ -62,7 +62,11 @@
       <div class="fr-tile fr-enlarge-link">
         <div class="fr-tile__body">
           <p class="fr-tile__title">
+<<<<<<< HEAD
             <a class="fr-tile__link" href="{% url 'admin:stats_aidviewevent_changelist' %}">
+=======
+            <a class="fr-tile__link" href="#">
+>>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
             Nombre d’aides vues
             </a>
           </p>
@@ -81,12 +85,21 @@
   <div class="charts-legends">
     <ul>
       <li><span class="charts-legend charts-legend-accent"></span> Visites uniques hebdomadaires</li>
+<<<<<<< HEAD
       <li><span class="charts-legend charts-legend-regular"></span> Inscriptions (⨯20)</li>
       <li><span class="charts-legend charts-legend-regular2"></span> Alertes créées (⨯20)</li>
     </ul>
   </div>
 
   <script nonce="{{ request.csp_nonce }}">
+=======
+      <li><span class="charts-legend charts-legend-regular"></span> Inscriptions (⨯50)</li>
+      <li><span class="charts-legend charts-legend-regular2"></span> Alertes créées (⨯50)</li>
+    </ul>
+  </div>
+
+  <script>
+>>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
     new Chartist.Line('#chart-visites-uniques', {
       labels: {{ nb_vu_weeks|safe }},
       series: [
@@ -94,10 +107,17 @@
         // Change the scale to make it visible
         // and adapt meta for the tooltip content.
         {{ nb_inscriptions_serie }}.map(count => {
+<<<<<<< HEAD
           return {value: count * 20, meta: count}
         }),
         {{ nb_inscriptions_with_created_alert_serie }}.map(count => {
           return {value: count * 20, meta: count}
+=======
+          return {value: count * 50, meta: count}
+        }),
+        {{ nb_inscriptions_with_created_alert_serie }}.map(count => {
+          return {value: count * 50, meta: count}
+>>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
         }),
       ]
     }, {
@@ -119,7 +139,11 @@
         offset: 100,
         labelInterpolationFnc: (value) => {
           if (value === 0) return 0
+<<<<<<< HEAD
           return `${value} (${value / 20})`
+=======
+          return `${value} (${value / 50})`
+>>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
         }
       },
       plugins: [

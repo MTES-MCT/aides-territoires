@@ -201,6 +201,32 @@ class MatomoMixin:
         data = res.json()
         return data
 
+<<<<<<< HEAD
+=======
+
+class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
+    def get_period(self):
+
+        period = timezone.now().strftime("%Y-%m-%d")
+
+        if self.request.GET:
+            form = StatSearchForm(self.request.GET)
+            if form.is_valid():
+                start_date = form.cleaned_data["start_date"]
+                if form.cleaned_data["end_date"]:
+                    end_date = form.cleaned_data["end_date"]
+                else:
+                    end_date = start_date
+
+                start_date = start_date.strftime("%Y-%m-%d")
+                end_date = end_date.strftime("%Y-%m-%d")
+                period = start_date.split() + end_date.split()
+
+        return period
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+>>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
 
 class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
     def get_period(self):
@@ -248,6 +274,246 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
         context["start_date_range"] = start_date_range
         context["end_date_range"] = end_date_range
         return context
+<<<<<<< HEAD
+=======
+
+
+class DashboardConsultationView(DashboardBaseView, TemplateView):
+    template_name = "stats/dashboard_consultation.html"
+    form_class = StatSearchForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        start_date = context["start_date"]
+        end_date = context["end_date"]
+        start_date_range = context["start_date_range"]
+        end_date_range = context["end_date_range"]
+
+        # total 'Collectivités":
+        context["total_communes"] = Perimeter.objects.filter(
+            scale=Perimeter.SCALES.commune, is_obsolete=False
+        ).count()
+        context["total_epci"] = Perimeter.objects.filter(
+            scale=Perimeter.SCALES.epci, is_obsolete=False
+        ).count()
+
+        aids_live_qs = Aid.objects.live()
+        matomo_visits_summary = self.get_matomo_stats(
+            "VisitsSummary.get", date_=f"{start_date},{end_date}"
+        )
+        matomo_actions = self.get_matomo_stats(
+            "Actions.get", date_=f"{start_date},{end_date}"
+        )
+        matomo_last_10_weeks = self.get_matomo_stats(
+            "VisitsSummary.get", period="week", date_="last10"
+        )
+        nb_vu_serie_items = {
+            dates[:10]: int(numbers["nb_uniq_visitors"])
+            for dates, numbers in matomo_last_10_weeks.items()
+        }
+        last_10_weeks = [
+            datetime.datetime.fromisoformat(week)  # - datetime.timedelta(days=75)
+            for week in list(nb_vu_serie_items.keys())
+        ]
+        week_inscriptions_counts = []
+        for week in last_10_weeks:
+            users = User.objects.filter(
+                date_created__range=[week - datetime.timedelta(days=7), week],
+            ).annotate(
+                aids_subscription_count=Count(
+                    "aids", filter=Q(aids__isnull=False), distinct=True
+                )
+            )
+            week_inscriptions_counts.append(len(users))
+        context["nb_inscriptions_weeks"] = [
+            week.date().isoformat() for week in last_10_weeks
+        ]
+        context["nb_inscriptions_serie"] = week_inscriptions_counts
+        context["nb_inscriptions_with_created_alert_serie"] = [
+            Alert.objects.filter(validated=True)
+            .filter(
+                date_created__range=[week - datetime.timedelta(days=7), week],
+            )
+            .count()
+            for week in last_10_weeks
+        ]
+
+        context["nb_vu_weeks"] = [week.date().isoformat() for week in last_10_weeks]
+        context["nb_vu_serie_values"] = list(nb_vu_serie_items.values())
+        context["nb_vu_serie_max"] = max(context["nb_vu_serie_values"])
+
+        # general stats:
+        context["nb_beneficiary_accounts"] = User.objects.filter(
+            is_beneficiary=True
+        ).count()
+        context["nb_organizations"] = Organization.objects.count()
+        context["nb_projects"] = Project.objects.count()
+        context["nb_aids_live"] = aids_live_qs.count()
+        context["nb_aids_matching_projects"] = (
+            aids_live_qs.exclude(projects=None).distinct().count()
+        )
+        context["nb_active_financers"] = Backer.objects.has_financed_aids().count()
+        context["nb_searchPage"] = SearchPage.objects.count()
+
+        # stats 'Collectivités':
+        context["nb_communes"] = (
+            Organization.objects.filter(organization_type__contains=["commune"])
+            .exclude(perimeter_id__isnull="True")
+            .values("city_name", "perimeter_id")
+            .distinct()
+            .count()
+        )
+        context["objectif_communes"] = 10000
+        context["pourcent_communes"] = round(
+            context["nb_communes"] * 100 / context["total_communes"], 1
+        )
+        context["nb_epci"] = (
+            Organization.objects.filter(organization_type__contains=["epci"])
+            .exclude(perimeter_id__isnull="True")
+            .values("name", "perimeter_id")
+            .distinct()
+            .count()
+        )
+        context["objectif_epci"] = 941  # 75%.
+        context["pourcent_epci"] = round(
+            context["nb_epci"] * 100 / context["total_epci"], 1
+        )
+
+        # stats 'Consultation':
+        context["nb_viewed_aids"] = AidViewEvent.objects.filter(
+            date_created__range=[start_date_range, end_date_range]
+        ).count()
+        context["nb_visits"] = matomo_visits_summary["nb_visits"]
+        context["bounce_rate"] = matomo_visits_summary["bounce_rate"]
+        context["avg_time_on_site"] = strftime(
+            "%Mm%Ss", gmtime(matomo_visits_summary["avg_time_on_site"])
+        )
+        context["nb_pageviews"] = matomo_actions["nb_pageviews"]
+
+        context["consultation_selected"] = True
+        return context
+
+
+class DashboardAcquisitionView(DashboardBaseView, TemplateView):
+    template_name = "stats/dashboard_acquisition.html"
+    form_class = StatSearchForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        start_date = context["start_date"]
+        end_date = context["end_date"]
+
+        # total 'Collectivités":
+        context["total_communes"] = Perimeter.objects.filter(
+            scale=Perimeter.SCALES.commune, is_obsolete=False
+        ).count()
+        context["total_epci"] = Perimeter.objects.filter(
+            scale=Perimeter.SCALES.epci, is_obsolete=False
+        ).count()
+
+        aids_live_qs = Aid.objects.live()
+        matomo_referrers = self.get_matomo_stats(
+            "Referrers.get", date_=f"{start_date},{end_date}"
+        )
+        matomo_referrers_all = self.get_matomo_stats(
+            "Referrers.getAll", date_=f"{start_date},{end_date}"
+        )
+        tmp_referrers = {}
+        nb_referrers_total = 0
+        nb_referrers_total_without_search = 0
+        for referrer in matomo_referrers_all[:100]:
+            nb_visits = referrer["nb_visits"]
+            is_search = referrer["label"] == "Keyword not defined"
+            if is_search:
+                label = "Recherche"
+                nb_referrers_total += nb_visits
+            else:
+                label = referrer["label"]
+                nb_referrers_total += nb_visits
+                nb_referrers_total_without_search += nb_visits
+            tmp_referrers[label] = nb_visits
+
+        referrers = {
+            label: (
+                nb_visits,
+                round(nb_visits / nb_referrers_total * 100, 1),
+                round(nb_visits / nb_referrers_total_without_search * 100, 1)
+                if label != "Recherche"
+                else "-",
+            )
+            for label, nb_visits in tmp_referrers.items()
+        }
+        context["referrers"] = referrers
+
+        # general stats:
+        context["nb_beneficiary_accounts"] = User.objects.filter(
+            is_beneficiary=True
+        ).count()
+        context["nb_organizations"] = Organization.objects.count()
+        context["nb_projects"] = Project.objects.count()
+        context["nb_aids_live"] = aids_live_qs.count()
+        context["nb_aids_matching_projects"] = (
+            aids_live_qs.exclude(projects=None).distinct().count()
+        )
+        context["nb_active_financers"] = Backer.objects.has_financed_aids().count()
+        context["nb_searchPage"] = SearchPage.objects.count()
+
+        # stats 'Collectivités':
+        context["nb_communes"] = (
+            Organization.objects.filter(organization_type__contains=["commune"])
+            .exclude(perimeter_id__isnull="True")
+            .values("city_name", "perimeter_id")
+            .distinct()
+            .count()
+        )
+        context["objectif_communes"] = 10000
+        context["pourcent_communes"] = round(
+            context["nb_communes"] * 100 / context["total_communes"], 1
+        )
+        context["nb_epci"] = (
+            Organization.objects.filter(organization_type__contains=["epci"])
+            .exclude(perimeter_id__isnull="True")
+            .values("name", "perimeter_id")
+            .distinct()
+            .count()
+        )
+        context["objectif_epci"] = 941  # 75%.
+        context["pourcent_epci"] = round(
+            context["nb_epci"] * 100 / context["total_epci"], 1
+        )
+
+        # stats 'Acquisition':
+        context["nb_direct_visitors"] = matomo_referrers[
+            "Referrers_visitorsFromDirectEntry"
+        ]
+        context["nb_searchEngine_visitors"] = matomo_referrers[
+            "Referrers_visitorsFromSearchEngines"
+        ]  # noqa
+        context["nb_webSite_visitors"] = matomo_referrers[
+            "Referrers_visitorsFromWebsites"
+        ]
+        context["nb_newsletter_visitors"] = matomo_referrers[
+            "Referrers_visitorsFromCampaigns"
+        ]
+        context["nb_socialNetwork_visitors"] = matomo_referrers[
+            "Referrers_visitorsFromSocialNetworks"
+        ]  # noqa
+
+        context["acquisition_selected"] = True
+        return context
+
+
+class DashboardEngagementView(DashboardBaseView, TemplateView):
+    template_name = "stats/dashboard_engagement.html"
+    form_class = StatSearchForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        start_date = context["start_date"]
+        end_date = context["end_date"]
+        start_date_range = context["start_date_range"]
+        end_date_range = context["end_date_range"]
+>>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
 
     def get_context_stats(self, context, **kwargs):
         # General stats.
@@ -296,6 +562,7 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
             context["nb_epci"] * 100 / context["total_epci"], 1
         )
 
+<<<<<<< HEAD
         return context
 
     def get_context_data(self, **kwargs):
@@ -603,6 +870,9 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
             top_aids_pages, key=lambda a: a["nb_uniq_visitors"], reverse=True
         )[:NB_OF_TOP_AIDS]
 
+=======
+        aids_live_qs = Aid.objects.live()
+>>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
         matomo_last_10_weeks = self.get_matomo_stats(
             "VisitsSummary.get", period="week", date_="last10"
         )
@@ -875,6 +1145,123 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
             "nb_inscriptions_epcis_with_created_project_serie"
         ] = nb_inscriptions_with_created_project_epcis_serie
 
+<<<<<<< HEAD
+=======
+        context["nb_vu_weeks"] = [week.date().isoformat() for week in last_10_weeks]
+        context["nb_vu_serie_values"] = list(nb_vu_serie_items.values())
+        context["nb_vu_serie_max"] = max(context["nb_vu_serie_values"])
+
+        # general stats:
+        context["nb_beneficiary_accounts"] = User.objects.filter(
+            is_beneficiary=True
+        ).count()
+        context["nb_organizations"] = Organization.objects.count()
+        context["nb_projects"] = Project.objects.count()
+        context["nb_aids_live"] = aids_live_qs.count()
+        context["nb_aids_matching_projects"] = (
+            aids_live_qs.exclude(projects=None).distinct().count()
+        )
+        context["nb_active_financers"] = Backer.objects.has_financed_aids().count()
+        context["nb_searchPage"] = SearchPage.objects.count()
+
+        # stats 'Collectivités':
+        context["nb_communes"] = (
+            Organization.objects.filter(organization_type__contains=["commune"])
+            .exclude(perimeter_id__isnull="True")
+            .values("city_name", "perimeter_id")
+            .distinct()
+            .count()
+        )
+        context["objectif_communes"] = 10000
+        context["pourcent_communes"] = round(
+            context["nb_communes"] * 100 / context["total_communes"], 1
+        )
+        context["nb_epci"] = (
+            Organization.objects.filter(organization_type__contains=["epci"])
+            .exclude(perimeter_id__isnull="True")
+            .values("name", "perimeter_id")
+            .distinct()
+            .count()
+        )
+        context["objectif_epci"] = 941  # 75%.
+        context["pourcent_epci"] = round(
+            context["nb_epci"] * 100 / context["total_epci"], 1
+        )
+
+        # stats 'Engagement':
+        context["nb_search_events"] = AidSearchEvent.objects.filter(
+            date_created__range=[start_date_range, end_date_range]
+        ).count()
+        context["nb_alerts_created"] = (
+            Alert.objects.filter(validated=True)
+            .filter(date_created__range=[start_date_range, end_date_range])
+            .count()
+        )
+        context["nb_aid_contact_click_events"] = AidContactClickEvent.objects.filter(
+            date_created__range=[start_date_range, end_date_range]
+        ).count()
+
+        context["engagement_selected"] = True
+        return context
+
+
+class DashboardPorteursView(DashboardBaseView, TemplateView):
+    template_name = "stats/dashboard_porteurs.html"
+    form_class = StatSearchForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        start_date_range = context["start_date_range"]
+        end_date_range = context["end_date_range"]
+
+        # total 'Collectivités":
+        context["total_communes"] = Perimeter.objects.filter(
+            scale=Perimeter.SCALES.commune, is_obsolete=False
+        ).count()
+        context["total_epci"] = Perimeter.objects.filter(
+            scale=Perimeter.SCALES.epci, is_obsolete=False
+        ).count()
+
+        aids_live_qs = Aid.objects.live()
+
+        # general stats:
+        context["nb_beneficiary_accounts"] = User.objects.filter(
+            is_beneficiary=True
+        ).count()
+        context["nb_organizations"] = Organization.objects.count()
+        context["nb_projects"] = Project.objects.count()
+        context["nb_aids_live"] = aids_live_qs.count()
+        context["nb_aids_matching_projects"] = (
+            aids_live_qs.exclude(projects=None).distinct().count()
+        )
+        context["nb_active_financers"] = Backer.objects.has_financed_aids().count()
+        context["nb_searchPage"] = SearchPage.objects.count()
+
+        # stats 'Collectivités':
+        context["nb_communes"] = (
+            Organization.objects.filter(organization_type__contains=["commune"])
+            .exclude(perimeter_id__isnull="True")
+            .values("city_name", "perimeter_id")
+            .distinct()
+            .count()
+        )
+        context["objectif_communes"] = 10000
+        context["pourcent_communes"] = round(
+            context["nb_communes"] * 100 / context["total_communes"], 1
+        )
+        context["nb_epci"] = (
+            Organization.objects.filter(organization_type__contains=["epci"])
+            .exclude(perimeter_id__isnull="True")
+            .values("name", "perimeter_id")
+            .distinct()
+            .count()
+        )
+        context["objectif_epci"] = 941  # 75%.
+        context["pourcent_epci"] = round(
+            context["nb_epci"] * 100 / context["total_epci"], 1
+        )
+
+>>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
         # stats for beneficiaries:
         context["nb_beneficiary_accounts_created"] = (
             User.objects.filter(is_beneficiary=True)
