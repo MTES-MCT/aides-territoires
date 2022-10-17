@@ -106,7 +106,11 @@ venv.bak/
 # Frontend stuff
 .sass-cache
 
+# VSCode stuff
+pyrightconfig.json
+
 TODO
+temp.txt
 
 .env.local
 .env.production
