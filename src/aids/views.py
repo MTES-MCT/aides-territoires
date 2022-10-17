@@ -990,7 +990,8 @@ class AidProjectStatusView(
 
         aidproject = form.save(commit=False)
 
-        if aidproject.creator.beneficiary_organization != self.request.user.beneficiary_organization:
+        user_organization = self.request.user.beneficiary_organization
+        if aidproject.creator.beneficiary_organization != user_organization:
             raise PermissionDenied()
 
         if form.cleaned_data["aid_requested"] is True:
@@ -1007,10 +1008,10 @@ class AidProjectStatusView(
             form.date_denied = timezone.now()
         else:
             form.date_denied = None
-        
+
         form.save()
 
-        msg = f"Le statut de l'aide «{aidproject.aid.name}» vis à vis de votre projet a bien été mis à jour."
+        msg = f"Le statut de l'aide «{aidproject.aid.name}» a bien été mis à jour."
         messages.success(self.request, msg)
         url = reverse("project_detail_view", args=[aidproject.project.pk, aidproject.project.slug])
         return HttpResponseRedirect(url)
@@ -1022,7 +1023,9 @@ class AidProjectStatusView(
                 user=self.request.user,
                 aid_set=self.object.project.aid_set.all(),
                 AidProject=AidProject.objects.filter(project=self.object.project),
-                SuggestedAidProject=SuggestedAidProject.objects.filter(project=self.object.project.pk),
+                SuggestedAidProject=SuggestedAidProject.objects.filter(
+                    project=self.object.project.pk
+                ),
                 suggested_aid=self.object.project.suggested_aid.filter(
                     suggestedaidproject__is_associated=False,
                     suggestedaidproject__is_rejected=False,

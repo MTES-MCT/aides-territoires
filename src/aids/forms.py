@@ -846,8 +846,8 @@ class AidProjectStatusForm(forms.ModelForm, DsfrBaseForm):
         data = super().clean()
         if data.get("aid_obtained") and data.get("aid_denied"):
             msg = "L'aide ne peut être à la fois 'obtenue' et 'rejetée'"
-            self.add_error(f"aid_denied", msg)
-            self.add_error(f"aid_obtained", msg)
+            self.add_error("aid_denied", msg)
+            self.add_error("aid_obtained", msg)
 
         return data
 
