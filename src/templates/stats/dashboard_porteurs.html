@@ -1,0 +1,115 @@
+{% extends "stats/dashboard_base.html" %}
+{% load humanize %}
+
+{% block panels %}
+<div id="consultation-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="consultation" tabindex="0">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <h3>Chargement en cours…</h3>
+  </div></div>
+
+<div id="acquisition-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="acquisition" tabindex="0">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <h3>Chargement en cours…</h3>
+  </div>
+</div>
+
+<div id="engagement-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="engagement" tabindex="0">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <h3>Chargement en cours…</h3>
+  </div>
+</div>
+
+<div id="cote-porteurs-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="cote-porteurs" tabindex="0">
+  <h3 class="fr-mt-5w">Côté Porteurs de projets :</h3>
+  <div  class="fr-grid-row fr-grid-row--gutters">
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">Nombre de nouveaux comptes</a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_beneficiary_accounts_created|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">Nombre de nouvelles structures</a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_beneficiary_organizations|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">Nombre de nouveaux projets</a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_projects_for_period|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">Nombre d’aides ajoutées dans des projets</a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_aids_matching_projects_for_period|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="fr-mt-5w">Côté Porteurs d’aides :</h3>
+  <div  class="fr-grid-row fr-grid-row--gutters">
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">Nombre de nouveaux comptes</a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_contributor_accounts_created|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">Nombre de nouvelles structures</a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_contributor_organizations|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">Nombre de nouvelles aides publiées</a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_aids_live_for_period|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock panels %}
