@@ -48,6 +48,7 @@ django-simple-captcha = "*"
 django-dsfr = "*"
 xhtml2pdf = "*"
 python-stdnum = "*"
+django-csp = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
