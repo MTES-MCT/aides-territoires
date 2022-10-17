@@ -431,11 +431,11 @@
         },
         "django-dsfr": {
             "hashes": [
-                "sha256:05fc7d41ad52a172c6d8ac2593dedcd37b1597808339429881fcc97102100803",
-                "sha256:a6971750e533f48576894060c188785ab0989985a6cce93c295effd51d8c8117"
+                "sha256:6c4a801d950bd125959142e5641033b6ba0e346db36028e9051c96373d8caf6f",
+                "sha256:a0512c0891486bfbe4db68f5157868caf497d6fab594085cafd56b2e50498d8d"
             ],
             "index": "pypi",
-            "version": "==0.9.3"
+            "version": "==0.9.4"
         },
         "django-environ": {
             "hashes": [
