@@ -38,8 +38,10 @@ from aids.forms import (
     DraftListAidFilterForm,
     AidMatchProjectForm,
     SuggestAidMatchProjectForm,
+    AidProjectStatusForm,
 )
-from aids.models import Aid, SuggestedAidProject
+from projects.forms import ProjectExportForm
+from aids.models import Aid, AidProject, SuggestedAidProject
 from aids.mixins import AidEditMixin, AidCopyMixin
 from alerts.forms import AlertForm
 from categories.models import Category
@@ -969,3 +971,66 @@ class SuggestedAidUnmatchProjectView(
         project_slug = self.request.POST.get("project-slug")
         url = reverse("project_detail_view", args=[project_pk, project_slug])
         return HttpResponseRedirect(url)
+
+
+class AidProjectStatusView(
+    ContributorAndProfileCompleteRequiredMixin, UpdateView
+):
+    """Allow user to precise if he requested and obtained the aid for the project or not"""
+
+    context_object_name = "aidproject"
+    form_class = AidProjectStatusForm
+    model = AidProject
+
+    def get_template_names(self):
+
+        return ["projects/project_detail.html"]
+
+    def form_valid(self, form):
+
+        aidproject = form.save(commit=False)
+
+        if aidproject.creator.beneficiary_organization != self.request.user.beneficiary_organization:
+            raise PermissionDenied()
+
+        if form.cleaned_data["aid_requested"] is True:
+            form.date_requested = timezone.now()
+        else:
+            form.date_requested = None
+
+        if form.cleaned_data["aid_obtained"] is True:
+            form.date_obtained = timezone.now()
+        else:
+            form.date_obtained = None
+
+        if form.cleaned_data["aid_denied"] is True:
+            form.date_denied = timezone.now()
+        else:
+            form.date_denied = None
+        
+        form.save()
+
+        msg = f"Le statut de l'aide «{aidproject.aid.name}» vis à vis de votre projet a bien été mis à jour."
+        messages.success(self.request, msg)
+        url = reverse("project_detail_view", args=[aidproject.project.pk, aidproject.project.slug])
+        return HttpResponseRedirect(url)
+
+    def form_invalid(self, form):
+        """If the form is invalid, render the invalid form."""
+        return self.render_to_response(
+            self.get_context_data(
+                user=self.request.user,
+                aid_set=self.object.project.aid_set.all(),
+                AidProject=AidProject.objects.filter(project=self.object.project),
+                SuggestedAidProject=SuggestedAidProject.objects.filter(project=self.object.project.pk),
+                suggested_aid=self.object.project.suggested_aid.filter(
+                    suggestedaidproject__is_associated=False,
+                    suggestedaidproject__is_rejected=False,
+                ),
+                aid_project_status_form=AidProjectStatusForm(self.request.POST),
+                error_aidproject_status=self.object.pk,
+                project=self.object.project,
+                aidproject=self.object,
+                form=ProjectExportForm,
+            ),
+        )

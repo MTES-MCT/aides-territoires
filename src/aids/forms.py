@@ -835,6 +835,23 @@ class AidMatchProjectForm(forms.ModelForm, DsfrBaseForm):
         fields = ["projects"]
 
 
+class AidProjectStatusForm(forms.ModelForm, DsfrBaseForm):
+
+    class Meta:
+        model = AidProject
+        fields = ["aid_requested", "aid_obtained", "aid_denied"]
+
+    def clean(self):
+
+        data = super().clean()
+        if data.get("aid_obtained") and data.get("aid_denied"):
+            msg = "L'aide ne peut être à la fois 'obtenue' et 'rejetée'"
+            self.add_error(f"aid_denied", msg)
+            self.add_error(f"aid_obtained", msg)
+
+        return data
+
+
 class SuggestAidMatchProjectForm(DsfrBaseForm):
     """allow user to suggest an aid to an existing project."""
 
