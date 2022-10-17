@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     dialogBoxesBtn.each(function(index) {
 		$(this).on('click', function() {
-			aidproject_id = $(this).attr("id").split("aidproject-status-modal-btn-")[1]
+			let aidproject_id = $(this).attr("id").split("aidproject-status-modal-btn-")[1]
 			let aid_obtained_checkbox = $("input[type='checkbox']#id_aid_obtained--" + aidproject_id)
 			let aid_denied_checkbox = $("input[type='checkbox']#id_aid_denied--" + aidproject_id)
 			aid_obtained_checkbox.change(function() {
