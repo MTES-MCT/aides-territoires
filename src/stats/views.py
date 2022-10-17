@@ -365,6 +365,8 @@ class DashboardAcquisitionView(DashboardBaseView, TemplateView):
         context = super().get_context_data(**kwargs)
         start_date = context["start_date"]
         end_date = context["end_date"]
+        start_date_range = context["start_date_range"]
+        end_date_range = context["end_date_range"]
 
         # total 'Collectivités":
         context["total_communes"] = Perimeter.objects.filter(
@@ -378,6 +380,8 @@ class DashboardAcquisitionView(DashboardBaseView, TemplateView):
         matomo_referrers = self.get_matomo_stats(
             "Referrers.get", date_=f"{start_date},{end_date}"
         )
+
+        # Display the table of referrers for the given range.
         matomo_referrers_all = self.get_matomo_stats(
             "Referrers.getAll", date_=f"{start_date},{end_date}"
         )
@@ -407,6 +411,38 @@ class DashboardAcquisitionView(DashboardBaseView, TemplateView):
             for label, nb_visits in tmp_referrers.items()
         }
         context["referrers"] = referrers
+
+        # Display the graph+table of new users for the given range.
+        user_inscriptions = (
+            User.objects.filter(
+                date_created__range=[start_date_range, end_date_range],
+            )
+            .order_by("-date_created")
+            .values(
+                "email",
+                "first_name",
+                "last_name",
+                "date_created",
+                "organization__name",
+            )
+        )
+        context["user_inscriptions"] = user_inscriptions
+        user_inscriptions_by_date = defaultdict(int)
+        for user_inscription in user_inscriptions:
+            user_inscriptions_by_date[
+                user_inscription["date_created"].date().strftime("%Y-%m-%d")
+            ] += 1
+
+        current_date = start_date_range
+        nb_user_days = []
+        nb_user_inscriptions = []
+        while current_date < end_date_range:
+            date_ = current_date.date().strftime("%Y-%m-%d")
+            nb_user_days.append(date_)
+            nb_user_inscriptions.append(user_inscriptions_by_date.get(date_, 0))
+            current_date += timedelta(days=1)
+        context["nb_user_days"] = nb_user_days
+        context["nb_user_inscriptions_serie"] = nb_user_inscriptions
 
         # general stats:
         context["nb_beneficiary_accounts"] = User.objects.filter(
@@ -451,7 +487,7 @@ class DashboardAcquisitionView(DashboardBaseView, TemplateView):
         ]
         context["nb_searchEngine_visitors"] = matomo_referrers[
             "Referrers_visitorsFromSearchEngines"
-        ]  # noqa
+        ]
         context["nb_webSite_visitors"] = matomo_referrers[
             "Referrers_visitorsFromWebsites"
         ]
@@ -460,7 +496,7 @@ class DashboardAcquisitionView(DashboardBaseView, TemplateView):
         ]
         context["nb_socialNetwork_visitors"] = matomo_referrers[
             "Referrers_visitorsFromSocialNetworks"
-        ]  # noqa
+        ]
 
         context["acquisition_selected"] = True
         return context
