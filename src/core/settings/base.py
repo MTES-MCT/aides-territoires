@@ -387,7 +387,7 @@ CSP_FRAME_ANCESTORS = ("*",)
 
 CSP_BASE_URI = ("'self'",)
 
-CSP_CHILD_SRC = ("https://*.hotjar.com", "http://*.hotjar.io", "https://*.hotjar.io")
+CSP_WORKER_SRC = ("https://*.hotjar.com", "http://*.hotjar.io", "https://*.hotjar.io")
 
 CSP_FORM_ACTION = ("'self'", "https://my.sendinblue.com")
 
