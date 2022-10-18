@@ -2,6 +2,7 @@ from functools import partial
 from itertools import groupby
 from operator import attrgetter
 from django import forms
+from django.core.exceptions import ValidationError
 from keywords.models import SynonymList
 
 from core.forms.widgets import (
@@ -134,7 +135,13 @@ class AutocompleteSynonymChoiceField(forms.ModelChoiceField):
         # this def allow us to get the keywords list as value
         if value is not None and "-synonyms-" in value:
             synonym_list_id = value.split("-synonyms-")[0]
-            value = SynonymList.objects.get(id=synonym_list_id).keywords_list
+            if SynonymList.objects.filter(id=synonym_list_id).exists():
+                value = SynonymList.objects.get(id=synonym_list_id).keywords_list
+            else:
+                raise ValidationError(
+                    "Selectionnez un choix valide",
+                    code="invalid_choice",
+                )
         return value
 
     def prepare_value(self, value):
@@ -143,12 +150,8 @@ class AutocompleteSynonymChoiceField(forms.ModelChoiceField):
         # else if user has used the possibility to create an option we display the text wrote
         if value is not None and "-synonyms-" in value:
             synonym_list_id = value.split("-synonyms-")[0]
-            value = SynonymList.objects.get(id=synonym_list_id).pk
-        return value
-
-    def clean(self, value):
-        self.prepare_value(value)
-        value = self.to_python(value)
+            if SynonymList.objects.filter(id=synonym_list_id).exists():
+                value = SynonymList.objects.get(id=synonym_list_id).pk
         return value
 
 
