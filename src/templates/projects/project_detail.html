@@ -183,17 +183,19 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    {% if aidproject.aid_obtained %}
-                                    <span class="fr-mb-0 fr-badge fr-badge--success">Obtenue</span>
+                                    {% if aidproject.aid_paid %}
+                                    <span class="fr-mb-1w fr-badge fr-badge--success">Payée</span>
+                                    {% elif aidproject.aid_obtained %}
+                                    <span class="fr-mb-1w fr-badge fr-badge--success">Obtenue</span>
                                     {% elif aidproject.aid_denied %}
-                                    <span class="fr-mb-0 fr-badge fr-badge--error">Refusée</span>
+                                    <span class="fr-mb-1w fr-badge fr-badge--error">Refusée</span>
                                     {% elif aidproject.aid_requested %}
-                                    <span class="fr-mb-0 fr-badge fr-badge--success">Demandée</span>
+                                    <span class="fr-mb-1w fr-badge fr-badge--info">Demandée</span>
                                     {% endif %}
                                     <button
-                                        class="fr-btn fr-icon-settings-5-line fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"
+                                        class="fr-btn"
                                         id="aidproject-status-modal-btn-{{ aidproject.id }}"
-                                        title="Mofifier le statut de cette aide"
+                                        title="Editer le statut"
                                         {% if error_aidproject_status == aidproject.pk %}
                                         data-fr-opened="true"
                                         {% else %}
@@ -202,7 +204,7 @@
                                         aria-controls="aidproject-status-modal--{{ aidproject.id }}"
                                         aria-describedby="aidproject-status-{{ aidproject.id }}"
                                     >
-                                        Modifier le statut de cette aide
+                                        Editer le statut
                                     </button>
                                 </td>
                                 {% endif %}

@@ -1004,6 +1004,11 @@ class AidProjectStatusView(
         else:
             form.date_obtained = None
 
+        if form.cleaned_data["aid_paid"] is True:
+            form.date_paid = timezone.now()
+        else:
+            form.date_paid = None
+
         if form.cleaned_data["aid_denied"] is True:
             form.date_denied = timezone.now()
         else:

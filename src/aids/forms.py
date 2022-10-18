@@ -839,7 +839,7 @@ class AidProjectStatusForm(forms.ModelForm, DsfrBaseForm):
 
     class Meta:
         model = AidProject
-        fields = ["aid_requested", "aid_obtained", "aid_denied"]
+        fields = ["aid_requested", "aid_obtained", "aid_paid", "aid_denied"]
 
     def clean(self):
 
@@ -848,6 +848,10 @@ class AidProjectStatusForm(forms.ModelForm, DsfrBaseForm):
             msg = "L'aide ne peut être à la fois 'obtenue' et 'rejetée'"
             self.add_error("aid_denied", msg)
             self.add_error("aid_obtained", msg)
+        elif data.get("aid_paid") and data.get("aid_denied"):
+            msg = "L'aide ne peut être à la fois 'versée' et 'rejetée'"
+            self.add_error("aid_denied", msg)
+            self.add_error("aid_paid", msg)
 
         return data
 

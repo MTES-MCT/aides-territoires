@@ -8,14 +8,21 @@ $(document).ready(function () {
 			let aidproject_id = $(this).attr("id").split("aidproject-status-modal-btn-")[1]
 			let aid_obtained_checkbox = $("input[type='checkbox']#id_aid_obtained--" + aidproject_id)
 			let aid_denied_checkbox = $("input[type='checkbox']#id_aid_denied--" + aidproject_id)
+			let aid_paid_checkbox = $("input[type='checkbox']#id_aid_paid--" + aidproject_id)
 			aid_obtained_checkbox.change(function() {
 				if (aid_obtained_checkbox.is(":checked")) {
+					aid_denied_checkbox.prop("checked", false);
+				}
+			})
+			aid_paid_checkbox.change(function() {
+				if (aid_paid_checkbox.is(":checked")) {
 					aid_denied_checkbox.prop("checked", false);
 				}
 			})
 			aid_denied_checkbox.change(function() {
 				if (aid_denied_checkbox.is(":checked")) {
 					aid_obtained_checkbox.prop("checked", false);
+					aid_paid_checkbox.prop("checked", false);
 				}
 			})
 		})	

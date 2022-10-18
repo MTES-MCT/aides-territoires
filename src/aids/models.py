@@ -836,11 +836,16 @@ class AidProject(models.Model):
         help_text="Cette aide a-t-elle été refusée au porteur du projet ?",
         default=False,
     )
-    date_denied = models.DateTimeField(
-        "Date du refus",
-        help_text="Date à laquelle cette aide a été refusée au porteur du projet",
+    date_requested = models.DateTimeField(
+        "Date de la demande",
+        help_text="Date à laquelle cette aide a été demandée par le porteur du projet",
         null=True,
         blank=True,
+    )
+    aid_paid = models.BooleanField(
+        "Aide payée ?",
+        help_text="Cette aide a-t-elle été versée au porteur du projet ?",
+        default=False,
     )
     date_obtained = models.DateTimeField(
         "Date de l'obtention",
@@ -848,9 +853,15 @@ class AidProject(models.Model):
         null=True,
         blank=True,
     )
-    date_requested = models.DateTimeField(
-        "Date de la demande",
-        help_text="Date à laquelle cette aide a été demandée par le porteur du projet",
+    date_denied = models.DateTimeField(
+        "Date du refus",
+        help_text="Date à laquelle cette aide a été refusée au porteur du projet",
+        null=True,
+        blank=True,
+    )
+    date_paid = models.DateTimeField(
+        "Date du paiement",
+        help_text="Date à laquelle cette aide a été versée au porteur du projet",
         null=True,
         blank=True,
     )

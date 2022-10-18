@@ -672,6 +672,8 @@ class AidProjectAdmin(admin.ModelAdmin):
         "date_obtained",
         "aid_denied",
         "date_denied",
+        "aid_paid",
+        "date_paid",
         "date_created",
     ]
 
