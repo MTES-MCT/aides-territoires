@@ -263,10 +263,10 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": api_doc.description,
     "TOS": "https://aides-territoires.beta.gouv.fr/mentions-l%C3%A9gales/",
     "CONTACT": {
-        "name": "Une question ? Vous pouvez nous contacter en cliquand ici (puis sélectionnez 'API' comme Sujet)",
+        "name": "Une question ? Vous pouvez nous contacter en cliquant ici (puis sélectionnez 'API' comme Sujet)",
         "url": "https://aides-territoires.beta.gouv.fr/contact/",
     },
-    "LICENSE": {"name": "« Licence Ouverte v2.0 » d'Etalab"},
+    "LICENSE": {"name": "« Licence Ouverte v2.0 » d’Etalab"},
     "EXTERNAL_DOCS": {"url": "https://aides-territoires.beta.gouv.fr/data/"},
     "SERVE_INCLUDE_SCHEMA": False,
     "SORT_OPERATION_PARAMETERS": False,
