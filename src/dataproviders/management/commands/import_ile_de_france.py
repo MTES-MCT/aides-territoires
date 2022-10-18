@@ -88,6 +88,9 @@ class Command(BaseImportCommand):
     def extract_import_data_source(self, line):
         return DATA_SOURCE
 
+    def extract_import_data_mention(self, line):
+        return "Ces données sont mises à disposition par le Conseil Régional d'Île-de-France."
+
     def extract_import_uniqueid(self, line):
         unique_id = 'IDF_{}'.format(line['reference'])
         return unique_id
@@ -159,6 +162,9 @@ class Command(BaseImportCommand):
         base_url = "https://www.iledefrance.fr/aides-appels-a-projets/"
         application_url = base_url + title
         return application_url
+
+    def extract_mobilization_steps(self, line):
+        return [Aid.STEPS.op, Aid.STEPS.preop, Aid.STEPS.postop]
 
     def extract_targeted_audiences(self, line):
         """
@@ -261,14 +267,12 @@ class Command(BaseImportCommand):
                     keyword = Keyword.objects.get(name=category["title"])
                     keyword_list = []
                     keyword_list.append(keyword)
-                    keyword_pk = Keyword.objects.get(name=category["title"]).pk
                     keywords.extend(keyword_list)
                 except:
                     try:
                         keyword = Keyword.objects.create(name=category["title"])
                         keyword_list = []
                         keyword_list.append(keyword)
-                        keyword_pk = Keyword.objects.get(name=category["title"]).pk
                     except:
                         pass
         return keywords
