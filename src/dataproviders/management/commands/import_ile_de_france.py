@@ -240,7 +240,7 @@ class Command(BaseImportCommand):
         if line.get("dateOuvertureCampagne", None):
             try:
                 start_date = datetime.strptime(line["dateOuvertureCampagne"], '%Y-%m-%dT%H:%M:%S.%fZ')
-            except:
+            except Exception:
                 start_date = datetime.strptime(line["dateOuvertureCampagne"], '%Y-%m-%dT%H:%M:%SZ')
             return start_date
 
@@ -251,7 +251,7 @@ class Command(BaseImportCommand):
         if line.get("dateFinCampagne", None):
             try:
                 submission_deadline = datetime.strptime(line["dateFinCampagne"], '%Y-%m-%dT%H:%M:%S.%fZ')
-            except:
+            except Exception:
                 submission_deadline = datetime.strptime(line["dateFinCampagne"], '%Y-%m-%dT%H:%M:%SZ')
             return submission_deadline
 
@@ -268,11 +268,11 @@ class Command(BaseImportCommand):
                     keyword_list = []
                     keyword_list.append(keyword)
                     keywords.extend(keyword_list)
-                except:
+                except Exception:
                     try:
                         keyword = Keyword.objects.create(name=category["title"])
                         keyword_list = []
                         keyword_list.append(keyword)
-                    except:
+                    except Exception:
                         pass
         return keywords
