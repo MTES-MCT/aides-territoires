@@ -545,7 +545,7 @@ export default class extends Controller {
                   properties.date_created = new Date(communeProperties['date_created'])
                   if (communes.length > 1) {
                     properties.extraInfo += communes.map(commune => {
-                      return `⚠️ ${commune['organization_name']}`
+                      return `<span aria-hidden="true">⚠️</span> ${commune['organization_name']}`
                     }).join('<br>')
                     properties.extraInfo += '<br>'
                   }
