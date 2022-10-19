@@ -333,7 +333,7 @@ ANALYTICS_SITEID = 0
 HOTJAR_SITEID = 0
 
 # Django Security Policy
-CSP_DEFAULT_SRC = ("'none'",)
+CSP_DEFAULT_SRC = ("'self'",)
 
 CSP_CONNECT_SRC = (
     "'self'",
