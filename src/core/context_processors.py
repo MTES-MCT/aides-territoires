@@ -15,6 +15,25 @@ def contact_data(request):
     }
 
 
+def admin_environment(request):
+    """Injects administrator-specific environment info"""
+    env_name = settings.ENV_NAME
+    color = "white"
+
+    if settings.ENV_NAME == "production":
+        background_color = "#3a3188"
+    elif settings.ENV_NAME == "staging":
+        background_color = "#009099"
+    else:
+        background_color = "#00A95F"
+
+    return {
+        "ENV_NAME": env_name,
+        "ENV_BACKGROUND_COLOR": background_color,
+        "ENV_COLOR": color,
+    }
+
+
 def admin_stats(request):
     """Injects administrator specific data.
 
