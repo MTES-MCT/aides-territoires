@@ -42,6 +42,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "drf_spectacular",
+    "drf_spectacular_sidecar",
     "django_xworkflows",
     "corsheaders",
     "import_export",
@@ -271,6 +272,9 @@ SPECTACULAR_SETTINGS = {
     "EXTERNAL_DOCS": {"url": "https://aides-territoires.beta.gouv.fr/data/"},
     "SERVE_INCLUDE_SCHEMA": False,
     "SORT_OPERATION_PARAMETERS": False,
+    "SWAGGER_UI_DIST": "SIDECAR",
+    "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
+    "REDOC_DIST": "SIDECAR",
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -388,7 +392,12 @@ CSP_FRAME_ANCESTORS = ("*",)
 
 CSP_BASE_URI = ("'self'",)
 
-CSP_WORKER_SRC = ("https://*.hotjar.com", "http://*.hotjar.io", "https://*.hotjar.io")
+CSP_WORKER_SRC = (
+    "blob:",
+    "https://*.hotjar.com",
+    "http://*.hotjar.io",
+    "https://*.hotjar.io",
+)
 
 CSP_FORM_ACTION = ("'self'", "https://my.sendinblue.com")
 
