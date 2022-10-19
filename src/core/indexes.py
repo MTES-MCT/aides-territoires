@@ -29,7 +29,7 @@ class GinTrigramIndex(GinIndex):
     https://www.postgresql.org/docs/9.6/pgtrgm.html
     """
 
-    def create_sql(self, model, schema_editor, using=''):
+    def create_sql(self, model, schema_editor, using=""):
         statement = super().create_sql(model, schema_editor, using=using)
         statement.template = """
             CREATE INDEX %(name)s
@@ -44,7 +44,7 @@ class GistTrigramIndex(GistIndex):
     See above for details
     """
 
-    def create_sql(self, model, schema_editor, using=''):
+    def create_sql(self, model, schema_editor, using=""):
         statement = super().create_sql(model, schema_editor, using=using)
         statement.template = """
             CREATE INDEX %(name)s
