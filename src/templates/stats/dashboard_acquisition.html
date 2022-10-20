@@ -190,6 +190,12 @@
             data-table-target="header"
             data-type="text"
             >Organisation</th>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="text"
+            >Type</th>
         </tr>
       </thead>
       <tbody data-table-target="body">
@@ -199,6 +205,7 @@
           <td>{{ user.email }}</td>
           <td>{{ user.date_created|date:'d/m/Y' }}</td>
           <td>{{ user.organization__name }}</td>
+          <td>{{ user.organization_type }}</td>
         </tr>
         {% endfor %}
       </tbody>

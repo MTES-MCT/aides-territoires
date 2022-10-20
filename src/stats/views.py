@@ -13,20 +13,20 @@ from django.utils import timezone
 from django.db.models import Count, Q, Sum
 from django.views.generic.edit import FormMixin
 
-from aids.models import Aid, AidProject
+from accounts.mixins import SuperUserRequiredMixin
 from accounts.models import User
+from aids.constants import AUDIENCES_ALL
+from aids.models import Aid, AidProject
+from aids.views import AidPaginator
+from alerts.models import Alert
 from backers.models import Backer
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeters
-from stats.models import AidViewEvent, Event, AidSearchEvent, AidContactClickEvent
 from organizations.models import Organization
 from projects.models import Project
 from search.models import SearchPage
-from alerts.models import Alert
-
 from stats.forms import StatSearchForm
-from accounts.mixins import SuperUserRequiredMixin
-from aids.views import AidPaginator
+from stats.models import AidViewEvent, Event, AidSearchEvent, AidContactClickEvent
 
 # The manual percentage threshold to ensure that the metropolitan area
 # has enough contrasts between departments. It is not computed because
@@ -421,14 +421,21 @@ class DashboardAcquisitionView(DashboardBaseView, TemplateView):
                 "last_name",
                 "date_created",
                 "organization__name",
+                "organization__organization_type",
             )
         )
-        context["user_inscriptions"] = user_inscriptions
+        org_type_to_display_name = dict(AUDIENCES_ALL)
         user_inscriptions_by_date = defaultdict(int)
         for user_inscription in user_inscriptions:
             user_inscriptions_by_date[
                 user_inscription["date_created"].date().strftime("%Y-%m-%d")
             ] += 1
+            org_type = user_inscription["organization__organization_type"]
+            if org_type:
+                user_inscription["organization_type"] = org_type_to_display_name.get(
+                    org_type[0]
+                )
+        context["user_inscriptions"] = user_inscriptions
 
         current_date = start_date_range
         nb_user_days = []
