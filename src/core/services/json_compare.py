@@ -42,8 +42,9 @@ def json_compare(old_json: JSONField, new_json: JSONField):
     return format_html(result_html + "</div>")
 
 
-def format_entries(entries_dict: dict, class_root: str,
-                   tag: str = "", format_value: bool = False) -> str:
+def format_entries(
+    entries_dict: dict, class_root: str, tag: str = "", format_value: bool = False
+) -> str:
 
     """
     Formats a dict of entries for printing
@@ -57,7 +58,9 @@ def format_entries(entries_dict: dict, class_root: str,
         if format_value:
             result_html += f'<div class="changed-entries-values">{ format_value_diff(value) }</div>'
         else:
-            result_html += f'<div class="{class_root}-values"><{tag}>{value}</{tag}></div>'
+            result_html += (
+                f'<div class="{class_root}-values"><{tag}>{value}</{tag}></div>'
+            )
 
     return result_html
 

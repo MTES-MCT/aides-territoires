@@ -13,8 +13,8 @@ class ChoiceArrayField(ArrayField):
 
     def formfield(self, **kwargs):
         defaults = {
-            'form_class': forms.MultipleChoiceField,
-            'choices': self.base_field.choices,
+            "form_class": forms.MultipleChoiceField,
+            "choices": self.base_field.choices,
         }
         defaults.update(kwargs)
         return super(ArrayField, self).formfield(**defaults)
@@ -35,7 +35,6 @@ class RangeMaxValueOrNoneValidator(validators.RangeMaxValueValidator):
 
 
 class PercentRangeField(IntegerRangeField):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.validators.append(RangeMinValueOrNoneValidator(0))

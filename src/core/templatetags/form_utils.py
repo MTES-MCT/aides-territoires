@@ -8,6 +8,6 @@ register = template.Library()
 
 @register.filter
 def is_checkbox(field):
-    """"Is the given field a checkbox input?."""
+    """ "Is the given field a checkbox input?."""
 
     return isinstance(field.field.widget, CheckboxInput)

@@ -13,7 +13,7 @@ def reupload_files(model, fieldname):
 
     Returns a migration method.
     """
-    app, model_name = model.split('.')
+    app, model_name = model.split(".")
     fs_storage = FileSystemStorage()
 
     def do_reupload_files(apps, *args):
@@ -33,8 +33,8 @@ def remove_accents(input_str):
 
     Shamelessly stolen from SO.
     """
-    nfkd_form = unicodedata.normalize('NFKD', input_str)
-    return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
+    nfkd_form = unicodedata.normalize("NFKD", input_str)
+    return "".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
 
 def parse_query(raw_query):
@@ -104,10 +104,8 @@ def parse_query(raw_query):
 
 def get_base_url():
     site = Site.objects.get_current()
-    scheme = 'https'
-    base_url = '{scheme}://{domain}'.format(
-        scheme=scheme,
-        domain=site.domain)
+    scheme = "https"
+    base_url = "{scheme}://{domain}".format(scheme=scheme, domain=site.domain)
     return base_url
 
 
@@ -125,8 +123,8 @@ def get_site_from_host(host):
         # DNS host, then we get the minisite slug from that mapping.
         if minisite_host in host:
             return minisite_slug
-    if 'aides-territoires' in host:
-        return host.split('.')[0]
+    if "aides-territoires" in host:
+        return host.split(".")[0]
     return host
 
 
@@ -134,7 +132,7 @@ def is_subdomain(subdomain):
     """
     Check if string is subdomain
     """
-    if subdomain and subdomain != 'aides-territoires':
+    if subdomain and subdomain != "aides-territoires":
         return True
     return False
 
@@ -144,10 +142,10 @@ def build_host_with_subdomain(host, subdomain):
     Build domain with subdomain
     """
     if is_subdomain(subdomain):
-        if subdomain == 'francemobilites':
-            return 'aides.francemobilites.fr'
+        if subdomain == "francemobilites":
+            return "aides.francemobilites.fr"
         else:
-            return f'{subdomain}.{host}'
+            return f"{subdomain}.{host}"
     return host
 
 
@@ -158,9 +156,10 @@ class RedirectAidDetailView(RedirectView):
     wrong aid detail URL - it was an issue with
     translations.
     """
+
     permanent = False
-    redirect_url = '/aides/{slug}/'
+    redirect_url = "/aides/{slug}/"
 
     def get_redirect_url(self, *args, **kwargs):
-        slug = kwargs.get('slug')
+        slug = kwargs.get("slug")
         return self.redirect_url.format(slug=slug)

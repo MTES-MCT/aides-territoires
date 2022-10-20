@@ -11,17 +11,18 @@ class InputFilter(admin.SimpleListFilter):
     See https://hakibenita.com/how-to-add-a-text-filter-to-django-admin
     """
 
-    template = 'admin/input_filter.html'
+    template = "admin/input_filter.html"
 
     def lookups(self, request, model_admin):
         return ((),)
 
     def choices(self, changelist):
         all_choice = next(super().choices(changelist))
-        all_choice['query_parts'] = (
+        all_choice["query_parts"] = (
             (k, v)
             for k, v in changelist.get_filters_params().items()
-            if k != self.parameter_name)
+            if k != self.parameter_name
+        )
         yield all_choice
 
 
@@ -31,10 +32,10 @@ def pretty_print_readonly_jsonfield(jsonfield_data):
     https://stackoverflow.com/a/60219265
     """
 
-    result = ''
+    result = ""
 
     if jsonfield_data:
         result = json.dumps(jsonfield_data, indent=4, ensure_ascii=False)
-        result = mark_safe(f'<pre>{escape(result)}</pre>')
+        result = mark_safe(f"<pre>{escape(result)}</pre>")
 
     return result
