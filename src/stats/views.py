@@ -543,14 +543,8 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
             for week in list(nb_vu_serie_items.keys())
         ]
         week_inscriptions_counts = []
-        week_inscriptions_communes_counts = []
-        week_inscriptions_epcis_counts = []
         nb_inscriptions_with_created_aid_serie = []
-        nb_inscriptions_with_created_aid_communes_serie = []
-        nb_inscriptions_with_created_aid_epcis_serie = []
         nb_inscriptions_with_created_project_serie = []
-        nb_inscriptions_with_created_project_communes_serie = []
-        nb_inscriptions_with_created_project_epcis_serie = []
         for week in last_10_weeks:
             users = (
                 User.objects.filter(
@@ -562,95 +556,21 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
                     )
                 )
                 .annotate(
-                    aids_commune_subscription_count=Count(
-                        "aids",
-                        filter=Q(
-                            aids__isnull=False,
-                            beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
-                        ),
-                        distinct=True,
-                    )
-                )
-                .annotate(
-                    aids_epci_subscription_count=Count(
-                        "aids",
-                        filter=Q(
-                            aids__isnull=False,
-                            beneficiary_organization__perimeter__scale=Perimeter.SCALES.epci,
-                        ),
-                        distinct=True,
-                    )
-                )
-                .annotate(
                     project_subscription_count=Count(
                         "project", filter=Q(project__isnull=False), distinct=True
                     )
                 )
-                .annotate(
-                    project_commune_subscription_count=Count(
-                        "project",
-                        filter=Q(
-                            project__isnull=False,
-                            beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
-                        ),
-                        distinct=True,
-                    )
-                )
-                .annotate(
-                    project_epci_subscription_count=Count(
-                        "project",
-                        filter=Q(
-                            project__isnull=False,
-                            beneficiary_organization__perimeter__scale=Perimeter.SCALES.epci,
-                        ),
-                        distinct=True,
-                    )
-                )
             )
             week_inscriptions_counts.append(len(users))
-            week_inscriptions_communes_counts.append(
-                users.filter(
-                    beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune
-                ).count()
-            )
-            week_inscriptions_epcis_counts.append(
-                users.filter(
-                    beneficiary_organization__perimeter__scale=Perimeter.SCALES.epci
-                ).count()
-            )
             user_aids_subscription_counts = sum(
                 user.aids_subscription_count for user in users
-            )
-            user_aids_commune_subscription_counts = sum(
-                user.aids_commune_subscription_count for user in users
-            )
-            user_aids_epci_subscription_counts = sum(
-                user.aids_epci_subscription_count for user in users
             )
             user_project_subscription_counts = sum(
                 user.project_subscription_count for user in users
             )
-            user_project_commune_subscription_counts = sum(
-                user.project_commune_subscription_count for user in users
-            )
-            user_project_epci_subscription_counts = sum(
-                user.project_epci_subscription_count for user in users
-            )
             nb_inscriptions_with_created_aid_serie.append(user_aids_subscription_counts)
             nb_inscriptions_with_created_project_serie.append(
                 user_project_subscription_counts
-            )
-            nb_inscriptions_with_created_aid_communes_serie.append(
-                user_aids_commune_subscription_counts
-            )
-            nb_inscriptions_with_created_project_communes_serie.append(
-                user_project_commune_subscription_counts
-            )
-            nb_inscriptions_with_created_aid_epcis_serie.append(
-                user_aids_epci_subscription_counts
-            )
-            nb_inscriptions_with_created_project_epcis_serie.append(
-                user_project_epci_subscription_counts
             )
 
         context["nb_inscriptions_weeks"] = [
@@ -671,26 +591,6 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
             .count()
             for week in last_10_weeks
         ]
-
-        context["nb_inscriptions_communes_serie"] = week_inscriptions_communes_counts
-        context[
-            "nb_inscriptions_communes_with_created_aid_serie"
-        ] = nb_inscriptions_with_created_aid_communes_serie
-        context[
-            "nb_inscriptions_communes_with_created_project_serie"
-        ] = nb_inscriptions_with_created_project_communes_serie
-
-        context["nb_inscriptions_epcis_serie"] = week_inscriptions_epcis_counts
-        context[
-            "nb_inscriptions_epcis_with_created_aid_serie"
-        ] = nb_inscriptions_with_created_aid_epcis_serie
-        context[
-            "nb_inscriptions_epcis_with_created_project_serie"
-        ] = nb_inscriptions_with_created_project_epcis_serie
-
-        context["nb_vu_weeks"] = [week.date().isoformat() for week in last_10_weeks]
-        context["nb_vu_serie_values"] = list(nb_vu_serie_items.values())
-        context["nb_vu_serie_max"] = max(context["nb_vu_serie_values"])
 
         # stats 'Engagement':
         context["nb_search_events"] = AidSearchEvent.objects.filter(
@@ -717,6 +617,124 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
         context = super().get_context_data(**kwargs)
         start_date_range = context["start_date_range"]
         end_date_range = context["end_date_range"]
+
+        matomo_last_10_weeks = self.get_matomo_stats(
+            "VisitsSummary.get", period="week", date_="last10"
+        )
+        nb_vu_serie_items = {
+            dates[:10]: int(numbers["nb_uniq_visitors"])
+            for dates, numbers in matomo_last_10_weeks.items()
+        }
+        last_10_weeks = [
+            datetime.datetime.fromisoformat(week)  # - datetime.timedelta(days=75)
+            for week in list(nb_vu_serie_items.keys())
+        ]
+        week_inscriptions_communes_counts = []
+        week_inscriptions_epcis_counts = []
+        nb_inscriptions_with_created_aid_communes_serie = []
+        nb_inscriptions_with_created_aid_epcis_serie = []
+        nb_inscriptions_with_created_project_communes_serie = []
+        nb_inscriptions_with_created_project_epcis_serie = []
+        for week in last_10_weeks:
+            users = (
+                User.objects.filter(
+                    date_created__range=[week - datetime.timedelta(days=7), week],
+                )
+                .annotate(
+                    aids_commune_subscription_count=Count(
+                        "aids",
+                        filter=Q(
+                            aids__isnull=False,
+                            beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
+                        ),
+                        distinct=True,
+                    )
+                )
+                .annotate(
+                    aids_epci_subscription_count=Count(
+                        "aids",
+                        filter=Q(
+                            aids__isnull=False,
+                            beneficiary_organization__perimeter__scale=Perimeter.SCALES.epci,
+                        ),
+                        distinct=True,
+                    )
+                )
+                .annotate(
+                    project_commune_subscription_count=Count(
+                        "project",
+                        filter=Q(
+                            project__isnull=False,
+                            beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
+                        ),
+                        distinct=True,
+                    )
+                )
+                .annotate(
+                    project_epci_subscription_count=Count(
+                        "project",
+                        filter=Q(
+                            project__isnull=False,
+                            beneficiary_organization__perimeter__scale=Perimeter.SCALES.epci,
+                        ),
+                        distinct=True,
+                    )
+                )
+            )
+            week_inscriptions_communes_counts.append(
+                users.filter(
+                    beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune
+                ).count()
+            )
+            week_inscriptions_epcis_counts.append(
+                users.filter(
+                    beneficiary_organization__perimeter__scale=Perimeter.SCALES.epci
+                ).count()
+            )
+            user_aids_commune_subscription_counts = sum(
+                user.aids_commune_subscription_count for user in users
+            )
+            user_aids_epci_subscription_counts = sum(
+                user.aids_epci_subscription_count for user in users
+            )
+            user_project_commune_subscription_counts = sum(
+                user.project_commune_subscription_count for user in users
+            )
+            user_project_epci_subscription_counts = sum(
+                user.project_epci_subscription_count for user in users
+            )
+            nb_inscriptions_with_created_aid_communes_serie.append(
+                user_aids_commune_subscription_counts
+            )
+            nb_inscriptions_with_created_project_communes_serie.append(
+                user_project_commune_subscription_counts
+            )
+            nb_inscriptions_with_created_aid_epcis_serie.append(
+                user_aids_epci_subscription_counts
+            )
+            nb_inscriptions_with_created_project_epcis_serie.append(
+                user_project_epci_subscription_counts
+            )
+
+        context["nb_inscriptions_weeks"] = [
+            week.date().isoformat() for week in last_10_weeks
+        ]
+
+        context["nb_inscriptions_communes_serie"] = week_inscriptions_communes_counts
+        context[
+            "nb_inscriptions_communes_with_created_aid_serie"
+        ] = nb_inscriptions_with_created_aid_communes_serie
+        context[
+            "nb_inscriptions_communes_with_created_project_serie"
+        ] = nb_inscriptions_with_created_project_communes_serie
+
+        context["nb_inscriptions_epcis_serie"] = week_inscriptions_epcis_counts
+        context[
+            "nb_inscriptions_epcis_with_created_aid_serie"
+        ] = nb_inscriptions_with_created_aid_epcis_serie
+        context[
+            "nb_inscriptions_epcis_with_created_project_serie"
+        ] = nb_inscriptions_with_created_project_epcis_serie
 
         # stats for beneficiaries:
         context["nb_beneficiary_accounts_created"] = (

@@ -111,5 +111,78 @@
       </div>
     </div>
   </div>
+
+  <h3 class="fr-mt-5w">
+    📍 Nombre d’inscriptions communes <span class="charts-legend charts-legend-accent"></span> :
+  </h3>
+  <div class="charts">
+    <div id="chart-inscriptions-communes" class="ct-chart"></div>
+  </div>
+  <div class="charts-legends">
+    <ul>
+      <li><span class="charts-legend charts-legend-regular"></span> Avec une aide publiée</li>
+      <li><span class="charts-legend charts-legend-regular2"></span> Avec un projet</li>
+    </ul>
+  </div>
+
+  <script>
+    new Chartist.Bar('#chart-inscriptions-communes', {
+      labels: {{ nb_inscriptions_weeks|safe }},
+      series: [
+        {{ nb_inscriptions_communes_serie }},
+        {{ nb_inscriptions_communes_with_created_aid_serie }},
+        {{ nb_inscriptions_communes_with_created_project_serie }}
+      ]
+    }, {
+      // stackBars: true,
+      axisX: {
+        labelInterpolationFnc: (value) => {
+          // Only display day/month (from ISO date).
+          const [ month, day ] = value.slice(5, 10).split('-')
+          return `${day}/${month}`
+        }
+      },
+      plugins: [
+        Chartist.plugins.tooltip({appendToBody: true, pointClass: 'ct-bar'})
+      ]
+    })
+  </script>
+
+  <h3 class="fr-mt-5w">
+    🗺 Nombre d’inscriptions EPCI <span class="charts-legend charts-legend-accent"></span> :
+  </h3>
+  <div class="charts">
+    <div id="chart-inscriptions-epcis" class="ct-chart"></div>
+  </div>
+  <div class="charts-legends">
+    <ul>
+      <li><span class="charts-legend charts-legend-regular"></span> Avec une aide publiée</li>
+      <li><span class="charts-legend charts-legend-regular2"></span> Avec un projet</li>
+    </ul>
+  </div>
+
+  <script>
+    new Chartist.Bar('#chart-inscriptions-epcis', {
+      labels: {{ nb_inscriptions_weeks|safe }},
+      series: [
+        {{ nb_inscriptions_epcis_serie }},
+        {{ nb_inscriptions_epcis_with_created_aid_serie }},
+        {{ nb_inscriptions_epcis_with_created_project_serie }}
+      ]
+    }, {
+      // stackBars: true,
+      axisX: {
+        labelInterpolationFnc: (value) => {
+          // Only display day/month (from ISO date).
+          const [ month, day ] = value.slice(5, 10).split('-')
+          return `${day}/${month}`
+        }
+      },
+      plugins: [
+        Chartist.plugins.tooltip({appendToBody: true, pointClass: 'ct-bar'})
+      ]
+    })
+  </script>
+
 </div>
 {% endblock panels %}
