@@ -1,5 +1,5 @@
 {% extends "stats/dashboard_base.html" %}
-{% load humanize %}
+{% load humanize stats %}
 
 {% block panels %}
 <div id="consultation-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="consultation" tabindex="0">
@@ -309,6 +309,12 @@
             data-action="click->table#sortTable"
             data-table-target="header"
             data-type="number"
+            >Clics (conversion)</th>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="number"
             >Nombre de sauvegardes</th>
           <th
             scope="col"
@@ -397,6 +403,16 @@
             </td>
             <td>{{ aid_stats.nb_visits }}</td>
             <td>{{ aid_stats.nb_uniq_visitors }}</td>
+            <td>
+              {% if has_aid %}
+                {% with click_count=aid_stats.aid_or_name.aidcontactclickevent_set.count %}
+                  {{ click_count }}
+                  ({% percent_display click_count aid_stats.nb_uniq_visitors None %})
+                {% endwith %}
+              {% else %}
+                -
+              {% endif %}
+            </td>
             <td>
               {% if has_aid %}
                 {% with saved_count=aid_stats.aid_or_name.aidproject_count %}
