@@ -356,6 +356,7 @@ CSP_IMG_SRC = (
     "http://*.hotjar.io",
     "https://*.hotjar.io",
     "https://*.scw.cloud",
+    "https://*.forte.tiles.quaidorsay.fr",
 )
 
 CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "https://stats.beta.gouv.fr")
