@@ -976,7 +976,7 @@ class SuggestedAidUnmatchProjectView(
 class AidProjectStatusView(
     ContributorAndProfileCompleteRequiredMixin, UpdateView
 ):
-    """Allow user to precise if he requested and obtained the aid for the project or not"""
+    """Allow user to precise if they requested and obtained the aid for the project or not"""
 
     context_object_name = "aidproject"
     form_class = AidProjectStatusForm
