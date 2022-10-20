@@ -19,6 +19,7 @@ USER_EXPORT_FIELDS = (
     "is_beneficiary",
     "nb_aids",
     "beneficiary_organization",
+    "beneficiary_organization_id",
     "contributor_organization",
     "beneficiary_function",
     "contributor_role",
@@ -36,6 +37,10 @@ class UserResource(resources.ModelResource):
         column_name="beneficiary_organization",
         attribute="beneficiary_organization",
         widget=ForeignKeyWidget(Organization, field="name"),
+    )
+
+    beneficiary_organization_id = fields.Field(
+        column_name="ID de l'organisation",
     )
 
     perimeter = fields.Field(
@@ -61,6 +66,12 @@ class UserResource(resources.ModelResource):
     org_zipcode = fields.Field(
         column_name="Code postal de la structure",
     )
+
+    def dehydrate_beneficiary_organization_id(self, obj):
+        if obj.beneficiary_organization:
+            return obj.beneficiary_organization.id
+        else:
+            return ""
 
     def dehydrate_org_zipcode(self, obj):
         if obj.beneficiary_organization:
