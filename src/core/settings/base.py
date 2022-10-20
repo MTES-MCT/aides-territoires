@@ -473,9 +473,11 @@ LOGIN_URL = "login"
 LOGOUT_REDIRECT_URL = "home"
 LOGIN_REDIRECT_URL = "user_dashboard"
 
-SEARCH_COOKIE_NAME = "currentsearch"
-
 ENABLE_DJANGO_STATIC_SERVE = False
+
+# Cookies
+SEARCH_COOKIE_NAME = "currentsearch"
+CSRF_COOKIE_HTTPONLY = True
 
 # Caching
 ENABLE_AID_LIST_API_CACHE = False
