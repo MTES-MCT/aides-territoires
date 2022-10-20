@@ -1,8 +1,9 @@
 /* Sortable tables. */
 .fr-table[data-controller='table'] {
+  display: block;
+  width: 100%;
   overflow: auto;
   height: 500px;
-  display: block;
 }
 
 .fr-table[data-controller='table'] thead th[scope='col'] {

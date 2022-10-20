@@ -294,85 +294,55 @@
 
   <div class="fr-container fr-mb-5w">
 
-    <h5 class="fr-mt-5w">🧲 10 principales sources d’entrées (avec et sans la Recherche) :</h5>
-    <div class="charts">
-      <div id="chart-referrers" class="ct-chart"></div>
-      <div id="chart-referrers-without-search" class="ct-chart"></div>
+    <h5 class="fr-mt-5w">🧲 10 principales sources d’entrées :</h5>
+    <div
+      class="fr-table fr-table--layout-fixed fr-table--no-caption"
+      data-controller="table"
+      data-downloadable="true"
+      >
+      <table data-table-target="table">
+        <caption>10 principales sources d’entrées</caption>
+        <thead>
+          <tr>
+            <th
+              scope="col"
+              data-action="click->table#sortTable"
+              data-table-target="header"
+              data-type="text"
+              >Domaine</th>
+            <th
+              scope="col"
+              aria-sort="descending"
+              data-action="click->table#sortTable"
+              data-table-target="header"
+              data-type="number"
+              >Visites</th>
+            <th
+              scope="col"
+              data-action="click->table#sortTable"
+              data-table-target="header"
+              data-type="number"
+              >Pourcentage</th>
+            <th
+              scope="col"
+              data-action="click->table#sortTable"
+              data-table-target="header"
+              data-type="number"
+              >Pourcentage (sans la recherche)</th>
+          </tr>
+        </thead>
+        <tbody data-table-target="body">
+          {% for label, counts in referrers.items %}
+          <tr data-table-target="row">
+            <td scope="row">{{ label }}</td>
+            <td>{{ counts.0 }}</td>
+            <td>{{ counts.1 }}</td>
+            <td>{{ counts.2 }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
-
-    <details>
-      <summary>Données tabulaires</summary>
-      <div
-        class="fr-table fr-table--layout-fixed fr-table--no-caption"
-        data-controller="table"
-        data-downloadable="true"
-        >
-        <table data-table-target="table">
-          <caption>10 principales sources d’entrées incluant la recherche</caption>
-          <thead>
-            <tr>
-              <th
-                scope="col"
-                data-action="click->table#sortTable"
-                data-table-target="header"
-                data-type="text"
-                >Domaine</th>
-              <th
-                scope="col"
-                data-action="click->table#sortTable"
-                data-table-target="header"
-                data-type="number"
-                >Visites</th>
-            </tr>
-          </thead>
-          <tbody data-table-target="body">
-            {% for name, count in nb_referrers.items %}
-            <tr data-table-target="row">
-              <td scope="row">{{ name }}</td>
-              <td>{{ count }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </details>
-
-    <script>
-      new Chartist.Pie('#chart-referrers', {
-        labels: {{ nb_referrers_labels|safe }},
-        series: {{ nb_referrers_serie }}.map((count, i) => {
-          const label = {{ nb_referrers_labels|safe }}[i]
-          const percent = Math.round(
-            count / {{ nb_referrers_total }} * 1000
-          ) / 10
-          return {value: count, meta: `${label} : ${count} (${percent}%)`}
-        })
-      }, {
-        labelInterpolationFnc: (value) => {
-          return ''
-        },
-        plugins: [
-          Chartist.plugins.tooltip({appendToBody: true, pointClass: 'ct-slice-pie'})
-        ]
-      })
-      new Chartist.Pie('#chart-referrers-without-search', {
-        labels: {{ nb_referrers_without_search_labels|safe }},
-        series: {{ nb_referrers_without_search_serie }}.map((count, i) => {
-          const label = {{ nb_referrers_without_search_labels|safe }}[i]
-          const percent = Math.round(
-            count / {{ nb_referrers_without_search_total }} * 1000
-          ) / 10
-          return {value: count, meta: `${label} : ${count} (${percent}%)`}
-        })
-      }, {
-        labelInterpolationFnc: (value) => {
-          return ''
-        },
-        plugins: [
-          Chartist.plugins.tooltip({appendToBody: true, pointClass: 'ct-slice-pie'})
-        ]
-      })
-    </script>
 
     <h5 class="fr-mt-5w">🥇 Aides les plus populaires :</h5>
     <div

@@ -262,7 +262,7 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
                 "filter_pattern": "^/(aides/)?([a-z0-9]){4}-",
             },
         )[
-            :50
+            :100
         ]  # The `limit` parameter does not look to be effective.
 
         def aid_from_label(label):
@@ -303,30 +303,32 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
         matomo_referrers_all = self.get_matomo_stats(
             "Referrers.getAll", date_=f"{start_date},{end_date}"
         )
+        tmp_referrers = {}
+        nb_referrers_total = 0
+        nb_referrers_total_without_search = 0
+        for referrer in matomo_referrers_all[:100]:
+            nb_visits = referrer["nb_visits"]
+            is_search = referrer["label"] == "Keyword not defined"
+            if is_search:
+                label = "Recherche"
+                nb_referrers_total += nb_visits
+            else:
+                label = referrer["label"]
+                nb_referrers_total += nb_visits
+                nb_referrers_total_without_search += nb_visits
+            tmp_referrers[label] = nb_visits
+
         referrers = {
-            "Recherche"
-            if referrer["label"] == "Keyword not defined"
-            else referrer["label"]: referrer["nb_visits"]
-            for referrer in matomo_referrers_all[:10]
+            label: (
+                nb_visits,
+                round(nb_visits / nb_referrers_total * 100, 1),
+                round(nb_visits / nb_referrers_total_without_search * 100, 1)
+                if label != "Recherche"
+                else "-",
+            )
+            for label, nb_visits in tmp_referrers.items()
         }
-        context["nb_referrers"] = referrers
-        context["nb_referrers_labels"] = list(referrers.keys())
-        context["nb_referrers_serie"] = list(referrers.values())
-        context["nb_referrers_total"] = sum(referrers.values())
-        referrers_without_search = {
-            referrer["label"]: referrer["nb_visits"]
-            for referrer in matomo_referrers_all[:11]
-            if referrer["label"] != "Keyword not defined"
-        }
-        context["nb_referrers_without_search_labels"] = list(
-            referrers_without_search.keys()
-        )
-        context["nb_referrers_without_search_serie"] = list(
-            referrers_without_search.values()
-        )
-        context["nb_referrers_without_search_total"] = sum(
-            referrers_without_search.values()
-        )
+        context["referrers"] = referrers
 
         matomo_last_10_weeks = self.get_matomo_stats(
             "VisitsSummary.get", period="week", date_="last10"
