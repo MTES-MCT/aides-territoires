@@ -1016,7 +1016,7 @@ class AidProjectStatusView(
 
         form.save()
 
-        msg = f"Le statut de l'aide «{aidproject.aid.name}» a bien été mis à jour."
+        msg = f"Le statut de l’aide «{aidproject.aid.name}» a bien été mis à jour."
         messages.success(self.request, msg)
         url = reverse("project_detail_view", args=[aidproject.project.pk, aidproject.project.slug])
         return HttpResponseRedirect(url)
