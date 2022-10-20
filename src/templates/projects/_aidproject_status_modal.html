@@ -1,0 +1,52 @@
+<dialog aria-labelledby="fr-modal-title-aidproject-status--{{ aidproject.pk }}" role="dialog" id="aidproject-status-modal--{{ aidproject.pk }}" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="aidproject-status-modal--{{ aidproject.pk }}">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h2 id="fr-modal-title-aidproject-status--{{ aidproject.pk }}" class="fr-modal__title fr-mt-0"><span class="fr-icon-arrow-right-line fr-icon--lg"></span>Mettre à jour le statut de cette aide</h2>
+                        {% if not search_page %}
+                            {% if user.is_authenticated %}
+                            <form id="aidproject_status" method="post" action="{% url 'aidproject_status_view' aidproject.pk %}">
+                                <div class="content">
+                                    {% csrf_token %}
+                                    <div class="fr-checkbox-group">
+                                        <input type="checkbox" name="aid_requested" id="id_aid_requested--{{ aidproject.pk }}" {% if aidproject.aid_requested %}checked{% endif %}>
+                                        <label for="id_aid_requested--{{ aidproject.pk }}">Aide demandée</label>
+                                        <div class="fr-hint-text">Vous avez déposé un dossier de candidature, ou effectué une demande d’aide officielle auprès de son porteur/instructeur.</div>
+                                    </div>
+                                    <div class="fr-checkbox-group">
+                                        <input type="checkbox" name="aid_obtained" id="id_aid_obtained--{{ aidproject.pk }}"  {% if aidproject.aid_obtained %}checked{% endif %}>
+                                        <label for="id_aid_obtained--{{ aidproject.pk }}">Aide obtenue</label>
+                                        <div class="fr-hint-text">Vous avez été notifié par le porteur/instructeur que votre dossier/demande était accepté(e), mais n’avez pas encore bénéficié de l’aide. (L’aide ne peut être à la fois « obtenue » et « refusée »)</div>
+                                    </div>
+                                    <div class="fr-checkbox-group">
+                                        <input type="checkbox" name="aid_paid" id="id_aid_paid--{{ aidproject.pk }}"  {% if aidproject.aid_paid %}checked{% endif %}>
+                                        <label for="id_aid_paid--{{ aidproject.pk }}">Aide reçue</label>
+                                        <div class="fr-hint-text">Vous avez bénéficié du versement d’au moins une partie de l’aide obtenue, ou la prestation en ingénierie a été réalisée. (L’aide ne peut être à la fois « obtenue » et « refusée »)</div>
+                                    </div>
+                                    <div class="fr-checkbox-group">
+                                        <input type="checkbox" name="aid_denied" id="id_aid_denied--{{ aidproject.pk }}" {% if aidproject.aid_denied %}checked{% endif %}>
+                                        <label for="id_aid_denied--{{ aidproject.pk }}">Aide refusée</label>
+                                        <div class="fr-hint-text">Vous avez été notifié par le porteur/instructeur que votre dossier/demande n’avait pas été accepté. (L’aide ne peut être à la fois « obtenue » ou « reçue » et « refusée »)</div>
+                                    </div>
+                                    <footer>
+                                        <button class="btn-block fr-btn fr-mt-2w" type="submit">
+                                            Mettre à jour le statut de cette aide
+                                        </button>
+                                    </footer>
+                                </div>
+                            </form>
+                            {% else %}
+                            <p><a href="{% url 'login' %}?next={{ aid.get_absolute_url }}?open-modal=true">Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin de mettre à jour le statut de cette aide</p>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>

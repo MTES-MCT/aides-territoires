@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load i18n aids compress %}
+{% load i18n static aids compress %}
 
 {% block extratitle %}Mon projet « {{ project.name }} »{% endblock extratitle %}
 
@@ -130,6 +130,7 @@
                             <th scope="col" class="fr-text">Porteur d’aides</th>
                             <th scope="col" class="fr-text">Ajoutée le</th>
                             <th scope="col" class="fr-text">Par</th>
+                            <th scope="col" class="fr-text">Statut</th>
                             <th scope="col" class="fr-text">Action</th>
                         </tr>
                     </thead>
@@ -181,6 +182,31 @@
                                     {{ aidproject.creator.full_name }}
                                     {% endif %}
                                 </td>
+                                <td>
+                                    {% if aidproject.aid_paid %}
+                                    <span class="fr-mb-1w fr-badge fr-badge--success">Reçue</span>
+                                    {% elif aidproject.aid_obtained %}
+                                    <span class="fr-mb-1w fr-badge fr-badge--success">Obtenue</span>
+                                    {% elif aidproject.aid_denied %}
+                                    <span class="fr-mb-1w fr-badge fr-badge--error">Refusée</span>
+                                    {% elif aidproject.aid_requested %}
+                                    <span class="fr-mb-1w fr-badge fr-badge--info">Demandée</span>
+                                    {% endif %}
+                                    <button
+                                        class="fr-btn"
+                                        id="aidproject-status-modal-btn-{{ aidproject.id }}"
+                                        title="Editer"
+                                        {% if error_aidproject_status == aidproject.pk %}
+                                        data-fr-opened="true"
+                                        {% else %}
+                                        data-fr-opened="false"
+                                        {% endif %}
+                                        aria-controls="aidproject-status-modal--{{ aidproject.id }}"
+                                        aria-describedby="aidproject-status-{{ aidproject.id }}"
+                                    >
+                                        Editer
+                                    </button>
+                                </td>
                                 {% endif %}
                                 {% endfor %}
                                 <td class="fr-text">
@@ -200,7 +226,7 @@
                         {% else %}
                         <tbody>
                             <tr>
-                                <td colspan="7" class="fr-text at-centered-important">
+                                <td colspan="8" class="fr-text at-centered-important">
                                     Vous n’avez ajouté aucune aide à ce projet pour l’instant
                                 </td>
                             </tr>
@@ -297,7 +323,7 @@
                         {% else %}
                         <tbody>
                             <tr>
-                                <td colspan="6" class="fr-text at-centered-important">
+                                <td colspan="7" class="fr-text at-centered-important">
                                     Aucune aide n'a été suggérée pour ce projet pour l’instant
                                 </td>
                             </tr>
@@ -346,6 +372,11 @@
             {% include 'projects/_delete_aid_modal.html' with aid=aid.slug %}
         {% endfor %}
     {% endif %}
+    {% if AidProject %}
+        {% for aidproject in AidProject %}
+            {% include 'projects/_aidproject_status_modal.html' with aidproject=aidproject %}
+        {% endfor %}
+    {% endif %}
     {% if suggested_aid %}
         {% for aid in suggested_aid %}    
             {% include 'projects/_associate_suggested_aid_modal.html' with aid=aid.slug %}
@@ -353,3 +384,9 @@
         {% endfor %}
     {% endif %}
 {% endblock modals %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="{% static 'js/aids/update_aidproject_status_control_form.js' %}"></script>
+{% endcompress js %}
+{% endblock extra_js %}

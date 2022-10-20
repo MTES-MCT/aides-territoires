@@ -20,7 +20,7 @@ from projects.forms import ProjectCreateForm, ProjectExportForm, ProjectUpdateFo
 from projects.models import Project
 from aids.models import AidProject, Aid, SuggestedAidProject
 from aids.views import AidPaginator
-from aids.forms import AidSearchForm, SuggestAidMatchProjectForm
+from aids.forms import AidSearchForm, SuggestAidMatchProjectForm, AidProjectStatusForm
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 
 
@@ -209,6 +209,7 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
             suggestedaidproject__is_associated=False,
             suggestedaidproject__is_rejected=False,
         )
+        context["aid_project_status_form"] = AidProjectStatusForm
         context["project_update_form"] = ProjectUpdateForm(label_suffix="")
         context["form"] = ProjectExportForm
         return context
