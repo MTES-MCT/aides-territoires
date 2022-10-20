@@ -843,8 +843,8 @@ class AidProject(models.Model):
         blank=True,
     )
     aid_paid = models.BooleanField(
-        "Aide payée ?",
-        help_text="Cette aide a-t-elle été versée au porteur du projet ?",
+        "Aide reçue ?",
+        help_text="Cette aide a-t-elle été reçue par le porteur du projet ?",
         default=False,
     )
     date_obtained = models.DateTimeField(
@@ -860,8 +860,8 @@ class AidProject(models.Model):
         blank=True,
     )
     date_paid = models.DateTimeField(
-        "Date du paiement",
-        help_text="Date à laquelle cette aide a été versée au porteur du projet",
+        "Date de la réception de l'aide",
+        help_text="Date à laquelle cette aide a été reçue par le porteur du projet",
         null=True,
         blank=True,
     )
