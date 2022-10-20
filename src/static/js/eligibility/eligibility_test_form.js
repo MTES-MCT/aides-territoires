@@ -28,7 +28,7 @@
             beforeSend: function () {
                 $('#spinner').removeClass("d-none");
             },
-            success: function(data) {
+            success: function (data) {
                 $('#spinner').addClass("d-none");
                 // form-group for each question
                 buildEligibilityTestForm(data);
@@ -65,7 +65,7 @@
         submitButton.addClass("fr-btn fr-my-5w");
         eligibilityTestForm.off('submit').on('submit', { eligibilityTestJson: eligibilityTestJson }, showEligibilityTestResults);
     }
-    
+
     /**
      * Check if the test is successful or not.
      * Display the corresponding message.
@@ -82,14 +82,14 @@
         var results = true;
         var statsData = [];
         eligibilityTestResults.show();
-        
+
         formData.forEach((answer, index) => {
             // answer = { name: '<question id>', value: '<answer choice letter>' }
             var questionId = parseInt(answer.name);
             var question = event.data.eligibilityTestJson.questions.find(q => q.id === questionId);
             var answerSuccess = question.answer_correct === answer.value;
             // update results if answerSuccess is false
-            results = !answerSuccess ?  answerSuccess : results;
+            results = !answerSuccess ? answerSuccess : results;
             // build stats answer object
             statsData.push({
                 'id': question.id,
@@ -115,7 +115,7 @@
         eligibilityTestConclusion.append(event.data.eligibilityTestJson.conclusion);
     }
 
-    exports.sendEligibilityTestData = function(statsData, results) {
+    exports.sendEligibilityTestData = function (statsData, results) {
         var statsData = JSON.stringify({
             aid: AID_ID,
             eligibility_test: AID_ELIGIBILITY_TEST_ID,

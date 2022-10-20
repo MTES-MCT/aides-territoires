@@ -27,6 +27,7 @@
                         </div>
                               
                         <form id="copy-to-clipboard-form" class="fr-grid-row fr-grid-row--center">
+                            {% csrf_token %}
                             <div class="form-group fr-my-2w fr-col-12">
                                 <input type="text" id="currentUrl" name="current-url" value="{{ request.build_absolute_uri }}" class="fr-input" />
                             </div>
