@@ -26,12 +26,12 @@
                                     <div class="fr-checkbox-group">
                                         <input type="checkbox" name="aid_paid" id="id_aid_paid--{{ aidproject.pk }}"  {% if aidproject.aid_paid %}checked{% endif %}>
                                         <label for="id_aid_paid--{{ aidproject.pk }}">Aide reçue</label>
-                                        <div class="fr-hint-text">Vous avez bénéficié du versement d’au moins une partie de l’aide obtenue. (L'aide ne peut être à la fois "payée" et "refusée")</div>
+                                        <div class="fr-hint-text">Vous avez bénéficié du versement d’au moins une partie de l’aide obtenue, ou la prestation en ingénierie a été réalisée. (L'aide ne peut être à la fois "reçue" et "refusée")</div>
                                     </div>
                                     <div class="fr-checkbox-group">
                                         <input type="checkbox" name="aid_denied" id="id_aid_denied--{{ aidproject.pk }}" {% if aidproject.aid_denied %}checked{% endif %}>
                                         <label for="id_aid_denied--{{ aidproject.pk }}">Aide refusée</label>
-                                        <div class="fr-hint-text">Vous avez été notifié par le porteur/instructeur que votre dossier/demande n’avait pas été accepté. (L'aide ne peut être à la fois "obtenue" et "refusée")</div>
+                                        <div class="fr-hint-text">Vous avez été notifié par le porteur/instructeur que votre dossier/demande n’avait pas été accepté. (L'aide ne peut être à la fois "obtenue" ou "reçue" et "refusée")</div>
                                     </div>
                                     <footer>
                                         <button class="btn-block fr-btn fr-mt-2w" type="submit">
