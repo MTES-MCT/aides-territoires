@@ -180,31 +180,32 @@
       </thead>
       <tbody data-table-target="body">
         {% for aid_stats in top_aids_pages %}
-          {% with has_aid=aid_stats.aid_or_name.get_absolute_url %}
+          {% with has_aid=aid_stats.aid %}
           <tr data-table-target="row">
             <td {% if forloop.first %}scope="row"{% endif %}>
               {% if has_aid %}
                 <a href="{{ has_aid }}">
-                  {{ aid_stats.aid_or_name }}
+                  {{ aid_stats.aid }}
                 </a>
               {% else %}
-                {{ aid_stats.aid_or_name }}
+                {{ aid_stats.guessed_name }}
               {% endif %}
             </td>
             <td>{{ aid_stats.nb_visits }}</td>
             <td>{{ aid_stats.nb_uniq_visitors }}</td>
             {% if has_aid %}
-              {% with click_count=aid_stats.aid_or_name.clicks_count %}
-                <td data-value="{{ click_count }}">
-                  {{ click_count }}
-                  ({% percent_display click_count aid_stats.nb_uniq_visitors None %})
+              {% with clicks_count=aid_stats.aid.clicks_count %}
+                <td data-value="{{ clicks_count }}">
+                  {{ aid_stats.aid.foo }}
+                  {{ clicks_count }}
+                  ({% percent_display clicks_count aid_stats.nb_uniq_visitors None %})
                 </td>
               {% endwith %}
             {% else %}
               <td data-value="0">-</td>
             {% endif %}
             {% if has_aid %}
-              {% with saved_count=aid_stats.aid_or_name.aidproject_count %}
+              {% with saved_count=aid_stats.aid.aidproject_count %}
                 {% if saved_count %}
                   <td data-value="{{ saved_count }}">
                     {{ saved_count }}
@@ -218,14 +219,14 @@
             {% endif %}
             <td>
               {% if has_aid %}
-                {{ aid_stats.aid_or_name.perimeter.name }}
+                {{ aid_stats.aid.perimeter.name }}
               {% else %}
                 -
               {% endif %}
             </td>
             <td>
               {% if has_aid %}
-                {% with financers=aid_stats.aid_or_name.financers.all %}
+                {% with financers=aid_stats.aid.financers.all %}
                   {% if financers %}
                     <ul>
                       {% for financer in financers %}

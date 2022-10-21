@@ -517,29 +517,41 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
                     distinct=True,
                 )
             )
-            .annotate(
-                clicks_count=Count(
-                    "aidcontactclickevent",
-                    filter=Q(date_created__range=[start_date_range, end_date_range]),
-                    distinct=True,
-                )
-            )
         )
         slugs_aids = {aid.slug: aid for aid in aids}
-        top_aids_pages = [
-            {
-                # In that case, we fallback to a guessed name from the slug.
-                "aid_or_name": slugs_aids.get(
-                    slug, slug[5:].replace("-", " ").capitalize()
-                ),
+        top_aids_pages = []
+        for slug, page in slugs_pages.items():
+            aid_stats = {
                 "nb_visits": page["nb_visits"],
                 # For bigger ranges, matomo changes the name of the key.
                 "nb_uniq_visitors": page.get(
                     "nb_uniq_visitors", page.get("sum_daily_nb_uniq_visitors")
                 ),
             }
-            for slug, page in slugs_pages.items()
-        ]
+            aid = slugs_aids.get(slug)
+            if aid is None:  # Recent aid, not yet in local database.
+                # In that case, we fallback to a guessed name from the slug.
+                aid_stats["guessed_name"] = slug[5:].replace("-", " ").capitalize()
+            else:
+                # Adding extra annotate() turns the query into a monster,
+                # so we perform additional but smaller ones here.
+                contact_clicks_count = aid.aidcontactclickevent_set.filter(
+                    date_created__range=[start_date_range, end_date_range]
+                ).count()
+                origin_clicks_count = aid.aidoriginurlclickevent_set.filter(
+                    date_created__range=[start_date_range, end_date_range]
+                ).count()
+                application_clicks_count = aid.aidapplicationurlclickevent_set.filter(
+                    date_created__range=[start_date_range, end_date_range]
+                ).count()
+                aid.clicks_count = (
+                    contact_clicks_count
+                    + origin_clicks_count
+                    + application_clicks_count
+                )
+                aid_stats["aid"] = aid
+            top_aids_pages.append(aid_stats)
+
         context["top_aids_pages"] = sorted(
             top_aids_pages, key=lambda a: a["nb_visits"], reverse=True
         )
