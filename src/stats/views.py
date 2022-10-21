@@ -510,7 +510,20 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
             Aid.objects.filter(slug__in=list(slugs_pages.keys()))
             .select_related("perimeter")
             .prefetch_related("financers")
-            .annotate(aidproject_count=Count("aidproject", distinct=True))
+            .annotate(
+                aidproject_count=Count(
+                    "aidproject",
+                    filter=Q(date_created__range=[start_date_range, end_date_range]),
+                    distinct=True,
+                )
+            )
+            .annotate(
+                clicks_count=Count(
+                    "aidcontactclickevent",
+                    filter=Q(date_created__range=[start_date_range, end_date_range]),
+                    distinct=True,
+                )
+            )
         )
         slugs_aids = {aid.slug: aid for aid in aids}
         top_aids_pages = [

@@ -193,29 +193,29 @@
             </td>
             <td>{{ aid_stats.nb_visits }}</td>
             <td>{{ aid_stats.nb_uniq_visitors }}</td>
-            <td>
-              {% if has_aid %}
-                {% with click_count=aid_stats.aid_or_name.aidcontactclickevent_set.count %}
+            {% if has_aid %}
+              {% with click_count=aid_stats.aid_or_name.clicks_count %}
+                <td data-value="{{ click_count }}">
                   {{ click_count }}
                   ({% percent_display click_count aid_stats.nb_uniq_visitors None %})
-                {% endwith %}
-              {% else %}
-                -
-              {% endif %}
-            </td>
-            <td>
-              {% if has_aid %}
-                {% with saved_count=aid_stats.aid_or_name.aidproject_count %}
-                  {% if saved_count %}
+                </td>
+              {% endwith %}
+            {% else %}
+              <td data-value="0">-</td>
+            {% endif %}
+            {% if has_aid %}
+              {% with saved_count=aid_stats.aid_or_name.aidproject_count %}
+                {% if saved_count %}
+                  <td data-value="{{ saved_count }}">
                     {{ saved_count }}
-                  {% else %}
-                    -
-                  {% endif %}
-                {% endwith %}
-              {% else %}
-                -
-              {% endif %}
-            </td>
+                  </td>
+                {% else %}
+                  <td data-value="0">-</td>
+                {% endif %}
+              {% endwith %}
+            {% else %}
+              <td data-value="0">-</td>
+            {% endif %}
             <td>
               {% if has_aid %}
                 {{ aid_stats.aid_or_name.perimeter.name }}

@@ -47,7 +47,7 @@ export default class extends Controller {
     const tdSelector = 'td:nth-child(' + (columnIndex + 1) + ')'
     this.rowTargets.forEach((row) => {
       const node = row.querySelector(tdSelector)
-      let val = node.textContent
+      let val = node.dataset.value || node.textContent
       if (!isNaN(val)) {
         val = parseFloat(val)
       }
