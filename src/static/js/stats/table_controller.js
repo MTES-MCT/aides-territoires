@@ -45,16 +45,19 @@ export default class extends Controller {
     let values = []
     const columnIndex = this.#siblingIndex(header)
     const tdSelector = 'td:nth-child(' + (columnIndex + 1) + ')'
+    const dataType = header.dataset.type
     this.rowTargets.forEach((row) => {
       const node = row.querySelector(tdSelector)
       let val = node.dataset.value || node.textContent
+      if (dataType === 'number' && val.includes(',')) {
+        val = val.replace(',', '.')
+      }
       if (!isNaN(val)) {
         val = parseFloat(val)
       }
       values.push({ value: val, row: row })
     })
 
-    const dataType = header.dataset.type
     const sortFunction = this.#getSortFunction(dataType)
     values.sort(sortFunction.bind(this))
     if (sort === 'descending') values = values.reverse()

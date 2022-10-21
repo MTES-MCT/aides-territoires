@@ -522,11 +522,11 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
         top_aids_pages = []
         for slug, page in slugs_pages.items():
             aid_stats = {
-                "nb_visits": page["nb_visits"],
-                # For bigger ranges, matomo changes the name of the key.
-                "nb_uniq_visitors": page.get(
-                    "nb_uniq_visitors", page.get("sum_daily_nb_uniq_visitors")
-                ),
+                # Matomo “doesn't process unique visitors across the full period.”
+                # so we multiply their daily value with the number of days for
+                # the given period.
+                "nb_uniq_visitors": page["sum_daily_nb_uniq_visitors"]
+                * (end_date_range - start_date_range).days,
             }
             aid = slugs_aids.get(slug)
             if aid is None:  # Recent aid, not yet in local database.
@@ -549,11 +549,16 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
                     + origin_clicks_count
                     + application_clicks_count
                 )
+                # We need the conversion value here (vs. `percent_display`) because
+                # we have to pass it raw to the triaging function of the JS table.
+                aid.conversion_value = round(
+                    100 * aid.clicks_count / aid_stats["nb_uniq_visitors"], 3
+                )
                 aid_stats["aid"] = aid
             top_aids_pages.append(aid_stats)
 
         context["top_aids_pages"] = sorted(
-            top_aids_pages, key=lambda a: a["nb_visits"], reverse=True
+            top_aids_pages, key=lambda a: a["nb_uniq_visitors"], reverse=True
         )
 
         matomo_last_10_weeks = self.get_matomo_stats(
@@ -660,6 +665,8 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
         nb_inscriptions_with_created_aid_epcis_serie = []
         nb_inscriptions_with_created_project_communes_serie = []
         nb_inscriptions_with_created_project_epcis_serie = []
+        commune_scale = Perimeter.SCALES.commune
+        epci_scale = Perimeter.SCALES.epci
         for week in last_10_weeks:
             users = (
                 User.objects.filter(
@@ -670,7 +677,7 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
                         "aids",
                         filter=Q(
                             aids__isnull=False,
-                            beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
+                            beneficiary_organization__perimeter__scale=commune_scale,
                         ),
                         distinct=True,
                     )
@@ -680,7 +687,7 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
                         "aids",
                         filter=Q(
                             aids__isnull=False,
-                            beneficiary_organization__perimeter__scale=Perimeter.SCALES.epci,
+                            beneficiary_organization__perimeter__scale=epci_scale,
                         ),
                         distinct=True,
                     )
@@ -690,7 +697,7 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
                         "project",
                         filter=Q(
                             project__isnull=False,
-                            beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
+                            beneficiary_organization__perimeter__scale=commune_scale,
                         ),
                         distinct=True,
                     )
@@ -700,7 +707,7 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
                         "project",
                         filter=Q(
                             project__isnull=False,
-                            beneficiary_organization__perimeter__scale=Perimeter.SCALES.epci,
+                            beneficiary_organization__perimeter__scale=epci_scale,
                         ),
                         distinct=True,
                     )
@@ -708,12 +715,12 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
             )
             week_inscriptions_communes_counts.append(
                 users.filter(
-                    beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune
+                    beneficiary_organization__perimeter__scale=commune_scale
                 ).count()
             )
             week_inscriptions_epcis_counts.append(
                 users.filter(
-                    beneficiary_organization__perimeter__scale=Perimeter.SCALES.epci
+                    beneficiary_organization__perimeter__scale=epci_scale
                 ).count()
             )
             user_aids_commune_subscription_counts = sum(

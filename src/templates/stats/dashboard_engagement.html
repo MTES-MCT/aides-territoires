@@ -1,5 +1,5 @@
 {% extends "stats/dashboard_base.html" %}
-{% load humanize stats %}
+{% load humanize %}
 
 {% block panels %}
 <div id="consultation-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="consultation" tabindex="0">
@@ -151,13 +151,13 @@
             data-action="click->table#sortTable"
             data-table-target="header"
             data-type="number"
-            >Visites uniques</th>
+            >Clics (détails)</th>
           <th
             scope="col"
             data-action="click->table#sortTable"
             data-table-target="header"
             data-type="number"
-            >Clics (conversion)</th>
+            >Conversion</th>
           <th
             scope="col"
             data-action="click->table#sortTable"
@@ -191,16 +191,18 @@
                 {{ aid_stats.guessed_name }}
               {% endif %}
             </td>
-            <td>{{ aid_stats.nb_visits }}</td>
             <td>{{ aid_stats.nb_uniq_visitors }}</td>
             {% if has_aid %}
-              {% with clicks_count=aid_stats.aid.clicks_count %}
-                <td data-value="{{ clicks_count }}">
-                  {{ aid_stats.aid.foo }}
-                  {{ clicks_count }}
-                  ({% percent_display clicks_count aid_stats.nb_uniq_visitors None %})
-                </td>
-              {% endwith %}
+              <td data-value="{{ aid_stats.aid.clicks_count }}">
+                {{ aid_stats.aid.clicks_count }}
+              </td>
+            {% else %}
+              <td data-value="0">-</td>
+            {% endif %}
+            {% if has_aid %}
+              <td data-value="{{ aid_stats.aid.conversion_value }}">
+                {{ aid_stats.aid.conversion_value }}&#8239;%
+              </td>
             {% else %}
               <td data-value="0">-</td>
             {% endif %}
