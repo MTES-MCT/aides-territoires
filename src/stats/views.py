@@ -555,6 +555,13 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
                     distinct=True,
                 )
             )
+            .annotate(
+                clicks_count=Count(
+                    "aidcontactclickevent",
+                    filter=Q(date_created__range=[start_date_range, end_date_range]),
+                    distinct=True,
+                )
+            )
         )
         slugs_aids = {aid.slug: aid for aid in aids}
         top_aids_pages = []

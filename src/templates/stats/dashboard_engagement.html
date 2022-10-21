@@ -1,5 +1,5 @@
 {% extends "stats/dashboard_base.html" %}
-{% load humanize stats %}
+{% load humanize %}
 
 {% block panels %}
 <div id="consultation-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="consultation" tabindex="0">
@@ -20,19 +20,11 @@
       <div class="fr-tile fr-enlarge-link">
         <div class="fr-tile__body">
           <p class="fr-tile__title">
-<<<<<<< HEAD
             <a class="fr-tile__link" href="{% url 'admin:accounts_userlastconnexion_changelist' %}?last_connexion__gte={{ start_date }}&last_connexion__lt={{ end_date }}">Nombre d’utilisateurs connectés/actifs</a>
           </p>
         </div>
         <div class="fr-tile__img overflow--initial" role="presentation">
           <p class="fr-text--lg"><strong>{{ nb_active_users|intcomma }}</strong></p>
-=======
-            <a class="fr-tile__link" href="#">Nombre d’utilisateurs connectés/actifs</a>
-          </p>
-        </div>
-        <div class="fr-tile__img overflow--initial" role="presentation">
-          <p class="fr-text--lg"><strong>0</strong></p>
->>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
         </div>
       </div>
     </div>
@@ -40,11 +32,7 @@
       <div class="fr-tile fr-enlarge-link">
         <div class="fr-tile__body">
           <p class="fr-tile__title">
-<<<<<<< HEAD
             <a class="fr-tile__link" href="{% url 'admin:stats_aidsearchevent_changelist' %}">
-=======
-            <a class="fr-tile__link" href="#">
->>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
               Nombre de recherche
             </a>
           </p>
@@ -59,11 +47,7 @@
       <div class="fr-tile fr-enlarge-link">
         <div class="fr-tile__body">
           <p class="fr-tile__title">
-<<<<<<< HEAD
             <a class="fr-tile__link" href="{% url 'admin:alerts_alert_changelist' %}">
-=======
-            <a class="fr-tile__link" href="#">
->>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
               Nombre d’alertes créées
             </a>
           </p>
@@ -77,25 +61,7 @@
       <div class="fr-tile fr-enlarge-link">
         <div class="fr-tile__body">
           <p class="fr-tile__title">
-<<<<<<< HEAD
             <a class="fr-tile__link" href="{% url 'admin:stats_aidcontactclickevent_changelist' %}">
-=======
-            <a class="fr-tile__link" href="#">
-            Nombre de commentaires
-            </a>
-          </p>
-        </div>
-        <div class="fr-tile__img overflow--initial" role="presentation">
-          <p class="fr-text--lg"><strong>-</strong></p>
-        </div>
-      </div>
-    </div>
-    <div class="fr-col-12 fr-col-md-2">
-      <div class="fr-tile fr-enlarge-link">
-        <div class="fr-tile__body">
-          <p class="fr-tile__title">
-            <a class="fr-tile__link" href="#">
->>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
             Nombre de clics (+ de détails)
             </a>
           </p>
@@ -105,7 +71,6 @@
         </div>
       </div>
     </div>
-<<<<<<< HEAD
     <div class="fr-col-12 fr-col-md-2">
       <div class="fr-tile fr-enlarge-link">
         <div class="fr-tile__body">
@@ -134,12 +99,10 @@
         </div>
       </div>
     </div>
-=======
->>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
   </div>
 
   <h3 class="fr-mt-5w">
-    🆕 Nombre d’inscriptions toutes structures confondues <span class="charts-legend charts-legend-accent"></span> :
+    🆕 Nombre d’inscriptions toutes structures confondues <span class="charts-legend charts-legend-accent"></span> :
   </h3>
   <div class="charts">
     <div id="chart-inscriptions" class="ct-chart"></div>
@@ -151,11 +114,7 @@
     </ul>
   </div>
 
-<<<<<<< HEAD
   <script nonce="{{ request.csp_nonce }}">
-=======
-  <script>
->>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
     new Chartist.Bar('#chart-inscriptions', {
       labels: {{ nb_inscriptions_weeks|safe }},
       series: [
@@ -178,82 +137,7 @@
     })
   </script>
 
-<<<<<<< HEAD
-=======
-  <h3 class="fr-mt-5w">
-    📍 Nombre d’inscriptions communes <span class="charts-legend charts-legend-accent"></span> :
-  </h3>
-  <div class="charts">
-    <div id="chart-inscriptions-communes" class="ct-chart"></div>
-  </div>
-  <div class="charts-legends">
-    <ul>
-      <li><span class="charts-legend charts-legend-regular"></span> Avec une aide publiée</li>
-      <li><span class="charts-legend charts-legend-regular2"></span> Avec un projet</li>
-    </ul>
-  </div>
-
-  <script>
-    new Chartist.Bar('#chart-inscriptions-communes', {
-      labels: {{ nb_inscriptions_weeks|safe }},
-      series: [
-        {{ nb_inscriptions_communes_serie }},
-        {{ nb_inscriptions_communes_with_created_aid_serie }},
-        {{ nb_inscriptions_communes_with_created_project_serie }}
-      ]
-    }, {
-      // stackBars: true,
-      axisX: {
-        labelInterpolationFnc: (value) => {
-          // Only display day/month (from ISO date).
-          const [ month, day ] = value.slice(5, 10).split('-')
-          return `${day}/${month}`
-        }
-      },
-      plugins: [
-        Chartist.plugins.tooltip({appendToBody: true, pointClass: 'ct-bar'})
-      ]
-    })
-  </script>
-
-  <h3 class="fr-mt-5w">
-    🗺 Nombre d’inscriptions EPCI <span class="charts-legend charts-legend-accent"></span> :
-  </h3>
-  <div class="charts">
-    <div id="chart-inscriptions-epcis" class="ct-chart"></div>
-  </div>
-  <div class="charts-legends">
-    <ul>
-      <li><span class="charts-legend charts-legend-regular"></span> Avec une aide publiée</li>
-      <li><span class="charts-legend charts-legend-regular2"></span> Avec un projet</li>
-    </ul>
-  </div>
-
-  <script>
-    new Chartist.Bar('#chart-inscriptions-epcis', {
-      labels: {{ nb_inscriptions_weeks|safe }},
-      series: [
-        {{ nb_inscriptions_epcis_serie }},
-        {{ nb_inscriptions_epcis_with_created_aid_serie }},
-        {{ nb_inscriptions_epcis_with_created_project_serie }}
-      ]
-    }, {
-      // stackBars: true,
-      axisX: {
-        labelInterpolationFnc: (value) => {
-          // Only display day/month (from ISO date).
-          const [ month, day ] = value.slice(5, 10).split('-')
-          return `${day}/${month}`
-        }
-      },
-      plugins: [
-        Chartist.plugins.tooltip({appendToBody: true, pointClass: 'ct-bar'})
-      ]
-    })
-  </script>
-
->>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
-  <h3 class="fr-mt-5w">🥇 Aides les plus populaires :</h3>
+  <h3 class="fr-mt-5w">🥇 Aides les plus populaires :</h3>
   <div
     class="fr-table fr-table--layout-fixed fr-table--no-caption"
     data-controller="table"
@@ -281,7 +165,6 @@
             data-action="click->table#sortTable"
             data-table-target="header"
             data-type="number"
-<<<<<<< HEAD
             >Clics (total)</th>
           <th
             scope="col"
@@ -301,15 +184,6 @@
             data-table-target="header"
             data-type="number"
             >Clics (démarche)</th>
-=======
-            >Visites uniques</th>
->>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
-          <th
-            scope="col"
-            data-action="click->table#sortTable"
-            data-table-target="header"
-            data-type="number"
-            >Clics (conversion)</th>
           <th
             scope="col"
             data-action="click->table#sortTable"
@@ -332,7 +206,6 @@
       </thead>
       <tbody data-table-target="body">
         {% for aid_stats in top_aids_pages %}
-<<<<<<< HEAD
           {% with has_aid=aid_stats.aid %}
           <tr data-table-target="row">
             <td {% if forloop.first %}scope="row"{% endif %}>
@@ -389,58 +262,13 @@
             <td>
               {% if has_aid %}
                 {{ aid_stats.aid.perimeter.name }}
-=======
-          {% with has_aid=aid_stats.aid_or_name.get_absolute_url %}
-          <tr data-table-target="row">
-            <td {% if forloop.first %}scope="row"{% endif %}>
-              {% if has_aid %}
-                <a href="{{ has_aid }}">
-                  {{ aid_stats.aid_or_name }}
-                </a>
-              {% else %}
-                {{ aid_stats.aid_or_name }}
-              {% endif %}
-            </td>
-            <td>{{ aid_stats.nb_visits }}</td>
-            <td>{{ aid_stats.nb_uniq_visitors }}</td>
-            <td>
-              {% if has_aid %}
-                {% with click_count=aid_stats.aid_or_name.aidcontactclickevent_set.count %}
-                  {{ click_count }}
-                  ({% percent_display click_count aid_stats.nb_uniq_visitors None %})
-                {% endwith %}
               {% else %}
                 -
               {% endif %}
             </td>
             <td>
               {% if has_aid %}
-                {% with saved_count=aid_stats.aid_or_name.aidproject_count %}
-                  {% if saved_count %}
-                    {{ saved_count }}
-                  {% else %}
-                    -
-                  {% endif %}
-                {% endwith %}
->>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
-              {% else %}
-                -
-              {% endif %}
-            </td>
-            <td>
-              {% if has_aid %}
-<<<<<<< HEAD
                 {% with financers=aid_stats.aid.financers.all %}
-=======
-                {{ aid_stats.aid_or_name.perimeter.name }}
-              {% else %}
-                -
-              {% endif %}
-            </td>
-            <td>
-              {% if has_aid %}
-                {% with financers=aid_stats.aid_or_name.financers.all %}
->>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
                   {% if financers %}
                     <ul>
                       {% for financer in financers %}
@@ -461,10 +289,9 @@
       </tbody>
     </table>
   </div>
-<<<<<<< HEAD
 
   <h3 class="fr-mt-5w">
-    📈 Évolution des comptes actifs au cours des 6 derniers mois :
+    📈 Évolution des comptes actifs au cours des 6 derniers mois :
   </h3>
   <div class="charts">
     <div id="chart-activite" class="ct-chart"></div>
@@ -496,8 +323,6 @@
     })
   </script>
 
-=======
->>>>>>> 8ae772df (Découpage du dashboard en 4 vues Django distinctes)
 </div>
 
 <div id="cote-porteurs-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="cote-porteurs" tabindex="0">
