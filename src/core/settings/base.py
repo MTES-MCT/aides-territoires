@@ -341,51 +341,44 @@ CSP_DEFAULT_SRC = ("'self'",)
 
 CSP_CONNECT_SRC = (
     "'self'",
-    "http://*.hotjar.com:*",
     "https://*.hotjar.com:*",
-    "http://*.hotjar.io",
     "https://*.hotjar.io",
     "wss://*.hotjar.com",
+    "https://stats.data.gouv.fr",
 )
 CSP_IMG_SRC = (
     "'self'",
     "data:",
     "https://stats.data.gouv.fr",
-    "http://*.hotjar.com",
     "https://*.hotjar.com",
-    "http://*.hotjar.io",
-    "https://*.hotjar.io",
     "https://*.scw.cloud",
     "https://*.forte.tiles.quaidorsay.fr",
 )
 
-CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "https://stats.beta.gouv.fr")
+CSP_STYLE_SRC = (
+    "'self'",
+    "'unsafe-inline'",
+    "https://stats.beta.gouv.fr",
+    "https://*.hotjar.com",
+)
 
 CSP_SCRIPT_SRC = (
     "'self'",
     "'unsafe-inline'",
     "'unsafe-eval'",
     "https://stats.data.gouv.fr",
-    "http://*.hotjar.com",
     "https://*.hotjar.com",
-    "http://*.hotjar.io",
-    "https://*.hotjar.io",
 )
 
 CSP_FONT_SRC = (
     "'self'",
-    "http://*.hotjar.com",
     "https://*.hotjar.com",
-    "http://*.hotjar.io",
-    "https://*.hotjar.io",
 )
 
 CSP_FRAME_SRC = (
     "'self'",
     "https://stats.data.gouv.fr",
     "https://*.hotjar.com",
-    "http://*.hotjar.io",
-    "https://*.hotjar.io",
     "https://www.youtube.com",
 )
 

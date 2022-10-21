@@ -112,7 +112,7 @@
             {% endif %}
             <script src="https://stats.data.gouv.fr/piwik.js" async defer></script>
             <noscript><img src="https://stats.data.gouv.fr/piwik.php?idsite={% analytics_siteid %}&idgoal={{ analytics_goalid }}" style="border:0;" alt="" /></noscript>
-            <script src="/static/js/analytics/hotjar_tag.js"></script>
+            <script src="/static/js/analytics/hotjar_tag.js" crossorigin="anonymous"></script>
         {% endif %}
     </body>
 </html>
