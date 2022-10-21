@@ -524,8 +524,10 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
             aid_stats = {
                 # Matomo “doesn't process unique visitors across the full period.”
                 # so we multiply their daily value with the number of days for
-                # the given period.
-                "nb_uniq_visitors": page["sum_daily_nb_uniq_visitors"]
+                # the given period, if the range is more that one day. Otherwise,
+                # the `nb_uniq_visitors` key is present in the page result.
+                "nb_uniq_visitors": page.get("nb_uniq_visitors")
+                or page["sum_daily_nb_uniq_visitors"]
                 * (end_date_range - start_date_range).days,
             }
             aid = slugs_aids.get(slug)
