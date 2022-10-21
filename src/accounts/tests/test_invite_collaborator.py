@@ -119,7 +119,7 @@ def test_can_invite_user_with_an_existing_account(client):
     collaborator_list_page = reverse("collaborators")
     res = client.get(collaborator_list_page, follow=True)
     assert (
-        "Votre invitation a bien été envoyée ; l'utilisateur invité pourra accepter ou non votre invitation."  # noqa
+        "Votre invitation a bien été envoyée ; l’utilisateur invité pourra accepter ou non votre invitation."  # noqa
         in res.content.decode()
     )
 

@@ -1,0 +1,15 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrahead %}
+    <link rel="shortcut icon" href="{% static 'favicons/favicon.svg' %}" />
+    <style type="text/css">
+        #user-tools:before {
+            margin: 0 0.5em;
+            padding: 0 0.5em;
+            content:"{{ ENV_NAME }}";
+            background-color: {{ ENV_BACKGROUND_COLOR }};
+            color: {{ ENV_COLOR }};
+        }
+    </style>
+{% endblock %}

@@ -320,11 +320,11 @@ class SubscribeNewsletter(View):
         response = requests.request("POST", url, json=payload, headers=headers)
 
         if response and any((response.status_code == 201, response.status_code == 204)):
-            msg = (
-                "Votre demande d'inscription à la newsletter a bien été prise en compte. <br/>"
-                "<strong>Afin de finaliser votre inscription il vous reste à cliquer sur le lien "
-                "de confirmation présent dans l'e-mail que vous allez recevoir.</strong>"
-            )
+            msg = """
+                Votre demande d’inscription à la newsletter a bien été prise en compte.<br />
+                <strong>Afin de finaliser votre inscription il vous reste à cliquer sur le lien
+                de confirmation présent dans l’e-mail que vous allez recevoir.</strong>
+                """
             messages.success(self.request, msg)
         else:
             msg = "Une erreur s'est produite lors de votre inscription à la newsletter"
@@ -396,7 +396,7 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, FormView):
                 collaborator_exist=True,
             )
             track_goal(self.request.session, settings.GOAL_REGISTER_ID)
-            msg = "Votre invitation a bien été envoyée ; l'utilisateur invité pourra accepter ou non votre invitation."  # noqa
+            msg = "Votre invitation a bien été envoyée ; l’utilisateur invité pourra accepter ou non votre invitation."  # noqa
 
         else:
             collaborator = User.objects.create(
@@ -802,7 +802,7 @@ class DeleteHistoryLoginView(ContributorAndProfileCompleteRequiredMixin, View):
                 msg = "Votre journal de connexion a bien été réinitialisé."
             except Exception:
                 msg = (
-                    "Une erreur s'est produite lors de la"
+                    "Une erreur s’est produite lors de la"
                     "suppression de votre journal de connexion"
                 )
             messages.success(self.request, msg)

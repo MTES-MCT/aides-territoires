@@ -42,6 +42,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "drf_spectacular",
+    "drf_spectacular_sidecar",
     "django_xworkflows",
     "corsheaders",
     "import_export",
@@ -93,6 +94,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 MIDDLEWARE = [
+    "csp.middleware.CSPMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
@@ -209,6 +211,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "core.context_processors.integration",
                 "core.context_processors.contact_data",
+                "core.context_processors.admin_environment",
                 "core.context_processors.admin_stats",
                 "core.context_processors.contributor_stats",
             ],
@@ -262,13 +265,16 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": api_doc.description,
     "TOS": "https://aides-territoires.beta.gouv.fr/mentions-l%C3%A9gales/",
     "CONTACT": {
-        "name": "Une question ? Vous pouvez nous contacter en cliquand ici (puis sélectionnez 'API' comme Sujet)",
+        "name": "Une question ? Vous pouvez nous contacter en cliquant ici (puis sélectionnez 'API' comme Sujet)",
         "url": "https://aides-territoires.beta.gouv.fr/contact/",
     },
-    "LICENSE": {"name": "« Licence Ouverte v2.0 » d'Etalab"},
+    "LICENSE": {"name": "« Licence Ouverte v2.0 » d’Etalab"},
     "EXTERNAL_DOCS": {"url": "https://aides-territoires.beta.gouv.fr/data/"},
     "SERVE_INCLUDE_SCHEMA": False,
     "SORT_OPERATION_PARAMETERS": False,
+    "SWAGGER_UI_DIST": "SIDECAR",
+    "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
+    "REDOC_DIST": "SIDECAR",
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -329,6 +335,72 @@ ANALYTICS_ENABLED = False
 ANALYTICS_ENDPOINT = "https://stats.data.gouv.fr/index.php"
 ANALYTICS_SITEID = 0
 HOTJAR_SITEID = 0
+
+# Django Security Policy
+CSP_DEFAULT_SRC = ("'self'",)
+
+CSP_CONNECT_SRC = (
+    "'self'",
+    "http://*.hotjar.com:*",
+    "https://*.hotjar.com:*",
+    "http://*.hotjar.io",
+    "https://*.hotjar.io",
+    "wss://*.hotjar.com",
+)
+CSP_IMG_SRC = (
+    "'self'",
+    "data:",
+    "https://stats.data.gouv.fr",
+    "http://*.hotjar.com",
+    "https://*.hotjar.com",
+    "http://*.hotjar.io",
+    "https://*.hotjar.io",
+    "https://*.scw.cloud",
+    "https://*.forte.tiles.quaidorsay.fr",
+)
+
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "https://stats.beta.gouv.fr")
+
+CSP_SCRIPT_SRC = (
+    "'self'",
+    "'unsafe-inline'",
+    "'unsafe-eval'",
+    "https://stats.data.gouv.fr",
+    "http://*.hotjar.com",
+    "https://*.hotjar.com",
+    "http://*.hotjar.io",
+    "https://*.hotjar.io",
+)
+
+CSP_FONT_SRC = (
+    "'self'",
+    "http://*.hotjar.com",
+    "https://*.hotjar.com",
+    "http://*.hotjar.io",
+    "https://*.hotjar.io",
+)
+
+CSP_FRAME_SRC = (
+    "'self'",
+    "https://stats.data.gouv.fr",
+    "https://*.hotjar.com",
+    "http://*.hotjar.io",
+    "https://*.hotjar.io",
+    "https://www.youtube.com",
+)
+
+CSP_FRAME_ANCESTORS = ("*",)
+
+CSP_BASE_URI = ("'self'",)
+
+CSP_WORKER_SRC = (
+    "blob:",
+    "https://*.hotjar.com",
+    "http://*.hotjar.io",
+    "https://*.hotjar.io",
+)
+
+CSP_FORM_ACTION = ("'self'", "https://my.sendinblue.com")
 
 # Emails & Sendinblue api and settings
 CONTACT_EMAIL = "nowhere@example.org"
@@ -401,9 +473,11 @@ LOGIN_URL = "login"
 LOGOUT_REDIRECT_URL = "home"
 LOGIN_REDIRECT_URL = "user_dashboard"
 
-SEARCH_COOKIE_NAME = "currentsearch"
-
 ENABLE_DJANGO_STATIC_SERVE = False
+
+# Cookies
+SEARCH_COOKIE_NAME = "currentsearch"
+CSRF_COOKIE_HTTPONLY = True
 
 # Caching
 ENABLE_AID_LIST_API_CACHE = False

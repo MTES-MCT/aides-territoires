@@ -27,7 +27,6 @@ django-rest-framework = "*"
 django-xworkflows = "*"
 dj-static = "*"
 dj-database-url = "*"
-drf-spectacular = "*"
 gunicorn = "*"
 importlib-metadata = "*"
 psycopg2-binary = "*"
@@ -48,6 +47,8 @@ django-simple-captcha = "*"
 django-dsfr = "*"
 xhtml2pdf = "*"
 python-stdnum = "*"
+django-csp = "*"
+drf-spectacular = {extras = ["sidecar"], version = "*"}
 
 [dev-packages]
 django-debug-toolbar = "*"

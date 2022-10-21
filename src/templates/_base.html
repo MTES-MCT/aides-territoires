@@ -72,27 +72,31 @@
                 {% block content %}{% endblock content %}
             </div>
             {% endblock main %}
-        </main>{% block footer %}{% include '_footer.html' %}{% endblock footer %}
+        </main>
+
+        {% block footer %}
+            {% include '_footer.html' %}
+        {% endblock footer %}
 
         {% block modals %}{% endblock modals %}
         
         {% dsfr_theme_modale %}
 
         {% compress js %}
-        <script src="{% static 'jquery/dist/jquery.js' %}"></script>
-        {% include '_js_i18n.html' %}
-        <script>
-            // Piwik variables
-            var _paq = _paq || [];
-            _paq.push(["setDomains", ["*.aides-territoires.beta.gouv.fr"]]);
-            _paq.push(['trackPageView']);
-            _paq.push(['enableLinkTracking']);
-            _paq.push(['setTrackerUrl', 'https://stats.data.gouv.fr/piwik.php']);
-            _paq.push(['setSiteId', '{% analytics_siteid %}']);
+            <script src="{% static 'jquery/dist/jquery.js' %}"></script>
+            {% include '_js_i18n.html' %}
+            <script>
+                // Piwik variables
+                var _paq = _paq || [];
+                _paq.push(["setDomains", ["*.aides-territoires.beta.gouv.fr"]]);
+                _paq.push(['trackPageView']);
+                _paq.push(['enableLinkTracking']);
+                _paq.push(['setTrackerUrl', 'https://stats.data.gouv.fr/piwik.php']);
+                _paq.push(['setSiteId', '{% analytics_siteid %}']);
 
-            // Hotjar variables
-            var hotjar_siteid = {% hotjar_siteid %};
-        </script>
+                // Hotjar variables
+                var hotjar_siteid = {% hotjar_siteid %};
+            </script>
         {% endcompress %}
         {% dsfr_js %}
         <script src="/static/js/shared_config.js"></script>
