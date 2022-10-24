@@ -213,14 +213,6 @@ class Command(BaseImportCommand):
         eligibility += '<br>'
         eligibility += line.get('demarches', '')
         eligibility += '<br>'
-        if line.get('documentsPublics', ''):
-            eligibility += '<p><a href="' + line.get('docnecessaire01_url', '') + '">' + line.get('docnecessaire01_nom', '') + '</a></p>'
-        if line.get('docnecessaire02_nom', ''):
-            eligibility += '<p><a href="' + line.get('docnecessaire02_url', '') + '">' + line.get('docnecessaire02_nom', '') + '</a></p>'
-        if line.get('docnecessaire03_nom', ''):
-            eligibility += '<p><a href="' + line.get('docnecessaire03_url', '') + '">' + line.get('docnecessaire03_nom', '') + '</a></p>'
-        if line.get('docnecessaire04_nom', ''):
-            eligibility += '<p><a href="' + line.get('docnecessaire04_url', '') + '">' + line.get('docnecessaire04_nom', '') + '</a></p>'
         eligibility = content_prettify(eligibility)
         return eligibility
 
@@ -276,3 +268,6 @@ class Command(BaseImportCommand):
                     except Exception:
                         pass
         return keywords
+
+    def extract_author_notification(self, line):
+        return True
