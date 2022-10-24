@@ -47,14 +47,9 @@
                     <div class="at-sidemenu__separator fr-px-2w"><hr /></div>
                 </li>
                 <li class="fr-sidemenu__item">
-                    <button class="fr-sidemenu__btn"  {% if favorite_project_admin %} aria-expanded="true" {% else %} aria-expanded="false" {% endif %} aria-controls="fr-sidemenu-item-35">Mes inspirations</button>
-                    <div class="fr-collapse" id="fr-sidemenu-item-35">
-                        <ul class="fr-sidemenu__list">
-                             <li class="fr-sidemenu__item {% if project_admin %}fr-sidemenu__item--active{% endif %}">
-                                <a class="fr-sidemenu__link" href="{% url 'favorite_project_list_view' %}" target="_self" {% if favorite_project_admin %}aria-current="page"{% endif %} rel="noopener">Consulter les projets suivis</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <li class="fr-sidemenu__item {% if project_admin %}fr-sidemenu__item--active{% endif %}">
+                        <a class="fr-sidemenu__link" href="{% url 'favorite_project_list_view' %}" target="_self" {% if favorite_project_admin %}aria-current="page"{% endif %} rel="noopener">Consulter mes projets favoris</a>
+                    </li>
                 </li>
                 <li class="fr-sidemenu__item fr-py-2w">
                     <div class="at-sidemenu__separator fr-px-2w"><hr /></div>
