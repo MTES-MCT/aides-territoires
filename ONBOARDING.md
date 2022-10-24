@@ -17,7 +17,7 @@ Dans votre fichier /etc/hosts il est nécessaire de compléter la ligne 127.0.0.
 
 Le serveur peut ensuite être démarré avec la commande :
 
-    ./manage.py runserver 0:8000 --settings minisites.settings.local
+    python manage.py runserver 0:8000 --settings minisites.settings.local
 
 La version dev du minisite sera alors accessible à cette adresse :
 
