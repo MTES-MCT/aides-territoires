@@ -236,6 +236,9 @@ class SiteStats(MinisiteMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        if self.search_page.id == 2:
+            context['france_mobilites'] = True
+
         # aid count
         context['nb_live_aids'] = self.search_page.get_base_queryset().count()
 
