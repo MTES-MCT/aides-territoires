@@ -63,10 +63,12 @@ d'admin Django, et peuvent administrer les différentes données.
 La liste des « gros morceaux » ou fonctionnalités principales à connaître :
 
   - création, édition, publication d'aides
-  - recherche d'aides en 3 ou 4 étapes (avec filtres par type de bénéficiaire, périmètre, mots clés ou thématique)
+  - recherche d'aides (avec filtres par type de bénéficiaire, périmètre, mots clés ou thématique)
   - présentation du résultat des aides et filtre rapide
   - moteur de recherche avancé « plus de critères »
-  - création de « minisites »
+  - création de « portails »
+  - création et gestion de projets
+  - publication de projets et suggestion d'aides pour des projets publics
   - création d'alertes à partir d'une recherche
   - test d'éligibilité sur certaines aides
   - import d'aides par Excel, CSV ou API
