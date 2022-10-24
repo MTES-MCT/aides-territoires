@@ -231,7 +231,6 @@ class BaseImportCommand(BaseCommand):
         form_fields = AidEditForm.Meta.fields
         more_fields = [
             "author_id",
-            "author_notification",
             "import_data_source",
             "is_imported",
             "import_uniqueid",
@@ -247,7 +246,7 @@ class BaseImportCommand(BaseCommand):
         ]
         fields = form_fields + more_fields
 
-        values = {"is_imported": True,}
+        values = {"is_imported": True, "author_notification": False}
         for field in fields:
             extract_method_name = "extract_{}".format(field)
             extract_method = getattr(self, extract_method_name, None)
@@ -335,9 +334,6 @@ class BaseImportCommand(BaseCommand):
 
     def extract_short_title(self, line):
         return ""
-
-    def extract_author_notification(self, line):
-        return False
 
 
 class CrawlerImportCommand(BaseImportCommand):

@@ -268,6 +268,3 @@ class Command(BaseImportCommand):
                     except Exception:
                         pass
         return keywords
-
-    def extract_author_notification(self, line):
-        return True
