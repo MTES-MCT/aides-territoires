@@ -1,6 +1,6 @@
 {% load settings %}
 
-<script>
+<script nonce="{{ request.csp_nonce }}">
 // Translations strings
 var catalog = {
     project_placeholder: 'Exemple: construction, école, piste cyclable',

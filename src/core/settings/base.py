@@ -38,6 +38,7 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    "csp",
     "compressor",
     "rest_framework",
     "rest_framework.authtoken",
@@ -210,6 +211,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "csp.context_processors.nonce",
                 "core.context_processors.integration",
                 "core.context_processors.contact_data",
                 "core.context_processors.admin_environment",
@@ -351,6 +353,8 @@ CSP_IMG_SRC = (
     "https://*.forte.tiles.quaidorsay.fr",
 )
 
+CSP_OBJECT_SRC = ("'none'",)
+
 CSP_STYLE_SRC = (
     "'self'",
     "'unsafe-inline'",
@@ -359,7 +363,6 @@ CSP_STYLE_SRC = (
 
 CSP_SCRIPT_SRC = (
     "'self'",
-    "'unsafe-inline'",
     "'unsafe-eval'",
     "https://stats.data.gouv.fr",
     "https://aides-territoires-metabase.osc-fr1.scalingo.io",
@@ -381,6 +384,8 @@ CSP_BASE_URI = ("'self'",)
 CSP_WORKER_SRC = ("blob:",)
 
 CSP_FORM_ACTION = ("'self'", "https://my.sendinblue.com")
+
+CSP_INCLUDE_NONCE_IN = ["script-src"]
 
 # Emails & Sendinblue api and settings
 CONTACT_EMAIL = "nowhere@example.org"

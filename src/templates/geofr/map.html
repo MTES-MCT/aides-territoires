@@ -94,14 +94,14 @@
 {% endblock content %}
 
 {% block extra_js %}
-{% compress js %}
-<script src="{% static 'js/geofr/department_filter.js' %}"></script>
-<script src="{% static 'js/geofr/map.js' %}"></script>
-{% endcompress %}
-<script>
-    let departments_data = JSON.parse("{{ departments_json|escapejs }}");
-    $(document).ready(function () {
-        department_filter('/');
-    });
-</script>
+    {% compress js %}
+        <script src="{% static 'js/geofr/department_filter.js' %}"></script>
+        <script src="{% static 'js/geofr/map.js' %}"></script>
+    {% endcompress %}
+    <script nonce="{{ request.csp_nonce }}">
+        let departments_data = JSON.parse("{{ departments_json|escapejs }}");
+        $(document).ready(function () {
+            department_filter('/');
+        });
+    </script>
 {% endblock extra_js %}

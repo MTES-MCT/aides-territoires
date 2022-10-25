@@ -1,4 +1,4 @@
-{% load compress analytics i18n settings static dsfr_tags %}
+{% load compress analytics csp i18n settings static dsfr_tags %}
 <!doctype html>
 <html lang="fr" class="nojs {% if integration %}integration {% endif %}{% block extraclasses %}{% endblock extraclasses %}" {% block theme %}data-fr-scheme="system"{% endblock theme %}>
     <head>
@@ -28,7 +28,7 @@
 
         {% block extra_head %}{% endblock extra_head %}
 
-        <script>
+        <script nonce="{{ request.csp_nonce }}">
             // Add class to indicate that js is available
             var html = document.documentElement;
             html.classList.remove('nojs');
@@ -83,9 +83,9 @@
         {% dsfr_theme_modale %}
 
         {% compress js %}
-            <script src="{% static 'jquery/dist/jquery.js' %}"></script>
+            <script src="{% static 'jquery/dist/jquery.js' %}" nonce="{{ request.csp_nonce }}"></script>
             {% include '_js_i18n.html' %}
-            <script>
+            <script nonce="{{ request.csp_nonce }}">
                 // Piwik variables
                 var _paq = _paq || [];
                 _paq.push(["setDomains", ["*.aides-territoires.beta.gouv.fr"]]);
@@ -95,15 +95,17 @@
                 _paq.push(['setSiteId', '{% analytics_siteid %}']);
             </script>
         {% endcompress %}
+
         {% dsfr_js %}
         <script src="/static/js/shared_config.js"></script>
+
         {% block extra_js %}{% endblock extra_js %}
 
         {% analytics_enabled as analytics_enabled %}
         {% analytics_goalid as analytics_goalid %}
         {% if analytics_enabled %}
             {% if analytics_goalid %}
-                <script type="text/javascript">
+                <script type="text/javascript" nonce="{{ request.csp_nonce }}">
                     _paq.push(['trackGoal', {{ analytics_goalid }}]);
                 </script>
             {% endif %}
