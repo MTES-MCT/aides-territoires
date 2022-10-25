@@ -5,7 +5,7 @@ $(document).ready(function () {
         language: {
             inputTooShort: function() { return catalog.project_types_placeholder; },
         },
-        minimumInputLength: 3,
+        minimumInputLength: 0,
         ajax: {
             url: catalog.project_types_url,
             dataType: 'json',
