@@ -1,6 +1,5 @@
 TRUMBOWYG_UPLOAD_ADMIN_JS = [
     '/static/trumbowyg/dist/plugins/upload/trumbowyg.upload.js',
-    '/static/trumbowyg/dist/plugins/resizimg/resizable-resolveconflict.js',
     '/static/jquery-resizable-dom/dist/jquery-resizable.js',
 
     # We are using a local version of trumbowyg.resizimg because there is
