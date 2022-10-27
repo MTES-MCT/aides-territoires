@@ -25,7 +25,7 @@
 {% endblock content %}
 
 {% block extra_js %}
-<script>
+<script nonce="{{ request.csp_nonce }}">
     ALERT_TITLE = '{{ alert.title }}';
 </script>
 <script src="{% static 'js/alerts/track_alert_form_events.js' %}"></script>

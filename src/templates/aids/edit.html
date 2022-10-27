@@ -80,29 +80,27 @@
 {% endblock before_section %}
 
 {% block form_sidebar %}
-
-<div id="nav-form" class="list-group list-group-horizontal">
-    <a href="#aid-presentation" class=" at-link__nodecorator list-group-item list-group-item-action active" aria-current="true">
-        <span class="counter">1</span>
-        Présentation
-    </a>
-    <span class="separator fr-icon-arrow-right-s-line" aria-hidden="true"></span>
-    <a href="#aid-description" class=" at-link__nodecorator list-group-item list-group-item-action">
-        <span class="counter">2</span>
-        Description
-    </a>
-    <span class="separator fr-icon-arrow-right-s-line" aria-hidden="true"></span>
-    <a href="#aid-eligibility" class="at-link__nodecorator list-group-item list-group-item-action">
-        <span class="counter">3</span>
-        Critères d’éligibilité
-    </a>
-    <span class="separator fr-icon-arrow-right-s-line" aria-hidden="true"></span>
-    <a href="#aid-contact" class="at-link__nodecorator list-group-item list-group-item-action">
-        <span class="counter">4</span>
-        Contact et démarches
-    </a>
-</div>
-
+    <div id="nav-form" class="list-group list-group-horizontal">
+        <a href="#aid-presentation" class=" at-link__nodecorator list-group-item list-group-item-action active" aria-current="true">
+            <span class="counter">1</span>
+            Présentation
+        </a>
+        <span class="separator fr-icon-arrow-right-s-line" aria-hidden="true"></span>
+        <a href="#aid-description" class=" at-link__nodecorator list-group-item list-group-item-action">
+            <span class="counter">2</span>
+            Description
+        </a>
+        <span class="separator fr-icon-arrow-right-s-line" aria-hidden="true"></span>
+        <a href="#aid-eligibility" class="at-link__nodecorator list-group-item list-group-item-action">
+            <span class="counter">3</span>
+            Critères d’éligibilité
+        </a>
+        <span class="separator fr-icon-arrow-right-s-line" aria-hidden="true"></span>
+        <a href="#aid-contact" class="at-link__nodecorator list-group-item list-group-item-action">
+            <span class="counter">4</span>
+            Contact et démarches
+        </a>
+    </div>
 {% endblock form_sidebar %}
 
 {% block form_actions %}
@@ -118,25 +116,25 @@
 {% endblock form_actions %}
 
 {% block extra_js %}
-{{ block.super }}
-{% compress js %}
-<script src="{% static 'js/aids/update_status_form_availability.js' %}"></script>
-<script src="{% static 'js/aids/disable_delete_button.js' %}"></script>
-<script src="{% static 'js/aids/configure_preview_modal.js' %}"></script>
-{% endcompress %}
-<script>
-$(document).ready(function() {
-    // Force the user to preview the aid at every edit.
-    var queryString = window.location.search.substring(1);
-    if (queryString.match(/preview/)) {
-        var previewBtn = $('button.preview-btn');
-        previewBtn.click();
-    }
-});
-</script>
+    {{ block.super }}
+    {% compress js %}
+        <script src="{% static 'js/aids/update_status_form_availability.js' %}"></script>
+        <script src="{% static 'js/aids/disable_delete_button.js' %}"></script>
+        <script src="{% static 'js/aids/configure_preview_modal.js' %}"></script>
+    {% endcompress %}
+    <script nonce="{{ request.csp_nonce }}">
+        $(document).ready(function() {
+            // Force the user to preview the aid at every edit.
+            var queryString = window.location.search.substring(1);
+            if (queryString.match(/preview/)) {
+                var previewBtn = $('button.preview-btn');
+                previewBtn.click();
+            }
+        });
+    </script>
 {% endblock extra_js %}
 
 {% block content %}
-{{ block.super }}
-{% include 'aids/_preview_modal.html' %}
+    {{ block.super }}
+    {% include 'aids/_preview_modal.html' %}
 {% endblock content %}

@@ -53,7 +53,7 @@
 {% endblock modals %}
 
 {% block extra_js %}
-<script>
+<script nonce="{{ request.csp_nonce }}">
     SEARCH_PAGE_SLUG = '{{ search_page.slug }}';
 </script>
 {{ block.super }}

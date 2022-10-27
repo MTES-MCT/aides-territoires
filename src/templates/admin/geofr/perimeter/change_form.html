@@ -21,13 +21,14 @@
 </div>
 {% endblock %}
 
-{% block admin_change_form_document_ready %}{{ block.super }}
-<script>
-    var revealBtn = document.getElementById('toggle-perimeters');
-    var perimeterList = document.getElementById('contained-perimeter-list');
-    revealBtn.addEventListener('click', function(event) {
-        event.preventDefault();
-        perimeterList.classList.toggle('hidden');
-    });
-</script>
+{% block admin_change_form_document_ready %}
+    {{ block.super }}
+    <script nonce="{{ request.csp_nonce }}">
+        var revealBtn = document.getElementById('toggle-perimeters');
+        var perimeterList = document.getElementById('contained-perimeter-list');
+        revealBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            perimeterList.classList.toggle('hidden');
+        });
+    </script>
 {% endblock %}
