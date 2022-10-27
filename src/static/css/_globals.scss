@@ -193,6 +193,14 @@ h6 {
   height: 30em;
 }
 
+.at-position--relative {
+  position: relative;
+}
+
+.at-height--30 {
+  height: 30em;
+}
+
 // Used to make a header button look like a normal one 
 .fr-header__tools-links .at-btn--primary {
   --hover-tint: var(--hover);
