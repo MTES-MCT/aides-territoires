@@ -83,33 +83,34 @@
           </li>
         </ul>
       </div>
-      <script data-map-target="regions" type="application/json">
+      <script data-map-target="regions" type="application/json" nonce="{{ request.csp_nonce }}">
         {{ regions_geojson|safe }}
       </script>
-      <script data-map-target="regionsOrgCommunesCount" type="application/json">
+      <script data-map-target="regionsOrgCommunesCount" type="application/json" nonce="{{ request.csp_nonce }}">
         {{ regions_org_communes_count|safe }}
       </script>
-      <script data-map-target="regionsOrgEpcisCount" type="application/json">
+      <script data-map-target="regionsOrgEpcisCount" type="application/json" nonce="{{ request.csp_nonce }}">
         {{ regions_org_epcis_count|safe }}
       </script>
-      <script data-map-target="departmentsOrgCommunesCount" type="application/json">
+      <script data-map-target="departmentsOrgCommunesCount" type="application/json" nonce="{{ request.csp_nonce }}">
         {{ departments_org_communes_count|safe }}
       </script>
-      <script data-map-target="departmentsOrgEpcisCount" type="application/json">
+      <script data-map-target="departmentsOrgEpcisCount" type="application/json" nonce="{{ request.csp_nonce }}">
         {{ departments_org_epcis_count|safe }}
       </script>
-      <script data-map-target="communesWithOrg" type="application/json">
+      <script data-map-target="communesWithOrg" type="application/json" nonce="{{ request.csp_nonce }}">
         {{ communes_with_org|safe }}
       </script>
-      <script data-map-target="epcisWithOrg" type="application/json">
+      <script data-map-target="epcisWithOrg" type="application/json" nonce="{{ request.csp_nonce }}">
         {{ epcis_with_org|safe }}
       </script>
-      <script data-map-target="departments" data-src="{% static 'geojson/departements-1000m.geojson' %}"></script>
+      <script data-map-target="departments" data-src="{% static 'geojson/departements-1000m.geojson' %}" nonce="{{ request.csp_nonce }}"></script>
       {% get_static_prefix as STATIC_PREFIX %}
       <script data-map-target="communes"
-      {% for code in departments_codes %}
-        data-src-{{ code }}="{{ STATIC_PREFIX }}geojson/communes-1000m-{{ code }}.geojson"
-      {% endfor %}
+        {% for code in departments_codes %}
+          data-src-{{ code }}="{{ STATIC_PREFIX }}geojson/communes-1000m-{{ code }}.geojson"
+        {% endfor %}
+      nonce="{{ request.csp_nonce }}"
       ></script>
       <div data-map-target="tables"></div>
     </div>
@@ -117,7 +118,7 @@
 {% endblock %}
 
 {% block extra_js %}
-<script type="module">
+<script type="module" nonce="{{ request.csp_nonce }}">
   import { Application } from "{% static '@hotwired/stimulus/dist/stimulus.js' %}"
   import mapController from "{% static 'js/stats/map_controller.js' %}"
   import tableController from "{% static 'js/stats/table_controller.js' %}"
