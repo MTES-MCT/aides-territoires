@@ -13,7 +13,7 @@ def test_no_goal_is_tracked(client, settings):
     settings.COMPRESS_ENABLED = False
     settings.ANALYTICS_ENABLED = True
 
-    home_url = reverse('home')
+    home_url = reverse("home")
     res = client.get(home_url)
     content = res.content.decode()
 
@@ -30,7 +30,7 @@ def test_simple_goal_tracking(client, settings):
     # This is required because of the implementation of test client
     session.save()
 
-    home_url = reverse('home')
+    home_url = reverse("home")
     res = client.get(home_url)
     content = res.content.decode()
 

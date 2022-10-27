@@ -9,7 +9,7 @@ register = template.Library()
 
 @register.simple_tag
 def analytics_enabled():
-    """"True if analytics in enabled in settings."""
+    """ "True if analytics in enabled in settings."""
 
     return settings.ANALYTICS_ENABLED
 
@@ -24,7 +24,7 @@ def analytics_siteid():
 def analytics_goalid(context):
     """Returns the value of the goal to track."""
 
-    request = context['request']
+    request = context["request"]
     goalid = get_goal(request.session)
     return goalid
 
