@@ -27,8 +27,3 @@ def analytics_goalid(context):
     request = context["request"]
     goalid = get_goal(request.session)
     return goalid
-
-
-@register.simple_tag
-def hotjar_siteid():
-    return settings.HOTJAR_SITEID
