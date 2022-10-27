@@ -387,6 +387,10 @@ CSP_FORM_ACTION = ("'self'", "https://my.sendinblue.com")
 
 CSP_INCLUDE_NONCE_IN = ["script-src"]
 
+# CSP exclusion for admin URLs only as it relies on inline JavaScript
+# and is not publicly accessible
+CSP_EXCLUDE_URL_PREFIXES = ("/admin",)
+
 # Emails & Sendinblue api and settings
 CONTACT_EMAIL = "nowhere@example.org"
 CONTACT_PHONE = "+33123456789"
