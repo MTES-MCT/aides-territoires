@@ -236,6 +236,9 @@ class SiteStats(MinisiteMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        if self.search_page.id == 2:
+            context['france_mobilites'] = True
+
         # aid count
         context['nb_live_aids'] = self.search_page.get_base_queryset().count()
 
@@ -282,6 +285,7 @@ class SiteStats(MinisiteMixin, TemplateView):
 
         # top 10 aid viewed
         top_aid_viewed = view_events \
+            .filter(date_created__gte=beginning_of_2021) \
             .select_related('aid') \
             .values('aid_id', 'aid__slug', 'aid__name') \
             .annotate(view_count=Count('aid_id')) \
@@ -292,6 +296,7 @@ class SiteStats(MinisiteMixin, TemplateView):
         if self.search_page.show_audience_field:
             top_audiences_searched = search_events \
                 .filter(targeted_audiences__isnull=False) \
+                .filter(date_created__gte=beginning_of_2021) \
                 .annotate(audience=Func(
                     F('targeted_audiences'), function='unnest')) \
                 .values('audience') \
@@ -317,6 +322,7 @@ class SiteStats(MinisiteMixin, TemplateView):
 
         # top 10 keywords searched
         top_keywords_searched = search_events \
+            .filter(date_created__gte=beginning_of_2021) \
             .exclude(text__isnull=True).exclude(text__exact='') \
             .values('text') \
             .annotate(search_count=Count('id')) \

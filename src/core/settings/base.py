@@ -369,6 +369,7 @@ CSP_SCRIPT_SRC = (
     "'unsafe-eval'",
     "https://stats.data.gouv.fr",
     "https://*.hotjar.com",
+    "https://aides-territoires-metabase.osc-fr1.scalingo.io",
 )
 
 CSP_FONT_SRC = (
@@ -381,6 +382,7 @@ CSP_FRAME_SRC = (
     "https://stats.data.gouv.fr",
     "https://*.hotjar.com",
     "https://www.youtube.com",
+    "https://aides-territoires-metabase.osc-fr1.scalingo.io",
 )
 
 CSP_FRAME_ANCESTORS = ("*",)
