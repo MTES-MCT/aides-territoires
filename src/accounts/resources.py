@@ -79,7 +79,6 @@ class UserResource(resources.ModelResource):
         else:
             return ""
 
-
     def dehydrate_beneficiary_organization_id(self, obj):
         if obj.beneficiary_organization:
             return obj.beneficiary_organization.id
