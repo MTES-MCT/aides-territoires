@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     $('select#id_text').select2({
-        placeholder: catalog.text_placeholder,
+        placeholder: "Ex: rénovation énergétique, vélo, tiers lieu, etc.",
         allowClear: true,
         tags: true,
         language: 'fr',
@@ -29,7 +29,7 @@ $(document).ready(function () {
             },
         },
         theme: "select2-dsfr",
-        dropdownAutoWidth : true,
+        dropdownAutoWidth: true,
         width: "auto",
     });
 });

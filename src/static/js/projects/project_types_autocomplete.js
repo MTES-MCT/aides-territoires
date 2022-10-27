@@ -1,9 +1,9 @@
 $(document).ready(function () {
 
     $('select#id_project_types').select2({
-        placeholder: catalog.project_types_placeholder,
+        placeholder: "Sélectionnez un type de projet",
         language: {
-            inputTooShort: function() { return catalog.project_types_placeholder; },
+            inputTooShort: function () { return "Sélectionnez un type de projet"; },
         },
         minimumInputLength: 0,
         ajax: {
@@ -28,7 +28,7 @@ $(document).ready(function () {
             },
         },
         theme: "select2-dsfr",
-        dropdownAutoWidth : true,
+        dropdownAutoWidth: true,
         width: "auto",
     });
 });
