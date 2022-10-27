@@ -481,11 +481,6 @@
 
             <div class="fr-mb-5w" id="contact">
                 <h2 class="fr-h3 fr-mb-2w">Contact</h2>
-                {% if idf_financer %}
-                <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-1w">
-                Nous vous invitons à vous assurer que ces informations sont à jour en consultant le site de la Région Île-de-France.
-                </div>
-                {% endif %}
                 <div>
                     {% if aid.contact %}
                     {{ aid.contact|safe }}
