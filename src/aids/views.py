@@ -452,8 +452,6 @@ class AidDetailView(DetailView):
             financers.exclude(logo__isnull=True).exclude(logo="").distinct()
         )
 
-        context["idf_financer"] = financers.filter(pk=40)
-
         context["eligibility_criteria"] = any(
             (
                 self.object.mobilization_steps,
