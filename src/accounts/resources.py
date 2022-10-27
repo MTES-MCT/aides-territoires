@@ -20,6 +20,7 @@ USER_EXPORT_FIELDS = (
     "nb_aids",
     "beneficiary_organization",
     "beneficiary_organization_id",
+    "beneficiary_organization_projects_count",
     "contributor_organization",
     "beneficiary_function",
     "contributor_role",
@@ -41,6 +42,10 @@ class UserResource(resources.ModelResource):
 
     beneficiary_organization_id = fields.Field(
         column_name="ID de l'organisation",
+    )
+
+    beneficiary_organization_projects_count = fields.Field(
+        column_name="Nombre de projets de l'organisation",
     )
 
     perimeter = fields.Field(
@@ -66,6 +71,13 @@ class UserResource(resources.ModelResource):
     org_zipcode = fields.Field(
         column_name="Code postal de la structure",
     )
+
+    def dehydrate_beneficiary_organization_projects_count(self, obj):
+        if obj.beneficiary_organization:
+            if obj.beneficiary_organization.project_set:
+                return obj.beneficiary_organization.project_set.count()
+        else:
+            return ""
 
     def dehydrate_beneficiary_organization_id(self, obj):
         if obj.beneficiary_organization:
