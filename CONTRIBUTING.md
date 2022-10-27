@@ -126,7 +126,7 @@ d'utiliser Redis.
 
 _Note : les traductions ont été abandonnées et sont progressivement supprimées._
 
-Ce project utilise le système de tranduction de Django :
+Ce project utilise le système de traduction de Django :
 Le texte dans le code est en anglais et la traduction qui
 s'affiche sur le site en Français, se trouve dans le fichier
 `.po` du dossier `locales`.
@@ -147,7 +147,7 @@ déploiement. Il n'est donc pas inclus dans le code github.
 
 ## Linter de code / Code Style
 
-Nous utilisons `pep8` et `flake8`.
+Nous utilisons `pep8`, `flake8` et `black`
 
 Pour vérifier son code, on peut intégrer le linter adapté à
 son IDE et aussi faire ceci :
@@ -163,7 +163,7 @@ En staging et en production, les variables d'environments sont spécifiées dire
 ### Envoi d'email
 
 Les emails transactionnels sont envoyés via SendingBlue.
-Pour les environnements de Staging, il un mécanisme qui permet de n'envoyer les emails qu'à une liste restreinte d'adresses.
+Pour les environnements de Staging, il existe un mécanisme qui permet de n'envoyer les emails qu'à une liste restreinte d'adresses.
 Cette "Whitelist" est définie dans les `settings`.
 Pour connaître le fonctionnement historique de ce filtrage : https://github.com/MTES-MCT/aides-territoires/pull/399
 

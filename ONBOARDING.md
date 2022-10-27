@@ -5,6 +5,25 @@
 La procédure est documentée [ici](https://github.com/MTES-MCT/aides-territoires/wiki/Installation-de-l'environment-en-local).
 
 
+### Serveur de développement pour les minisites (portails)
+
+Dans le fichier .env.local il est nécessaire d'ajouter comme ALLOWED_HOSTS :
+
+    francemobilites.aides-territoires.local
+
+Dans votre fichier /etc/hosts il est nécessaire de compléter la ligne 127.0.0.1 par : 
+
+    francemobilites.aides-territoires.local
+
+Le serveur peut ensuite être démarré avec la commande :
+
+    python manage.py runserver 0:8000 --settings minisites.settings.local
+
+La version dev du minisite sera alors accessible à cette adresse :
+
+http://francemobilites.aides-territoires.local:8000/
+
+
 ### Lancement des tests
 
 Pour lancer les tests depuis la machine virtuelle il est nécessaire que l'utilisateur `postgres` donne l'autorisation à l'utilisateur `aides` de créer une base de données :
