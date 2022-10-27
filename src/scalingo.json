@@ -38,9 +38,6 @@
     "ANALYTICS_SITEID": {
       "value": "0"
     },
-    "HOTJAR_SITEID": {
-      "value": "0"
-    },
     "ENV_NAME": {
       "value": "staging"
     }
