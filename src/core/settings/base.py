@@ -335,23 +335,18 @@ APPROACHING_DEADLINE_DELTA = 30  # days
 ANALYTICS_ENABLED = False
 ANALYTICS_ENDPOINT = "https://stats.data.gouv.fr/index.php"
 ANALYTICS_SITEID = 0
-HOTJAR_SITEID = 0
 
 # Django Security Policy
 CSP_DEFAULT_SRC = ("'self'",)
 
 CSP_CONNECT_SRC = (
     "'self'",
-    "https://*.hotjar.com:*",
-    "https://*.hotjar.io",
-    "wss://*.hotjar.com",
     "https://stats.data.gouv.fr",
 )
 CSP_IMG_SRC = (
     "'self'",
     "data:",
     "https://stats.data.gouv.fr",
-    "https://*.hotjar.com",
     "https://*.scw.cloud",
     "https://*.forte.tiles.quaidorsay.fr",
 )
@@ -360,7 +355,6 @@ CSP_STYLE_SRC = (
     "'self'",
     "'unsafe-inline'",
     "https://stats.beta.gouv.fr",
-    "https://*.hotjar.com",
 )
 
 CSP_SCRIPT_SRC = (
@@ -368,19 +362,14 @@ CSP_SCRIPT_SRC = (
     "'unsafe-inline'",
     "'unsafe-eval'",
     "https://stats.data.gouv.fr",
-    "https://*.hotjar.com",
     "https://aides-territoires-metabase.osc-fr1.scalingo.io",
 )
 
-CSP_FONT_SRC = (
-    "'self'",
-    "https://*.hotjar.com",
-)
+CSP_FONT_SRC = ("'self'",)
 
 CSP_FRAME_SRC = (
     "'self'",
     "https://stats.data.gouv.fr",
-    "https://*.hotjar.com",
     "https://www.youtube.com",
     "https://aides-territoires-metabase.osc-fr1.scalingo.io",
 )
@@ -389,12 +378,7 @@ CSP_FRAME_ANCESTORS = ("*",)
 
 CSP_BASE_URI = ("'self'",)
 
-CSP_WORKER_SRC = (
-    "blob:",
-    "https://*.hotjar.com",
-    "http://*.hotjar.io",
-    "https://*.hotjar.io",
-)
+CSP_WORKER_SRC = ("blob:",)
 
 CSP_FORM_ACTION = ("'self'", "https://my.sendinblue.com")
 
