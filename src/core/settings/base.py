@@ -38,6 +38,7 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    "csp",
     "compressor",
     "rest_framework",
     "rest_framework.authtoken",
@@ -210,6 +211,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "csp.context_processors.nonce",
                 "core.context_processors.integration",
                 "core.context_processors.contact_data",
                 "core.context_processors.admin_environment",
@@ -278,8 +280,6 @@ SPECTACULAR_SETTINGS = {
     "REDOC_DIST": "SIDECAR",
 }
 
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_URLS_REGEX = r"^/api/.*$"
 
 # Define a custom logger that sends events to admin users
 LOGGING = {
@@ -336,8 +336,12 @@ ANALYTICS_ENABLED = False
 ANALYTICS_ENDPOINT = "https://stats.data.gouv.fr/index.php"
 ANALYTICS_SITEID = 0
 
-# Django Security Policy
-CSP_DEFAULT_SRC = ("'self'",)
+# CORS
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_URLS_REGEX = r"^/api/.*$"
+
+# Content Security Policy
+CSP_DEFAULT_SRC = ("'self'",)  # 'self' needed for the captcha audio alternative
 
 CSP_CONNECT_SRC = (
     "'self'",
@@ -351,16 +355,17 @@ CSP_IMG_SRC = (
     "https://*.forte.tiles.quaidorsay.fr",
 )
 
+CSP_OBJECT_SRC = ("'none'",)
+
 CSP_STYLE_SRC = (
     "'self'",
-    "'unsafe-inline'",
+    "'unsafe-inline'",  # several calls to it, including from dependencies like dsfr
     "https://stats.beta.gouv.fr",
 )
 
 CSP_SCRIPT_SRC = (
     "'self'",
-    "'unsafe-inline'",
-    "'unsafe-eval'",
+    "'unsafe-eval'",  # several calls to it, including from dependencies like dsfr
     "https://stats.data.gouv.fr",
     "https://aides-territoires-metabase.osc-fr1.scalingo.io",
 )
@@ -381,6 +386,12 @@ CSP_BASE_URI = ("'self'",)
 CSP_WORKER_SRC = ("blob:",)
 
 CSP_FORM_ACTION = ("'self'", "https://my.sendinblue.com")
+
+CSP_INCLUDE_NONCE_IN = ["script-src"]
+
+# CSP exclusion for admin URLs only as it relies on inline JavaScript
+# and is not publicly accessible
+CSP_EXCLUDE_URL_PREFIXES = ("/admin",)
 
 # Emails & Sendinblue api and settings
 CONTACT_EMAIL = "nowhere@example.org"

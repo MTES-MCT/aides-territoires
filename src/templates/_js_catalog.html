@@ -1,0 +1,11 @@
+{% load settings %}
+{# Variables sent from Django to JavaScript #}
+
+<script nonce="{{ request.csp_nonce }}">
+    var catalog = {
+        perimeter_url: '{% url "perimeters-list" %}',
+        text_url: '{% url "synonymLists-list" %}',
+        project_types_url: '{% url "synonymLists-classic" %}',
+        SEARCH_COOKIE_NAME: '{% setting "SEARCH_COOKIE_NAME" %}',
+    };
+</script>

@@ -133,7 +133,7 @@
 {% block extra_js %}
     {% compress js %}
         <script src="{% static 'datatables.net/js/jquery.dataTables.min.js' %}"></script>
-        <script>
+        <script nonce="{{ request.csp_nonce }}">
             $(document).ready(function () {
                 $('.sortable-table').DataTable({
                     paging: false,

@@ -11,7 +11,7 @@ $(document).ready(function () {
     }
 
     $('select#id_perimeter').select2({
-        placeholder: catalog.perimeter_placeholder,
+        placeholder: "Votre ville, intercommunalité, département…",
         allowClear: true,
         language: 'fr',
         minimumInputLength: 1,

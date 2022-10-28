@@ -74,7 +74,7 @@
         <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
                 <h4 class="fr-card__title">
-                    <p class="fr-mb-0 fr-h6">Nombre d'aides vues pendant les 30 derniers jours</p>
+                    <p class="fr-mb-0 fr-h6">Nombre d’aides vues pendant les 30 derniers jours</p>
                 </h4>
                 <p class="fr-card__desc fr-h1">{{ aid_view_count_last_30_days|intcomma }}</p>
             </div>
@@ -83,7 +83,7 @@
         <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
                 <h4 class="fr-card__title">
-                    <p class="fr-mb-0 fr-h6">Nombre d'aides vues pendant les 7 derniers jours</p>
+                    <p class="fr-mb-0 fr-h6">Nombre d’aides vues pendant les 7 derniers jours</p>
                 </h4>
                 <p class="fr-card__desc fr-h1">{{ aid_view_count_last_7_days|intcomma }}</p>
             </div>
@@ -92,7 +92,7 @@
         <div class="fr-card fr-card--no-arrow fr-centered fr-col-12 fr-col-md-10 fr-m-3w">
             <div class="fr-card__body">
                 <h4 class="fr-card__title">
-                    <p class="fr-mb-0 fr-h6">Nombre d'aides vues par semaine</p>
+                    <p class="fr-mb-0 fr-h6">Nombre d’aides vues par semaine</p>
                 </h4>
                 <canvas id="chartAidsViewed" style="width: 80%;"></canvas>
             </div>
@@ -108,7 +108,7 @@
                     <thead>
                         <tr>
                             <th class="order-column">Ordre</th>
-                            <th>Nom de l'aide</th>
+                            <th>Nom de l’aide</th>
                             <th class="value-column">Vues</th>
                         </tr>
                     </thead>
@@ -190,7 +190,7 @@
         <div class="fr-col-12 fr-col-md-10 fr-m-3w at-height--30 at-position--relative">
             <iframe
             src="https://aides-territoires-metabase.osc-fr1.scalingo.io/public/question/94442481-16e8-465d-bef6-17bf6f176d2d"
-            title="Nombre d'aides vues par mois"
+            title="Nombre d’aides vues par mois"
             width="800"
             height="600"
             ></iframe>
@@ -216,12 +216,12 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
+<script nonce="{{ request.csp_nonce }}">
     AID_VIEW_TIMESERIES = {{ aid_view_timeseries | safe }};
 </script>
 {% compress js %}
-<script src="/static/chart.js/dist/Chart.bundle.js"></script>
-<script src="/static/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js"></script>
-<script src="/static/js/stats/aid_view_timeseries.js"></script>
+    <script src="/static/chart.js/dist/Chart.bundle.js"></script>
+    <script src="/static/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js"></script>
+    <script src="/static/js/stats/aid_view_timeseries.js"></script>
 {% endcompress %}
 {% endblock %}

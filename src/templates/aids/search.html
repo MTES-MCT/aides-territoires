@@ -24,7 +24,7 @@
 
 {% block extra_js %}
 {{ block.super }}
-<script>
+<script nonce="{{ request.csp_nonce }}">
     var CURRENT_SEARCH = '{{ current_search | safe }}';
     var PERIMETER = '{{ perimeter|default_if_none:'' }}';
     var CATEGORIES = [

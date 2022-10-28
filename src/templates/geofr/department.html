@@ -72,7 +72,7 @@
 {% block extra_js %}
     {% compress js %}
     <script src="{% static 'js/geofr/department_filter.js' %}"></script>
-    <script>
+    <script nonce="{{ request.csp_nonce }}">
         $(document).ready(function () {
             department_filter('/');
         });

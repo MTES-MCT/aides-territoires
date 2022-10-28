@@ -37,7 +37,7 @@ class SynonymListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)
 
-    @action(detail=False, url_path="classic-list")
+    @action(detail=False, url_path="classic-list", url_name="classic")
     def classic_list(self, request):
         classic = self.get_queryset()
         classic_serializer = SynonymClassicListSerializer(classic, many=True).data

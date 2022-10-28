@@ -1,12 +1,12 @@
 (function (exports) {
 
     // Only requires exit confirmation if something was changed.
-    exports.enableExitConfirmation = function(aidEditForm) {
+    exports.enableExitConfirmation = function (aidEditForm) {
 
         var initialData = aidEditForm.serialize();
         var eventAttached = false;
 
-        aidEditForm.on('change', function() {
+        aidEditForm.on('change', function () {
 
             // Don't bother if the event was already bound
             if (eventAttached) return;
@@ -17,15 +17,15 @@
             if (changed) {
 
                 // If so, bind the "onbeforeunload" event
-                $(window).bind('beforeunload', function(){
-                    return catalog.exit_confirmation;
+                $(window).bind('beforeunload', function () {
+                    return "Êtes-vous certain de vouloir quitter cette page ? Vos modifications seront perdues.";
                 });
             }
         });
     };
 
     // Unbind the exit confirmation
-    exports.disableExitConfirmation = function() {
+    exports.disableExitConfirmation = function () {
         $(window).unbind('beforeunload');
     };
 

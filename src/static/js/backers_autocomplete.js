@@ -6,7 +6,7 @@
 $(document).ready(function () {
 
     $('select#id_financers').select2({
-        placeholder: catalog.financers_placeholder,
+        placeholder: "Sélectionnez le ou les porteurs",
         language: 'fr',
         minimumInputLength: 2,
         ajax: {
@@ -25,12 +25,12 @@ $(document).ready(function () {
             },
         },
         theme: "select2-dsfr",
-        dropdownAutoWidth : true,
+        dropdownAutoWidth: true,
         width: "auto",
     });
 
     $('select#id_instructors').select2({
-        placeholder: catalog.instructors_placeholder,
+        placeholder: "Sélectionnez le ou les instructeurs parmi la liste",
         language: 'fr',
         minimumInputLength: 2,
         ajax: {
@@ -49,7 +49,7 @@ $(document).ready(function () {
             },
         },
         theme: "select2-dsfr",
-        dropdownAutoWidth : true,
+        dropdownAutoWidth: true,
         width: "auto",
     });
     $(".select2-container").addClass("fr-select-group");

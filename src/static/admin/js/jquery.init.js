@@ -4,7 +4,7 @@
  * By default, the django admin loads jquery in a custom `django.jQuery`
  * namespace so the `$` and `jQuery` variables are not populated.
  *
- * This does not suit us since we are using plugins (Trumbowyg, notabl) that
+ * This does not suit us since we are using plugins (Trumbowyg, notably) that
  * rely on the `jQuery` variable being populated.
  *
  * Therefore, we have two choices:

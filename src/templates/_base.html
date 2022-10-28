@@ -1,4 +1,4 @@
-{% load compress analytics i18n settings static dsfr_tags %}
+{% load compress analytics csp i18n settings static dsfr_tags %}
 <!doctype html>
 <html lang="fr" class="nojs {% if integration %}integration {% endif %}{% block extraclasses %}{% endblock extraclasses %}" {% block theme %}data-fr-scheme="system"{% endblock theme %}>
     <head>
@@ -28,7 +28,7 @@
 
         {% block extra_head %}{% endblock extra_head %}
 
-        <script>
+        <script nonce="{{ request.csp_nonce }}">
             // Add class to indicate that js is available
             var html = document.documentElement;
             html.classList.remove('nojs');
@@ -83,32 +83,35 @@
         {% dsfr_theme_modale %}
 
         {% compress js %}
-            <script src="{% static 'jquery/dist/jquery.js' %}"></script>
-            {% include '_js_i18n.html' %}
-            <script>
-                // Piwik variables
-                var _paq = _paq || [];
-                _paq.push(["setDomains", ["*.aides-territoires.beta.gouv.fr"]]);
-                _paq.push(['trackPageView']);
-                _paq.push(['enableLinkTracking']);
-                _paq.push(['setTrackerUrl', 'https://stats.data.gouv.fr/piwik.php']);
-                _paq.push(['setSiteId', '{% analytics_siteid %}']);
-            </script>
+            <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+            <script src="{% static 'js/shared_config.js' %}"></script>
         {% endcompress %}
+
+        {% include '_js_catalog.html' %}
+        <script nonce="{{ request.csp_nonce }}">
+            // Matomo variables
+            var _paq = _paq || [];
+            _paq.push(["setDomains", ["*.aides-territoires.beta.gouv.fr"]]);
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            _paq.push(['setTrackerUrl', 'https://stats.data.gouv.fr/matomo.php']);
+            _paq.push(['setSiteId', '{% analytics_siteid %}']);
+        </script>
+
         {% dsfr_js %}
-        <script src="/static/js/shared_config.js"></script>
+
         {% block extra_js %}{% endblock extra_js %}
 
         {% analytics_enabled as analytics_enabled %}
         {% analytics_goalid as analytics_goalid %}
         {% if analytics_enabled %}
             {% if analytics_goalid %}
-                <script type="text/javascript">
+                <script type="text/javascript" nonce="{{ request.csp_nonce }}">
                     _paq.push(['trackGoal', {{ analytics_goalid }}]);
                 </script>
             {% endif %}
-            <script src="https://stats.data.gouv.fr/piwik.js" async defer></script>
-            <noscript><img src="https://stats.data.gouv.fr/piwik.php?idsite={% analytics_siteid %}&idgoal={{ analytics_goalid }}" style="border:0;" alt="" /></noscript>
+            <script src="https://stats.data.gouv.fr/matomo.js" async defer></script>
+            <noscript><img src="https://stats.data.gouv.fr/matomo.php?idsite={% analytics_siteid %}&idgoal={{ analytics_goalid }}" style="border:0;" alt="" /></noscript>
         {% endif %}
     </body>
 </html>

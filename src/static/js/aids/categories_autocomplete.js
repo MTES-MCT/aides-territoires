@@ -1,9 +1,9 @@
 $(document).ready(function () {
     $("select#id_categories").select2({
-        placeholder: catalog.autocomplete_placeholder,
+        placeholder: "Saisissez quelques caractères pour des suggestions.",
         language: "fr",
         theme: "select2-dsfr",
-        dropdownAutoWidth : true,
+        dropdownAutoWidth: true,
         width: "auto",
     });
 });

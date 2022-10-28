@@ -606,13 +606,13 @@
 {% endblock modals %}
 
 {% block extra_js %}
-<script>
+<script nonce="{{ request.csp_nonce }}">
     $(document).ready(function () {
         // Make sure all links contained in aid description open in a new tab.
         $('article#aid div.aid-details a').attr('target', '_blank');
     });
 </script>
-<script>
+<script nonce="{{ request.csp_nonce }}">
     TEXT_SEARCH = '{{ text_search }}';
     AID_ID = parseInt('{{ aid.id }}');
     AID_SLUG = '{{ aid.slug }}';

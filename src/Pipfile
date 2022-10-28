@@ -47,8 +47,8 @@ django-simple-captcha = "*"
 django-dsfr = "*"
 xhtml2pdf = "*"
 python-stdnum = "*"
-django-csp = "*"
 drf-spectacular = {extras = ["sidecar"], version = "*"}
+django-csp = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"

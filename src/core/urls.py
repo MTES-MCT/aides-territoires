@@ -10,7 +10,7 @@ from rest_framework import routers
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularRedocView,
-    SpectacularSwaggerView,
+    SpectacularSwaggerSplitView,
 )
 
 from core.utils import RedirectAidDetailView
@@ -20,7 +20,6 @@ from data.sitemaps import DataSitemap
 from home.sitemaps import HomeSitemap
 from pages.sitemaps import PageSitemap
 from search.sitemaps import SearchSitemap
-
 
 router = routers.DefaultRouter()
 
@@ -55,7 +54,9 @@ api_patterns = [
     # Documentation
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
-        "swagger/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"
+        "swagger/",
+        SpectacularSwaggerSplitView.as_view(url_name="schema"),
+        name="swagger-ui",
     ),
     path("redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
 ]

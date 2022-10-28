@@ -1,9 +1,9 @@
 $(document).ready(function () {
     $('select#id_programs').select2({
-        placeholder: catalog.programs_placeholder,
+        placeholder: "Sélectionnez un programme",
         language: "fr",
         theme: "select2-dsfr",
-        dropdownAutoWidth : true,
+        dropdownAutoWidth: true,
         width: "100%",
     });
 });

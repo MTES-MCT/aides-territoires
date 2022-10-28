@@ -52,19 +52,19 @@
     {% compress js %}
         <script src="{% static 'datatables.net/js/jquery.dataTables.min.js' %}"></script>
         <script src="{% static 'js/geofr/department_filter.js' %}"></script>
-        <script>
-    $(document).ready(function () {
-        department_filter('/programmes/');
-        $('.sortable-table').DataTable({
-            paging: false,
-            info: false,
-            "order": [[ 1, 'desc' ]],
-            "language": {
-                "search": "Filtrer :",
-                "zeroRecords": "Aucun résultat trouvé"
-            }
-        });
-    });
+        <script nonce="{{ request.csp_nonce }}">
+            $(document).ready(function () {
+                department_filter('/programmes/');
+                $('.sortable-table').DataTable({
+                    paging: false,
+                    info: false,
+                    "order": [[ 1, 'desc' ]],
+                    "language": {
+                        "search": "Filtrer :",
+                        "zeroRecords": "Aucun résultat trouvé"
+                    }
+                });
+            });
         </script>
     {% endcompress %}
 {% endblock extra_js %}
