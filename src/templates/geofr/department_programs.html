@@ -52,6 +52,7 @@
     {% compress js %}
         <script src="{% static 'datatables.net/js/jquery.dataTables.min.js' %}"></script>
         <script src="{% static 'js/geofr/department_filter.js' %}"></script>
+    {% endcompress %}
         <script nonce="{{ request.csp_nonce }}">
             $(document).ready(function () {
                 department_filter('/programmes/');
@@ -66,5 +67,4 @@
                 });
             });
         </script>
-    {% endcompress %}
 {% endblock extra_js %}
