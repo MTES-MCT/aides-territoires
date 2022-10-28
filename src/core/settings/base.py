@@ -280,8 +280,6 @@ SPECTACULAR_SETTINGS = {
     "REDOC_DIST": "SIDECAR",
 }
 
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_URLS_REGEX = r"^/api/.*$"
 
 # Define a custom logger that sends events to admin users
 LOGGING = {
@@ -338,8 +336,12 @@ ANALYTICS_ENABLED = False
 ANALYTICS_ENDPOINT = "https://stats.data.gouv.fr/index.php"
 ANALYTICS_SITEID = 0
 
-# Django Security Policy
-CSP_DEFAULT_SRC = ("'self'",)
+# CORS
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_URLS_REGEX = r"^/api/.*$"
+
+# Content Security Policy
+CSP_DEFAULT_SRC = ("'self'",)  # 'self' needed for the captcha audio alternative
 
 CSP_CONNECT_SRC = (
     "'self'",
@@ -357,13 +359,13 @@ CSP_OBJECT_SRC = ("'none'",)
 
 CSP_STYLE_SRC = (
     "'self'",
-    "'unsafe-inline'",
+    "'unsafe-inline'",  # several calls to it, including from dependencies like dsfr
     "https://stats.beta.gouv.fr",
 )
 
 CSP_SCRIPT_SRC = (
     "'self'",
-    "'unsafe-eval'",
+    "'unsafe-eval'",  # several calls to it, including from dependencies like dsfr
     "https://stats.data.gouv.fr",
     "https://aides-territoires-metabase.osc-fr1.scalingo.io",
 )
