@@ -133,18 +133,18 @@
 {% block extra_js %}
     {% compress js %}
         <script src="{% static 'datatables.net/js/jquery.dataTables.min.js' %}"></script>
-        <script nonce="{{ request.csp_nonce }}">
-            $(document).ready(function () {
-                $('.sortable-table').DataTable({
-                    paging: false,
-                    info: false,
-                    "order": [[ 1, 'desc' ]],
-                    "language": {
-                        "search": "Filtrer :",
-                        "zeroRecords": "Aucun résultat trouvé"
-                    }
-                });
-            });
-        </script>
     {% endcompress %}
+    <script nonce="{{ request.csp_nonce }}">
+        $(document).ready(function () {
+            $('.sortable-table').DataTable({
+                paging: false,
+                info: false,
+                "order": [[ 1, 'desc' ]],
+                "language": {
+                    "search": "Filtrer :",
+                    "zeroRecords": "Aucun résultat trouvé"
+                }
+            });
+        });
+    </script>
 {% endblock extra_js %}

@@ -606,27 +606,27 @@
 {% endblock modals %}
 
 {% block extra_js %}
-<script nonce="{{ request.csp_nonce }}">
-    $(document).ready(function () {
-        // Make sure all links contained in aid description open in a new tab.
-        $('article#aid div.aid-details a').attr('target', '_blank');
-    });
-</script>
-<script nonce="{{ request.csp_nonce }}">
-    TEXT_SEARCH = '{{ text_search }}';
-    AID_ID = parseInt('{{ aid.id }}');
-    AID_SLUG = '{{ aid.slug }}';
-    AID_ELIGIBILITY_TEST_ID = parseInt('{{ aid.eligibility_test_id }}');
-    CURRENT_SEARCH = '{{ current_search | safe }}';
-</script>
-{% compress js %}
-<script src="{% static 'js/aids/track_aid_events.js' %}"></script>
-<script src="{% static 'js/aids/favorite_project_checkbox_required.js' %}"></script>
-<script src="{% static 'js/alerts/track_alert_button_events.js' %}"></script>
-<script src="{% static 'js/alerts/alert_form.js' %}"></script>
-<script src="{% static 'js/eligibility/eligibility_test_form.js' %}"></script>
-<script src="{% static 'js/links_on_images.js' %}"></script>
-<script src="{% static 'js/responsive_iframe.js' %}"></script>
-<script src="{% static 'js/aids/share_aid.js' %}"></script>
-{% endcompress %}
+    <script nonce="{{ request.csp_nonce }}">
+        $(document).ready(function () {
+            // Make sure all links contained in aid description open in a new tab.
+            $('article#aid div.aid-details a').attr('target', '_blank');
+        });
+    </script>
+    <script nonce="{{ request.csp_nonce }}">
+        TEXT_SEARCH = '{{ text_search }}';
+        AID_ID = parseInt('{{ aid.id }}');
+        AID_SLUG = '{{ aid.slug }}';
+        AID_ELIGIBILITY_TEST_ID = parseInt('{{ aid.eligibility_test_id }}');
+        CURRENT_SEARCH = '{{ current_search | safe }}';
+    </script>
+    {% compress js %}
+        <script src="{% static 'js/aids/track_aid_events.js' %}"></script>
+        <script src="{% static 'js/aids/favorite_project_checkbox_required.js' %}"></script>
+        <script src="{% static 'js/alerts/track_alert_button_events.js' %}"></script>
+        <script src="{% static 'js/alerts/alert_form.js' %}"></script>
+        <script src="{% static 'js/eligibility/eligibility_test_form.js' %}"></script>
+        <script src="{% static 'js/links_on_images.js' %}"></script>
+        <script src="{% static 'js/responsive_iframe.js' %}"></script>
+        <script src="{% static 'js/aids/share_aid.js' %}"></script>
+    {% endcompress %}
 {% endblock extra_js %}

@@ -386,7 +386,7 @@
 {% endblock modals %}
 
 {% block extra_js %}
-{% compress js %}
-<script src="{% static 'js/aids/update_aidproject_status_control_form.js' %}"></script>
-{% endcompress js %}
+    {% compress js %}
+        <script src="{% static 'js/aids/update_aidproject_status_control_form.js' %}"></script>
+    {% endcompress js %}
 {% endblock extra_js %}

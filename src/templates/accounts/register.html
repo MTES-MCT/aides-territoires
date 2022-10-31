@@ -192,12 +192,12 @@
 {% endblock extra_css %}
 
 {% block extra_js %}
-{% compress js %}
-<script src="{% static 'js/accounts/toggle_beneficiary_related_fields.js' %}"></script>
-<script src="{% static 'js/accounts/toggle_acquisition_channel_related_field.js' %}"></script>
-<script src="{% static 'select2/dist/js/select2.js' %}"></script>
-<script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
-<script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
-<script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
-{% endcompress %}
+    {% compress js %}
+        <script src="{% static 'js/accounts/toggle_beneficiary_related_fields.js' %}"></script>
+        <script src="{% static 'js/accounts/toggle_acquisition_channel_related_field.js' %}"></script>
+        <script src="{% static 'select2/dist/js/select2.js' %}"></script>
+        <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+        <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
+    {% endcompress %}
 {% endblock extra_js %}

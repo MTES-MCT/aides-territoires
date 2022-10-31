@@ -53,22 +53,22 @@
 {% endblock %}
 
 {% block extra_js %}
-<script nonce="{{ request.csp_nonce }}">
-    SEARCH_PAGE_SLUG = '{{ search_page.slug }}';
-</script>
-{% compress js %}
-<script src="/static/js/links_on_images.js"></script>
-<script src="/static/js/responsive_iframe.js"></script>
-{% endcompress %}
-{{ block.super }}
+    <script nonce="{{ request.csp_nonce }}">
+        SEARCH_PAGE_SLUG = '{{ search_page.slug }}';
+    </script>
+    {% compress js %}
+        <script src="/static/js/links_on_images.js"></script>
+        <script src="/static/js/responsive_iframe.js"></script>
+    {% endcompress %}
+    {{ block.super }}
 {% endblock %}
 
 {% block content %}
-<article>
-<div id="page-content" class="fr-container fr-background-main fr-p-5w">
-    <h1>{{ page.title }}</h1>
+    <article>
+    <div id="page-content" class="fr-container fr-background-main fr-p-5w">
+        <h1>{{ page.title }}</h1>
 
-    {{ page.content|safe }}
-</div>
-</article>
+        {{ page.content|safe }}
+    </div>
+    </article>
 {% endblock %}
