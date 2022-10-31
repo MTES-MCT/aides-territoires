@@ -393,6 +393,8 @@ CSP_INCLUDE_NONCE_IN = ["script-src"]
 # and is not publicly accessible
 CSP_EXCLUDE_URL_PREFIXES = ("/admin",)
 
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
 # Emails & Sendinblue api and settings
 CONTACT_EMAIL = "nowhere@example.org"
 CONTACT_PHONE = "+33123456789"

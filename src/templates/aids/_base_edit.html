@@ -124,26 +124,26 @@
 {% endblock extra_css %}
 
 {% block extra_js %}
-{% compress js %}
-{% comment %}Third party plugins{% endcomment %}
-<script src="{% static 'select2/dist/js/select2.js' %}"></script>
-<script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
-<script src="{% static 'trumbowyg/dist/trumbowyg.js' %}"></script>
-<script src="{% static 'trumbowyg/dist/langs/fr.js' %}"></script>
+    {% compress js %}
+        {% comment %}Third party plugins{% endcomment %}
+        <script src="{% static 'select2/dist/js/select2.js' %}"></script>
+        <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+        <script src="{% static 'trumbowyg/dist/trumbowyg.js' %}"></script>
+        <script src="{% static 'trumbowyg/dist/langs/fr.js' %}"></script>
 
-{% comment %}Custom homemade scripts{% endcomment %}
-<script src="{% static 'js/plugins/softmaxlength.js' %}"></script>
-<script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
-<script src="{% static 'js/aids/categories_autocomplete.js' %}"></script>
-<script src="{% static 'js/aids/programs_autocomplete.js' %}"></script>
-<script src="{% static 'js/backers_autocomplete.js' %}"></script>
-<script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
-<script src="{% static 'js/aids/enable_page_exit_confirmation.js' %}"></script>
-<script src="{% static 'js/aids/toggle_short_title_field.js' %}"></script>
-<script src="{% static 'js/aids/toggle_financial_aids_related_fields.js' %}"></script>
-<script src="{% static 'js/aids/toggle_calendar_related_fields.js' %}"></script>
-<script src="{% static 'js/aids/enable_softmaxlength.js' %}"></script>
-<script src="{% static 'js/enable_rich_text_editor_simple.js' %}"></script>
-<script src="{% static 'js/aids/duplicate_buster.js' %}"></script>
-{% endcompress %}
+        {% comment %}Custom homemade scripts{% endcomment %}
+        <script src="{% static 'js/plugins/softmaxlength.js' %}"></script>
+        <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/categories_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/programs_autocomplete.js' %}"></script>
+        <script src="{% static 'js/backers_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
+        <script src="{% static 'js/aids/enable_page_exit_confirmation.js' %}"></script>
+        <script src="{% static 'js/aids/toggle_short_title_field.js' %}"></script>
+        <script src="{% static 'js/aids/toggle_financial_aids_related_fields.js' %}"></script>
+        <script src="{% static 'js/aids/toggle_calendar_related_fields.js' %}"></script>
+        <script src="{% static 'js/aids/enable_softmaxlength.js' %}"></script>
+        <script src="{% static 'js/enable_rich_text_editor_simple.js' %}"></script>
+        <script src="{% static 'js/aids/duplicate_buster.js' %}"></script>
+    {% endcompress %}
 {% endblock extra_js %}

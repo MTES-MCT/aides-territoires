@@ -53,15 +53,15 @@
 {% endblock modals %}
 
 {% block extra_js %}
-<script nonce="{{ request.csp_nonce }}">
-    SEARCH_PAGE_SLUG = '{{ search_page.slug }}';
-</script>
-{{ block.super }}
-{% compress js %}
-<script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
-<script src="{% static 'js/aids/categories_autocomplete.js' %}"></script>
-<script src="{% static 'js/aids/targeted_audiences_autocomplete.js' %}"></script>
-<script src="{% static 'js/aids/text_autocomplete.js' %}"></script>
-<script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
-{% endcompress %}
+    <script nonce="{{ request.csp_nonce }}">
+        SEARCH_PAGE_SLUG = '{{ search_page.slug }}';
+    </script>
+    {{ block.super }}
+    {% compress js %}
+        <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/categories_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/targeted_audiences_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/text_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
+    {% endcompress %}
 {% endblock extra_js %}

@@ -44,8 +44,8 @@
 {% endblock %}
 
 {% block extra_js %}
-{% compress js %}
-<script src="/static/js/links_on_images.js"></script>
-<script src="/static/js/responsive_iframe.js"></script>
-{% endcompress %}
+    {% compress js %}
+        <script src="/static/js/links_on_images.js"></script>
+        <script src="/static/js/responsive_iframe.js"></script>
+    {% endcompress %}
 {% endblock %}

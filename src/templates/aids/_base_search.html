@@ -60,15 +60,15 @@
 {% endblock extra_css %}
 
 {% block extra_js %}
-{% compress js %}
-<script src="{% static 'select2/dist/js/select2.js' %}"></script>
-<script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
-<script src="{% static 'js/aids/backers_autocomplete.js' %}"></script>
-<script src="{% static 'js/aids/programs_autocomplete.js' %}"></script>
-<script src="{% static 'js/aids/text_autocomplete.js' %}"></script>
-<script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
-<script src="{% static 'js/alerts/alert_form.js' %}"></script>
-<script src="{% static 'js/alerts/track_alert_button_events.js' %}"></script>
-<script src="{% static 'js/aids/display_results_list.js' %}"></script>
-{% endcompress %}
+    {% compress js %}
+        <script src="{% static 'select2/dist/js/select2.js' %}"></script>
+        <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+        <script src="{% static 'js/aids/backers_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/programs_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/text_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
+        <script src="{% static 'js/alerts/alert_form.js' %}"></script>
+        <script src="{% static 'js/alerts/track_alert_button_events.js' %}"></script>
+        <script src="{% static 'js/aids/display_results_list.js' %}"></script>
+    {% endcompress %}
 {% endblock extra_js %}

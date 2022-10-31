@@ -216,12 +216,12 @@
 {% endblock %}
 
 {% block extra_js %}
-<script nonce="{{ request.csp_nonce }}">
-    AID_VIEW_TIMESERIES = {{ aid_view_timeseries | safe }};
-</script>
-{% compress js %}
-    <script src="/static/chart.js/dist/Chart.bundle.js"></script>
-    <script src="/static/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js"></script>
-    <script src="/static/js/stats/aid_view_timeseries.js"></script>
-{% endcompress %}
+    <script nonce="{{ request.csp_nonce }}">
+        AID_VIEW_TIMESERIES = {{ aid_view_timeseries | safe }};
+    </script>
+    {% compress js %}
+        <script src="/static/chart.js/dist/Chart.bundle.js"></script>
+        <script src="/static/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js"></script>
+        <script src="/static/js/stats/aid_view_timeseries.js"></script>
+    {% endcompress %}
 {% endblock %}

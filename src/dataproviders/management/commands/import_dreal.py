@@ -14,7 +14,8 @@ from backers.models import Backer
 from aids.models import Aid
 
 
-FEED_URI = "http://aides-developpement-nouvelle-aquitaine.fr/export/dispositifs/csv?columns=key&withDates=1&sep=pipe"  # noqa
+FEED_URI = "https://FIX.THE.FEED.URL"
+# The site previously entered above is now cybersquatted
 ADMIN_ID = 1
 
 # Convert Addna's `beneficiaire` value to our value
@@ -26,7 +27,7 @@ AUDIENCES_DICT = {
     "Particulier / Citoyen": Aid.AUDIENCES.private_person,
 }
 
-ADDNA_URL = "http://aides-dd-na.fr/"
+ADDNA_URL = "https://aides-dd-na.fr/"
 
 NOUVELLE_AQUITAINE_PERIMETER_CODE = "75"
 

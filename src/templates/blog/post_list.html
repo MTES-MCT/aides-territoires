@@ -103,7 +103,7 @@
 {% endblock %}
 
 {% block extra_js %}
-{% compress js %}
-<script src="/static/js/blog/filter_article_by_categories.js"></script>
-{% endcompress %}
+    {% compress js %}
+        <script src="/static/js/blog/filter_article_by_categories.js"></script>
+    {% endcompress %}
 {% endblock %}
