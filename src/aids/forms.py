@@ -15,6 +15,7 @@ from core.forms import (
     MultipleChoiceFilterWidget,
     RichTextField,
 )
+from core.forms.baseform import AidesTerrBaseForm
 from core.utils import remove_accents, parse_query
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeters
@@ -41,7 +42,10 @@ IS_CALL_FOR_PROJECT = ((None, "----"), (True, "Oui"), (False, "Non"))
 
 
 class BaseAidForm(forms.ModelForm, DsfrBaseForm):
-    """Base for all aid edition forms (front, admin)."""
+    """Base for all aid edition forms (front, admin).
+
+    AidesTerrBaseForm isn't used here because it interferes with saving drafts.
+    """
 
     short_title = forms.CharField(
         label="Titre du programme",
@@ -468,7 +472,7 @@ class AidEditForm(BaseAidForm):
         return data
 
 
-class BaseAidSearchForm(DsfrBaseForm):
+class BaseAidSearchForm(AidesTerrBaseForm):
     """Main form for search engine."""
 
     AID_CATEGORY_CHOICES = (
@@ -795,8 +799,8 @@ class AdvancedAidFilterForm(BaseAidSearchForm):
     )
 
 
-class DraftListAidFilterForm(DsfrBaseForm):
-    """"""
+class DraftListAidFilterForm(AidesTerrBaseForm):
+    """allow the filtering of aids in the drafts list"""
 
     AID_STATE_CHOICES = [
         ("", "Sélectionnez une option"),
@@ -820,7 +824,7 @@ class DraftListAidFilterForm(DsfrBaseForm):
     )
 
 
-class AidMatchProjectForm(forms.ModelForm, DsfrBaseForm):
+class AidMatchProjectForm(forms.ModelForm, AidesTerrBaseForm):
     """allow user to associate aid to existing projects."""
 
     projects = forms.ModelMultipleChoiceField(
@@ -835,8 +839,7 @@ class AidMatchProjectForm(forms.ModelForm, DsfrBaseForm):
         fields = ["projects"]
 
 
-class AidProjectStatusForm(forms.ModelForm, DsfrBaseForm):
-
+class AidProjectStatusForm(forms.ModelForm, AidesTerrBaseForm):
     class Meta:
         model = AidProject
         fields = ["aid_requested", "aid_obtained", "aid_paid", "aid_denied"]
@@ -856,7 +859,7 @@ class AidProjectStatusForm(forms.ModelForm, DsfrBaseForm):
         return data
 
 
-class SuggestAidMatchProjectForm(DsfrBaseForm):
+class SuggestAidMatchProjectForm(AidesTerrBaseForm):
     """allow user to suggest an aid to an existing project."""
 
     project = forms.ModelMultipleChoiceField(

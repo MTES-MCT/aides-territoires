@@ -3,10 +3,10 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
 
-from dsfr.forms import DsfrBaseForm
 
 from categories.fields import CategoryMultipleChoiceField, CategoryChoiceIterator
 from categories.models import Category
+from core.forms.baseform import AidesTerrBaseForm
 from core.forms.fields import RichTextField, AutocompleteModelChoiceField
 from geofr.models import Perimeter
 from pages.admin import PageForm
@@ -62,7 +62,7 @@ class CategoryWidget(forms.widgets.ChoiceWidget):
     template_name = "search/forms/widgets/category_widget.html"
 
 
-class GeneralSearchForm(DsfrBaseForm):
+class GeneralSearchForm(AidesTerrBaseForm):
 
     CATEGORIES_QS = Category.objects.select_related("theme").order_by(
         "theme__name", "name"

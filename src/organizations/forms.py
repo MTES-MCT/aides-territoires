@@ -1,4 +1,5 @@
 from django import forms
+from core.forms.baseform import AidesTerrBaseForm
 
 from core.forms.fields import AutocompleteModelChoiceField
 
@@ -7,8 +8,6 @@ from organizations.models import Organization
 from organizations.constants import ORGANIZATION_TYPE_WITH_DEFAULT
 from projects.models import Project
 
-from dsfr.forms import DsfrBaseForm
-
 
 class OrganizationTypeWidget(forms.SelectMultiple):
     """Custom widget for the organization_type field."""
@@ -16,7 +15,7 @@ class OrganizationTypeWidget(forms.SelectMultiple):
     allow_multiple_selected = False
 
 
-class OrganizationCreateForm(forms.ModelForm, DsfrBaseForm):
+class OrganizationCreateForm(forms.ModelForm, AidesTerrBaseForm):
     """allow user to create organization."""
 
     name = forms.CharField(label="Nom de votre structure", required=True)
@@ -42,7 +41,7 @@ class OrganizationCreateForm(forms.ModelForm, DsfrBaseForm):
                 visible.field.widget.attrs["class"] = "fr-select"
 
 
-class OrganizationUpdateForm(forms.ModelForm, DsfrBaseForm):
+class OrganizationUpdateForm(forms.ModelForm, AidesTerrBaseForm):
     """allow user to update organization's data."""
 
     name = forms.CharField(label="Nom de la structure", required=True)
@@ -93,7 +92,7 @@ class OrganizationUpdateForm(forms.ModelForm, DsfrBaseForm):
                 visible.field.widget.attrs["class"] = "fr-select"
 
 
-class AddProjectToFavoriteForm(forms.ModelForm, DsfrBaseForm):
+class AddProjectToFavoriteForm(forms.ModelForm, AidesTerrBaseForm):
     """allow user to add a public project to its favorite-projects-list."""
 
     favorite_projects = AutocompleteModelChoiceField(

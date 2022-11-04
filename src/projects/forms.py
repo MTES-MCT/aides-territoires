@@ -1,6 +1,6 @@
 from django import forms
 
-from dsfr.forms import DsfrBaseForm
+from core.forms.baseform import AidesTerrBaseForm
 
 from projects.constants import EXPORT_FORMAT_CHOICES
 from core.forms import (
@@ -13,7 +13,7 @@ from organizations.models import Organization
 from keywords.models import SynonymList
 
 
-class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
+class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
     """allow user to create project."""
 
     name = forms.CharField(
@@ -103,7 +103,7 @@ class ProjectCreateForm(forms.ModelForm, DsfrBaseForm):
         return data
 
 
-class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
+class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
 
     name = forms.CharField(
         label="Nom du projet",
@@ -191,6 +191,8 @@ class ProjectUpdateForm(forms.ModelForm, DsfrBaseForm):
                 et 'Autre type de projet'."
             self.add_error("project_types", msg)
             self.add_error("project_types_suggestion", msg)
+            self.fields["project_types"].widget.attrs.update({"autofocus": True})
+
         return data
 
 

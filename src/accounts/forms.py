@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import password_validation
+from core.forms.baseform import AidesTerrBaseForm
 from core.forms.fields import AutocompleteModelChoiceField
 
 from model_utils import Choices
@@ -10,10 +11,8 @@ from accounts.utils import check_current_password
 from projects.models import Project
 from geofr.models import Perimeter
 
-from dsfr.forms import DsfrBaseForm
 
-
-class RegisterForm(UserCreationForm, DsfrBaseForm):
+class RegisterForm(UserCreationForm, AidesTerrBaseForm):
     """Form used to create new user accounts."""
 
     ORGANIZATION_TYPE = Choices(
@@ -92,9 +91,7 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["first_name"].widget.attrs.update(
-            {"autofocus": True, "autocomplete": "given-name"}
-        )
+        self.fields["first_name"].widget.attrs.update({"autocomplete": "given-name"})
         self.fields["last_name"].widget.attrs.update({"autocomplete": "family-name"})
         self.fields["email"].widget.attrs.update(
             {
@@ -105,6 +102,11 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
         )
         self.fields["password1"].widget.attrs.update({"autocomplete": "new-password"})
         self.fields["password2"].widget.attrs.update({"autocomplete": "new-password"})
+
+        if len(self.errors):
+            self.set_autofocus_on_first_error()
+        else:
+            self.fields["first_name"].widget.attrs.update({"autofocus": True})
 
     def clean_email(self):
         email = self.cleaned_data["email"]
@@ -150,7 +152,7 @@ class RegisterCommuneForm(RegisterForm):
     )
 
 
-class LoginForm(AuthenticationForm, DsfrBaseForm):
+class LoginForm(AuthenticationForm, AidesTerrBaseForm):
     error_messages = {
         "invalid_login": "Saisissez une adresse e-mail et un mot de passe valides.",
         "inactive": "Ce compte n’est actuellement pas actif.",
@@ -186,7 +188,7 @@ class LoginForm(AuthenticationForm, DsfrBaseForm):
         )
 
 
-class PasswordResetForm(DsfrBaseForm):
+class PasswordResetForm(AidesTerrBaseForm):
     """Password reset request form."""
 
     username = forms.EmailField(
@@ -204,7 +206,7 @@ class PasswordResetForm(DsfrBaseForm):
         self.fields["username"].widget.attrs.update({"autocomplete": "email"})
 
 
-class PasswordResetConfirmForm(forms.ModelForm, DsfrBaseForm):
+class PasswordResetConfirmForm(forms.ModelForm, AidesTerrBaseForm):
     """Change password after reset request form."""
 
     new_password = forms.CharField(
@@ -265,7 +267,7 @@ class PasswordResetConfirmForm(forms.ModelForm, DsfrBaseForm):
         return user
 
 
-class ContributorProfileForm(forms.ModelForm, DsfrBaseForm):
+class ContributorProfileForm(forms.ModelForm, AidesTerrBaseForm):
     """Edit contributor profile related user data."""
 
     is_contributor = forms.BooleanField(label="Publier des aides", required=False)
@@ -373,7 +375,7 @@ class ContributorProfileForm(forms.ModelForm, DsfrBaseForm):
         return user
 
 
-class InviteCollaboratorForm(DsfrBaseForm):
+class InviteCollaboratorForm(AidesTerrBaseForm):
     """Form used to allow user to invite new collaborator."""
 
     first_name = forms.CharField(label="Son prénom", required=True)
@@ -418,7 +420,7 @@ class InviteCollaboratorForm(DsfrBaseForm):
         return email.lower()
 
 
-class JoinOrganizationForm(DsfrBaseForm):
+class JoinOrganizationForm(AidesTerrBaseForm):
     """Form used to allow user to join an other organization."""
 
     collaborators = forms.ModelMultipleChoiceField(
@@ -445,7 +447,7 @@ class JoinOrganizationForm(DsfrBaseForm):
         return data
 
 
-class CompleteProfileForm(forms.ModelForm, DsfrBaseForm):
+class CompleteProfileForm(forms.ModelForm, AidesTerrBaseForm):
     """Edit user profile."""
 
     first_name = forms.CharField(label="Votre prénom", required=True)

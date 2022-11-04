@@ -2,10 +2,10 @@ import datetime
 from django import forms
 from django.utils import timezone
 
-from dsfr.forms import DsfrBaseForm
+from core.forms.baseform import AidesTerrBaseForm
 
 
-class StatSearchForm(DsfrBaseForm):
+class StatSearchForm(AidesTerrBaseForm):
 
     start_date = forms.DateTimeField(
         label="Date de début",

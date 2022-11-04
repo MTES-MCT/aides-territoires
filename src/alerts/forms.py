@@ -1,13 +1,12 @@
 from django import forms
 from django.conf import settings
 
-from dsfr.forms import DsfrBaseForm
-
 from alerts.models import Alert
+from core.forms.baseform import AidesTerrBaseForm
 from search.models import SearchPage
 
 
-class AlertForm(forms.ModelForm, DsfrBaseForm):
+class AlertForm(forms.ModelForm, AidesTerrBaseForm):
     email = forms.EmailField(
         label="Votre adresse e-mail",
         help_text="Nous enverrons un e-mail pour confirmer votre adresse",
@@ -83,5 +82,5 @@ class AlertForm(forms.ModelForm, DsfrBaseForm):
         return super().save(commit=commit)
 
 
-class DeleteAlertForm(DsfrBaseForm):
+class DeleteAlertForm(AidesTerrBaseForm):
     token = forms.UUIDField(widget=forms.HiddenInput(), required=True)
