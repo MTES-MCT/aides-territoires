@@ -537,24 +537,26 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
             else:
                 # Adding extra annotate() turns the query into a monster,
                 # so we perform additional but smaller ones here.
-                contact_clicks_count = aid.aidcontactclickevent_set.filter(
+                aid.contact_clicks_count = aid.aidcontactclickevent_set.filter(
                     date_created__range=[start_date_range, end_date_range]
                 ).count()
-                origin_clicks_count = aid.aidoriginurlclickevent_set.filter(
+                aid.origin_clicks_count = aid.aidoriginurlclickevent_set.filter(
                     date_created__range=[start_date_range, end_date_range]
                 ).count()
-                application_clicks_count = aid.aidapplicationurlclickevent_set.filter(
-                    date_created__range=[start_date_range, end_date_range]
-                ).count()
-                aid.clicks_count = (
-                    contact_clicks_count
-                    + origin_clicks_count
-                    + application_clicks_count
+                aid.application_clicks_count = (
+                    aid.aidapplicationurlclickevent_set.filter(
+                        date_created__range=[start_date_range, end_date_range]
+                    ).count()
+                )
+                aid.all_clicks_count = (
+                    aid.contact_clicks_count
+                    + aid.origin_clicks_count
+                    + aid.application_clicks_count
                 )
                 # We need the conversion value here (vs. `percent_display`) because
                 # we have to pass it raw to the triaging function of the JS table.
                 aid.conversion_value = round(
-                    100 * aid.clicks_count / aid_stats["nb_uniq_visitors"], 3
+                    100 * aid.all_clicks_count / aid_stats["nb_uniq_visitors"], 3
                 )
                 aid_stats["aid"] = aid
             top_aids_pages.append(aid_stats)

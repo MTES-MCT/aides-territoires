@@ -151,7 +151,8 @@
             data-action="click->table#sortTable"
             data-table-target="header"
             data-type="number"
-            >Clics (détails)</th>
+            style="width: 170px;"
+            >Clics (détails + origine + application)</th>
           <th
             scope="col"
             data-action="click->table#sortTable"
@@ -193,8 +194,11 @@
             </td>
             <td>{{ aid_stats.nb_uniq_visitors }}</td>
             {% if has_aid %}
-              <td data-value="{{ aid_stats.aid.clicks_count }}">
-                {{ aid_stats.aid.clicks_count }}
+              <td data-value="{{ aid_stats.aid.all_clicks_count }}">
+                {{ aid_stats.aid.all_clicks_count }}
+                ({{ aid_stats.aid.contact_clicks_count }}
+                + {{ aid_stats.aid.origin_clicks_count }}
+                + {{ aid_stats.aid.application_clicks_count }})
               </td>
             {% else %}
               <td data-value="0">-</td>
