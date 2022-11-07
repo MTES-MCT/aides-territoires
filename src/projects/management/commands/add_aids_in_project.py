@@ -42,7 +42,7 @@ class Command(BaseCommand):
                     csv_aid["Lien"].strip()
                 )
                 aid_link = csv_aid["Lien"].strip()
-                aid_slug = str(aid_link.partition("https://aides-territoires.beta.gouv.fr/aides/")[2])
+                aid_slug = str(aid_link.partition("https://aides-territoires.beta.gouv.fr/aides/")[2])  # noqa
                 aid_slug = str(aid_slug.partition("/")[0])
 
                 if Aid.objects.filter(slug=aid_slug).exists():
@@ -54,7 +54,7 @@ class Command(BaseCommand):
                         creator=creator,
                     )
                     logger.info(
-                        f"aidproject created"
+                        "aidproject created"
                     )
                 else:
                     logger.info(
