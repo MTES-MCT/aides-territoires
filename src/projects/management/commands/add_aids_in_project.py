@@ -17,7 +17,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         from projects.models import Project
-        from aid.models import Aid, Aidproject
+        from aids.models import Aid, AidProject
         from accounts.models import User
 
         logger = logging.getLogger("console_log")
@@ -30,25 +30,25 @@ class Command(BaseCommand):
         logger.debug("Command add multiple aids to a project from CSV starting")
 
         csv_url = options["url"]
-        project = Project.objects.get(id=options["project_id"])
-        creator = User.objects.get(id=options["creator_id"])
+        project = Project.objects.get(id=int(options["project_id"]))
+        creator = User.objects.get(id=int(options["creator_id"]))
 
         with closing(requests.get(csv_url, stream=True)) as response:
             csv_content = codecs.iterdecode(response.iter_lines(), "utf-8")
-            aids_reader = csv.DictReader(csv_content, delimiter=";")
+            aids_reader = csv.DictReader(csv_content, delimiter=",")
 
             for csv_aid in aids_reader:
                 logger.info(
-                    f"aid = {csv_aid['lien'].strip()}"
+                    csv_aid["Lien"].strip()
                 )
-                aid_link = csv_aid["lien"].strip()
-                aid_slug = str(csv_aid["lien"].strip().partition("https://aides-territoires.beta.gouv.fr/aides/")[1])
+                aid_link = csv_aid["Lien"].strip()
+                aid_slug = str(aid_link.partition("https://aides-territoires.beta.gouv.fr/aides/")[2])
                 aid_slug = str(aid_slug.partition("/")[0])
 
                 if Aid.objects.filter(slug=aid_slug).exists():
 
                     aid = Aid.objects.get(slug=aid_slug)
-                    Aidproject.objects.create(
+                    AidProject.objects.create(
                         project=project,
                         aid=aid,
                         creator=creator,
@@ -58,5 +58,5 @@ class Command(BaseCommand):
                     )
                 else:
                     logger.info(
-                        f"aid {aid_link} doesn't exists"
+                        f"aid {aid_slug} doesn't exists"
                     )
