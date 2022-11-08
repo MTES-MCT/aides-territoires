@@ -18,3 +18,4 @@ repos:
     hooks:
     - id: bandit
       language_version: python3
+      args: ["-c", "bandit.yaml"]
