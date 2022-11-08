@@ -110,7 +110,9 @@ class Command(CrawlerImportCommand):
         return DATA_SOURCE
 
     def extract_import_uniqueid(self, line):
-        url_md5_hash = hashlib.md5(line["current_url"].encode("utf-8")).hexdigest()
+        url_md5_hash = hashlib.md5(
+            line["current_url"].encode("utf-8"), usedforsecurity=False
+        ).hexdigest()
         unique_id = "NOUVELLE_AQUITAINE_{}".format(url_md5_hash)
         return unique_id
 
