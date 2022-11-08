@@ -39,6 +39,29 @@ def test_login_view_is_accessible_for_anonymous_users(client):
     assert res.status_code == 200
 
 
+def test_login_with_wrong_password(client, user):
+    """
+    As a user, if I try to login with a wrong password,
+    I receive a proper error message and I stay unlogged
+    """
+    user.email = "test@test.com"
+    user.set_password("DefaultPassword!")
+    user.save()
+
+    login_url = reverse("login")
+    res = client.get(login_url)
+    assert res.status_code == 200
+    assert not res.wsgi_request.user.is_authenticated
+
+    res = client.post(login_url, {"username": user.email, "password": "WrongPassword!"})
+    assert res.status_code == 200
+    assert (
+        "Saisissez une adresse e-mail et un mot de passe valides."
+        in res.content.decode()
+    )
+    assert not res.wsgi_request.user.is_authenticated
+
+
 def test_login_is_case_insensitive(client, user):
     user.email = "test@test.com"
     user.set_password("DefaultPassword!")
