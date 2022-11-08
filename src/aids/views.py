@@ -161,9 +161,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
 
         searched_perimeter = self.form.cleaned_data.get("perimeter", None)
         if searched_perimeter:
-            searched_perimeter = get_all_related_perimeters(
-                searched_perimeter.id, values=["id"]
-            )
+            searched_perimeter = get_all_related_perimeters(searched_perimeter.id, values=["id"])
             promotions = promotions.filter(
                 Q(perimeter__in=searched_perimeter) | Q(perimeter__isnull=True)
             )
@@ -182,17 +180,13 @@ class SearchView(SearchMixin, FormMixin, ListView):
         """
         current_search_query = self.request.GET.urlencode()
         if "targeted_audiences=&" in current_search_query:
-            current_search_query = re.sub(
-                "targeted_audiences=&", "", current_search_query
-            )
+            current_search_query = re.sub("targeted_audiences=&", "", current_search_query)
         self.request.session[settings.SEARCH_COOKIE_NAME] = current_search_query
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context["current_search"] = self.request.session.get(
-            settings.SEARCH_COOKIE_NAME, ""
-        )
+        context["current_search"] = self.request.session.get(settings.SEARCH_COOKIE_NAME, "")
         context["current_search_dict"] = clean_search_form(
             self.form.cleaned_data, remove_extra_fields=True
         )
@@ -216,9 +210,7 @@ class AdvancedSearchView(SearchMixin, NarrowedFiltersMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["current_search"] = self.request.session.get(
-            settings.SEARCH_COOKIE_NAME, ""
-        )
+        context["current_search"] = self.request.session.get(settings.SEARCH_COOKIE_NAME, "")
         return context
 
 
@@ -260,7 +252,7 @@ class ResultsReceiveView(LoginRequiredMixin, SearchView):
         """Send those search results by email to the user.
 
         We do it synchronously, but this view is meant to be called from an
-        ajax query, so it should not be a problem.
+        AJAX query, so it should not be a problem.
         """
         self.form = self.get_form()
         self.form.full_clean()
@@ -314,9 +306,7 @@ class AidDetailView(DetailView):
          - contributors can see their own aids.
          - superusers can see all aids.
         """
-        category_qs = Category.objects.select_related("theme").order_by(
-            "theme__name", "name"
-        )
+        category_qs = Category.objects.select_related("theme").order_by("theme__name", "name")
 
         financers_qs = Backer.objects.order_by("aidfinancer__order", "name")
 
@@ -517,9 +507,7 @@ class AidDetailView(DetailView):
         return response
 
 
-class AidDraftListView(
-    ContributorAndProfileCompleteRequiredMixin, AidEditMixin, ListView
-):
+class AidDraftListView(ContributorAndProfileCompleteRequiredMixin, AidEditMixin, ListView):
     """Display the list of aids published by the user."""
 
     template_name = "aids/draft_list.html"
@@ -577,14 +565,10 @@ class AidDraftListView(
         events_total_count = events.count()
 
         recent_30_days_ago = timezone.now() - timedelta(days=30)
-        events_last_30_days_count = events.filter(
-            date_created__gte=recent_30_days_ago
-        ).count()
+        events_last_30_days_count = events.filter(date_created__gte=recent_30_days_ago).count()
 
         events_total_count_per_aid = (
-            events.values_list("aid_id")
-            .annotate(view_count=Count("aid_id"))
-            .order_by("aid_id")
+            events.values_list("aid_id").annotate(view_count=Count("aid_id")).order_by("aid_id")
         )
 
         context["hits_total"] = events_total_count
@@ -711,9 +695,7 @@ class AidEditView(
         return "{}".format(edit_url)
 
 
-class AidDeleteView(
-    ContributorAndProfileCompleteRequiredMixin, AidEditMixin, DeleteView
-):
+class AidDeleteView(ContributorAndProfileCompleteRequiredMixin, AidEditMixin, DeleteView):
     """Soft deletes an existing aid."""
 
     def delete(self, request, *args, **kwargs):
@@ -785,9 +767,7 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
             # associate the existing projects to the aid
             for project in self.request.POST.getlist("projects", []):
                 project = int(project)
-                aid.projects.add(
-                    project, through_defaults={"creator": self.request.user}
-                )
+                aid.projects.add(project, through_defaults={"creator": self.request.user})
 
                 aid.save()
 
@@ -795,9 +775,7 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
                 project_obj = Project.objects.get(pk=project)
                 project_name = project_obj.name
                 project_slug = project_obj.slug
-                project_url = reverse(
-                    "project_detail_view", args=[project, project_slug]
-                )
+                project_url = reverse("project_detail_view", args=[project, project_slug])
 
                 if self.request.POST.get("_page", None) == "suggested_aid":
                     suggestedaidproject_obj = SuggestedAidProject.objects.get(
@@ -818,14 +796,10 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
             project.organizations.add(self.request.user.beneficiary_organization)
 
             # associate this new project's object to the aid
-            aid.projects.add(
-                project.pk, through_defaults={"creator": self.request.user}
-            )
+            aid.projects.add(project.pk, through_defaults={"creator": self.request.user})
             aid.date_updated = aid.date_updated
             aid.save()
-            project_url = reverse(
-                "project_detail_view", args=[project.pk, project.slug]
-            )
+            project_url = reverse("project_detail_view", args=[project.pk, project.slug])
             msg = f"Votre nouveau projet <a href='{project_url}'>{project.name}</a> a bien été créé et l’aide a été associée."  # noqa
             messages.success(self.request, msg)
 
@@ -863,9 +837,7 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
         if self.request.session.get("origin_page", None):
             origin_page = self.request.session.get("origin_page", None)
         else:
-            self.request.session["origin_page"] = self.request.POST.get(
-                "origin_page", None
-            )
+            self.request.session["origin_page"] = self.request.POST.get("origin_page", None)
             origin_page = self.request.session.get("origin_page", None)
         return origin_page
 
@@ -891,13 +863,9 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
         if origin_page == "aid_detail_page":
             success_url = reverse("aid_detail_view", args=[aid.slug])
         elif origin_page == "favorite_project_page":
-            success_url = reverse(
-                "favorite_project_detail_view", args=[project.pk, project.slug]
-            )
+            success_url = reverse("favorite_project_detail_view", args=[project.pk, project.slug])
         else:
-            success_url = reverse(
-                "public_project_detail_view", args=[project.pk, project.slug]
-            )
+            success_url = reverse("public_project_detail_view", args=[project.pk, project.slug])
 
         del self.request.session["origin_page"]
         msg = "Merci! L’aide a bien été suggérée!"
@@ -944,9 +912,7 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
         )
 
 
-class SuggestedAidUnmatchProjectView(
-    ContributorAndProfileCompleteRequiredMixin, UpdateView
-):
+class SuggestedAidUnmatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView):
     """remove the association between a suggested aid and a project."""
 
     context_object_name = "aid"
@@ -957,9 +923,7 @@ class SuggestedAidUnmatchProjectView(
 
         aid = form.save(commit=False)
         project_pk = int(self.request.POST.get("project-pk"))
-        suggested_aidproject = SuggestedAidProject.objects.get(
-            aid=aid.pk, project=project_pk
-        )
+        suggested_aidproject = SuggestedAidProject.objects.get(aid=aid.pk, project=project_pk)
         suggested_aidproject.is_rejected = True
         suggested_aidproject.date_rejected = timezone.now()
         suggested_aidproject.save()
@@ -971,9 +935,7 @@ class SuggestedAidUnmatchProjectView(
         return HttpResponseRedirect(url)
 
 
-class AidProjectStatusView(
-    ContributorAndProfileCompleteRequiredMixin, UpdateView
-):
+class AidProjectStatusView(ContributorAndProfileCompleteRequiredMixin, UpdateView):
     """Allow user to precise if they requested and obtained the aid for the project or not"""
 
     context_object_name = "aidproject"

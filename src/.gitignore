@@ -119,3 +119,4 @@ temp.txt
 .env.scalingo
 
 *.xls
+.*.swp
