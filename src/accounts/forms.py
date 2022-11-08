@@ -10,6 +10,7 @@ from accounts.models import User
 from accounts.utils import check_current_password
 from projects.models import Project
 from geofr.models import Perimeter
+from dsfr.forms import DsfrBaseForm
 
 
 class RegisterForm(UserCreationForm, AidesTerrBaseForm):
@@ -152,7 +153,7 @@ class RegisterCommuneForm(RegisterForm):
     )
 
 
-class LoginForm(AuthenticationForm, AidesTerrBaseForm):
+class LoginForm(AuthenticationForm, DsfrBaseForm):
     error_messages = {
         "invalid_login": "Saisissez une adresse e-mail et un mot de passe valides.",
         "inactive": "Ce compte n’est actuellement pas actif.",
