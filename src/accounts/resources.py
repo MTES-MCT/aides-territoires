@@ -90,10 +90,6 @@ class UserResource(resources.ModelResource):
                 for project in obj.beneficiary_organization.project_set.all():
                     if project.aid_set.all().count() > 0:
                         return True
-            else:
-                return False
-        else:
-            return False
 
     def dehydrate_beneficiary_organization_id(self, obj):
         if obj.beneficiary_organization:
