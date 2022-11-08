@@ -225,7 +225,7 @@ class AdvancedSearchView(SearchMixin, NarrowedFiltersMixin, FormView):
 class ResultsView(SearchView):
     """Only display search results.
 
-    This view is designed to be called via ajax, and only renders html
+    This view is designed to be called via AJAX, and only renders html
     fragment of search engine results.
     """
 
