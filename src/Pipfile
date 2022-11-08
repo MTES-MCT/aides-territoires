@@ -66,6 +66,7 @@ yapf = "*"
 pytest-xdist = "*"
 ipdb = "*"
 black = "*"
+pre-commit = "*"
 
 [requires]
 python_version = "3.10"

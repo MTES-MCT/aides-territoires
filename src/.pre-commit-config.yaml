@@ -1,0 +1,16 @@
+repos:
+-   repo: https://github.com/psf/black
+    rev: stable
+    hooks:
+    - id: black
+      language_version: python3.10
+-   repo: https://gitlab.com/pycqa/flake8
+    rev: main
+    hooks:
+    - id: flake8
+-   repo: https://github.com/PyCQA/bandit
+    rev: main
+    hooks:
+    - id: bandit
+      language_version: python3
+      args: ["-c", "Pipfile.lock"]
