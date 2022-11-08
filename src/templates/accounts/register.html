@@ -26,7 +26,7 @@
                     <div class="fr-grid-row fr-grid-row--center">
                         <div class="fr-background-main fr-col-11 fr-p-3w fr-my-7w">
                             <h1 class="fr-h5 blue-text text-center fr-mt-3w"> En route pour rejoindre Aides-territoires ! </h1>
-                            <div class="fr-px-2w fr-pt-2w"><p><strong>En créant votre compte, vous pourrez :</p></strong></div>
+                            <div class="fr-px-2w fr-pt-2w"><p><strong>En créant votre compte, vous pourrez :</strong></p></div>
                             <div class="fr-pl-4w fr-py-1w">
                                 <ul>
                                   <li>renseigner tous vos projets,</li>
@@ -58,6 +58,9 @@
                             <h2 class="fr-h2 text-center fr-mt-3w fr-mb-5w blue-text">
                                 Créer votre compte
                             </h2>
+
+                            <p>Les champs marqués d’un astérisque (*) sont obligatoires.</p>
+
                             <form method="post" novalidate id="register-form">
                                 {% csrf_token %}
                                 {{ form.media }}

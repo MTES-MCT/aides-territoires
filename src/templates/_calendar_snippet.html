@@ -1,5 +1,11 @@
 <div class="fr-checkbox-group fr-mb-4w" {% if field.field.required %} required {% endif %}>
-    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <label for="{{ field.id_for_label }}">
+        {{ field.label }}{% if field.field.required %} *{% endif %}
+
+        {% if field.help_text %}
+            <span class="fr-hint-text">{{ field.help_text|safe }}</span>
+        {% endif %}
+    </label>
 
     {% if nest_field_class %}
     <div class="{{ nest_field_class }}">
@@ -11,10 +17,6 @@
 
     {% if nest_field_class %}
     </div>
-    {% endif %}
-
-    {% if field.help_text %}
-        <div class="fr-hint-text">{{ field.help_text }}</div>
     {% endif %}
 
     {% if field.errors %}

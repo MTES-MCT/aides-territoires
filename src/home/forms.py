@@ -1,14 +1,14 @@
 from django import forms
 from captcha.fields import CaptchaField, CaptchaTextInput
 
-from dsfr.forms import DsfrBaseForm
+from core.forms.baseform import AidesTerrBaseForm
 
 
 class CustomCaptchaTextInput(CaptchaTextInput):
     template_name = "captcha/captcha_field.html"
 
 
-class ContactForm(DsfrBaseForm):
+class ContactForm(AidesTerrBaseForm):
     """Contact form."""
 
     SUBJECT_CHOICES = (
@@ -31,7 +31,14 @@ class ContactForm(DsfrBaseForm):
         required=False,
     )
     last_name = forms.CharField(label="Votre nom", required=False)
-    email = forms.EmailField(label="Votre adresse e-mail", required=True)
+    email = forms.EmailField(
+        label="Votre adresse e-mail",
+        help_text="Par exemple : prenom.nom@domaine.fr",
+        required=True,
+        error_messages={
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr."
+        },
+    )
     phone = forms.CharField(
         label="Votre numéro de téléphone", max_length=16, required=False
     )
@@ -48,7 +55,7 @@ class ContactForm(DsfrBaseForm):
             attrs={
                 "placeholder": "Exemple: Mairie de Château-Thierry / Chargé de mission habitat"
             }
-        ),  # noqa
+        ),
         required=False,
     )
 
@@ -64,3 +71,14 @@ class ContactForm(DsfrBaseForm):
         error_messages={"invalid": "Le texte entré ne correspond pas à l’image"},
         widget=CustomCaptchaTextInput,
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["first_name"].widget.attrs.update({"autocomplete": "given-name"})
+        self.fields["last_name"].widget.attrs.update({"autocomplete": "family-name"})
+        self.fields["email"].widget.attrs.update(
+            {
+                "autocomplete": "email",
+            }
+        )
+        self.fields["phone"].widget.attrs.update({"autocomplete": "tel-national"})

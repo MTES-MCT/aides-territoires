@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import password_validation
+from core.forms.baseform import AidesTerrBaseForm
 from core.forms.fields import AutocompleteModelChoiceField
 
 from model_utils import Choices
@@ -10,10 +11,8 @@ from accounts.utils import check_current_password
 from projects.models import Project
 from geofr.models import Perimeter
 
-from dsfr.forms import DsfrBaseForm
 
-
-class RegisterForm(UserCreationForm, DsfrBaseForm):
+class RegisterForm(UserCreationForm, AidesTerrBaseForm):
     """Form used to create new user accounts."""
 
     ORGANIZATION_TYPE = Choices(
@@ -40,13 +39,12 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
         label="Votre adresse e-mail",
         required=True,
         help_text="""
-            <ul>
-                <li>Par exemple : prenom.nom@domaine.fr</li>
-                <li>
-                    Nous enverrons un e-mail de confirmation à cette adresse
-                    avant de valider le compte.
-                </li>
-            </ul>""",
+            Par exemple : prenom.nom@domaine.fr<br />
+            Nous enverrons un e-mail de confirmation à cette adresse avant de valider le compte.
+            """,
+        error_messages={
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr."
+        },
     )
     beneficiary_role = forms.CharField(
         label="Votre rôle", max_length=128, required=False
@@ -93,13 +91,22 @@ class RegisterForm(UserCreationForm, DsfrBaseForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["first_name"].widget.attrs.update({"autofocus": True})
+        self.fields["first_name"].widget.attrs.update({"autocomplete": "given-name"})
+        self.fields["last_name"].widget.attrs.update({"autocomplete": "family-name"})
         self.fields["email"].widget.attrs.update(
             {
                 "placeholder": "Merci de bien vérifier l’adresse saisie.",
                 "autofocus": False,
+                "autocomplete": "email",
             }
         )
+        self.fields["password1"].widget.attrs.update({"autocomplete": "new-password"})
+        self.fields["password2"].widget.attrs.update({"autocomplete": "new-password"})
+
+        if len(self.errors):
+            self.set_autofocus_on_first_error()
+        else:
+            self.fields["first_name"].widget.attrs.update({"autofocus": True})
 
     def clean_email(self):
         email = self.cleaned_data["email"]
@@ -131,23 +138,34 @@ class RegisterCommuneForm(RegisterForm):
         label="Votre adresse e-mail",
         required=True,
         help_text="""
+            Par exemple : prenom.nom@domaine.fr<br />
             Vous pouvez modifier l’email de contact s’il n’est pas exact
             ou si vous souhaitez en utiliser un autre, personnel par exemple.<br />
             Nous enverrons un e-mail de confirmation à cette adresse avant de valider le compte.
             """,
+        error_messages={
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr."
+        },
     )
     perimeter = AutocompleteModelChoiceField(
         label="Votre commune", queryset=Perimeter.objects.all(), required=True
     )
 
 
-class LoginForm(AuthenticationForm, DsfrBaseForm):
+class LoginForm(AuthenticationForm, AidesTerrBaseForm):
     error_messages = {
         "invalid_login": "Saisissez une adresse e-mail et un mot de passe valides.",
         "inactive": "Ce compte n’est actuellement pas actif.",
     }
 
-    username = forms.EmailField(label="Votre adresse e-mail", required=True)
+    username = forms.EmailField(
+        label="Votre adresse e-mail",
+        help_text="Par exemple : prenom.nom@domaine.fr",
+        required=True,
+        error_messages={
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr."
+        },
+    )
     password = forms.CharField(
         label="Votre mot de passe",
         required=True,
@@ -161,14 +179,34 @@ class LoginForm(AuthenticationForm, DsfrBaseForm):
         username = self.cleaned_data["username"]
         return username.lower()
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-class PasswordResetForm(DsfrBaseForm):
+        self.fields["username"].widget.attrs.update({"autocomplete": "email"})
+        self.fields["password"].widget.attrs.update(
+            {"autocomplete": "current-password"}
+        )
+
+
+class PasswordResetForm(AidesTerrBaseForm):
     """Password reset request form."""
 
-    username = forms.EmailField(label="Votre adresse e-mail", required=True)
+    username = forms.EmailField(
+        label="Votre adresse e-mail",
+        help_text="Par exemple : prenom.nom@domaine.fr",
+        required=True,
+        error_messages={
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr."
+        },
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["username"].widget.attrs.update({"autocomplete": "email"})
 
 
-class PasswordResetConfirmForm(forms.ModelForm, DsfrBaseForm):
+class PasswordResetConfirmForm(forms.ModelForm, AidesTerrBaseForm):
     """Change password after reset request form."""
 
     new_password = forms.CharField(
@@ -192,6 +230,16 @@ class PasswordResetConfirmForm(forms.ModelForm, DsfrBaseForm):
             "new_password",
             "new_password2",
         ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["new_password"].widget.attrs.update(
+            {"autocomplete": "new-password"}
+        )
+        self.fields["new_password2"].widget.attrs.update(
+            {"autocomplete": "new-password"}
+        )
 
     def _post_clean(self):
         super()._post_clean()
@@ -219,7 +267,7 @@ class PasswordResetConfirmForm(forms.ModelForm, DsfrBaseForm):
         return user
 
 
-class ContributorProfileForm(forms.ModelForm, DsfrBaseForm):
+class ContributorProfileForm(forms.ModelForm, AidesTerrBaseForm):
     """Edit contributor profile related user data."""
 
     is_contributor = forms.BooleanField(label="Publier des aides", required=False)
@@ -327,14 +375,18 @@ class ContributorProfileForm(forms.ModelForm, DsfrBaseForm):
         return user
 
 
-class InviteCollaboratorForm(DsfrBaseForm):
+class InviteCollaboratorForm(AidesTerrBaseForm):
     """Form used to allow user to invite new collaborator."""
 
     first_name = forms.CharField(label="Son prénom", required=True)
     last_name = forms.CharField(label="Son nom", required=True)
     email = forms.EmailField(
         label="Son adresse e-mail",
+        help_text="Par exemple : prenom.nom@domaine.fr",
         required=True,
+        error_messages={
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr."
+        },
     )
 
     def __init__(self, *args, **kwargs):
@@ -368,7 +420,7 @@ class InviteCollaboratorForm(DsfrBaseForm):
         return email.lower()
 
 
-class JoinOrganizationForm(DsfrBaseForm):
+class JoinOrganizationForm(AidesTerrBaseForm):
     """Form used to allow user to join an other organization."""
 
     collaborators = forms.ModelMultipleChoiceField(
@@ -395,7 +447,7 @@ class JoinOrganizationForm(DsfrBaseForm):
         return data
 
 
-class CompleteProfileForm(forms.ModelForm, DsfrBaseForm):
+class CompleteProfileForm(forms.ModelForm, AidesTerrBaseForm):
     """Edit user profile."""
 
     first_name = forms.CharField(label="Votre prénom", required=True)

@@ -1,17 +1,19 @@
 from django import forms
 from django.conf import settings
 
-from dsfr.forms import DsfrBaseForm
-
 from alerts.models import Alert
+from core.forms.baseform import AidesTerrBaseForm
 from search.models import SearchPage
 
 
-class AlertForm(forms.ModelForm, DsfrBaseForm):
+class AlertForm(forms.ModelForm, AidesTerrBaseForm):
     email = forms.EmailField(
         label="Votre adresse e-mail",
         help_text="Nous enverrons un e-mail pour confirmer votre adresse",
         required=True,
+        error_messages={
+            "invalid": "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr."
+        },
     )
     title = forms.CharField(
         label="Donnez un nom à votre alerte", required=True, max_length=250
@@ -27,6 +29,11 @@ class AlertForm(forms.ModelForm, DsfrBaseForm):
     class Meta:
         model = Alert
         fields = ["email", "title", "alert_frequency", "querystring", "source"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["email"].widget.attrs.update({"autocomplete": "email"})
 
     def clean(self):
         """
@@ -75,5 +82,5 @@ class AlertForm(forms.ModelForm, DsfrBaseForm):
         return super().save(commit=commit)
 
 
-class DeleteAlertForm(DsfrBaseForm):
+class DeleteAlertForm(AidesTerrBaseForm):
     token = forms.UUIDField(widget=forms.HiddenInput(), required=True)

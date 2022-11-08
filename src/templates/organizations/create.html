@@ -14,7 +14,9 @@
             <h1 class="fr-mb-5w">Bonjour {{ request.user.full_name }} !</h1>
             <h2 class="fr-h3">Merci de mettre à jour les informations de votre structure avant d’accéder à votre espace</h2>
 
-            <form method="post" novalidate class="fr-mt-5w">
+            <p>Les champs marqués d’un astérisque (*) sont obligatoires.</p>
+
+            <form method="post" novalidate>
                 {% csrf_token %}
                 {{ form.media }}
 

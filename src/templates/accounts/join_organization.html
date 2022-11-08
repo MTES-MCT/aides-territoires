@@ -42,21 +42,31 @@
                 <form method="post" novalidate>
                     {% csrf_token %}
                     <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
-                        <p><strong>{{ invitation_author }} vous invite à rejoindre l'organisation «&nbsp;{{ organization_name }}&nbsp;».</strong></p>
-                        <p>Si vous acceptez cette invitation, votre organisation de rattachement sera modifiée. Si vous êtes l'unique utilisateur de votre organisation actuelle celle-ci sera par ailleurs supprimée.</p>
+                        <p><strong>{{ invitation_author }} vous invite à rejoindre l’organisation « {{ organization_name }} ».</strong></p>
+                        <p>
+                            Si vous acceptez cette invitation, votre organisation de rattachement sera modifiée.
+                            Si vous êtes l’unique utilisateur de votre organisation actuelle celle-ci sera par ailleurs supprimée.
+                        </p>
                         {% if collaborators %}
-                        <p>Vous avez la possibilité de rattacher vos projets actuels à la nouvelle organisation et d'inviter vos collaborateurs actuels à rejoindre également la nouvelle organisation.</p>
+                            <p>
+                                Vous avez la possibilité de rattacher vos projets actuels à la nouvelle organisation et
+                                d’inviter vos collaborateurs actuels à rejoindre également la nouvelle organisation.
+                            </p>
                         {% elif projects %}
-                        <p>Vous avez la possibilité de rattacher vos projets actuels à la nouvelle organisation.</p>
+                            <p>Vous avez la possibilité de rattacher vos projets actuels à la nouvelle organisation.</p>
                         {% endif %}
                         {% if collaborators or projects %}
-                        <p>Acceptez l'invitation et sélectionnez ci-dessous vos choix ou refusez l'invitation</p>
+                            <p>Acceptez l’invitation et sélectionnez ci-dessous vos choix ou refusez l’invitation</p>
                         {% endif %}
                     </div>
 
                     {% if collaborators %}
                     <div id="form-group-collaborators" class="fr-checkbox-group">
-                        <p class="fr-mb-1w fr-mt-4w"><strong>Cochez les collaborateurs que vous souhaitez inviter à vous suivre vers l'organisation «&nbsp;{{ organization_name }}&nbsp;»&nbsp;?</strong></p>
+                        <p class="fr-mb-1w fr-mt-4w">
+                            <strong>
+                                Cochez les collaborateurs que vous souhaitez inviter à vous suivre vers l’organisation « {{ organization_name }} » ?
+                            </strong>
+                        </p>
                         <ul id="id_collaborators" class=" fr-pl-0">
                             {% for collaborator in collaborators %}
                             <li class="fr-list__none">
@@ -69,7 +79,7 @@
 
                     {% if projects %}
                     <div id="form-group-projects" class="fr-checkbox-group">
-                        <p class="fr-mb-1w fr-mt-4w"><strong>Cochez les projets que vous souhaitez dupliquer dans l'organisation «&nbsp;{{ organization_name }}&nbsp;»&nbsp;:</strong></p>
+                        <p class="fr-mb-1w fr-mt-4w"><strong>Cochez les projets que vous souhaitez dupliquer dans l’organisation « {{ organization_name }} » :</strong></p>
                         <ul id="id_projects" class=" fr-pl-0">
                             {% for project in projects %}
                             <li class="fr-list__none">
@@ -81,13 +91,13 @@
                     {% endif %}
 
                     <div class="fr-mt-5w">
-                        <button type="submit" name="no-join" class="fr-btn fr-btn--secondary">Refuser l'invitation</button>
-                        <button type="submit" name="yes-join" class="fr-btn">Accepter l'invitation</button>
+                        <button type="submit" name="no-join" class="fr-btn fr-btn--secondary">Refuser l’invitation</button>
+                        <button type="submit" name="yes-join" class="fr-btn">Accepter l’invitation</button>
                     </div>
                 </form>
                 {% else %}
                 <div role="alert" class="fr-alert fr-alert--error fr-alert--sm fr-mb-5w">
-                    <p><strong>Vous n'avez aucune invitation pour rejoindre une organisation.</strong></p>
+                    <p><strong>Vous n’avez aucune invitation pour rejoindre une organisation.</strong></p>
                 </div>
                 {% endif %}
 

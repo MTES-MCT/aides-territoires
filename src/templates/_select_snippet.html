@@ -1,6 +1,12 @@
 <div id="form-group-{{ field.name }}" class="fr-select-group{% if field.field.required %} required{% endif %} {% if required == 'true' %}required{% endif %}">
 
-    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <label for="{{ field.id_for_label }}">
+        {{ field.label }}{% if field.field.required %} *{% endif %}
+
+        {% if field.help_text %}
+            <span class="fr-hint-text">{{ field.help_text|safe }}</span>
+        {% endif %}
+    </label>
 
     {% if nest_field_class %}
     <div class="{{ nest_field_class }}">
@@ -8,9 +14,6 @@
 
     {{ field }}
 
-    {% if field.help_text %}
-    <div class="fr-hint-text">{{ field.help_text|safe }}</div>
-    {% endif %}
 
     {% if nest_field_class %}
     </div>

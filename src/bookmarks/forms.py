@@ -1,12 +1,11 @@
 from django import forms
 
-from dsfr.forms import DsfrBaseForm
-
 from accounts.models import User
 from bookmarks.models import Bookmark
+from core.forms.baseform import AidesTerrBaseForm
 
 
-class BaseBookmarkForm(DsfrBaseForm):
+class BaseBookmarkForm(AidesTerrBaseForm):
     """Commont fields for both bookmark forms."""
 
     title = forms.CharField(

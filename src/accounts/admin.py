@@ -258,7 +258,7 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
             html = ""
             for search_page in search_pages:
                 html += format_html(
-                    '<a href="{obj_url}">{obj_name}</a></br>',
+                    '<a href="{obj_url}">{obj_name}</a><br />',
                     obj_url=reverse(
                         "admin:search_searchpage_change", args=[search_page.id]
                     ),

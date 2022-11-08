@@ -1,7 +1,11 @@
 <div id="form-group-{{ field.name }}" class="fr-form-group{% if field.field.required %} required{% endif %} {% if required == 'true' %}required{% endif %}">
     <fieldset class="fr-fieldset{% if field.errors %} fr-fieldset--error{% endif %}"{% if field.errors %} aria-labelledby="radio-error-legend radio-error-desc-error"{% endif %} role="group">
         <legend class="fr-fieldset__legend fr-text--regular">
-            {{ field.label }}
+            {{ field.label }}{% if field.field.required %} *{% endif %}
+
+            {% if field.help_text %}
+                <span class="fr-hint-text">{{ field.help_text|safe }}</span>
+            {% endif %}
         </legend>
         <div class="fr-fieldset__content">
             {% if nest_field_class %}
@@ -9,10 +13,6 @@
             {% endif %}
 
             <div class="fr-radio-group">{{ field }}</div>
-
-            {% if field.help_text %}
-            <div class="fr-hint-text">{{ field.help_text|safe }}</div>
-            {% endif %}
 
             {% if nest_field_class %}
             </div>
