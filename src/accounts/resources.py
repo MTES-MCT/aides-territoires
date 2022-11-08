@@ -21,6 +21,7 @@ USER_EXPORT_FIELDS = (
     "beneficiary_organization",
     "beneficiary_organization_id",
     "beneficiary_organization_projects_count",
+    "beneficiary_organization_projects_have_aids",
     "contributor_organization",
     "beneficiary_function",
     "contributor_role",
@@ -46,6 +47,10 @@ class UserResource(resources.ModelResource):
 
     beneficiary_organization_projects_count = fields.Field(
         column_name="Nombre de projets de l'organisation",
+    )
+
+    beneficiary_organization_projects_have_aids = fields.Field(
+        column_name="Présence d'aides associées à un projet",
     )
 
     perimeter = fields.Field(
@@ -78,6 +83,13 @@ class UserResource(resources.ModelResource):
                 return obj.beneficiary_organization.project_set.count()
         else:
             return ""
+
+    def dehydrate_beneficiary_organization_projects_have_aids(self, obj):
+        if obj.beneficiary_organization:
+            if obj.beneficiary_organization.project_set:
+                for project in obj.beneficiary_organization.project_set.all():
+                    if project.aid_set.all().count() > 0:
+                        return True
 
     def dehydrate_beneficiary_organization_id(self, obj):
         if obj.beneficiary_organization:
