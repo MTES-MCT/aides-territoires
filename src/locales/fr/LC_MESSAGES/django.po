@@ -550,18 +550,6 @@ msgstr "Valeur"
 msgid "Events"
 msgstr "Événements"
 
-msgid "Is the project match the aid?"
-msgstr ""
-
-msgid "If the project match the aid"
-msgstr "Si le projet correspond à l'aide"
-
-msgid "Aid Match Project Event"
-msgstr "Événement aide liée à un projet"
-
-msgid "Aid Match Project Events"
-msgstr "Événements aide liée à un projet"
-
 msgid "Tag"
 msgstr "Mot clé"
 
@@ -586,62 +574,6 @@ msgstr "Aides par cet auteur"
 msgid "There are no related aids"
 msgstr "Il n'y a pas d'aides à afficher"
 
-msgid "Amendment merge"
-msgstr "Intégration d'amendement"
-
-#, python-format
-msgid "By %(author_name)s on %(date)s"
-msgstr "Par %(author_name)s le %(date)s"
-
-msgid "Author:"
-msgstr "Auteur "
-
-msgid "Email:"
-msgstr "Courriel :"
-
-msgid "ND"
-msgstr "NC"
-
-msgid "Organization:"
-msgstr "Organisme :"
-
-msgid "This form makes it possible to edit the aid targeted by the amendment."
-msgstr ""
-"Ce formulaire permet de modifier des aides touchées par des amendements."
-
-msgid ""
-"Only the fields that are different between the original data and the amended "
-"data are shown. It means that the form can show some fields that were "
-"<strong> not amended</strong> by the user if the original aid was modified "
-"after the amendment was suggested."
-msgstr ""
-"Seuls les champs qui diffèrent entre l'aide originale et la donnée modifiée "
-"sont affichés. Cela signifie que certains champs qui n'ont <strong>pas été "
-"amendés</strong> par l'utilisateur peuvent apparaître ici si l'aide "
-"originale a été modifiée depuis la création de l'amendement."
-
-msgid ""
-"For each field, we show: 1/ the form input with the current data and 2/ the "
-"modification that was suggested."
-msgstr ""
-"Pour chaque champ sont affichés 1/ le champ de formulaire pré-rempli avec la "
-"donnée actuelle et 2/ les différences avec la valeur suggérée."
-
-msgid "See the aid detail"
-msgstr "Voir le détail de l'aide"
-
-msgid "Admin edit"
-msgstr "Éditer dans l'admin"
-
-msgid "The user left this comment:"
-msgstr "L'utilisateur a laissé ce commentaire :"
-
-msgid "Update the aid and discard the amendment"
-msgstr "Mettre à jour l'aide et supprimer l'amendement"
-
-msgid "Cancel and go back to the amendment list"
-msgstr "Annuler et revenir à la liste des amendements"
-
 msgid "Contains the following perimeters"
 msgstr "Contient les périmètres suivants"
 
@@ -651,58 +583,8 @@ msgstr "Afficher / masquer les périmètres"
 msgid "This does not contain any other perimeter"
 msgstr "Ne contient pas d'autres périmètres"
 
-msgid "Combine"
-msgstr "Combiner"
-
-msgid "Submit"
-msgstr "Envoyer"
-
-msgid "Upload"
-msgstr "Uploader"
-
-msgid ""
-"Use this form to upload the list of cities or EPCIs contained in the "
-"selected <em>ad-hoc</em> perimeter.<br /> - For cities: the file must be a "
-"list of insee codes (one per line) for french cities<br /> - For EPCIs: the "
-"file must of a list of EPCI names (one per line)"
-msgstr ""
-"Utilisez ce formulaire pour spécifier la liste des communes ou EPCIs "
-"contenues dans le périmètre <em>ad-hoc</em>.<br />- Communes : le fichier "
-"doit contenir les codes insee (un par ligne) des communes<br />- EPCIs : le "
-"fichier doit contenir le nom (un par ligne) des EPCIs"
-
-msgid "or"
-msgstr "ou"
-
-msgid "Send file"
-msgstr "Envoyer le fichier"
-
-msgid "This aid was published by a certified account."
-msgstr "Cette aide est directement publiée par la structure qui la porte."
-
-msgid "Calendar"
-msgstr "Calendrier"
-
-msgid "Opening:"
-msgstr "Ouverture :"
-
-msgid "Search"
-msgstr "Recherche"
-
-msgid "Preview your aid"
-msgstr "Prévisualisation de l'aide"
-
-msgid "Results"
-msgstr "Résultats"
-
 msgid "Image"
 msgstr "Image"
 
 msgid "Uploaded at"
 msgstr "Uploadé à"
-
-msgid "Promotion post"
-msgstr "Communication promotionnelle"
-
-msgid "Promotion posts"
-msgstr "Communications promotionnelles"
