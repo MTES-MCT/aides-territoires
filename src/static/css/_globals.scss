@@ -47,6 +47,11 @@ h6 {
   text-transform: uppercase;
 }
 
+.at-button-align-end {
+  display: flex;
+  align-items: end;
+}
+
 .fr-width-fix-100 {
   width: 100%;
 }

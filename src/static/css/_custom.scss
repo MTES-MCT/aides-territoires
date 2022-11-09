@@ -425,6 +425,11 @@ div#search-steps p.steps {
   }
 }
 
+#search-form-extra-actions,
+.search-form-extra-field {
+  display: none;
+}
+
 form#general_search_form {
   span.counter {
     display: inline-block;

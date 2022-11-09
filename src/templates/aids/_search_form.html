@@ -35,36 +35,59 @@
     <div class="form-container fr-mb-5w">
         <div class="form-body">
             {% block form-body %}
-            <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-                <div class="fr-col-12 fr-col-md-3">
-                    <div class="fr-select-group">
-                        <div id="form-group-targeted_audiences" class="fr-input-group">
-                            <label class="fr-label" for="id_targeted_audiences">Vous cherchez pour…</label>
-                            <select class="fr-select" name="targeted_audiences" id="id_targeted_audiences">
-                                <option value="" hidden>Faites votre choix</option>
-                                {% for option in form.targeted_audiences %}
-                                {{ option }}
-                                {% endfor %}
-                                <option value="">Toutes structures</option>
-                            </select>
+                <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+                    <div class="fr-col-12 fr-col-md-3">
+                        <div class="fr-select-group">
+                            <div id="form-group-targeted_audiences" class="fr-input-group">
+                                <label class="fr-label" for="id_targeted_audiences">Vous cherchez pour…</label>
+                                <select class="fr-select" name="targeted_audiences" id="id_targeted_audiences">
+                                    <option value="" hidden>Faites votre choix</option>
+                                    {% for option in form.targeted_audiences %}
+                                    {{ option }}
+                                    {% endfor %}
+                                    <option value="">Toutes structures</option>
+                                </select>
+                            </div>
                         </div>
+                    </div>
+
+                    <div class="fr-col-12 fr-col-md-3">
+                        {% include '_field_snippet.html' with field=form.perimeter %}
+                    </div>
+
+                    <div class="fr-col-12 fr-col-md-3">
+                        {% include '_field_snippet.html' with field=form.text %}
+                    </div>
+
+                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
+                        {% include '_field_snippet.html' with field=form.apply_before %}
+                    </div>
+                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
+                        {% include '_field_snippet.html' with field=form.mobilization_step  %}
+                    </div>
+                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
+                        {% include '_field_snippet.html' with field=form.destinations  %}
+                    </div>
+                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
+                        {% include '_field_snippet.html' with field=form.categories %}
+                    </div>
+
+                    <div class="fr-col-12 fr-col-md-3 at-button-align-end ">
+                        <button name="action" value="search-filter" class="search-btn fr-btn" title="Trouver des aides" type="submit">
+                            <span class="fr-icon-search-line fr-mr-1w" aria-hidden="true"></span> Trouver des aides
+                        </button>
                     </div>
                 </div>
 
-                <div class="fr-col-12 fr-col-md-3">
-                    {% include '_field_snippet.html' with field=form.perimeter %}
-                </div>
 
-                <div class="fr-col-12 fr-col-md-3">
-                    {% include '_field_snippet.html' with field=form.text %}
+                <div id="search-form-extra-actions" class="at-centered fr-mt-2w">
+                    <a href="{% url 'search_view' %}" class="fr-mx-1w">
+                        <span class="fr-icon-arrow-go-back-line" aria-hidden="true"></span> Nouvelle recherche
+                    </a>
+                    <a href="#" id="search-form-more-options" class="fr-mx-1w">
+                        <span class="fr-icon-add-line" aria-hidden="true"></span> Plus de critères
+                    </a>
                 </div>
-
-                <div class="fr-col-12 fr-col-md-3">
-                    <button name="action" value="search-filter" class="search-btn fr-btn" title="Trouver des aides" type="submit">
-                        <span class="fr-icon-search-line fr-mr-1w" aria-hidden="true"></span> Trouver des aides
-                    </button>
-                </div>
-            </div>
             {% endblock form-body %}
         </div>
     </div>
