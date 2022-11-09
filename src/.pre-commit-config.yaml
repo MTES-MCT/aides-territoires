@@ -18,3 +18,7 @@ repos:
     hooks:
     - id: bandit
       language_version: python3
+      exclude: /tests/
+      args:
+      - -s
+      - B105

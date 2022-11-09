@@ -4,7 +4,7 @@ from core.utils import get_site_from_host, is_subdomain, build_host_with_subdoma
 def test_get_site_from_host():
     host_testset = [
         # ('given-host', 'expected-subdomain')
-        ("aides-territoires.local:8000", "aides-territoires"),
+        ("aides-territoires.localhost:8000", "aides-territoires"),
         ("aides-territoires.beta.gouv.fr", "aides-territoires"),
         ("aides-territoires.osc-fr1.scalingo.io", "aides-territoires"),
         ("francemobilites.aides-territoires.beta.gouv.fr", "francemobilites"),  # noqa
@@ -37,9 +37,9 @@ def test_build_host_with_subdomain():
     host_testset = [
         # ('given-host', 'expected-subdomain')
         (
-            "aides-territoires.local:8000",
+            "aides-territoires.localhost:8000",
             "aides-territoires",
-            "aides-territoires.local:8000",
+            "aides-territoires.localhost:8000",
         ),  # noqa
         (
             "aides-territoires.beta.gouv.fr",

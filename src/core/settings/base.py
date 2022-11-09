@@ -365,7 +365,6 @@ CSP_STYLE_SRC = (
 
 CSP_SCRIPT_SRC = (
     "'self'",
-    "'unsafe-eval'",  # several calls to it, including from dependencies like dsfr
     "https://stats.data.gouv.fr",
     "https://aides-territoires-metabase.osc-fr1.scalingo.io",
 )
