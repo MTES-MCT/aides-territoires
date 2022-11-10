@@ -9,19 +9,19 @@ La procédure est documentée [ici](https://github.com/MTES-MCT/aides-territoire
 
 Dans le fichier .env.local il est nécessaire d'ajouter comme ALLOWED_HOSTS :
 
-    francemobilites.aides-territoires.local
+    francemobilites.aides-territoires.localhost
 
 Dans votre fichier /etc/hosts il est nécessaire de compléter la ligne 127.0.0.1 par : 
 
-    francemobilites.aides-territoires.local
+    francemobilites.aides-territoires.localhost
 
 Le serveur peut ensuite être démarré avec la commande :
 
-    python manage.py runserver 0:8000 --settings minisites.settings.local
+    python manage.py runserver francemobilites.aides-territoires.localhost:8000 --settings minisites.settings.localhost
 
 La version dev du minisite sera alors accessible à cette adresse :
 
-http://francemobilites.aides-territoires.local:8000/
+http://francemobilites.aides-territoires.localhost:8000/
 
 
 ### Lancement des tests

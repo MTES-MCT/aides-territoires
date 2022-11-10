@@ -47,7 +47,7 @@ cache_config = {
 }
 CACHES.update(cache_config)
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[".aides-territoires.local"])
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[".aides-territoires.localhost"])
 
 INTERNAL_IPS = env.list("INTERNAL_IPS", default=["127.0.0.1"])
 
