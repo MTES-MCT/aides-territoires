@@ -205,38 +205,6 @@
         </div>
         {% endif %}
 
-        <div class="fr-card fr-card--no-arrow at-centered fr-col-12 fr-col-md-10 fr-m-3w">
-            <div class="fr-card__body">
-                <h4 class="fr-card__title">
-                    <p class="fr-mb-0 fr-h6">Mots clés les plus recherchés (top 10)</p>
-                    <p class="fr-mb-0 fr-xs">Parmi les {{ search_count_total }} recherches effectuées</p>
-                </h4>
-                {% if top_10_keywords_searched %}
-                <div class="fr-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="order-column">Ordre</th>
-                                <th>Mot clé</th>
-                                <th class="value-column">Recherches</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for keyword in top_10_keywords_searched %}
-                                <tr>
-                                    <td>{{ forloop.counter }}</td>
-                                    <td>{{ keyword.text }}</td>
-                                    <td>{{ keyword.search_count }}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                {% else %}
-                    <span>Pas de données</span>
-                {% endif %}
-            </div>
-        </div>
     </div>
 </section>
 {% endblock %}
