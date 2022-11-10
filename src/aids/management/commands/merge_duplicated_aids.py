@@ -1,6 +1,4 @@
 import logging
-from os import dup
-from aids.models import AidProject
 from django.utils import timezone
 from django.core.management.base import BaseCommand
 
@@ -14,7 +12,7 @@ class Command(BaseCommand):
         parser.add_argument("--import_data_source_id")
 
     def handle(self, *args, **options):
-        from aids.models import Aid, AidWorkflow
+        from aids.models import Aid, AidWorkflow, AidProject, SuggestedAidProject
         from dataproviders.models import DataSource
 
         logger = logging.getLogger("console_log")
@@ -109,6 +107,11 @@ class Command(BaseCommand):
                             aidproject = AidProject.objects.get(aid=duplicated_aid.pk, project=project.pk)
                             aidproject.aid = old_aid
                             aidproject.save()
+
+                        for suggested_project in duplicated_aid.suggested_projects.all():
+                            suggested_aidproject = SuggestedAidProject.objects.get(aid=duplicated_aid.pk, project=suggested_project.pk)
+                            suggested_aidproject.aid = old_aid
+                            suggested_aidproject.save()
 
                     merged_aids += 1
                     logger.info(f"duplicated aid {duplicated_aid.pk} merged in old aid {old_aid.pk}")
