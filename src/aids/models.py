@@ -34,6 +34,7 @@ class AidWorkflow(xwf_models.Workflow):
         ("reviewable", "En revue"),
         ("published", "Publiée"),
         ("deleted", "Supprimée"),
+        ("merged", "Mergée"),
     )
     initial_state = "draft"
     transitions = (
@@ -798,9 +799,10 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         """
         m2m_fields = self._meta.many_to_many
         projects_field = self._meta.get_field("projects")
+        suggest_projects_field = self._meta.get_field("suggested_projects")
 
         for field in m2m_fields:
-            if field != projects_field:
+            if field != projects_field or field != suggest_projects_field:
                 for item in field.value_from_object(source_aid):
                     getattr(self, field.attname).add(item)
         self.save()
