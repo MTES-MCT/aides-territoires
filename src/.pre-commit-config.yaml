@@ -21,4 +21,4 @@ repos:
       exclude: /tests/
       args:
       - -s
-      - B105
+      - B105 # hardcoded_password_string
