@@ -177,7 +177,7 @@ export default class extends Controller {
         data-downloadable="true"
         data-table-target="table"
         class="fr-table fr-table--layout-fixed fr-table--no-caption">
-        <caption>Communes et leurs organisations (${department}) :</caption>
+        <caption>Communes et leurs organisations (${department}) :</caption>
         <thead>
           <tr>
             <th
@@ -238,7 +238,7 @@ export default class extends Controller {
         data-downloadable="true"
         data-table-target="table"
         class="fr-table fr-table--layout-fixed fr-table--no-caption">
-        <caption>EPCI et leurs organisations (${department}) :</caption>
+        <caption>EPCI et leurs organisations (${department}) :</caption>
         <thead>
           <tr>
             <th
