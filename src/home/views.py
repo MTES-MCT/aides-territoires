@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, FormView, ListView
+from django.views.generic import TemplateView, FormView
 from django.views.generic.edit import FormMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from aids.forms import AidSearchForm
@@ -9,8 +9,6 @@ from home.tasks import send_contact_form_email
 from aids.models import Aid
 from backers.models import Backer
 from categories.models import Category
-from projects.models import Project
-from minisites.mixins import SearchMixin
 from projects.models import Project
 from minisites.mixins import SearchMixin
 
