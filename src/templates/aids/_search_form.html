@@ -2,21 +2,6 @@
 
     {{ form.integration }}
 
-    {% comment %}
-        This is to make sure that those search filters will be carried upon the
-        "more filters" page.
-    {% endcomment %}
-    {% block hidden-fields %}
-        {{ form.apply_before.as_hidden }}
-        {{ form.mobilization_step.as_hidden }}
-        {{ form.destinations.as_hidden }}
-        {{ form.categories.as_hidden }}
-        {{ form.targeted_audiences.as_hidden }}
-        {{ form.perimeter.as_hidden }}
-        {{ form.themes.as_hidden }}
-        {{ form.call_for_projects_only.as_hidden }}
-    {% endblock hidden-fields %}
-
     {% block other_actions %}
     <div class="other-actions fr-mb-2w fr-grid-row fr-grid-row--middle">
 
@@ -62,14 +47,37 @@
                     <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
                         {% include '_field_snippet.html' with field=form.apply_before %}
                     </div>
-                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
-                        {% include '_field_snippet.html' with field=form.mobilization_step  %}
-                    </div>
-                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
-                        {% include '_field_snippet.html' with field=form.destinations  %}
-                    </div>
+
                     <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
                         {% include '_field_snippet.html' with field=form.categories %}
+                    </div>
+
+                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
+                        {% include '_field_snippet.html' with field=form.backers %}
+                    </div>
+
+                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
+                        {% include '_checkbox_snippet_multiple.html' with field=form.aid_type %}
+                    </div>
+
+                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
+                        {% include '_field_snippet.html' with field=form.programs %}
+                    </div>
+
+                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
+                        {% include '_checkbox_snippet_multiple.html' with field=form.mobilization_step %}
+                    </div>
+
+                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
+                        {% include '_checkbox_snippet_multiple.html' with field=form.destinations  %}
+                    </div>
+
+                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
+                        {% include '_checkbox_snippet.html' with field=form.call_for_projects_only  %}
+                    </div>
+
+                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
+                        {% include '_select_snippet.html' with field=form.order_by %}
                     </div>
 
                     <div class="fr-col-12 fr-col-md-3 at-button-align-end ">
@@ -78,7 +86,6 @@
                         </button>
                     </div>
                 </div>
-
 
                 <div id="search-form-extra-actions" class="at-centered fr-mt-2w">
                     <a href="{% url 'search_view' %}" class="fr-mx-1w">
