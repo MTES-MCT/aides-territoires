@@ -491,9 +491,7 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
                 # For instance: `/4dc7-passsport/` or `/aides/b68a-accompagner-…`
                 "filter_pattern": "^/(aides/)?([a-z0-9]){4}-",
             },
-        )[
-            :100
-        ]  # The `limit` parameter does not look to be effective.
+        )
 
         def get_slug(label):
             if label.startswith("/aides/"):
