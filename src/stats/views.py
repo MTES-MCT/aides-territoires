@@ -519,8 +519,18 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
         for page in matomo_top_aids_pages:
             slug = get_slug(page["label"])
             if slug in slugs_pages:
-                # We consider that subsequent entries are not relevant
-                # (less popular), it happens for portals (vs. main).
+                # In case we already have an entry, we add up counts to
+                # sum all visits either from portals or main.
+                try:
+                    slugs_pages[slug]["nb_uniq_visitors"] += page["nb_uniq_visitors"]
+                except KeyError:
+                    pass
+                try:
+                    slugs_pages[slug]["sum_daily_nb_uniq_visitors"] += page[
+                        "sum_daily_nb_uniq_visitors"
+                    ]
+                except KeyError:
+                    pass
                 continue
             slugs_pages[slug] = page
 
