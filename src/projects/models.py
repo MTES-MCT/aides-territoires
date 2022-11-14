@@ -25,6 +25,12 @@ class Project(models.Model):
         ("PCAET", "PCAET"),
     )
 
+    PROJECT_STEPS = Choices(
+        ("considered", "En réflexion"),
+        ("ongoing", "En cours"),
+        ("finished", "Réalisé"),
+    )
+
     name = models.CharField(
         "Nom du projet", max_length=256, null=False, blank=False, db_index=True
     )
@@ -67,7 +73,13 @@ class Project(models.Model):
         "Type de projet suggéré", max_length=256, blank=True
     )
 
-    due_date = models.DateField("Date d’échéance", null=True, blank=True)
+    step = models.CharField(
+        "Avancement du projet",
+        max_length=10,
+        choices=PROJECT_STEPS,
+        blank=True,
+        null=True,
+    )
 
     status = models.CharField(
         "Statut",

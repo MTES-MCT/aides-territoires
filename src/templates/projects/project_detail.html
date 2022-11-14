@@ -47,15 +47,6 @@
               </div>
             </div>
 
-            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                Date d'échéance du projet&nbsp;:
-                {% if project.due_date %}
-                {{ project.due_date|date:'d/m/y' }}
-                {% else %}
-                aucune
-                {% endif %}
-            </p>
-
             {% if project.is_public %}
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
                 Projet public&nbsp;:

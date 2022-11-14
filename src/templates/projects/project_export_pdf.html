@@ -14,14 +14,6 @@
               </div>
             </div>
 
-            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                Date d’échéance du projet :
-                {% if project.due_date %}
-                    {{ project.due_date|date }}
-                {% else %}
-                aucune
-                {% endif %}
-            </p>
             {% if project.description %}
                 <section class="fr-mb-5w">
                     <h3>Description du projet</h3>

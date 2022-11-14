@@ -74,7 +74,6 @@
                             {% endif %}
                             </td>
                             <td class="fr-text">{{ project.date_created|date:'d/m/y' }}</td>
-                            <td class="fr-text">{{ project.due_date|date:'d/m/y' }}</td>
                             <td class="fr-text">
                             {% if project.organizations.all %}
                             {% for organization in project.organizations.all %}

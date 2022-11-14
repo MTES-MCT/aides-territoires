@@ -38,7 +38,6 @@ class ProjectAdmin(ImportExportActionModelAdmin):
         "organizations",
         "nb_aids_associated",
         "display_related_aids",
-        "due_date",
         "is_public",
         "contract_link",
         "project_types",
