@@ -266,6 +266,12 @@ class PublicProjectDetailView(DetailView):
             in self.object.organizations.all()
         ):
             context["organization_own_project"] = True
+        if (
+            self.request.user.is_authenticated
+            and self.request.user.beneficiary_organization
+            in self.object.organization_favorite.all()
+        ):
+            context["organization_favorite_project"] = True
         return context
 
 

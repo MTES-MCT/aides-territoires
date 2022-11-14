@@ -112,9 +112,11 @@
 
             {% if not organization_own_project %}
             <div class="fr-container at-centered">
+                {% if not organization_favorite_project %}
                 <button class="fr-btn" data-fr-opened="false" aria-controls="add-to-favorite-modal--{{ project.pk }}">
                     Ajouter ce projet à mes favoris
                 </button>
+                {% endif %}
                 <button class="fr-btn" data-fr-opened="{% if error_aid %}true{% endif %}" aria-controls="suggest-aid-modal">
                     Suggérer une aide pour ce projet
                 </button>
