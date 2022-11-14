@@ -289,6 +289,40 @@
       </tbody>
     </table>
   </div>
+
+  <h3 class="fr-mt-5w">
+    📈 Évolution des comptes actifs au cours des 6 derniers mois :
+  </h3>
+  <div class="charts">
+    <div id="chart-activite" class="ct-chart"></div>
+  </div>
+
+  <script>
+    new Chartist.Line('#chart-activite', {
+      labels: {{ nb_activite_months|safe }},
+      series: [
+        {{ nb_activite_serie }}
+      ]
+    }, {
+      chartPadding: {
+        right: -175
+      },
+      axisX: {
+        labelInterpolationFnc: (value) => {
+          // Only display month (from ISO date).
+          const [ month, day ] = value.slice(5, 10).split('-')
+          return month
+        }
+      },
+      axisY: {
+        low: 0,
+      },
+      plugins: [
+        Chartist.plugins.tooltip({appendToBody: true})
+      ]
+    })
+  </script>
+
 </div>
 
 <div id="cote-porteurs-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="cote-porteurs" tabindex="0">

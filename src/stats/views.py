@@ -2,7 +2,7 @@ import json
 import requests
 import datetime
 from collections import defaultdict
-from datetime import timedelta
+from datetime import date, timedelta
 from time import strftime, gmtime
 from pathlib import Path
 
@@ -326,7 +326,7 @@ class DashboardConsultationView(DashboardBaseView, TemplateView):
             for dates, numbers in matomo_last_10_weeks.items()
         }
         last_10_weeks = [
-            datetime.datetime.fromisoformat(week)  # - datetime.timedelta(days=75)
+            datetime.datetime.fromisoformat(week)
             for week in list(nb_vu_serie_items.keys())
         ]
         week_inscriptions_counts = []
@@ -597,7 +597,7 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
             for dates, numbers in matomo_last_10_weeks.items()
         }
         last_10_weeks = [
-            datetime.datetime.fromisoformat(week)  # - datetime.timedelta(days=75)
+            datetime.datetime.fromisoformat(week)
             for week in list(nb_vu_serie_items.keys())
         ]
         week_inscriptions_counts = []
@@ -650,10 +650,57 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
             for week in last_10_weeks
         ]
 
+        today = date.today()
+
+        def first_of_month_between(start, end):
+            dt = start
+            dates = []
+
+            while dt < end:
+                if not dt.month % 12:
+                    dt = date(dt.year + 1, 1, 1)
+                else:
+                    dt = date(dt.year, dt.month + 1, 1)
+                dates.append(dt.isoformat())
+            return dates
+
+        # We compute the start/end date to start 6 months ago but
+        # we also want to avoid the current/in progress month so
+        # we move the range 30 days ago.
+        last_6_months = first_of_month_between(
+            today - timedelta(days=183 + 30), today - timedelta(days=30)
+        )
+
+        def neighborhood(iterable, last=None):
+            """
+            Yield the (current, next) items given an iterable.
+            You can specify a `last` item for bounds.
+            """
+            iterator = iter(iterable)
+            current = next(iterator)  # Throws StopIteration if empty.
+            for next_ in iterator:
+                yield (current, next_)
+                current = next_
+            yield (current, last)
+
+        context["nb_activite_months"] = last_6_months[:-1]
+        context["nb_activite_serie"] = [
+            UserLastConnexion.objects.filter(
+                last_connexion__range=[month, next_month],
+                user__is_superuser=False,
+            )
+            .order_by("user__pk")
+            .distinct("user__pk")
+            .count()
+            for (month, next_month) in neighborhood(last_6_months)
+            if next_month is not None
+        ]
+
         # stats 'Engagement':
         context["nb_active_users"] = (
             UserLastConnexion.objects.filter(
-                last_connexion__range=[start_date_range, end_date_range]
+                last_connexion__range=[start_date_range, end_date_range],
+                user__is_superuser=False,
             )
             .order_by("user__pk")
             .distinct("user__pk")
@@ -702,7 +749,7 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
             for dates, numbers in matomo_last_10_weeks.items()
         }
         last_10_weeks = [
-            datetime.datetime.fromisoformat(week)  # - datetime.timedelta(days=75)
+            datetime.datetime.fromisoformat(week)
             for week in list(nb_vu_serie_items.keys())
         ]
         week_inscriptions_communes_counts = []
