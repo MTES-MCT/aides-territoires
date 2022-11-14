@@ -277,7 +277,7 @@ class AidAdminForm(BaseAidForm):
                 submission_deadline = data.get("submission_deadline", None)
 
                 if recurrence != "ongoing" and not submission_deadline:
-                    msg = "Sauf pour les aides permanentes, veuillez indiquer la date de clôture de l’aide."  # noqa
+                    msg = "Sauf pour les aides permanentes, veuillez indiquer la date de clôture de l'aide."  # noqa
                     self.add_error(
                         "submission_deadline",
                         ValidationError(msg, code="missing_submission_deadline"),
@@ -350,7 +350,7 @@ class AidEditForm(BaseAidForm):
     categories = CategoryMultipleChoiceField(
         label="Thématiques de l’aide",
         required=False,
-        help_text="Sélectionnez la ou les thématiques associées à votre aide. N'hésitez pas à en choisir plusieurs.",  # noqa
+        help_text="Sélectionnez la ou les thématiques associées à votre aide. N’hésitez pas à en choisir plusieurs.",  # noqa
     )
 
     class Meta:
@@ -594,7 +594,7 @@ class BaseAidSearchForm(AidesTerrBaseForm):
 
         return zipcode
 
-    def filter_queryset(self, qs=None, apply_generic_aid_filter=True):  # noqa
+    def filter_queryset(self, qs=None, apply_generic_aid_filter=True):  # noqa C901
         """Filter querysets depending of input data."""
 
         # If no qs was passed, just start with all published aids

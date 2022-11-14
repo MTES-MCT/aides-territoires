@@ -163,8 +163,6 @@ body > #partner-navbar .partner-link img {
     max-width: 20rem;
 }
 
-.dark-background .main-content > article,
-.dark-background .main-content > div.article,
 #aid-list article,
 div.modal .modal-dialog {
     color: rgba(0, 0, 0, 0.85) !important;
@@ -306,19 +304,10 @@ article#aid .card > div::before {
 }
 
 
-.dark-background .main-content > article a,
 #aid-list article.aid div h1 a,
 nav#pagination ul li a,
 ol.breadcrumb li.active {
     color: {{ search_page.color_4 }} !important;
-}
-
-.dark-background .main-content > article .nav {
-    margin-bottom: 1.5rem;
-}
-
-.dark-background .main-content > article a.nav-link {
-    text-decoration: none;
 }
 
 #aid-list nav {
@@ -326,7 +315,6 @@ ol.breadcrumb li.active {
 }
 
 {% if search_page.color_4 %}
-    .dark-background .main-content > article a:hover,
     #aid-list article.aid div h1 a:hover,
     a:hover {
         color: {% darken search_page.color_4 20 %} !important;

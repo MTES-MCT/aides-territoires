@@ -66,7 +66,9 @@
                 -->
             </div>
         </div>
+    </section>
 
+    <section id="our-action" class="fr-pb-4w">
         <div class="fr-container">
             <div class="fr-grid-row fr-grid-row--center">
                 <div class="fr-col-md-11 fr-my-5w" id="how">
@@ -90,8 +92,8 @@
         </div>
     </section>
 
-    <section id="home-stats" class="dark-background">
-        <div class="fr-container-fluid fr-background-alt">
+    <section id="home-stats">
+        <div class="fr-container-fluid at-background-alt-green">
             <div class="fr-container">
                 <div class="fr-grid-row fr-grid-row--center">
                     <div class="fr-mb-5w fr-col-md-11" id="base-stats">
@@ -205,7 +207,7 @@
     {% endif %}
 
     {% if subset_selected_backers %}
-    <section id="partner">
+    <section id="home-partners">
         <div class="fr-container fr-pb-5w">
             <div class="fr-grid-row fr-grid-row--center bg-fond-alternatif">
                 <div class="fr-mb-5w fr-col-md-11" id="backers">
@@ -216,7 +218,7 @@
                                 <div class="fr-col-xs-12 fr-p-3w">
                                     <a href="{{ selected_backer.get_absolute_url }}" class="at-link__nodecorator">
                                     {% if selected_backer.logo %}
-                                        <img src="{{ selected_backer.logo.url }}" alt="Logo : {{ selected_backer.name }} " loading="lazy" />
+                                        <img src="{{ selected_backer.logo.url }}" alt="Logo : {{ selected_backer.name }}" loading="lazy" />
                                     {% endif %}
                                     </a>
                                 </div>
@@ -229,7 +231,7 @@
     </section>
     {% endif %}
 
-    <div class="fr-follow">
+    <div class="fr-follow at-background-alt-green">
         <div class="fr-container">
             <div class="fr-grid-row">
                 <div class="fr-col-12 fr-col-md-10">

@@ -27,6 +27,11 @@ class HomeView(SearchMixin, FormMixin, TemplateView):
     context_object_name = "aids"
     form_class = AidSearchForm
 
+    def get(self, request, *args, **kwargs):
+        self.form = self.get_form()
+        self.form.full_clean()
+        return super().get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         aids_qs = Aid.objects.live()
         selected_backers = Backer.objects.can_be_displayed_in_carousel()
