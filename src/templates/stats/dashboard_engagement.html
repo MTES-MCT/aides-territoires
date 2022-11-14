@@ -196,7 +196,7 @@
           <tr data-table-target="row">
             <td {% if forloop.first %}scope="row"{% endif %}>
               {% if has_aid %}
-                <a href="{{ has_aid }}">
+                <a href="{{ aid_stats.aid.get_absolute_url }}">
                   {{ aid_stats.aid }}
                 </a>
               {% else %}
