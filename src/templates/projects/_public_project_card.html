@@ -29,6 +29,16 @@
                     {% endfor %}
                     {% endif %}
                     </p>
+                    {% if project.step %}
+                    <p class="fr-mb-1w fr-mt-0 fr-text--sm at-color--blue">
+                        État d'avancement&nbsp;: {{ project.get_step_display }}
+                    </p>
+                    {% endif %}
+                    {% if project.aid_set.all %}
+                    <p class="fr-mb-1w fr-mt-0 fr-text--sm at-color--blue">
+                        {{ project.aid_set.all.count }} aides sélectionnées
+                    </p>
+                    {% endif %}
                 </div>
             </div>
         </div>
