@@ -20,11 +20,11 @@
       <div class="fr-tile fr-enlarge-link">
         <div class="fr-tile__body">
           <p class="fr-tile__title">
-            <a class="fr-tile__link" href="#">Nombre d’utilisateurs connectés/actifs</a>
+            <a class="fr-tile__link" href="{% url 'admin:accounts_userlastconnexion_changelist' %}?last_connexion__gte={{ start_date }}&last_connexion__lt={{ end_date }}">Nombre d’utilisateurs connectés/actifs</a>
           </p>
         </div>
         <div class="fr-tile__img overflow--initial" role="presentation">
-          <p class="fr-text--lg"><strong>0</strong></p>
+          <p class="fr-text--lg"><strong>{{ nb_active_users|intcomma }}</strong></p>
         </div>
       </div>
     </div>

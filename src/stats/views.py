@@ -14,7 +14,7 @@ from django.db.models import Count, Q, Sum
 from django.views.generic.edit import FormMixin
 
 from accounts.mixins import SuperUserRequiredMixin
-from accounts.models import User
+from accounts.models import User, UserLastConnexion
 from aids.constants import AUDIENCES_ALL
 from aids.models import Aid, AidProject
 from aids.views import AidPaginator
@@ -651,6 +651,14 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
         ]
 
         # stats 'Engagement':
+        context["nb_active_users"] = (
+            UserLastConnexion.objects.filter(
+                last_connexion__range=[start_date_range, end_date_range]
+            )
+            .order_by("user__pk")
+            .distinct("user__pk")
+            .count()
+        )
         context["nb_search_events"] = AidSearchEvent.objects.filter(
             date_created__range=[start_date_range, end_date_range]
         ).count()
