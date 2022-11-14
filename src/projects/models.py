@@ -81,6 +81,12 @@ class Project(models.Model):
         null=True,
     )
 
+    budget = models.PositiveIntegerField(
+        "Budget prévisionnel",
+        null=True,
+        blank=True
+    )
+
     status = models.CharField(
         "Statut",
         max_length=10,
