@@ -26,7 +26,14 @@ from organizations.models import Organization
 from projects.models import Project
 from search.models import SearchPage
 from stats.forms import StatSearchForm
-from stats.models import AidViewEvent, Event, AidSearchEvent, AidContactClickEvent
+from stats.models import (
+    AidViewEvent,
+    Event,
+    AidSearchEvent,
+    AidApplicationUrlClickEvent,
+    AidContactClickEvent,
+    AidOriginUrlClickEvent,
+)
 
 # The manual percentage threshold to ensure that the metropolitan area
 # has enough contrasts between departments. It is not computed because
@@ -653,6 +660,16 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
             .count()
         )
         context["nb_aid_contact_click_events"] = AidContactClickEvent.objects.filter(
+            date_created__range=[start_date_range, end_date_range]
+        ).count()
+        context[
+            "nb_aid_origin_url_clicks_count"
+        ] = AidOriginUrlClickEvent.objects.filter(
+            date_created__range=[start_date_range, end_date_range]
+        ).count()
+        context[
+            "nb_aid_application_url_clicks_count"
+        ] = AidApplicationUrlClickEvent.objects.filter(
             date_created__range=[start_date_range, end_date_range]
         ).count()
 

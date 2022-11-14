@@ -62,12 +62,12 @@
         <div class="fr-tile__body">
           <p class="fr-tile__title">
             <a class="fr-tile__link" href="#">
-            Nombre de commentaires
+            Nombre de clics (+ de détails)
             </a>
           </p>
         </div>
         <div class="fr-tile__img overflow--initial" role="presentation">
-          <p class="fr-text--lg"><strong>-</strong></p>
+          <p class="fr-text--lg"><strong>{{ nb_aid_contact_click_events|intcomma }}</strong></p>
         </div>
       </div>
     </div>
@@ -76,12 +76,26 @@
         <div class="fr-tile__body">
           <p class="fr-tile__title">
             <a class="fr-tile__link" href="#">
-            Nombre de clics (+ de détails)
+            Nombre de clics (descriptif)
             </a>
           </p>
         </div>
         <div class="fr-tile__img overflow--initial" role="presentation">
-          <p class="fr-text--lg"><strong>{{ nb_aid_contact_click_events|intcomma }}</strong></p>
+          <p class="fr-text--lg"><strong>{{ nb_aid_origin_url_clicks_count|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">
+            Nombre de clics (démarche)
+            </a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_aid_application_url_clicks_count|intcomma }}</strong></p>
         </div>
       </div>
     </div>
