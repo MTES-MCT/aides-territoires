@@ -39,7 +39,8 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
         widget=forms.Textarea(
             attrs={"placeholder": "Informations réservées à vos collaborateurs."}
         ),
-        help_text="Ces informations restent internes à votre organisation même si vous rendez votre projet public",
+        help_text="Ces informations restent internes à votre organisation \
+             même si vous rendez votre projet public.",
     )
     step = forms.ChoiceField(
         label="État d'avancement du projet",
@@ -158,7 +159,8 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
         widget=forms.Textarea(
             attrs={"placeholder": "Informations réservées à vos collaborateurs."}
         ),
-        help_text="Ces informations restent internes à votre organisation même si vous rendez votre projet public",
+        help_text="Ces informations restent internes à votre organisation \
+             même si vous rendez votre projet public.",
     )
     project_types = AutocompleteModelMultipleChoiceField(
         label="Types de projet",
