@@ -41,6 +41,11 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
         ),
         help_text="Ces informations restent internes à votre organisation même si vous rendez votre projet public",
     )
+    step = forms.ChoiceField(
+        label="État d'avancement du projet",
+        choices=Project.PROJECT_STEPS,
+        required=True,
+    )
     organizations = forms.ModelMultipleChoiceField(
         label="Créateur du projet", queryset=Organization.objects.all(), required=False
     )
@@ -75,6 +80,7 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
             "name",
             "description",
             "private_description",
+            "step",
             "organizations",
             "project_types",
             "project_types_suggestion",
@@ -87,6 +93,9 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
         self.fields["contract_link"].choices = [
             ("", "Ce projet appartient-il à un programme?")
         ] + Project.CONTRACT_LINK
+        self.fields["step"].choices = [
+            ("", "À quel stade est ce projet?")
+        ] + Project.PROJECT_STEPS
 
     def clean(self):
         data = super().clean()
@@ -117,6 +126,11 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
                 "placeholder": "Entrez ici une description plus précise de votre projet"
             }
         ),
+    )
+    step = forms.ChoiceField(
+        label="État d'avancement du projet",
+        choices=Project.PROJECT_STEPS,
+        required=True,
     )
     private_description = RichTextField(
         label="Notes internes de votre projet",
@@ -157,6 +171,7 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
             "name",
             "description",
             "private_description",
+            "step",
             "project_types",
             "project_types_suggestion",
             "contract_link",
@@ -168,6 +183,9 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
         self.fields["contract_link"].choices = [
             ("", "Ce projet appartient-il à un programme?")
         ] + Project.CONTRACT_LINK
+        self.fields["step"].choices = [
+            ("", "À quel stade est ce projet?")
+        ] + Project.PROJECT_STEPS
 
     def clean(self):
         data = super().clean()

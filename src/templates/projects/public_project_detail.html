@@ -77,7 +77,7 @@
                 <div class="fr-col-12 fr-col-md-5">
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-5w"><strong>Structure porteuse&nbsp;:</strong> {{ project.organizations.first.name }}</h2>
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Territoire du projet&nbsp;:</strong> {{ project.organizations.first.perimeter.name }} ({{ project.organizations.first.zip_code }})</h2>
-                    <h2 class="fr-text--md fr-text--normal fr-mb-5w fr-mt-2w"><strong>Date d'échéance du projet&nbsp;:</strong></h2>
+                    <h2 class="fr-text--md fr-text--normal fr-mb-5w fr-mt-2w"><strong>État d'avancement du projet&nbsp;:</strong>  {% if project.step %}{{ project.get_step_display }}{% else %}aucun{% endif %}</h2>
                 </div>
             </div>
 
@@ -102,6 +102,9 @@
                 {% endif %}
                 {% if project.contract_link %}
                 <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Appartenance à un plan/programme/contrat&nbsp;:</strong> {{ project.get_contract_link_display }}</h2>
+                {% endif %}
+                {% if project.step %}
+                <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>État d'avancement du projet&nbsp;:</strong> {{ project.get_step_display }}</h2>
                 {% endif %}
                 </div>
             </div>

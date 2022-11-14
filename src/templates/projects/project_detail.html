@@ -47,6 +47,8 @@
               </div>
             </div>
 
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">État d'avancement du projet&nbsp;: <span>{% if project.step %}{{ project.get_step_display }}{% else %}aucun{% endif %}</span></p>
+
             {% if project.is_public %}
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
                 Projet public&nbsp;:

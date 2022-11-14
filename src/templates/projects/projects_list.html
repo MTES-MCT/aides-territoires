@@ -68,7 +68,7 @@
                             <th scope="col" class="fr-text">Nom</th>
                             <th scope="col" class="fr-text">Nombre d’aides ajoutées</th>
                             <th scope="col" class="fr-text">Date création</th>
-                            <th scope="col" class="fr-text">Date d’échéance</th>
+                            <th scope="col" class="fr-text">État d'avancement</th>
                             <th scope="col" class="fr-text">Créé par</th>
                             <th scope="col" class="fr-text">Projet public</th>
                             <th scope="col" class="fr-text">Action</th>
@@ -91,6 +91,17 @@
                             {% endif %}
                             </td>
                             <td class="fr-text">{{ project.date_created|date:'d/m/y' }}</td>
+                            <td class="fr-text">
+                                {% if project.step %}
+                                {% if project.step == "finished" %}
+                                <p class="fr-mb-0 fr-badge fr-badge--success">{{ project.get_step_display }}</p>
+                                {% else %}
+                                <p class="fr-mb-0 fr-badge fr-badge--new">{{ project.get_step_display }}</p>
+                                {% endif %}
+                                {% else %}
+                                aucun
+                                {% endif %}
+                            </td>
                             <td class="fr-text">
                             {% if project.author %}
                             {% for author in project.author.all %}
