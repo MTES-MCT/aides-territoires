@@ -36,7 +36,7 @@
                     {% endif %}
                     {% if project.aid_set.all %}
                     <p class="fr-mb-1w fr-mt-0 fr-text--sm at-color--blue">
-                        {{ project.aid_set.all.count }} aides sélectionnées
+                        {{ project.aid_set.all.count }} aide{% if project.aid_set.all.count > 1 %}s{% endif %} sélectionnée{% if project.aid_set.all.count > 1 %}s{% endif %}
                     </p>
                     {% endif %}
                 </div>
