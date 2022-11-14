@@ -39,6 +39,7 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
         widget=forms.Textarea(
             attrs={"placeholder": "Informations réservées à vos collaborateurs."}
         ),
+        help_text="Ces informations restent internes à votre organisation même si vous rendez votre projet public",
     )
     organizations = forms.ModelMultipleChoiceField(
         label="Créateur du projet", queryset=Organization.objects.all(), required=False
@@ -130,6 +131,7 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
         widget=forms.Textarea(
             attrs={"placeholder": "Informations réservées à vos collaborateurs."}
         ),
+        help_text="Ces informations restent internes à votre organisation même si vous rendez votre projet public",
     )
     due_date = (
         forms.DateField(
