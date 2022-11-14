@@ -46,8 +46,17 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
         choices=Project.PROJECT_STEPS,
         required=True,
     )
+    budget = forms.IntegerField(
+        label="Budget prévisonnel",
+        help_text="Montant du budget prévisionnel en euros",
+        required=False,
+    )
     organizations = forms.ModelMultipleChoiceField(
         label="Créateur du projet", queryset=Organization.objects.all(), required=False
+    )
+    other_project_owner = forms.CharField(
+        label="Autre maître d'ouvrage",
+        required=False,
     )
     project_types = AutocompleteModelMultipleChoiceField(
         label="Types de projet",
@@ -81,7 +90,9 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
             "description",
             "private_description",
             "step",
+            "budget",
             "organizations",
+            "other_project_owner",
             "project_types",
             "project_types_suggestion",
             "contract_link",
@@ -132,6 +143,15 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
         choices=Project.PROJECT_STEPS,
         required=True,
     )
+    budget = forms.IntegerField(
+        label="Budget prévisonnel",
+        help_text="Montant du budget prévisionnel en euros",
+        required=False,
+    )
+    other_project_owner = forms.CharField(
+        label="Autre maître d'ouvrage",
+        required=False,
+    )
     private_description = RichTextField(
         label="Notes internes de votre projet",
         required=False,
@@ -172,6 +192,8 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
             "description",
             "private_description",
             "step",
+            "budget",
+            "other_project_owner",
             "project_types",
             "project_types_suggestion",
             "contract_link",

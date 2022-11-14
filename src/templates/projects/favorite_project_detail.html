@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load i18n aids compress %}
+{% load i18n aids compress humanize %}
 
 {% block extratitle %}Mon projet favori « {{ project.name }} »{% endblock extratitle %}
 
@@ -55,6 +55,11 @@
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
                 État d'avancement du projet&nbsp;:
                 {{ project.step }}
+            </p>
+
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                Budget prévisionnel&nbsp;:
+                {{ project.budget|intcomma }} €
             </p>
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">

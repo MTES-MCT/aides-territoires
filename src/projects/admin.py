@@ -38,6 +38,7 @@ class ProjectAdmin(ImportExportActionModelAdmin):
         "key_words",
         "author",
         "organizations",
+        "other_project_owner",
         "nb_aids_associated",
         "display_related_aids",
         "is_public",
