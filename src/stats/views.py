@@ -480,12 +480,17 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
         start_date_range = context["start_date_range"]
         end_date_range = context["end_date_range"]
 
+        NB_OF_TOP_AIDS = 100
+
         matomo_top_aids_pages = self.get_matomo_stats(
             "Actions.getPageUrls",
             date_=f"{start_date},{end_date}",
             **{
                 "flat": 1,
                 "filter_column": "label",
+                # We put the limit to 130% to be sure that the number of wanted
+                # results are available in the table (minus portals duplicates).
+                "filter_limit": NB_OF_TOP_AIDS * 1.3,
                 # aides/ is optional because the URLs change for portals.
                 # Aids slug starts with a 4-letters-or-numbers UUID + `-`.
                 # For instance: `/4dc7-passsport/` or `/aides/b68a-accompagner-…`
@@ -503,9 +508,23 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
 
         # It is a bit ugly but we try to get all Aids in one query,
         # hence the slug dance.
-        slugs_pages = {get_slug(page["label"]): page for page in matomo_top_aids_pages}
+        slugs_pages = {}
+        for page in matomo_top_aids_pages:
+            slug = get_slug(page["label"])
+            if slug in slugs_pages:
+                # We consider that subsequent entries are not relevant
+                # (less popular), it happens for portals (vs. main).
+                continue
+            slugs_pages[slug] = page
+
         aids = (
-            Aid.objects.filter(slug__in=list(slugs_pages.keys()))
+            Aid.objects.filter(
+                # We cannot use slug__in because Matomo is returning truncated slugs!
+                Q(
+                    *[("slug__startswith", slug) for slug in slugs_pages.keys()],
+                    _connector=Q.OR,
+                )
+            )
             .select_related("perimeter")
             .prefetch_related("financers")
             .annotate(
@@ -561,7 +580,7 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
 
         context["top_aids_pages"] = sorted(
             top_aids_pages, key=lambda a: a["nb_uniq_visitors"], reverse=True
-        )
+        )[:NB_OF_TOP_AIDS]
 
         matomo_last_10_weeks = self.get_matomo_stats(
             "VisitsSummary.get", period="week", date_="last10"
