@@ -44,12 +44,6 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
     organizations = forms.ModelMultipleChoiceField(
         label="Créateur du projet", queryset=Organization.objects.all(), required=False
     )
-    due_date = forms.DateTimeField(
-        label="Date d’échéance",
-        help_text="Si votre projet doit sortir avant une certaine date, indiquez-la ici",
-        required=False,
-        widget=forms.TextInput(attrs={"type": "date", "placeholder": "jj/mm/aaaa"}),
-    )
     project_types = AutocompleteModelMultipleChoiceField(
         label="Types de projet",
         queryset=SynonymList.objects.all(),
@@ -82,7 +76,6 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
             "description",
             "private_description",
             "organizations",
-            "due_date",
             "project_types",
             "project_types_suggestion",
             "contract_link",
@@ -133,11 +126,6 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
         ),
         help_text="Ces informations restent internes à votre organisation même si vous rendez votre projet public",
     )
-    due_date = (
-        forms.DateField(
-            label="Date d’échéance du projet",
-        ),
-    )
     project_types = AutocompleteModelMultipleChoiceField(
         label="Types de projet",
         queryset=SynonymList.objects.all(),
@@ -169,17 +157,11 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
             "name",
             "description",
             "private_description",
-            "due_date",
             "project_types",
             "project_types_suggestion",
             "contract_link",
             "is_public",
         ]
-        widgets = {
-            "due_date": forms.TextInput(
-                attrs={"type": "date", "placeholder": "jj/mm/aaaa"}
-            ),
-        }
 
     def __init__(self, *args, **kwargs):
         super(ProjectUpdateForm, self).__init__(*args, **kwargs)
