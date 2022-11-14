@@ -81,8 +81,8 @@
   <div class="charts-legends">
     <ul>
       <li><span class="charts-legend charts-legend-accent"></span> Visites uniques hebdomadaires</li>
-      <li><span class="charts-legend charts-legend-regular"></span> Inscriptions (⨯50)</li>
-      <li><span class="charts-legend charts-legend-regular2"></span> Alertes créées (⨯50)</li>
+      <li><span class="charts-legend charts-legend-regular"></span> Inscriptions (⨯20)</li>
+      <li><span class="charts-legend charts-legend-regular2"></span> Alertes créées (⨯20)</li>
     </ul>
   </div>
 
@@ -94,10 +94,10 @@
         // Change the scale to make it visible
         // and adapt meta for the tooltip content.
         {{ nb_inscriptions_serie }}.map(count => {
-          return {value: count * 50, meta: count}
+          return {value: count * 20, meta: count}
         }),
         {{ nb_inscriptions_with_created_alert_serie }}.map(count => {
-          return {value: count * 50, meta: count}
+          return {value: count * 20, meta: count}
         }),
       ]
     }, {
@@ -119,7 +119,7 @@
         offset: 100,
         labelInterpolationFnc: (value) => {
           if (value === 0) return 0
-          return `${value} (${value / 50})`
+          return `${value} (${value / 20})`
         }
       },
       plugins: [
