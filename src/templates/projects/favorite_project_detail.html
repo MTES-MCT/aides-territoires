@@ -67,6 +67,13 @@
                 {{ project.organizations.first.name }}
             </p>
 
+            {% if project.other_project_owner %}
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                Autre maître d'oeuvre&nbsp;:
+                {{ project.other_project_owner }}
+            </p>
+            {% endif %}
+
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
                 Territoire du projet&nbsp;:
                 {{ project.organizations.first.perimeter.name }} ({{ project.organizations.first.zip_code }})

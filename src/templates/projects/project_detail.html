@@ -78,6 +78,12 @@
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">Appartenance à un plan/programme/contrat&nbsp;: <span>{% if project.contract_link %}{{ project.get_contract_link_display }}{% else %}aucun{% endif %}</span></p>
 
+            {% if project.other_project_owner %}
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                Autre maître d'oeuvre&nbsp;:
+                {{ project.other_project_owner }}
+            </p>
+            {% endif %}
 
             {% if project.description %}
                 <section class="fr-accordion fr-mb-0">
