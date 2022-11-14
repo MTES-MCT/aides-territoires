@@ -594,7 +594,7 @@ class BaseAidSearchForm(AidesTerrBaseForm):
 
         return zipcode
 
-    def filter_queryset(self, qs=None, apply_generic_aid_filter=True):  # noqa C901
+    def filter_queryset(self, qs=None, apply_generic_aid_filter=True):  # noqa
         """Filter querysets depending of input data."""
 
         # If no qs was passed, just start with all published aids
