@@ -26,7 +26,7 @@
       <div class="fr-tile fr-enlarge-link">
         <div class="fr-tile__body">
           <p class="fr-tile__title">
-            <a class="fr-tile__link" href="{% url 'admin:accounts_user_changelist' %}">Nombre de nouveaux comptes</a>
+            <a class="fr-tile__link" href="{% url 'admin:accounts_user_changelist' %}?is_beneficiary__exact=1">Nombre de nouveaux comptes</a>
           </p>
         </div>
         <div class="fr-tile__img overflow--initial" role="presentation">
@@ -78,7 +78,7 @@
       <div class="fr-tile fr-enlarge-link">
         <div class="fr-tile__body">
           <p class="fr-tile__title">
-            <a class="fr-tile__link" href="{% url 'admin:accounts_user_changelist' %}">Nombre de nouveaux comptes</a>
+            <a class="fr-tile__link" href="{% url 'admin:accounts_user_changelist' %}?is_contributor__exact=1">Nombre de nouveaux comptes</a>
           </p>
         </div>
         <div class="fr-tile__img overflow--initial" role="presentation">
