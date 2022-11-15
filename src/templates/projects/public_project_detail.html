@@ -111,8 +111,12 @@
             {% include "projects/favorite_or_public_project_aids_list.html" %}
 
             {% if not organization_own_project %}
-            <div class="fr-container at-centered">
-                {% if not organization_favorite_project %}
+            <div class="fr-container fr-centered">
+                {% if organization_favorite_project %}
+                <button class="fr-btn" data-fr-opened="false" aria-controls="remove-from-favorite-modal--{{ project.pk }}">
+                    Retirer ce projet de mes favoris
+                </button>
+                {% else %}
                 <button class="fr-btn" data-fr-opened="false" aria-controls="add-to-favorite-modal--{{ project.pk }}">
                     Ajouter ce projet à mes favoris
                 </button>
@@ -136,5 +140,6 @@
 
 {% block modals %}
     {% include 'projects/_add_to_favorite_modal.html' with project=project %}
+    {% include 'projects/_remove_from_favorite_modal.html' with project=project %}
     {% include 'projects/_suggest_aid_modal.html' with project=project %}
 {% endblock modals %}

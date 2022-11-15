@@ -10,7 +10,7 @@ from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 from organizations.forms import (
     OrganizationCreateForm,
     OrganizationUpdateForm,
-    AddProjectToFavoriteForm,
+    ProjectToFavoriteForm,
 )
 from accounts.models import User
 from organizations.models import Organization
@@ -109,7 +109,7 @@ class AddProjectToFavoriteView(ContributorAndProfileCompleteRequiredMixin, Updat
     """Add project to favorite-projects-list of the organization."""
 
     template_name = "projects/_add_to_favorite_modal.html"
-    form_class = AddProjectToFavoriteForm
+    form_class = ProjectToFavoriteForm
     context_object_name = "organization"
     model = Organization
 
@@ -140,6 +140,44 @@ class AddProjectToFavoriteView(ContributorAndProfileCompleteRequiredMixin, Updat
             project_slug = project_obj.slug
             favorite_projects_url = reverse("favorite_project_list_view")
             msg = (f"Le projet «{project_name}» a bien été ajouté à \
+                <a href='{favorite_projects_url}'>vos projets favoris<a/>.")
+            messages.success(self.request, msg)
+
+        url = reverse("public_project_detail_view", args=[project_pk, project_slug])
+        return HttpResponseRedirect(url)
+
+
+class RemoveProjectFromFavoriteView(ContributorAndProfileCompleteRequiredMixin, UpdateView):
+    """Remove project from favorite-projects-list of the organization."""
+
+    template_name = "projects/_remove_from_favorite_modal.html"
+    form_class = ProjectToFavoriteForm
+    context_object_name = "organization"
+    model = Organization
+
+    def form_valid(self, form):
+
+        organization = form.save(commit=False)
+
+        if self.request.POST.get("favorite_projects"):
+            # remove the project from the favorite_projects_list
+            project_pk = self.request.POST.get("favorite_projects")
+
+            try:
+                if self.request.user.beneficiary_organization == organization:
+                    organization.favorite_projects.remove(project_pk)
+                    organization.save()
+                else:
+                    raise PermissionDenied()
+            except Exception:
+                raise PermissionDenied()
+
+            # retrieve project's data to create successful message
+            project_obj = Project.objects.get(pk=project_pk)
+            project_name = project_obj.name
+            project_slug = project_obj.slug
+            favorite_projects_url = reverse("favorite_project_list_view")
+            msg = (f"Le projet «{project_name}» a bien été retiré de \
                 <a href='{favorite_projects_url}'>vos projets favoris<a/>.")
             messages.success(self.request, msg)
 

@@ -92,11 +92,10 @@ class OrganizationUpdateForm(forms.ModelForm, AidesTerrBaseForm):
                 visible.field.widget.attrs["class"] = "fr-select"
 
 
-class AddProjectToFavoriteForm(forms.ModelForm, AidesTerrBaseForm):
-    """allow user to add a public project to its favorite-projects-list."""
+class ProjectToFavoriteForm(forms.ModelForm, AidesTerrBaseForm):
+    """form to allow user to add/remove a public project to/from its favorite-projects-list."""
 
     favorite_projects = AutocompleteModelChoiceField(
-        label="Projet à ajouter aux projets favoris",
         queryset=Project.objects.filter(
             is_public=True, status=Project.STATUS.published
         ),
