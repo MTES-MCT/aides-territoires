@@ -86,7 +86,7 @@
     </ul>
   </div>
 
-  <script>
+  <script nonce="{{ request.csp_nonce }}">
     new Chartist.Line('#chart-visites-uniques', {
       labels: {{ nb_vu_weeks|safe }},
       series: [

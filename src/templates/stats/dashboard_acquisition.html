@@ -127,7 +127,7 @@
     <div id="chart-nouvelles-inscriptions" class="ct-chart"></div>
   </div>
 
-  <script>
+  <script nonce="{{ request.csp_nonce }}">
     new Chartist.Line('#chart-nouvelles-inscriptions', {
       labels: {{ nb_user_days|safe }},
       series: [

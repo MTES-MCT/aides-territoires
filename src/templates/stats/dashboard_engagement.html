@@ -114,7 +114,7 @@
     </ul>
   </div>
 
-  <script>
+  <script nonce="{{ request.csp_nonce }}">
     new Chartist.Bar('#chart-inscriptions', {
       labels: {{ nb_inscriptions_weeks|safe }},
       series: [
@@ -297,7 +297,7 @@
     <div id="chart-activite" class="ct-chart"></div>
   </div>
 
-  <script>
+  <script nonce="{{ request.csp_nonce }}">
     new Chartist.Line('#chart-activite', {
       labels: {{ nb_activite_months|safe }},
       series: [
