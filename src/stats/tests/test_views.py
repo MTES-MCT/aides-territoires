@@ -56,21 +56,14 @@ def test_organizations_displayed_by_cartographie(client, superuser, perimeters):
     response = client.get(reverse("carto_stats"))
     assert response.status_code == 200
     assert response.context["regions_org_communes_max"] == 1
-    assert json.loads(response.context["regions_org_communes_count"]) == {
-        "Occitanie": 1,
-        "Normandie": 0,
-        "Nouvelle-Aquitaine": 0,
-        "Corse": 0,
-        "Bourgogne": 0,
+    assert json.loads(response.context["regions_org_counts"]) == {
+        "26": {"communes_count": 0, "epcis_count": 0, "name": "Bourgogne"},
+        "28": {"communes_count": 0, "epcis_count": 0, "name": "Normandie"},
+        "75": {"communes_count": 0, "epcis_count": 0, "name": "Nouvelle-Aquitaine"},
+        "76": {"communes_count": 1, "epcis_count": 1, "name": "Occitanie"},
+        "94": {"communes_count": 0, "epcis_count": 0, "name": "Corse"},
     }
-    assert json.loads(response.context["regions_org_epcis_count"]) == {
-        "Occitanie": 1,
-        "Normandie": 0,
-        "Nouvelle-Aquitaine": 0,
-        "Corse": 0,
-        "Bourgogne": 0,
-    }
-    assert response.context["departments_org_communes_max"] == 1
+    assert response.context["departments_org_communes_max"] == "30"
     assert response.context["departments_codes"] == [
         "12",
         "19",
@@ -80,23 +73,49 @@ def test_organizations_displayed_by_cartographie(client, superuser, perimeters):
         "28",
         "34",
     ]
-    assert json.loads(response.context["departments_org_communes_count"]) == {
-        "Hérault": 1,
-        "Aveyron": 0,
-        "Eure": 0,
-        "Corrèze": 0,
-        "Corse-du-Sud": 0,
-        "Haute-Corse": 0,
-        "Côte-d’Or": 0,
-    }
-    assert json.loads(response.context["departments_org_epcis_count"]) == {
-        "Hérault": 1,
-        "Aveyron": 0,
-        "Eure": 0,
-        "Corrèze": 0,
-        "Corse-du-Sud": 0,
-        "Haute-Corse": 0,
-        "Côte-d’Or": 0,
+    assert json.loads(response.context["departments_org_counts"]) == {
+        "12": {
+            "communes_count": 0,
+            "epcis_count": 0,
+            "name": "Aveyron",
+            "percentage_communes": 0.0,
+        },
+        "19": {
+            "communes_count": 0,
+            "epcis_count": 0,
+            "name": "Corrèze",
+            "percentage_communes": 0.0,
+        },
+        "21": {
+            "communes_count": 0,
+            "epcis_count": 0,
+            "name": "Côte-d’Or",
+            "percentage_communes": 0.0,
+        },
+        "28": {
+            "communes_count": 0,
+            "epcis_count": 0,
+            "name": "Eure",
+            "percentage_communes": 0.0,
+        },
+        "2A": {
+            "communes_count": 0,
+            "epcis_count": 0,
+            "name": "Corse-du-Sud",
+            "percentage_communes": 0.0,
+        },
+        "2B": {
+            "communes_count": 0,
+            "epcis_count": 0,
+            "name": "Haute-Corse",
+            "percentage_communes": 0.0,
+        },
+        "34": {
+            "communes_count": 1,
+            "epcis_count": 1,
+            "name": "Hérault",
+            "percentage_communes": 0.3,
+        },
     }
 
     communes_with_org = json.loads(response.context["communes_with_org"])

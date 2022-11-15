@@ -86,17 +86,11 @@
       <script data-map-target="regions" type="application/json" nonce="{{ request.csp_nonce }}">
         {{ regions_geojson|safe }}
       </script>
-      <script data-map-target="regionsOrgCommunesCount" type="application/json" nonce="{{ request.csp_nonce }}">
-        {{ regions_org_communes_count|safe }}
+      <script data-map-target="regionsOrgCounts" type="application/json" nonce="{{ request.csp_nonce }}">
+        {{ regions_org_counts|safe }}
       </script>
-      <script data-map-target="regionsOrgEpcisCount" type="application/json" nonce="{{ request.csp_nonce }}">
-        {{ regions_org_epcis_count|safe }}
-      </script>
-      <script data-map-target="departmentsOrgCommunesCount" type="application/json" nonce="{{ request.csp_nonce }}">
-        {{ departments_org_communes_count|safe }}
-      </script>
-      <script data-map-target="departmentsOrgEpcisCount" type="application/json" nonce="{{ request.csp_nonce }}">
-        {{ departments_org_epcis_count|safe }}
+      <script data-map-target="departmentsOrgCounts" type="application/json" nonce="{{ request.csp_nonce }}">
+        {{ departments_org_counts|safe }}
       </script>
       <script data-map-target="communesWithOrg" type="application/json" nonce="{{ request.csp_nonce }}">
         {{ communes_with_org|safe }}

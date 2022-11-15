@@ -20,11 +20,9 @@ export default class extends Controller {
   }
   static targets = [
     'regions',
-    'regionsOrgCommunesCount',
-    'regionsOrgEpcisCount',
+    'regionsOrgCounts',
     'departments',
-    'departmentsOrgCommunesCount',
-    'departmentsOrgEpcisCount',
+    'departmentsOrgCounts',
     'communes',
     'communesWithOrg',
     'epcisWithOrg',
@@ -49,16 +47,8 @@ export default class extends Controller {
       '--blue-france-sun-113-625'
     )
     // Counts/existence given the perimeter.
-    this.regionsOrgCommunesCount = JSON.parse(
-      this.regionsOrgCommunesCountTarget.textContent
-    )
-    this.regionsOrgEpcisCount = JSON.parse(this.regionsOrgEpcisCountTarget.textContent)
-    this.departmentsOrgCommunesCount = JSON.parse(
-      this.departmentsOrgCommunesCountTarget.textContent
-    )
-    this.departmentsOrgEpcisCount = JSON.parse(
-      this.departmentsOrgEpcisCountTarget.textContent
-    )
+    this.regionsOrgCounts = JSON.parse(this.regionsOrgCountsTarget.textContent)
+    this.departmentsOrgCounts = JSON.parse(this.departmentsOrgCountsTarget.textContent)
     this.communesWithOrg = JSON.parse(this.communesWithOrgTarget.textContent)
     this.epcisWithOrg = JSON.parse(this.epcisWithOrgTarget.textContent)
     // Compute density scales for map’s legend.
@@ -139,7 +129,7 @@ export default class extends Controller {
       })
     }
     this.legend.setContent(`
-      <i style="background:black;"></i> Probable incohérence<br>
+      <i style="background:purple;"></i> Probable incohérence<br>
       <i style="background:${this.#getAgeColor(3)};"></i> Ces 30 derniers jours<br>
       <i style="background:${this.#getAgeColor(2)};"></i> Dans le dernier trimestre<br>
       <i style="background:${this.#getAgeColor(1)};"></i> Inscription plus ancienne<br>
@@ -338,24 +328,31 @@ export default class extends Controller {
     L.HoverInfo = L.Control.extend({
       onAdd: function () {
         this._div = L.DomUtil.create('div', 'info')
-        this.update(
-          null,
-          this.regionsOrgCommunesCount,
-          this.departmentsOrgCommunesCount
-        )
+        this.update(null, this.regionsOrgCounts)
         return this._div
       },
-      update: function (props, communesCount, epcisCount) {
+      update: function (props, counts) {
         let message = '<h4>Périmètre</h4>'
         if (!props) {
           message += 'Survoler une zone'
         } else {
-          const communeCount = communesCount[props.nom] || 0
-          const epciCount = epcisCount[props.nom] || 0
-          if (communeCount) {
-            message += `<b>${props.nom}</b><br>${communeCount} communes / ${epciCount} EPCI`
+          if (props.code in counts) {
+            const communeCount = counts[props.code]['communes_count'] || 0
+            const epciCount = counts[props.code]['epcis_count'] || 0
+            message += `<strong>${props.nom}</strong><br>`
+            if ('percentage_communes' in counts[props.code]) {
+              message += `${communeCount} communes (soit ${
+                counts[props.code]['percentage_communes'].toString().replace('.', ',')
+              }&#8239;%) / ${epciCount} EPCI`
+            } else {
+              message += `${communeCount} communes / ${epciCount} EPCI`
+            }
           } else {
-            message += `<b>${props.nom}</b>`
+            message += `
+              ${counts['name']} (${counts['communes_count']} communes /
+              ${counts['epcis_count']} EPCI)<br>
+            `
+            message += `<strong>${props.nom}</strong>`
             if (props.date_created) {
               message += ` (${props.date_created.toLocaleDateString('fr-FR')})`
             }
@@ -413,7 +410,7 @@ export default class extends Controller {
       style: (feature) => {
         const fillColor = {
           fillColor: this.#getDensityColor(
-            this.regionsOrgCommunesCount[feature.properties.nom] || 0,
+            this.regionsOrgCounts[feature.properties.code]['communes_count'] || 0,
             this.scaleRegions
           ),
         }
@@ -429,19 +426,11 @@ export default class extends Controller {
               target.bringToFront()
             }
 
-            this.info.update(
-              target.feature.properties,
-              this.regionsOrgCommunesCount,
-              this.regionsOrgEpcisCount
-            )
+            this.info.update(target.feature.properties, this.regionsOrgCounts)
           },
           mouseout: (e) => {
             regions.resetStyle(e.target)
-            this.info.update(
-              null,
-              this.regionsOrgCommunesCount,
-              this.regionsOrgEpcisCount
-            )
+            this.info.update(null, this.regionsOrgCounts)
           },
           click: this.#fitMap.bind(this),
         })
@@ -458,7 +447,8 @@ export default class extends Controller {
           style: (feature) => {
             const fillColor = {
               fillColor: this.#getDensityColor(
-                this.departmentsOrgCommunesCount[feature.properties.nom] || 0,
+                this.departmentsOrgCounts[feature.properties.code]['percentage_communes'] ||
+                  0,
                 this.scaleDepartments
               ),
             }
@@ -474,19 +464,11 @@ export default class extends Controller {
                   target.bringToFront()
                 }
 
-                this.info.update(
-                  target.feature.properties,
-                  this.departmentsOrgCommunesCount,
-                  this.departmentsOrgEpcisCount
-                )
+                this.info.update(target.feature.properties, this.departmentsOrgCounts)
               },
               mouseout: (e) => {
                 departments.resetStyle(e.target)
-                this.info.update(
-                  null,
-                  this.departmentsOrgCommunesCount,
-                  this.departmentsOrgEpcisCount
-                )
+                this.info.update(null, this.departmentsOrgCounts)
               },
               click: this.#fitMap.bind(this),
             })
@@ -513,9 +495,8 @@ export default class extends Controller {
                 additionalStyles.fillColor = this.#getAgeColor(communes[0].age)
               } else {
                 // Make visible communes with more than one entry!
-                additionalStyles.fillColor = 'black'
+                additionalStyles.fillColor = 'purple'
               }
-
             }
             if (Object.keys(this.epcisWithOrg).includes(key)) {
               additionalStyles.dashArray = ''
@@ -535,6 +516,7 @@ export default class extends Controller {
                 }
 
                 const properties = target.feature.properties
+                const counts = this.departmentsOrgCounts[properties.departement]
                 const key = `${properties.code}-${properties.nom}`
                 const epciHasOrg = Object.keys(this.epcisWithOrg).includes(key)
                 const communeHasOrg = Object.keys(this.communesWithOrg).includes(key)
@@ -544,9 +526,11 @@ export default class extends Controller {
                   const communeProperties = communes[0]
                   properties.date_created = new Date(communeProperties['date_created'])
                   if (communes.length > 1) {
-                    properties.extraInfo += communes.map(commune => {
-                      return `<span aria-hidden="true">⚠️</span> ${commune['organization_name']}`
-                    }).join('<br>')
+                    properties.extraInfo += communes
+                      .map((commune) => {
+                        return `<span aria-hidden="true">⚠️</span> ${commune['organization_name']}`
+                      })
+                      .join('<br>')
                     properties.extraInfo += '<br>'
                   }
                 }
@@ -559,11 +543,11 @@ export default class extends Controller {
                     })
                     .join('<br>')
                 }
-                this.info.update(properties, {}, {})
+                this.info.update(properties, counts)
               },
               mouseout: (e) => {
                 communes.resetStyle(e.target)
-                this.info.update(null, {}, {})
+                this.info.update(null, {})
               },
               click: this.#fitMap.bind(this),
             })
