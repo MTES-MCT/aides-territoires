@@ -28,6 +28,112 @@ from stats.forms import StatSearchForm
 from accounts.mixins import SuperUserRequiredMixin
 from aids.views import AidPaginator
 
+# Source: https://fr.wikipedia.org/wiki/Nombre_de_communes_en_France
+NB_COMMUNES_PAR_DEPARTEMENT_2022 = {
+    "01": 393,
+    "02": 799,
+    "03": 317,
+    "04": 198,
+    "05": 162,
+    "06": 163,
+    "07": 335,
+    "08": 449,
+    "09": 327,
+    "10": 431,
+    "11": 433,
+    "12": 285,
+    "13": 119,
+    "14": 528,
+    "15": 246,
+    "16": 364,
+    "17": 463,
+    "18": 287,
+    "19": 279,
+    "2A": 124,
+    "2B": 236,
+    "21": 698,
+    "22": 348,
+    "23": 256,
+    "24": 503,
+    "25": 571,
+    "26": 363,
+    "27": 585,
+    "28": 365,
+    "29": 277,
+    "30": 351,
+    "31": 586,
+    "32": 461,
+    "33": 535,
+    "34": 342,
+    "35": 333,
+    "36": 241,
+    "37": 272,
+    "38": 512,
+    "39": 494,
+    "40": 327,
+    "41": 267,
+    "42": 323,
+    "43": 257,
+    "44": 207,
+    "45": 325,
+    "46": 313,
+    "47": 319,
+    "48": 152,
+    "49": 177,
+    "50": 446,
+    "51": 613,
+    "52": 426,
+    "53": 240,
+    "54": 591,
+    "55": 499,
+    "56": 249,
+    "57": 725,
+    "58": 309,
+    "59": 648,
+    "60": 679,
+    "61": 385,
+    "62": 890,
+    "63": 464,
+    "64": 546,
+    "65": 469,
+    "66": 226,
+    "67": 514,
+    "68": 366,
+    "69": 208,
+    "69M": 59,
+    "70": 539,
+    "71": 565,
+    "72": 354,
+    "73": 273,
+    "74": 279,
+    "75": 1,
+    "76": 708,
+    "77": 507,
+    "78": 259,
+    "79": 256,
+    "80": 772,
+    "81": 314,
+    "82": 195,
+    "83": 153,
+    "84": 151,
+    "85": 257,
+    "86": 266,
+    "87": 195,
+    "88": 507,
+    "89": 423,
+    "90": 101,
+    "91": 194,
+    "92": 36,
+    "93": 40,
+    "94": 47,
+    "95": 184,
+    "971": 32,
+    "972": 34,
+    "973": 22,
+    "974": 24,
+    "976": 17,
+}
+
 
 class StatsView(TemplateView):
     template_name = "stats/stats.html"
@@ -356,61 +462,75 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
         regions = Perimeter.objects.filter(
             scale=Perimeter.SCALES.region, is_obsolete=False
         )
-        regions_org_communes_count = {}
-        regions_org_epcis_count = {}
+        regions_org_counts = {}
+        regions_org_communes_max = 0
         for region in regions:
-            regions_org_communes_count[region.name] = (
+            communes_count = (
                 region.organization_region.filter(organization_type=["commune"])
+                .distinct()
                 .values("id")
                 .count()
             )
-            regions_org_epcis_count[region.name] = (
+            regions_org_communes_max = max(regions_org_communes_max, communes_count)
+            epcis_count = (
                 region.organization_region.filter(organization_type=["epci"])
+                .distinct()
                 .values("id")
                 .count()
             )
-        context["regions_org_communes_max"] = max(regions_org_communes_count.values())
-        context["regions_org_communes_count"] = json.dumps(
-            regions_org_communes_count, cls=DjangoJSONEncoder
-        )
-        context["regions_org_epcis_count"] = json.dumps(
-            regions_org_epcis_count, cls=DjangoJSONEncoder
+            regions_org_counts[region.code] = {
+                "name": region.name,
+                "communes_count": communes_count,
+                "epcis_count": epcis_count,
+            }
+        context["regions_org_communes_max"] = regions_org_communes_max
+        context["regions_org_counts"] = json.dumps(
+            regions_org_counts, cls=DjangoJSONEncoder
         )
 
         # Counts by department.
         departments = Perimeter.objects.departments()
-        departments_org_communes_count = {}
-        departments_org_epcis_count = {}
+        departments_org_counts = {}
         departments_codes = []
         for department in departments:
             departments_codes.append(department.code)
-            departments_org_communes_count[department.name] = (
+            communes_count = (
                 department.organization_department.filter(
                     organization_type=["commune"],
                     perimeter__scale=Perimeter.SCALES.commune,
                     perimeter__is_obsolete=False,
                 )
+                .distinct()
                 .values("id")
                 .count()
             )
-            departments_org_epcis_count[department.name] = (
+            epcis_count = (
                 department.organization_department.filter(
                     organization_type=["epci"],
                     perimeter__scale=Perimeter.SCALES.epci,
                     perimeter__is_obsolete=False,
                 )
+                .distinct()
                 .values("id")
                 .count()
             )
+            total_communes_count = NB_COMMUNES_PAR_DEPARTEMENT_2022[department.code]
+            percentage_communes = round(communes_count * 100 / total_communes_count, 1)
+            departments_org_counts[department.code] = {
+                "name": department.name,
+                "communes_count": communes_count,
+                "percentage_communes": percentage_communes,
+                "epcis_count": epcis_count,
+            }
         context["departments_codes"] = departments_codes
-        context["departments_org_communes_max"] = max(
-            departments_org_communes_count.values()
-        )
-        context["departments_org_communes_count"] = json.dumps(
-            departments_org_communes_count, cls=DjangoJSONEncoder
-        )
-        context["departments_org_epcis_count"] = json.dumps(
-            departments_org_epcis_count, cls=DjangoJSONEncoder
+        # We do not attempt to get the max of percentage_communes here
+        # because some departments (like Guadeloupe) have a very high
+        # percentage and are hiding small differences across metropolitan
+        # departments…
+        # Once homogenized, it is possible to use the logic for regions here.
+        context["departments_org_communes_max"] = "30"
+        context["departments_org_counts"] = json.dumps(
+            departments_org_counts, cls=DjangoJSONEncoder
         )
 
         # Organizations with commune as a perimeter.
