@@ -8,11 +8,10 @@ from backers.models import Backer
 from categories.models import Category
 from home.forms import ContactForm
 from home.tasks import send_contact_form_email
-from minisites.mixins import SearchMixin
 from projects.models import Project
 
 
-class HomeView(FormView, SearchMixin):
+class HomeView(FormView):
     """Display the home page, as well as some other pages
     (contact form, mailing list registration form, ...)
 
