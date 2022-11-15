@@ -1,4 +1,5 @@
 import pytest
+from operator import itemgetter
 
 from geofr.models import Perimeter
 from geofr.utils import (
@@ -84,15 +85,18 @@ def test_get_all_related_perimeters_values(perimeters):
         perimeters["herault"].id, values=["id"]
     )
 
-    assert list(related_perimeters) == [
-        {"id": perimeters["métropole"].id},
-        {"id": perimeters["europe"].id},
-        {"id": perimeters["france"].id},
-        {"id": perimeters["occitanie"].id},
-        {"id": perimeters["herault"].id},
-        {"id": perimeters["montpellier"].id},
-        {"id": perimeters["vic"].id},
-    ]
+    assert sorted(list(related_perimeters), key=itemgetter("id")) == sorted(
+        [
+            {"id": perimeters["métropole"].id},
+            {"id": perimeters["europe"].id},
+            {"id": perimeters["france"].id},
+            {"id": perimeters["occitanie"].id},
+            {"id": perimeters["herault"].id},
+            {"id": perimeters["montpellier"].id},
+            {"id": perimeters["vic"].id},
+        ],
+        key=itemgetter("id"),
+    )
 
 
 def test_attach_perimeters(perimeters):
