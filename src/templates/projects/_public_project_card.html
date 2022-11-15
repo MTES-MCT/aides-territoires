@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-    <div class="fr-card fr-enlarge-link  fr-card--grey">
+    <div class="fr-card fr-enlarge-link">
         <div class="fr-card__body">
             <div class="fr-card__content">
                 <h2 class="fr-card__title fr-h5 fr-mb-1w">
@@ -32,11 +32,10 @@
                         {{ project.aid_set.all.count }} aide{% if project.aid_set.all.count > 1 %}s{% endif %} sélectionnée{% if project.aid_set.all.count > 1 %}s{% endif %}
                     </p>
                     {% endif %}
-                    <p class="fr-mb-1w fr-mt-0 fr-text--sm at-color--blue">
-                        {% for project_type in project.project_types.all %}
-                        {{ project_type }}
-                        {% endfor%}
-                    </p>
+
+                    {% for project_type in project.project_types.all %}
+                    <p class="fr-tag fr-mb-1w at-color--blue">{{ project_type }}</p>
+                    {% endfor%}
                 </div>
             </div>
         </div>

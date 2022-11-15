@@ -70,11 +70,7 @@
                 {% if project.project_types.all %}
                 <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Types de projet&nbsp;:</strong>
                     {% for project_type in project.project_types.all %}
-                    {% if forloop.last %}
-                    <span>{{ project_type }}</span>
-                    {% else %}
-                    <span>{{ project_type }},</span>
-                    {% endif %}
+                    <span class="fr-tag fr-mb-1w">{{ project_type }}</span>
                     {% endfor %}
                 </h2>
                 {% endif %}
