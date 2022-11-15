@@ -73,7 +73,7 @@
         function on(event, selector, callback) {
           $chart.addEventListener(event, function (e) {
             if (!selector || hasClass(e.target, selector))
-            callback(e);
+              callback(e);
           });
         }
 
@@ -117,21 +117,19 @@
 
             // CUSTOM: do not display the value if there is a meta key.
             if (value && !hasMeta) {
-              // CUSTOM: remove the currency option as it induces a security
-              // concern about the regexp (spoted by SonarCloud).
-              // if (options.currency) {
-              //   if (options.currencyFormatCallback != undefined) {
-              //     value = options.currencyFormatCallback(value, options);
-              //   } else {
-              //     value = options.currency + value.replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1,');
-              //   }
-              // }
+              if (options.currency) {
+                if (options.currencyFormatCallback != undefined) {
+                  value = options.currencyFormatCallback(value, options);
+                } else {
+                  value = options.currency + value.replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1,');
+                }
+              }
               value = '<span class="chartist-tooltip-value">' + value + '</span>';
               tooltipText += value;
             }
           }
 
-          if(tooltipText) {
+          if (tooltipText) {
             $toolTip.innerHTML = tooltipText;
             setPosition(event);
             show($toolTip);
@@ -148,7 +146,7 @@
 
         on('mousemove', null, function (event) {
           if (false === options.anchorToPoint)
-          setPosition(event);
+            setPosition(event);
         });
 
         function setPosition(event) {
@@ -160,8 +158,8 @@
 
           if (!options.appendToBody) {
             var box = $chart.getBoundingClientRect();
-            var left = event.pageX - box.left - window.pageXOffset ;
-            var top = event.pageY - box.top - window.pageYOffset ;
+            var left = event.pageX - box.left - window.pageXOffset;
+            var top = event.pageY - box.top - window.pageYOffset;
 
             if (true === options.anchorToPoint && event.target.x2 && event.target.y2) {
               anchorX = parseInt(event.target.x2.baseVal.value);
@@ -179,7 +177,7 @@
     };
 
     function show(element) {
-      if(!hasClass(element, 'tooltip-show')) {
+      if (!hasClass(element, 'tooltip-show')) {
         element.className = element.className + ' tooltip-show';
       }
     }
@@ -204,7 +202,7 @@
       return element.innerText || element.textContent;
     }
 
-  } (window, document, Chartist));
+  }(window, document, Chartist));
 
   return Chartist.plugins.tooltip;
 
