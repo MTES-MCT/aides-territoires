@@ -12,7 +12,7 @@
                             Suggérer une aide {% if not aid_detail_page %} pour ce projet {% endif %}
                         </h2>
                         <p class="fr-mb-2w">
-                        Vous pouvez désormais suggérer une aide présente sur <a href="{% url 'general_search' %}" target="_blank" rel="noopener" title="Trouver des aides - ouvre une nouvelle fenêtre">Aides-territoires</a>{% if aid_detail_page %}.{% else %} pour ce projet.{% endif %}
+                        Vous pouvez désormais suggérer une aide présente sur <a href="{% url 'search_view' %}" target="_blank" rel="noopener" title="Trouver des aides - ouvre une nouvelle fenêtre">Aides-territoires</a>{% if aid_detail_page %}.{% else %} pour ce projet.{% endif %}
                         </p>
                         {% if user.is_authenticated %}
                         <form id="suggest-aid-modal-form" method="post" action="{% url 'suggest_aid_view' %}">

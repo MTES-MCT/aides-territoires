@@ -1,19 +1,18 @@
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, FormView
-from django.views.generic.edit import FormMixin
-from django.contrib.messages.views import SuccessMessageMixin
-from aids.forms import AidSearchForm
 
-from home.forms import ContactForm
-from home.tasks import send_contact_form_email
+from aids.forms import AidSearchForm
 from aids.models import Aid
 from backers.models import Backer
 from categories.models import Category
-from projects.models import Project
+from home.forms import ContactForm
+from home.tasks import send_contact_form_email
 from minisites.mixins import SearchMixin
+from projects.models import Project
 
 
-class HomeView(SearchMixin, FormMixin, TemplateView):
+class HomeView(FormView, SearchMixin):
     """Display the home page, as well as some other pages
     (contact form, mailing list registration form, ...)
 
@@ -48,8 +47,16 @@ class HomeView(SearchMixin, FormMixin, TemplateView):
             .all()
             .order_by("-date_created")[:3]
         )
-
         return context
+
+    def get_initial(self):
+        # if user is authenticated
+        # and if user organization type and user organization's perimeter are defined
+        # we pre-populate targeted_audience & perimeter fields
+
+        if self.request.user.is_authenticated:
+            initial = self.request.user.get_search_preferences()
+            return initial
 
 
 class ContactView(SuccessMessageMixin, FormView):

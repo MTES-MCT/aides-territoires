@@ -20,12 +20,11 @@ from django.views.generic import (
     FormView,
     RedirectView,
 )
-from django.views.generic.edit import FormMixin
 from django.urls import reverse
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
 from django.core.exceptions import PermissionDenied
-
+from django.views.generic.edit import FormMixin
 from braces.views import MessageMixin
 
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
@@ -205,6 +204,15 @@ class SearchView(SearchMixin, FormMixin, ListView):
         context["promotions"] = self.get_promotions()
 
         return context
+
+    def get_initial(self):
+        # if user is authenticated
+        # and if user organization type and user organization's perimeter are defined
+        # we pre-populate targeted_audiences & perimeter fields
+
+        if self.request.user.is_authenticated:
+            initial = self.request.user.get_search_preferences()
+            return initial
 
 
 class AdvancedSearchView(SearchMixin, NarrowedFiltersMixin, FormView):
@@ -486,14 +494,11 @@ class AidDetailView(DetailView):
                 ).order_by("name")
 
         if self.request.user.is_authenticated:
-            if self.request.user.beneficiary_organization is not None:
-                context[
-                    "user_targeted_audience"
-                ] = self.request.user.beneficiary_organization.organization_type[0]
-                if self.request.user.beneficiary_organization.perimeter is not None:
-                    context[
-                        "user_perimeter"
-                    ] = self.request.user.beneficiary_organization.perimeter_id
+            search_preferences = self.request.user.get_search_preferences()
+            context["user_targeted_audiences"] = search_preferences[
+                "targeted_audiences"
+            ]
+            context["user_perimeter"] = search_preferences["perimeter"]
 
         return context
 
