@@ -119,6 +119,9 @@ class Command(BaseImportCommand):
     def extract_import_data_source(self, line):
         return DATA_SOURCE
 
+    def extract_import_data_mention(self, line):
+        return "Ces données sont mises à disposition par l'ADEME."
+
     def extract_import_uniqueid(self, line):
         unique_id = "AGIR_{}".format(line["id"])
         return unique_id
@@ -188,6 +191,9 @@ class Command(BaseImportCommand):
             return Aid.RECURRENCES.oneoff
         else:
             return Aid.RECURRENCES.ongoing
+
+    def extract_mobilization_steps(self, line):
+        return [Aid.STEPS.op, Aid.STEPS.preop, Aid.STEPS.postop]
 
     def extract_perimeter(self, line):
         couv_geo = line.get("couverture_geo", [])["code"]
