@@ -79,20 +79,25 @@
 .ct-label {
   color: var(--text-default-grey);
 }
+
 .ct-grid {
   stroke: var(--grey-625-425);
 }
+
 .ct-point,
 .ct-bar {
   cursor: pointer;
 }
+
 .charts {
   display: flex;
   min-height: 400px;
 }
+
 .charts-legends {
   margin-bottom: 4rem;
 }
+
 .charts-legends ul {
   list-style: none;
   text-align: center;
@@ -102,69 +107,88 @@
   padding: 0.8rem 0 0.5rem 0;
   border: 1px solid var(--background-contrast-grey);
 }
+
 .charts-legends ul li {
   display: inline;
 }
+
 #chart-communes span.charts-legend,
 #chart-epci span.charts-legend,
 .charts-legends ul li span.charts-legend {
-  margin-bottom: -0.15rem; /* Alignment with the text legend. */
+  margin-bottom: -0.15rem;
+  /* Alignment with the text legend. */
 }
+
 .charts-legend {
   display: inline-block;
   width: 2rem;
   height: 1rem;
   border: 1px solid black;
 }
+
 .charts-legend-regular {
   background: var(--warning-425-625-hover);
 }
+
 .charts-legend-regular2 {
   background: var(--yellow-tournesol-850-200);
 }
+
 .charts-legend-regular3 {
   background: var(--success-425-625);
 }
+
 .charts-legend-accent {
   background: var(--background-action-high-blue-france);
 }
+
 .charts-legend-minor {
   background: var(--background-contrast-grey);
 }
+
 .charts-legend-red {
   background: #d70206;
 }
+
 .charts .ct-chart {
   width: 100%;
   display: block;
 }
+
 .ct-series-a .ct-slice-donut-solid {
   fill: var(--background-action-high-blue-france);
 }
+
 .ct-series-b .ct-slice-donut-solid {
   fill: var(--background-contrast-grey);
 }
+
 .ct-series-c .ct-slice-donut-solid {
   fill: var(--warning-425-625-hover);
 }
+
 .ct-series-d .ct-slice-donut-solid {
   fill: var(--background-contrast-grey);
 }
+
 .ct-series-a .ct-line,
 .ct-series-a .ct-bar,
 .ct-series-a .ct-point {
   stroke: var(--background-action-high-blue-france);
 }
+
 .ct-series-b .ct-line,
 .ct-series-b .ct-bar,
 .ct-series-b .ct-point {
   stroke: var(--warning-425-625-hover);
 }
+
 .ct-series-c .ct-line,
 .ct-series-c .ct-bar,
 .ct-series-c .ct-point {
   stroke: var(--yellow-tournesol-850-200);
 }
+
 .ct-series-d .ct-line,
 .ct-series-d .ct-bar,
 .ct-series-d .ct-point {
