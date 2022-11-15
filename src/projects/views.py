@@ -159,6 +159,10 @@ class PublicProjectListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user
+        if self.request.user.is_authenticated:
+            if self.request.user.beneficiary_organization:
+                context["user_has_organization"] = True
+                context["user_favorite_projects"] = self.request.user.beneficiary_organization.favorite_projects.all()
         return context
 
 

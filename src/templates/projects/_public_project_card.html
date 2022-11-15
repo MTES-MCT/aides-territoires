@@ -4,8 +4,12 @@
     <div class="fr-card fr-enlarge-link">
         <div class="fr-card__body">
             <div class="fr-card__content">
+                {% if user_has_organization %}
+                {% if project in user_favorite_projects %}
+                <i class="ri-star-line at-color--blue fr-mb-1w at-align-end"></i>
+                {% endif %}
+                {% endif %}
                 <h2 class="fr-card__title fr-h5 fr-mb-1w">
-
                     <a class="fr-card__link at-color--blue" href="{% url 'public_project_detail_view' pk=project.id slug=project.slug %}">
                         {{ project.name }}
                     </a>
