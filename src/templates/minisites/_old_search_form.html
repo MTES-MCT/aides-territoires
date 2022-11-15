@@ -30,7 +30,7 @@
 
         {% block other-actions %}
         <div class="fr-col-12 fr-col-md-4 fr-mt-1w">
-            <a id="new-search-btn" class="fr-btn" href="{% url 'general_search' %}">
+            <a id="new-search-btn" class="fr-btn" href="{% url 'search_view' %}">
                 Nouvelle recherche
             </a>
             <button id="new-filters-btn" class="fr-btn" name="action" value="more-filters" type="submit" formmethod="GET" formaction="{% url 'advanced_search_view' %}">

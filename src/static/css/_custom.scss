@@ -430,28 +430,6 @@ div#search-steps p.steps {
   display: none;
 }
 
-form#general_search_form {
-  span.counter {
-    display: inline-block;
-    width: 2.2rem;
-    height: 2.2rem;
-    text-align: center;
-    vertical-align: baseline;
-    border: 1px solid var(--border-active-blue-france);
-    border-radius: 50%;
-  }
-
-  #search-by-keywords:hover {
-    background-color: var(--background-alt-blue-france);
-  }
-
-  @media screen and (max-width: 600px) {
-    #search-by-keywords img {
-      display: none;
-    }
-  }
-}
-
 div#search-steps form div.fr-input-group>label {
   display: none;
 }
