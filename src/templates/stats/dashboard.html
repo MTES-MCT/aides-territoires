@@ -1,11 +1,20 @@
 {% extends "_base.html" %}
-{% load humanize compress form_utils %}
+{% load humanize compress form_utils settings static %}
 
 {% block extratitle %}Dashboard Interne{% endblock extratitle %}
 
+{% block extra_head %}
+  <script src="{% static 'chartist/dist/chartist.min.js' %}"></script>
+  <script src="{% static 'chartist-plugin-fill-donut/dist/chartist-plugin-fill-donut.js' %}"></script>
+  <script src="{% static 'js/stats/chartist-plugin-tooltip.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'chartist/dist/chartist.css' %}" />
+  <link rel="stylesheet" href="{% static 'js/stats/chartist-plugin-tooltip.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/stats.css' %}" />
+{% endblock extra_head %}
+
 {% block content %}
 <section id="stats" class="fr-container">
-  <h4 class="fr-mt-0w">Statistiques globales :</h4>
+  <h2 class="fr-mt-0w">Statistiques globales :</h2>
   <div class="fr-container">
     <div class="fr-grid-row fr-mb-2w fr-pt-0w fr-p-0w fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w fr-centered fr-grid-row--bottom">
         <div class="fr-col-12 fr-col-lg-12 fr-p-2w">
@@ -19,7 +28,170 @@
       </div>
     </div>
 
-    <h5 class="fr-mt-5w">Présence des collectivités sur AT :</h5>
+    <h2 class="fr-mt-5w">🌱 Objectifs AT :</h2>
+
+    <div class="charts" style="margin-bottom: -160px;">
+      <div id="chart-communes" class="ct-chart"></div>
+      <div id="chart-epci" class="ct-chart"></div>
+    </div>
+    <div class="charts-legends">
+      <ul>
+        <li><span class="charts-legend charts-legend-accent"></span> Territoires inscrits</li>
+        <li><span class="charts-legend charts-legend-regular"></span> Objectif 2022</li>
+        <li><span class="charts-legend charts-legend-minor"></span> Reste</li>
+      </ul>
+    </div>
+
+    <script>
+      new Chartist.Pie('#chart-communes', {
+        series: [
+          {{ nb_communes }},
+          {{ objectif_communes }}-{{ nb_communes }}-150,
+          300, // This fake value is responsible for the goal bar.
+          {{ total_communes }}-{{ objectif_communes }}+150-300
+        ]
+      }, {
+        donut: true,
+        donutWidth: 60,
+        donutSolid: true,
+        startAngle: 270,
+        total: {{ total_communes }} * 2,
+        showLabel: false,
+        plugins: [
+          Chartist.plugins.fillDonut({
+            items: [{
+              content: '<p><strong>{{ pourcent_communes }}% des communes</strong><br>Objectif : 10&#8239;000 <span class="charts-legend charts-legend-regular"></span></p>',
+              offsetY: -20
+            }]
+          })
+        ]
+      })
+      new Chartist.Pie('#chart-epci', {
+        series: [
+          {{ nb_epci }},
+          {{ objectif_epci }}-{{ nb_epci }}-5,
+          10, // This fake value is responsible for the goal bar.
+          {{ total_epci }}-{{ objectif_epci }}+5-10
+        ]
+      }, {
+        donut: true,
+        donutWidth: 60,
+        donutSolid: true,
+        startAngle: 270,
+        total: {{ total_epci }} * 2,
+        showLabel: false,
+        plugins: [
+          Chartist.plugins.fillDonut({
+            items: [{
+              content: '<p><strong>{{ pourcent_epci }}% des EPCI</strong><br>Objectif : 75% <span class="charts-legend charts-legend-regular"></span></p>',
+              offsetY: -20
+            }]
+          })
+        ]
+      })
+    </script>
+
+    <h3 class="fr-mt-5w">🚀 Visites uniques hebdomadaires <span class="charts-legend charts-legend-accent"></span> vs. inscriptions (⨯50) <span class="charts-legend charts-legend-regular"></span> :</h3>
+    <div class="charts">
+      <div id="chart-visites-uniques" class="ct-chart"></div>
+    </div>
+
+    <script>
+      new Chartist.Line('#chart-visites-uniques', {
+        labels: {{ nb_vu_weeks|safe }},
+        series: [
+          {{ nb_vu_serie_values }},
+          // Change the scale to make it visible
+          // and adapt meta for the tooltip content.
+          {{ nb_inscriptions_serie }}.map(count => {
+            return {value: count * 50, meta: count}
+          })
+        ]
+      }, {
+        fullWidth: true,
+        chartPadding: {
+          right: 40
+        },
+        axisX: {
+          labelInterpolationFnc: function(value) {
+            // Only display the month-day (end of ISO date).
+            return value.slice(5, 10)
+          }
+        },
+        axisY: {
+          type: Chartist.AutoScaleAxis,
+          high: {{ nb_vu_serie_max }} + 3000,
+          low: 0,
+        },
+        plugins: [
+          Chartist.plugins.tooltip({appendToBody: true})
+        ]
+      })
+    </script>
+
+    <h3 class="fr-mt-5w">
+      🆕 Nombre d’inscriptions totales <span class="charts-legend charts-legend-accent"></span>,
+      avec une aide <span class="charts-legend charts-legend-regular"></span>,
+      avec un projet <span class="charts-legend charts-legend-regular2"></span> :
+    </h3>
+    <div class="charts">
+      <div id="chart-inscriptions" class="ct-chart"></div>
+    </div>
+
+        <script>
+      new Chartist.Bar('#chart-inscriptions', {
+        labels: {{ nb_inscriptions_weeks|safe }},
+        series: [
+          {{ nb_inscriptions_serie }},
+          {{ nb_inscriptions_with_created_aid_serie }},
+          {{ nb_inscriptions_with_created_project_serie }}
+        ]
+      }, {
+        // stackBars: true,
+        axisX: {
+          labelInterpolationFnc: (value) => {
+            // Only display the month-day (end of ISO date).
+            return value.slice(5, 10)
+          }
+        },
+        plugins: [
+          Chartist.plugins.tooltip({appendToBody: true, pointClass: 'ct-bar'})
+        ]
+      })
+    </script>
+
+    <h3 class="fr-mt-5w">
+      📍 Nombre d’inscriptions communes <span class="charts-legend charts-legend-accent"></span>,
+      avec une aide <span class="charts-legend charts-legend-regular"></span>,
+      avec un projet <span class="charts-legend charts-legend-regular2"></span> :
+    </h3>
+    <div class="charts">
+      <div id="chart-inscriptions-communes" class="ct-chart"></div>
+    </div>
+
+    <script>
+      new Chartist.Bar('#chart-inscriptions-communes', {
+        labels: {{ nb_inscriptions_communes_weeks|safe }},
+        series: [
+          {{ nb_inscriptions_communes_serie }},
+          {{ nb_inscriptions_communes_with_created_aid_serie }},
+          {{ nb_inscriptions_communes_with_created_project_serie }}
+        ]
+      }, {
+        // stackBars: true,
+        axisX: {
+          labelInterpolationFnc: (value) => {
+            // Only display the month-day (end of ISO date).
+            return value.slice(5, 10)
+          }
+        },
+        plugins: [
+          Chartist.plugins.tooltip({appendToBody: true, pointClass: 'ct-bar'})
+        ]
+      })
+    </script>
+
+    <h5 class="fr-mt-5w">Présence des collectivités sur AT :</h5>
     <div  class="fr-grid-row fr-grid-row--gutters">
         <div class="fr-col-12 fr-col-md-2">
           <div class="fr-tile fr-enlarge-link">
@@ -122,6 +294,150 @@
 
   <div class="fr-container fr-mb-5w">
 
+    <h5 class="fr-mt-5w">🧲 10 principales sources d’entrées (avec et sans la Recherche) :</h5>
+    <div class="charts">
+      <div id="chart-referrers" class="ct-chart"></div>
+      <div id="chart-referrers-without-search" class="ct-chart"></div>
+    </div>
+
+    <details>
+      <summary>Données tabulaires</summary>
+      <div
+        class="fr-table fr-table--layout-fixed fr-table--no-caption"
+        data-controller="table"
+        data-downloadable="true"
+        >
+        <table data-table-target="table">
+          <caption>10 principales sources d’entrées incluant la recherche</caption>
+          <thead>
+            <tr>
+              <th
+                scope="col"
+                data-action="click->table#sortTable"
+                data-table-target="header"
+                data-type="text"
+                >Domaine</th>
+              <th
+                scope="col"
+                data-action="click->table#sortTable"
+                data-table-target="header"
+                data-type="number"
+                >Visites</th>
+            </tr>
+          </thead>
+          <tbody data-table-target="body">
+            {% for name, count in nb_referrers.items %}
+            <tr data-table-target="row">
+              <td scope="row">{{ name }}</td>
+              <td>{{ count }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <script>
+      new Chartist.Pie('#chart-referrers', {
+        labels: {{ nb_referrers_labels|safe }},
+        series: {{ nb_referrers_serie }}.map((count, i) => {
+          const label = {{ nb_referrers_labels|safe }}[i]
+          const percent = Math.round(
+            count / {{ nb_referrers_total }} * 1000
+          ) / 10
+          return {value: count, meta: `${label} : ${count} (${percent}%)`}
+        })
+      }, {
+        labelInterpolationFnc: (value) => {
+          return ''
+        },
+        plugins: [
+          Chartist.plugins.tooltip({appendToBody: true, pointClass: 'ct-slice-pie'})
+        ]
+      })
+      new Chartist.Pie('#chart-referrers-without-search', {
+        labels: {{ nb_referrers_without_search_labels|safe }},
+        series: {{ nb_referrers_without_search_serie }}.map((count, i) => {
+          const label = {{ nb_referrers_without_search_labels|safe }}[i]
+          const percent = Math.round(
+            count / {{ nb_referrers_without_search_total }} * 1000
+          ) / 10
+          return {value: count, meta: `${label} : ${count} (${percent}%)`}
+        })
+      }, {
+        labelInterpolationFnc: (value) => {
+          return ''
+        },
+        plugins: [
+          Chartist.plugins.tooltip({appendToBody: true, pointClass: 'ct-slice-pie'})
+        ]
+      })
+    </script>
+
+    <h5 class="fr-mt-5w">🥇 Aides les plus populaires :</h5>
+    <div
+      class="fr-table fr-table--layout-fixed fr-table--no-caption"
+      data-controller="table"
+      data-downloadable="true"
+      >
+      <table data-table-target="table">
+        <caption>Aides les plus populaires</caption>
+        <thead>
+          <tr>
+            <th
+              scope="col"
+              data-action="click->table#sortTable"
+              data-table-target="header"
+              data-type="text"
+              >Aide</th>
+            <th
+              scope="col"
+              aria-sort="descending"
+              data-action="click->table#sortTable"
+              data-table-target="header"
+              data-type="number"
+              >Visites</th>
+            <th
+              scope="col"
+              data-action="click->table#sortTable"
+              data-table-target="header"
+              data-type="number"
+              >Visites uniques</th>
+            <th
+              scope="col"
+              data-action="click->table#sortTable"
+              data-table-target="header"
+              data-type="text"
+              >Périmètre</th>
+          </tr>
+        </thead>
+        <tbody data-table-target="body">
+          {% for aid_stats in top_aids_pages %}
+          <tr data-table-target="row">
+            <td {% if forloop.first %}scope="row"{% endif %}>
+              {% if aid_stats.aid_or_name.get_absolute_url %}
+                <a href="{{ aid_stats.aid_or_name.get_absolute_url }}">
+                  {{ aid_stats.aid_or_name }}
+                </a>
+              {% else %}
+                {{ aid_stats.aid_or_name }}
+              {% endif %}
+            </td>
+            <td>{{ aid_stats.nb_visits }}</td>
+            <td>{{ aid_stats.nb_uniq_visitors }}</td>
+            <td>
+              {% if aid_stats.aid_or_name.get_absolute_url %}
+                {{ aid_stats.aid_or_name.perimeter.get_scale_display }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
     <h5 class="fr-mt-2w">Consultation :</h5>
     <div  class="fr-grid-row fr-grid-row--gutters">
         <div class="fr-col-12 fr-col-md-2">
@@ -135,26 +451,6 @@
             </div>
             <div class="fr-tile__img overflow--initial" role="presentation">
               <p class="fr-text--lg"><b>{{ nb_visits|intcomma }}</b></p>
-            </div>
-          </div>
-        </div>
-        <div class="fr-col-12 fr-col-md-2">
-          <div class="fr-tile fr-enlarge-link" >
-            <div class="fr-tile__body">
-              <p class="fr-tile__title">
-                <a class="fr-tile__link" href="#">
-                  Nombre de visiteurs uniques
-                </a>
-              </p>
-            </div>
-            <div class="fr-tile__img overflow--initial" role="presentation">
-              <p class="fr-text--lg">
-                {% if nb_uniq_visitors %}
-                <b>{{ nb_uniq_visitors|intcomma }}</b>
-                {% else %}
-                <b>-</b>
-                {% endif %}
-              </p>
             </div>
           </div>
         </div>
@@ -445,3 +741,14 @@
   </div>
 </section>
 {% endblock content %}
+
+{% block extra_js %}
+<script type="module">
+  import { Application } from "{% static '@hotwired/stimulus/dist/stimulus.js' %}"
+  import tableController from "{% static 'js/stats/table_controller.js' %}"
+  window.Stimulus = Application.start()
+  {% setting "DEBUG" as Debug %}
+  Stimulus.debug = {{ Debug|lower }}
+  Stimulus.register("table", tableController)
+</script>
+{% endblock extra_js %}

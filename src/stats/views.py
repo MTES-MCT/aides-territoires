@@ -192,7 +192,7 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
 
         return period
 
-    def get_matomo_stats(self, method, start_date, end_date):
+    def get_matomo_stats(self, method, period="range", date_="today", **kwargs):
         """
         Here we want to get the stats from Matomo.
         """
@@ -203,10 +203,11 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
             "idSite": settings.MATOMO_SITE_ID,
             "module": "API",
             "method": method,
-            "period": "range",
-            "date": f"{start_date},{end_date}",
+            "period": period,
+            "date": date_,
             "format": "json",
         }
+        params.update(kwargs)
         res = requests.get(url, params=params)
         data = res.json()
         return data
@@ -235,12 +236,171 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
         )
         end_date_range = timezone.make_aware(end_date_range)
 
+        # total 'Collectivités":
+        context["total_communes"] = Perimeter.objects.filter(
+            scale=Perimeter.SCALES.commune, is_obsolete=False
+        ).count()
+        context["total_epci"] = Perimeter.objects.filter(
+            scale=Perimeter.SCALES.epci, is_obsolete=False
+        ).count()
+        context["total_departments"] = Perimeter.objects.filter(
+            scale=Perimeter.SCALES.department, is_obsolete=False
+        ).count()
+        context["total_regions"] = Perimeter.objects.filter(
+            scale=Perimeter.SCALES.region, is_obsolete=False
+        ).count()
+
+        matomo_top_aids_pages = self.get_matomo_stats(
+            "Actions.getPageUrls",
+            date_=f"{start_date},{end_date}",
+            **{
+                "flat": 1,
+                "filter_column": "label",
+                # aides/ is optional because the URLs change for portals.
+                # Aids slug starts with a 4-letters-or-numbers UUID + `-`.
+                # For instance: `/4dc7-passsport/` or `/aides/b68a-accompagner-…`
+                "filter_pattern": "^/(aides/)?([a-z0-9]){4}-",
+            },
+        )[
+            :50
+        ]  # The `limit` parameter does not look to be effective.
+
+        def aid_from_label(label):
+            if label.startswith("/aides/"):
+                prefix_length = len("/aides/")
+                slug = label[prefix_length:-1]
+            else:
+                # Aids (slug) at the root for portals.
+                slug = label[1:-1]
+            # Handle cases where the aid does not exist (outdated database).
+            aid = Aid.objects.filter(slug=slug).first()
+            # In that case, we fallback to a guessed name from the slug.
+            name = slug[5:].replace("-", " ").capitalize()
+            return aid if aid is not None else name
+
+        top_aids_pages = [
+            {
+                "aid_or_name": aid_from_label(page["label"]),
+                "nb_visits": page["nb_visits"],
+                "nb_uniq_visitors": page.get(
+                    "nb_uniq_visitors", page.get("sum_daily_nb_uniq_visitors")
+                ),
+            }
+            for page in matomo_top_aids_pages
+        ]
+        context["top_aids_pages"] = top_aids_pages
+
         aids_live_qs = Aid.objects.live()
         matomo_visits_summary = self.get_matomo_stats(
-            "VisitsSummary.get", start_date, end_date
+            "VisitsSummary.get", date_=f"{start_date},{end_date}"
         )
-        matomo_actions = self.get_matomo_stats("Actions.get", start_date, end_date)
-        matomo_referrers = self.get_matomo_stats("Referrers.get", start_date, end_date)
+        matomo_actions = self.get_matomo_stats(
+            "Actions.get", date_=f"{start_date},{end_date}"
+        )
+        matomo_referrers = self.get_matomo_stats(
+            "Referrers.get", date_=f"{start_date},{end_date}"
+        )
+        matomo_referrers_all = self.get_matomo_stats(
+            "Referrers.getAll", date_=f"{start_date},{end_date}"
+        )
+        referrers = {
+            "Recherche"
+            if referrer["label"] == "Keyword not defined"
+            else referrer["label"]: referrer["nb_visits"]
+            for referrer in matomo_referrers_all[:10]
+        }
+        context["nb_referrers"] = referrers
+        context["nb_referrers_labels"] = list(referrers.keys())
+        context["nb_referrers_serie"] = list(referrers.values())
+        context["nb_referrers_total"] = sum(referrers.values())
+        referrers_without_search = {
+            referrer["label"]: referrer["nb_visits"]
+            for referrer in matomo_referrers_all[:11]
+            if referrer["label"] != "Keyword not defined"
+        }
+        context["nb_referrers_without_search_labels"] = list(
+            referrers_without_search.keys()
+        )
+        context["nb_referrers_without_search_serie"] = list(
+            referrers_without_search.values()
+        )
+        context["nb_referrers_without_search_total"] = sum(
+            referrers_without_search.values()
+        )
+
+        matomo_last_10_weeks = self.get_matomo_stats(
+            "VisitsSummary.get", period="week", date_="last10"
+        )
+        nb_vu_serie_items = {
+            dates[:10]: int(numbers["nb_uniq_visitors"])
+            for dates, numbers in matomo_last_10_weeks.items()
+        }
+        last_10_weeks = [
+            datetime.datetime.fromisoformat(week)  # - datetime.timedelta(days=75)
+            for week in list(nb_vu_serie_items.keys())
+        ]
+        week_inscriptions_counts = [
+            User.objects.filter(
+                date_created__lte=week,
+                date_created__gt=week - datetime.timedelta(days=7),
+            ).count()
+            for week in last_10_weeks
+        ]
+        context["nb_inscriptions_weeks"] = [
+            week.date().isoformat() for week in last_10_weeks
+        ]
+        context["nb_inscriptions_serie"] = week_inscriptions_counts
+        context["nb_inscriptions_with_created_aid_serie"] = [
+            User.objects.filter(
+                date_created__lte=week,
+                date_created__gt=week - datetime.timedelta(days=7),
+                aids__isnull=False,
+            ).count()
+            for week in last_10_weeks
+        ]
+        context["nb_inscriptions_with_created_project_serie"] = [
+            User.objects.filter(
+                date_created__lte=week,
+                date_created__gt=week - datetime.timedelta(days=7),
+                project__isnull=False,
+            ).count()
+            for week in last_10_weeks
+        ]
+
+        week_inscriptions_communes_counts = [
+            User.objects.filter(
+                date_created__lte=week,
+                date_created__gt=week - datetime.timedelta(days=7),
+                beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
+            ).count()
+            for week in last_10_weeks
+        ]
+        context["nb_inscriptions_communes_weeks"] = [
+            week.date().isoformat() for week in last_10_weeks
+        ]
+        context["nb_inscriptions_communes_serie"] = week_inscriptions_communes_counts
+        context["nb_inscriptions_communes_with_created_aid_serie"] = [
+            User.objects.filter(
+                date_created__lte=week,
+                date_created__gt=week - datetime.timedelta(days=7),
+                beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
+                aids__isnull=False,
+            ).count()
+            for week in last_10_weeks
+        ]
+        context["nb_inscriptions_communes_with_created_project_serie"] = [
+            User.objects.filter(
+                date_created__lte=week,
+                date_created__gt=week - datetime.timedelta(days=7),
+                beneficiary_organization__perimeter__scale=Perimeter.SCALES.commune,
+                project__isnull=False,
+            ).count()
+            for week in last_10_weeks
+        ]
+
+        context["nb_vu_weeks"] = [week.date().isoformat() for week in last_10_weeks]
+        context["nb_vu_serie_values"] = list(nb_vu_serie_items.values())
+        context["nb_vu_serie_max"] = max(context["nb_vu_serie_values"])
 
         # general stats:
         context["nb_beneficiary_accounts"] = User.objects.filter(
@@ -263,12 +423,20 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
             .distinct()
             .count()
         )
+        context["objectif_communes"] = 10000
+        context["pourcent_communes"] = round(
+            context["nb_communes"] * 100 / context["total_communes"], 1
+        )
         context["nb_epci"] = (
             Organization.objects.filter(organization_type__contains=["epci"])
             .exclude(perimeter_id__isnull="True")
             .values("name", "perimeter_id")
             .distinct()
             .count()
+        )
+        context["objectif_epci"] = 941  # 75%.
+        context["pourcent_epci"] = round(
+            context["nb_epci"] * 100 / context["total_epci"], 1
         )
         context["nb_departments"] = (
             Organization.objects.filter(organization_type__contains=["department"])
@@ -285,27 +453,10 @@ class DashboardView(SuperUserRequiredMixin, FormMixin, TemplateView):
             .count()
         )
 
-        # total 'Collectivités":
-        context["total_communes"] = Perimeter.objects.filter(
-            scale=Perimeter.SCALES.commune, is_obsolete=False
-        ).count()
-        context["total_epci"] = Perimeter.objects.filter(
-            scale=Perimeter.SCALES.epci, is_obsolete=False
-        ).count()
-        context["total_departments"] = Perimeter.objects.filter(
-            scale=Perimeter.SCALES.department, is_obsolete=False
-        ).count()
-        context["total_regions"] = Perimeter.objects.filter(
-            scale=Perimeter.SCALES.region, is_obsolete=False
-        ).count()
-
         # stats 'Consultation':
         context["nb_viewed_aids"] = AidViewEvent.objects.filter(
             date_created__range=[start_date_range, end_date_range]
         ).count()
-        # la valeur "nb_uniq_visitors" n'est pas renvoyée quand period=range
-        if "nb_uniq_visitors" in matomo_visits_summary:
-            context["nb_uniq_visitors"] = matomo_visits_summary["nb_uniq_visitors"]
         context["nb_visits"] = matomo_visits_summary["nb_visits"]
         context["bounce_rate"] = matomo_visits_summary["bounce_rate"]
         context["avg_time_on_site"] = strftime(
