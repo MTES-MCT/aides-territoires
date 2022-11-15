@@ -28,7 +28,17 @@ from stats.forms import StatSearchForm
 from accounts.mixins import SuperUserRequiredMixin
 from aids.views import AidPaginator
 
-# Source: https://fr.wikipedia.org/wiki/Nombre_de_communes_en_France
+# The manual percentage threshold to ensure that the metropolitan area
+# has enough contrasts between departments. It is not computed because
+# some exceptions like Guadeloupe already have 70% of their communes
+# with an account!
+DEPARTMENTS_ORG_COMMUNES_MAX = "30"
+
+# That table should/could be computed with the `populate_communes`
+# command once and for all, annualy from official sources (COG or geoAPI).
+# For instance the length of:
+# https://geo.api.gouv.fr/communes?fields=nom&codeDepartement=54
+# Current source: https://fr.wikipedia.org/wiki/Nombre_de_communes_en_France
 NB_COMMUNES_PAR_DEPARTEMENT_2022 = {
     "01": 393,
     "02": 799,
@@ -528,7 +538,7 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
         # percentage and are hiding small differences across metropolitan
         # departments…
         # Once homogenized, it is possible to use the logic for regions here.
-        context["departments_org_communes_max"] = "30"
+        context["departments_org_communes_max"] = DEPARTMENTS_ORG_COMMUNES_MAX
         context["departments_org_counts"] = json.dumps(
             departments_org_counts, cls=DjangoJSONEncoder
         )
