@@ -152,6 +152,10 @@ NB_COMMUNES_PAR_DEPARTEMENT_2022 = {
 }
 
 
+OBJECTIF_COMMUNES = 10000  # of 35049.
+OBJECTIF_EPCI = 941  # 75% of 1255.
+
+
 class StatsView(TemplateView):
     template_name = "stats/stats.html"
 
@@ -276,7 +280,7 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
             .distinct()
             .count()
         )
-        context["objectif_communes"] = 10000
+        context["objectif_communes"] = OBJECTIF_COMMUNES
         context["pourcent_communes"] = round(
             context["nb_communes"] * 100 / context["total_communes"], 1
         )
@@ -287,7 +291,7 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
             .distinct()
             .count()
         )
-        context["objectif_epci"] = 941  # 75%.
+        context["objectif_epci"] = OBJECTIF_EPCI
         context["pourcent_epci"] = round(
             context["nb_epci"] * 100 / context["total_epci"], 1
         )
