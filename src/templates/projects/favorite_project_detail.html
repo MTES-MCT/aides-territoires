@@ -48,46 +48,55 @@
             </div>
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                Date de création du projet&nbsp;:
+                <strong>Date de création du projet&nbsp;:</strong>
                 {{ project.date_created|date:'d/m/y' }}
             </p>
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                État d'avancement du projet&nbsp;:
+                <strong>État d'avancement du projet&nbsp;:</strong>
+                {% if project.step %}
                 {{ project.step }}
+                {% else %}
+                non renseigné
+                {% endif %}
             </p>
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                Budget prévisionnel&nbsp;:
+                <strong>Budget prévisionnel&nbsp;:</strong>
+                {% if project.budget %}
                 {{ project.budget|intcomma }} €
+                {% else %}
+                non renseigné
+                {% endif %}
             </p>
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                Structure porteuse&nbsp;:
+                <strong>Structure porteuse&nbsp;:</strong>
                 {{ project.organizations.first.name }}
             </p>
 
             {% if project.other_project_owner %}
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                Autre maître d'oeuvre&nbsp;:
+                <strong>Autre maître d'oeuvre&nbsp;:</strong>
                 {{ project.other_project_owner }}
             </p>
             {% endif %}
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                Territoire du projet&nbsp;:
+                <strong>Territoire du projet&nbsp;:</strong>
                 {{ project.organizations.first.perimeter.name }} ({{ project.organizations.first.zip_code }})
             </p>
 
             {% if project.project_types.all %}
-            <p class="fr-pl-2w fr-mb-2w fr-text--sm">Types de projet&nbsp;:
-            {% for project_type in project.project_types.all %}
-            {% if forloop.last %}
-            <span>{{ project_type }}</span>
-            {% else %}
-            <span>{{ project_type }},</span>
-            {% endif %}
-            {% endfor %}
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                <strong>Types de projet&nbsp;:</strong>
+                {% for project_type in project.project_types.all %}
+                {% if forloop.last %}
+                <span>{{ project_type }}</span>
+                {% else %}
+                <span>{{ project_type }},</span>
+                {% endif %}
+                {% endfor %}
             </p>
             {% endif %}
 
@@ -96,7 +105,7 @@
                     <h3 class="fr-accordion__title">
                         <button class="fr-accordion__btn" aria-expanded="false" aria-controls="project-description">
                             <span class="fr-text--sm fr-mb-0">
-                                Voir la description de ce projet
+                                <strong>Voir la description de ce projet</strong>
                             </span>
                         </button>
                     </h3>
@@ -110,10 +119,10 @@
 
             {% include "projects/favorite_or_public_project_aids_list.html" %}
 
-            <div class="fr-container at-centered">
-<!--                 <button class="fr-btn fr-btn--secondary" data-fr-opened="false" aria-controls="}">
-                    Supprimer ce projet de mes favoris
-                </button> -->
+            <div class="fr-container fr-centered">
+                <button class="fr-btn fr-btn--secondary" data-fr-opened="false" aria-controls="remove-from-favorite-modal--{{ project.pk }}">
+                    Retirer ce projet de mes favoris
+                </button>
                 <button class="fr-btn" data-fr-opened="{% if error_aid %}true{% endif %}" aria-controls="suggest-aid-modal">
                     Suggérer une aide pour ce projet
                 </button>
@@ -126,5 +135,6 @@
 
 {% block modals %}
     {% include 'projects/_suggest_aid_modal.html' with aid=aid %}
+    {% include 'projects/_remove_from_favorite_modal.html' with project=project %}
 {% endblock modals %}
 
