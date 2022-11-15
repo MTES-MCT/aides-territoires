@@ -205,15 +205,6 @@ class SearchView(SearchMixin, FormMixin, ListView):
 
         return context
 
-    def get_initial(self):
-        # if user is authenticated
-        # and if user organization type and user organization's perimeter are defined
-        # we pre-populate targeted_audiences & perimeter fields
-
-        if self.request.user.is_authenticated:
-            initial = self.request.user.get_search_preferences()
-            return initial
-
 
 class AdvancedSearchView(SearchMixin, NarrowedFiltersMixin, FormView):
     """Only displays the search form, more suitable for mobile views."""
