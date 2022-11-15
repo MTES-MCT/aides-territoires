@@ -1,0 +1,227 @@
+{% extends "stats/dashboard_base.html" %}
+{% load humanize %}
+
+{% block panels %}
+<div id="consultation-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="consultation" tabindex="0">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <h3>Chargement en cours…</h3>
+  </div>
+</div>
+
+<div id="acquisition-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="acquisition" tabindex="0">
+  <div  class="fr-grid-row fr-grid-row--gutters">
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">Entrées directes</a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_direct_visitors|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">Depuis les moteurs</a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_searchEngine_visitors|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">Depuis d’autres sites</a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_webSite_visitors|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">Depuis les newsletters</a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_newsletter_visitors|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">Depuis les réseaux sociaux</a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_socialNetwork_visitors|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="fr-mt-5w">🧲 Principales sources d’entrées :</h3>
+  <div
+    class="fr-table fr-table--layout-fixed fr-table--no-caption"
+    data-controller="table"
+    data-downloadable="true"
+    >
+    <table data-table-target="table">
+      <caption>Principales sources d’entrées</caption>
+      <thead>
+        <tr>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="text"
+            >Domaine</th>
+          <th
+            scope="col"
+            aria-sort="descending"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="number"
+            >Visites</th>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="number"
+            >Pourcentage</th>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="number"
+            >Pourcentage (sans la recherche)</th>
+        </tr>
+      </thead>
+      <tbody data-table-target="body">
+        {% for label, counts in referrers.items %}
+        <tr data-table-target="row">
+          <td scope="row">{{ label }}</td>
+          <td>{{ counts.0 }}</td>
+          <td>{{ counts.1 }}</td>
+          <td>{{ counts.2 }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <h3 class="fr-mt-5w">🙋 Nouvelles inscriptions sur la période :</h3>
+
+  <div class="charts">
+    <div id="chart-nouvelles-inscriptions" class="ct-chart"></div>
+  </div>
+
+  <script>
+    new Chartist.Line('#chart-nouvelles-inscriptions', {
+      labels: {{ nb_user_days|safe }},
+      series: [
+        {{ nb_user_inscriptions_serie }},
+      ]
+    }, {
+      fullWidth: true,
+      chartPadding: {
+        right: 40
+      },
+      axisX: {
+        labelInterpolationFnc: function(value) {
+          // Only display day/month (from ISO date).
+          const [ month, day ] = value.slice(5, 10).split('-')
+          return `${day}/${month}`
+        }
+      },
+      axisY: {
+        type: Chartist.AutoScaleAxis,
+        low: 0,
+        offset: 100
+      },
+      plugins: [
+        Chartist.plugins.tooltip({appendToBody: true})
+      ]
+    })
+  </script>
+
+  <div
+    class="fr-table fr-table--layout-fixed fr-table--no-caption"
+    data-controller="table"
+    data-downloadable="true"
+    >
+    <table data-table-target="table">
+      <caption>Nouvelles inscription sur la périodes</caption>
+      <thead>
+        <tr>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="text"
+            >Nom</th>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="text"
+            >Courriel</th>
+          <th
+            scope="col"
+            aria-sort="descending"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="date"
+            >Date d’inscription</th>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="text"
+            >Organisation</th>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="text"
+            >Type</th>
+        </tr>
+      </thead>
+      <tbody data-table-target="body">
+        {% for user in user_inscriptions %}
+        <tr data-table-target="row">
+          <td scope="row">{{ user.first_name }}{{ user.last_name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.date_created|date:'d/m/Y' }}</td>
+          <td>{{ user.organization__name }}</td>
+          <td>{{ user.organization_type }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="engagement-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="engagement" tabindex="0">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <h3>Chargement en cours…</h3>
+  </div>
+</div>
+
+<div id="cote-porteurs-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="cote-porteurs" tabindex="0">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <h3>Chargement en cours…</h3>
+  </div>
+</div>
+{% endblock panels %}

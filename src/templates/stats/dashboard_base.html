@@ -1,0 +1,192 @@
+{% extends "_base.html" %}
+{% load humanize compress form_utils settings static %}
+
+{% block extratitle %}Dashboard Interne{% endblock extratitle %}
+
+{% block extra_head %}
+  <script src="{% static 'chartist/dist/chartist.min.js' %}"></script>
+  <script src="{% static 'chartist-plugin-fill-donut/dist/chartist-plugin-fill-donut.js' %}"></script>
+  <script src="{% static 'js/stats/chartist-plugin-tooltip.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'chartist/dist/chartist.css' %}" />
+  <link rel="stylesheet" href="{% static 'js/stats/chartist-plugin-tooltip.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/stats.css' %}" />
+{% endblock extra_head %}
+
+{% block content %}
+<section id="stats" class="fr-container">
+  <h2 class="fr-mt-0w">Statistiques globales :</h2>
+  <div class="fr-container">
+    <div class="fr-grid-row fr-mb-2w fr-pt-0w fr-p-0w fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w fr-centered fr-grid-row--bottom">
+        <div class="fr-col-12 fr-col-lg-12 fr-p-2w">
+        <div role="alert" class="fr-alert fr-alert--success fr-alert--sm fr-mb-2w fr-grid--center">
+          <p class="fr-text--lg"><strong><a href="{% url 'users_stats' %}">{{ nb_beneficiary_accounts|intcomma }} comptes utilisateurs</a></strong>, répartis en <strong><a href="{% url 'organizations_stats' %}">{{ nb_organizations|intcomma }} structures</a></strong>, ont créé <strong><a href="{% url 'projects_stats' %}">{{ nb_projects|intcomma }} projets</a></strong>
+            avec en tout <strong>{{ nb_aids_matching_projects }} aides sélectionnées</strong> sur un total de <strong>{{ nb_aids_live|intcomma }} aides disponibles</strong> publiées par <strong>{{ nb_active_financers|intcomma }} porteurs</strong>.
+            Sont également disponibles <strong>{{ nb_searchPage|intcomma }} portails</strong>.
+          <br /><span class="fr-hint-text">Pour rappel, le compte utilisateur a été lancé le 4 novembre 2021.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="charts" style="margin-bottom: -175px;">
+      <div id="chart-communes" class="ct-chart"></div>
+      <div id="chart-epci" class="ct-chart"></div>
+    </div>
+    <div class="charts-legends">
+      <ul>
+        <li><span class="charts-legend charts-legend-accent"></span> Territoires inscrits</li>
+        <li><span class="charts-legend charts-legend-regular"></span> Objectif 2022</li>
+        <li><span class="charts-legend charts-legend-minor"></span> Reste</li>
+      </ul>
+    </div>
+
+    <script>
+      new Chartist.Pie('#chart-communes', {
+        series: [
+          {{ nb_communes }},
+          {{ objectif_communes }}-{{ nb_communes }}-150,
+          300, // This fake value is responsible for the goal bar.
+          {{ total_communes }}-{{ objectif_communes }}+150-300
+        ]
+      }, {
+        donut: true,
+        donutWidth: 60,
+        donutSolid: true,
+        startAngle: 270,
+        total: {{ total_communes }} * 2,
+        showLabel: false,
+        plugins: [
+          Chartist.plugins.fillDonut({
+            items: [{
+              content: '<p><strong><a href="{% url 'carto_stats' %}">{{ nb_communes }} communes / {{ total_communes }}</a></strong><br>Objectif : 10&#8239;000 <span class="charts-legend charts-legend-regular"></span></p>',
+              offsetY: -20
+            }]
+          })
+        ]
+      })
+      new Chartist.Pie('#chart-epci', {
+        series: [
+          {{ nb_epci }},
+          {{ objectif_epci }}-{{ nb_epci }}-5,
+          10, // This fake value is responsible for the goal bar.
+          {{ total_epci }}-{{ objectif_epci }}+5-10
+        ]
+      }, {
+        donut: true,
+        donutWidth: 60,
+        donutSolid: true,
+        startAngle: 270,
+        total: {{ total_epci }} * 2,
+        showLabel: false,
+        plugins: [
+          Chartist.plugins.fillDonut({
+            items: [{
+              content: '<p><strong>{{ nb_epci }} EPCI ({{ pourcent_epci }}%)</strong><br>Objectif : 75% <span class="charts-legend charts-legend-regular"></span></p>',
+              offsetY: -20
+            }]
+          })
+        ]
+      })
+    </script>
+  </div>
+
+  <div id="statistiques" class="fr-mt-5w fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-mb-5w">
+    <h2 class="fr-mt-0w">Statistiques sur une période :</h2>
+      <div class="fr-col-12 fr-col-md-6 fr-mt-4w">
+        <form method="get" action="." class="fr-grid-row fr-grid-row--start">
+
+          <div id="form-group-start_date" class="fr-input-group fr-mb-0">
+            <div class="fr-input-wrap fr-icon-calendar-line">
+              <label for="id_start_date" class="fr-label"></label>
+              <input type="date" name="start_date" {% if request.GET.start_date %} value="{{ request.GET.start_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_start_date" class="fr-input fr-mt-0" />
+              <span class="fr-hint-text">Date de début</span>
+            </div>
+          </div>
+
+          <div id="form-group-end_date" class="fr-input-group fr-mb-0">
+            <div class="fr-input-wrap fr-icon-calendar-line">
+              <label for="id_end_date" class="fr-label"></label>
+              <input type="date" name="end_date" {% if request.GET.end_date %} value="{{ request.GET.end_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_end_date" class="fr-input fr-mt-0" />
+              <span class="fr-hint-text">Date de fin</span>
+            </div>
+          </div>
+        
+          <div>
+            <button type="submit" class="fr-btn">Envoyer</button>
+          </div>
+          
+          {% if start_date_error %}
+          <span class="error field-error">
+            ↑
+            {{ start_date_error.0 }}
+            ↑
+          </span>
+          {% endif %}
+        </form>
+    </div>
+  </div>
+
+  <div class="fr-container fr-mb-5w">
+    <div class="fr-tabs">
+      <ul class="fr-tabs__list" role="tablist" aria-label="Différentes statistiques">
+        <li role="presentation">
+          <a
+            id="consultation"
+            href="{% url 'dashboard_view' %}?start_date={{ start_date }}&end_date={{ end_date }}#statistiques"
+            class="fr-tabs__tab"
+            tabindex="{% if consultation_selected %}0{% else %}-1{% endif %}"
+            role="tab"
+            aria-selected="{% if consultation_selected %}true{% else %}false{% endif %}"
+            aria-controls="consultation-panel"
+            >👥 Consultation</a>
+        </li>
+        <li role="presentation">
+          <a
+            id="acquisition"
+            href="{% url 'dashboard_acquisition_view' %}?start_date={{ start_date }}&end_date={{ end_date }}#statistiques"
+            class="fr-tabs__tab"
+            tabindex="{% if acquisition_selected %}0{% else %}-1{% endif %}"
+            role="tab"
+            aria-selected="{% if acquisition_selected %}true{% else %}false{% endif %}"
+            aria-controls="acquisition-panel"
+            >🎣 Acquisition</a>
+        </li>
+        <li role="presentation">
+          <a
+            id="engagement"
+            href="{% url 'dashboard_engagement_view' %}?start_date={{ start_date }}&end_date={{ end_date }}#statistiques"
+            class="fr-tabs__tab"
+            tabindex="{% if engagement_selected %}0{% else %}-1{% endif %}"
+            role="tab"
+            aria-selected="{% if engagement_selected %}true{% else %}false{% endif %}"
+            aria-controls="engagement-panel"
+            >🏅 Engagement</a>
+        </li>
+        <li role="presentation">
+          <a
+            id="cote-porteurs"
+            href="{% url 'dashboard_porteurs_view' %}?start_date={{ start_date }}&end_date={{ end_date }}#statistiques"
+            class="fr-tabs__tab"
+            tabindex="{% if porteurs_selected %}0{% else %}-1{% endif %}"
+            role="tab"
+            aria-selected="{% if porteurs_selected %}true{% else %}false{% endif %}"
+            aria-controls="cote-porteurs-panel"
+            >💪 Côté porteurs</a>
+        </li>
+      </ul>
+      {% block panels %}{% endblock panels %}
+    </div>
+  </div>
+</section>
+{% endblock content %}
+
+{% block extra_js %}
+<script type="module">
+  import { Application } from "{% static '@hotwired/stimulus/dist/stimulus.js' %}"
+  import tableController from "{% static 'js/stats/table_controller.js' %}"
+  window.Stimulus = Application.start()
+  {% setting "DEBUG" as Debug %}
+  Stimulus.debug = {{ Debug|lower }}
+  Stimulus.register("table", tableController)
+</script>
+{% endblock extra_js %}

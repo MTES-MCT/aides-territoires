@@ -1,0 +1,149 @@
+{% extends "stats/dashboard_base.html" %}
+{% load humanize %}
+
+{% block panels %}
+<div id="consultation-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="consultation" tabindex="0">
+  <div  class="fr-grid-row fr-grid-row--gutters">
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link" >
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">
+              Nombre de visiteurs
+            </a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_visits|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">Taux de rebond</a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ bounce_rate }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">
+              Durée moyenne d’une visite
+            </a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ avg_time_on_site }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="#">
+              Nombre de pages vues
+            </a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_pageviews|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="{% url 'admin:stats_aidviewevent_changelist' %}">
+            Nombre d’aides vues
+            </a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_viewed_aids|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="fr-mt-5w">🚀 Visites uniques :</h3>
+  <div class="charts">
+    <div id="chart-visites-uniques" class="ct-chart"></div>
+  </div>
+  <div class="charts-legends">
+    <ul>
+      <li><span class="charts-legend charts-legend-accent"></span> Visites uniques hebdomadaires</li>
+      <li><span class="charts-legend charts-legend-regular"></span> Inscriptions (⨯20)</li>
+      <li><span class="charts-legend charts-legend-regular2"></span> Alertes créées (⨯20)</li>
+    </ul>
+  </div>
+
+  <script>
+    new Chartist.Line('#chart-visites-uniques', {
+      labels: {{ nb_vu_weeks|safe }},
+      series: [
+        {{ nb_vu_serie_values }},
+        // Change the scale to make it visible
+        // and adapt meta for the tooltip content.
+        {{ nb_inscriptions_serie }}.map(count => {
+          return {value: count * 20, meta: count}
+        }),
+        {{ nb_inscriptions_with_created_alert_serie }}.map(count => {
+          return {value: count * 20, meta: count}
+        }),
+      ]
+    }, {
+      fullWidth: true,
+      chartPadding: {
+        right: 40
+      },
+      axisX: {
+        labelInterpolationFnc: function(value) {
+          // Only display day/month (from ISO date).
+          const [ month, day ] = value.slice(5, 10).split('-')
+          return `${day}/${month}`
+        }
+      },
+      axisY: {
+        type: Chartist.AutoScaleAxis,
+        high: {{ nb_vu_serie_max }} + 3000,
+        low: 0,
+        offset: 100,
+        labelInterpolationFnc: (value) => {
+          if (value === 0) return 0
+          return `${value} (${value / 20})`
+        }
+      },
+      plugins: [
+        Chartist.plugins.tooltip({appendToBody: true})
+      ]
+    })
+  </script>
+</div>
+
+<div id="acquisition-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="acquisition" tabindex="0">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <h3>Chargement en cours…</h3>
+  </div>
+</div>
+
+<div id="engagement-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="engagement" tabindex="0">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <h3>Chargement en cours…</h3>
+  </div>
+</div>
+
+<div id="cote-porteurs-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="cote-porteurs" tabindex="0">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <h3>Chargement en cours…</h3>
+  </div>
+</div>
+{% endblock panels %}

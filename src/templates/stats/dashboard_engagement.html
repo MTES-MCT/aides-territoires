@@ -1,0 +1,333 @@
+{% extends "stats/dashboard_base.html" %}
+{% load humanize %}
+
+{% block panels %}
+<div id="consultation-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="consultation" tabindex="0">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <h3>Chargement en cours…</h3>
+  </div>
+</div>
+
+<div id="acquisition-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="acquisition" tabindex="0">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <h3>Chargement en cours…</h3>
+  </div>
+</div>
+
+<div id="engagement-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="engagement" tabindex="0">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="{% url 'admin:accounts_userlastconnexion_changelist' %}?last_connexion__gte={{ start_date }}&last_connexion__lt={{ end_date }}">Nombre d’utilisateurs connectés/actifs</a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_active_users|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="{% url 'admin:stats_aidsearchevent_changelist' %}">
+              Nombre de recherche
+            </a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_search_events|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="{% url 'admin:alerts_alert_changelist' %}">
+              Nombre d’alertes créées
+            </a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_alerts_created|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="{% url 'admin:stats_aidcontactclickevent_changelist' %}">
+            Nombre de clics (+ de détails)
+            </a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_aid_contact_click_events|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="{% url 'admin:stats_aidoriginurlclickevent_changelist' %}">
+            Nombre de clics (descriptif)
+            </a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_aid_origin_url_clicks_count|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="{% url 'admin:stats_aidapplicationurlclickevent_changelist' %}">
+            Nombre de clics (démarche)
+            </a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_aid_application_url_clicks_count|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="fr-mt-5w">
+    🆕 Nombre d’inscriptions toutes structures confondues <span class="charts-legend charts-legend-accent"></span> :
+  </h3>
+  <div class="charts">
+    <div id="chart-inscriptions" class="ct-chart"></div>
+  </div>
+  <div class="charts-legends">
+    <ul>
+      <li><span class="charts-legend charts-legend-regular"></span> Avec une aide publiée</li>
+      <li><span class="charts-legend charts-legend-regular2"></span> Avec un projet</li>
+    </ul>
+  </div>
+
+  <script>
+    new Chartist.Bar('#chart-inscriptions', {
+      labels: {{ nb_inscriptions_weeks|safe }},
+      series: [
+        {{ nb_inscriptions_serie }},
+        {{ nb_inscriptions_with_created_aid_serie }},
+        {{ nb_inscriptions_with_created_project_serie }}
+      ]
+    }, {
+      // stackBars: true,
+      axisX: {
+        labelInterpolationFnc: (value) => {
+          // Only display day/month (from ISO date).
+          const [ month, day ] = value.slice(5, 10).split('-')
+          return `${day}/${month}`
+        }
+      },
+      plugins: [
+        Chartist.plugins.tooltip({appendToBody: true, pointClass: 'ct-bar'})
+      ]
+    })
+  </script>
+
+  <h3 class="fr-mt-5w">🥇 Aides les plus populaires :</h3>
+  <div
+    class="fr-table fr-table--layout-fixed fr-table--no-caption"
+    data-controller="table"
+    data-downloadable="true"
+    >
+    <table data-table-target="table">
+      <caption>Aides les plus populaires</caption>
+      <thead>
+        <tr>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="text"
+            >Aide</th>
+          <th
+            scope="col"
+            aria-sort="descending"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="number"
+            >Visites</th>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="number"
+            >Clics (total)</th>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="number"
+            >Conversion</th>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="number"
+            >Clics (descriptif)</th>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="number"
+            >Clics (démarche)</th>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="number"
+            >Nombre de sauvegardes</th>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="text"
+            >Périmètre</th>
+          <th
+            scope="col"
+            data-action="click->table#sortTable"
+            data-table-target="header"
+            data-type="text"
+            >Porteur</th>
+        </tr>
+      </thead>
+      <tbody data-table-target="body">
+        {% for aid_stats in top_aids_pages %}
+          {% with has_aid=aid_stats.aid %}
+          <tr data-table-target="row">
+            <td {% if forloop.first %}scope="row"{% endif %}>
+              {% if has_aid %}
+                <a href="{{ aid_stats.aid.get_absolute_url }}">
+                  {{ aid_stats.aid }}
+                </a>
+              {% else %}
+                {{ aid_stats.guessed_name }}
+              {% endif %}
+            </td>
+            <td>{{ aid_stats.nb_uniq_visitors }}</td>
+            {% if has_aid %}
+              <td>
+                {{ aid_stats.aid.all_clicks_count }}
+              </td>
+            {% else %}
+              <td data-value="0">-</td>
+            {% endif %}
+            {% if has_aid %}
+              <td data-value="{{ aid_stats.aid.conversion_value }}">
+                {{ aid_stats.aid.conversion_value }}&#8239;%
+              </td>
+            {% else %}
+              <td data-value="0">-</td>
+            {% endif %}
+            {% if has_aid %}
+              <td>
+                {{ aid_stats.aid.origin_clicks_count }}
+              </td>
+            {% else %}
+              <td data-value="0">-</td>
+            {% endif %}
+            {% if has_aid %}
+              <td>
+                {{ aid_stats.aid.application_clicks_count }}
+              </td>
+            {% else %}
+              <td data-value="0">-</td>
+            {% endif %}
+            {% if has_aid %}
+              {% with saved_count=aid_stats.aid.aidproject_count %}
+                {% if saved_count %}
+                  <td data-value="{{ saved_count }}">
+                    {{ saved_count }}
+                  </td>
+                {% else %}
+                  <td data-value="0">-</td>
+                {% endif %}
+              {% endwith %}
+            {% else %}
+              <td data-value="0">-</td>
+            {% endif %}
+            <td>
+              {% if has_aid %}
+                {{ aid_stats.aid.perimeter.name }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+            <td>
+              {% if has_aid %}
+                {% with financers=aid_stats.aid.financers.all %}
+                  {% if financers %}
+                    <ul>
+                      {% for financer in financers %}
+                        <li>{{ financer }}</li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    -
+                  {% endif %}
+                {% endwith %}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+          </tr>
+          {% endwith %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="fr-mt-5w">
+    📈 Évolution des comptes actifs au cours des 6 derniers mois :
+  </h3>
+  <div class="charts">
+    <div id="chart-activite" class="ct-chart"></div>
+  </div>
+
+  <script>
+    new Chartist.Line('#chart-activite', {
+      labels: {{ nb_activite_months|safe }},
+      series: [
+        {{ nb_activite_serie }}
+      ]
+    }, {
+      chartPadding: {
+        right: -175
+      },
+      axisX: {
+        labelInterpolationFnc: (value) => {
+          // Only display month (from ISO date).
+          const [ month, day ] = value.slice(5, 10).split('-')
+          return month
+        }
+      },
+      axisY: {
+        low: 0,
+      },
+      plugins: [
+        Chartist.plugins.tooltip({appendToBody: true})
+      ]
+    })
+  </script>
+
+</div>
+
+<div id="cote-porteurs-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="cote-porteurs" tabindex="0">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <h3>Chargement en cours…</h3>
+  </div>
+</div>
+{% endblock panels %}

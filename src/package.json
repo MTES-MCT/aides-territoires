@@ -12,6 +12,8 @@
   "dependencies": {
     "autoprefixer": "^9.6.1",
     "chart.js": "^2.9.4",
+    "chartist": "^0.11.4",
+    "chartist-plugin-fill-donut": "^0.1.4",
     "chartjs-plugin-datalabels": "^0.7.0",
     "datatables.net": "^1.11.5",
     "datatables.net-dt": "^1.11.5",
