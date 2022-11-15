@@ -21,19 +21,7 @@
                 </li>
                 <li>
                     <a class="fr-breadcrumb__link" aria-current="page">
-                    {% if user.is_authenticated %}
                     Projet&nbsp;:« {{ project.name }} »
-                    {% else %}
-                    Projet public
-                    {% for project_type in project.project_types.all %}
-                    {{ project_type }}
-                    {% endfor%}
-                    {% for department in project.organizations.first.perimeter.contained_in.all %}
-                    {% if department.scale == 10 %}
-                    ({{ department.name }})
-                    {% endif %}
-                    {% endfor %}
-                    {% endif %}
                     </a>
                 </li>
             </ol>
@@ -56,19 +44,7 @@
 
         <div class="fr-col-12">
             <h1 class="fr-h3 fr-mb-5w">
-            {% if user.is_authenticated %}
             Projet&nbsp;: « {{ project.name }} »
-            {% else %}
-            Projet public
-            {% for project_type in project.project_types.all %}
-            {{ project_type }}
-            {% endfor%}
-            {% for department in project.organizations.first.perimeter.contained_in.all %}
-            {% if department.scale == 10 %}
-            ({{ department.name }})
-            {% endif %}
-            {% endfor %}
-            {% endif %}
             </h1>
 
             {% if user.is_authenticated %}
