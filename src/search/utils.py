@@ -32,7 +32,7 @@ def clean_search_form(search_form, remove_extra_fields=False):
     if remove_extra_fields:
         search_form_dict = {
             k: v for k, v in search_form_dict.items() if k not in SEARCH_EXTRA_FIELDS
-        }  # noqa
+        }
     return search_form_dict
 
 
@@ -59,7 +59,7 @@ def clean_search_querystring(
                 and (
                     k not in SEARCH_EXTRA_FIELDS and values_without_empty[0] != "False"
                 )
-            ):  # noqa
+            ):
                 querydict_cleaned.setlist(k, values_without_empty)
     if return_querydict:
         return querydict_cleaned
@@ -116,9 +116,7 @@ def get_querystring_categories(querystring):
     Returns a QuerySet
     """
     CATEGORIES_KEY = "categories"
-    categories_list = get_querystring_value_list_from_key(
-        querystring, CATEGORIES_KEY
-    )  # noqa
+    categories_list = get_querystring_value_list_from_key(querystring, CATEGORIES_KEY)
     return Category.objects.filter(slug__in=categories_list)
 
 
@@ -128,10 +126,8 @@ def get_querystring_backers(querystring):
     Returns a QuerySet
     """
     BACKERS_KEY = "backers"
-    backers_list = get_querystring_value_list_from_key(querystring, BACKERS_KEY)  # noqa
-    backers_list_id = [
-        extract_id_from_string(backer) for backer in backers_list
-    ]  # noqa
+    backers_list = get_querystring_value_list_from_key(querystring, BACKERS_KEY)
+    backers_list_id = [extract_id_from_string(backer) for backer in backers_list]
     return Backer.objects.filter(id__in=backers_list_id)
 
 
@@ -141,7 +137,5 @@ def get_querystring_programs(querystring):
     Returns a QuerySet
     """
     PROGRAMS_KEY = "programs"
-    programs_list = get_querystring_value_list_from_key(
-        querystring, PROGRAMS_KEY
-    )  # noqa
+    programs_list = get_querystring_value_list_from_key(querystring, PROGRAMS_KEY)
     return Program.objects.filter(slug__in=programs_list)
