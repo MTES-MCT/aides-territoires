@@ -49,13 +49,6 @@ class CategoryChoiceField(forms.ModelMultipleChoiceField):
     iterator = CategoryIterator
 
 
-class CategoryWidget(forms.widgets.ChoiceWidget):
-    """Custom widget to select categories grouped by themes."""
-
-    allow_multiple_selected = True
-    template_name = "search/forms/widgets/category_widget.html"
-
-
 class SearchPageAdminForm(forms.ModelForm):
     content = RichTextField(
         label="Contenu de la page",
