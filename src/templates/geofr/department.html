@@ -43,7 +43,7 @@
             {% include "geofr/_backers_table.html" with entries_list=backers_list|slice:":10" caption=captions.backers %}
         </div>
     </div>
-    <div class="fr-centered">
+    <div class="at-centered">
         <a 
             class="fr-tag"
             href="{% url 'department_backers_view' current_dept.code current_dept.name|slugify %}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}">
@@ -58,7 +58,7 @@
             {% include "geofr/_programs_table.html" with entries_list=programs_list|slice:":10" caption=captions.programs %}
         </div>
     </div>
-    <div class="fr-centered">
+    <div class="at-centered">
         <a 
             class="fr-tag"
             href="{% url 'department_programs_view' current_dept.code current_dept.name|slugify %}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}">

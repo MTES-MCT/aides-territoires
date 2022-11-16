@@ -52,7 +52,7 @@
             <div class="fr-grid-row fr-grid-row--center">
                 <div class="fr-col-md-11 fr-my-5w" id="how">
                     <h2>Notre action</h2>
-                    <div class="fr-grid-row fr-pb-3w fr-pt-2w fr-centered fr-grid-row--center">
+                    <div class="fr-grid-row fr-pb-3w fr-pt-2w at-centered fr-grid-row--center">
                         <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
                             <img alt="" src="{% static 'img/home_steps_1.svg' %}"/>
                             <p>Les aides sont diffusées par leurs porteurs</p>
@@ -77,7 +77,7 @@
                 <div class="fr-grid-row fr-grid-row--center">
                     <div class="fr-mb-5w fr-col-md-11" id="base-stats">
                             <h2>Aides-territoires aujourd’hui</h2>
-                            <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w fr-centered" >
+                            <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w at-centered" >
                                 <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
                                     <p class="fr-display--xs fr-m-1w">{{ nb_aids }} </p>
                                     <p class="fr-text--lead fr-m-1w at-uppercase">Aides disponibles</p>
@@ -191,7 +191,7 @@
             <div class="fr-grid-row fr-grid-row--center bg-fond-alternatif">
                 <div class="fr-mb-5w fr-col-md-11" id="backers">
                     <h2>Les porteurs d’aides</h2>
-                    <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w fr-centered fr-grid-row--bottom" >
+                    <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w at-centered fr-grid-row--bottom" >
                         {% for selected_backer in subset_selected_backers %}
                             {% if forloop.counter < 7 %}
                                 <div class="fr-col-xs-12 fr-p-3w">
