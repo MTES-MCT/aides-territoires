@@ -7,18 +7,51 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0014_auto_20200910_1041'),
+        ("search", "0014_auto_20200910_1041"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='searchpage',
-            name='available_audiances',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('Collectivities', (('commune', 'Communes'), ('epci', 'Audiance EPCI'), ('department', 'Departments'), ('region', 'Regions'))), ('Other audiances', (('association', 'Associations'), ('private_person', 'Individuals'), ('farmer', 'Farmers'), ('private_sector', 'Private sector'), ('public_cies', 'Local public companies'), ('public_org', 'Public organizations'), ('researcher', 'Research')))], max_length=32), blank=True, null=True, size=None, verbose_name='Targeted audiances'),
+            model_name="searchpage",
+            name="available_audiances",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        (
+                            "Collectivities",
+                            (
+                                ("commune", "Communes"),
+                                ("epci", "Audiance EPCI"),
+                                ("department", "Departments"),
+                                ("region", "Regions"),
+                            ),
+                        ),
+                        (
+                            "Other audiances",
+                            (
+                                ("association", "Associations"),
+                                ("private_person", "Individuals"),
+                                ("farmer", "Farmers"),
+                                ("private_sector", "Private sector"),
+                                ("public_cies", "Local public companies"),
+                                ("public_org", "Public organizations"),
+                                ("researcher", "Research"),
+                            ),
+                        ),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                null=True,
+                size=None,
+                verbose_name="Targeted audiances",
+            ),
         ),
         migrations.AlterField(
-            model_name='searchpage',
-            name='show_mobilization_step_field',
-            field=models.BooleanField(default=False, verbose_name='Show mobilization step filter?'),
+            model_name="searchpage",
+            name="show_mobilization_step_field",
+            field=models.BooleanField(
+                default=False, verbose_name="Show mobilization step filter?"
+            ),
         ),
     ]

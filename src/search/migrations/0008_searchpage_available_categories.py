@@ -6,14 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('categories', '0004_auto_20200217_1136'),
-        ('search', '0007_searchpage_color_5'),
+        ("categories", "0004_auto_20200217_1136"),
+        ("search", "0007_searchpage_color_5"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='searchpage',
-            name='available_categories',
-            field=models.ManyToManyField(blank=True, related_name='search_pages', to='categories.Category', verbose_name='Categories'),
+            model_name="searchpage",
+            name="available_categories",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="search_pages",
+                to="categories.Category",
+                verbose_name="Categories",
+            ),
         ),
     ]

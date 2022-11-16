@@ -9,17 +9,24 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('search', '0029_searchpage_verbose_name_translations'),
+        ("search", "0029_searchpage_verbose_name_translations"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='searchpage',
-            name='administrators',
+            model_name="searchpage",
+            name="administrators",
         ),
         migrations.AddField(
-            model_name='searchpage',
-            name='administrator',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='search_pages', to=settings.AUTH_USER_MODEL, verbose_name='Administrateur'),
+            model_name="searchpage",
+            name="administrator",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="search_pages",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Administrateur",
+            ),
         ),
     ]

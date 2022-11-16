@@ -6,21 +6,29 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0034_rename_minisitete_page_to_tab'),
+        ("search", "0034_rename_minisitete_page_to_tab"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='minisitetab',
-            options={'verbose_name': 'onglet', 'verbose_name_plural': 'onglets'},
+            name="minisitetab",
+            options={"verbose_name": "onglet", "verbose_name_plural": "onglets"},
         ),
         migrations.AlterModelOptions(
-            name='searchpage',
-            options={'verbose_name': 'page personnalisée', 'verbose_name_plural': 'pages personnalisées'},
+            name="searchpage",
+            options={
+                "verbose_name": "page personnalisée",
+                "verbose_name_plural": "pages personnalisées",
+            },
         ),
         migrations.AddField(
-            model_name='searchpage',
-            name='tab_title',
-            field=models.CharField(blank=True, default='Accueil', max_length=180, verbose_name="Titre de l'onglet principal"),
+            model_name="searchpage",
+            name="tab_title",
+            field=models.CharField(
+                blank=True,
+                default="Accueil",
+                max_length=180,
+                verbose_name="Titre de l'onglet principal",
+            ),
         ),
     ]

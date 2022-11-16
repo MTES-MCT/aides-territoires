@@ -6,14 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0117_auto_20201211_1520'),
-        ('search', '0022_searchpage_date_updated'),
+        ("aids", "0117_auto_20201211_1520"),
+        ("search", "0022_searchpage_date_updated"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='searchpage',
-            name='excluded_aids',
-            field=models.ManyToManyField(blank=True, related_name='excluded_from_search_pages', to='aids.Aid', verbose_name='Excluded aids'),
+            model_name="searchpage",
+            name="excluded_aids",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="excluded_from_search_pages",
+                to="aids.Aid",
+                verbose_name="Excluded aids",
+            ),
         ),
     ]

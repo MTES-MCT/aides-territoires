@@ -7,18 +7,55 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0017_auto_20200922_0935'),
+        ("search", "0017_auto_20200922_0935"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='searchpage',
-            name='short_title',
-            field=models.CharField(blank=True, default='', help_text='A short version of the title.', max_length=180, verbose_name='Short title'),
+            model_name="searchpage",
+            name="short_title",
+            field=models.CharField(
+                blank=True,
+                default="",
+                help_text="A short version of the title.",
+                max_length=180,
+                verbose_name="Short title",
+            ),
         ),
         migrations.AlterField(
-            model_name='searchpage',
-            name='available_audiences',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('Collectivities', (('commune', 'Communes'), ('epci', 'Audience EPCI'), ('department', 'Departments'), ('region', 'Regions'))), ('Other audiences', (('association', 'Associations'), ('private_person', 'Individuals'), ('farmer', 'Farmers'), ('private_sector', 'Private sector'), ('public_cies', 'Local public companies'), ('public_org', 'Public organizations / State services'), ('researcher', 'Research')))], max_length=32), blank=True, null=True, size=None, verbose_name='Targeted audiences'),
+            model_name="searchpage",
+            name="available_audiences",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        (
+                            "Collectivities",
+                            (
+                                ("commune", "Communes"),
+                                ("epci", "Audience EPCI"),
+                                ("department", "Departments"),
+                                ("region", "Regions"),
+                            ),
+                        ),
+                        (
+                            "Other audiences",
+                            (
+                                ("association", "Associations"),
+                                ("private_person", "Individuals"),
+                                ("farmer", "Farmers"),
+                                ("private_sector", "Private sector"),
+                                ("public_cies", "Local public companies"),
+                                ("public_org", "Public organizations / State services"),
+                                ("researcher", "Research"),
+                            ),
+                        ),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                null=True,
+                size=None,
+                verbose_name="Targeted audiences",
+            ),
         ),
     ]

@@ -6,28 +6,49 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0002_auto_20200305_0956'),
+        ("search", "0002_auto_20200305_0956"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='searchpage',
-            name='color_1',
-            field=models.CharField(blank=True, help_text='Main background color', max_length=10, verbose_name='Color 1'),
+            model_name="searchpage",
+            name="color_1",
+            field=models.CharField(
+                blank=True,
+                help_text="Main background color",
+                max_length=10,
+                verbose_name="Color 1",
+            ),
         ),
         migrations.AddField(
-            model_name='searchpage',
-            name='color_2',
-            field=models.CharField(blank=True, help_text='Search form background color', max_length=10, verbose_name='Color 2'),
+            model_name="searchpage",
+            name="color_2",
+            field=models.CharField(
+                blank=True,
+                help_text="Search form background color",
+                max_length=10,
+                verbose_name="Color 2",
+            ),
         ),
         migrations.AddField(
-            model_name='searchpage',
-            name='color_3',
-            field=models.CharField(blank=True, help_text='Buttons and title borders color', max_length=10, verbose_name='Color 3'),
+            model_name="searchpage",
+            name="color_3",
+            field=models.CharField(
+                blank=True,
+                help_text="Buttons and title borders color",
+                max_length=10,
+                verbose_name="Color 3",
+            ),
         ),
         migrations.AddField(
-            model_name='searchpage',
-            name='logo',
-            field=models.ImageField(blank=True, help_text='Make sure the file is not too heavy. Prefer svg files.', null=True, upload_to='logos', verbose_name='Logo image'),
+            model_name="searchpage",
+            name="logo",
+            field=models.ImageField(
+                blank=True,
+                help_text="Make sure the file is not too heavy. Prefer svg files.",
+                null=True,
+                upload_to="logos",
+                verbose_name="Logo image",
+            ),
         ),
     ]

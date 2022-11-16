@@ -8,10 +8,10 @@ from core.utils import reupload_files
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0023_searchpage_excluded_aids'),
+        ("search", "0023_searchpage_excluded_aids"),
     ]
 
     operations = [
-        RunPython(reupload_files('search.SearchPage', 'logo'), RunPython.noop),
-        RunPython(reupload_files('search.SearchPage', 'meta_image'), RunPython.noop),
+        RunPython(reupload_files("search.SearchPage", "logo"), RunPython.noop),
+        RunPython(reupload_files("search.SearchPage", "meta_image"), RunPython.noop),
     ]

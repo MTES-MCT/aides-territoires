@@ -6,7 +6,7 @@ from backers.models import Backer
 from programs.models import Program
 
 
-SEARCH_EXTRA_FIELDS = ['integration', 'order_by', 'action']
+SEARCH_EXTRA_FIELDS = ["integration", "order_by", "action"]
 
 
 def extract_id_from_string(id_slug_str):
@@ -15,7 +15,7 @@ def extract_id_from_string(id_slug_str):
     the concatenation of the object's id with their slug
     Example: '22-ademe'
     """
-    id_str = id_slug_str.split('-')[0]
+    id_str = id_slug_str.split("-")[0]
     try:
         return int(id_str)
     except Exception:
@@ -30,11 +30,15 @@ def clean_search_form(search_form, remove_extra_fields=False):
     search_form_dict = {k: v for k, v in search_form.items() if v}
     # Remove extra fields
     if remove_extra_fields:
-        search_form_dict = {k: v for k, v in search_form_dict.items() if k not in SEARCH_EXTRA_FIELDS}  # noqa
+        search_form_dict = {
+            k: v for k, v in search_form_dict.items() if k not in SEARCH_EXTRA_FIELDS
+        }  # noqa
     return search_form_dict
 
 
-def clean_search_querystring(querystring, remove_extra_fields=False, return_querydict=False):  # noqa
+def clean_search_querystring(
+    querystring, remove_extra_fields=False, return_querydict=False
+):  # noqa
     """
     - remove starting '?' if it exists
     - remove empty params
@@ -43,14 +47,19 @@ def clean_search_querystring(querystring, remove_extra_fields=False, return_quer
         return querystring
     # Sometimes the querystring contains a leading '?' character
     # and we don't want it here.
-    querystring = querystring.strip('?')
+    querystring = querystring.strip("?")
     # Re-build the querydict without the empty params
     querydict = QueryDict(querystring).copy()
-    querydict_cleaned = QueryDict('', mutable=True)
+    querydict_cleaned = QueryDict("", mutable=True)
     for k, v in querydict.lists():
         values_without_empty = list(filter(None, v))
         if values_without_empty:
-            if not remove_extra_fields or (remove_extra_fields and (k not in SEARCH_EXTRA_FIELDS and values_without_empty[0] != 'False')):  # noqa
+            if not remove_extra_fields or (
+                remove_extra_fields
+                and (
+                    k not in SEARCH_EXTRA_FIELDS and values_without_empty[0] != "False"
+                )
+            ):  # noqa
                 querydict_cleaned.setlist(k, values_without_empty)
     if return_querydict:
         return querydict_cleaned
@@ -77,8 +86,10 @@ def get_querystring_perimeter(querystring):
     Format ? 'id-slug' (e.g. '71045-rhone')
     Returns None or 1 perimeter
     """
-    PERIMETER_KEY = 'perimeter'
-    perimeter_list = get_querystring_value_list_from_key(querystring, PERIMETER_KEY)  # noqa
+    PERIMETER_KEY = "perimeter"
+    perimeter_list = get_querystring_value_list_from_key(
+        querystring, PERIMETER_KEY
+    )  # noqa
     if len(perimeter_list):
         try:
             perimeter_id = extract_id_from_string(perimeter_list[0])
@@ -94,7 +105,7 @@ def get_querystring_themes(querystring):
     Format ? 'slug'
     Returns a QuerySet
     """
-    THEMES_KEY = 'themes'
+    THEMES_KEY = "themes"
     themes_list = get_querystring_value_list_from_key(querystring, THEMES_KEY)
     return Theme.objects.filter(slug__in=themes_list)
 
@@ -104,8 +115,10 @@ def get_querystring_categories(querystring):
     Format ? 'slug'
     Returns a QuerySet
     """
-    CATEGORIES_KEY = 'categories'
-    categories_list = get_querystring_value_list_from_key(querystring, CATEGORIES_KEY)  # noqa
+    CATEGORIES_KEY = "categories"
+    categories_list = get_querystring_value_list_from_key(
+        querystring, CATEGORIES_KEY
+    )  # noqa
     return Category.objects.filter(slug__in=categories_list)
 
 
@@ -114,9 +127,11 @@ def get_querystring_backers(querystring):
     Format ? 'id-slug'
     Returns a QuerySet
     """
-    BACKERS_KEY = 'backers'
+    BACKERS_KEY = "backers"
     backers_list = get_querystring_value_list_from_key(querystring, BACKERS_KEY)  # noqa
-    backers_list_id = [extract_id_from_string(backer) for backer in backers_list]  # noqa
+    backers_list_id = [
+        extract_id_from_string(backer) for backer in backers_list
+    ]  # noqa
     return Backer.objects.filter(id__in=backers_list_id)
 
 
@@ -125,6 +140,8 @@ def get_querystring_programs(querystring):
     Format ? 'slug'
     Returns a QuerySet
     """
-    PROGRAMS_KEY = 'programs'
-    programs_list = get_querystring_value_list_from_key(querystring, PROGRAMS_KEY)  # noqa
+    PROGRAMS_KEY = "programs"
+    programs_list = get_querystring_value_list_from_key(
+        querystring, PROGRAMS_KEY
+    )  # noqa
     return Program.objects.filter(slug__in=programs_list)

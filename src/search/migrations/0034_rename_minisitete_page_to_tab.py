@@ -6,38 +6,36 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pages', '0005_page_minisite_related_name'),
-        ('search', '0033_add_search_page_lite_proxy_model'),
+        ("pages", "0005_page_minisite_related_name"),
+        ("search", "0033_add_search_page_lite_proxy_model"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='MinisitePage',
+            name="MinisitePage",
         ),
         migrations.CreateModel(
-            name='MinisiteTab',
-            fields=[
-            ],
+            name="MinisiteTab",
+            fields=[],
             options={
-                'verbose_name': 'onglet (toutes les PP)',
-                'verbose_name_plural': 'onglets (toutes les PP)',
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
+                "verbose_name": "onglet (toutes les PP)",
+                "verbose_name_plural": "onglets (toutes les PP)",
+                "proxy": True,
+                "indexes": [],
+                "constraints": [],
             },
-            bases=('pages.page',),
+            bases=("pages.page",),
         ),
         migrations.CreateModel(
-            name='MinisiteTabLite',
-            fields=[
-            ],
+            name="MinisiteTabLite",
+            fields=[],
             options={
-                'verbose_name': 'onglet',
-                'verbose_name_plural': 'onglets',
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
+                "verbose_name": "onglet",
+                "verbose_name_plural": "onglets",
+                "proxy": True,
+                "indexes": [],
+                "constraints": [],
             },
-            bases=('pages.page',),
+            bases=("pages.page",),
         ),
     ]

@@ -65,7 +65,7 @@ SUPERUSER_FIELDSETS_SEARCH_PAGE.insert(
                 "slug",
                 "search_querystring",
                 "tab_title",
-                "contact_link"
+                "contact_link",
             )
         },
     ),

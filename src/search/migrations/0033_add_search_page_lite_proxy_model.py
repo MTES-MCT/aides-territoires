@@ -6,21 +6,20 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0032_cleanup_choices_translations'),
+        ("search", "0032_cleanup_choices_translations"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='SearchPageLite',
-            fields=[
-            ],
+            name="SearchPageLite",
+            fields=[],
             options={
-                'verbose_name': 'page personnalisée',
-                'verbose_name_plural': 'pages personnalisées',
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
+                "verbose_name": "page personnalisée",
+                "verbose_name_plural": "pages personnalisées",
+                "proxy": True,
+                "indexes": [],
+                "constraints": [],
             },
-            bases=('search.searchpage',),
+            bases=("search.searchpage",),
         ),
     ]

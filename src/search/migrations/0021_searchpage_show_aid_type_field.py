@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0020_searchpage_date_created'),
+        ("search", "0020_searchpage_date_created"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='searchpage',
-            name='show_aid_type_field',
-            field=models.BooleanField(default=False, verbose_name='Show aid type filter?'),
+            model_name="searchpage",
+            name="show_aid_type_field",
+            field=models.BooleanField(
+                default=False, verbose_name="Show aid type filter?"
+            ),
         ),
     ]

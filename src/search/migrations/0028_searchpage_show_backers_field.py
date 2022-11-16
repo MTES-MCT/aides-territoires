@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0027_minisitepage'),
+        ("search", "0027_minisitepage"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='searchpage',
-            name='show_backers_field',
-            field=models.BooleanField(default=False, verbose_name='Montrer le champ « porteur » ?'),
+            model_name="searchpage",
+            name="show_backers_field",
+            field=models.BooleanField(
+                default=False, verbose_name="Montrer le champ « porteur » ?"
+            ),
         ),
     ]

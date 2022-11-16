@@ -6,22 +6,21 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pages', '0003_alter_page_minisite'),
-        ('search', '0026_searchpage_administrators'),
+        ("pages", "0003_alter_page_minisite"),
+        ("search", "0026_searchpage_administrators"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='MinisitePage',
-            fields=[
-            ],
+            name="MinisitePage",
+            fields=[],
             options={
-                'verbose_name': 'Page',
-                'verbose_name_plural': 'Pages',
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
+                "verbose_name": "Page",
+                "verbose_name_plural": "Pages",
+                "proxy": True,
+                "indexes": [],
+                "constraints": [],
             },
-            bases=('pages.page',),
+            bases=("pages.page",),
         ),
     ]

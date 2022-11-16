@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0038_alter_searchpage_highlighted_aids'),
+        ("search", "0038_alter_searchpage_highlighted_aids"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='searchpage',
-            name='contact_link',
-            field=models.CharField(default='https://aides-territoires.beta.gouv.fr/contact/', help_text="Url ou adresse email qui sera utilisé pour le lien 'contact' dans le footer.", max_length=300, verbose_name='Url du lien contact'),
+            model_name="searchpage",
+            name="contact_link",
+            field=models.CharField(
+                default="https://aides-territoires.beta.gouv.fr/contact/",
+                help_text="Url ou adresse email qui sera utilisé pour le lien 'contact' dans le footer.",
+                max_length=300,
+                verbose_name="Url du lien contact",
+            ),
         ),
     ]

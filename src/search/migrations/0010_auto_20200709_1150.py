@@ -6,13 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0009_searchpage_more_content'),
+        ("search", "0009_searchpage_more_content"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='searchpage',
-            name='slug',
-            field=models.SlugField(help_text="This part is used in the url. DON't change this for existing pages. MUST be lowercase for minisites.", verbose_name='Slug'),
+            model_name="searchpage",
+            name="slug",
+            field=models.SlugField(
+                help_text="This part is used in the url. DON't change this for existing pages. MUST be lowercase for minisites.",
+                verbose_name="Slug",
+            ),
         ),
     ]

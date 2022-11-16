@@ -7,13 +7,19 @@ import search.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0010_auto_20200709_1150'),
+        ("search", "0010_auto_20200709_1150"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='searchpage',
-            name='meta_image',
-            field=models.FileField(blank=True, help_text='Make sure the file is at least 1024px long.', null=True, upload_to=search.models.logo_upload_to, verbose_name='Meta image'),
+            model_name="searchpage",
+            name="meta_image",
+            field=models.FileField(
+                blank=True,
+                help_text="Make sure the file is at least 1024px long.",
+                null=True,
+                upload_to=search.models.logo_upload_to,
+                verbose_name="Meta image",
+            ),
         ),
     ]

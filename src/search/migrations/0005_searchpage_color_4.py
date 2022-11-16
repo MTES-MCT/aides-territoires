@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0004_auto_20200608_1011'),
+        ("search", "0004_auto_20200608_1011"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='searchpage',
-            name='color_4',
-            field=models.CharField(blank=True, help_text='Link colors', max_length=10, verbose_name='Color 4'),
+            model_name="searchpage",
+            name="color_4",
+            field=models.CharField(
+                blank=True,
+                help_text="Link colors",
+                max_length=10,
+                verbose_name="Color 4",
+            ),
         ),
     ]

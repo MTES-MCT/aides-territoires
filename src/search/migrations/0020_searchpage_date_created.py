@@ -7,13 +7,15 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0019_auto_20201028_1600'),
+        ("search", "0019_auto_20201028_1600"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='searchpage',
-            name='date_created',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created'),
+            model_name="searchpage",
+            name="date_created",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name="Date created"
+            ),
         ),
     ]

@@ -7,13 +7,19 @@ import search.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0003_auto_20200608_0955'),
+        ("search", "0003_auto_20200608_0955"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='searchpage',
-            name='logo',
-            field=models.FileField(blank=True, help_text='Make sure the file is not too heavy. Prefer svg files.', null=True, upload_to=search.models.logo_upload_to, verbose_name='Logo image'),
+            model_name="searchpage",
+            name="logo",
+            field=models.FileField(
+                blank=True,
+                help_text="Make sure the file is not too heavy. Prefer svg files.",
+                null=True,
+                upload_to=search.models.logo_upload_to,
+                verbose_name="Logo image",
+            ),
         ),
     ]

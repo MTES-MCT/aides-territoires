@@ -4,7 +4,6 @@ from search.models import SearchPage
 
 
 class SearchSitemap(Sitemap):
-
     def items(self):
         """Return the list of all live aids."""
 
@@ -18,15 +17,15 @@ class SearchSitemap(Sitemap):
         """
         pages = self.items()
         urls = []
-        domain = site.domain if site else 'aides-territoires.beta.gouv.fr'
+        domain = site.domain if site else "aides-territoires.beta.gouv.fr"
 
         for page in pages:
             url = {
-                'item': page,
-                'location': f'https://{page.slug}.{domain}',
-                'lastmod': page.date_updated,
-                'changefreq': None,
-                'priority': None,
+                "item": page,
+                "location": f"https://{page.slug}.{domain}",
+                "lastmod": page.date_updated,
+                "changefreq": None,
+                "priority": None,
             }
             urls.append(url)
 

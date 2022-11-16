@@ -7,24 +7,72 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='SearchPage',
+            name="SearchPage",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(help_text='The main displayed title.', max_length=180, verbose_name='Title')),
-                ('meta_title', models.CharField(blank=True, default='', help_text='This will be displayed in SERPs. Keep it under 60 characters. Leave empty and we will reuse the page title.', max_length=180, verbose_name='Meta title')),
-                ('slug', models.SlugField(help_text="This part is used in the url. DON't change this for existing pages.", verbose_name='Slug')),
-                ('meta_description', models.TextField(blank=True, default='', help_text='This will be displayed in SERPs. Keep it under 120 characters.', verbose_name='Meta description')),
-                ('content', models.TextField(verbose_name='Full description of the page. Will be displayed above results.')),
-                ('search_querystring', models.TextField(help_text='The search paramaters url', verbose_name='Querystring')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        help_text="The main displayed title.",
+                        max_length=180,
+                        verbose_name="Title",
+                    ),
+                ),
+                (
+                    "meta_title",
+                    models.CharField(
+                        blank=True,
+                        default="",
+                        help_text="This will be displayed in SERPs. Keep it under 60 characters. Leave empty and we will reuse the page title.",
+                        max_length=180,
+                        verbose_name="Meta title",
+                    ),
+                ),
+                (
+                    "slug",
+                    models.SlugField(
+                        help_text="This part is used in the url. DON't change this for existing pages.",
+                        verbose_name="Slug",
+                    ),
+                ),
+                (
+                    "meta_description",
+                    models.TextField(
+                        blank=True,
+                        default="",
+                        help_text="This will be displayed in SERPs. Keep it under 120 characters.",
+                        verbose_name="Meta description",
+                    ),
+                ),
+                (
+                    "content",
+                    models.TextField(
+                        verbose_name="Full description of the page. Will be displayed above results."
+                    ),
+                ),
+                (
+                    "search_querystring",
+                    models.TextField(
+                        help_text="The search paramaters url",
+                        verbose_name="Querystring",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Search page',
-                'verbose_name_plural': 'Search pages',
+                "verbose_name": "Search page",
+                "verbose_name_plural": "Search pages",
             },
         ),
     ]
