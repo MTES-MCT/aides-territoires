@@ -5,7 +5,7 @@ from search.templatetags.colors import darken
 
 def test_darken_only_takes_rgb():
     with pytest.raises(ValueError) as e:
-        res = darken("blue", 15) == "red"
+        res = darken("blue", 15) == "red"  # noqa
     assert "Color must be in hexadecimal format" in str(e.value)
 
 
