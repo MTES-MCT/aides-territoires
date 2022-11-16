@@ -11,7 +11,7 @@ class OrganizationFactory(DjangoModelFactory):
         model = Organization
 
     name = factory.Faker("first_name")
-    organization_type = FuzzyMultipleChoice(Organization.ORGANIZATION_TYPE)
+    organization_type = FuzzyMultipleChoice(Organization.ORGANIZATION_TYPE_CHOICES)
 
 
 class CommuneOrganizationFactory(DjangoModelFactory):

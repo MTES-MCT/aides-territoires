@@ -5,7 +5,7 @@ from core.forms.fields import AutocompleteModelChoiceField
 
 from geofr.models import Perimeter
 from organizations.models import Organization
-from organizations.constants import ORGANIZATION_TYPE_WITH_DEFAULT
+from organizations.constants import ORGANIZATION_TYPE_CHOICES_WITH_DEFAULT
 from projects.models import Project
 
 
@@ -22,7 +22,7 @@ class OrganizationCreateForm(forms.ModelForm, AidesTerrBaseForm):
     organization_type = forms.MultipleChoiceField(
         label="Vous êtes un/une",
         required=False,
-        choices=ORGANIZATION_TYPE_WITH_DEFAULT,
+        choices=ORGANIZATION_TYPE_CHOICES_WITH_DEFAULT,
         widget=OrganizationTypeWidget,
     )
 
@@ -48,7 +48,7 @@ class OrganizationUpdateForm(forms.ModelForm, AidesTerrBaseForm):
     organization_type = forms.MultipleChoiceField(
         label="Type de structure",
         required=True,
-        choices=ORGANIZATION_TYPE_WITH_DEFAULT,
+        choices=ORGANIZATION_TYPE_CHOICES_WITH_DEFAULT,
         widget=OrganizationTypeWidget,
         help_text="Ce champ sera utilisé par défaut pour trouver des aides",
     )

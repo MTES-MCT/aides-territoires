@@ -78,7 +78,7 @@ class BaseAidForm(forms.ModelForm, DsfrBaseForm):
             }
         ),
     )
-    eligibility = RichTextField(label="Conditions d'éligibilité", required=False)
+    eligibility = RichTextField(label="Conditions d’éligibilité", required=False)
     contact = RichTextField(
         label="Contact pour candidater",
         required=True,
@@ -116,14 +116,14 @@ class BaseAidForm(forms.ModelForm, DsfrBaseForm):
             "destinations": "Types de dépenses / actions couvertes",
             "origin_url": "Lien vers le descriptif complet",
             "application_url": "Lien vers la démarche en ligne",
-            "is_call_for_project": "Cochez cette case s’il s’agit d'un appel à projets (AAP) ou d’un appel à manifestation d’intérêt (AMI)",  # noqa
+            "is_call_for_project": "Cochez cette case s’il s’agit d’un appel à projets (AAP) ou d’un appel à manifestation d’intérêt (AMI)",  # noqa
         }
         for field, label in custom_labels.items():
             if field in self.fields:
                 self.fields[field].label = label
 
         custom_help_text = {
-            "new_backer": "Si le porteur de l’aide n'est pas déjà présent dans la liste précédente, vous pouvez utiliser ce champ pour nous le communiquer.",  # noqa
+            "new_backer": "Si le porteur de l’aide n’est pas déjà présent dans la liste précédente, vous pouvez utiliser ce champ pour nous le communiquer.",  # noqa
         }
         for field, help_text in custom_help_text.items():
             if field in self.fields:
@@ -211,28 +211,28 @@ class AidAdminForm(BaseAidForm):
         if data["status"].state == AidWorkflow.states.published:
 
             if not data.get("name", None):
-                msg = "Veuillez compléter le champ nom de l'aide"
+                msg = "Veuillez compléter le champ nom de l’aide"
                 self.add_error(
                     "name",
                     ValidationError(msg, code="missing_name"),
                 )
 
             if not data.get("slug", None):
-                msg = "Veuillez compléter le champ fragment d'url"
+                msg = "Veuillez compléter le champ fragment d’url"
                 self.add_error(
                     "slug",
                     ValidationError(msg, code="missing_slug"),
                 )
 
             if not data.get("targeted_audiences", None):
-                msg = "Veuillez compléter le champ bénéficiaires de l'aide"
+                msg = "Veuillez compléter le champ bénéficiaires de l’aide"
                 self.add_error(
                     "targeted_audiences",
                     ValidationError(msg, code="missing_targeted_audiences"),
                 )
 
             if not data.get("aid_types", None):
-                msg = "Veuillez compléter le champ type d'aide"
+                msg = "Veuillez compléter le champ type d’aide"
                 self.add_error(
                     "aid_types",
                     ValidationError(msg, code="missing_aid_types"),
@@ -253,7 +253,7 @@ class AidAdminForm(BaseAidForm):
                 )
 
             if not data.get("mobilization_steps", None):
-                msg = "Veuillez compléter le champ état d'avancement du projet"
+                msg = "Veuillez compléter le champ état d’avancement du projet"
                 self.add_error(
                     "mobilization_steps",
                     ValidationError(msg, code="missing_mobilization_steps"),
@@ -278,14 +278,14 @@ class AidAdminForm(BaseAidForm):
                 submission_deadline = data.get("submission_deadline", None)
 
                 if recurrence != "ongoing" and not submission_deadline:
-                    msg = "Sauf pour les aides permanentes, veuillez indiquer la date de clôture de l'aide."  # noqa
+                    msg = "Sauf pour les aides permanentes, veuillez indiquer la date de clôture de l’aide."  # noqa
                     self.add_error(
                         "submission_deadline",
                         ValidationError(msg, code="missing_submission_deadline"),
                     )
 
             if not self.data.get("aidfinancer_set-0-backer"):
-                raise ValidationError("Merci d'indiquer un porteur d'aide.")
+                raise ValidationError("Merci d’indiquer un porteur d’aide.")
 
             return data
         else:
@@ -295,10 +295,10 @@ class AidAdminForm(BaseAidForm):
 class AidEditForm(BaseAidForm):
 
     programs = forms.ModelMultipleChoiceField(
-        label="Programme d'aides", queryset=Program.objects.all(), required=False
+        label="Programme d’aides", queryset=Program.objects.all(), required=False
     )
     financers = AutocompleteModelMultipleChoiceField(
-        label="Porteurs d'aides",
+        label="Porteurs d’aides",
         queryset=Backer.objects.all(),
         required=False,
         help_text="Saisissez quelques caractères et sélectionnez une valeur parmi les suggestions.",
@@ -324,9 +324,9 @@ class AidEditForm(BaseAidForm):
 
     perimeter = AutocompleteModelChoiceField(
         queryset=Perimeter.objects.all(),
-        label="Zone géographique couverte par l'aide",
+        label="Zone géographique couverte par l’aide",
         help_text="""
-            La zone géographique sur laquelle l'aide est disponible.<br />
+            La zone géographique sur laquelle l’aide est disponible.<br />
             Exemples de zones valides :
             <ul>
             <li>France</li>
@@ -349,7 +349,7 @@ class AidEditForm(BaseAidForm):
         """,
     )
     categories = CategoryMultipleChoiceField(
-        label="Thématiques de l'aide",
+        label="Thématiques de l’aide",
         required=False,
         help_text="Sélectionnez la ou les thématiques associées à votre aide. N'hésitez pas à en choisir plusieurs.",  # noqa
     )
@@ -466,7 +466,7 @@ class AidEditForm(BaseAidForm):
 
         if "financers" in self.fields:
             if not any((data.get("financers"), data.get("financer_suggestion"))):
-                msg = "Merci d'indiquer un porteur d'aide."
+                msg = "Merci d’indiquer un porteur d’aide."
                 self.add_error("financers", msg)
 
         return data
@@ -481,7 +481,7 @@ class BaseAidSearchForm(AidesTerrBaseForm):
         ("non-funding", "Non-financière"),
     )
 
-    ORDER_BY = (
+    ORDER_BY_CHOICES = (
         ("relevance", "Tri : pertinence"),
         ("publication_date", "Tri : date de publication"),
         ("submission_deadline", "Tri : date de clôture"),
@@ -539,7 +539,7 @@ class BaseAidSearchForm(AidesTerrBaseForm):
         label="Récurrence", required=False, choices=Aid.RECURRENCES
     )
     call_for_projects_only = forms.BooleanField(
-        label="Appels à projets / Appels à manifestation d'intérêt uniquement",
+        label="Appels à projets / Appels à manifestation d’intérêt uniquement",
         required=False,
     )
     backers = AutocompleteModelMultipleChoiceField(
@@ -584,7 +584,9 @@ class BaseAidSearchForm(AidesTerrBaseForm):
     integration = forms.CharField(required=False, widget=forms.HiddenInput)
 
     # This field is used to sort results
-    order_by = forms.ChoiceField(label="Trier par", required=False, choices=ORDER_BY)
+    order_by = forms.ChoiceField(
+        label="Trier par", required=False, choices=ORDER_BY_CHOICES
+    )
 
     def clean_zipcode(self):
         zipcode = self.cleaned_data["zipcode"]
@@ -594,7 +596,7 @@ class BaseAidSearchForm(AidesTerrBaseForm):
 
         return zipcode
 
-    def filter_queryset(self, qs=None, apply_generic_aid_filter=True):
+    def filter_queryset(self, qs=None, apply_generic_aid_filter=True):  # noqa
         """Filter querysets depending of input data."""
 
         # If no qs was passed, just start with all published aids
@@ -848,11 +850,11 @@ class AidProjectStatusForm(forms.ModelForm, AidesTerrBaseForm):
 
         data = super().clean()
         if data.get("aid_obtained") and data.get("aid_denied"):
-            msg = "L'aide ne peut être à la fois 'obtenue' et 'rejetée'"
+            msg = "L’aide ne peut être à la fois « obtenue » et « rejetée »"
             self.add_error("aid_denied", msg)
             self.add_error("aid_obtained", msg)
         elif data.get("aid_paid") and data.get("aid_denied"):
-            msg = "L'aide ne peut être à la fois 'versée' et 'rejetée'"
+            msg = "L’aide ne peut être à la fois « versée » et « rejetée »"
             self.add_error("aid_denied", msg)
             self.add_error("aid_paid", msg)
 
@@ -870,9 +872,9 @@ class SuggestAidMatchProjectForm(AidesTerrBaseForm):
         required=True,
     )
     aid = forms.CharField(
-        label="Url de l'aide que vous souhaitez suggérer",
+        label="Url de l’aide que vous souhaitez suggérer",
         required=True,
-        help_text="Coller ici l'url de l'aide que vous souhaitez suggérer pour le projet.",
+        help_text="Coller ici l’url de l’aide que vous souhaitez suggérer pour le projet.",
     )
 
     def get_origin_page_from_post_data(self):
