@@ -10,7 +10,7 @@ from backers.factories import BackerFactory
 from geofr.models import Perimeter
 from geofr.factories import PerimeterFactory
 from categories.factories import CategoryFactory
-from organizations.models import Organization
+from organizations.factories import OrganizationFactory
 
 
 @pytest.fixture(scope="module")
@@ -33,7 +33,7 @@ def user():
     """Generates a valid and active user."""
 
     user = UserFactory(email="sample.user@example.org")
-    user_org = Organization(name="Sample Org", perimeter=Perimeter.objects.first())
+    user_org = OrganizationFactory(perimeter=Perimeter.objects.first())
     user_org.save()
     user.beneficiary_organization_id = user_org.pk
     user.organization_type = "farmer"
@@ -51,8 +51,7 @@ def user_client(user, client):
 def contributor():
     """Generates a valid and active contributor."""
 
-    # We may need an OrganizationFactory when the organizations app has a test suite
-    sample_org = Organization(name="Sample org", organization_type=["epci"])
+    sample_org = OrganizationFactory()
     sample_org.save()
 
     user = ContributorFactory()

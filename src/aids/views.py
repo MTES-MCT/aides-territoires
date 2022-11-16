@@ -1,4 +1,3 @@
-import re
 from datetime import timedelta
 
 from django.conf import settings
@@ -182,8 +181,8 @@ class SearchView(SearchMixin, FormMixin, ListView):
         """
         current_search_query = self.request.GET.urlencode()
         if "targeted_audiences=&" in current_search_query:
-            current_search_query = re.sub(
-                "targeted_audiences=&", "", current_search_query
+            current_search_query = current_search_query.replace(
+                "targeted_audiences=&", ""
             )
         self.request.session[settings.SEARCH_COOKIE_NAME] = current_search_query
 

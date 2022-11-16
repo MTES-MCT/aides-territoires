@@ -14,6 +14,7 @@ from aids.factories import AidFactory
 from aids.models import AidProject
 from alerts.factories import AlertFactory
 from alerts.models import Alert
+from organizations.factories import OrganizationFactory
 from organizations.models import Organization
 from projects.factories import ProjectFactory
 from projects.models import Project
@@ -493,7 +494,9 @@ def test_profile_form_can_update_password(client, contributor):
 
 def test_search_page_administrator_has_specific_menu(client):
     user_admin_pp = UserFactory(is_contributor=False, email="admin.pp@example.org")
-    user_org = Organization(name="Sample Org", perimeter=Perimeter.objects.first())
+    user_org = OrganizationFactory(
+        name="Sample Org", perimeter=Perimeter.objects.first()
+    )
     user_org.save()
     user_admin_pp.beneficiary_organization_id = user_org.pk
     user_admin_pp.organization_type = "farmer"

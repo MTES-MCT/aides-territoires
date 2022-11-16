@@ -740,7 +740,7 @@ class BaseAidSearchForm(AidesTerrBaseForm):
                 has_highlighted_aids=has_highlighted_aids,
                 pre_order=pre_order,
             )
-        )  # noqa
+        )
         return qs
 
     def perimeter_filter(self, qs, search_perimeter):
@@ -872,9 +872,9 @@ class SuggestAidMatchProjectForm(AidesTerrBaseForm):
         required=True,
     )
     aid = forms.CharField(
-        label="Url de l’aide que vous souhaitez suggérer",
+        label="URL de l’aide que vous souhaitez suggérer",
         required=True,
-        help_text="Coller ici l’url de l’aide que vous souhaitez suggérer pour le projet.",
+        help_text="Coller ici l’URL de l’aide que vous souhaitez suggérer pour le projet.",
     )
 
     def get_origin_page_from_post_data(self):

@@ -46,7 +46,7 @@ urlpatterns = [
         "dupliquer/<slug:slug>/",
         GenericToLocalAidView.as_view(),
         name="aid_generic_to_local_view",
-    ),  # noqa
+    ),
     # Aid détails
     path(
         "<slug:slug>/",
@@ -75,6 +75,6 @@ urlpatterns = [
     path(
         "modifier-le-statut-de-l-aide/<int:pk>/",
         AidProjectStatusView.as_view(),
-        name="aidproject_status_view"
+        name="aidproject_status_view",
     ),
 ]
