@@ -18,7 +18,7 @@ def darken(hex, rate):
     h, l, s = rgb_to_hls(*rgb)
     new_l = max(0, min(1, l * (1 - (rate / 100))))
 
-    # Convert back to hexadecimal
+    # Convert value back to hexadecimal
     new_rgb = hls_to_rgb(h, new_l, s)
     new_hex = "".join("{:02X}".format(int(n * 255)) for n in new_rgb)
-    return "#{}".format(new_hex)
+    return f"#{new_hex}"
