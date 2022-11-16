@@ -13,7 +13,6 @@ $(document).ready(function () {
     $('select#id_perimeter').select2({
         placeholder: "Tous les territoires",
         allowClear: true,
-        language: 'fr',
         minimumInputLength: 1,
         language: {
             inputTooShort: function () { return ''; },
