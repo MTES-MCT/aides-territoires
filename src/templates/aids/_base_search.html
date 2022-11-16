@@ -41,6 +41,39 @@
                             <div class="fr-card__body">
                                 <div class="fr-card__content">
                                     {% include "aids/_search_form.html" %}
+                                    <section class="fr-accordion">
+                                        <h3 class="fr-accordion__title">
+                                            <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-help-search">
+                                                Aide pour la recherche
+                                            </button>
+                                        </h3>
+                                        <div class="fr-collapse" id="accordion-help-search">
+                                            <p class="fr-hint-text">
+                                                <strong>
+                                                    <span aria-hidden="”true”">💡</span> 3 astuces pour optimiser la recherche textuelle :
+                                                </strong>
+                                            </p>
+                                            <ul class="fr-hint-text">
+                                                <li class="fr-mx-2w">"piste cyclable" renverra les aides contenant les 2 termes "piste" et "cyclable".</li>
+                                                <li class="fr-mx-2w">"piste cyclable<strong>,</strong> voie douce" avec une virgule comme séparateur, renverra les aides contenant les 2 termes "piste" et "cyclable" ou les 2 termes "voie" et "douce".</li>
+                                                <li class="fr-mx-2w">Selon la recherche effectuée, nous pouvons vous suggérer une recherche permettant d’accéder à des résultats plus complets (prise en compte de synonymes) et précis (mots clés spécifiques).</li>
+                                            </ul>
+
+                                            <p class="fr-hint-text">
+                                                <strong>
+                                                    Certains champs permettent de choisir plusieurs valeurs :
+                                                </strong>
+                                            </p>
+
+                                            <ul class="fr-hint-text">
+                                                <li class="fr-mx-2w">Nature de l’aide</li>
+                                                <li class="fr-mx-2w">Thématiques</li>
+                                                <li class="fr-mx-2w">Porteurs d’aides</li>
+                                                <li class="fr-mx-2w">Programmes d’aides</li>
+                                            </ul>
+
+                                        </div>
+                                    </section>
                                 </div>
                             </div>
                         </div>

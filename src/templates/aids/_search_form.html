@@ -26,11 +26,10 @@
                             <div id="form-group-targeted_audiences" class="fr-input-group">
                                 <label class="fr-label" for="id_targeted_audiences">Vous cherchez pour…</label>
                                 <select class="fr-select" name="targeted_audiences" id="id_targeted_audiences">
-                                    <option value="" hidden>Faites votre choix</option>
+                                    <option value="">Tous types de structures</option>
                                     {% for option in form.targeted_audiences %}
                                         {{ option }}
                                     {% endfor %}
-                                    <option value="">Toutes structures</option>
                                 </select>
                             </div>
                         </div>
