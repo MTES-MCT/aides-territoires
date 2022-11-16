@@ -40,7 +40,7 @@
       </ul>
     </div>
 
-    <script>
+    <script nonce="{{ request.csp_nonce }}">
       new Chartist.Pie('#chart-communes', {
         series: [
           {{ nb_communes }},
@@ -181,7 +181,7 @@
 {% endblock content %}
 
 {% block extra_js %}
-<script type="module">
+<script type="module" nonce="{{ request.csp_nonce }}">
   import { Application } from "{% static '@hotwired/stimulus/dist/stimulus.js' %}"
   import tableController from "{% static 'js/stats/table_controller.js' %}"
   window.Stimulus = Application.start()

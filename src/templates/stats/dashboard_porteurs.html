@@ -125,7 +125,7 @@
     </ul>
   </div>
 
-  <script>
+  <script nonce="{{ request.csp_nonce }}">
     new Chartist.Bar('#chart-inscriptions-communes', {
       labels: {{ nb_inscriptions_weeks|safe }},
       series: [
@@ -161,7 +161,7 @@
     </ul>
   </div>
 
-  <script>
+  <script nonce="{{ request.csp_nonce }}">
     new Chartist.Bar('#chart-inscriptions-epcis', {
       labels: {{ nb_inscriptions_weeks|safe }},
       series: [
