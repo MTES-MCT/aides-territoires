@@ -108,9 +108,14 @@ def aid_types_choices_display_list(obj, field):
                 obj.recoverable_advance_amount,
             )
         elif value == "Prêt":
-            formated_string += format_html(
-                "<strong>{}</strong> (jusqu'à {} €)<br />", value, obj.loan_amount
-            )
+            if obj.loan_amount:
+                formated_string += format_html(
+                    "<strong>{}</strong> (jusqu'à {} €)<br />", value, obj.loan_amount
+                )
+            else:
+                formated_string += format_html(
+                    "<strong>{}</strong>", value
+                )
         elif value == "Autre aide financière":
             if obj.other_financial_aid_comment:
                 formated_string += format_html(
