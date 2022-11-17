@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0005_searchpage_color_4'),
+        ("search", "0005_searchpage_color_4"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='searchpage',
-            name='logo_link',
-            field=models.URLField(blank=True, help_text="The url for the partner's logo link", null=True, verbose_name='Logo link'),
+            model_name="searchpage",
+            name="logo_link",
+            field=models.URLField(
+                blank=True,
+                help_text="The url for the partner's logo link",
+                null=True,
+                verbose_name="Logo link",
+            ),
         ),
     ]

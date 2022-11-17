@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0035_add_tab_title'),
+        ("search", "0035_add_tab_title"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='searchpage',
-            name='show_text_field',
-            field=models.BooleanField(default=False, verbose_name='Montrer le champ « recherche textuelle » ?'),
+            model_name="searchpage",
+            name="show_text_field",
+            field=models.BooleanField(
+                default=False, verbose_name="Montrer le champ « recherche textuelle » ?"
+            ),
         ),
     ]

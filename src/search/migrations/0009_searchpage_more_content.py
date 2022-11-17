@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0008_searchpage_available_categories'),
+        ("search", "0008_searchpage_available_categories"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='searchpage',
-            name='more_content',
-            field=models.TextField(blank=True, help_text='Hidden content, revealed with a `See more` button', verbose_name='Additional page content'),
+            model_name="searchpage",
+            name="more_content",
+            field=models.TextField(
+                blank=True,
+                help_text="Hidden content, revealed with a `See more` button",
+                verbose_name="Additional page content",
+            ),
         ),
     ]

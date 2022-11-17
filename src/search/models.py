@@ -79,9 +79,7 @@ class SearchPage(models.Model):
     )
     content = models.TextField(
         _("Page content"),
-        help_text=_(
-            "Full description of the page. Will be displayed above results."
-        ),
+        help_text=_("Full description of the page. Will be displayed above results."),
     )
     more_content = models.TextField(
         _("Additional page content"),
@@ -146,9 +144,7 @@ class SearchPage(models.Model):
         blank=True,
         default="",
         max_length=256,
-        help_text=_(
-            "This will be displayed in SERPs. Keep it under 120 characters."
-        ),
+        help_text=_("This will be displayed in SERPs. Keep it under 120 characters."),
     )
     meta_image = models.FileField(
         _("Meta image"),

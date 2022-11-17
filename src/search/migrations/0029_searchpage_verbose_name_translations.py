@@ -6,33 +6,44 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0028_searchpage_show_backers_field'),
+        ("search", "0028_searchpage_show_backers_field"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='searchpage',
-            name='show_aid_type_field',
-            field=models.BooleanField(default=False, verbose_name="Montrer le champ « nature de l'aide » ?"),
+            model_name="searchpage",
+            name="show_aid_type_field",
+            field=models.BooleanField(
+                default=False, verbose_name="Montrer le champ « nature de l'aide » ?"
+            ),
         ),
         migrations.AlterField(
-            model_name='searchpage',
-            name='show_audience_field',
-            field=models.BooleanField(default=True, verbose_name='Montrer le champ « structure » ?'),
+            model_name="searchpage",
+            name="show_audience_field",
+            field=models.BooleanField(
+                default=True, verbose_name="Montrer le champ « structure » ?"
+            ),
         ),
         migrations.AlterField(
-            model_name='searchpage',
-            name='show_categories_field',
-            field=models.BooleanField(default=True, verbose_name='Montrer le champ « thématiques » ?'),
+            model_name="searchpage",
+            name="show_categories_field",
+            field=models.BooleanField(
+                default=True, verbose_name="Montrer le champ « thématiques » ?"
+            ),
         ),
         migrations.AlterField(
-            model_name='searchpage',
-            name='show_mobilization_step_field',
-            field=models.BooleanField(default=False, verbose_name='Montrer le champ « avancement du projet » ?'),
+            model_name="searchpage",
+            name="show_mobilization_step_field",
+            field=models.BooleanField(
+                default=False,
+                verbose_name="Montrer le champ « avancement du projet » ?",
+            ),
         ),
         migrations.AlterField(
-            model_name='searchpage',
-            name='show_perimeter_field',
-            field=models.BooleanField(default=True, verbose_name='Montrer le champ « territoire » ?'),
+            model_name="searchpage",
+            name="show_perimeter_field",
+            field=models.BooleanField(
+                default=True, verbose_name="Montrer le champ « territoire » ?"
+            ),
         ),
     ]

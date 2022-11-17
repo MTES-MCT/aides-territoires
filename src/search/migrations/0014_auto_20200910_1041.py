@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0013_searchpage_show_mobilization_steps_field'),
+        ("search", "0013_searchpage_show_mobilization_steps_field"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='searchpage',
-            old_name='show_mobilization_steps_field',
-            new_name='show_mobilization_step_field',
+            model_name="searchpage",
+            old_name="show_mobilization_steps_field",
+            new_name="show_mobilization_step_field",
         ),
     ]

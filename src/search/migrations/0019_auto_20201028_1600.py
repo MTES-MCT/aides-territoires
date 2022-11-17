@@ -6,13 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0018_add_short_title'),
+        ("search", "0018_add_short_title"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='searchpage',
-            name='short_title',
-            field=models.CharField(blank=True, default='', help_text='A shorter, more concise title.', max_length=180, verbose_name='Short title'),
+            model_name="searchpage",
+            name="short_title",
+            field=models.CharField(
+                blank=True,
+                default="",
+                help_text="A shorter, more concise title.",
+                max_length=180,
+                verbose_name="Short title",
+            ),
         ),
     ]

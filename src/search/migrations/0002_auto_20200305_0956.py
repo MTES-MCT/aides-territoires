@@ -6,18 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0001_initial'),
+        ("search", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='searchpage',
-            name='content',
-            field=models.TextField(help_text='Full description of the page. Will be displayed above results.', verbose_name='Page content'),
+            model_name="searchpage",
+            name="content",
+            field=models.TextField(
+                help_text="Full description of the page. Will be displayed above results.",
+                verbose_name="Page content",
+            ),
         ),
         migrations.AlterField(
-            model_name='searchpage',
-            name='meta_description',
-            field=models.TextField(blank=True, default='', help_text='This will be displayed in SERPs. Keep it under 120 characters.', max_length=256, verbose_name='Meta description'),
+            model_name="searchpage",
+            name="meta_description",
+            field=models.TextField(
+                blank=True,
+                default="",
+                help_text="This will be displayed in SERPs. Keep it under 120 characters.",
+                max_length=256,
+                verbose_name="Meta description",
+            ),
         ),
     ]

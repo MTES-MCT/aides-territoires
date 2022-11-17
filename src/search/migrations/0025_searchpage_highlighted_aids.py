@@ -6,14 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0132_limit_choices_to_generic_aids'),
-        ('search', '0024_reupload_files'),
+        ("aids", "0132_limit_choices_to_generic_aids"),
+        ("search", "0024_reupload_files"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='searchpage',
-            name='highlighted_aids',
-            field=models.ManyToManyField(blank=True, related_name='highlighted_in_search_pages', to='aids.Aid', verbose_name='Highlighted aids'),
+            model_name="searchpage",
+            name="highlighted_aids",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="highlighted_in_search_pages",
+                to="aids.Aid",
+                verbose_name="Highlighted aids",
+            ),
         ),
     ]
