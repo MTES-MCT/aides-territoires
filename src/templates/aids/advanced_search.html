@@ -13,9 +13,6 @@
                     <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" href="{% url 'general_search' %}?{{ current_search }}">Trouver des aides</a>
-                </li>
-                <li>
                     <a class="fr-breadcrumb__link" href="{% url 'search_view' %}?{{ current_search }}">Résultats</a>
                 </li>
                 <li>
@@ -52,9 +49,9 @@
                 {% include '_field_snippet.html' with field=form.programs %}
                 {% include '_select_snippet.html' with field=form.order_by %}
                 <button name="action" value="search-filter-advanced" type="submit" class="fr-btn fr-mb-5w">
-                    Trouver des aides
+                    Rechercher
                 </button>
-            </form>        
+            </form>
         </div>
     </div>
 </div>

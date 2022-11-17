@@ -486,14 +486,11 @@ class AidDetailView(DetailView):
                 ).order_by("name")
 
         if self.request.user.is_authenticated:
-            if self.request.user.beneficiary_organization is not None:
-                context[
-                    "user_targeted_audience"
-                ] = self.request.user.beneficiary_organization.organization_type[0]
-                if self.request.user.beneficiary_organization.perimeter is not None:
-                    context[
-                        "user_perimeter"
-                    ] = self.request.user.beneficiary_organization.perimeter_id
+            search_preferences = self.request.user.get_search_preferences()
+            context["user_targeted_audiences"] = search_preferences[
+                "targeted_audiences"
+            ]
+            context["user_perimeter"] = search_preferences["perimeter"]
 
         return context
 

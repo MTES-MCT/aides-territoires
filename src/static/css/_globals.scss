@@ -47,6 +47,11 @@ h6 {
   text-transform: uppercase;
 }
 
+.at-button-align-end {
+  display: flex;
+  align-items: end;
+}
+
 .fr-width-fix-100 {
   width: 100%;
 }
@@ -191,6 +196,12 @@ h6 {
 
 .at-height--30 {
   height: 30em;
+}
+
+// Custom classes for tabs
+
+.at-tabs__panel--opaque {
+  background-color: var(--background-default-grey);
 }
 
 // Used to make a header button look like a normal one 

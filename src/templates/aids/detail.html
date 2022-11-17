@@ -16,7 +16,7 @@
 <meta property="og:url" content="{{ request.build_absolute_uri }}" />
 <meta property="og:site_name" content="Aides-territoires" />
 <meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
-<meta property="og:image:alt" content="Logo : Aides-territoires" />
+<meta property="og:image:alt" content="Logo : Aides-territoires" />
 {% endblock extra_head %}
 
 {% block breadcrumbs %}
@@ -29,7 +29,7 @@
                     <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" title="Lancer une nouvelle recherche" href="{% url 'general_search' %}?{{ current_search }}">Trouver des aides</a>
+                    <a class="fr-breadcrumb__link" title="Lancer une nouvelle recherche" href="{% url 'search_view' %}?{{ current_search }}">Trouver des aides</a>
                 </li>
                 <li>
                     <a class="fr-breadcrumb__link" title="Revenir aux résultats" href="{% url 'search_view' %}?{{ current_search }}">Résultats</a>
@@ -48,14 +48,14 @@
 
     {% if not aid.is_published %}
     <div class="fr-alert fr-alert--warning at-clear fr-mt-2w">
-        <p class="fr-alert__title">Attention ! Cette aide n’est actuellement pas affichée sur le site.</p>
+        <p class="fr-alert__title">Attention ! Cette aide n’est actuellement pas affichée sur le site.</p>
         <p>Vous pouvez la prévisualiser parce que vous en êtes l’auteur.</p>
     </div>
     {% endif %}
 
     {% if aid.has_expired %}
     <div class="fr-alert fr-alert--warning at-clear fr-mt-2w">
-        <p class="fr-alert__title">Attention ! Cette aide n’est plus disponible.</p>
+        <p class="fr-alert__title">Attention ! Cette aide n’est plus disponible.</p>
         <p>Cette page restera accessible pour archivage.</p>
     </div>
     {% endif %}
@@ -70,7 +70,7 @@
                 </div>
                 <div class="fr-col-11">
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
-                        <strong>Porteur(s) d’aide :</strong>
+                        <strong>Porteur(s) d’aide :</strong>
                     </h2>
                     {% for financer in financers %}
                     <p class="fr-mb-0 fr-ml-1w">
@@ -100,7 +100,7 @@
                 </div>
                 <div class="fr-col-11">
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
-                        <strong>Instructeur(s) de l’aide :</strong>
+                        <strong>Instructeur(s) de l’aide :</strong>
                     </h2>
                     {% for instructor in instructors %}
                     <p class="fr-mb-0 fr-ml-1w">
@@ -126,7 +126,7 @@
                         </div>
                         <div class="fr-col-11">
                             <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
-                                <strong>Aide locale :</strong>
+                                <strong>Aide locale :</strong>
                             </h2>
                             <p class="fr-mb-0 fr-ml-1w">
                                 Cette aide est une déclinaison locale d’une <a href="{{ aid.generic_aid.get_absolute_url }}">aide nationale</a>
@@ -144,7 +144,7 @@
                         </div>
                         <div class="fr-col-11">
                             <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
-                                <strong>Aide nationale :</strong>
+                                <strong>Aide nationale :</strong>
                             </h2>
                             <p class="fr-mb-0 fr-ml-1w">
                                 Cette aide nationale <a href="#aides-locales">dispose de déclinaisons locales</a>
@@ -187,16 +187,16 @@
                 <div class="fr-col-11">
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
                         {% if aid.start_date and aid.submission_deadline and not aid.is_ongoing %}
-                        <strong>Calendrier :</strong> Du {{ aid.start_date|date }} au {{ aid.submission_deadline|date }}
+                        <strong>Calendrier :</strong> Du {{ aid.start_date|date }} au {{ aid.submission_deadline|date }}
                         {% elif aid.start_date and not aid.is_ongoing %}
-                        <strong>Calendrier :</strong> À partir du {{ aid.start_date|date }}
+                        <strong>Calendrier :</strong> À partir du {{ aid.start_date|date }}
                         {% elif aid.submission_deadline and not aid.is_ongoing %}
-                        <strong>Calendrier :</strong> Clôture le {{aid.submission_deadline|date }}
+                        <strong>Calendrier :</strong> Clôture le {{aid.submission_deadline|date }}
                         {% endif %}
                     </h2>
                     {% if aid.predeposit_date and not aid.is_ongoing %}
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
-                        <strong>Date de pré-dépôt :</strong> {{ aid.predeposit_date|date }}
+                        <strong>Date de pré-dépôt :</strong> {{ aid.predeposit_date|date }}
                     </h2>
                     {% endif %}
                 </div>
@@ -210,7 +210,7 @@
                 </div>
                 <div class="fr-col-11">
                     <h2 class="fr-text--md fr-mb-0 fr-ml-1w">
-                        Récurrence :
+                        Récurrence :
                     </h2>
                     <p class="fr-mb-0 fr-ml-1w">{{ aid.get_recurrence_display }}</p>    
                 </div>
@@ -224,7 +224,7 @@
                 </div>
                 <div class="fr-col-11">
                     <h2 class="fr-text--md fr-mb-0 fr-ml-1w">
-                        Bénéficiaires :
+                        Bénéficiaires :
                     </h2>
                     <p class="fr-mb-0 fr-ml-1w">{% choices_display aid 'targeted_audiences' %}</p>
                 </div>
@@ -237,7 +237,7 @@
                 </div>
                 <div class="fr-col-11">
                     <h2 class="fr-text--md fr-mb-0 fr-ml-1w">
-                        Zone géographique couverte par l’aide :
+                        Zone géographique couverte par l’aide :
                     </h2>
                     <p class="fr-mb-0 fr-ml-1w">{{ aid.perimeter }}</p>
                 </div>
@@ -250,18 +250,18 @@
                 </div>
                 <div class="fr-col-11">
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
-                        <strong>Origine de la donnée :</strong> Cette aide provient d’une source de données tierce{% if aid.import_data_source.pk == 7 %}, elle a été mise a disposition d’Aides-territoires à titre gracieux par la société Welcomeurope.{% endif %}
+                        <strong>Origine de la donnée :</strong> Cette aide provient d’une source de données tierce{% if aid.import_data_source.pk == 7 %}, elle a été mise a disposition d’Aides-territoires à titre gracieux par la société Welcomeurope.{% endif %}
                     </h2>
                     {% if aid.import_data_source.pk == 7 %}
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
-                        <strong>URL d’origine : </strong>traduction à partir des données du portail officiel de la Commission européenne :
+                        <strong>URL d’origine : </strong>traduction à partir des données du portail officiel de la Commission européenne :
                         <span class="at-break-word">
                             <a href="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home" target="_blank" rel="noopener">https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home<span class="fr-sr-only"> Ouvre une nouvelle fenêtre</span></a>
                         </span>
                     </h2>
                     {% else %}
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w at-break-word">
-                        <strong>URL d’origine : </strong>
+                        <strong>URL d’origine : </strong>
                         {% if aid.import_data_url %}
                             <a href="{{ aid.import_data_url }}" target="_blank" rel="noopener">
                                 {{ aid.import_data_url }}
@@ -273,10 +273,10 @@
                     </h2>
                     {% endif %}
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
-                        <strong>Licence de partage : </strong>{{ aid.get_import_share_licence_display|default:"Inconnue" }}
+                        <strong>Licence de partage : </strong>{{ aid.get_import_share_licence_display|default:"Inconnue" }}
                     </h2>
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
-                        <strong>Dernière mise à jour : </strong>{{ aid.import_last_access|date }}
+                        <strong>Dernière mise à jour : </strong>{{ aid.import_last_access|date }}
                     </h2>
                 </div>
             </div>
@@ -289,7 +289,7 @@
                 </div>
                 <div class="fr-col-11" id="logos-programs">
                     <h2 class="fr-text--md fr-text--normal fr-ml-1w">
-                        <strong>Programme(s) :</strong>
+                        <strong>Programme(s) :</strong>
                     </h2>
                     {% for program in programs %}
                     <a href="{% url 'program_detail' program.slug %}" class="fr-col-10 at-link__nodecorator" title="{{ program.name }}">
@@ -307,16 +307,16 @@
                 </div>
                 <div class="fr-col-11" id="logos-programs">
                     <h2 class="fr-text--md fr-text--normal fr-ml-1w">
-                        <strong>Mot(s)-clé(s) :</strong>
+                        <strong>Mot(s)-clé(s) :</strong>
                     </h2>
                     <div class="fr-list__none fr-mb-4w">
                         {% for keyword in keywords %}
                         {% if user_perimeter and user_targeted_audience %}
-                        <a href="{% url 'search_view' %}?text={{ keyword }}&targeted_audiences={{ user_targeted_audience }}&perimeter={{ user_perimeter }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot-clé « {{ keyword }} »">{{ keyword }}</a>
+                        <a href="{% url 'search_view' %}?text={{ keyword }}&targeted_audiences={{ user_targeted_audience }}&perimeter={{ user_perimeter }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot-clé « {{ keyword }} »">{{ keyword }}</a>
                         {% elif user_targeted_audience %}
-                        <a href="{% url 'search_view' %}?text={{ keyword }}&targeted_audiences={{ user_targeted_audience }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot-clé « {{ keyword }} »">{{ keyword }}</a>
+                        <a href="{% url 'search_view' %}?text={{ keyword }}&targeted_audiences={{ user_targeted_audience }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot-clé « {{ keyword }} »">{{ keyword }}</a>
                         {% else %}
-                        <a href="{% url 'search_view' %}?text={{ keyword }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot-clé « {{ keyword }} »">{{ keyword }}</a>
+                        <a href="{% url 'search_view' %}?text={{ keyword }}" class="fr-tag fr-mb-1w" title="Lancer une recherche avec le mot-clé « {{ keyword }} »">{{ keyword }}</a>
                         {% endif %}
                         {% endfor %}
                     </div>
@@ -331,7 +331,7 @@
                     </div>
                     <div class="fr-col-11">
                         <h2 class="fr-text--md fr-mb-0 fr-ml-1w">
-                            Dernière mise à jour :
+                            Dernière mise à jour :
                         </h2>
                         <p class="fr-mb-0 fr-ml-1w">{{ aid.date_updated|date}}</p>
                     </div>
@@ -395,21 +395,21 @@
 
                 {% if aid.mobilization_steps %}
                 <p class="fr-mb-2w">
-                    <strong>Avancée du projet :</strong>
+                    <strong>Avancée du projet :</strong>
                     {% choices_display aid 'mobilization_steps' %}
                 </p>
                 {% endif %}
 
                 {% if aid.destinations %}
                 <p class="fr-mb-2w">
-                    <strong>Dépenses/actions couvertes :</strong>
+                    <strong>Dépenses/actions couvertes :</strong>
                     {% choices_display aid 'destinations' %}
                 </p>
                 {% endif %}
 
                 {% if aid.eligibility %}
                 <p class="fr-mb-2w">
-                    <strong>Autres critères d’éligibilité :</strong>
+                    <strong>Autres critères d’éligibilité :</strong>
                     {% if aid.headline_eligibility %}
                     {{ aid.headline_eligibility|safe }}
                     {% else %}
@@ -429,7 +429,7 @@
 
                 {% if aid.project_examples %}
                 <p class="fr-mb-2w">
-                    <strong>Exemples de projets réalisables :</strong>
+                    <strong>Exemples de projets réalisables :</strong>
                     {% if aid.headline_project_examples %}
                     {{ aid.headline_project_examples|safe }}
                     {% else %}
@@ -441,7 +441,7 @@
                 {% if aid.is_generic %}
                 {% with local_aids=aid.get_sorted_local_aids %}
                 <p class="fr-mb-1w" id="aides-locales">
-                    <strong>Déclinaisons locales :</strong> En l’absence d’aide locale, les informations relatives à cette aide nationale font foi.
+                    <strong>Déclinaisons locales :</strong> En l’absence d’aide locale, les informations relatives à cette aide nationale font foi.
                 </p>
                 {% if local_aids %}
                     <div id="localAidsLinks">
@@ -510,7 +510,6 @@
 
 <div class="fr-container fr-pt-3w fr-px-6w fr-mb-5w">
     <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
-
         <div id="share-aid-block" class="fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-4">
             <div class="fr-card fr-card--no-arrow">
                 <div class="fr-card__body at-background-alt-green">
@@ -520,7 +519,7 @@
                                 <span class="ri-share-line ri-2x fr-text--normal"></span>
                             </div>
                             <h3 class="fr-h5 fr-col-xs-12 fr-col-lg-10 fr-my-0">
-                                Vous souhaitez diffuser cette aide ?
+                                Vous souhaitez diffuser cette aide ?
                             </h3>
                         </div>
                         <p class="fr-card__desc fr-text--sm fr-mt-3w">L’outil très pratique pour partager facilement cette aide sur vos différents réseaux en un seul clic.</p>
@@ -546,7 +545,7 @@
                                 <span class="ri-list-check ri-2x fr-text--normal"></span>
                             </div>
                             <h3 class="fr-h5 fr-col-xs-12 fr-col-lg-10 fr-my-0">
-                                Cette aide correspond à un de vos projets ?
+                                Cette aide correspond à un de vos projets ?
                             </h3>
                         </div>
                         <p class="fr-card__desc fr-text--sm fr-mt-3w">Ajoutez-la pour la retrouver dans votre compte utilisateur et la partager facilement avec votre équipe.</p>
@@ -573,7 +572,7 @@
                                 <span class="ri-list-check ri-2x fr-text--normal"></span>
                             </div>
                             <h3 class="fr-h5 fr-col-xs-12 fr-col-lg-10 fr-my-0">
-                                Cette aide correspond à un de vos projets publics favoris ?
+                                Cette aide correspond à un de vos projets publics favoris ?
                             </h3>
                         </div>
                         <p class="fr-card__desc fr-text--sm fr-mt-3w">Suggérez-la à l'équipe porteuse du projet.</p>

@@ -298,6 +298,25 @@ class User(AbstractBaseUser, PermissionsMixin):
         certain pages of the app."""
         return self.search_pages.exists()
 
+    def get_search_preferences(self):
+        """
+        Returns the perimeter and organization type of the user to pre-fill the search forms
+        """
+
+        preferences_string = "?"
+        preferences = {"targeted_audiences": None, "perimeter": None}
+        organization = self.beneficiary_organization
+        if organization is not None:
+            preferences["targeted_audiences"] = organization.organization_type[0]
+            preferences_string += (
+                f'targeted_audiences={preferences["targeted_audiences"]}'
+            )
+            if organization.perimeter is not None:
+                preferences["perimeter"] = organization.perimeter_id
+                preferences_string += f'&perimeter={preferences["perimeter"]}'
+        preferences["base_search_string"] = preferences_string
+        return preferences
+
 
 class UserLastConnexion(models.Model):
 

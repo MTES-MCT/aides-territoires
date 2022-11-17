@@ -1,7 +1,7 @@
 $(document).ready(function () {
     // hide "custom" perimeters in the user part of the website
-    let RESTRICT_TO_VISIBLE_PERIMETERS = $('#perimeter').length || $('#search-form').length || $('#advanced-search-form').length || $('#general_search_form').length || $('#register-page').length || $('#register-commune-page').length;
-    let RESTRICT_TO_NON_OBSOLETE_PERIMETERS = $('#perimeter').length || $('#search-form').length || $('#advanced-search-form').length || $('#general_search_form').length || $('#register-page').length || $('#register-commune-page').length;
+    let RESTRICT_TO_VISIBLE_PERIMETERS = $('#perimeter').length || $('#search-form').length || $('#advanced-search-form').length || $('#register-page').length || $('#register-commune-page').length;
+    let RESTRICT_TO_NON_OBSOLETE_PERIMETERS = $('#perimeter').length || $('#search-form').length || $('#advanced-search-form').length || $('#register-page').length || $('#register-commune-page').length;
 
     // Filter on scale on certain forms
     let scale = null;
@@ -11,9 +11,8 @@ $(document).ready(function () {
     }
 
     $('select#id_perimeter').select2({
-        placeholder: "Votre ville, intercommunalité, département…",
+        placeholder: "Tous les territoires",
         allowClear: true,
-        language: 'fr',
         minimumInputLength: 1,
         language: {
             inputTooShort: function () { return ''; },
