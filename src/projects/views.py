@@ -162,7 +162,9 @@ class PublicProjectListView(ListView):
         if self.request.user.is_authenticated:
             if self.request.user.beneficiary_organization:
                 context["user_has_organization"] = True
-                context["user_favorite_projects"] = self.request.user.beneficiary_organization.favorite_projects.all()
+                context[
+                    "user_favorite_projects"
+                ] = self.request.user.beneficiary_organization.favorite_projects.all()
         return context
 
 
@@ -244,7 +246,10 @@ class PublicProjectDetailView(DetailView):
         try:
             obj = queryset.get()
             if obj.is_public is False or obj.status != Project.STATUS.published:
-                if self.request.user.is_authenticated and self.request.user.is_superuser:
+                if (
+                    self.request.user.is_authenticated
+                    and self.request.user.is_superuser
+                ):
                     return obj
                 else:
                     raise PermissionDenied()
