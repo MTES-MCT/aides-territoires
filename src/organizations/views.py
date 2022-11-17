@@ -181,5 +181,8 @@ class RemoveProjectFromFavoriteView(ContributorAndProfileCompleteRequiredMixin, 
                 <a href='{favorite_projects_url}'>vos projets favoris<a/>.")
             messages.success(self.request, msg)
 
-        url = reverse("public_project_detail_view", args=[project_pk, project_slug])
+        if self.request.POST.get("origin_page"):
+            url = reverse("favorite_project_list_view")
+        else:
+            url = reverse("public_project_detail_view", args=[project_pk, project_slug])
         return HttpResponseRedirect(url)

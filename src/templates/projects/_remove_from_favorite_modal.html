@@ -16,7 +16,7 @@
                                     <input type="checkbox" checked hidden name="favorite_projects" value="{{ project.pk }}" id="{{ project.pk }}" />
                                 </div>
                                 <footer>
-                                    <button class="btn-block fr-btn fr-mt-2w" type="submit">
+                                    <button class="btn-block fr-btn fr-mt-2w" type="submit" {% if favorite_project_page %}name="origin_page" value="project_detail_page"{% endif %}>
                                         Retirer ce projet
                                     </button>
                                     <button class="btn-block fr-btn fr-btn--secondary" type="button" title="Fermer la fenêtre modale" aria-controls="remove-from-favorite-modal--{{ project.pk }}">Annuler</button>
