@@ -660,8 +660,43 @@ class AmendmentAdmin(admin.ModelAdmin):
         return qs
 
 
+class AidProjectStatusFilter(admin.SimpleListFilter):
+    title = "Statut de l'aide par rapport au projet"
+    parameter_name = "aidproject_status"
+
+    def lookups(self, request, model_admin):
+        return [
+            ("filled", "Renseigné"),
+            ("not_filled", "Non renseigné"),
+        ]
+
+    def queryset(self, request, queryset):
+        if self.value() == "filled":
+            # Get aidproject objects where aid has been requested.
+            return queryset.distinct().filter(aid_requested=True)
+        if self.value() == "not_filled":
+            # Get aidproject objects where aid has not been requested.
+            return queryset.distinct().filter(aid_requested=False)
+
+
 class AidProjectAdmin(admin.ModelAdmin):
-    list_display = ["aid", "project", "creator", "date_created"]
+    list_display = [
+        "aid",
+        "project",
+        "creator",
+        "aid_obtained",
+        "aid_requested",
+        "aid_paid",
+        "aid_denied",
+        "date_created",
+    ]
+    list_filter = [
+        AidProjectStatusFilter,
+        "aid_obtained",
+        "aid_requested",
+        "aid_paid",
+        "aid_denied",
+    ]
     readonly_fields = [
         "aid",
         "project",
