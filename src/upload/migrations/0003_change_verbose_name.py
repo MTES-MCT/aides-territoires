@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('upload', '0002_reupload_files'),
+        ("upload", "0002_reupload_files"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='uploadimage',
-            options={'verbose_name': 'image', 'verbose_name_plural': 'images'},
+            name="uploadimage",
+            options={"verbose_name": "image", "verbose_name_plural": "images"},
         ),
     ]

@@ -17,7 +17,7 @@ class BookmarkFactory(DjangoModelFactory):
         model = Bookmark
 
     owner = factory.SubFactory(UserFactory)
-    querystring = 'text=ademe'
+    querystring = "text=ademe"
     send_email_alert = True
-    alert_frequency = 'weekly'
+    alert_frequency = "weekly"
     latest_alert_date = factory.LazyFunction(two_weeks_ago)

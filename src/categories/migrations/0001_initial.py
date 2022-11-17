@@ -8,33 +8,66 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Theme',
+            name="Theme",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=70, verbose_name='Name')),
-                ('short_description', models.TextField(blank=True, max_length=160, verbose_name='Short description')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=70, verbose_name="Name")),
+                (
+                    "short_description",
+                    models.TextField(
+                        blank=True, max_length=160, verbose_name="Short description"
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'Themes',
-                'verbose_name': 'Theme',
+                "verbose_name_plural": "Themes",
+                "verbose_name": "Theme",
             },
         ),
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=70, verbose_name='Name')),
-                ('short_description', models.TextField(blank=True, max_length=160, verbose_name='Short description')),
-                ('theme', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='categories', to='categories.Theme', verbose_name='Theme')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=70, verbose_name="Name")),
+                (
+                    "short_description",
+                    models.TextField(
+                        blank=True, max_length=160, verbose_name="Short description"
+                    ),
+                ),
+                (
+                    "theme",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="categories",
+                        to="categories.Theme",
+                        verbose_name="Theme",
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'Categories',
-                'verbose_name': 'Category',
+                "verbose_name_plural": "Categories",
+                "verbose_name": "Category",
             },
         ),
     ]

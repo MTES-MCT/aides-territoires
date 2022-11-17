@@ -6,7 +6,7 @@ from search.utils import get_querystring_backers
 
 
 def populate_aidsearchevent_backers(apps, schema_editor):
-    AidSearchEvent = apps.get_model('stats', 'AidSearchEvent')
+    AidSearchEvent = apps.get_model("stats", "AidSearchEvent")
     for event in AidSearchEvent.objects.all():
         event_backers = get_querystring_backers(event.querystring)
         event_backers_id_list = [backer.id for backer in event_backers]
@@ -16,9 +16,7 @@ def populate_aidsearchevent_backers(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('stats', '0011_aidsearchevent_backers'),
+        ("stats", "0011_aidsearchevent_backers"),
     ]
 
-    operations = [
-        migrations.RunPython(populate_aidsearchevent_backers)
-    ]
+    operations = [migrations.RunPython(populate_aidsearchevent_backers)]

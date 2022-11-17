@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0002_auto_20180921_1056'),
+        ("backers", "0002_auto_20180921_1056"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='backer',
-            name='is_corporate',
-            field=models.BooleanField(default=False, verbose_name='Is a corporate backer?'),
+            model_name="backer",
+            name="is_corporate",
+            field=models.BooleanField(
+                default=False, verbose_name="Is a corporate backer?"
+            ),
         ),
     ]

@@ -7,13 +7,41 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('organizations', '0004_alter_organization_siret_code'),
+        ("organizations", "0004_alter_organization_siret_code"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='organization',
-            name='organization_type',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Communes'), ('epci', 'Intercommunalités / Pays'), ('department', 'Départements'), ('region', 'Régions'), ('special', "Collectivités d'outre-mer à statuts particuliers"), ('association', 'Associations'), ('private_person', 'Particuliers'), ('farmer', 'Agriculteurs'), ('private_sector', 'Entreprises privées'), ('public_cies', 'Entreprises publiques locales (Sem, Spl, SemOp)'), ('public_org', "Établissements publics (écoles, bibliothèques…) / Services de l'État"), ('researcher', 'Recherche')], max_length=32), blank=True, null=True, size=None, verbose_name='Type de structure'),
+            model_name="organization",
+            name="organization_type",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("commune", "Communes"),
+                        ("epci", "Intercommunalités / Pays"),
+                        ("department", "Départements"),
+                        ("region", "Régions"),
+                        ("special", "Collectivités d'outre-mer à statuts particuliers"),
+                        ("association", "Associations"),
+                        ("private_person", "Particuliers"),
+                        ("farmer", "Agriculteurs"),
+                        ("private_sector", "Entreprises privées"),
+                        (
+                            "public_cies",
+                            "Entreprises publiques locales (Sem, Spl, SemOp)",
+                        ),
+                        (
+                            "public_org",
+                            "Établissements publics (écoles, bibliothèques…) / Services de l'État",
+                        ),
+                        ("researcher", "Recherche"),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                null=True,
+                size=None,
+                verbose_name="Type de structure",
+            ),
         ),
     ]

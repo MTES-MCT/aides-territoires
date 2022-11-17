@@ -24,7 +24,7 @@ class BackerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
         qs = Backer.objects.all()
 
-        q = self.request.query_params.get('q', '')
+        q = self.request.query_params.get("q", "")
         terms = q.split()
         q_filters = []
         for term in terms:
@@ -33,21 +33,24 @@ class BackerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         if q_filters:
             qs = qs.filter(reduce(operator.and_, q_filters))
 
-        has_financed_aids = self.request.query_params.get('has_financed_aids', 'false')
-        if has_financed_aids == 'true':
+        has_financed_aids = self.request.query_params.get("has_financed_aids", "false")
+        if has_financed_aids == "true":
             qs = qs.has_financed_aids()
 
-        has_published_financed_aids = self.request.query_params.get('has_published_financed_aids', 'false')  # noqa
-        if has_published_financed_aids == 'true':
+        has_published_financed_aids = self.request.query_params.get(
+            "has_published_financed_aids", "false"
+        )  # noqa
+        if has_published_financed_aids == "true":
             qs = qs.has_published_financed_aids()
 
-        qs = qs.order_by('name')
+        qs = qs.order_by("name")
 
         return qs
 
     @extend_schema(
         summary="Lister tous les porteurs d'aides",
         parameters=api_doc.backers_api_parameters,
-        tags=[Backer._meta.verbose_name_plural])
+        tags=[Backer._meta.verbose_name_plural],
+    )
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)

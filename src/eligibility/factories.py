@@ -10,7 +10,7 @@ class EligibilityTestFactory(DjangoModelFactory):
     class Meta:
         model = EligibilityTest
 
-    name = factory.Faker('name')
+    name = factory.Faker("name")
 
 
 class EligibilityQuestionFactory(DjangoModelFactory):
@@ -19,7 +19,7 @@ class EligibilityQuestionFactory(DjangoModelFactory):
     class Meta:
         model = EligibilityQuestion
 
-    text = factory.Faker('text')
-    answer_choice_a = factory.Faker('text')
-    answer_choice_b = factory.Faker('text')
-    answer_correct = 'a'
+    text = factory.Faker("text")
+    answer_choice_a = factory.Faker("text")
+    answer_choice_b = factory.Faker("text")
+    answer_correct = "a"

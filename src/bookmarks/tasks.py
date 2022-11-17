@@ -13,8 +13,8 @@ from bookmarks.models import Bookmark
 from accounts.models import User
 
 
-TEMPLATE = 'emails/bookmark_login.txt'
-SUBJECT = _('Please confirm your Aides-territoires alert')
+TEMPLATE = "emails/bookmark_login.txt"
+SUBJECT = _("Please confirm your Aides-territoires alert")
 
 
 @app.task
@@ -38,27 +38,33 @@ def send_alert_confirmation_email(user_email, bookmark_id):
 
     user_uid = urlsafe_base64_encode(force_bytes(user.pk))
     login_token = default_token_generator.make_token(user)
-    login_url = reverse('token_login', args=[user_uid, login_token])
+    login_url = reverse("token_login", args=[user_uid, login_token])
     base_url = get_base_url()
-    full_login_url = '{base_url}{url}'.format(
-        base_url=base_url,
-        url=login_url)
+    full_login_url = "{base_url}{url}".format(base_url=base_url, url=login_url)
 
     if bookmark.alert_frequency == Bookmark.FREQUENCIES.daily:
-        frequency = _('You will receive a daily email whenever new matching aids will be published.')  # noqa
+        frequency = _(
+            "You will receive a daily email whenever new matching aids will be published."
+        )  # noqa
     else:
-        frequency = _('You will receive a weekly email whenever new matching aids will be published.')  # noqa
+        frequency = _(
+            "You will receive a weekly email whenever new matching aids will be published."
+        )  # noqa
 
-    login_email_body = render_to_string(TEMPLATE, {
-        'base_url': base_url,
-        'user_name': user.full_name,
-        'full_login_url': full_login_url,
-        'bookmark': bookmark,
-        'frequency': frequency
-    })
+    login_email_body = render_to_string(
+        TEMPLATE,
+        {
+            "base_url": base_url,
+            "user_name": user.full_name,
+            "full_login_url": full_login_url,
+            "bookmark": bookmark,
+            "frequency": frequency,
+        },
+    )
     send_mail(
         SUBJECT,
         login_email_body,
         settings.DEFAULT_FROM_EMAIL,
         [user.email],
-        fail_silently=False)
+        fail_silently=False,
+    )

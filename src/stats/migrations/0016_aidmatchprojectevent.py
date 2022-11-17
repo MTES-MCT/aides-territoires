@@ -8,26 +8,68 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('projects', '0003_auto_20210318_1456'),
-        ('aids', '0123_aid_import_data_source'),
-        ('stats', '0015_auto_20210318_1456'),
+        ("projects", "0003_auto_20210318_1456"),
+        ("aids", "0123_aid_import_data_source"),
+        ("stats", "0015_auto_20210318_1456"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='AidMatchProjectEvent',
+            name="AidMatchProjectEvent",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_matching', models.BooleanField(default=False, help_text='If the project match the aid', verbose_name='Is the project match the aid?')),
-                ('querystring', models.TextField(default='', verbose_name='Querystring')),
-                ('source', models.CharField(blank=True, default='', max_length=256, verbose_name='Source')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
-                ('aid', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='aids.aid', verbose_name='Aid')),
-                ('project', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='projects.project', verbose_name='Project')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "is_matching",
+                    models.BooleanField(
+                        default=False,
+                        help_text="If the project match the aid",
+                        verbose_name="Is the project match the aid?",
+                    ),
+                ),
+                (
+                    "querystring",
+                    models.TextField(default="", verbose_name="Querystring"),
+                ),
+                (
+                    "source",
+                    models.CharField(
+                        blank=True, default="", max_length=256, verbose_name="Source"
+                    ),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Date created"
+                    ),
+                ),
+                (
+                    "aid",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="aids.aid",
+                        verbose_name="Aid",
+                    ),
+                ),
+                (
+                    "project",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="projects.project",
+                        verbose_name="Project",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Aid Match Project Event',
-                'verbose_name_plural': 'Aid Match Project Events',
+                "verbose_name": "Aid Match Project Event",
+                "verbose_name_plural": "Aid Match Project Events",
             },
         ),
     ]

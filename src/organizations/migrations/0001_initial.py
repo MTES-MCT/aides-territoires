@@ -12,56 +12,295 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('projects', '0007_project_due_date'),
-        ('geofr', '0034_cleanup_choices_translations'),
+        ("projects", "0007_project_due_date"),
+        ("geofr", "0034_cleanup_choices_translations"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Organization',
+            name="Organization",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(db_index=True, max_length=256, verbose_name='Nom')),
-                ('slug', models.SlugField(blank=True, help_text='Laisser vide pour autoremplir.', verbose_name="Fragment d'URL")),
-                ('organization_type', core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Communes'), ('epci', 'EPCI à fiscalité propre'), ('department', 'Départements'), ('region', 'Régions'), ('special', "Collectivités d'outre-mer à statuts particuliers"), ('association', 'Associations'), ('private_person', 'Particuliers'), ('farmer', 'Agriculteurs'), ('private_sector', 'Entreprises privées'), ('public_cies', 'Entreprises publiques locales (Sem, Spl, SemOp)'), ('public_org', "Établissements publics (écoles, bibliothèques…) / Services de l'État"), ('researcher', 'Recherche')], max_length=32), blank=True, null=True, size=None, verbose_name='Type de structure')),
-                ('address', models.CharField(blank=True, max_length=900, null=True, verbose_name='Adresse postale')),
-                ('city_name', models.CharField(blank=True, max_length=256, null=True, verbose_name='Nom de la ville')),
-                ('zip_code', models.PositiveIntegerField(blank=True, null=True, verbose_name='Code postal')),
-                ('siren_code', models.PositiveIntegerField(blank=True, null=True, verbose_name='Code SIREN')),
-                ('siret_code', models.PositiveIntegerField(blank=True, null=True, verbose_name='Code SIRET')),
-                ('ape_code', models.PositiveIntegerField(blank=True, null=True, verbose_name='Code APE')),
-                ('inhabitants_number', models.PositiveIntegerField(blank=True, null=True, verbose_name="Nombre d'habitants")),
-                ('voters_number', models.PositiveIntegerField(blank=True, null=True, verbose_name='Nombre de votants')),
-                ('corporates_number', models.PositiveIntegerField(blank=True, null=True, verbose_name="Nombre d'entreprises")),
-                ('associations_number', models.PositiveIntegerField(blank=True, null=True, verbose_name="Nombre d'associations")),
-                ('municipal_roads', models.PositiveIntegerField(blank=True, null=True, verbose_name='Routes communales (kms)')),
-                ('departmental_roads', models.PositiveIntegerField(blank=True, null=True, verbose_name='Routes départementales (kms)')),
-                ('tram_roads', models.PositiveIntegerField(blank=True, null=True, verbose_name='Tramways (kms)')),
-                ('lamppost_number', models.PositiveIntegerField(blank=True, null=True, verbose_name='Nombre de lampadaires')),
-                ('library_number', models.PositiveIntegerField(blank=True, null=True, verbose_name='Nombre de bibliothèques')),
-                ('medialibrary_number', models.PositiveIntegerField(blank=True, null=True, verbose_name='Nombre de mediathèques')),
-                ('theater_number', models.PositiveIntegerField(blank=True, null=True, verbose_name='Nombre de théâtres')),
-                ('museum_number', models.PositiveIntegerField(blank=True, null=True, verbose_name='Nombre de musées')),
-                ('kindergarten_number', models.PositiveIntegerField(blank=True, null=True, verbose_name="Nombre d'écoles maternelles")),
-                ('primary_school_number', models.PositiveIntegerField(blank=True, null=True, verbose_name="Nombre d'écoles primaires")),
-                ('middle_school_number', models.PositiveIntegerField(blank=True, null=True, verbose_name='Nombre de collèges')),
-                ('high_school_number', models.PositiveIntegerField(blank=True, null=True, verbose_name='Nombre de lycées')),
-                ('university_number', models.PositiveIntegerField(blank=True, null=True, verbose_name="Nombre d'universités")),
-                ('gymnasium_number', models.PositiveIntegerField(blank=True, null=True, verbose_name='Nombre de gymnases et salles de sport')),
-                ('sports_ground_number', models.PositiveIntegerField(blank=True, null=True, verbose_name='Nombre de stades et structures extérieures')),
-                ('swimming_pool_number', models.PositiveIntegerField(blank=True, null=True, verbose_name='Nombre de piscines')),
-                ('place_of_worship_number', models.PositiveIntegerField(blank=True, null=True, verbose_name='Nombre de lieux de cultes')),
-                ('cemetery_number', models.PositiveIntegerField(blank=True, null=True, verbose_name='Nombre de cimetières')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date de création')),
-                ('date_updated', models.DateTimeField(auto_now=True, verbose_name='Date de mise à jour')),
-                ('beneficiaries', models.ManyToManyField(blank=True, to=settings.AUTH_USER_MODEL, verbose_name='Bénéficiaires')),
-                ('perimeter', models.ForeignKey(blank=True, help_text='Sur quel périmètre la structure intervient-elle ?', null=True, on_delete=django.db.models.deletion.PROTECT, to='geofr.perimeter', verbose_name='Périmètre de la structure')),
-                ('projects', models.ManyToManyField(blank=True, to='projects.Project', verbose_name='Projets')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(db_index=True, max_length=256, verbose_name="Nom"),
+                ),
+                (
+                    "slug",
+                    models.SlugField(
+                        blank=True,
+                        help_text="Laisser vide pour autoremplir.",
+                        verbose_name="Fragment d'URL",
+                    ),
+                ),
+                (
+                    "organization_type",
+                    core.fields.ChoiceArrayField(
+                        base_field=models.CharField(
+                            choices=[
+                                ("commune", "Communes"),
+                                ("epci", "EPCI à fiscalité propre"),
+                                ("department", "Départements"),
+                                ("region", "Régions"),
+                                (
+                                    "special",
+                                    "Collectivités d'outre-mer à statuts particuliers",
+                                ),
+                                ("association", "Associations"),
+                                ("private_person", "Particuliers"),
+                                ("farmer", "Agriculteurs"),
+                                ("private_sector", "Entreprises privées"),
+                                (
+                                    "public_cies",
+                                    "Entreprises publiques locales (Sem, Spl, SemOp)",
+                                ),
+                                (
+                                    "public_org",
+                                    "Établissements publics (écoles, bibliothèques…) / Services de l'État",
+                                ),
+                                ("researcher", "Recherche"),
+                            ],
+                            max_length=32,
+                        ),
+                        blank=True,
+                        null=True,
+                        size=None,
+                        verbose_name="Type de structure",
+                    ),
+                ),
+                (
+                    "address",
+                    models.CharField(
+                        blank=True,
+                        max_length=900,
+                        null=True,
+                        verbose_name="Adresse postale",
+                    ),
+                ),
+                (
+                    "city_name",
+                    models.CharField(
+                        blank=True,
+                        max_length=256,
+                        null=True,
+                        verbose_name="Nom de la ville",
+                    ),
+                ),
+                (
+                    "zip_code",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Code postal"
+                    ),
+                ),
+                (
+                    "siren_code",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Code SIREN"
+                    ),
+                ),
+                (
+                    "siret_code",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Code SIRET"
+                    ),
+                ),
+                (
+                    "ape_code",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Code APE"
+                    ),
+                ),
+                (
+                    "inhabitants_number",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Nombre d'habitants"
+                    ),
+                ),
+                (
+                    "voters_number",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Nombre de votants"
+                    ),
+                ),
+                (
+                    "corporates_number",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Nombre d'entreprises"
+                    ),
+                ),
+                (
+                    "associations_number",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Nombre d'associations"
+                    ),
+                ),
+                (
+                    "municipal_roads",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Routes communales (kms)"
+                    ),
+                ),
+                (
+                    "departmental_roads",
+                    models.PositiveIntegerField(
+                        blank=True,
+                        null=True,
+                        verbose_name="Routes départementales (kms)",
+                    ),
+                ),
+                (
+                    "tram_roads",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Tramways (kms)"
+                    ),
+                ),
+                (
+                    "lamppost_number",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Nombre de lampadaires"
+                    ),
+                ),
+                (
+                    "library_number",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Nombre de bibliothèques"
+                    ),
+                ),
+                (
+                    "medialibrary_number",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Nombre de mediathèques"
+                    ),
+                ),
+                (
+                    "theater_number",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Nombre de théâtres"
+                    ),
+                ),
+                (
+                    "museum_number",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Nombre de musées"
+                    ),
+                ),
+                (
+                    "kindergarten_number",
+                    models.PositiveIntegerField(
+                        blank=True,
+                        null=True,
+                        verbose_name="Nombre d'écoles maternelles",
+                    ),
+                ),
+                (
+                    "primary_school_number",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Nombre d'écoles primaires"
+                    ),
+                ),
+                (
+                    "middle_school_number",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Nombre de collèges"
+                    ),
+                ),
+                (
+                    "high_school_number",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Nombre de lycées"
+                    ),
+                ),
+                (
+                    "university_number",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Nombre d'universités"
+                    ),
+                ),
+                (
+                    "gymnasium_number",
+                    models.PositiveIntegerField(
+                        blank=True,
+                        null=True,
+                        verbose_name="Nombre de gymnases et salles de sport",
+                    ),
+                ),
+                (
+                    "sports_ground_number",
+                    models.PositiveIntegerField(
+                        blank=True,
+                        null=True,
+                        verbose_name="Nombre de stades et structures extérieures",
+                    ),
+                ),
+                (
+                    "swimming_pool_number",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Nombre de piscines"
+                    ),
+                ),
+                (
+                    "place_of_worship_number",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Nombre de lieux de cultes"
+                    ),
+                ),
+                (
+                    "cemetery_number",
+                    models.PositiveIntegerField(
+                        blank=True, null=True, verbose_name="Nombre de cimetières"
+                    ),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now,
+                        verbose_name="Date de création",
+                    ),
+                ),
+                (
+                    "date_updated",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="Date de mise à jour"
+                    ),
+                ),
+                (
+                    "beneficiaries",
+                    models.ManyToManyField(
+                        blank=True,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Bénéficiaires",
+                    ),
+                ),
+                (
+                    "perimeter",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="Sur quel périmètre la structure intervient-elle ?",
+                        null=True,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="geofr.perimeter",
+                        verbose_name="Périmètre de la structure",
+                    ),
+                ),
+                (
+                    "projects",
+                    models.ManyToManyField(
+                        blank=True, to="projects.Project", verbose_name="Projets"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Structure',
-                'verbose_name_plural': 'Structures',
+                "verbose_name": "Structure",
+                "verbose_name_plural": "Structures",
             },
         ),
     ]

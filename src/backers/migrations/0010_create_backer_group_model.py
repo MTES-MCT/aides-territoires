@@ -7,25 +7,52 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0009_edit_slug_field'),
+        ("backers", "0009_edit_slug_field"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='BackerGroup',
+            name="BackerGroup",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(db_index=True, max_length=256, verbose_name='Name')),
-                ('slug', models.SlugField(blank=True, help_text='Let it empty so it will be autopopulated.', verbose_name='Slug')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        db_index=True, max_length=256, verbose_name="Name"
+                    ),
+                ),
+                (
+                    "slug",
+                    models.SlugField(
+                        blank=True,
+                        help_text="Let it empty so it will be autopopulated.",
+                        verbose_name="Slug",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Backer Group',
-                'verbose_name_plural': 'Backer Groups',
+                "verbose_name": "Backer Group",
+                "verbose_name_plural": "Backer Groups",
             },
         ),
         migrations.AddField(
-            model_name='backer',
-            name='group',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='backers', to='backers.BackerGroup', verbose_name='Backer Group'),
+            model_name="backer",
+            name="group",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="backers",
+                to="backers.BackerGroup",
+                verbose_name="Backer Group",
+            ),
         ),
     ]

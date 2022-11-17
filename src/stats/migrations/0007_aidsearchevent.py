@@ -9,28 +9,99 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('categories', '0004_auto_20200217_1136'),
-        ('geofr', '0030_perimeter_is_visible_to_users_init'),
-        ('stats', '0006_aidviewevent_copy_data'),
+        ("categories", "0004_auto_20200217_1136"),
+        ("geofr", "0030_perimeter_is_visible_to_users_init"),
+        ("stats", "0006_aidviewevent_copy_data"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='AidSearchEvent',
+            name="AidSearchEvent",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('targeted_audiences', core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Communes'), ('epci', 'Audience EPCI'), ('department', 'Departments'), ('region', 'Regions'), ('association', 'Associations'), ('private_sector', 'Private sector'), ('public_cies', 'Local public companies'), ('public_org', 'Public organization'), ('researcher', 'Research'), ('private_person', 'Individuals'), ('farmer', 'Farmers'), ('other', 'Other')], max_length=32), blank=True, null=True, size=None, verbose_name='Targeted audiences')),
-                ('querystring', models.TextField(verbose_name='Querystring')),
-                ('results_count', models.PositiveIntegerField(default=0, verbose_name='Results count')),
-                ('source', models.CharField(default='', max_length=256, verbose_name='Source')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
-                ('categories', models.ManyToManyField(blank=True, related_name='aid_search_events', to='categories.Category', verbose_name='Categories')),
-                ('perimeter', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='geofr.perimeter', verbose_name='Perimeter')),
-                ('themes', models.ManyToManyField(blank=True, related_name='aid_search_events', to='categories.Theme', verbose_name='Themes')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "targeted_audiences",
+                    core.fields.ChoiceArrayField(
+                        base_field=models.CharField(
+                            choices=[
+                                ("commune", "Communes"),
+                                ("epci", "Audience EPCI"),
+                                ("department", "Departments"),
+                                ("region", "Regions"),
+                                ("association", "Associations"),
+                                ("private_sector", "Private sector"),
+                                ("public_cies", "Local public companies"),
+                                ("public_org", "Public organization"),
+                                ("researcher", "Research"),
+                                ("private_person", "Individuals"),
+                                ("farmer", "Farmers"),
+                                ("other", "Other"),
+                            ],
+                            max_length=32,
+                        ),
+                        blank=True,
+                        null=True,
+                        size=None,
+                        verbose_name="Targeted audiences",
+                    ),
+                ),
+                ("querystring", models.TextField(verbose_name="Querystring")),
+                (
+                    "results_count",
+                    models.PositiveIntegerField(
+                        default=0, verbose_name="Results count"
+                    ),
+                ),
+                (
+                    "source",
+                    models.CharField(default="", max_length=256, verbose_name="Source"),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Date created"
+                    ),
+                ),
+                (
+                    "categories",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="aid_search_events",
+                        to="categories.Category",
+                        verbose_name="Categories",
+                    ),
+                ),
+                (
+                    "perimeter",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="geofr.perimeter",
+                        verbose_name="Perimeter",
+                    ),
+                ),
+                (
+                    "themes",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="aid_search_events",
+                        to="categories.Theme",
+                        verbose_name="Themes",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Aid Search Event',
-                'verbose_name_plural': 'Aid Search Events',
+                "verbose_name": "Aid Search Event",
+                "verbose_name_plural": "Aid Search Events",
             },
         ),
     ]

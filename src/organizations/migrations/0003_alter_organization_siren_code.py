@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('organizations', '0002_alter_organization_ape_code'),
+        ("organizations", "0002_alter_organization_ape_code"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='organization',
-            name='siren_code',
-            field=models.BigIntegerField(blank=True, null=True, verbose_name='Code SIREN'),
+            model_name="organization",
+            name="siren_code",
+            field=models.BigIntegerField(
+                blank=True, null=True, verbose_name="Code SIREN"
+            ),
         ),
     ]

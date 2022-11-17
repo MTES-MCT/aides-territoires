@@ -6,18 +6,30 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('programs', '0008_program_date_created'),
+        ("programs", "0008_program_date_created"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='program',
-            name='meta_description',
-            field=models.TextField(blank=True, default='', help_text='This will be displayed in SERPs. Keep it under 120 characters.', max_length=120, verbose_name='Meta description'),
+            model_name="program",
+            name="meta_description",
+            field=models.TextField(
+                blank=True,
+                default="",
+                help_text="This will be displayed in SERPs. Keep it under 120 characters.",
+                max_length=120,
+                verbose_name="Meta description",
+            ),
         ),
         migrations.AddField(
-            model_name='program',
-            name='meta_title',
-            field=models.CharField(blank=True, default='', help_text="This will be displayed in SERPs. Keep it under 60 characters. Leave empty and we will reuse the program's name.", max_length=60, verbose_name='Meta title'),
+            model_name="program",
+            name="meta_title",
+            field=models.CharField(
+                blank=True,
+                default="",
+                help_text="This will be displayed in SERPs. Keep it under 60 characters. Leave empty and we will reuse the program's name.",
+                max_length=60,
+                verbose_name="Meta title",
+            ),
         ),
     ]

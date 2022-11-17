@@ -11,7 +11,7 @@ class ThemeFactory(DjangoModelFactory):
     class Meta:
         model = Theme
 
-    name = factory.Faker('name')
+    name = factory.Faker("name")
     slug = factory.LazyAttribute(lambda o: slugify(o.name))
 
 
@@ -21,6 +21,6 @@ class CategoryFactory(DjangoModelFactory):
     class Meta:
         model = Category
 
-    name = factory.Faker('name')
+    name = factory.Faker("name")
     slug = factory.LazyAttribute(lambda o: slugify(o.name))
     theme = factory.SubFactory(ThemeFactory)

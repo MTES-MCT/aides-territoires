@@ -12,7 +12,7 @@ def darken(hex, rate):
         raise ValueError("Color must be in hexadecimal format.")
 
     # Convert hexadecimal value to a tuple of rgb values between 0 and 1
-    rgb = [int(hex[x:x + 2], 16) / 255.0 for x in (1, 3, 5)]
+    rgb = [int(hex[x : x + 2], 16) / 255.0 for x in (1, 3, 5)]  # noqa E203
 
     # Apply rate to lightness value, make sure it stays within [0,1] boundaries
     h, l, s = rgb_to_hls(*rgb)

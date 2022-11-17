@@ -6,14 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0014_reupload_medias'),
-        ('stats', '0010_auto_20210305_1619'),
+        ("backers", "0014_reupload_medias"),
+        ("stats", "0010_auto_20210305_1619"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aidsearchevent',
-            name='backers',
-            field=models.ManyToManyField(blank=True, related_name='aid_search_events', to='backers.Backer', verbose_name='Backers'),
+            model_name="aidsearchevent",
+            name="backers",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="aid_search_events",
+                to="backers.Backer",
+                verbose_name="Backers",
+            ),
         ),
     ]

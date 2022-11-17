@@ -7,28 +7,44 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0010_create_backer_group_model'),
+        ("backers", "0010_create_backer_group_model"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='backer',
-            name='date_created',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created'),
+            model_name="backer",
+            name="date_created",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name="Date created"
+            ),
         ),
         migrations.AddField(
-            model_name='backer',
-            name='meta_description',
-            field=models.TextField(blank=True, default='', help_text='This will be displayed in SERPs. Keep it under 120 characters.', max_length=256, verbose_name='Meta description'),
+            model_name="backer",
+            name="meta_description",
+            field=models.TextField(
+                blank=True,
+                default="",
+                help_text="This will be displayed in SERPs. Keep it under 120 characters.",
+                max_length=256,
+                verbose_name="Meta description",
+            ),
         ),
         migrations.AddField(
-            model_name='backer',
-            name='meta_title',
-            field=models.CharField(blank=True, default='', help_text="This will be displayed in SERPs. Keep it under 60 characters. Leave empty and we will reuse the backer's name.", max_length=180, verbose_name='Meta title'),
+            model_name="backer",
+            name="meta_title",
+            field=models.CharField(
+                blank=True,
+                default="",
+                help_text="This will be displayed in SERPs. Keep it under 60 characters. Leave empty and we will reuse the backer's name.",
+                max_length=180,
+                verbose_name="Meta title",
+            ),
         ),
         migrations.AddField(
-            model_name='backergroup',
-            name='date_created',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created'),
+            model_name="backergroup",
+            name="date_created",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name="Date created"
+            ),
         ),
     ]

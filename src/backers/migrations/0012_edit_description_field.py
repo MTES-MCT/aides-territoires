@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0011_auto_20210104_1722'),
+        ("backers", "0011_auto_20210104_1722"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='backer',
-            name='description',
-            field=models.TextField(blank=True, default='', verbose_name='Full description of the backer'),
+            model_name="backer",
+            name="description",
+            field=models.TextField(
+                blank=True, default="", verbose_name="Full description of the backer"
+            ),
         ),
     ]

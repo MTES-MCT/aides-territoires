@@ -17,6 +17,7 @@ def is_whitelisted(message):
 
 class EmailBackend(AnymailEmailBackend):
     """The default email backend to use in prod."""
+
     pass
 
 
@@ -35,6 +36,7 @@ class WhitelistEmailBackend(WhitelistMixin, AnymailEmailBackend):
 
     For testing / staging purpose.
     """
+
     pass
 
 
@@ -47,4 +49,5 @@ class LocmemWhitelistEmailBackend(WhitelistMixin, LocmemEmailBackend):
     This class has a single purpose: testing the `WhitelistEmailBackend`
     behavior without risking to send real emails.
     """
+
     pass

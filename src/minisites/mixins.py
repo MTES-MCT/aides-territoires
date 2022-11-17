@@ -6,9 +6,11 @@ class SearchMixin:
         """Take input data from the GET values."""
 
         kwargs = super().get_form_kwargs()
-        kwargs.update({
-            'data': self.request.GET,
-        })
+        kwargs.update(
+            {
+                "data": self.request.GET,
+            }
+        )
 
         return kwargs
 
@@ -34,11 +36,10 @@ class NarrowedFiltersMixin:
         querystring field and is not affected by the selection of available
         categories.
         """
-        if not hasattr(self, 'available_categories'):
-            page_categories = self.search_page \
-                .available_categories \
-                .order_by('theme__name', 'name') \
-                .select_related('theme')
+        if not hasattr(self, "available_categories"):
+            page_categories = self.search_page.available_categories.order_by(
+                "theme__name", "name"
+            ).select_related("theme")
             self.available_categories = page_categories
         return self.available_categories
 
@@ -48,8 +49,7 @@ class NarrowedFiltersMixin:
         all_audiences = list(Aid.AUDIENCES)
         available_audiences = self.search_page.available_audiences or []
         filtered_audiences = [
-            audience for audience in all_audiences
-            if audience[0] in available_audiences
+            audience for audience in all_audiences if audience[0] in available_audiences
         ]
         return filtered_audiences
 
@@ -58,17 +58,17 @@ class NarrowedFiltersMixin:
         the admin.
         """
         available_categories = self.get_available_categories()
-        form.fields['categories'].queryset = available_categories
+        form.fields["categories"].queryset = available_categories
 
         available_audiences = self.get_available_audiences()
-        form.fields['targeted_audiences'].choices = available_audiences
+        form.fields["targeted_audiences"].choices = available_audiences
         return form
 
     def get_form(self, form_class=None):
         """Returns the aid search and filter form."""
 
         form = super().get_form(form_class)
-        if hasattr(self, 'search_page'):
+        if hasattr(self, "search_page"):
             # We only narrow the form fields on ministes.
             form = self.narrow_form(form)
         return form

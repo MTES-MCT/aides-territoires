@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('stats', '0007_aidsearchevent'),
+        ("stats", "0007_aidsearchevent"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='aidsearchevent',
-            name='text',
-            field=models.CharField(blank=True, max_length=256, null=True, verbose_name='Text search'),
+            model_name="aidsearchevent",
+            name="text",
+            field=models.CharField(
+                blank=True, max_length=256, null=True, verbose_name="Text search"
+            ),
         )
     ]

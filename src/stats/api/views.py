@@ -54,7 +54,9 @@ class AidOriginUrlClickEventViewSet(mixins.CreateModelMixin, viewsets.GenericVie
 
 
 @extend_schema(exclude=True)
-class AidApplicationUrlClickEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+class AidApplicationUrlClickEventViewSet(
+    mixins.CreateModelMixin, viewsets.GenericViewSet
+):
     serializer_class = AidApplicationUrlClickEventSerializer
     queryset = AidApplicationUrlClickEvent.objects.all()
 

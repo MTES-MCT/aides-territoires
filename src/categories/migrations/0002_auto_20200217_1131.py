@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('categories', '0001_initial'),
+        ("categories", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='category',
-            name='slug',
-            field=models.SlugField(null=True, verbose_name='Slug'),
+            model_name="category",
+            name="slug",
+            field=models.SlugField(null=True, verbose_name="Slug"),
         ),
         migrations.AddField(
-            model_name='theme',
-            name='slug',
-            field=models.SlugField(null=True, verbose_name='Slug'),
+            model_name="theme",
+            name="slug",
+            field=models.SlugField(null=True, verbose_name="Slug"),
         ),
     ]

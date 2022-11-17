@@ -8,37 +8,93 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aids', '0163_alter_aidproject_creator'),
-        ('stats', '0027_auto_20220301_1104'),
+        ("aids", "0163_alter_aidproject_creator"),
+        ("stats", "0027_auto_20220301_1104"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='AidOriginUrlClickEvent',
+            name="AidOriginUrlClickEvent",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('querystring', models.TextField(default='', verbose_name='Querystring')),
-                ('source', models.CharField(blank=True, default='', max_length=256, verbose_name='Source')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
-                ('aid', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='aids.aid', verbose_name='Aid')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "querystring",
+                    models.TextField(default="", verbose_name="Querystring"),
+                ),
+                (
+                    "source",
+                    models.CharField(
+                        blank=True, default="", max_length=256, verbose_name="Source"
+                    ),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Date created"
+                    ),
+                ),
+                (
+                    "aid",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="aids.aid",
+                        verbose_name="Aid",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Événement aide lien vers la démarche en ligne',
-                'verbose_name_plural': 'Événements aide lien vers la démarche en ligne',
+                "verbose_name": "Événement aide lien vers la démarche en ligne",
+                "verbose_name_plural": "Événements aide lien vers la démarche en ligne",
             },
         ),
         migrations.CreateModel(
-            name='AidApplicationUrlClickEvent',
+            name="AidApplicationUrlClickEvent",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('querystring', models.TextField(default='', verbose_name='Querystring')),
-                ('source', models.CharField(blank=True, default='', max_length=256, verbose_name='Source')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
-                ('aid', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='aids.aid', verbose_name='Aid')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "querystring",
+                    models.TextField(default="", verbose_name="Querystring"),
+                ),
+                (
+                    "source",
+                    models.CharField(
+                        blank=True, default="", max_length=256, verbose_name="Source"
+                    ),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Date created"
+                    ),
+                ),
+                (
+                    "aid",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="aids.aid",
+                        verbose_name="Aid",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Événement aide candidater',
-                'verbose_name_plural': 'Événements aide candidater',
+                "verbose_name": "Événement aide candidater",
+                "verbose_name_plural": "Événements aide candidater",
             },
         ),
     ]

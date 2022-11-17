@@ -16,17 +16,40 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Bookmark',
+            name="Bookmark",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('querystring', models.TextField(verbose_name='Querystring')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
-                ('date_updated', models.DateTimeField(auto_now=True, verbose_name='Date updated')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Owner')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("querystring", models.TextField(verbose_name="Querystring")),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Date created"
+                    ),
+                ),
+                (
+                    "date_updated",
+                    models.DateTimeField(auto_now=True, verbose_name="Date updated"),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Owner",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Bookmark',
-                'verbose_name_plural': 'Bookmarks',
+                "verbose_name": "Bookmark",
+                "verbose_name_plural": "Bookmarks",
             },
         ),
     ]

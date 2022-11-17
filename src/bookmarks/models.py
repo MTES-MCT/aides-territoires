@@ -22,49 +22,35 @@ class Bookmark(models.Model):
     features as `alerts`.
     """
 
-    FREQUENCIES = Choices(
-        ('daily', 'Quotidiennement'),
-        ('weekly', 'Hebdomadairement')
-    )
+    FREQUENCIES = Choices(("daily", "Quotidiennement"), ("weekly", "Hebdomadairement"))
 
     owner = models.ForeignKey(
-        'accounts.User',
-        verbose_name=_('Owner'),
-        related_name='bookmarks',
-        on_delete=models.CASCADE)
-    querystring = models.TextField(
-        _('Querystring'))
-    title = models.CharField(
-        _('Title'),
-        max_length=250)
-    send_email_alert = models.BooleanField(
-        _('Send email alert'),
-        default=False)
+        "accounts.User",
+        verbose_name=_("Owner"),
+        related_name="bookmarks",
+        on_delete=models.CASCADE,
+    )
+    querystring = models.TextField(_("Querystring"))
+    title = models.CharField(_("Title"), max_length=250)
+    send_email_alert = models.BooleanField(_("Send email alert"), default=False)
     alert_frequency = models.CharField(
-        max_length=32,
-        choices=FREQUENCIES,
-        default=FREQUENCIES.daily)
+        max_length=32, choices=FREQUENCIES, default=FREQUENCIES.daily
+    )
     latest_alert_date = models.DateTimeField(
-        _('Latest alert date'),
-        default=timezone.now)
-    date_created = models.DateTimeField(
-        _('Date created'),
-        default=timezone.now)
-    date_updated = models.DateTimeField(
-        _('Date updated'),
-        auto_now=True)
+        _("Latest alert date"), default=timezone.now
+    )
+    date_created = models.DateTimeField(_("Date created"), default=timezone.now)
+    date_updated = models.DateTimeField(_("Date updated"), auto_now=True)
 
     class Meta:
-        verbose_name = _('Bookmark')
-        verbose_name_plural = _('Bookmarks')
+        verbose_name = _("Bookmark")
+        verbose_name_plural = _("Bookmarks")
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return '{}?{}'.format(
-            reverse('search_view'),
-            self.querystring)
+        return "{}?{}".format(reverse("search_view"), self.querystring)
 
     def get_new_aids(self):
         """Get the list of aids that match the stored search params."""
@@ -73,12 +59,13 @@ class Bookmark(models.Model):
 
         querydict = QueryDict(self.querystring)
         search_form = AidSearchForm(querydict)
-        base_qs = Aid.objects \
-            .published() \
-            .open() \
-            .select_related('perimeter', 'author') \
-            .prefetch_related('financers') \
-            .filter(date_published__gte=self.latest_alert_date) \
-            .order_by('date_published')
+        base_qs = (
+            Aid.objects.published()
+            .open()
+            .select_related("perimeter", "author")
+            .prefetch_related("financers")
+            .filter(date_published__gte=self.latest_alert_date)
+            .order_by("date_published")
+        )
         qs = search_form.filter_queryset(base_qs)
         return qs

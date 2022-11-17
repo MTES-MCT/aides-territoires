@@ -8,9 +8,9 @@ from core.utils import reupload_files
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('upload', '0001_initial'),
+        ("upload", "0001_initial"),
     ]
 
     operations = [
-        RunPython(reupload_files('upload.UploadImage', 'image'), RunPython.noop)
+        RunPython(reupload_files("upload.UploadImage", "image"), RunPython.noop)
     ]

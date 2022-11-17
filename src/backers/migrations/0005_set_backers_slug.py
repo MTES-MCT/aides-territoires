@@ -5,7 +5,7 @@ from django.utils.text import slugify
 
 
 def set_slugs(apps, schema_editor):
-    Backer = apps.get_model('backers', 'Backer')
+    Backer = apps.get_model("backers", "Backer")
     for backer in Backer.objects.all():
         backer.slug = slugify(backer.name)[:50]
         backer.save()
@@ -14,9 +14,7 @@ def set_slugs(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0004_backer_slug'),
+        ("backers", "0004_backer_slug"),
     ]
 
-    operations = [
-        migrations.RunPython(set_slugs)
-    ]
+    operations = [migrations.RunPython(set_slugs)]

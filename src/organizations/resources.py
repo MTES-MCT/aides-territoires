@@ -4,18 +4,18 @@ from organizations.models import Organization
 
 
 ORGANIZATION_EXPORT_FIELDS = (
-    'id',
-    'name',
-    'organization_type',
-    'address',
-    'city_name',
-    'zip_code',
-    'perimeter',
-    'perimeter_region',
-    'perimeter_department',
-    'beneficiaries',
-    'projects_number',
-    'projects'
+    "id",
+    "name",
+    "organization_type",
+    "address",
+    "city_name",
+    "zip_code",
+    "perimeter",
+    "perimeter_region",
+    "perimeter_department",
+    "beneficiaries",
+    "projects_number",
+    "projects",
 )
 
 
@@ -23,7 +23,7 @@ class OrganizationResource(resources.ModelResource):
     """Resource for Import-export."""
 
     beneficiaries = fields.Field(
-        column_name='Utilisateurs liés',
+        column_name="Utilisateurs liés",
     )
 
     projects = fields.Field(
@@ -52,29 +52,29 @@ class OrganizationResource(resources.ModelResource):
             for beneficiary in obj.beneficiaries.all():
                 beneficiaries_list.append(beneficiary.full_name)
         if beneficiaries_list == []:
-            return ''
+            return ""
         else:
-            return ', '.join(beneficiaries_list)
+            return ", ".join(beneficiaries_list)
 
     def dehydrate_perimeter(self, obj):
         if obj.perimeter:
             return obj.perimeter.name
         else:
-            return ''
+            return ""
 
     def dehydrate_perimeter_region(self, obj):
         if obj.perimeter:
             if obj.perimeter.regions:
                 return obj.perimeter.regions[0]
         else:
-            return ''
+            return ""
 
     def dehydrate_perimeter_department(self, obj):
         if obj.perimeter:
             if obj.perimeter.departments:
                 return obj.perimeter.departments[0]
         else:
-            return ''
+            return ""
 
     def dehydrate_projects(self, obj):
         projects_list = []
@@ -83,9 +83,9 @@ class OrganizationResource(resources.ModelResource):
             projects_list.append(project.name)
 
         if projects_list == []:
-            return ''
+            return ""
         else:
-            return ', '.join(projects_list)
+            return ", ".join(projects_list)
 
     def dehydrate_projects_number(self, obj):
         projects_number = obj.project_set.all().count()
@@ -95,7 +95,7 @@ class OrganizationResource(resources.ModelResource):
         model = Organization
         skip_unchanged = True
         # name must be unique
-        import_id_fields = ('id',)
+        import_id_fields = ("id",)
         fields = ORGANIZATION_EXPORT_FIELDS
         export_order = ORGANIZATION_EXPORT_FIELDS
 
@@ -117,7 +117,7 @@ class OrganizationResource(resources.ModelResource):
     def export_field(self, field, obj):
         """override export_field() to translate field values."""
         field_name = self.get_field_name(field)
-        method = getattr(self, 'dehydrate_%s' % field_name, None)
+        method = getattr(self, "dehydrate_%s" % field_name, None)
         if method is not None:
             return method(obj)
 
@@ -125,20 +125,25 @@ class OrganizationResource(resources.ModelResource):
         if field_model.serialize:
             # simple fields with choices: use get_FOO_display to translate
             if field_model.choices:
-                value = getattr(obj, f'get_{field.column_name}_display')()
+                value = getattr(obj, f"get_{field.column_name}_display")()
                 if value is not None:
                     return field.widget.render(value, obj)
             # ChoiceArrayField fields: need to translate a list
-            elif hasattr(field_model, 'base_field') and field_model.base_field.choices:  # noqa
+            elif (
+                hasattr(field_model, "base_field") and field_model.base_field.choices
+            ):  # noqa
                 value_raw = field.get_value(obj)
                 if value_raw:
                     # translate each dict choice
-                    value = [dict(field_model.base_field.choices).get(value, value) for value in value_raw]  # noqa
+                    value = [
+                        dict(field_model.base_field.choices).get(value, value)
+                        for value in value_raw
+                    ]  # noqa
                     return field.widget.render(value, obj)
             # BooleanField fields: avoid returning 1 (True) and 0 (False)
-            elif field_model.get_internal_type() == 'BooleanField':
+            elif field_model.get_internal_type() == "BooleanField":
                 value_raw = field.get_value(obj)
                 if value_raw is not None:
-                    return 'Oui' if value_raw else 'Non'
+                    return "Oui" if value_raw else "Non"
 
         return field.export(obj)

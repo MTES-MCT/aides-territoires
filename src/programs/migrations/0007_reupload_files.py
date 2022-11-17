@@ -8,9 +8,7 @@ from core.utils import reupload_files
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('programs', '0006_program_logo'),
+        ("programs", "0006_program_logo"),
     ]
 
-    operations = [
-        RunPython(reupload_files('programs.Program', 'logo'), RunPython.noop)
-    ]
+    operations = [RunPython(reupload_files("programs.Program", "logo"), RunPython.noop)]

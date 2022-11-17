@@ -10,24 +10,55 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('eligibility', '0001_initial'),
+        ("eligibility", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='EligibilityTest',
+            name="EligibilityTest",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=256, verbose_name='Name')),
-                ('introduction', models.TextField(blank=True, verbose_name='Une introduction')),
-                ('conclusion', models.TextField(blank=True, verbose_name='Une conclusion')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
-                ('date_updated', models.DateTimeField(auto_now=True, verbose_name='Date updated')),
-                ('author', models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='eligibility_tests', to=settings.AUTH_USER_MODEL, verbose_name='Author')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=256, verbose_name="Name")),
+                (
+                    "introduction",
+                    models.TextField(blank=True, verbose_name="Une introduction"),
+                ),
+                (
+                    "conclusion",
+                    models.TextField(blank=True, verbose_name="Une conclusion"),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Date created"
+                    ),
+                ),
+                (
+                    "date_updated",
+                    models.DateTimeField(auto_now=True, verbose_name="Date updated"),
+                ),
+                (
+                    "author",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="eligibility_tests",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Author",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Eligibility test',
-                'verbose_name_plural': 'Eligibility tests',
+                "verbose_name": "Eligibility test",
+                "verbose_name_plural": "Eligibility tests",
             },
         ),
     ]

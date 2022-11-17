@@ -5,12 +5,12 @@ from django.utils.text import slugify
 
 
 def set_slugs(apps, schema_editor):
-    Theme = apps.get_model('categories', 'Theme')
+    Theme = apps.get_model("categories", "Theme")
     for theme in Theme.objects.all():
         theme.slug = slugify(theme.name)
         theme.save()
 
-    Category = apps.get_model('categories', 'Category')
+    Category = apps.get_model("categories", "Category")
     for category in Category.objects.all():
         category.slug = slugify(category.name)
         category.save()
@@ -19,7 +19,7 @@ def set_slugs(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('categories', '0002_auto_20200217_1131'),
+        ("categories", "0002_auto_20200217_1131"),
     ]
 
     operations = [

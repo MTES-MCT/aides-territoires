@@ -7,21 +7,39 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='UploadImage',
+            name="UploadImage",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.FileField(upload_to='upload', verbose_name='Image')),
-                ('description', models.CharField(blank=True, default='', max_length=180, verbose_name='Description')),
-                ('uploaded_at', models.DateTimeField(auto_now_add=True, verbose_name='Uploaded at')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("image", models.FileField(upload_to="upload", verbose_name="Image")),
+                (
+                    "description",
+                    models.CharField(
+                        blank=True,
+                        default="",
+                        max_length=180,
+                        verbose_name="Description",
+                    ),
+                ),
+                (
+                    "uploaded_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="Uploaded at"),
+                ),
             ],
             options={
-                'verbose_name': 'Upload image',
-                'verbose_name_plural': 'Upload images',
+                "verbose_name": "Upload image",
+                "verbose_name_plural": "Upload images",
             },
         ),
     ]

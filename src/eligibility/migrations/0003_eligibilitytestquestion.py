@@ -7,25 +7,51 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('eligibility', '0002_eligibilitytest'),
+        ("eligibility", "0002_eligibilitytest"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='EligibilityTestQuestion',
+            name="EligibilityTestQuestion",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('order', models.PositiveIntegerField(blank=True, default=0)),
-                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='eligibility.eligibilityquestion')),
-                ('test', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='eligibility.eligibilitytest')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("order", models.PositiveIntegerField(blank=True, default=0)),
+                (
+                    "question",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="eligibility.eligibilityquestion",
+                    ),
+                ),
+                (
+                    "test",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="eligibility.eligibilitytest",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['order'],
+                "ordering": ["order"],
             },
         ),
         migrations.AddField(
-            model_name='eligibilitytest',
-            name='questions',
-            field=models.ManyToManyField(blank=True, related_name='eligibility_tests', through='eligibility.EligibilityTestQuestion', to='eligibility.EligibilityQuestion', verbose_name='Questions'),
+            model_name="eligibilitytest",
+            name="questions",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="eligibility_tests",
+                through="eligibility.EligibilityTestQuestion",
+                to="eligibility.EligibilityQuestion",
+                verbose_name="Questions",
+            ),
         ),
     ]

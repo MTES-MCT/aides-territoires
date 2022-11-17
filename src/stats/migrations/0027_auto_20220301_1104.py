@@ -7,18 +7,74 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('stats', '0026_delete_aidmatchprojectevent'),
+        ("stats", "0026_delete_aidmatchprojectevent"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aidsearchevent',
-            name='targeted_audiences',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Communes'), ('epci', 'Intercommunalités / Pays'), ('department', 'Départements'), ('region', 'Régions'), ('special', "Collectivités d'outre-mer à statuts particuliers"), ('association', 'Associations'), ('private_person', 'Particuliers'), ('farmer', 'Agriculteurs'), ('private_sector', 'Entreprises privées'), ('public_cies', 'Entreprises publiques locales (Sem, Spl, SemOp)'), ('public_org', "Établissements publics (écoles, bibliothèques…) / Services de l'État"), ('researcher', 'Recherche')], max_length=32), blank=True, null=True, size=None, verbose_name='Targeted audiences'),
+            model_name="aidsearchevent",
+            name="targeted_audiences",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("commune", "Communes"),
+                        ("epci", "Intercommunalités / Pays"),
+                        ("department", "Départements"),
+                        ("region", "Régions"),
+                        ("special", "Collectivités d'outre-mer à statuts particuliers"),
+                        ("association", "Associations"),
+                        ("private_person", "Particuliers"),
+                        ("farmer", "Agriculteurs"),
+                        ("private_sector", "Entreprises privées"),
+                        (
+                            "public_cies",
+                            "Entreprises publiques locales (Sem, Spl, SemOp)",
+                        ),
+                        (
+                            "public_org",
+                            "Établissements publics (écoles, bibliothèques…) / Services de l'État",
+                        ),
+                        ("researcher", "Recherche"),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                null=True,
+                size=None,
+                verbose_name="Targeted audiences",
+            ),
         ),
         migrations.AlterField(
-            model_name='aidviewevent',
-            name='targeted_audiences',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Communes'), ('epci', 'Intercommunalités / Pays'), ('department', 'Départements'), ('region', 'Régions'), ('special', "Collectivités d'outre-mer à statuts particuliers"), ('association', 'Associations'), ('private_person', 'Particuliers'), ('farmer', 'Agriculteurs'), ('private_sector', 'Entreprises privées'), ('public_cies', 'Entreprises publiques locales (Sem, Spl, SemOp)'), ('public_org', "Établissements publics (écoles, bibliothèques…) / Services de l'État"), ('researcher', 'Recherche')], max_length=32), blank=True, null=True, size=None, verbose_name='Targeted audiences'),
+            model_name="aidviewevent",
+            name="targeted_audiences",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("commune", "Communes"),
+                        ("epci", "Intercommunalités / Pays"),
+                        ("department", "Départements"),
+                        ("region", "Régions"),
+                        ("special", "Collectivités d'outre-mer à statuts particuliers"),
+                        ("association", "Associations"),
+                        ("private_person", "Particuliers"),
+                        ("farmer", "Agriculteurs"),
+                        ("private_sector", "Entreprises privées"),
+                        (
+                            "public_cies",
+                            "Entreprises publiques locales (Sem, Spl, SemOp)",
+                        ),
+                        (
+                            "public_org",
+                            "Établissements publics (écoles, bibliothèques…) / Services de l'État",
+                        ),
+                        ("researcher", "Recherche"),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                null=True,
+                size=None,
+                verbose_name="Targeted audiences",
+            ),
         ),
     ]

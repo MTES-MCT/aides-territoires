@@ -5,5 +5,5 @@ from upload.views import UploadImageView
 
 
 urlpatterns = [
-    path('', csrf_exempt(UploadImageView.as_view()), name='upload_image'),
+    path("", csrf_exempt(UploadImageView.as_view()), name="upload_image"),
 ]

@@ -8,23 +8,51 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0002_promotionpost'),
-        ('stats', '0019_aidcontactclickevent'),
+        ("blog", "0002_promotionpost"),
+        ("stats", "0019_aidcontactclickevent"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PromotionClickEvent',
+            name="PromotionClickEvent",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('querystring', models.TextField(default='', verbose_name='Querystring')),
-                ('source', models.CharField(blank=True, default='', max_length=256, verbose_name='Source')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
-                ('promotion', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='blog.promotionpost', verbose_name='Promotion Post')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "querystring",
+                    models.TextField(default="", verbose_name="Querystring"),
+                ),
+                (
+                    "source",
+                    models.CharField(
+                        blank=True, default="", max_length=256, verbose_name="Source"
+                    ),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Date created"
+                    ),
+                ),
+                (
+                    "promotion",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="blog.promotionpost",
+                        verbose_name="Promotion Post",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Événement click promotion',
-                'verbose_name_plural': 'Événements click promotion',
+                "verbose_name": "Événement click promotion",
+                "verbose_name_plural": "Événements click promotion",
             },
         ),
     ]
