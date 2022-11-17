@@ -491,7 +491,7 @@ class BaseAidSearchForm(AidesTerrBaseForm):
     )
 
     text = AutocompleteSynonymChoiceField(
-        label="Recherche textuelle", queryset=SynonymList.objects.all(), required=False
+        label="Mot-clés", queryset=SynonymList.objects.all(), required=False
     )
 
     apply_before = forms.DateField(
