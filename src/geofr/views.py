@@ -8,7 +8,7 @@ from geofr.services.counts_by_department import (
     get_programs_count_by_department,
 )
 from geofr.models import Perimeter
-from organizations.constants import ORGANIZATION_TYPE
+from organizations.constants import ORGANIZATION_TYPE_CHOICES
 from programs.models import Program
 
 
@@ -56,7 +56,7 @@ class DepartmentView(TemplateView):
         }
 
         context["departments"] = departments_list
-        context["organization_types"] = ORGANIZATION_TYPE
+        context["organization_types"] = ORGANIZATION_TYPE_CHOICES
         context["current_dept"] = current_dept
         context["target_audience"] = target_audience
         context["backers_list"] = backers_list
@@ -95,7 +95,7 @@ class DepartmentBackersView(TemplateView):
         caption += f"porteurs d‘aides{caption_aid_type} présents"
 
         context["departments"] = departments_list
-        context["organization_types"] = ORGANIZATION_TYPE
+        context["organization_types"] = ORGANIZATION_TYPE_CHOICES
         context["current_dept"] = current_dept
         context["target_audience"] = target_audience
         context["aid_type"] = aid_type
@@ -133,7 +133,7 @@ class DepartmentProgramsView(TemplateView):
         caption += f"programmes{caption_aid_type} présents"
 
         context["departments"] = departments_list
-        context["organization_types"] = ORGANIZATION_TYPE
+        context["organization_types"] = ORGANIZATION_TYPE_CHOICES
         context["current_dept"] = current_dept
         context["target_audience"] = target_audience
         context["aid_type"] = aid_type

@@ -336,8 +336,8 @@ order_by = OpenApiParameter(
     "<br /><br />"
     "Note : relevance correspond aux aides avec le plus petit périmètre, \
     puis aux aides qui expirent bientôt.",
-    enum=[id for (id, name) in AidSearchForm.ORDER_BY],
+    enum=[id for (id, name) in AidSearchForm.ORDER_BY_CHOICES],
     examples=[OpenApiExample("", value="")]
-    + [OpenApiExample(name, value=id) for (id, name) in AidSearchForm.ORDER_BY],
+    + [OpenApiExample(name, value=id) for (id, name) in AidSearchForm.ORDER_BY_CHOICES],
 )
 aids_api_parameters.append(order_by)

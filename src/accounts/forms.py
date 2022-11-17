@@ -16,7 +16,7 @@ from dsfr.forms import DsfrBaseForm
 class RegisterForm(UserCreationForm, AidesTerrBaseForm):
     """Form used to create new user accounts."""
 
-    ORGANIZATION_TYPE = Choices(
+    ORGANIZATION_TYPE_CHOICES = Choices(
         ("farmer", "Agriculteur"),
         ("association", "Association"),
         ("special", "Collectivité d’outre-mer à statuts particuliers"),
@@ -57,7 +57,7 @@ class RegisterForm(UserCreationForm, AidesTerrBaseForm):
     is_beneficiary = forms.BooleanField(label="Trouver des aides", required=False)
     organization_name = forms.CharField(label="Nom de votre structure", required=True)
     organization_type = forms.ChoiceField(
-        label="Vous êtes un/une", required=True, choices=ORGANIZATION_TYPE
+        label="Vous êtes un/une", required=True, choices=ORGANIZATION_TYPE_CHOICES
     )
     perimeter = AutocompleteModelChoiceField(
         label="Votre territoire", queryset=Perimeter.objects.all(), required=True

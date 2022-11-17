@@ -11,7 +11,7 @@ from geofr.utils import get_all_related_perimeters
 
 class Organization(models.Model):
 
-    ORGANIZATION_TYPE = Choices(*AUDIENCES_ALL)
+    ORGANIZATION_TYPE_CHOICES = Choices(*AUDIENCES_ALL)
 
     name = models.CharField("Nom", max_length=256, db_index=True)
     slug = models.SlugField(
@@ -21,7 +21,7 @@ class Organization(models.Model):
         verbose_name="Type de structure",
         null=True,
         blank=True,
-        base_field=models.CharField(max_length=32, choices=ORGANIZATION_TYPE),
+        base_field=models.CharField(max_length=32, choices=ORGANIZATION_TYPE_CHOICES),
     )
     address = models.CharField("Adresse postale", max_length=900, null=True, blank=True)
     city_name = models.CharField(
