@@ -76,6 +76,8 @@ class Project(models.Model):
         "Type de projet suggéré", max_length=256, blank=True
     )
 
+    due_date = models.DateField("Date d'échéance", null=True, blank=True)
+
     step = models.CharField(
         "Avancement du projet",
         max_length=10,
