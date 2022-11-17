@@ -86,7 +86,7 @@
             {% include "projects/favorite_or_public_project_aids_list.html" %}
 
             {% if not organization_own_project %}
-            <div class="fr-container fr-centered">
+            <div class="fr-container at-centered">
                 {% if organization_favorite_project %}
                 <button class="fr-btn" data-fr-opened="false" aria-controls="remove-from-favorite-modal--{{ project.pk }}">
                     Retirer ce projet de mes favoris
