@@ -628,7 +628,6 @@ class AidAdmin(WithViewPermission, BaseAidAdmin):
     def save_model(self, request, obj, form, change):
         # When cloning an existing aid, prefix it's title with "[Copie]"
         if "_saveasnew" in request.POST:
-            obj.name = obj.name
             obj.status = AidWorkflow.states.draft
         return super().save_model(request, obj, form, change)
 
