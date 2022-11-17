@@ -48,12 +48,12 @@
             </div>
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                <strong>Date de création du projet&nbsp;:</strong>
+                <strong>Date de création du projet :</strong>
                 {{ project.date_created|date:'d/m/y' }}
             </p>
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                <strong>État d'avancement du projet&nbsp;:</strong>
+                <strong>État d’avancement du projet :</strong>
                 {% if project.step %}
                 {{ project.step }}
                 {% else %}
@@ -62,7 +62,7 @@
             </p>
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                <strong>Budget prévisionnel&nbsp;:</strong>
+                <strong>Budget prévisionnel :</strong>
                 {% if project.budget %}
                 {{ project.budget|intcomma }} €
                 {% else %}
@@ -71,25 +71,25 @@
             </p>
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                <strong>Structure porteuse&nbsp;:</strong>
+                <strong>Structure porteuse :</strong>
                 {{ project.organizations.first.name }}
             </p>
 
             {% if project.other_project_owner %}
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                <strong>Autre maître d'oeuvre&nbsp;:</strong>
+                <strong>Autre maître d'oeuvre :</strong>
                 {{ project.other_project_owner }}
             </p>
             {% endif %}
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                <strong>Territoire du projet&nbsp;:</strong>
+                <strong>Territoire du projet :</strong>
                 {{ project.organizations.first.perimeter.name }} ({{ project.organizations.first.zip_code }})
             </p>
 
             {% if project.project_types.all %}
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                <strong>Types de projet&nbsp;:</strong>
+                <strong>Types de projet :</strong>
                 {% for project_type in project.project_types.all %}
                 <span class="fr-tag">{{ project_type }}</span>
                 {% endfor %}

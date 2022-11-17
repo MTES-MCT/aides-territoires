@@ -48,7 +48,7 @@
             </div>
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                <strong>État d'avancement du projet&nbsp;:</strong> 
+                <strong>État d’avancement du projet :</strong> 
                 <span>
                     {% if project.step %}
                     {% if project.step == "finished" %}
@@ -63,7 +63,7 @@
             </p>
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                <strong>Budget prévisionnel&nbsp;:</strong> 
+                <strong>Budget prévisionnel :</strong> 
                 <span>
                     {% if project.budget %}
                     {{ project.budget|intcomma }} €
@@ -75,11 +75,11 @@
 
             {% if project.is_public %}
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                <strong>Projet public&nbsp;:</strong> 
+                <strong>Projet public :</strong> 
                 {% if project.is_public and project.is_published %}
                 <span class="fr-mb-0 fr-badge fr-badge--success">Oui</span>
                 {% elif project.is_public %}
-                <span class="fr-mb-0 fr-badge fr-badge--new">En&nbsp;cours</span>
+                <span class="fr-mb-0 fr-badge fr-badge--new">En cours</span>
                 {% else %}
                 <span class="fr-mb-0 fr-badge fr-badge--error">Non</span>
                 {% endif %}
@@ -88,7 +88,7 @@
 
             {% if project.project_types.all %}
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                <strong>Types de projet&nbsp;:</strong> 
+                <strong>Types de projet :</strong> 
                 {% for project_type in project.project_types.all %}
                 <span class="fr-tag">{{ project_type }}</span>
                 {% endfor %}
@@ -96,7 +96,7 @@
             {% endif %}
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                <strong>Appartenance à un plan/programme/contrat&nbsp;:</strong> 
+                <strong>Appartenance à un plan/programme/contrat :</strong> 
                 <span>
                     {% if project.contract_link %}
                     {{ project.get_contract_link_display }}
@@ -108,7 +108,7 @@
 
             {% if project.other_project_owner %}
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                <strong>Autre maître d'oeuvre&nbsp;:</strong> 
+                <strong>Autre maître d'oeuvre :</strong> 
                 {{ project.other_project_owner }}
             </p>
             {% endif %}

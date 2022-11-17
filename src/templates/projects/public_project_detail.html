@@ -21,7 +21,7 @@
                 </li>
                 <li>
                     <a class="fr-breadcrumb__link" aria-current="page">
-                    Projet&nbsp;:« {{ project.name }} »
+                    Projet :« {{ project.name }} »
                     </a>
                 </li>
             </ol>
@@ -44,7 +44,7 @@
 
         <div class="fr-col-12">
             <h1 class="fr-h3 fr-mb-5w">
-            Projet&nbsp;: « {{ project.name }} »
+            Projet : « {{ project.name }} »
             {% if organization_favorite_project %}
             <i class="ri-star-line at-color--blue fr-mb-1w at-align-end"></i>
             {% endif %}
@@ -54,11 +54,11 @@
             <div class="fr-grid-row fr-grid-row--gutters fr-background-alt">
                 <img class="fr-col-12 fr-col-md-7" src="{% static 'img/project_illustration.png' %}" alt="" height="450">
                 <div class="fr-col-12 fr-col-md-5">
-                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-5w"><strong>Structure porteuse&nbsp;:</strong> {{ project.organizations.first.name }}</h2>
-                    {% if project.other_project_owner%}<h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Autre maître d'ouvrage&nbsp;:</strong> {{ project.other_project_owner }}</h2>{% endif %}
-                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Territoire du projet&nbsp;:</strong> {{ project.organizations.first.perimeter.name }} ({{ project.organizations.first.zip_code }})</h2>
-                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>État d'avancement du projet&nbsp;:</strong>  {% if project.step %}{{ project.get_step_display }}{% else %}aucun{% endif %}</h2>
-                    <h2 class="fr-text--md fr-text--normal fr-mb-5w fr-mt-2w"><strong>Budget prévisionnel&nbsp;:</strong>  {% if project.budget %}{{ project.budget|intcomma }} €{% else %}non renseigné{% endif %}</h2>
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-5w"><strong>Structure porteuse :</strong> {{ project.organizations.first.name }}</h2>
+                    {% if project.other_project_owner%}<h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Autre maître d’ouvrage :</strong> {{ project.other_project_owner }}</h2>{% endif %}
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Territoire du projet :</strong> {{ project.organizations.first.perimeter.name }} ({{ project.organizations.first.zip_code }})</h2>
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>État d’avancement du projet :</strong>  {% if project.step %}{{ project.get_step_display }}{% else %}aucun{% endif %}</h2>
+                    <h2 class="fr-text--md fr-text--normal fr-mb-5w fr-mt-2w"><strong>Budget prévisionnel :</strong>  {% if project.budget %}{{ project.budget|intcomma }} €{% else %}non renseigné{% endif %}</h2>
                 </div>
             </div>
 
@@ -71,14 +71,14 @@
                 </div>
                 <div class="fr-col-12 fr-col-md-5">
                 {% if project.project_types.all %}
-                <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Types de projet&nbsp;:</strong>
+                <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Types de projet :</strong>
                     {% for project_type in project.project_types.all %}
                     <span class="fr-tag fr-mb-1w">{{ project_type }}</span>
                     {% endfor %}
                 </h2>
                 {% endif %}
                 {% if project.contract_link %}
-                <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Appartenance à un plan/programme/contrat&nbsp;:</strong> {{ project.get_contract_link_display }}</h2>
+                <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Appartenance à un plan/programme/contrat :</strong> {{ project.get_contract_link_display }}</h2>
                 {% endif %}
                 </div>
             </div>

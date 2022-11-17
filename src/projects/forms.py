@@ -43,7 +43,7 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
              même si vous rendez votre projet public.",
     )
     step = forms.ChoiceField(
-        label="État d'avancement du projet",
+        label="État d’avancement du projet",
         choices=Project.PROJECT_STEPS,
         required=True,
     )
@@ -56,7 +56,7 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
         label="Créateur du projet", queryset=Organization.objects.all(), required=False
     )
     other_project_owner = forms.CharField(
-        label="Autre maître d'ouvrage",
+        label="Autre maître d’ouvrage",
         required=False,
     )
     project_types = AutocompleteModelMultipleChoiceField(
@@ -140,7 +140,7 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
         ),
     )
     step = forms.ChoiceField(
-        label="État d'avancement du projet",
+        label="État d’avancement du projet",
         choices=Project.PROJECT_STEPS,
         required=True,
     )
@@ -150,7 +150,7 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
         required=False,
     )
     other_project_owner = forms.CharField(
-        label="Autre maître d'ouvrage",
+        label="Autre maître d’ouvrage",
         required=False,
     )
     private_description = RichTextField(

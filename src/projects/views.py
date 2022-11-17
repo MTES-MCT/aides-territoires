@@ -43,7 +43,7 @@ class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
         project.author.add(self.request.user)
         project.organizations.add(self.request.user.beneficiary_organization)
 
-        msg = "Votre nouveau projet a été créé&nbsp;!"
+        msg = "Votre nouveau projet a été créé !"
         messages.success(self.request, msg)
         url = reverse("project_list_view")
         project = f"project_created={project.pk}"
