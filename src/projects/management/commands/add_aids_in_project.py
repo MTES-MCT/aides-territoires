@@ -38,11 +38,13 @@ class Command(BaseCommand):
             aids_reader = csv.DictReader(csv_content, delimiter=",")
 
             for csv_aid in aids_reader:
-                logger.info(
-                    csv_aid["Lien"].strip()
-                )
+                logger.info(csv_aid["Lien"].strip())
                 aid_link = csv_aid["Lien"].strip()
-                aid_slug = str(aid_link.partition("https://aides-territoires.beta.gouv.fr/aides/")[2])  # noqa
+                aid_slug = str(
+                    aid_link.partition("https://aides-territoires.beta.gouv.fr/aides/")[
+                        2
+                    ]
+                )  # noqa
                 aid_slug = str(aid_slug.partition("/")[0])
 
                 if Aid.objects.filter(slug=aid_slug).exists():
@@ -53,10 +55,6 @@ class Command(BaseCommand):
                         aid=aid,
                         creator=creator,
                     )
-                    logger.info(
-                        "aidproject created"
-                    )
+                    logger.info("aidproject created")
                 else:
-                    logger.info(
-                        f"aid {aid_slug} doesn't exists"
-                    )
+                    logger.info(f"aid {aid_slug} doesn't exists")

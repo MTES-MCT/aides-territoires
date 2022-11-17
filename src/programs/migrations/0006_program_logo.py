@@ -7,13 +7,19 @@ import programs.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('programs', '0005_remove_program_aids'),
+        ("programs", "0005_remove_program_aids"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='program',
-            name='logo',
-            field=models.FileField(blank=True, help_text='Make sure the file is not too heavy. Prefer svg files.', null=True, upload_to=programs.models.logo_upload_to, verbose_name='Logo'),
+            model_name="program",
+            name="logo",
+            field=models.FileField(
+                blank=True,
+                help_text="Make sure the file is not too heavy. Prefer svg files.",
+                null=True,
+                upload_to=programs.models.logo_upload_to,
+                verbose_name="Logo",
+            ),
         ),
     ]

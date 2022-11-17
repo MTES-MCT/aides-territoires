@@ -7,12 +7,16 @@ from django.contrib.postgres.indexes import GinIndex
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tags', '0003_remove_tag_slug'),
+        ("tags", "0003_remove_tag_slug"),
     ]
 
     operations = [
         migrations.AddIndex(
-            model_name='tag',
-            index=GinIndex(fields=['name'], name='tags_tag_name_fe221d_gin', opclasses=['gin_trgm_ops']),
+            model_name="tag",
+            index=GinIndex(
+                fields=["name"],
+                name="tags_tag_name_fe221d_gin",
+                opclasses=["gin_trgm_ops"],
+            ),
         ),
     ]

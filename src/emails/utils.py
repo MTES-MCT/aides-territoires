@@ -4,15 +4,16 @@ from anymail.message import AnymailMessage
 
 
 def send_email(
-        subject, body, recipient_list,
-        from_email=settings.DEFAULT_FROM_EMAIL,
-        reply_to=None,
-        html_body=None, tags=None,
-        fail_silently=False):
-    message = AnymailMessage(
-        subject=subject,
-        body=body,
-        to=recipient_list)
+    subject,
+    body,
+    recipient_list,
+    from_email=settings.DEFAULT_FROM_EMAIL,
+    reply_to=None,
+    html_body=None,
+    tags=None,
+    fail_silently=False,
+):
+    message = AnymailMessage(subject=subject, body=body, to=recipient_list)
 
     message.from_email = from_email
 
@@ -20,7 +21,7 @@ def send_email(
         message.reply_to = reply_to
 
     if html_body:
-        message.attach_alternative(html_body, 'text/html')
+        message.attach_alternative(html_body, "text/html")
 
     # Tags can then be found and filtered in the ESP's analytics dashboard
     if tags:
@@ -30,8 +31,8 @@ def send_email(
 
 
 def send_email_with_template(
-        recipient_list, template_id, data=None, tags=None,
-        fail_silently=False):
+    recipient_list, template_id, data=None, tags=None, fail_silently=False
+):
     """Use the "template" feature provided by our ESP"""
     message = AnymailMessage(to=recipient_list)
     message.template_id = template_id

@@ -7,16 +7,18 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tags', '0004_auto_20181115_1003'),
+        ("tags", "0004_auto_20181115_1003"),
     ]
 
     operations = [
         migrations.RemoveIndex(
-            model_name='tag',
-            name='tags_tag_name_fe221d_gin',
+            model_name="tag",
+            name="tags_tag_name_fe221d_gin",
         ),
         migrations.AddIndex(
-            model_name='tag',
-            index=django.contrib.postgres.indexes.GinIndex(fields=['name'], name='tag_name_trgm', opclasses=['gin_trgm_ops']),
+            model_name="tag",
+            index=django.contrib.postgres.indexes.GinIndex(
+                fields=["name"], name="tag_name_trgm", opclasses=["gin_trgm_ops"]
+            ),
         ),
     ]

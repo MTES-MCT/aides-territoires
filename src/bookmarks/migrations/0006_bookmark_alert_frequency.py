@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bookmarks', '0005_bookmark_latest_alert_date'),
+        ("bookmarks", "0005_bookmark_latest_alert_date"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='bookmark',
-            name='alert_frequency',
-            field=models.CharField(choices=[('daily', 'Daily'), ('weekly', 'Weekly')], default='daily', max_length=32),
+            model_name="bookmark",
+            name="alert_frequency",
+            field=models.CharField(
+                choices=[("daily", "Daily"), ("weekly", "Weekly")],
+                default="daily",
+                max_length=32,
+            ),
         ),
     ]

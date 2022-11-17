@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('programs', '0003_remove_program_perimeter'),
+        ("programs", "0003_remove_program_perimeter"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='program',
-            name='aids',
-            field=models.ManyToManyField(related_name='programs', to='aids.Aid', verbose_name='Aids'),
+            model_name="program",
+            name="aids",
+            field=models.ManyToManyField(
+                related_name="programs", to="aids.Aid", verbose_name="Aids"
+            ),
         ),
     ]

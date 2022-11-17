@@ -16,22 +16,70 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='EligibilityQuestion',
+            name="EligibilityQuestion",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.TextField(verbose_name='La question')),
-                ('answer_choice_a', models.CharField(max_length=256, verbose_name='Réponse a')),
-                ('answer_choice_b', models.CharField(max_length=256, verbose_name='Réponse b')),
-                ('answer_choice_c', models.CharField(blank=True, max_length=256, verbose_name='Réponse c')),
-                ('answer_choice_d', models.CharField(blank=True, max_length=256, verbose_name='Réponse d')),
-                ('answer_correct', models.CharField(choices=[('a', 'a'), ('b', 'b'), ('c', 'c'), ('d', 'd')], max_length=50, verbose_name='La bonne réponse')),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created')),
-                ('date_updated', models.DateTimeField(auto_now=True, verbose_name='Date updated')),
-                ('author', models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='eligibility_questions', to=settings.AUTH_USER_MODEL, verbose_name='Author')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("text", models.TextField(verbose_name="La question")),
+                (
+                    "answer_choice_a",
+                    models.CharField(max_length=256, verbose_name="Réponse a"),
+                ),
+                (
+                    "answer_choice_b",
+                    models.CharField(max_length=256, verbose_name="Réponse b"),
+                ),
+                (
+                    "answer_choice_c",
+                    models.CharField(
+                        blank=True, max_length=256, verbose_name="Réponse c"
+                    ),
+                ),
+                (
+                    "answer_choice_d",
+                    models.CharField(
+                        blank=True, max_length=256, verbose_name="Réponse d"
+                    ),
+                ),
+                (
+                    "answer_correct",
+                    models.CharField(
+                        choices=[("a", "a"), ("b", "b"), ("c", "c"), ("d", "d")],
+                        max_length=50,
+                        verbose_name="La bonne réponse",
+                    ),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Date created"
+                    ),
+                ),
+                (
+                    "date_updated",
+                    models.DateTimeField(auto_now=True, verbose_name="Date updated"),
+                ),
+                (
+                    "author",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="eligibility_questions",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Author",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Question',
-                'verbose_name_plural': 'Questions',
+                "verbose_name": "Question",
+                "verbose_name_plural": "Questions",
             },
         ),
     ]

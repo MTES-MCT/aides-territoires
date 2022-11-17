@@ -5,7 +5,7 @@ from django.utils.text import slugify
 
 
 def fix_backers_slug_length(apps, schema_editor):
-    Backer = apps.get_model('backers', 'Backer')
+    Backer = apps.get_model("backers", "Backer")
     backers = Backer.objects.all()
     for backer in backers:
         if backer.slug:
@@ -14,8 +14,9 @@ def fix_backers_slug_length(apps, schema_editor):
             backer.slug = slugify(backer.name)[:50]
         backer.save()
 
+
 def fix_backergroups_slug_length(apps, schema_editor):
-    BackerGroup = apps.get_model('backers', 'BackerGroup')
+    BackerGroup = apps.get_model("backers", "BackerGroup")
     backergroups = BackerGroup.objects.all()
     for backergroup in backergroups:
         if backergroup.slug:
@@ -28,10 +29,10 @@ def fix_backergroups_slug_length(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0012_edit_description_field'),
+        ("backers", "0012_edit_description_field"),
     ]
 
     operations = [
         migrations.RunPython(fix_backers_slug_length),
-        migrations.RunPython(fix_backergroups_slug_length)
+        migrations.RunPython(fix_backergroups_slug_length),
     ]

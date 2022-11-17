@@ -7,14 +7,20 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0034_cleanup_choices_translations'),
-        ('backers', '0014_reupload_medias'),
+        ("geofr", "0034_cleanup_choices_translations"),
+        ("backers", "0014_reupload_medias"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='backer',
-            name='perimeter',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='geofr.perimeter', verbose_name='Périmètre'),
+            model_name="backer",
+            name="perimeter",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="geofr.perimeter",
+                verbose_name="Périmètre",
+            ),
         ),
     ]

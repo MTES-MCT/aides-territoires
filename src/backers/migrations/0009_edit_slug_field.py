@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backers', '0008_add_description_field'),
+        ("backers", "0008_add_description_field"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='backer',
-            name='slug',
-            field=models.SlugField(blank=True, help_text='Let it empty so it will be autopopulated.', verbose_name='Slug'),
+            model_name="backer",
+            name="slug",
+            field=models.SlugField(
+                blank=True,
+                help_text="Let it empty so it will be autopopulated.",
+                verbose_name="Slug",
+            ),
         ),
     ]

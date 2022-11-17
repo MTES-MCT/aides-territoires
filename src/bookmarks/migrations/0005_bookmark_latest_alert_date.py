@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bookmarks', '0004_bookmark_send_email_alert'),
+        ("bookmarks", "0004_bookmark_send_email_alert"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='bookmark',
-            name='latest_alert_date',
-            field=models.DateTimeField(null=True, verbose_name='Latest alert date'),
+            model_name="bookmark",
+            name="latest_alert_date",
+            field=models.DateTimeField(null=True, verbose_name="Latest alert date"),
         ),
     ]

@@ -4,7 +4,7 @@ from programs.api.views import ProgramViewSet
 
 
 router = routers.SimpleRouter()
-router.register('', ProgramViewSet, basename='programs')
+router.register("", ProgramViewSet, basename="programs")
 
 
 urlpatterns = router.urls

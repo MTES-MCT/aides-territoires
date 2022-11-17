@@ -6,24 +6,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tags', '0001_initial'),
+        ("tags", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='tag',
-            name='tag',
+            model_name="tag",
+            name="tag",
         ),
         migrations.AddField(
-            model_name='tag',
-            name='name',
-            field=models.CharField(default='', max_length=50, unique=True, verbose_name='Name'),
+            model_name="tag",
+            name="name",
+            field=models.CharField(
+                default="", max_length=50, unique=True, verbose_name="Name"
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='tag',
-            name='slug',
-            field=models.SlugField(default='', unique=True, verbose_name='Slug'),
+            model_name="tag",
+            name="slug",
+            field=models.SlugField(default="", unique=True, verbose_name="Slug"),
             preserve_default=False,
         ),
     ]

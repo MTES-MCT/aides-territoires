@@ -7,14 +7,20 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0034_cleanup_choices_translations'),
-        ('programs', '0009_auto_20210506_1832'),
+        ("geofr", "0034_cleanup_choices_translations"),
+        ("programs", "0009_auto_20210506_1832"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='program',
-            name='perimeter',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='geofr.perimeter', verbose_name='Périmètre'),
+            model_name="program",
+            name="perimeter",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="geofr.perimeter",
+                verbose_name="Périmètre",
+            ),
         ),
     ]

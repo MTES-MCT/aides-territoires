@@ -9,22 +9,37 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('aids', '0069_auto_20190916_1104'),
-        ('geofr', '0025_perimeter_manually_created'),
+        ("aids", "0069_auto_20190916_1104"),
+        ("geofr", "0025_perimeter_manually_created"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Program',
+            name="Program",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=256, verbose_name='Name')),
-                ('aids', models.ManyToManyField(to='aids.Aid', verbose_name='Aids')),
-                ('perimeter', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='geofr.Perimeter', verbose_name='Perimeter')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=256, verbose_name="Name")),
+                ("aids", models.ManyToManyField(to="aids.Aid", verbose_name="Aids")),
+                (
+                    "perimeter",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="geofr.Perimeter",
+                        verbose_name="Perimeter",
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'Aid programs',
-                'verbose_name': 'Aid program',
+                "verbose_name_plural": "Aid programs",
+                "verbose_name": "Aid program",
             },
         ),
     ]

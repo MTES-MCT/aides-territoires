@@ -8,82 +8,132 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geofr', '0038_auto_20220408_1630'),
+        ("geofr", "0038_auto_20220408_1630"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='perimeter',
-            options={'verbose_name': 'périmètre'},
+            name="perimeter",
+            options={"verbose_name": "périmètre"},
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='basin',
-            field=models.CharField(blank=True, help_text='Code Sandre', max_length=32, verbose_name='Bassin hydrographique'),
+            model_name="perimeter",
+            name="basin",
+            field=models.CharField(
+                blank=True,
+                help_text="Code Sandre",
+                max_length=32,
+                verbose_name="Bassin hydrographique",
+            ),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='code',
-            field=models.CharField(help_text='Usage interne uniquement, non pertinent pour les périmètres Ad-hoc.', max_length=16, verbose_name='Code'),
+            model_name="perimeter",
+            name="code",
+            field=models.CharField(
+                help_text="Usage interne uniquement, non pertinent pour les périmètres Ad-hoc.",
+                max_length=16,
+                verbose_name="Code",
+            ),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='contained_in',
-            field=models.ManyToManyField(blank=True, related_name='contains', to='geofr.Perimeter', verbose_name='Contenu dans'),
+            model_name="perimeter",
+            name="contained_in",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="contains",
+                to="geofr.Perimeter",
+                verbose_name="Contenu dans",
+            ),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='date_created',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date de création'),
+            model_name="perimeter",
+            name="date_created",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name="Date de création"
+            ),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='date_obsolete',
-            field=models.DateTimeField(blank=True, help_text='Date de mise à jour des périmètres à laquelle             ce périmètre ne figurait plus dans les sources officielles', null=True, verbose_name='date d’obsolescence'),
+            model_name="perimeter",
+            name="date_obsolete",
+            field=models.DateTimeField(
+                blank=True,
+                help_text="Date de mise à jour des périmètres à laquelle             ce périmètre ne figurait plus dans les sources officielles",
+                null=True,
+                verbose_name="date d’obsolescence",
+            ),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='date_updated',
-            field=models.DateTimeField(auto_now=True, verbose_name='Date de mise à jour'),
+            model_name="perimeter",
+            name="date_updated",
+            field=models.DateTimeField(
+                auto_now=True, verbose_name="Date de mise à jour"
+            ),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='is_obsolete',
-            field=models.BooleanField(default=False, verbose_name='Ce périmètre n’existe plus'),
+            model_name="perimeter",
+            name="is_obsolete",
+            field=models.BooleanField(
+                default=False, verbose_name="Ce périmètre n’existe plus"
+            ),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='is_overseas',
-            field=models.BooleanField(null=True, verbose_name='En Outre-mer\xa0?'),
+            model_name="perimeter",
+            name="is_overseas",
+            field=models.BooleanField(null=True, verbose_name="En Outre-mer\xa0?"),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='is_visible_to_users',
-            field=models.BooleanField(default=True, verbose_name='Le périmètre est visible pour les utilisateurs'),
+            model_name="perimeter",
+            name="is_visible_to_users",
+            field=models.BooleanField(
+                default=True,
+                verbose_name="Le périmètre est visible pour les utilisateurs",
+            ),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='manually_created',
-            field=models.BooleanField(default=False, verbose_name='Création manuelle'),
+            model_name="perimeter",
+            name="manually_created",
+            field=models.BooleanField(default=False, verbose_name="Création manuelle"),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='name',
-            field=models.CharField(max_length=128, verbose_name='Nom'),
+            model_name="perimeter",
+            name="name",
+            field=models.CharField(max_length=128, verbose_name="Nom"),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='scale',
-            field=models.PositiveIntegerField(choices=[(1, 'Commune'), (5, 'EPCI'), (8, 'Bassin hydrographique'), (10, 'Département'), (15, 'Région'), (16, 'Outre-mer'), (17, 'Métropole'), (18, 'Ad-hoc'), (20, 'Pays'), (25, 'Continent')], verbose_name='Échelle'),
+            model_name="perimeter",
+            name="scale",
+            field=models.PositiveIntegerField(
+                choices=[
+                    (1, "Commune"),
+                    (5, "EPCI"),
+                    (8, "Bassin hydrographique"),
+                    (10, "Département"),
+                    (15, "Région"),
+                    (16, "Outre-mer"),
+                    (17, "Métropole"),
+                    (18, "Ad-hoc"),
+                    (20, "Pays"),
+                    (25, "Continent"),
+                ],
+                verbose_name="Échelle",
+            ),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='unaccented_name',
-            field=models.CharField(max_length=128, verbose_name='Nom sans accents (pour l’indexation)'),
+            model_name="perimeter",
+            name="unaccented_name",
+            field=models.CharField(
+                max_length=128, verbose_name="Nom sans accents (pour l’indexation)"
+            ),
         ),
         migrations.AlterField(
-            model_name='perimeter',
-            name='zipcodes',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=8), blank=True, null=True, size=None, verbose_name='Codes postaux'),
+            model_name="perimeter",
+            name="zipcodes",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.CharField(max_length=8),
+                blank=True,
+                null=True,
+                size=None,
+                verbose_name="Codes postaux",
+            ),
         ),
     ]

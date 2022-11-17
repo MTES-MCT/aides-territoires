@@ -6,13 +6,13 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bookmarks', '0001_initial'),
+        ("bookmarks", "0001_initial"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='bookmark',
-            old_name='user',
-            new_name='owner',
+            model_name="bookmark",
+            old_name="user",
+            new_name="owner",
         ),
     ]

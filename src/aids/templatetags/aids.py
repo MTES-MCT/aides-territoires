@@ -113,9 +113,7 @@ def aid_types_choices_display_list(obj, field):
                     "<strong>{}</strong> (jusqu'à {} €)<br />", value, obj.loan_amount
                 )
             else:
-                formated_string += format_html(
-                    "<strong>{}</strong>", value
-                )
+                formated_string += format_html("<strong>{}</strong>", value)
         elif value == "Autre aide financière":
             if obj.other_financial_aid_comment:
                 formated_string += format_html(

@@ -14,8 +14,15 @@ def store_aids_live_count():
     logger.info("Starting stats 'aid live count' task")
     # main website
     aids_live_count = Aid.objects.live().count()
-    log_event('aid', 'live_count', source='aides-territoires', value=aids_live_count)  # noqa
+    log_event(
+        "aid", "live_count", source="aides-territoires", value=aids_live_count
+    )  # noqa
     # all PP
     for search_page in SearchPage.objects.all():
         search_page_aids_live_count = search_page.get_base_queryset().count()
-        log_event('aid', 'live_count', source=search_page.slug, value=search_page_aids_live_count)  # noqa
+        log_event(
+            "aid",
+            "live_count",
+            source=search_page.slug,
+            value=search_page_aids_live_count,
+        )  # noqa

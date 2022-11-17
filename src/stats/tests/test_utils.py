@@ -20,7 +20,7 @@ def test_log_aid_view_event(client):
 
     assert AidViewEvent.objects.count() == 0
 
-    aid_url = reverse('aid_detail_view', args=[aid.slug])
+    aid_url = reverse("aid_detail_view", args=[aid.slug])
 
     client.get(aid_url)  # HTTP_USER_AGENT=user_ua
 
@@ -33,7 +33,7 @@ def test_crawler_should_not_log_aid_view_event_stat(client):
 
     assert AidViewEvent.objects.count() == 0
 
-    aid_url = reverse('aid_detail_view', args=[aid.slug])
+    aid_url = reverse("aid_detail_view", args=[aid.slug])
 
     client.get(aid_url, HTTP_USER_AGENT=bot_ua)
 
@@ -46,7 +46,7 @@ def test_scraper_should_not_log_aid_view_event_stat(client):
 
     assert AidViewEvent.objects.count() == 0
 
-    aid_url = reverse('aid_detail_view', args=[aid.slug])
+    aid_url = reverse("aid_detail_view", args=[aid.slug])
 
     # client.get(aid_url, headers={'referer': scraper_referer})
     client.get(aid_url, HTTP_REFERER=scraper_referer)
@@ -55,12 +55,12 @@ def test_scraper_should_not_log_aid_view_event_stat(client):
 
 
 def test_log_aid_search_event(perimeters):
-    theme_1 = ThemeFactory(name='Nature environnement risques')
-    theme_2 = ThemeFactory(name='Developpement economique')
-    category_1 = CategoryFactory(name='economie circulaire')
+    theme_1 = ThemeFactory(name="Nature environnement risques")
+    theme_2 = ThemeFactory(name="Developpement economique")
+    category_1 = CategoryFactory(name="economie circulaire")
     # category_2 = CategoryFactory(name='musee')
-    backer_1 = BackerFactory(name='ADEME')
-    program_1 = ProgramFactory(name='Programme')
+    backer_1 = BackerFactory(name="ADEME")
+    program_1 = ProgramFactory(name="Programme")
 
     request_get_urlencoded = (
         "drafts=True&call_for_projects_only=False&apply_before="
@@ -69,26 +69,26 @@ def test_log_aid_search_event(perimeters):
         f"&themes={theme_1.slug}&themes={theme_2.slug}"
         f"&categories={category_1.slug}&categories="
         f"&backers={backer_1.id}-{backer_1.slug}"
-        f"&programs={program_1.slug}")
+        f"&programs={program_1.slug}"
+    )
     results_count = 15
     host = "francemobilites.aides-territoires.beta.gouv.fr"
 
     log_aidsearchevent(
-        querystring=request_get_urlencoded,
-        results_count=results_count,
-        source=host)
+        querystring=request_get_urlencoded, results_count=results_count, source=host
+    )
 
     event = AidSearchEvent.objects.last()
 
     assert len(event.targeted_audiences) == 1
     assert event.targeted_audiences[0] == Aid.AUDIENCES.department
-    assert event.perimeter == perimeters['montpellier']
+    assert event.perimeter == perimeters["montpellier"]
     assert event.themes.count() == 2
     assert event.categories.count() == 1
     assert event.backers.count() == 1
     assert event.programs.count() == 1
     assert event.results_count == results_count
-    assert event.source == 'francemobilites'
+    assert event.source == "francemobilites"
 
 
 def test_log_aid_search_event_with_wrong_targeted_audiences(perimeters):
@@ -109,7 +109,8 @@ def test_log_aid_search_event_with_wrong_targeted_audiences(perimeters):
         "&targeted_audiences=test&targeted_audiences=test"
         "&targeted_audiences=test&targeted_audiences=test"
         "&apply_before=test&call_for_projects_only=test"
-        "&order_by=test+ORDER+BY+5040%23")
+        "&order_by=test+ORDER+BY+5040%23"
+    )
 
     event_count_before = AidSearchEvent.objects.count()
 
@@ -143,9 +144,9 @@ def test_log_aid_search_event_with_wrong_targeted_audiences(perimeters):
 
 
 def test_log_aid_search_event_with_internal(perimeters):
-    theme_1 = ThemeFactory(name='Nature environnement risques')
-    theme_2 = ThemeFactory(name='Developpement economique')
-    category_1 = CategoryFactory(name='economie circulaire')
+    theme_1 = ThemeFactory(name="Nature environnement risques")
+    theme_2 = ThemeFactory(name="Developpement economique")
+    category_1 = CategoryFactory(name="economie circulaire")
 
     request_get_urlencoded = (
         "drafts=True&call_for_projects_only=False"
@@ -153,7 +154,8 @@ def test_log_aid_search_event_with_internal(perimeters):
         f"&perimeter={perimeters['montpellier'].id_slug}"
         f"&themes={theme_1.slug}&themes={theme_2.slug}"
         f"&categories={category_1.slug}&categories=&apply_before="
-        "&internal=True")
+        "&internal=True"
+    )
 
     event_count_before = AidSearchEvent.objects.count()
 
@@ -166,28 +168,28 @@ def test_log_aid_search_event_with_internal(perimeters):
 
 def test_log_aid_search_event_with_pages(perimeters):
     # empty 'page' should work
-    request_get_urlencoded = 'page='
+    request_get_urlencoded = "page="
     event_count_before = AidSearchEvent.objects.count()
     log_aidsearchevent(querystring=request_get_urlencoded)
     event_count_after = AidSearchEvent.objects.count()
     assert event_count_after == event_count_before + 1
 
     # 'page=1' should work
-    request_get_urlencoded = 'page=1'
+    request_get_urlencoded = "page=1"
     event_count_before = AidSearchEvent.objects.count()
     log_aidsearchevent(querystring=request_get_urlencoded)
     event_count_after = AidSearchEvent.objects.count()
     assert event_count_after == event_count_before + 1
 
     # 'page=2' should not work
-    request_get_urlencoded = 'page=2'
+    request_get_urlencoded = "page=2"
     event_count_before = AidSearchEvent.objects.count()
     log_aidsearchevent(querystring=request_get_urlencoded)
     event_count_after = AidSearchEvent.objects.count()
     assert event_count_after == event_count_before
 
     # strange 'page=' should not work
-    request_get_urlencoded = 'page=coucou'
+    request_get_urlencoded = "page=coucou"
     event_count_before = AidSearchEvent.objects.count()
     log_aidsearchevent(querystring=request_get_urlencoded)
     event_count_after = AidSearchEvent.objects.count()
@@ -209,4 +211,4 @@ def test_log_aid_search_event_empty(perimeters):
     assert event.backers.count() == 0
     assert event.programs.count() == 0
     assert event.results_count == 0
-    assert event.source == ''
+    assert event.source == ""

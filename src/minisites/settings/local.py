@@ -1,3 +1,3 @@
 from core.settings.local import *  # noqa
 
-ROOT_URLCONF = 'minisites.urls'
+ROOT_URLCONF = "minisites.urls"

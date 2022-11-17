@@ -4,10 +4,9 @@ from categories.models import Theme, Category
 
 
 class CategorySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Category
-        fields = ('id', 'name', 'slug')
+        fields = ("id", "name", "slug")
 
 
 class ThemeSerializer(serializers.ModelSerializer):
@@ -16,4 +15,4 @@ class ThemeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Theme
-        fields = ('id', 'name', 'slug', 'categories')
+        fields = ("id", "name", "slug", "categories")

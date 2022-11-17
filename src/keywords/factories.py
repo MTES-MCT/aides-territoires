@@ -10,8 +10,8 @@ class SynonymListFactory(DjangoModelFactory):
     class Meta:
         model = SynonymList
 
-    name = factory.Faker('name')
-    keywords_list = factory.Faker('text')
+    name = factory.Faker("name")
+    keywords_list = factory.Faker("text")
 
     @classmethod
     def _create(cls, model_class, *args, **kwargs):

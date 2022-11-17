@@ -6,28 +6,30 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('stats', '0001_initial'),
+        ("stats", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='event',
-            name='name',
+            model_name="event",
+            name="name",
         ),
         migrations.AddField(
-            model_name='event',
-            name='category',
-            field=models.CharField(default='', max_length=128, verbose_name='Category'),
+            model_name="event",
+            name="category",
+            field=models.CharField(default="", max_length=128, verbose_name="Category"),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='event',
-            name='event',
-            field=models.CharField(default='', max_length=128, verbose_name='Event'),
+            model_name="event",
+            name="event",
+            field=models.CharField(default="", max_length=128, verbose_name="Event"),
             preserve_default=False,
         ),
         migrations.AddIndex(
-            model_name='event',
-            index=models.Index(fields=['category', 'event'], name='stats_event_categor_dc1ea4_idx'),
+            model_name="event",
+            index=models.Index(
+                fields=["category", "event"], name="stats_event_categor_dc1ea4_idx"
+            ),
         ),
     ]

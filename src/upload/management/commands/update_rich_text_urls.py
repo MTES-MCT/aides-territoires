@@ -20,24 +20,20 @@ class Command(BaseCommand):
             fields = model._meta.get_fields()
             for field in fields:
                 if isinstance(field, TextField):
-                    self.stdout.write(f'Updating {model} {field.name}')
+                    self.stdout.write(f"Updating {model} {field.name}")
                     self.update_urls(model, field.name)
 
     def update_urls(self, Model, field_name):
         """For a given model and field, rewrite media urls."""
 
-        items = Model.objects.filter(
-            **{f'{field_name}__contains': 'src="/media/'})
+        items = Model.objects.filter(**{f"{field_name}__contains": 'src="/media/'})
         for item in items:
             value = getattr(item, field_name)
             urls = re.findall('src="/media/([^"]+)"', value)
             for url in urls:
 
-                new_url = default_storage.url(f'{settings.MEDIA_ROOT}/{url}')
-                value = value.replace(
-                    f'/media/{url}',
-                    new_url)
-                self.stdout.write(
-                    f'    Updating {item} #{item.pk}: {url} => {new_url}')
+                new_url = default_storage.url(f"{settings.MEDIA_ROOT}/{url}")
+                value = value.replace(f"/media/{url}", new_url)
+                self.stdout.write(f"    Updating {item} #{item.pk}: {url} => {new_url}")
             setattr(item, field_name, value)
             item.save()

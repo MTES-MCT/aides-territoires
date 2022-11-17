@@ -7,13 +7,34 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('stats', '0014_aidsearchevent_populate_programs'),
+        ("stats", "0014_aidsearchevent_populate_programs"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='aidsearchevent',
-            name='targeted_audiences',
-            field=core.fields.ChoiceArrayField(base_field=models.CharField(choices=[('commune', 'Communes'), ('epci', 'Audience EPCI'), ('department', 'Departments'), ('region', 'Regions'), ('association', 'Associations'), ('private_sector', 'Private sector'), ('public_cies', 'Local public companies'), ('public_org', 'Public organization'), ('researcher', 'Research'), ('private_person', 'Individuals'), ('farmer', 'Farmers')], max_length=32), blank=True, null=True, size=None, verbose_name='Targeted audiences'),
+            model_name="aidsearchevent",
+            name="targeted_audiences",
+            field=core.fields.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("commune", "Communes"),
+                        ("epci", "Audience EPCI"),
+                        ("department", "Departments"),
+                        ("region", "Regions"),
+                        ("association", "Associations"),
+                        ("private_sector", "Private sector"),
+                        ("public_cies", "Local public companies"),
+                        ("public_org", "Public organization"),
+                        ("researcher", "Research"),
+                        ("private_person", "Individuals"),
+                        ("farmer", "Farmers"),
+                    ],
+                    max_length=32,
+                ),
+                blank=True,
+                null=True,
+                size=None,
+                verbose_name="Targeted audiences",
+            ),
         ),
     ]

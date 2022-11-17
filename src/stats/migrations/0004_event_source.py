@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('stats', '0003_event_meta'),
+        ("stats", "0003_event_meta"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='event',
-            name='source',
-            field=models.CharField(default='', max_length=256, verbose_name='Source'),
+            model_name="event",
+            name="source",
+            field=models.CharField(default="", max_length=256, verbose_name="Source"),
         ),
     ]

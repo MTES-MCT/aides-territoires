@@ -8,9 +8,11 @@ from core.utils import reupload_files
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('exporting', '0001_initial'),
+        ("exporting", "0001_initial"),
     ]
 
     operations = [
-        RunPython(reupload_files('exporting.DataExport', 'exported_file'), RunPython.noop)
+        RunPython(
+            reupload_files("exporting.DataExport", "exported_file"), RunPython.noop
+        )
     ]

@@ -8,22 +8,35 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Keyword',
+            name="Keyword",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=70, verbose_name='Nom')),
-                ('slug', models.SlugField(verbose_name="Fragment d'url")),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date de création')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=70, verbose_name="Nom")),
+                ("slug", models.SlugField(verbose_name="Fragment d'url")),
+                (
+                    "date_created",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now,
+                        verbose_name="Date de création",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Mot clé',
-                'verbose_name_plural': 'Mots clé',
-                'ordering': ['-date_created'],
+                "verbose_name": "Mot clé",
+                "verbose_name_plural": "Mots clé",
+                "ordering": ["-date_created"],
             },
         ),
     ]

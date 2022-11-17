@@ -6,14 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bookmarks', '0002_auto_20190528_1119'),
+        ("bookmarks", "0002_auto_20190528_1119"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='bookmark',
-            name='title',
-            field=models.CharField(default='', max_length=250, verbose_name='Title'),
+            model_name="bookmark",
+            name="title",
+            field=models.CharField(default="", max_length=250, verbose_name="Title"),
             preserve_default=False,
         ),
     ]

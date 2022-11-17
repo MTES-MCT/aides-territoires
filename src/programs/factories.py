@@ -12,5 +12,5 @@ class ProgramFactory(DjangoModelFactory):
     class Meta:
         model = Program
 
-    name = factory.Faker('name')
+    name = factory.Faker("name")
     slug = factory.LazyAttribute(lambda o: slugify(o.name))

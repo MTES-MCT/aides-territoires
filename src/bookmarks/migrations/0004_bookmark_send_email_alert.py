@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bookmarks', '0003_bookmark_title'),
+        ("bookmarks", "0003_bookmark_title"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='bookmark',
-            name='send_email_alert',
-            field=models.BooleanField(default=False, verbose_name='Send email alert'),
+            model_name="bookmark",
+            name="send_email_alert",
+            field=models.BooleanField(default=False, verbose_name="Send email alert"),
         ),
     ]

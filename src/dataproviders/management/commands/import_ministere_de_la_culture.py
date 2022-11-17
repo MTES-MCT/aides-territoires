@@ -98,14 +98,18 @@ class Command(BaseImportCommand):
                 yield line
         else:
             headers = {"accept": "application/json", "content-type": "application/json"}
-            req = requests.get(DATA_SOURCE.import_api_url, headers=headers,)
+            req = requests.get(
+                DATA_SOURCE.import_api_url,
+                headers=headers,
+            )
             data = json.loads(req.text)
             page_number = math.ceil(data["count"] / 20.0)
             list_results = []
             for page in range(page_number):
                 offset = 20 * page
                 req = requests.get(
-                    f"{DATA_SOURCE.import_api_url}?limit=20&offset={offset}", headers=headers,
+                    f"{DATA_SOURCE.import_api_url}?limit=20&offset={offset}",
+                    headers=headers,
                 )
                 data = json.loads(req.text)
                 for result in data["results"]:
@@ -240,7 +244,7 @@ class Command(BaseImportCommand):
                         keyword_list = []
                         keyword_list.append(keyword)
                         keywords.extend(keyword_list)
-                    except Exception:
+                    except Exception:  # nosec B110
                         pass
         return keywords
 

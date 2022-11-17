@@ -51,7 +51,10 @@ class Project(models.Model):
         "organizations.Organization", verbose_name="Structures", blank=True
     )
     other_project_owner = models.CharField(
-        "Autre maître d'ouvrage", max_length=180, null=True, blank=True,
+        "Autre maître d'ouvrage",
+        max_length=180,
+        null=True,
+        blank=True,
     )
     author = models.ManyToManyField("accounts.User", verbose_name="Auteur", blank=True)
 
@@ -86,11 +89,7 @@ class Project(models.Model):
         null=True,
     )
 
-    budget = models.PositiveIntegerField(
-        "Budget prévisionnel",
-        null=True,
-        blank=True
-    )
+    budget = models.PositiveIntegerField("Budget prévisionnel", null=True, blank=True)
 
     status = models.CharField(
         "Statut",

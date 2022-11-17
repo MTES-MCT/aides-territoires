@@ -6,7 +6,7 @@ from search.utils import get_querystring_programs
 
 
 def populate_aidsearchevent_programs(apps, schema_editor):
-    AidSearchEvent = apps.get_model('stats', 'AidSearchEvent')
+    AidSearchEvent = apps.get_model("stats", "AidSearchEvent")
     for event in AidSearchEvent.objects.all():
         event_programs = get_querystring_programs(event.querystring)
         event_programs_id_list = [program.id for program in event_programs]
@@ -16,9 +16,7 @@ def populate_aidsearchevent_programs(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('stats', '0013_aidsearchevent_programs'),
+        ("stats", "0013_aidsearchevent_programs"),
     ]
 
-    operations = [
-        migrations.RunPython(populate_aidsearchevent_programs)
-    ]
+    operations = [migrations.RunPython(populate_aidsearchevent_programs)]

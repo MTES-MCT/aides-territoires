@@ -10,7 +10,7 @@ class BackerFactory(DjangoModelFactory):
     class Meta:
         model = Backer
 
-    name = factory.Faker('company')
+    name = factory.Faker("company")
 
     @factory.post_generation
     def financed_aids(self, create, extracted, **kwargs):

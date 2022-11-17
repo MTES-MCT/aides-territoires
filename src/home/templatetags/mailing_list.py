@@ -8,6 +8,6 @@ register = template.Library()
 
 @register.simple_tag
 def mailing_list_url():
-    """"returns the url of the sendinblue mailing list registration form."""
+    """ "returns the url of the sendinblue mailing list registration form."""
 
     return settings.MAILING_LIST_URL

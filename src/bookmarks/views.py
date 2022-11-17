@@ -9,23 +9,19 @@ from braces.views import MessageMixin
 from accounts.forms import RegisterForm
 from accounts.models import User
 from bookmarks.tasks import send_alert_confirmation_email
-from bookmarks.forms import (BookmarkAlertForm, UserBookmarkForm,
-                             AnonymousBookmarkForm)
+from bookmarks.forms import BookmarkAlertForm, UserBookmarkForm, AnonymousBookmarkForm
 from bookmarks.models import Bookmark
 
 
 class BookmarkMixin:
-
     def get_queryset(self):
-        qs = Bookmark.objects \
-            .filter(owner=self.request.user) \
-            .order_by('-date_created')
+        qs = Bookmark.objects.filter(owner=self.request.user).order_by("-date_created")
         return qs
 
 
 class BookmarkList(LoginRequiredMixin, BookmarkMixin, ListView):
-    template_name = 'bookmarks/list.html'
-    context_object_name = 'bookmarks'
+    template_name = "bookmarks/list.html"
+    context_object_name = "bookmarks"
 
 
 class BookmarkCreate(MessageMixin, BookmarkMixin, CreateView):
@@ -42,7 +38,7 @@ class BookmarkCreate(MessageMixin, BookmarkMixin, CreateView):
 
     """
 
-    http_method_names = ['post']
+    http_method_names = ["post"]
 
     def get_form(self):
         if self.request.user.is_authenticated:
@@ -58,7 +54,7 @@ class BookmarkCreate(MessageMixin, BookmarkMixin, CreateView):
         if self.request.user.is_authenticated:
             user_email = self.request.user.email
         else:
-            user_email = form.cleaned_data['email']
+            user_email = form.cleaned_data["email"]
 
         try:
             existing_account = User.objects.get(email=user_email)
@@ -67,44 +63,49 @@ class BookmarkCreate(MessageMixin, BookmarkMixin, CreateView):
 
         if existing_account:
             owner = existing_account
-            send_alert = form.cleaned_data.get('send_email_alert', True)
+            send_alert = form.cleaned_data.get("send_email_alert", True)
             bookmark = self.create_bookmark(form, owner, send_alert)
-            bookmarks_url = reverse('bookmark_list_view')
-            message = _('Your new bookmark was successfully created. '
-                        '<a href="%(url)s">You will find in in your bookmark '
-                        'list.</a>') % {'url': bookmarks_url}
+            bookmarks_url = reverse("bookmark_list_view")
+            message = _(
+                "Your new bookmark was successfully created. "
+                '<a href="%(url)s">You will find in in your bookmark '
+                "list.</a>"
+            ) % {"url": bookmarks_url}
 
         else:
             owner = self.create_account(form)
             send_alert = True
             bookmark = self.create_bookmark(form, owner, send_alert)
             send_alert_confirmation_email.delay(owner.email, bookmark.id)
-            message = _('We just sent you an email to validate your address.')
+            message = _("We just sent you an email to validate your address.")
 
         self.messages.success(message)
-        redirect_url = reverse('search_view')
-        return HttpResponseRedirect('{}?{}'.format(
-            redirect_url, bookmark.querystring))
+        redirect_url = reverse("search_view")
+        return HttpResponseRedirect("{}?{}".format(redirect_url, bookmark.querystring))
 
     def create_bookmark(self, form, owner, send_alert):
         """Create a new bookmark."""
 
         bookmark = Bookmark.objects.create(
             owner=owner,
-            title=form.cleaned_data['title'],
+            title=form.cleaned_data["title"],
             send_email_alert=send_alert,
-            alert_frequency=form.cleaned_data['alert_frequency'],
-            querystring=form.cleaned_data['querystring'])
+            alert_frequency=form.cleaned_data["alert_frequency"],
+            querystring=form.cleaned_data["querystring"],
+        )
 
         return bookmark
 
     def create_account(self, form):
         """Create a tmp account to attach the bookmark to."""
 
-        register_form = RegisterForm({
-            'email': form.cleaned_data['email'],
-            'full_name': form.cleaned_data['email'],
-            'ml_consent': False})
+        register_form = RegisterForm(
+            {
+                "email": form.cleaned_data["email"],
+                "full_name": form.cleaned_data["email"],
+                "ml_consent": False,
+            }
+        )
         user = register_form.save()
         return user
 
@@ -112,31 +113,30 @@ class BookmarkCreate(MessageMixin, BookmarkMixin, CreateView):
         if form.has_error("email", "unique"):
             msg = "Un compte avec cette adresse existe déjà. Avez-vous oublié de vous connecter ?"
         else:
-            msg = _('We could not create your bookmark because of those '
-                    'errors: {}').format(form.errors.as_text())
+            msg = _(
+                "We could not create your bookmark because of those " "errors: {}"
+            ).format(form.errors.as_text())
 
         self.messages.error(msg)
-        redirect_url = reverse('search_view')
+        redirect_url = reverse("search_view")
         return HttpResponseRedirect(redirect_url)
 
 
-class BookmarkDelete(LoginRequiredMixin, MessageMixin, BookmarkMixin,
-                     DeleteView):
-    success_url = reverse_lazy('bookmark_list_view')
+class BookmarkDelete(LoginRequiredMixin, MessageMixin, BookmarkMixin, DeleteView):
+    success_url = reverse_lazy("bookmark_list_view")
 
     def delete(self, *args, **kwargs):
         res = super().delete(*args, **kwargs)
-        self.messages.success(_('Your bookmark was deleted.'))
+        self.messages.success(_("Your bookmark was deleted."))
         return res
 
 
-class BookmarkUpdate(LoginRequiredMixin, MessageMixin, BookmarkMixin,
-                     UpdateView):
+class BookmarkUpdate(LoginRequiredMixin, MessageMixin, BookmarkMixin, UpdateView):
 
     form_class = BookmarkAlertForm
-    http_method_names = ['post']
-    success_url = reverse_lazy('bookmark_list_view')
-    success_message = _('The email notification settings was updated.')
+    http_method_names = ["post"]
+    success_url = reverse_lazy("bookmark_list_view")
+    success_message = _("The email notification settings was updated.")
 
     def form_valid(self, form):
         """Handles the update response.
