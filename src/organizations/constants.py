@@ -6,7 +6,7 @@ ORGANIZATION_TYPE_CHOICES = Choices(
     ("special", "Collectivité d'outre-mer à statut particulier"),
     ("commune", "Commune"),
     ("department", "Département"),
-    ("private_sector", "Entreprises privée"),
+    ("private_sector", "Entreprise privée"),
     ("public_cies", "Entreprise publique locale (Sem, Spl, SemOp)"),
     ("epci", "Intercommunalité / Pays"),
     ("public_org", "Établissement public (école, bibliothèque…) / Service de l'État"),
