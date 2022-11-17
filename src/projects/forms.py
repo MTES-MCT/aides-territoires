@@ -66,6 +66,7 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
     )
     contract_link = forms.ChoiceField(
         label="Appartenance à un plan/programme/contrat",
+        choices=Project.CONTRACT_LINK,
         required=False,
     )
     is_public = forms.BooleanField(

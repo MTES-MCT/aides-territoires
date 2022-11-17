@@ -50,6 +50,10 @@ class ProjectAdmin(ImportExportActionModelAdmin):
     readonly_fields = ["date_created", "nb_aids_associated", "display_related_aids"]
     autocomplete_fields = ["organizations", "author", "project_types"]
 
+    def view_on_site(self, obj):
+        url = reverse('public_project_detail_view', kwargs={'pk': obj.pk, 'slug': obj.slug})
+        return url
+
     def display_related_aids(self, obj):
         related_aid_html = format_html(
             "<table> \

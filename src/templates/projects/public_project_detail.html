@@ -44,6 +44,14 @@
 
 {% block content %}
 <div class="fr-container fr-mb-5w fr-mt-0">
+
+    {% if project.status == 'reviewable' and user.is_superuser %}
+    <div class="fr-alert fr-alert--warning at-clear fr-my-2w">
+        <p class="fr-alert__title">Attention ! Ce projet n’est actuellement pas affiché sur le site.</p>
+        <p>Vous pouvez le prévisualiser parce que vous en êtes le modérateur.</p>
+    </div>
+    {% endif %}
+
     <div class="fr-grid-row">
 
         <div class="fr-col-12">

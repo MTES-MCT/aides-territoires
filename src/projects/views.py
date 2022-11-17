@@ -240,7 +240,10 @@ class PublicProjectDetailView(DetailView):
         try:
             obj = queryset.get()
             if obj.is_public is False or obj.status != Project.STATUS.published:
-                raise PermissionDenied()
+                if self.request.user.is_authenticated and self.request.user.is_superuser:
+                    return obj
+                else:
+                    raise PermissionDenied()
         except queryset.model.DoesNotExist:
             raise Http404()
         return obj
