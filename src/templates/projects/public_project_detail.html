@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load static i18n aids compress %}
+{% load static i18n aids compress humanize %}
 
 {% block extratitle %}projet public « {{ project.name }} »{% endblock extratitle %}
 
@@ -21,19 +21,7 @@
                 </li>
                 <li>
                     <a class="fr-breadcrumb__link" aria-current="page">
-                    {% if user.is_authenticated %}
-                    Projet&nbsp;:« {{ project.name }} »
-                    {% else %}
-                    Projet public
-                    {% for project_type in project.project_types.all %}
-                    {{ project_type }}
-                    {% endfor%}
-                    {% for department in project.organizations.first.perimeter.contained_in.all %}
-                    {% if department.scale == 10 %}
-                    ({{ department.name }})
-                    {% endif %}
-                    {% endfor %}
-                    {% endif %}
+                    Projet :« {{ project.name }} »
                     </a>
                 </li>
             </ol>
@@ -56,18 +44,9 @@
 
         <div class="fr-col-12">
             <h1 class="fr-h3 fr-mb-5w">
-            {% if user.is_authenticated %}
-            Projet&nbsp;: « {{ project.name }} »
-            {% else %}
-            Projet public
-            {% for project_type in project.project_types.all %}
-            {{ project_type }}
-            {% endfor%}
-            {% for department in project.organizations.first.perimeter.contained_in.all %}
-            {% if department.scale == 10 %}
-            ({{ department.name }})
-            {% endif %}
-            {% endfor %}
+            Projet : « {{ project.name }} »
+            {% if organization_favorite_project %}
+            <span class="ri-star-fill at-color--blue fr-mb-1w at-align-end" title="Ce projet est un de vos favoris"></span>
             {% endif %}
             </h1>
 
@@ -75,15 +54,11 @@
             <div class="fr-grid-row fr-grid-row--gutters fr-background-alt">
                 <img class="fr-col-12 fr-col-md-7" src="{% static 'img/project_illustration.png' %}" alt="" height="450">
                 <div class="fr-col-12 fr-col-md-5">
-                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-5w"><strong>Structure porteuse&nbsp;:</strong> {{ project.organizations.first.name }}</h2>
-                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Territoire du projet&nbsp;:</strong> {{ project.organizations.first.perimeter.name }} ({{ project.organizations.first.zip_code }})</h2>
-                    <h2 class="fr-text--md fr-text--normal fr-mb-5w fr-mt-2w"><strong>Date d'échéance du projet&nbsp;:</strong>
-                    {% if project.due_date %}
-                    {{ project.due_date|date:'d/m/y' }}
-                    {% else %}
-                    aucune
-                    {% endif %}
-                    </h2>
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-5w"><strong>Structure porteuse :</strong> {{ project.organizations.first.name }}</h2>
+                    {% if project.other_project_owner%}<h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Autre maître d’ouvrage :</strong> {{ project.other_project_owner }}</h2>{% endif %}
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Territoire du projet :</strong> {{ project.organizations.first.perimeter.name }} ({{ project.organizations.first.zip_code }})</h2>
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>État d’avancement du projet :</strong>  {% if project.step %}{{ project.get_step_display }}{% else %}aucun{% endif %}</h2>
+                    <h2 class="fr-text--md fr-text--normal fr-mb-5w fr-mt-2w"><strong>Budget prévisionnel :</strong>  {% if project.budget %}{{ project.budget|intcomma }} €{% else %}non renseigné{% endif %}</h2>
                 </div>
             </div>
 
@@ -96,18 +71,14 @@
                 </div>
                 <div class="fr-col-12 fr-col-md-5">
                 {% if project.project_types.all %}
-                <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Types de projet&nbsp;:</strong>
+                <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Types de projet :</strong>
                     {% for project_type in project.project_types.all %}
-                    {% if forloop.last %}
-                    <span>{{ project_type }}</span>
-                    {% else %}
-                    <span>{{ project_type }},</span>
-                    {% endif %}
+                    <span class="fr-tag fr-mb-1w">{{ project_type }}</span>
                     {% endfor %}
                 </h2>
                 {% endif %}
                 {% if project.contract_link %}
-                <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Appartenance à un plan/programme/contrat&nbsp;:</strong> {{ project.get_contract_link_display }}</h2>
+                <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Appartenance à un plan/programme/contrat :</strong> {{ project.get_contract_link_display }}</h2>
                 {% endif %}
                 </div>
             </div>
@@ -116,9 +87,15 @@
 
             {% if not organization_own_project %}
             <div class="fr-container at-centered">
+                {% if organization_favorite_project %}
+                <button class="fr-btn" data-fr-opened="false" aria-controls="remove-from-favorite-modal--{{ project.pk }}">
+                    Retirer ce projet de mes favoris
+                </button>
+                {% else %}
                 <button class="fr-btn" data-fr-opened="false" aria-controls="add-to-favorite-modal--{{ project.pk }}">
                     Ajouter ce projet à mes favoris
                 </button>
+                {% endif %}
                 <button class="fr-btn" data-fr-opened="{% if error_aid %}true{% endif %}" aria-controls="suggest-aid-modal">
                     Suggérer une aide pour ce projet
                 </button>
@@ -138,5 +115,6 @@
 
 {% block modals %}
     {% include 'projects/_add_to_favorite_modal.html' with project=project %}
+    {% include 'projects/_remove_from_favorite_modal.html' with project=project %}
     {% include 'projects/_suggest_aid_modal.html' with project=project %}
 {% endblock modals %}

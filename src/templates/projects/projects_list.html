@@ -45,7 +45,7 @@
             <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
                 <p><strong>Vous pouvez à présent rendre vos projets publics.</strong></p>
                 <p>Les projets que vous rendez publics sont visibles et consultables par tout utilisateur connecté.</p>
-                <p>Pourquoi&nbsp;? Rendre vos projets publics permettra à d’autres collectivités de s’inspirer, de vous aider en vous partageant des aides, mais également à des porteurs d’aides ou des accompagnateurs (dont les services déconcentrés) d’identifier vos projets et de mieux vous accompagner&nbsp;!</p>
+                <p>Pourquoi ? Rendre vos projets publics permettra à d’autres collectivités de s’inspirer, de vous aider en vous partageant des aides, mais également à des porteurs d’aides ou des accompagnateurs (dont les services déconcentrés) d’identifier vos projets et de mieux vous accompagner !</p>
                 <p>Vous pourrez également suivre les projets qui vous intéressent, et partager votre expérience avec vos pairs.</p>
             </div>
             {% endif %}
@@ -68,7 +68,7 @@
                             <th scope="col" class="fr-text">Nom</th>
                             <th scope="col" class="fr-text">Nombre d’aides ajoutées</th>
                             <th scope="col" class="fr-text">Date création</th>
-                            <th scope="col" class="fr-text">Date d’échéance</th>
+                            <th scope="col" class="fr-text">État d'avancement</th>
                             <th scope="col" class="fr-text">Créé par</th>
                             <th scope="col" class="fr-text">Projet public</th>
                             <th scope="col" class="fr-text">Action</th>
@@ -91,7 +91,17 @@
                             {% endif %}
                             </td>
                             <td class="fr-text">{{ project.date_created|date:'d/m/y' }}</td>
-                            <td class="fr-text">{{ project.due_date|date:'d/m/y' }}</td>
+                            <td class="fr-text">
+                                {% if project.step %}
+                                {% if project.step == "finished" %}
+                                <p class="fr-mb-0 fr-badge fr-badge--success">{{ project.get_step_display }}</p>
+                                {% else %}
+                                <p class="fr-mb-0 fr-badge fr-badge--new">{{ project.get_step_display }}</p>
+                                {% endif %}
+                                {% else %}
+                                aucun
+                                {% endif %}
+                            </td>
                             <td class="fr-text">
                             {% if project.author %}
                             {% for author in project.author.all %}
@@ -107,7 +117,7 @@
                                 {% if project.is_public and project.is_published %}
                                 <p class="fr-mb-0 fr-badge fr-badge--success">Oui</p>
                                 {% elif project.is_public %}
-                                <p class="fr-mb-0 fr-badge fr-badge--new">En&nbsp;cours</p>
+                                <p class="fr-mb-0 fr-badge fr-badge--new">En cours</p>
                                 {% else %}
                                 <p class="fr-mb-0 fr-badge fr-badge--error">Non</p>              
                                 {% endif %}

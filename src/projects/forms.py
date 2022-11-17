@@ -39,15 +39,25 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
         widget=forms.Textarea(
             attrs={"placeholder": "Informations réservées à vos collaborateurs."}
         ),
+        help_text="Ces informations restent internes à votre organisation \
+             même si vous rendez votre projet public.",
+    )
+    step = forms.ChoiceField(
+        label="État d’avancement du projet",
+        choices=Project.PROJECT_STEPS,
+        required=True,
+    )
+    budget = forms.IntegerField(
+        label="Budget prévisonnel",
+        help_text="Montant du budget prévisionnel en euros",
+        required=False,
     )
     organizations = forms.ModelMultipleChoiceField(
         label="Créateur du projet", queryset=Organization.objects.all(), required=False
     )
-    due_date = forms.DateTimeField(
-        label="Date d’échéance",
-        help_text="Si votre projet doit sortir avant une certaine date, indiquez-la ici",
+    other_project_owner = forms.CharField(
+        label="Autre maître d’ouvrage",
         required=False,
-        widget=forms.TextInput(attrs={"type": "date", "placeholder": "jj/mm/aaaa"}),
     )
     project_types = AutocompleteModelMultipleChoiceField(
         label="Types de projet",
@@ -80,8 +90,10 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
             "name",
             "description",
             "private_description",
+            "step",
+            "budget",
             "organizations",
-            "due_date",
+            "other_project_owner",
             "project_types",
             "project_types_suggestion",
             "contract_link",
@@ -93,6 +105,9 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
         self.fields["contract_link"].choices = [
             ("", "Ce projet appartient-il à un programme?")
         ] + Project.CONTRACT_LINK
+        self.fields["step"].choices = [
+            ("", "À quel stade est ce projet?")
+        ] + Project.PROJECT_STEPS
 
     def clean(self):
         data = super().clean()
@@ -124,17 +139,28 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
             }
         ),
     )
+    step = forms.ChoiceField(
+        label="État d’avancement du projet",
+        choices=Project.PROJECT_STEPS,
+        required=True,
+    )
+    budget = forms.IntegerField(
+        label="Budget prévisonnel",
+        help_text="Montant du budget prévisionnel en euros",
+        required=False,
+    )
+    other_project_owner = forms.CharField(
+        label="Autre maître d’ouvrage",
+        required=False,
+    )
     private_description = RichTextField(
         label="Notes internes de votre projet",
         required=False,
         widget=forms.Textarea(
             attrs={"placeholder": "Informations réservées à vos collaborateurs."}
         ),
-    )
-    due_date = (
-        forms.DateField(
-            label="Date d’échéance du projet",
-        ),
+        help_text="Ces informations restent internes à votre organisation \
+             même si vous rendez votre projet public.",
     )
     project_types = AutocompleteModelMultipleChoiceField(
         label="Types de projet",
@@ -167,23 +193,23 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
             "name",
             "description",
             "private_description",
-            "due_date",
+            "step",
+            "budget",
+            "other_project_owner",
             "project_types",
             "project_types_suggestion",
             "contract_link",
             "is_public",
         ]
-        widgets = {
-            "due_date": forms.TextInput(
-                attrs={"type": "date", "placeholder": "jj/mm/aaaa"}
-            ),
-        }
 
     def __init__(self, *args, **kwargs):
         super(ProjectUpdateForm, self).__init__(*args, **kwargs)
         self.fields["contract_link"].choices = [
             ("", "Ce projet appartient-il à un programme?")
         ] + Project.CONTRACT_LINK
+        self.fields["step"].choices = [
+            ("", "À quel stade est ce projet?")
+        ] + Project.PROJECT_STEPS
 
     def clean(self):
         data = super().clean()

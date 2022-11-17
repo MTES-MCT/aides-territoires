@@ -481,12 +481,10 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
                 project_queryset = Project.objects.get(pk=project.pk)
                 project_description = project_queryset.description
                 project_name = project_queryset.name
-                project_due_date = project_queryset.due_date
 
                 duplicate_project = Project.objects.create(
                     name=project_name,
                     description=project_description,
-                    due_date=project_due_date,
                 )
                 duplicate_project.author.add(self.request.user.pk)
                 duplicate_project.organizations.add(proposed_organization)

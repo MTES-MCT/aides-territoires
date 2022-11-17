@@ -4,6 +4,7 @@ from organizations.views import (
     OrganizationCreateView,
     OrganizationUpdateView,
     AddProjectToFavoriteView,
+    RemoveProjectFromFavoriteView,
 )
 
 urlpatterns = [
@@ -19,5 +20,10 @@ urlpatterns = [
         "<int:pk>/ajout-aux-projets-favoris/",
         AddProjectToFavoriteView.as_view(),
         name="add_project_to_favorite_view",
+    ),
+    path(
+        "<int:pk>/retrait-des-projets-favoris/",
+        RemoveProjectFromFavoriteView.as_view(),
+        name="remove_project_from_favorite_view",
     ),
 ]

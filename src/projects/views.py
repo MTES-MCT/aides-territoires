@@ -43,7 +43,7 @@ class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
         project.author.add(self.request.user)
         project.organizations.add(self.request.user.beneficiary_organization)
 
-        msg = "Votre nouveau projet a été créé&nbsp;!"
+        msg = "Votre nouveau projet a été créé !"
         messages.success(self.request, msg)
         url = reverse("project_list_view")
         project = f"project_created={project.pk}"
@@ -159,6 +159,12 @@ class PublicProjectListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user
+        if self.request.user.is_authenticated:
+            if self.request.user.beneficiary_organization:
+                context["user_has_organization"] = True
+                context[
+                    "user_favorite_projects"
+                ] = self.request.user.beneficiary_organization.favorite_projects.all()
         return context
 
 
@@ -240,7 +246,10 @@ class PublicProjectDetailView(DetailView):
         try:
             obj = queryset.get()
             if obj.is_public is False or obj.status != Project.STATUS.published:
-                if self.request.user.is_authenticated and self.request.user.is_superuser:
+                if (
+                    self.request.user.is_authenticated
+                    and self.request.user.is_superuser
+                ):
                     return obj
                 else:
                     raise PermissionDenied()
@@ -266,6 +275,12 @@ class PublicProjectDetailView(DetailView):
             in self.object.organizations.all()
         ):
             context["organization_own_project"] = True
+        if (
+            self.request.user.is_authenticated
+            and self.request.user.beneficiary_organization
+            in self.object.organization_favorite.all()
+        ):
+            context["organization_favorite_project"] = True
         return context
 
 

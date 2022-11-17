@@ -1,5 +1,5 @@
 {% extends "_base_pdf.html" %}
-{% load i18n aids compress %}
+{% load i18n aids compress humanize %}
 
 {% block extratitle %}Projet {{ project.name }}{% endblock extratitle %}
 
@@ -14,14 +14,45 @@
               </div>
             </div>
 
+            {% if project.due_date %}
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                Date d’échéance du projet :
-                {% if project.due_date %}
-                    {{ project.due_date|date }}
-                {% else %}
-                aucune
-                {% endif %}
+                Date d’échéance du projet : {{ project.due_date|date }}
             </p>
+            {% endif %}
+
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                État d’avancement du projet :
+                <span>
+                    {% if project.step %}
+                    {% if project.step == "finished" %}
+                    <span class="fr-mb-0 fr-badge fr-badge--success">{{ project.get_step_display }}</span>
+                    {% else %}
+                    <span class="fr-mb-0 fr-badge fr-badge--new">{{ project.get_step_display }}</span>
+                    {% endif %}
+                    {% else %}
+                    non renseigné
+                    {% endif %}
+                </span>
+            </p>
+
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                Budget prévisionnel :
+                <span>
+                    {% if project.budget %}
+                    {{ project.budget|intcomma }} €
+                    {% else %}
+                    non renseigné
+                    {% endif %}
+                </span>
+            </p>
+
+            {% if project.other_project_owner %}
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                Autre maître d'oeuvre :
+                {{ project.other_project_owner }}
+            </p>
+            {% endif %}
+
             {% if project.description %}
                 <section class="fr-mb-5w">
                     <h3>Description du projet</h3>

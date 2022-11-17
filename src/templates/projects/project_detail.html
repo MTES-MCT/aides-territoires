@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load i18n static aids compress %}
+{% load i18n static aids compress humanize %}
 
 {% block extratitle %}Mon projet « {{ project.name }} »{% endblock extratitle %}
 
@@ -48,21 +48,38 @@
             </div>
 
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                Date d'échéance du projet&nbsp;:
-                {% if project.due_date %}
-                {{ project.due_date|date:'d/m/y' }}
-                {% else %}
-                aucune
-                {% endif %}
+                <strong>État d’avancement du projet :</strong> 
+                <span>
+                    {% if project.step %}
+                    {% if project.step == "finished" %}
+                    <span class="fr-mb-0 fr-badge fr-badge--success">{{ project.get_step_display }}</span>
+                    {% else %}
+                    <span class="fr-mb-0 fr-badge fr-badge--new">{{ project.get_step_display }}</span>
+                    {% endif %}
+                    {% else %}
+                    non renseigné
+                    {% endif %}
+                </span>
+            </p>
+
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                <strong>Budget prévisionnel :</strong> 
+                <span>
+                    {% if project.budget %}
+                    {{ project.budget|intcomma }} €
+                    {% else %}
+                    non renseigné
+                    {% endif %}
+                </span>
             </p>
 
             {% if project.is_public %}
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
-                Projet public&nbsp;:
+                <strong>Projet public :</strong> 
                 {% if project.is_public and project.is_published %}
                 <span class="fr-mb-0 fr-badge fr-badge--success">Oui</span>
                 {% elif project.is_public %}
-                <span class="fr-mb-0 fr-badge fr-badge--new">En&nbsp;cours</span>
+                <span class="fr-mb-0 fr-badge fr-badge--new">En cours</span>
                 {% else %}
                 <span class="fr-mb-0 fr-badge fr-badge--error">Non</span>
                 {% endif %}
@@ -70,26 +87,38 @@
             {% endif %}
 
             {% if project.project_types.all %}
-            <p class="fr-pl-2w fr-mb-2w fr-text--sm">Types de projet&nbsp;:
-            {% for project_type in project.project_types.all %}
-            {% if forloop.last %}
-            <span>{{ project_type }}</span>
-            {% else %}
-            <span>{{ project_type }},</span>
-            {% endif %}
-            {% endfor %}
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                <strong>Types de projet :</strong> 
+                {% for project_type in project.project_types.all %}
+                <span class="fr-tag">{{ project_type }}</span>
+                {% endfor %}
             </p>
             {% endif %}
 
-            <p class="fr-pl-2w fr-mb-2w fr-text--sm">Appartenance à un plan/programme/contrat&nbsp;: <span>{% if project.contract_link %}{{ project.get_contract_link_display }}{% else %}aucun{% endif %}</span></p>
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                <strong>Appartenance à un plan/programme/contrat :</strong> 
+                <span>
+                    {% if project.contract_link %}
+                    {{ project.get_contract_link_display }}
+                    {% else %}
+                    aucun
+                    {% endif %}
+                </span>
+            </p>
 
+            {% if project.other_project_owner %}
+            <p class="fr-pl-2w fr-mb-2w fr-text--sm">
+                <strong>Autre maître d'oeuvre :</strong> 
+                {{ project.other_project_owner }}
+            </p>
+            {% endif %}
 
             {% if project.description %}
                 <section class="fr-accordion fr-mb-0">
                     <h3 class="fr-accordion__title">
                         <button class="fr-accordion__btn" aria-expanded="false" aria-controls="project-description">
                             <span class="fr-text--sm fr-mb-0">
-                                Voir la description de ce projet
+                                <strong>Voir la description de ce projet</strong>
                             </span>
                         </button>
                     </h3>
@@ -106,7 +135,7 @@
                     <h3 class="fr-accordion__title">
                         <button class="fr-accordion__btn" aria-expanded="false" aria-controls="project-private-description">
                             <span class="fr-text--sm fr-mb-0">
-                                Voir les notes internes de ce projet
+                                <strong>Voir les notes internes de ce projet</strong>
                             </span>
                         </button>
                     </h3>

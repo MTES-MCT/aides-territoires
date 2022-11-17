@@ -25,6 +25,12 @@ class Project(models.Model):
         ("PCAET", "PCAET"),
     )
 
+    PROJECT_STEPS = Choices(
+        ("considered", "En réflexion"),
+        ("ongoing", "En cours"),
+        ("finished", "Réalisé"),
+    )
+
     name = models.CharField(
         "Nom du projet", max_length=256, null=False, blank=False, db_index=True
     )
@@ -43,6 +49,9 @@ class Project(models.Model):
     )
     organizations = models.ManyToManyField(
         "organizations.Organization", verbose_name="Structures", blank=True
+    )
+    other_project_owner = models.CharField(
+        "Autre maître d'ouvrage", max_length=180, null=True, blank=True,
     )
     author = models.ManyToManyField("accounts.User", verbose_name="Auteur", blank=True)
 
@@ -67,7 +76,21 @@ class Project(models.Model):
         "Type de projet suggéré", max_length=256, blank=True
     )
 
-    due_date = models.DateField("Date d’échéance", null=True, blank=True)
+    due_date = models.DateField("Date d'échéance", null=True, blank=True)
+
+    step = models.CharField(
+        "Avancement du projet",
+        max_length=10,
+        choices=PROJECT_STEPS,
+        blank=True,
+        null=True,
+    )
+
+    budget = models.PositiveIntegerField(
+        "Budget prévisionnel",
+        null=True,
+        blank=True
+    )
 
     status = models.CharField(
         "Statut",

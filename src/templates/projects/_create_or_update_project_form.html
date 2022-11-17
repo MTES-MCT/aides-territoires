@@ -17,7 +17,9 @@
 {% include '_field_snippet.html' with field=form.name %}
 {% include '_field_snippet.html' with field=form.description %}
 {% include '_field_snippet.html' with field=form.private_description %}
-{% include '_calendar_snippet.html' with field=form.due_date %}
+{% include '_field_snippet.html' with field=form.other_project_owner %}
+{% include '_field_snippet.html' with field=form.step %}
+{% include '_field_snippet.html' with field=form.budget %}
 {% dsfr_form_field form.project_types %}
 {% include '_field_snippet.html' with field=form.project_types_suggestion %}
 {% include '_field_snippet.html' with field=form.contract_link %}
@@ -37,7 +39,7 @@
 {% endif %}
 <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
     <p>Les projets que vous rendez publics sont visibles et consultables par tout utilisateur connecté.</p>
-    <p>Pourquoi&nbsp;? Rendre vos projets publics permettra à d’autres collectivités de s’inspirer, de vous aider en vous partageant des aides, mais également à des porteurs d’aides ou des accompagnateurs (dont les services déconcentrés) d’identifier vos projets et de mieux vous accompagner&nbsp;!</p>
+    <p>Pourquoi ? Rendre vos projets publics permettra à d’autres collectivités de s’inspirer, de vous aider en vous partageant des aides, mais également à des porteurs d’aides ou des accompagnateurs (dont les services déconcentrés) d’identifier vos projets et de mieux vous accompagner !</p>
     <p>Vous pourrez également suivre les projets qui vous intéressent, et partager votre expérience avec vos pairs.</p>
 </div>
 {% endif %}
