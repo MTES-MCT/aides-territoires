@@ -13,7 +13,7 @@
     <div class="fr-container">
         {% if messages %}
             {% for message in messages %}
-            <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-4w">
+            <div class="fr-alert fr-alert--{{ message.tags|default:'info' }} fr-alert--sm fr-mb-4w">
                 <p>{{ message | safe }}</p>
             </div>
         {% endfor %}
