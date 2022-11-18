@@ -4,14 +4,6 @@
 
     {% block other_actions %}
     <div class="other-actions fr-mb-2w fr-grid-row fr-grid-row--middle">
-
-        {% comment %}
-            This hidden button is here to make it the "default" submit button.
-            This way, we make sure pressing "enter" performs a new search instead
-            of going to the "more filters" page.
-        {% endcomment %}
-        <button type="submit" class="hidden-btn">Filtrer les résultats</button>
-
         {% block other-actions %}
         {% endblock other-actions %}
     </div>
@@ -66,21 +58,15 @@
                     </div>
 
                     <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
-                        {% include '_checkbox_snippet_multiple.html' with field=form.mobilization_step %}
+                        {% include '_select_snippet.html' with field=form.mobilization_step %}
                     </div>
 
                     <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
                         {% include '_checkbox_snippet_multiple.html' with field=form.destinations  %}
                     </div>
-
-                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
-                        {% include '_checkbox_snippet.html' with field=form.call_for_projects_only  %}
-                    </div>
-
-                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
-                        {% include '_select_snippet.html' with field=form.order_by %}
-                    </div>
-
+                </div>
+                <div class="search-form-extra-field">
+                    {% include '_checkbox_snippet.html' with field=form.call_for_projects_only  %}
                 </div>
 
                 <div class="fr-mt-2w">

@@ -7,20 +7,7 @@ $(document).ready(function () {
 
 const SANE_ID_REGEX = /^[0-9a-z-_]*$/;
 
-set_param_value = function (param, value) {
-    /* update or remove a GET parameter from the current URL */
-    if ('URLSearchParams' in window) {
-        let searchParams = new URLSearchParams(window.location.search);
-        if (value) {
-            searchParams.set(param, value);
-        } else {
-            searchParams.delete(param);
-        }
-        window.location.search = searchParams.toString();
-    }
-};
-
-department_filter = function (return_page) {
+function department_filter(return_page) {
     /* go to the map for the selected department */
     $("#select-department").change(function () {
         let department = $(this).val();

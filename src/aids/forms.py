@@ -526,13 +526,11 @@ class BaseAidSearchForm(AidesTerrBaseForm):
         label="Avancement du projet",
         required=False,
         choices=Aid.STEPS,
-        widget=forms.CheckboxSelectMultiple,
     )
     destinations = forms.MultipleChoiceField(
         label="Actions concernées",
         required=False,
         choices=Aid.DESTINATIONS,
-        widget=forms.CheckboxSelectMultiple,
     )
     recurrence = forms.ChoiceField(
         label="Récurrence", required=False, choices=Aid.RECURRENCES
