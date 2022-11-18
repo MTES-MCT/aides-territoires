@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 {% if aids %}
     <ul class="fr-btns-group fr-btns-group--inline">
@@ -49,8 +49,11 @@
         </div>
     </div>
 {% else %}
-    <div class="empty-result fr-mb-5w">
-        <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
+    <div class="fr-mb-5w">
+        {% if promotions %}
+            {% include 'aids/_promotions.html' %}
+        {% endif %}
+        <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
             <p>Nous n’avons pu trouver aucun résultat.</p>
         </div>
     </div>

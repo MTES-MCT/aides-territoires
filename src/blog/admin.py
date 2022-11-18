@@ -97,6 +97,8 @@ class BlogPostCategoryAdmin(admin.ModelAdmin):
 
 class PromotionPostForm(forms.ModelForm):
 
+    short_text = RichTextField(label="Contenu", required=False)
+
     categories = CategoryMultipleChoiceField(
         label="Sous-thématiques",
         required=False,
@@ -131,6 +133,8 @@ class PromotionPostAdmin(admin.ModelAdmin):
                     "short_text",
                     "button_title",
                     "button_link",
+                    "image",
+                    "image_alt_text",
                 )
             },
         ),
@@ -156,6 +160,26 @@ class PromotionPostAdmin(admin.ModelAdmin):
             },
         ),
     ]
+
+    class Media:
+        css = {
+            "all": (
+                "/static/css/admin.css",
+                "/static/trumbowyg/dist/ui/trumbowyg.css",
+            )
+        }
+        js = [
+            "admin/js/jquery.init.js",
+            "/static/js/shared_config.js",
+            "/static/js/plugins/softmaxlength.js",
+            "/static/js/search/enable_softmaxlength.js",
+            "/static/trumbowyg/dist/trumbowyg.js",
+            "/static/trumbowyg/dist/langs/fr.js",
+            "/static/trumbowyg/dist/plugins/upload/trumbowyg.upload.js",
+            "/static/jquery-resizable-dom/dist/jquery-resizable.js",
+            "/static/trumbowyg/dist/plugins/resizimg/trumbowyg.resizimg.js",
+            "/static/js/enable_rich_text_editor.js",
+        ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
 admin.site.register(BlogPost, BlogPostAdmin)

@@ -19,6 +19,15 @@ def logo_upload_to(instance, filename):
     return filename
 
 
+def promotion_img_upload_to(instance, filename):
+    """Rename uploaded files with the object's slug."""
+
+    _, extension = splitext(filename)
+    name = instance.slug
+    filename = "promotion/{}_img{}".format(name, extension)
+    return filename
+
+
 class BlogPostWorkflow(xwf_models.Workflow):
     """Defines statuses for Posts."""
 
@@ -206,13 +215,27 @@ class PromotionPost(xwf_models.WorkflowEnabled, models.Model):
     short_text = models.TextField(
         "Texte d'introduction",
         help_text="Introduction concise (inférieure à 256 caractères).",
-        max_length=256,
+        null=True,
+        blank=True,
+    )
+
+    image = models.FileField(
+        "Illustration",
+        help_text="Évitez les fichiers trop lourds. Préférez les fichiers svg.",
+        upload_to=promotion_img_upload_to,
+        null=True,
+        blank=True,
+    )
+
+    image_alt_text = models.CharField(
+        "texte alternatif pour l'image",
+        max_length=120,
         null=True,
         blank=True,
     )
 
     button_link = models.URLField("Lien du bouton", blank=False)
-    button_title = models.CharField("Titre du bouton", max_length=120, db_index=True)
+    button_title = models.CharField("Titre du bouton", max_length=120)
 
     perimeter = models.ForeignKey(
         "geofr.Perimeter",
