@@ -22,6 +22,7 @@ from geofr.utils import get_all_related_perimeters
 from backers.models import Backer
 from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
+from organizations.constants import ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES
 from programs.models import Program
 from projects.models import Project
 from keywords.models import SynonymList
@@ -569,7 +570,7 @@ class BaseAidSearchForm(AidesTerrBaseForm):
     targeted_audiences = forms.MultipleChoiceField(
         label="La structure pour laquelle vous recherchez des aides est…",
         required=False,
-        choices=Aid.AUDIENCES,
+        choices=ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES,
         widget=forms.CheckboxSelectMultiple,
     )
     perimeter = AutocompleteModelChoiceField(
@@ -784,7 +785,9 @@ class AidSearchForm(BaseAidSearchForm):
     """The main search result filter form."""
 
     targeted_audiences = forms.MultipleChoiceField(
-        label="Le bénéficiaire", required=False, choices=Aid.AUDIENCES
+        label="Le bénéficiaire",
+        required=False,
+        choices=ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES,
     )
 
 
@@ -794,7 +797,7 @@ class AdvancedAidFilterForm(BaseAidSearchForm):
     targeted_audiences = forms.MultipleChoiceField(
         label="La structure pour laquelle vous recherchez des aides est…",
         required=False,
-        choices=Aid.AUDIENCES,
+        choices=ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES,
         widget=forms.CheckboxSelectMultiple,
     )
 

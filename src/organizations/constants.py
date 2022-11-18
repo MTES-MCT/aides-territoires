@@ -18,3 +18,35 @@ ORGANIZATION_TYPE_CHOICES = Choices(
 ORGANIZATION_TYPE_CHOICES_WITH_DEFAULT = (
     ("", "Sélectionnez une valeur"),
 ) + ORGANIZATION_TYPE_CHOICES
+
+
+ORGANIZATION_TYPES_COLLECTIVITIES_SINGULAR = [
+    ("commune", "Commune"),
+    ("epci", "Intercommunalité / Pays"),
+    ("department", "Département"),
+    ("region", "Région"),
+    ("special", "Collectivité d'outre-mer à statuts particuliers"),
+]
+
+ORGANIZATION_TYPES_OTHER_SINGULAR = [
+    ("public_org", "Établissement public"),
+    ("public_cies", "Entreprise publique locale (Sem, Spl, SemOp)"),
+    ("association", "Association"),
+    ("private_sector", "Entreprise privée"),
+    ("private_person", "Particulier"),
+    ("farmer", "Agriculteur"),
+    ("researcher", "Recherche"),
+]
+
+ORGANIZATION_TYPES_SINGULAR_GROUPED = [
+    ("Une collectivité", ORGANIZATION_TYPES_COLLECTIVITIES_SINGULAR),
+    ("Un autre bénéficiaire", ORGANIZATION_TYPES_OTHER_SINGULAR),
+]
+ORGANIZATION_TYPES_SINGULAR_GROUPED_CHOICES = Choices(
+    *ORGANIZATION_TYPES_SINGULAR_GROUPED
+)
+
+ORGANIZATION_TYPES_SINGULAR_ALL = (
+    ORGANIZATION_TYPES_COLLECTIVITIES_SINGULAR + ORGANIZATION_TYPES_OTHER_SINGULAR
+)
+ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES = Choices(*ORGANIZATION_TYPES_SINGULAR_ALL)

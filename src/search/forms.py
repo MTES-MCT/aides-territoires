@@ -7,31 +7,6 @@ from categories.fields import CategoryMultipleChoiceField, CategoryChoiceIterato
 from core.forms.fields import RichTextField
 from pages.admin import PageForm
 
-AUDIENCES = [
-    (
-        "Une collectivité",
-        (
-            ("commune", "Commune"),
-            ("epci", "Intercommunalité / Pays"),
-            ("department", "Département"),
-            ("region", "Région"),
-            ("special", "Collectivité d'outre-mer à statuts particuliers"),
-        ),
-    ),
-    (
-        "Un autre bénéficiaire",
-        (
-            ("public_org", "Établissement public"),
-            ("public_cies", "Entreprise publique locale (Sem, Spl, SemOp)"),
-            ("association", "Association"),
-            ("private_sector", "Entreprise privée"),
-            ("private_person", "Particulier"),
-            ("farmer", "Agriculteur"),
-            ("researcher", "Recherche"),
-        ),
-    ),
-]
-
 
 class AudienceWidget(forms.widgets.ChoiceWidget):
     """Custom widget for the audience search step."""
