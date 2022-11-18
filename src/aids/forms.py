@@ -33,7 +33,7 @@ from aids.constants import (
     ALL_FINANCIAL_AIDS,
     TECHNICAL_AIDS,
     TECHNICAL_AIDS_LIST,
-    TYPES_GROUPED,
+    AID_TYPES_GROUPED,
 )
 from aids.utils import filter_generic_aids
 
@@ -100,7 +100,7 @@ class BaseAidForm(forms.ModelForm, DsfrBaseForm):
         super().__init__(*args, **kwargs)
 
         if "aid_types" in self.fields:
-            self.fields["aid_types"].choices = TYPES_GROUPED
+            self.fields["aid_types"].choices = AID_TYPES_GROUPED
 
         if "targeted_audiences" in self.fields:
             self.fields["targeted_audiences"].choices = AUDIENCES_GROUPED
@@ -507,7 +507,7 @@ class BaseAidSearchForm(AidesTerrBaseForm):
     )
     aid_type = forms.MultipleChoiceField(
         label="Nature de l’aide",
-        choices=TYPES_GROUPED,
+        choices=AID_TYPES_GROUPED,
         required=False,
     )
     financial_aids = forms.MultipleChoiceField(

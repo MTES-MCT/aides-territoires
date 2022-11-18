@@ -11,7 +11,7 @@ from drf_spectacular.utils import extend_schema
 
 from core.api.pagination import ApiPagination
 from aids.models import Aid
-from aids.constants import AUDIENCES_GROUPED, TYPES_GROUPED
+from aids.constants import AUDIENCES_GROUPED, AID_TYPES_GROUPED
 from aids.api import doc as api_doc
 from aids.api.serializers import (
     AidSerializer10,
@@ -210,7 +210,7 @@ class AidTypesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
     def get_queryset(self):
         aid_types = list()
-        for (type_type, type_group) in TYPES_GROUPED:
+        for (type_type, type_group) in AID_TYPES_GROUPED:
             aid_types += [
                 {"id": id, "name": name, "type": type_type} for (id, name) in type_group
             ]  # noqa

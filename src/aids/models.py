@@ -15,7 +15,7 @@ from django_xworkflows import models as xwf_models
 
 from aids.constants import (
     AUDIENCES_ALL,
-    TYPES_ALL,
+    AID_TYPES_ALL,
     FINANCIAL_AIDS_LIST,
     TECHNICAL_AIDS_LIST,
 )
@@ -204,7 +204,7 @@ class AidInstructor(models.Model):
 class Aid(xwf_models.WorkflowEnabled, models.Model):
     """Represents a single Aid."""
 
-    TYPES = Choices(*TYPES_ALL)
+    TYPES = Choices(*AID_TYPES_ALL)
 
     STEPS = Choices(
         ("preop", "Réflexion / conception"),

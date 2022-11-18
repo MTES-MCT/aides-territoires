@@ -195,6 +195,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
         context["current_search_dict"] = clean_search_form(
             self.form.cleaned_data, remove_extra_fields=True
         )
+        print(context["current_search_dict"])
 
         default_order = "relevance"
         order_value = self.request.GET.get("order_by", default_order)

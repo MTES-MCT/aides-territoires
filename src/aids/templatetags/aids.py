@@ -9,7 +9,7 @@ from django.utils.html import format_html
 from django.conf import settings
 
 from aids.models import Aid
-from aids.constants import AID_TYPE_CHOICES, TYPES_ALL
+from aids.constants import AID_TYPES_ALL_WITH_GROUPS
 
 
 register = template.Library()
@@ -152,10 +152,8 @@ def form_choices_display(obj, field):
 
     if field == "targeted_audiences":
         choices_dict = dict(Aid.AUDIENCES)
-    elif field in ["aid_type", "aid_types"]:
-        choices_dict = dict(AID_TYPE_CHOICES)
-    elif field in ["financial_aids", "technical_aids"]:
-        choices_dict = dict(TYPES_ALL)
+    elif field in ["aid_type", "aid_types", "financial_aids", "technical_aids"]:
+        choices_dict = dict(AID_TYPES_ALL_WITH_GROUPS)
     elif field in ["mobilization_step", "mobilization_steps"]:
         choices_dict = dict(Aid.STEPS)
     elif field == "destinations":
@@ -184,11 +182,12 @@ def sortable_header(context, name, field):
     else:
         if order_value.startswith("-"):
             new_order = field
-            icon = mark_safe('<span class="fr-icon-arrow-up-s-line"></span>')
+            icon = '<span class="fr-icon-arrow-up-s-line"></span>'
         else:
             new_order = "-%s" % field
-            icon = mark_safe('<span class="fr-icon-arrow-down-s-line"></span>')
+            icon = '<span class="fr-icon-arrow-down-s-line"></span>'
 
+    icon_safe = mark_safe(icon)  # nosec B308
     get_params["order"] = new_order
 
     # Pagination needs to be removed if the order must be changed
@@ -196,7 +195,11 @@ def sortable_header(context, name, field):
         get_params.pop("page")
 
     return format_html(
-        '<a href="{}?{}">{} {}</a>', current_url, get_params.urlencode(), name, icon
+        '<a href="{}?{}">{} {}</a>',
+        current_url,
+        get_params.urlencode(),
+        name,
+        icon_safe,
     )
 
 
