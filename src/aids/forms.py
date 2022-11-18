@@ -627,6 +627,9 @@ class BaseAidSearchForm(AidesTerrBaseForm):
         if "technical" in aid_type:
             aid_types += TECHNICAL_AIDS_LIST
 
+        if aid_type and not aid_types:
+            aid_types = aid_type
+
         if aid_types:
             qs = qs.filter(aid_types__overlap=aid_types)
 

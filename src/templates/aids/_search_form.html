@@ -40,33 +40,38 @@
                         {% include '_field_snippet.html' with field=form.categories %}
                     </div>
 
-                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
-                        {% include '_checkbox_snippet_multiple.html' with field=form.aid_type %}
-                    </div>
-
-
-                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
-                        {% include '_field_snippet.html' with field=form.backers %}
-                    </div>
-
-                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
-                        {% include '_field_snippet.html' with field=form.apply_before %}
-                    </div>
-
-                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
-                        {% include '_field_snippet.html' with field=form.programs %}
-                    </div>
-
-                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
-                        {% include '_select_snippet.html' with field=form.mobilization_step %}
-                    </div>
-
-                    <div class="fr-col-12 fr-col-md-3 search-form-extra-field">
-                        {% include '_checkbox_snippet_multiple.html' with field=form.destinations  %}
-                    </div>
                 </div>
-                <div class="search-form-extra-field">
-                    {% include '_checkbox_snippet.html' with field=form.call_for_projects_only  %}
+                <div class="search-form-extra-fields">
+
+                    <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+                        <div class="fr-col-12 fr-col-md-3">
+                            {% include '_checkbox_snippet_multiple.html' with field=form.aid_type %}
+                        </div>
+    
+    
+                        <div class="fr-col-12 fr-col-md-3">
+                            {% include '_field_snippet.html' with field=form.backers %}
+                        </div>
+    
+                        <div class="fr-col-12 fr-col-md-3">
+                            {% include '_field_snippet.html' with field=form.apply_before %}
+                        </div>
+    
+                        <div class="fr-col-12 fr-col-md-3">
+                            {% include '_field_snippet.html' with field=form.programs %}
+                        </div>
+    
+                        <div class="fr-col-12 fr-col-md-3">
+                            {% include '_select_snippet.html' with field=form.mobilization_step %}
+                        </div>
+    
+                        <div class="fr-col-12 fr-col-md-3">
+                            {% include '_checkbox_snippet_multiple.html' with field=form.destinations  %}
+                        </div>
+                    </div>
+                    <div>
+                        {% include '_checkbox_snippet.html' with field=form.call_for_projects_only  %}
+                    </div>
                 </div>
 
                 <div class="fr-mt-2w">
@@ -77,9 +82,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" id="search-form-more-options" class="fr-btn fr-btn--tertiary-no-outline search-form-extra-action">
+                            <button id="search-form-more-options" class="fr-btn fr-btn--tertiary-no-outline search-form-extra-action">
                                 <span class="fr-icon-add-line" aria-hidden="true"></span> Plus de critères
-                            </a>
+                            </button>
                         </li>
                         <li>
                             <button name="action" value="search-filter" class="fr-btn" title="Rechercher" type="submit">
