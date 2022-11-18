@@ -104,13 +104,13 @@ class Command(BaseCommand):
                     old_aid.save()
 
                     duplicated_aid.status = AidWorkflow.states.merged
-                    duplicated_aid.import_data_source_id = (
-                        f"duplicated-{duplicated_aid.import_data_source_id}"
+                    duplicated_aid.import_uniqueid = (
+                        f"duplicated-{duplicated_aid.import_uniqueid}"
                     )
                     duplicated_aid.save()
 
-                    old_aid.import_data_source_id = str(
-                        old_aid.import_data_source_id.partition("bis-")[2]
+                    old_aid.import_uniqueid = str(
+                        old_aid.import_uniqueid.partition("bis-")[2]
                     )
                     old_aid.save()
 
