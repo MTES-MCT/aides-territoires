@@ -19,7 +19,7 @@
     <div class="fr-grid-row fr-mb-2w fr-pt-0w fr-p-0w fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w at-centered fr-grid-row--bottom">
         <div class="fr-col-12 fr-col-lg-12 fr-p-2w">
         <div role="alert" class="fr-alert fr-alert--success fr-alert--sm fr-mb-2w fr-grid--center">
-          <p class="fr-text--lg"><strong><a href="{% url 'users_stats' %}">{{ nb_beneficiary_accounts|intcomma }} comptes utilisateurs</a></strong>, répartis en <strong><a href="{% url 'organizations_stats' %}">{{ nb_organizations|intcomma }} structures</a></strong>, ont créé <strong><a href="{% url 'projects_stats' %}">{{ nb_projects|intcomma }} projets</a></strong>
+          <p class="fr-text--lg"><strong><a href="{% url 'users_stats' %}">{{ nb_beneficiary_accounts|intcomma }} comptes utilisateurs</a></strong>, répartis en <strong><a href="{% url 'organizations_stats' %}">{{ nb_organizations|intcomma }} structures</a></strong> (<a href="{% url 'carto_stats' %}">carte</a>), ont créé <strong><a href="{% url 'projects_stats' %}">{{ nb_projects|intcomma }} projets</a></strong>
             avec en tout <strong>{{ nb_aids_matching_projects }} aides sélectionnées</strong> sur un total de <strong>{{ nb_aids_live|intcomma }} aides disponibles</strong> publiées par <strong>{{ nb_active_financers|intcomma }} porteurs</strong>.
             Sont également disponibles <strong>{{ nb_searchPage|intcomma }} portails</strong>.
           <br /><span class="fr-hint-text">Pour rappel, le compte utilisateur a été lancé le 4 novembre 2021.</span>
