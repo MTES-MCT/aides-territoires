@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, FormView
@@ -6,6 +8,7 @@ from aids.forms import AidSearchForm
 from aids.models import Aid
 from backers.models import Backer
 from categories.models import Category
+from geofr.models import Perimeter
 from home.forms import ContactForm
 from home.tasks import send_contact_form_email
 from projects.models import Project
@@ -48,6 +51,14 @@ class HomeView(FormView):
             .order_by("-date_created")[:3]
         )
         context["project_form"] = ProjectSearchForm
+
+        # Map section
+        departments_list = Perimeter.objects.departments(
+            values=["id", "name", "code", "backers_count", "programs_count"]
+        )
+        context["departments"] = departments_list
+        context["departments_json"] = json.dumps(departments_list)
+
         return context
 
     def get_initial(self):
