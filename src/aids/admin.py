@@ -24,12 +24,7 @@ from aids.models import (
     AidProject,
     SuggestedAidProject,
 )
-<<<<<<< HEAD
 from aids.resources import AidResource, AidProjectResource
-from aids.utils import generate_clone_title
-=======
-from aids.resources import AidResource
->>>>>>> 19da4072... remove generate_clone_title method
 from core.admin import InputFilter, pretty_print_readonly_jsonfield
 from core.constants import YES_NO_CHOICES
 from exporting.tasks import (
