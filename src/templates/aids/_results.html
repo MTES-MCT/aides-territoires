@@ -80,7 +80,7 @@
 {% endif %}
 
 
-{% if next_page_login_warning %}
+{% if not search_page and next_page_login_warning %}
     {% include 'aids/_next_page_login_warning.html' %}
 {% else %}
     {% include '_pagination.html' %}
