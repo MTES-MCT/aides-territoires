@@ -63,53 +63,85 @@
         </div>
     </section>
 
-    <section id="our-action" class="fr-pb-4w">
-        <div class="fr-container">
+    {% if public_projects.all %}
+    <div class="at-background-alt-grey">
+        <div class="fr-container fr-py-5w">
             <div class="fr-grid-row fr-grid-row--center">
-                <div class="fr-col-md-11 fr-my-5w" id="how">
-                    <h2>Notre action</h2>
-                    <div class="fr-grid-row fr-pb-3w fr-pt-2w at-centered fr-grid-row--center">
-                        <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                            <img alt="" src="{% static 'img/home_steps_1.svg' %}"/>
-                            <p>Les aides sont diffusées par leurs porteurs</p>
-                        </div>
-                        <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                            <img alt="" src="{% static 'img/home_steps_2.svg' %}"/>
-                            <p>Aides-territoires rassemble et structure ces informations</p>
-                        </div>
-                        <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                            <img alt="" src="{% static 'img/home_steps_3.svg' %}"/>
-                            <p>Les dispositifs deviennent plus facilement lisibles et mobilisables</p>
-                        </div>
+                <div class="fr-col-md-11">
+                    <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+                    <h2 class="fr-col-md-10 fr-mt-0">Ces collectivités utilisent <span class="at-color--blue">Aides-territoires</span> pour leur projet</h2>
+                    <p>
+                        <a href="{% url 'public_project_list_view' %}" class="fr-btn fr-btn--secondary">
+                        Voir plus de projets
+                        </a>
+                    </p>
                     </div>
+                    <div class="fr-grid-row">
+                    {% for project in public_projects.all %}
+                    {% include 'projects/_public_project_card.html' with project=project %}
+                    {% endfor %}
+                    </div>        
                 </div>
             </div>
         </div>
+    </div>
+    {% endif %}
+
+    <section id="map" class="fr-pb-4w">
+        <div class="fr-container">
+            {% include "home/_map.html" %}
+        </div>
     </section>
 
-    <section id="home-stats">
+    <section id="home-users-types">
         <div class="fr-container-fluid at-background-alt-green">
             <div class="fr-container">
                 <div class="fr-grid-row fr-grid-row--center">
-                    <div class="fr-mb-5w fr-col-md-11" id="base-stats">
-                            <h2>Aides-territoires aujourd’hui</h2>
-                            <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w at-centered" >
-                                <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                                    <p class="fr-display--xs fr-m-1w">{{ nb_aids }} </p>
-                                    <p class="fr-text--lead fr-m-1w at-uppercase">Aides disponibles</p>
-                                    <p>Un chiffre en croissance grâce à notre stratégie de déploiement</p>
-                                </div>
-                                <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                                    <p class="fr-display--xs fr-m-1w">{{ nb_backers }}</p>
-                                    <p class="fr-text--lead fr-m-1w at-uppercase">Porteurs d’aides</p>
-                                    <p>Des partenaires toujours plus nombreux nous font confiance pour publier leurs aides</p>
-                                </div>
-                                <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                                    <p class="fr-display--xs fr-m-1w">{{ nb_categories }}</p>
-                                    <p class="fr-text--lead fr-m-1w at-uppercase">Thématiques de projet</p>
-                                    <p>et sous-thématiques pour faciliter votre recherche sur tout le territoire</p>
-                                </div>
+                    <div class="fr-mb-5w fr-col-md-11">
+                        <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w at-centered" >
+                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                                <h2>Porteur d’aides</h2>
+                                <p>Créez votre compte pour accéder à des fonctionnalités supplémentaires et gérer tous vos projets</p>
+                                {% if not user.is_authenticated %}
+                                    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left">
+                                        <li>
+                                            <a class="fr-btn fr-icon-account-line fr-btn--secondary" href="{% url 'register' %}">Inscription</a>
+                                        </li>
+                                        <li>
+                                            <a class="fr-btn fr-icon-lock-line" href="{% url 'login' %}">Connection</a>
+                                        </li>
+                                    </ul>
+                                {% endif %}        
                             </div>
+                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                                <h2>Animateur</h2>
+                                <p>Créez votre compte pour accéder à des fonctionnalités supplémentaires et gérer tous vos projets</p>
+                                {% if not user.is_authenticated %}
+                                    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left">
+                                        <li>
+                                            <a class="fr-btn fr-icon-account-line fr-btn--secondary" href="{% url 'register' %}">Inscription</a>
+                                        </li>
+                                        <li>
+                                            <a class="fr-btn fr-icon-lock-line" href="{% url 'login' %}">Connection</a>
+                                        </li>
+                                    </ul>
+                                {% endif %}        
+                            </div>
+                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                                <h2>Porteur de projet</h2>
+                                <p>Créez votre compte pour accéder à des fonctionnalités supplémentaires et gérer tous vos projets</p>
+                                {% if not user.is_authenticated %}
+                                    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left">
+                                        <li>
+                                            <a class="fr-btn fr-icon-account-line fr-btn--secondary" href="{% url 'register' %}">Inscription</a>
+                                        </li>
+                                        <li>
+                                            <a class="fr-btn fr-icon-lock-line" href="{% url 'login' %}">Connection</a>
+                                        </li>
+                                    </ul>
+                                {% endif %}        
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -179,53 +211,6 @@
         </div>
     </div>
 
-    {% if public_projects.all %}
-    <div class="fr-container fr-pb-5w">
-        <div class="fr-grid-row fr-grid-row--center">
-            <div class="fr-col-md-11">
-                <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
-                <h2 class="fr-col-md-10 fr-mt-0">Ces collectivités utilisent <span class="at-color--blue">Aides-territoires</span> pour leur projet</h2>
-                <p>
-                    <a href="{% url 'public_project_list_view' %}" class="fr-btn fr-btn--secondary">
-                    Voir plus de projets
-                    </a>
-                </p>
-                </div>
-                <div class="fr-grid-row">
-                {% for project in public_projects.all %}
-                {% include 'projects/_public_project_card.html' with project=project %}
-                {% endfor %}
-                </div>        
-            </div>
-        </div>
-    </div>
-    {% endif %}
-
-    {% if subset_selected_backers %}
-    <section id="home-partners">
-        <div class="fr-container fr-pb-5w">
-            <div class="fr-grid-row fr-grid-row--center bg-fond-alternatif">
-                <div class="fr-mb-5w fr-col-md-11" id="backers">
-                    <h2>Les porteurs d’aides</h2>
-                    <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w at-centered fr-grid-row--bottom" >
-                        {% for selected_backer in subset_selected_backers %}
-                            {% if forloop.counter < 7 %}
-                                <div class="fr-col-xs-12 fr-p-3w">
-                                    <a href="{{ selected_backer.get_absolute_url }}" class="at-link__nodecorator">
-                                    {% if selected_backer.logo %}
-                                        <img src="{{ selected_backer.logo.url }}" alt="Logo : {{ selected_backer.name }}" loading="lazy" />
-                                    {% endif %}
-                                    </a>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    {% endif %}
-
     <div class="fr-follow at-background-alt-green">
         <div class="fr-container">
             <div class="fr-grid-row">
@@ -269,5 +254,16 @@
         <script src="{% static 'js/aids/text_autocomplete.js' %}"></script>
         <script src="{% static 'js/projects/project_types_autocomplete.js' %}"></script>
         <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
+        <script src="{% static 'js/url_parameters.js' %}"></script>
+        <script src="{% static 'js/geofr/department_filter.js' %}"></script>
+        <script src="{% static 'js/geofr/map.js' %}"></script>
     {% endcompress %}
+
+    <script nonce="{{ request.csp_nonce }}">
+        let departments_data = JSON.parse("{{ departments_json|escapejs }}");
+        $(document).ready(function () {
+            department_filter('/');
+        });
+    </script>
 {% endblock extra_js %}
+
