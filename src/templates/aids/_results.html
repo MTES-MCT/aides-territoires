@@ -67,8 +67,14 @@
         {% if promotions %}
             {% include 'aids/_promotions.html' %}
         {% endif %}
-        <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
-            <p>Nous n’avons pu trouver aucun résultat.</p>
+        <div role="alert" class="fr-alert fr-alert--info fr-mb-5w">
+            <h3 class="fr-alert__title">Nous n’avons pu trouver aucun résultat.</h3>
+            <p>Vous pouvez cependant configurer une alerte pour être informé si de nouveaux dispositifs deviennent disponibles pour votre recherche </p>
+
+            <button class="fr-btn js" id="save-alert-results-block-btn"  data-fr-opened="false" aria-controls="alert-search-modal">
+                <span class="ri-notification-2-line ri-lg fr-mr-1w"></span>Créer une alerte
+            </button>
+
         </div>
     </div>
 {% endif %}
