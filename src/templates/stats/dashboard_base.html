@@ -35,7 +35,7 @@
     <div class="charts-legends">
       <ul>
         <li><span class="charts-legend charts-legend-accent"></span> Territoires inscrits</li>
-        <li><span class="charts-legend charts-legend-regular"></span> Objectif 2022</li>
+        <li><span class="charts-legend charts-legend-regular"></span> Objectifs 2022</li>
       </ul>
     </div>
 
@@ -45,7 +45,8 @@
           {{ nb_communes }},
           {{ objectif_communes }}-{{ nb_communes }}-150,
           300, // This fake value is responsible for the goal bar.
-          {{ total_communes }}-{{ objectif_communes }}+150-300
+          {{ nb_extra_communes }},
+          {{ total_communes }}-{{ objectif_communes }}-{{ nb_extra_communes }}+150-300
         ]
       }, {
         donut: true,
@@ -68,7 +69,8 @@
           {{ nb_epci }},
           {{ objectif_epci }}-{{ nb_epci }}-5,
           10, // This fake value is responsible for the goal bar.
-          {{ total_epci }}-{{ objectif_epci }}+5-10
+          {{ nb_extra_epci }},
+          {{ total_epci }}-{{ objectif_epci }}-{{ nb_extra_epci }}+5-10
         ]
       }, {
         donut: true,

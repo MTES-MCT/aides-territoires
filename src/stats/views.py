@@ -284,6 +284,10 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
         context["pourcent_communes"] = round(
             context["nb_communes"] * 100 / context["total_communes"], 1
         )
+        context["nb_extra_communes"] = max(
+            context["nb_communes"] - context["objectif_communes"], 0
+        )
+
         context["nb_epci"] = (
             Organization.objects.filter(organization_type__contains=["epci"])
             .exclude(perimeter_id__isnull="True")
@@ -295,6 +299,7 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
         context["pourcent_epci"] = round(
             context["nb_epci"] * 100 / context["total_epci"], 1
         )
+        context["nb_extra_epci"] = max(context["nb_epci"] - context["objectif_epci"], 0)
 
         return context
 
