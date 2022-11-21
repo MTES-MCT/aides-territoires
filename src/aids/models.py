@@ -34,7 +34,7 @@ class AidWorkflow(xwf_models.Workflow):
         ("reviewable", "En revue"),
         ("published", "Publiée"),
         ("deleted", "Supprimée"),
-        ("merged", "Mergée"),
+        ("merged", "Fusionnée"),
     )
     initial_state = "draft"
     transitions = (

@@ -122,6 +122,7 @@ class Command(BaseCommand):
                             aidproject.aid = old_aid
                             aidproject.save()
 
+                    if duplicated_aid.suggested_projects is not None:
                         for (
                             suggested_project
                         ) in duplicated_aid.suggested_projects.all():
