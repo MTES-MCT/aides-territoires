@@ -69,6 +69,14 @@ class HomeView(FormView):
         context["departments_json"] = json.dumps(departments_list)
 
         context["project_form"] = ProjectSearchForm
+
+        # Map section
+        departments_list = Perimeter.objects.departments(
+            values=["id", "name", "code", "backers_count", "programs_count"]
+        )
+        context["departments"] = departments_list
+        context["departments_json"] = json.dumps(departments_list)
+
         return context
 
     def get_initial(self):
