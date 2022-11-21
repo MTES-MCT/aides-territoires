@@ -218,7 +218,6 @@ def test_aid_edition_save_as_new(client, contributor, aid_form_data):
     assert aids.count() == 2
 
     assert aids[0].name == "First title"
-    assert "[Copie" in aids[1].name
     assert "Second title" in aids[1].name
 
     assert aids[0].status == "published"
@@ -245,7 +244,6 @@ def test_save_invalid_aid_as_new(client, contributor, aid_form_data):
     assert aids.count() == 2
 
     assert aids[0].name == "First title"
-    assert "[Copie" in aids[1].name
     assert "Second title" in aids[1].name
 
     assert aids[0].status == "published"
