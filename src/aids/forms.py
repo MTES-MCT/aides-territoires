@@ -483,8 +483,9 @@ class BaseAidSearchForm(AidesTerrBaseForm):
 
     ORDER_BY_CHOICES = (
         ("relevance", "Tri : pertinence"),
-        ("publication_date", "Tri : date de publication"),
-        ("submission_deadline", "Tri : date de clôture"),
+        ("publication_date", "Tri : date de publication (plus récentes en premier)"),
+        ("-publication_date", "Tri : date de publication (plus anciennes en premier)"),
+        ("submission_deadline", "Tri : date de clôture (plus proches en premier)"),
     )
 
     CATEGORIES_QS = Category.objects.select_related("theme").order_by(
