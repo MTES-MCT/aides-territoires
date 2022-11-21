@@ -4,13 +4,14 @@ from import_export import fields, resources
 from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
 from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
 
-from aids.models import Aid
+from aids.models import Aid, AidProject
 from accounts.models import User
 from categories.models import Category
 from backers.models import Backer
 from core.utils import get_base_url
 from geofr.models import Perimeter
 from programs.models import Program
+from projects.models import Project
 from stats.utils import log_event
 
 
@@ -317,3 +318,68 @@ class AidResourcePublic(AidResource):
     def dehydrate_full_url(self, obj):
         base_url = get_base_url()
         return f"{base_url}{obj.get_absolute_url()}"
+
+
+class AidProjectResource(resources.ModelResource):
+    """Resource for Export AidProject."""
+
+    # custom widgets to ForeignKey information instead of ids
+    creator = fields.Field(
+        column_name="creator",
+        attribute="creator",
+        widget=ForeignKeyWidget(User, field="email"),
+    )
+    aid = fields.Field(
+        column_name="aid",
+        attribute="aid",
+        widget=ForeignKeyWidget(Aid, field="name"),
+    )
+    project = fields.Field(
+        column_name="project",
+        attribute="project",
+        widget=ForeignKeyWidget(Project, field="name"),
+    )
+
+    class Meta:
+        model = AidProject
+        fields = [
+            "aid",
+            "project",
+            "creator",
+            "aid_requested",
+            "aid_obtained",
+            "aid_paid",
+            "aid_denied",
+            "date_created",
+        ]
+        export_order = fields
+
+    def get_export_headers(self):
+        """override get_export_headers() to translate field names."""
+        headers = []
+        for field in self.get_export_fields():
+            field_model = AidProject._meta.get_field(field.column_name)
+            headers.append(field_model.verbose_name)
+        return headers
+
+    def export_field(self, field, obj):
+        """override export_field() to translate field values."""
+        field_name = self.get_field_name(field)
+        method = getattr(self, "dehydrate_%s" % field_name, None)
+        if method is not None:
+            return method(obj)
+
+        field_model = AidProject._meta.get_field(field.column_name)
+        if field_model.serialize:
+            # For Text and Char fields, we remove illegal characters
+            if isinstance(field_model, (TextField, CharField)):
+                export_value = field.export(obj)
+                export_value = ILLEGAL_CHARACTERS_RE.sub("", export_value)
+                return export_value
+            # BooleanField fields: avoid returning 1 (True) and 0 (False)
+            elif field_model.get_internal_type() == "BooleanField":
+                value_raw = field.get_value(obj)
+                if value_raw is not None:
+                    return "Oui" if value_raw else "Non"
+
+        return field.export(obj)

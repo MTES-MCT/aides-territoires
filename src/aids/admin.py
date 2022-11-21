@@ -24,11 +24,16 @@ from aids.models import (
     AidProject,
     SuggestedAidProject,
 )
-from aids.resources import AidResource
+from aids.resources import AidResource, AidProjectResource
 from aids.utils import generate_clone_title
 from core.admin import InputFilter, pretty_print_readonly_jsonfield
 from core.constants import YES_NO_CHOICES
-from exporting.tasks import export_aids_as_csv, export_aids_as_xlsx
+from exporting.tasks import (
+    export_aids_as_csv,
+    export_aids_as_xlsx,
+    export_aidprojects_as_csv,
+    export_aidprojects_as_xlsx,
+)
 from exporting.utils import get_admin_export_message
 from geofr.utils import get_all_related_perimeters
 from search.models import SearchPage
@@ -660,8 +665,48 @@ class AmendmentAdmin(admin.ModelAdmin):
         return qs
 
 
+class AidProjectStatusFilter(admin.SimpleListFilter):
+    title = "Statut de l'aide par rapport au projet"
+    parameter_name = "aidproject_status"
+
+    def lookups(self, request, model_admin):
+        return [
+            ("filled", "Renseigné"),
+            ("not_filled", "Non renseigné"),
+        ]
+
+    def queryset(self, request, queryset):
+        if self.value() == "filled":
+            # Get aidproject objects where aid has been requested.
+            return queryset.distinct().filter(aid_requested=True)
+        if self.value() == "not_filled":
+            # Get aidproject objects where aid has not been requested.
+            return queryset.distinct().filter(aid_requested=False)
+
+
 class AidProjectAdmin(admin.ModelAdmin):
-    list_display = ["aid", "project", "creator", "date_created"]
+    resource_class = AidProjectResource
+    ordering = ["-id"]
+    actions = ["export_csv", "export_xlsx"]
+    formats = [base_formats.CSV, base_formats.XLSX]
+
+    list_display = [
+        "aid",
+        "project",
+        "creator",
+        "aid_obtained",
+        "aid_requested",
+        "aid_paid",
+        "aid_denied",
+        "date_created",
+    ]
+    list_filter = [
+        AidProjectStatusFilter,
+        "aid_obtained",
+        "aid_requested",
+        "aid_paid",
+        "aid_denied",
+    ]
     readonly_fields = [
         "aid",
         "project",
@@ -676,6 +721,27 @@ class AidProjectAdmin(admin.ModelAdmin):
         "date_paid",
         "date_created",
     ]
+
+    def show_export_message(self, request):
+        self.message_user(request, get_admin_export_message())
+
+    def export_csv(self, request, queryset):
+        aidprojects_id_list = list(queryset.values_list("id", flat=True))
+        export_aidprojects_as_csv.delay(aidprojects_id_list, request.user.id)
+        self.show_export_message(request)
+
+    export_csv.short_description = (
+        "Exporter les objets aidproject sélectionnés en CSV en tâche de fond"
+    )
+
+    def export_xlsx(self, request, queryset):
+        aidprojects_id_list = list(queryset.values_list("id", flat=True))
+        export_aidprojects_as_xlsx.delay(aidprojects_id_list, request.user.id)
+        self.show_export_message(request)
+
+    export_xlsx.short_description = (
+        "Exporter les objets aidproject sélectionnés en XLSX en tâche de fond"
+    )
 
 
 class SuggestedAidProjectAdmin(admin.ModelAdmin):
