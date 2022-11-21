@@ -363,6 +363,13 @@ class DashboardConsultationView(DashboardBaseView, TemplateView):
         context["nb_viewed_aids"] = AidViewEvent.objects.filter(
             date_created__range=[start_date_range, end_date_range]
         ).count()
+        context["nb_different_viewed_aids"] = (
+            AidViewEvent.objects.filter(
+                date_created__range=[start_date_range, end_date_range]
+            )
+            .distinct("aid")
+            .count()
+        )
         context["nb_visits"] = matomo_visits_summary["nb_visits"]
         context["bounce_rate"] = matomo_visits_summary["bounce_rate"]
         context["avg_time_on_site"] = strftime(
