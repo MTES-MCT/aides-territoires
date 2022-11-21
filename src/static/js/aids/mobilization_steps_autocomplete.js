@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    $('select#id_programs').select2({
-        placeholder: "Tous les programmes",
+    $('select#id_mobilization_step').select2({
+        placeholder: "Toutes les étapes",
         language: "fr",
         theme: "select2-dsfr",
         dropdownAutoWidth: true,

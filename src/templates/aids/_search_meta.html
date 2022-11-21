@@ -1,5 +1,5 @@
 {% load i18n aids %}
-<div class="search-meta">
+<div class="search-meta fr-mb-2w">
 
     {% if not current_search_dict %}
     <div class="fr-alert fr-alert--info">
@@ -65,7 +65,7 @@
     {% block search-meta-financial-aids %}
     {% if current_search_dict.financial_aids %}
     <div class="fr-tags-group">
-        <p title="Nature de l'aide" class="fr-tag">
+        <p title="Nature de l’aide" class="fr-tag">
             <span class="ri-money-euro-circle-line ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
             {% form_choices_display current_search_dict 'financial_aids' %}
         </p>

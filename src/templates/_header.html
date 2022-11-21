@@ -57,7 +57,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="fr-btn at-btn--primary fr-icon-search-line" href="{% url 'general_search' %}">
+                                <a class="fr-btn at-btn--primary fr-icon-search-line" href="{% url 'search_view' %}{% if user.is_authenticated %}{{ user.get_search_preferences.base_search_string }}{% endif %}">
                                     Trouver des aides
                                 </a>
                             </li>

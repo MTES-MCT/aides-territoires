@@ -3,40 +3,9 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
 
-
 from categories.fields import CategoryMultipleChoiceField, CategoryChoiceIterator
-from categories.models import Category
-from core.forms.baseform import AidesTerrBaseForm
-from core.forms.fields import RichTextField, AutocompleteModelChoiceField
-from geofr.models import Perimeter
+from core.forms.fields import RichTextField
 from pages.admin import PageForm
-from keywords.models import SynonymList
-
-
-AUDIENCES = [
-    (
-        "Une collectivité",
-        (
-            ("commune", "Commune"),
-            ("epci", "Intercommunalité / Pays"),
-            ("department", "Département"),
-            ("region", "Région"),
-            ("special", "Collectivité d'outre-mer à statuts particuliers"),
-        ),
-    ),
-    (
-        "Un autre bénéficiaire",
-        (
-            ("public_org", "Établissement public"),
-            ("public_cies", "Entreprise publique locale (Sem, Spl, SemOp)"),
-            ("association", "Association"),
-            ("private_sector", "Entreprise privée"),
-            ("private_person", "Particulier"),
-            ("farmer", "Agriculteur"),
-            ("researcher", "Recherche"),
-        ),
-    ),
-]
 
 
 class AudienceWidget(forms.widgets.ChoiceWidget):
@@ -53,43 +22,6 @@ class CategoryIterator(CategoryChoiceIterator):
 class CategoryChoiceField(forms.ModelMultipleChoiceField):
 
     iterator = CategoryIterator
-
-
-class CategoryWidget(forms.widgets.ChoiceWidget):
-    """Custom widget to select categories grouped by themes."""
-
-    allow_multiple_selected = True
-    template_name = "search/forms/widgets/category_widget.html"
-
-
-class GeneralSearchForm(AidesTerrBaseForm):
-
-    CATEGORIES_QS = Category.objects.select_related("theme").order_by(
-        "theme__name", "name"
-    )
-
-    targeted_audiences = forms.MultipleChoiceField(
-        label="Votre structure", required=False
-    )
-    perimeter = AutocompleteModelChoiceField(
-        label="Votre territoire", queryset=Perimeter.objects.all(), required=False
-    )
-    text = AutocompleteModelChoiceField(
-        label="Recherche textuelle", queryset=SynonymList.objects.all(), required=False
-    )
-
-    categories = CategoryChoiceField(
-        label="Thématiques",  # Not a mistake
-        queryset=CATEGORIES_QS,
-        to_field_name="slug",
-        required=False,
-        widget=CategoryWidget,
-    )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.fields["targeted_audiences"].choices = AUDIENCES
 
 
 class SearchPageAdminForm(forms.ModelForm):

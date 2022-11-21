@@ -71,6 +71,7 @@
 
 {% block extra_js %}
     {% compress js %}
+        <script src="{% static 'js/url_parameters.js' %}"></script>
         <script src="{% static 'js/geofr/department_filter.js' %}"></script>
     {% endcompress %}
     <script nonce="{{ request.csp_nonce }}">

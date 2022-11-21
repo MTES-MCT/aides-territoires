@@ -1,4 +1,4 @@
-{% extends "aids/_search_form.html" %}
+{% extends "minisites/_old_search_form.html" %}
 
 {% block hidden-fields %}
     {{ form.apply_before.as_hidden }}
@@ -108,7 +108,7 @@
 <div class="fr-grid-row actions-row">
     <div class="fr-select-group fr-col-12 fr-col-md-3 fr-mt-2w">
         <select name="order_by" id="id_order_by" class="fr-select" title="Trier par">
-            <option hidden>Trier par : </option>
+            <option hidden disabled>Trier par : </option>
             {% for option in form.order_by %}
                 {{ option }}
             {% endfor %}

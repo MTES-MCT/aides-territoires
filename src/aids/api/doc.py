@@ -5,7 +5,7 @@ from aids.models import Aid
 from aids.forms import AidSearchForm
 from aids.constants import (
     AUDIENCES_ALL,
-    AID_TYPE_CHOICES,
+    AID_TYPES_GROUPS,
     FINANCIAL_AIDS,
     TECHNICAL_AIDS,
     OTHER_AIDS,
@@ -72,7 +72,7 @@ aid_type = OpenApiParameter(
     type=OpenApiTypes.STR,
     location=OpenApiParameter.QUERY,
     description="Nature de l'aide.",
-    enum=[id for (id, name) in AID_TYPE_CHOICES],
+    enum=[id for (id, name) in AID_TYPES_GROUPS],
     examples=[
         OpenApiExample("", value=""),
         OpenApiExample("Aides financières", value="financial"),

@@ -28,26 +28,45 @@
         {% endif %}
     {% endblock messages %}
 
-    <section id="intro">
+    <section id="intro" class="fr-pb-4w">
         <div class="fr-container">
-            <div class="fr-grid-row" id="what">
-                <div class="fr-my-5w fr-col-md-7 fr-col-xs-12 fr-pt-4w fr-ml-5w">
-                    <h1>Réalisez vos projets locaux</h1>
-                    <p>
-                        Chaque jour, des collectivités comme la vôtre trouvent des aides
-                        pour financer et accompagner leurs projets sur de nombreuses
-                        thématiques. Vous aussi, <strong>découvrez les aides disponibles</strong> et
-                        <strong>paramétrez des alertes</strong> pour donner vie aux ambitions de votre
-                        territoire.
-                    </p>
-                    <a href="{% url 'general_search' %}" class="fr-btn">Trouver des aides</a>
+            <div class="fr-mb-5w fr-pt-4w at-centered">
+                <h1>Réalisez vos projets locaux</h1>
+                <p>
+                    Chaque jour, des collectivités comme la vôtre trouvent des aides
+                    pour financer et accompagner leurs projets sur de nombreuses
+                    thématiques. Vous aussi, <strong>découvrez les aides disponibles</strong> et
+                    <strong>paramétrez des alertes</strong> pour donner vie aux ambitions de votre
+                    territoire.
+                </p>
+            </div>
+
+            <div class="fr-tabs">
+                <ul class="fr-tabs__list" role="tablist" aria-label="Onglets de l’accueil">
+                    <li role="presentation">
+                        <button id="tabpanel-aids" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-aids-panel">Aides</button>
+                    </li>
+                    <!--
+                    <li role="presentation">
+                        <button id="tabpanel-projects" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-projects-panel">Projets</button>
+                    </li>
+                    <li class="at-tab-message">
+                        <span>NOUVEAU ! Trouvez de l’inspiration avec les projets d’autres collectivités</span>
+                    </li>-->
+                </ul>
+                <div id="tabpanel-aids-panel" class="fr-tabs__panel at-tabs__panel--opaque fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-aids" tabindex="0">
+                    {% include "aids/_search_form.html" %}
                 </div>
-                <div class="fr-col-xs-12 fr-col-md-8 fr-col-offset-md-4" id="what-image">
-                    <img src="{% static 'img/home_aides.svg' %}" alt="" id="home-main-image" class="fr-responsive-img" />
+                <!--
+                <div id="tabpanel-projects-panel" class="fr-tabs__panel at-tabs__panel--opaque" role="tabpanel" aria-labelledby="tabpanel-projects" tabindex="0">
+                    <p>Contenu 2</p>
                 </div>
+                -->
             </div>
         </div>
+    </section>
 
+    <section id="our-action" class="fr-pb-4w">
         <div class="fr-container">
             <div class="fr-grid-row fr-grid-row--center">
                 <div class="fr-col-md-11 fr-my-5w" id="how">
@@ -71,8 +90,8 @@
         </div>
     </section>
 
-    <section id="home-stats" class="dark-background">
-        <div class="fr-container-fluid fr-background-alt">
+    <section id="home-stats">
+        <div class="fr-container-fluid at-background-alt-green">
             <div class="fr-container">
                 <div class="fr-grid-row fr-grid-row--center">
                     <div class="fr-mb-5w fr-col-md-11" id="base-stats">
@@ -186,7 +205,7 @@
     {% endif %}
 
     {% if subset_selected_backers %}
-    <section id="partner">
+    <section id="home-partners">
         <div class="fr-container fr-pb-5w">
             <div class="fr-grid-row fr-grid-row--center bg-fond-alternatif">
                 <div class="fr-mb-5w fr-col-md-11" id="backers">
@@ -197,7 +216,7 @@
                                 <div class="fr-col-xs-12 fr-p-3w">
                                     <a href="{{ selected_backer.get_absolute_url }}" class="at-link__nodecorator">
                                     {% if selected_backer.logo %}
-                                        <img src="{{ selected_backer.logo.url }}" alt="Logo : {{ selected_backer.name }} " loading="lazy" />
+                                        <img src="{{ selected_backer.logo.url }}" alt="Logo : {{ selected_backer.name }}" loading="lazy" />
                                     {% endif %}
                                     </a>
                                 </div>
@@ -210,7 +229,7 @@
     </section>
     {% endif %}
 
-    <div class="fr-follow">
+    <div class="fr-follow at-background-alt-green">
         <div class="fr-container">
             <div class="fr-grid-row">
                 <div class="fr-col-12 fr-col-md-10">
@@ -239,3 +258,16 @@
         </div>
     </div>
 {% endblock main %}
+
+{% block extra_js %}
+    {% compress js %}
+        <script src="{% static 'select2/dist/js/select2.js' %}"></script>
+        <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+        <script src="{% static 'js/aids/aid_types_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/categories_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/backers_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/text_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
+    {% endcompress %}
+{% endblock extra_js %}

@@ -51,7 +51,10 @@ def user_client(user, client):
 def contributor():
     """Generates a valid and active contributor."""
 
-    sample_org = OrganizationFactory()
+    sample_org = OrganizationFactory(
+        organization_type=["commune"],
+        perimeter=Perimeter.objects.first(),
+    )
     sample_org.save()
 
     user = ContributorFactory()

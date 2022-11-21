@@ -1,7 +1,6 @@
 $(document).ready(function () {
-
     $('select#id_backers').select2({
-        placeholder: "Sélectionnez le ou les porteurs",
+        placeholder: "Tous les porteurs d’aide",
         language: 'fr',
         minimumInputLength: 3,
         language: {
@@ -33,5 +32,5 @@ $(document).ready(function () {
         theme: "select2-dsfr",
         dropdownAutoWidth: true,
         width: "auto",
-    });
+    })
 });

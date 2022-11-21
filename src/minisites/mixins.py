@@ -1,4 +1,4 @@
-from aids.models import Aid
+from organizations.constants import ORGANIZATION_TYPES_SINGULAR_ALL
 
 
 class SearchMixin:
@@ -46,7 +46,7 @@ class NarrowedFiltersMixin:
     def get_available_audiences(self):
         """Return the list of audiences available in this minisite."""
 
-        all_audiences = list(Aid.AUDIENCES)
+        all_audiences = ORGANIZATION_TYPES_SINGULAR_ALL
         available_audiences = self.search_page.available_audiences or []
         filtered_audiences = [
             audience for audience in all_audiences if audience[0] in available_audiences

@@ -12,6 +12,18 @@
                 <span class="ri-list-check"></span>
             </button>
         </li>
+        <li>
+            <div class="fr-select-group">
+                <select class="fr-select at-live-change"
+                title="Choisissez un ordre de tri - La sélection recharge la page"
+                id="order-by"
+                name="order-by">
+                    {% for option in form.order_by %}
+                        {{ option }}
+                    {% endfor %}
+                </select>
+            </div>
+        </li>
     </ul>
     <div>
         {% if promotions %}

@@ -22,6 +22,7 @@ from geofr.utils import get_all_related_perimeters
 from backers.models import Backer
 from categories.fields import CategoryMultipleChoiceField
 from categories.models import Category, Theme
+from organizations.constants import ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES
 from programs.models import Program
 from projects.models import Project
 from keywords.models import SynonymList
@@ -32,8 +33,7 @@ from aids.constants import (
     ALL_FINANCIAL_AIDS,
     TECHNICAL_AIDS,
     TECHNICAL_AIDS_LIST,
-    TYPES_GROUPED,
-    AID_TYPE_CHOICES,
+    AID_TYPES_GROUPED,
 )
 from aids.utils import filter_generic_aids
 
@@ -100,7 +100,7 @@ class BaseAidForm(forms.ModelForm, DsfrBaseForm):
         super().__init__(*args, **kwargs)
 
         if "aid_types" in self.fields:
-            self.fields["aid_types"].choices = TYPES_GROUPED
+            self.fields["aid_types"].choices = AID_TYPES_GROUPED
 
         if "targeted_audiences" in self.fields:
             self.fields["targeted_audiences"].choices = AUDIENCES_GROUPED
@@ -351,7 +351,7 @@ class AidEditForm(BaseAidForm):
     categories = CategoryMultipleChoiceField(
         label="Thématiques de l’aide",
         required=False,
-        help_text="Sélectionnez la ou les thématiques associées à votre aide. N'hésitez pas à en choisir plusieurs.",  # noqa
+        help_text="Sélectionnez la ou les thématiques associées à votre aide. N’hésitez pas à en choisir plusieurs.",  # noqa
     )
 
     class Meta:
@@ -492,7 +492,7 @@ class BaseAidSearchForm(AidesTerrBaseForm):
     )
 
     text = AutocompleteSynonymChoiceField(
-        label="Recherche textuelle", queryset=SynonymList.objects.all(), required=False
+        label="Mot-clés", queryset=SynonymList.objects.all(), required=False
     )
 
     apply_before = forms.DateField(
@@ -507,9 +507,8 @@ class BaseAidSearchForm(AidesTerrBaseForm):
     )
     aid_type = forms.MultipleChoiceField(
         label="Nature de l’aide",
-        choices=AID_TYPE_CHOICES,
+        choices=AID_TYPES_GROUPED,
         required=False,
-        widget=forms.CheckboxSelectMultiple,
     )
     financial_aids = forms.MultipleChoiceField(
         label="Aides financières",
@@ -527,13 +526,11 @@ class BaseAidSearchForm(AidesTerrBaseForm):
         label="Avancement du projet",
         required=False,
         choices=Aid.STEPS,
-        widget=forms.CheckboxSelectMultiple,
     )
     destinations = forms.MultipleChoiceField(
         label="Actions concernées",
         required=False,
         choices=Aid.DESTINATIONS,
-        widget=forms.CheckboxSelectMultiple,
     )
     recurrence = forms.ChoiceField(
         label="Récurrence", required=False, choices=Aid.RECURRENCES
@@ -571,7 +568,7 @@ class BaseAidSearchForm(AidesTerrBaseForm):
     targeted_audiences = forms.MultipleChoiceField(
         label="La structure pour laquelle vous recherchez des aides est…",
         required=False,
-        choices=Aid.AUDIENCES,
+        choices=ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES,
         widget=forms.CheckboxSelectMultiple,
     )
     perimeter = AutocompleteModelChoiceField(
@@ -629,6 +626,9 @@ class BaseAidSearchForm(AidesTerrBaseForm):
             aid_types += FINANCIAL_AIDS_LIST
         if "technical" in aid_type:
             aid_types += TECHNICAL_AIDS_LIST
+
+        if aid_type and not aid_types:
+            aid_types = aid_type
 
         if aid_types:
             qs = qs.filter(aid_types__overlap=aid_types)
@@ -786,7 +786,9 @@ class AidSearchForm(BaseAidSearchForm):
     """The main search result filter form."""
 
     targeted_audiences = forms.MultipleChoiceField(
-        label="Le bénéficiaire", required=False, choices=Aid.AUDIENCES
+        label="Le bénéficiaire",
+        required=False,
+        choices=ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES,
     )
 
 
@@ -796,7 +798,7 @@ class AdvancedAidFilterForm(BaseAidSearchForm):
     targeted_audiences = forms.MultipleChoiceField(
         label="La structure pour laquelle vous recherchez des aides est…",
         required=False,
-        choices=Aid.AUDIENCES,
+        choices=ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES,
         widget=forms.CheckboxSelectMultiple,
     )
 

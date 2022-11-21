@@ -106,6 +106,19 @@ article#aid .aid-details h3 {
 
 // Home style
 
+#intro {
+  background: var(--background-alt-green-menthe) url("../img/home_search.svg") bottom/100% no-repeat;
+}
+
+.at-tab-message {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 1em;
+  color: var(--text-title-blue-france);
+  font-weight: bold;
+}
+
 div #what-image {
   margin-top: -150px;
 
@@ -127,7 +140,7 @@ div#how img {
   }
 }
 
-.home section#partner img {
+#home-partners img {
   width: auto;
   height: auto;
   max-width: 10rem;
@@ -412,26 +425,9 @@ div#search-steps p.steps {
   }
 }
 
-form#general_search_form {
-  span.counter {
-    display: inline-block;
-    width: 2.2rem;
-    height: 2.2rem;
-    text-align: center;
-    vertical-align: baseline;
-    border: 1px solid var(--border-active-blue-france);
-    border-radius: 50%;
-  }
-
-  #search-by-keywords:hover {
-    background-color: var(--background-alt-blue-france);
-  }
-
-  @media screen and (max-width: 600px) {
-    #search-by-keywords img {
-      display: none;
-    }
-  }
+.search-form-extra-action,
+.search-form-extra-fields {
+  display: none;
 }
 
 div#search-steps form div.fr-input-group>label {

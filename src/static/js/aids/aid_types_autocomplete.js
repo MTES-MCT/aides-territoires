@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    $('select#id_programs').select2({
-        placeholder: "Tous les programmes",
+    $('select#id_aid_type').select2({
+        placeholder: "Toutes les natures d’aide",
         language: "fr",
         theme: "select2-dsfr",
         dropdownAutoWidth: true,

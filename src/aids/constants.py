@@ -52,14 +52,16 @@ TECHNICAL_AIDS = (
 
 TECHNICAL_AIDS_LIST = ("technical", "financial", "legal")
 
-TYPES_ALL = FINANCIAL_AIDS + TECHNICAL_AIDS + OTHER_AIDS
+AID_TYPES_ALL = FINANCIAL_AIDS + TECHNICAL_AIDS + OTHER_AIDS
 
-TYPES_GROUPED = (
+AID_TYPES_GROUPED = (
     ("Aides financières", FINANCIAL_AIDS + OTHER_AIDS),
     ("Aides en ingénierie", TECHNICAL_AIDS),
 )
 
-AID_TYPE_CHOICES = (
+AID_TYPES_GROUPS = (
     ("financial", "Aide financière"),
     ("technical", "Aide en ingénierie"),
 )
+
+AID_TYPES_ALL_WITH_GROUPS = AID_TYPES_ALL + AID_TYPES_GROUPS
