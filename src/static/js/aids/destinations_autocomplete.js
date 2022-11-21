@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('select#id_destinations').select2({
-        placeholder: "Toutes les destinations",
+        placeholder: "Tous les types de dépense",
         language: "fr",
         theme: "select2-dsfr",
         dropdownAutoWidth: true,
