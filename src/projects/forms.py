@@ -1,3 +1,5 @@
+import re
+
 from django import forms
 
 from core.forms.baseform import AidesTerrBaseForm
@@ -6,11 +8,14 @@ from projects.constants import EXPORT_FORMAT_CHOICES
 from core.forms import (
     AutocompleteModelMultipleChoiceField,
     RichTextField,
+    AutocompleteModelChoiceField,
 )
 
 from projects.models import Project
 from organizations.models import Organization
 from keywords.models import SynonymList
+from geofr.models import Perimeter
+from geofr.utils import get_all_related_perimeters
 
 
 class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
@@ -237,3 +242,91 @@ class ProjectExportForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ["format"]
+
+
+class ProjectSearchForm(AidesTerrBaseForm):
+    """Main form for search engine."""
+
+    step = forms.ChoiceField(
+        label="Avancement du projet",
+        required=False,
+        choices=Project.PROJECT_STEPS,
+    )
+
+    contract_link = forms.ChoiceField(
+        label="Appartenance à un plan",
+        required=False,
+        choices=Project.CONTRACT_LINK,
+    )
+
+    project_types = AutocompleteModelMultipleChoiceField(
+        label="Types de projet",
+        queryset=SynonymList.objects.all(),
+        required=False,
+    )
+
+    perimeter = AutocompleteModelChoiceField(
+        queryset=Perimeter.objects.all(), label="Territoire du projet", required=False
+    )
+
+    def clean_zipcode(self):
+        zipcode = self.cleaned_data["zipcode"]
+        if zipcode and re.match(r"\d{5}", zipcode) is None:
+            msg = "Ce code postal semble invalide."
+            raise forms.ValidationError(msg)
+
+        return zipcode
+
+    def filter_queryset(self, qs=None):
+        """Filter querysets depending of input data."""
+
+        # If no qs was passed, just start with all published aids
+        if qs is None:
+            qs = Project.objects.filter(is_public=True, status=Project.STATUS.published)
+
+        if not self.is_bound:
+            return qs
+
+        # Populate cleaned_data
+        if not hasattr(self, "cleaned_data"):
+            self.full_clean()
+
+        step = self.cleaned_data.get("step", None)
+        if step:
+            qs = qs.filter(step=step)
+
+        contract_link = self.cleaned_data.get("contract_link", None)
+        if contract_link:
+            qs = qs.filter(contract_link=contract_link)
+
+        perimeter = self.cleaned_data.get("perimeter", None)
+        if perimeter:
+            qs = self.perimeter_filter(qs, perimeter)
+
+        project_types = self.cleaned_data.get("project_types", None)
+        if project_types:
+            qs = qs.filter(project_types__in=project_types)
+
+        return qs
+
+    def perimeter_filter(self, qs, search_perimeter):
+        """Filter queryset depending on the given perimeter.
+
+        When we search for a given perimeter, we must return all projects:
+         - where the perimeter is wider and contains the searched perimeter ;
+         - where the perimeter is smaller and contained by the search
+         perimeter ;
+
+        E.g if we search for projects in "Hérault (department), we must display all
+        aids that are applicable to:
+
+         - Hérault ;
+         - Occitanie ;
+         - France ;
+         - Europe ;
+         - M3M (and all other epcis in Hérault) ;
+         - Montpellier (and all other communes in Hérault) ;
+        """
+        perimeter_ids = get_all_related_perimeters(search_perimeter.id, values=["id"])
+        qs = qs.filter(organizations__perimeter__in=perimeter_ids)
+        return qs

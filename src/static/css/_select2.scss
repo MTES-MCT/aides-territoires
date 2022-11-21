@@ -70,6 +70,10 @@
   word-break: keep-all;
 }
 
+li.select2-search.select2-search--inline {
+  padding-bottom: 0 !important;
+}
+
 .select2-container .select2-search--inline .select2-search__field::-webkit-search-cancel-button {
   -webkit-appearance: none;
 }

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import redirect
 from django.views.generic import (
     CreateView,
@@ -6,6 +7,8 @@ from django.views.generic import (
     DetailView,
     DeleteView,
 )
+from django.views.generic.edit import FormMixin
+
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib import messages
@@ -16,12 +19,18 @@ from projects.constants import EXPORT_FORMAT_KEYS
 from projects.services.export import export_project
 
 from projects.tasks import send_project_deleted_email
-from projects.forms import ProjectCreateForm, ProjectExportForm, ProjectUpdateForm
+from projects.forms import (
+    ProjectCreateForm,
+    ProjectExportForm,
+    ProjectUpdateForm,
+    ProjectSearchForm,
+)
 from projects.models import Project
 from aids.models import AidProject, Aid, SuggestedAidProject
 from aids.views import AidPaginator
 from aids.forms import AidSearchForm, SuggestAidMatchProjectForm, AidProjectStatusForm
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
+from minisites.mixins import SearchMixin
 
 
 class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
@@ -141,23 +150,45 @@ class FavoriteProjectListView(ContributorAndProfileCompleteRequiredMixin, ListVi
         return context
 
 
-class PublicProjectListView(ListView):
-    """A list of all the public projects"""
+class PublicProjectListView(SearchMixin, FormMixin, ListView):
+    """Search and display public projects."""
 
     template_name = "projects/public_projects_list.html"
     context_object_name = "projects"
+    form_class = ProjectSearchForm
     paginate_by = 18
     paginator_class = AidPaginator
 
+    def get(self, request, *args, **kwargs):
+        self.form = self.get_form()
+        self.form.full_clean()
+        self.store_current_search()
+        return super().get(request, *args, **kwargs)
+
     def get_queryset(self):
-        queryset = Project.objects.filter(
-            is_public=True,
-            status=Project.STATUS.published,
-        )
-        return queryset
+        """Return the list of results to display."""
+
+        qs = Project.objects.filter(is_public=True, status=Project.STATUS.published)
+        filter_form = self.form
+        results = filter_form.filter_queryset(qs).distinct()
+
+        return results
+
+    def store_current_search(self):
+        """Store the current search query in a cookie.
+
+        This is needed to provide the correct "go back to your search" link in
+        other pages' breadcrumbs.
+        """
+        current_search_query = self.request.GET.urlencode()
+        self.request.session[settings.SEARCH_COOKIE_NAME] = current_search_query
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        context["current_search"] = self.request.session.get(
+            settings.SEARCH_COOKIE_NAME, ""
+        )
         context["user"] = self.request.user
         if self.request.user.is_authenticated:
             if self.request.user.beneficiary_organization:
