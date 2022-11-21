@@ -716,6 +716,30 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
             for (month, next_month) in neighborhood(last_6_months)
             if next_month is not None
         ]
+        context["nb_activite_communes_serie"] = [
+            UserLastConnexion.objects.filter(
+                last_connexion__range=[month, next_month],
+                user__is_superuser=False,
+                user__organization__perimeter__scale=Perimeter.SCALES.commune,
+            )
+            .order_by("user__pk")
+            .distinct("user__pk")
+            .count()
+            for (month, next_month) in neighborhood(last_6_months)
+            if next_month is not None
+        ]
+        context["nb_activite_epci_serie"] = [
+            UserLastConnexion.objects.filter(
+                last_connexion__range=[month, next_month],
+                user__is_superuser=False,
+                user__organization__perimeter__scale=Perimeter.SCALES.epci,
+            )
+            .order_by("user__pk")
+            .distinct("user__pk")
+            .count()
+            for (month, next_month) in neighborhood(last_6_months)
+            if next_month is not None
+        ]
 
         # stats 'Engagement':
         context["nb_active_users"] = (
