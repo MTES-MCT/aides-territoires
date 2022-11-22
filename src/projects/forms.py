@@ -269,6 +269,18 @@ class ProjectSearchForm(AidesTerrBaseForm):
         queryset=Perimeter.objects.all(), label="Territoire du projet", required=False
     )
 
+    def __init__(self, *args, **kwargs):
+        super(ProjectSearchForm, self).__init__(*args, **kwargs)
+        for field_name in self.fields:
+            if field_name == "contract_link":
+                field = self.fields.get("contract_link")
+                field.choices.insert(0, ("", "Tous les plans"))
+                field.widget.choices = field.choices
+            elif field_name == "step":
+                field = self.fields.get("step")
+                field.choices.insert(0, ("", "Toutes les étapes"))
+                field.widget.choices = field.choices
+
     def clean_zipcode(self):
         zipcode = self.cleaned_data["zipcode"]
         if zipcode and re.match(r"\d{5}", zipcode) is None:
