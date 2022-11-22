@@ -51,6 +51,7 @@ class HomeView(FormView):
             .order_by("-date_created")[:3]
         )
         context["project_form"] = ProjectSearchForm
+        context["recent_aids"] = aids_qs.order_by("-date_created")[:3]
 
         # Map section
         departments_list = Perimeter.objects.departments(
