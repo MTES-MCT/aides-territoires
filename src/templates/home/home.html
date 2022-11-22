@@ -46,22 +46,19 @@
                     <li role="presentation">
                         <button id="tabpanel-aids" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-aids-panel">Aides</button>
                     </li>
-                    <!--
                     <li role="presentation">
                         <button id="tabpanel-projects" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-projects-panel">Projets</button>
                     </li>
                     <li class="at-tab-message">
                         <span>NOUVEAU ! Trouvez de l’inspiration avec les projets d’autres collectivités</span>
-                    </li>-->
+                    </li>
                 </ul>
                 <div id="tabpanel-aids-panel" class="fr-tabs__panel at-tabs__panel--opaque fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-aids" tabindex="0">
                     {% include "aids/_search_form.html" %}
                 </div>
-                <!--
                 <div id="tabpanel-projects-panel" class="fr-tabs__panel at-tabs__panel--opaque" role="tabpanel" aria-labelledby="tabpanel-projects" tabindex="0">
-                    <p>Contenu 2</p>
+                    {% include "projects/_project_search_form.html" with form=project_form %}
                 </div>
-                -->
             </div>
         </div>
     </section>
@@ -268,6 +265,7 @@
         <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
         <script src="{% static 'js/aids/backers_autocomplete.js' %}"></script>
         <script src="{% static 'js/aids/text_autocomplete.js' %}"></script>
+        <script src="{% static 'js/projects/project_types_autocomplete.js' %}"></script>
         <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
     {% endcompress %}
 {% endblock extra_js %}

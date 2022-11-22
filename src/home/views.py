@@ -9,6 +9,7 @@ from categories.models import Category
 from home.forms import ContactForm
 from home.tasks import send_contact_form_email
 from projects.models import Project
+from projects.forms import ProjectSearchForm
 
 
 class HomeView(FormView):
@@ -46,6 +47,7 @@ class HomeView(FormView):
             .all()
             .order_by("-date_created")[:3]
         )
+        context["project_form"] = ProjectSearchForm
         return context
 
     def get_initial(self):
