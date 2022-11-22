@@ -16,6 +16,7 @@ from organizations.models import Organization
 from keywords.models import SynonymList
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeters
+from organizations.constants import ORGANIZATION_TYPE_CHOICES_COMMUNES_OR_EPCI
 
 
 class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
@@ -265,6 +266,12 @@ class ProjectSearchForm(AidesTerrBaseForm):
         required=False,
     )
 
+    organization = forms.ChoiceField(
+        label="Type de porteur de projet",
+        required=False,
+        choices=ORGANIZATION_TYPE_CHOICES_COMMUNES_OR_EPCI,
+    )
+
     perimeter = AutocompleteModelChoiceField(
         queryset=Perimeter.objects.all(), label="Territoire du projet", required=False
     )
@@ -279,6 +286,10 @@ class ProjectSearchForm(AidesTerrBaseForm):
             elif field_name == "step":
                 field = self.fields.get("step")
                 field.choices.insert(0, ("", "Toutes les étapes"))
+                field.widget.choices = field.choices
+            elif field_name == "organization":
+                field = self.fields.get("organization")
+                field.choices.insert(0, ("", "Toutes les structures"))
                 field.widget.choices = field.choices
 
     def clean_zipcode(self):
@@ -318,6 +329,10 @@ class ProjectSearchForm(AidesTerrBaseForm):
         project_types = self.cleaned_data.get("project_types", None)
         if project_types:
             qs = qs.filter(project_types__in=project_types)
+
+        organization = self.cleaned_data.get("organization", None)
+        if organization:
+            qs = qs.filter(organizations__organization_type=[organization])
 
         return qs
 
