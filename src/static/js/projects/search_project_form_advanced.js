@@ -1,7 +1,7 @@
 $(document).ready(function () {
     // Allows to show/hide the extra search fields
-    const moreOptionsToggle = $("#search-form-more-options");
-    const extraFields = $(".search-form-extra-fields");
+    const moreOptionsToggle = $("#search-project-form-more-options");
+    const extraFields = $(".search-project-form-extra-fields");
 
     const moreOptionsText = {
         expand: moreOptionsToggle.html(), // Get the default value from the actual template

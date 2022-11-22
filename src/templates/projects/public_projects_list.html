@@ -88,6 +88,11 @@
 
 {% block extra_css %}
     {% compress css %}
+        <style>
+            .search-form-extra-action {
+                display: block;
+            }
+        </style>
     {% endcompress %}
 {% endblock extra_css %}
 
@@ -99,5 +104,6 @@
         <script src="{% static 'js/projects/project_types_autocomplete.js' %}"></script>
         <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
         <script src="{% static 'js/url_parameters.js' %}"></script>
+        <script src="{% static 'js/projects/search_project_form_advanced.js' %}"></script>
     {% endcompress %}
 {% endblock extra_js %}
