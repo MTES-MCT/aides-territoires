@@ -1,7 +1,11 @@
 {% extends "_base.html" %}
 {% load i18n compress static %}
 
-{% block extratitle %}Résultats de recherche : {{ page_title }}{% endblock extratitle %}
+{% block extratitle %}
+    {% with paginator.count as nb_aids %}
+        {{ nb_aids }} résultat{% if nb_aids > 1 %}s{% endif %} de recherche : {{ page_title }}
+    {% endwith %}
+{% endblock extratitle %}
 
 {% block extra_head %}
     <meta property="og:title" content="Aides-territoires | Toutes les aides pour les acteurs locaux  🏡" />
