@@ -45,6 +45,7 @@ from aids.mixins import AidEditMixin, AidCopyMixin
 from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
+from organizations.constants import ORGANIZATION_TYPES_SINGULAR_ALL
 from programs.models import Program
 from projects.models import Project
 from geofr.utils import get_all_related_perimeters
@@ -195,6 +196,7 @@ class SearchView(SearchMixin, FormMixin, ListView):
         context["current_search_dict"] = clean_search_form(
             self.form.cleaned_data, remove_extra_fields=True
         )
+        context["page_title"] = self.page_title()
 
         default_order = "relevance"
         order_value = self.request.GET.get("order_by", default_order)
@@ -205,6 +207,44 @@ class SearchView(SearchMixin, FormMixin, ListView):
         context["promotions"] = self.get_promotions()
 
         return context
+
+    def page_title(self):
+        """
+        Formats the <title> of the search page with the parameters
+        """
+        current_search_dict = clean_search_form(
+            self.form.cleaned_data, remove_extra_fields=True
+        )
+
+        if not len(current_search_dict):
+            return "Toutes les aides"
+
+        output_array = []
+        if "targeted_audiences" in current_search_dict:
+            targeted_audience_raw = current_search_dict.pop("targeted_audiences")[0]
+
+            targeted_audience = dict(ORGANIZATION_TYPES_SINGULAR_ALL)[
+                targeted_audience_raw
+            ]
+            output_array.append(f"Structure : {targeted_audience}")
+
+        if "perimeter" in current_search_dict:
+            perimeter = current_search_dict.pop("perimeter")
+            output_array.append(f"Périmètre : {perimeter.name}")
+
+        if "text" in current_search_dict:
+            text = current_search_dict.pop("text")
+            if len(text) >= 50:
+                text = text[:49] + "…"
+            output_array.append(f"Mots-clés : {text}")
+
+        other_criteria = len(current_search_dict)
+        if other_criteria == 1:
+            output_array.append(f"{len(current_search_dict)} autre critère")
+        elif other_criteria > 1:
+            output_array.append(f"{len(current_search_dict)} autres critères")
+
+        return " - ".join(output_array)
 
 
 class AdvancedSearchView(SearchMixin, NarrowedFiltersMixin, FormView):
