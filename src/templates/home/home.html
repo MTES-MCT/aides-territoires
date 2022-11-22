@@ -138,6 +138,34 @@
         </div>
     {% endif %}
 
+    {% if recent_aids %}
+        <div class="at-background-alt-grey">
+            <div class="fr-container fr-py-5w">
+                <div id="aid-list" class="fr-grid-row fr-grid-row--center">
+                    <div class="fr-col-md-11">
+                        <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+                            <h2 class="fr-col-md-10 fr-mt-0">Les aides <span class="at-color--blue">les plus récentes</span></h2>
+                        </div>
+                        <div class="fr-grid-row">
+                            {% for aid in recent_aids %}
+                                <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                                    {% include 'aids/_aid_result.html' with aid=aid %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
+                    <li>
+                        <a class="fr-btn fr-icon-search-line" href="{% url 'search_view' %}{% if user.is_authenticated %}{{ user.get_search_preferences.base_search_string }}{% endif %}">
+                            Trouver des aides pour mon projet
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
     <div class="fr-container fr-pb-5w">
         <div class="fr-grid-row fr-grid-row--center">
             <div class="fr-col-md-11">
