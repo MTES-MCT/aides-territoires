@@ -1,6 +1,7 @@
 import json
 
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Prefetch
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, FormView
 
@@ -35,14 +36,21 @@ class HomeView(FormView):
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        aids_qs = Aid.objects.live()
-        selected_backers = Backer.objects.can_be_displayed_in_carousel()
+        financers_qs = Backer.objects.order_by("aidfinancer__order", "name")
+        instructors_qs = Backer.objects.order_by("aidinstructor__order", "name")
+        aids_qs = (
+            Aid.objects.live()
+            .select_related("perimeter")
+            .prefetch_related(Prefetch("financers", queryset=financers_qs))
+            .prefetch_related(Prefetch("instructors", queryset=instructors_qs))
+        )
+        selected_backers = financers_qs.can_be_displayed_in_carousel()
         # We only display the first 15
         subset_selected_backers = selected_backers.order_by("?")[0:15]
         context = super().get_context_data(**kwargs)
         context["nb_aids"] = aids_qs.values("id").count()
         context["nb_categories"] = Category.objects.all().count()
-        context["nb_backers"] = Backer.objects.has_financed_aids().count()
+        context["nb_backers"] = financers_qs.has_financed_aids().count()
         context["subset_selected_backers"] = subset_selected_backers
         context["skiplinks"] = [{"link": "#intro", "label": "Contenu"}]
         context["public_projects"] = (
