@@ -1,4 +1,16 @@
 {% extends "_base.html" %}
+{% load compress %}
+
+{% comment %}
+    This sitemap should contain all full pages of the site that don't need parameters.
+
+    They are mostly sorted by application, except when the only listable page is
+    only visible from the user dashboard → it is then listed in the "Account" section.
+
+    The core and home apps are also grouped together for reader convenience.
+
+    Pages that are supposed to appear in modals or are merely confirmation pages are excluded.
+{% endcomment %}
 
 {% block extratitle %}Plan du site{% endblock extratitle %}
 
@@ -58,8 +70,8 @@
                                     </a>
                                 </li>
                                 <li class="fr-sidemenu__item">
-                                    <a class="fr-sidemenu__link" href="#alerts-section" target="_self">
-                                        Alertes
+                                    <a class="fr-sidemenu__link" href="#blog-section" target="_self">
+                                        Blog
                                     </a>
                                 </li>
                                 <li class="fr-sidemenu__item">
@@ -118,9 +130,9 @@
                 </section>
 
                 <section id="accounts-section">
-                    {# App: accounts #}
                     <h2>Gestion du compte</h2>
                     <ul>
+                        {# App: accounts #}
                         <li>
                             <a href="{% url 'register' %}">Création de compte</a>
                         </li>
@@ -150,6 +162,18 @@
                                 Changement de mot de passe
                                 <span class="fr-sr-only">(Page réservée aux utilisateurs connectés)</span>
                             </a>
+                        </li>
+                        {# App: Alertes #}
+                        <li>Alertes
+                            <ul>
+                                <li>
+                                    <span class="fr-icon-account-line" title="Page réservée aux utilisateurs connectés" aria-hidden="true"></span>
+                                    <a href="{% url 'alert_list_view' %}">
+                                        Liste des alertes enregistrées
+                                        <span class="fr-sr-only">(Page réservée aux utilisateurs connectés)</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li>Newsletter
                             <ul>
@@ -242,39 +266,17 @@
                     </ul>
                 </section>
 
-                <section id="alerts-section">
-                    {# App: aids #}
-                    <h2>Alerts</h2>
+                <section id="blog-section">
+                    {# App: blog #}
+                    <h2>Blog</h2>
                     <ul>
-
+                        <li>
+                            <a href="{% url 'blog_post_list_view' %}">
+                                Liste des billets 
+                            </a>
+                        </li>
                     </ul>
-
                 </section>
-                {% comment %}
-
-
-                urlpatterns = [
-                    path(_("create/"), AlertCreate.as_view(), name="alert_create_view"),
-                    path(
-                        "<slug:token>/",
-                        include(
-                            [
-                                path(
-                                    _("validate/"), AlertValidate.as_view(), name="alert_validate_view"
-                                ),
-                                path(_("delete/"), AlertDelete.as_view(), name="alert_delete_view"),
-                            ]
-                        ),
-                    ),
-                    path("vos-alertes/", AlertListView.as_view(), name="alert_list_view"),
-                    path(
-                        "suppression-depuis-le-compte",
-                        AlertDeleteFromAccountView.as_view(),
-                        name="alert_delete_from_account_view",
-                    ),
-                ]
-
-                {% endcomment %}
 
                 <section id="pages-section">
                     {# App: pages #}
@@ -303,7 +305,23 @@
 
                 <section id="api-section">
                     <h2>API</h2>
-                    {# TODO #}
+                    <ul>
+                        <li>
+                            <a href="{% url 'data_doc' %}">
+                                Introduction au sujet de l’API
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'aids-list' %}">
+                                API REST : Liste de toutes les aides actives présentes sur le site
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'swagger-ui' %}">
+                                Documentation de l’API.
+                            </a>
+                        </li>
+                    </ul>
                 </section>
             
             </div>
