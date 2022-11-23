@@ -23,6 +23,11 @@ urlpatterns = [
         name="privacy_policy",
     ),
     path(
+        "plan-du-site/",
+        TemplateView.as_view(template_name="home/sitemap.html"),
+        name="sitemap",
+    ),
+    path(
         "accessibilité/",
         TemplateView.as_view(template_name="home/accessibility.html"),
         name="accessibility",
