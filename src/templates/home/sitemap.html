@@ -36,14 +36,14 @@
     <article class="fr-container">
         <div class="fr-grid-row fr-grid-row--gutters fr-b__two-col">
             <div class="fr-col-12 fr-col-md-3">
-                <nav id="sidemenu" class="fr-sidemenu" aria-label="Menu latéral">
+                <nav id="sitemap-sidemenu" class="fr-sidemenu" aria-label="Menu latéral">
                     <div class="fr-sidemenu__inner">
                         <button class="fr-sidemenu__btn" hidden aria-controls="fr-sidemenu-wrapper" aria-expanded="false">Dans cette rubrique</button>
                         <div class="fr-collapse" id="fr-sidemenu-wrapper">
                             <div class="fr-sidemenu__title">Sommaire</div>
                             <ul class="fr-sidemenu__list">
                                 <li class="fr-sidemenu__item fr-sidemenu__item--active">
-                                    <a class="fr-sidemenu__link" href="#home-section" target="_self" aria-current="page">
+                                    <a class="fr-sidemenu__link" href="#home-section" target="_self" aria-current="true">
                                         Accueil et pages génériques
                                     </a>
                                 </li>
@@ -55,6 +55,11 @@
                                 <li class="fr-sidemenu__item">
                                     <a class="fr-sidemenu__link" href="#aids-section" target="_self">
                                         Aides
+                                    </a>
+                                </li>
+                                <li class="fr-sidemenu__item">
+                                    <a class="fr-sidemenu__link" href="#alerts-section" target="_self">
+                                        Alertes
                                     </a>
                                 </li>
                                 <li class="fr-sidemenu__item">
@@ -237,7 +242,37 @@
                     </ul>
                 </section>
 
+                <section id="alerts-section">
+                    {# App: aids #}
+                    <h2>Alerts</h2>
+                    <ul>
+
+                    </ul>
+
+                </section>
                 {% comment %}
+
+
+                urlpatterns = [
+                    path(_("create/"), AlertCreate.as_view(), name="alert_create_view"),
+                    path(
+                        "<slug:token>/",
+                        include(
+                            [
+                                path(
+                                    _("validate/"), AlertValidate.as_view(), name="alert_validate_view"
+                                ),
+                                path(_("delete/"), AlertDelete.as_view(), name="alert_delete_view"),
+                            ]
+                        ),
+                    ),
+                    path("vos-alertes/", AlertListView.as_view(), name="alert_list_view"),
+                    path(
+                        "suppression-depuis-le-compte",
+                        AlertDeleteFromAccountView.as_view(),
+                        name="alert_delete_from_account_view",
+                    ),
+                ]
 
                 {% endcomment %}
 
@@ -277,11 +312,24 @@
 {% endblock content %}
 
 {% block extra_css %}
-<style>
-    #sidemenu {
-        position: sticky;
-        top: 2em;
-        bottom: 2em;
-    }
-</style>
+    {% compress css %}
+        <style>
+            #sitemap-sidemenu {
+                position: sticky;
+                top: 2em;
+                padding-bottom: 2em;
+            }
+        </style>
+    {% endcompress %}
 {% endblock extra_css %}
+
+{% block extra_js %}
+    <script nonce="{{ request.csp_nonce }}">
+        $("#sitemap-sidemenu .fr-sidemenu__item").click(function(){
+            $("#sitemap-sidemenu .fr-sidemenu__item").removeClass("fr-sidemenu__item--active");
+            $("#sitemap-sidemenu .fr-sidemenu__item a").removeAttr("aria-current");
+            $(this).addClass("fr-sidemenu__item--active");
+            $(this).find("a").attr("aria-current", "true")
+        });
+    </script>
+{% endblock extra_js %}
