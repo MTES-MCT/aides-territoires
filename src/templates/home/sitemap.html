@@ -71,8 +71,6 @@
                     </li>
 
                 </ul>
-                {% comment %}
-                {% endcomment %}
 
                 {# App: accounts #}
                 <h2>Gestion du compte</h2>
@@ -174,6 +172,33 @@
                         </li>
                     {% endif %}
                 </ul>
+
+                {# App: pages #}
+                <h2>Pages statiques</h2>
+                <ul>
+                    <li>
+                        <a href="{% url 'page_view' 'aides-collectivités/' %}">Collectivités et porteurs de projets locaux</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'page_view' 'europe/' %}">Les financements européens 2021-2027</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'page_view' 'plateforme-aides-territoires/' %}">La démarche</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'page_view' 'portails/' %}">Les portails</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'page_view' 'porteurs-aides/' %}">Porteurs d'aides</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'page_view' 'webinaires/' %}">Nos webinaires</a>
+                    </li>
+                </ul>
+
+                {% comment %}
+                {% endcomment %}
+
 
                 <h2>API</h2>
                 {# TODO #}
