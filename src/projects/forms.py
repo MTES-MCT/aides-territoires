@@ -1,3 +1,5 @@
+import re
+
 from django import forms
 
 from core.forms.baseform import AidesTerrBaseForm
@@ -6,11 +8,15 @@ from projects.constants import EXPORT_FORMAT_CHOICES
 from core.forms import (
     AutocompleteModelMultipleChoiceField,
     RichTextField,
+    AutocompleteModelChoiceField,
 )
 
 from projects.models import Project
 from organizations.models import Organization
 from keywords.models import SynonymList
+from geofr.models import Perimeter
+from geofr.utils import get_all_related_perimeters
+from organizations.constants import ORGANIZATION_TYPE_CHOICES_COMMUNES_OR_EPCI
 
 
 class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
@@ -237,3 +243,110 @@ class ProjectExportForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ["format"]
+
+
+class ProjectSearchForm(AidesTerrBaseForm):
+    """Main form for search engine."""
+
+    step = forms.ChoiceField(
+        label="Avancement du projet",
+        required=False,
+        choices=Project.PROJECT_STEPS,
+    )
+
+    contract_link = forms.ChoiceField(
+        label="Appartenance à un plan",
+        required=False,
+        choices=Project.CONTRACT_LINK,
+    )
+
+    project_types = AutocompleteModelMultipleChoiceField(
+        label="Types de projet",
+        queryset=SynonymList.objects.all(),
+        required=False,
+    )
+
+    organization = forms.ChoiceField(
+        label="Type de porteur de projet",
+        required=False,
+        choices=ORGANIZATION_TYPE_CHOICES_COMMUNES_OR_EPCI,
+    )
+
+    perimeter = AutocompleteModelChoiceField(
+        queryset=Perimeter.objects.all(), label="Territoire du projet", required=False
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(ProjectSearchForm, self).__init__(*args, **kwargs)
+        for field_name in self.fields:
+            if field_name == "contract_link":
+                field = self.fields.get("contract_link")
+                field.choices.insert(0, ("", "Tous les plans"))
+                field.widget.choices = field.choices
+            elif field_name == "step":
+                field = self.fields.get("step")
+                field.choices.insert(0, ("", "Toutes les étapes"))
+                field.widget.choices = field.choices
+            elif field_name == "organization":
+                field = self.fields.get("organization")
+                field.choices.insert(0, ("", "Toutes les structures"))
+                field.widget.choices = field.choices
+
+    def clean_zipcode(self):
+        zipcode = self.cleaned_data["zipcode"]
+        if zipcode and re.match(r"\d{5}", zipcode) is None:
+            msg = "Ce code postal semble invalide."
+            raise forms.ValidationError(msg)
+
+        return zipcode
+
+    def filter_queryset(self, qs=None):
+        """Filter querysets depending of input data."""
+
+        # Populate cleaned_data
+        if not hasattr(self, "cleaned_data"):
+            self.full_clean()
+
+        step = self.cleaned_data.get("step", None)
+        if step:
+            qs = qs.filter(step=step)
+
+        contract_link = self.cleaned_data.get("contract_link", None)
+        if contract_link:
+            qs = qs.filter(contract_link=contract_link)
+
+        perimeter = self.cleaned_data.get("perimeter", None)
+        if perimeter:
+            qs = self.perimeter_filter(qs, perimeter)
+
+        project_types = self.cleaned_data.get("project_types", None)
+        if project_types:
+            qs = qs.filter(project_types__in=project_types)
+
+        organization = self.cleaned_data.get("organization", None)
+        if organization:
+            qs = qs.filter(organizations__organization_type=[organization])
+
+        return qs
+
+    def perimeter_filter(self, qs, search_perimeter):
+        """Filter queryset depending on the given perimeter.
+
+        When we search for a given perimeter, we must return all projects:
+         - where the perimeter is wider and contains the searched perimeter ;
+         - where the perimeter is smaller and contained by the search
+         perimeter ;
+
+        E.g if we search for projects in "Hérault (department), we must display all
+        aids that are applicable to:
+
+         - Hérault ;
+         - Occitanie ;
+         - France ;
+         - Europe ;
+         - M3M (and all other epcis in Hérault) ;
+         - Montpellier (and all other communes in Hérault) ;
+        """
+        perimeter_ids = get_all_related_perimeters(search_perimeter.id, values=["id"])
+        qs = qs.filter(organizations__perimeter__in=perimeter_ids)
+        return qs
