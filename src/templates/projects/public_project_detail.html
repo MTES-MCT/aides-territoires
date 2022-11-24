@@ -52,7 +52,11 @@
 
             {% if user.is_authenticated %}
             <div class="fr-grid-row fr-grid-row--gutters fr-background-alt">
+                {% if project.image %}
+                <img class="fr-col-12 fr-col-md-7" src="{{ project.image.url }}" alt="" height="450"/>    
+                {% else %}
                 <img class="fr-col-12 fr-col-md-7" src="{% static 'img/project_illustration.png' %}" alt="" height="450">
+                {% endif %}
                 <div class="fr-col-12 fr-col-md-5">
                     <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-5w"><strong>Structure porteuse :</strong> {{ project.organizations.first.name }}</h2>
                     {% if project.other_project_owner%}<h2 class="fr-text--md fr-text--normal fr-mb-0 fr-mt-2w"><strong>Autre maître d’ouvrage :</strong> {{ project.other_project_owner }}</h2>{% endif %}

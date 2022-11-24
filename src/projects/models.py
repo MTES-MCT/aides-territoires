@@ -1,3 +1,4 @@
+from os.path import splitext
 from uuid import uuid4
 
 from django.db import models
@@ -6,6 +7,16 @@ from django.utils.text import slugify
 from django.urls import reverse
 
 from model_utils import Choices
+from django_resized import ResizedImageField
+
+
+def image_upload_to(instance, filename):
+    """Rename uploaded files with the object's slug."""
+
+    _, extension = splitext(filename)
+    name = instance.slug
+    filename = "projects/{}_image{}".format(name, extension)
+    return filename
 
 
 class Project(models.Model):
@@ -96,6 +107,14 @@ class Project(models.Model):
         max_length=10,
         choices=STATUS,
         default=STATUS.draft,
+    )
+
+    image = ResizedImageField(
+        size=[714, 450],
+        upload_to=image_upload_to,
+        crop=["middle", "center"],
+        blank=True,
+        null=True,
     )
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)
