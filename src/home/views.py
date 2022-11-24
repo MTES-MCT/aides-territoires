@@ -68,6 +68,7 @@ class HomeView(FormView):
         context["departments"] = departments_list
         context["departments_json"] = json.dumps(departments_list)
 
+        context["project_form"] = ProjectSearchForm
         return context
 
     def get_initial(self):
