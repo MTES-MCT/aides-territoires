@@ -82,6 +82,7 @@ urlpatterns = [
     path(_("programs/"), include("programs.urls")),
     path(_("stats/"), include("stats.urls")),
     path(_("alerts/"), include("alerts.urls")),
+    path("notifications/", include("notifications.urls")),
     path(_("data/"), include("data.urls")),
     path(_("search/"), include("search.urls")),
     path(_("upload/"), include("upload.urls")),

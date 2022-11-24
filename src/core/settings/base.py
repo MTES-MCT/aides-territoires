@@ -85,6 +85,7 @@ LOCAL_APPS = [
     "admin_lite",
     "organizations",
     "keywords",
+    "notifications",
     # deprecated apps
     "tags",
 ]
