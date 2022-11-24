@@ -43,6 +43,13 @@
                                     {{ user.full_name }}
                                 </a>
                             </li>
+                            <li>
+                                {% if user.unread_notifications %}
+                                    <a id="at-notification-icon" href="{% url 'notification_list_view' %}" class="fr-tag fr-icon-notification-3-line fr-tag--icon-left" target="_self" title="{% if user.unread_notifications == 1 %}Voir la notification non lue{% else %}Voir les {{ user.unread_notifications }} notifications non lues{% endif %}">
+                                        {{ user.unread_notifications }}
+                                    </a>
+                                {% endif %}
+                            </li>
                             {% else %}
                             <li>
                                 <a class="fr-btn fr-icon-lock-line" href="{% url 'login' %}">Se connecter</a>

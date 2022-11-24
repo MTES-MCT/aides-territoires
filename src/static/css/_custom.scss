@@ -608,6 +608,16 @@ section#post-content img {
   pointer-events: none;
 }
 
+// Notifications
+#at-notification-icon {
+  --hover-tint: var(--hover);
+  --hover: var(--background-action-high-red-marianne-hover);
+  margin-right: 1em;
+  background-color: var(--background-action-low-red-marianne);
+  color: var(--text-action-high-red-marianne);
+}
+
+
 // Honeypot antispam field on contact form
 #formset-website {
   display: none;

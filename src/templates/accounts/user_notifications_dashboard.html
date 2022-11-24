@@ -1,0 +1,102 @@
+{% extends "_base.html" %}
+{% load i18n compress mailing_list %}
+
+{% block extratitle %}Mes notifications{% endblock extratitle %}
+
+{% block extraclasses %}light{% endblock extraclasses %}
+
+{% block sectionid %}user-account{% endblock sectionid %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil
+            d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mes notifications</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' with alert_list=True %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <h1 class="fr-h3 fr-mb-5w">Gestion des notifications
+            </h1>
+
+            
+            <div class="fr-table fr-table--bordered at-table--fullwidth">
+                <table class="data-table">
+                    <caption>Mes notifications</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Texte</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if notifications %}
+                            {% for notification in notifications %}
+                                <tr>
+                                    <td>
+                                        <p id="notification-{{ notification.pk }}">
+                                            {% if not notification.date_read %}
+                                                <strong>{{ notification.message }}</strong>
+                                            {% else %}
+                                                {{ notification.message }}
+                                            {% endif %}
+                                        </p>
+                                    </td>
+                                    <td>{{ notification.date_created }}</td>
+                                    <td class="fr-text">
+                                        <button type="button"
+                                                class="fr-btn fr-icon-delete-line fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"
+                                                id="delete-notification-btn-{{ notification.pk }}"
+                                                data-fr-opened="false"
+                                                title="Supprimer cette notification"
+                                                aria-controls="delete-notification-modal-{{ notification.pk }}"
+                                                aria-describedby="notification-{{ notification.pk }}"
+                                        >
+                                            Supprimer cette notification
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="3" class="at-centered-important">
+                                    Vous n’avez aucune notification pour l’instant
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block modals %}
+    {% if notifications %}
+        {% for notification in notifications %}
+            {# include 'notifications/_delete_notification_modal.html' with notification=notification.pk #}
+        {% endfor %}
+    {% endif %}
+{% endblock modals %}

@@ -7,7 +7,10 @@ from django.contrib.auth.models import (
     BaseUserManager,
 )
 from django.utils import timezone
+
 from model_utils import Choices
+
+from notifications.models import Notification
 
 
 class UserQueryset(models.QuerySet):
@@ -281,6 +284,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         """User has to choose if he is a contributor or/and
         beneficiary"""
         return self.is_contributor or self.is_beneficiary
+
+    @property
+    def unread_notifications(self):
+        """User has unread notifications"""
+        return Notification.objects.filter(recipient=self).count()
 
     @property
     def bound_to_organization(self):
