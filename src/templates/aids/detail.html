@@ -389,7 +389,7 @@
             <p>« {{ aid.short_title }} »</p>
             {% endif %}
 
-            {% if eligibility_criteria or aid.has_eligibility_test %}
+            {% if eligibility_criteria or aid.has_eligibility_test or aid.is_generic or aid.is_local %}
             <div class="fr-mb-5w">
                 <h2 class="fr-h3 fr-mb-2w">Critères d’éligibilité</h2>
 
@@ -414,7 +414,6 @@
                     {{ aid.headline_eligibility|safe }}
                     {% else %}
                     {{ aid.eligibility|safe }}
-                    {% endif %}
                     {% endif %}
                 </p>
                 {% endif %}
@@ -465,6 +464,7 @@
                 {% endif %}
     
             </div>
+            {% endif %}
 
             <div class="fr-mb-5w">
                 <h2 class="fr-h3 fr-mb-2w">Description</h2>
