@@ -8,6 +8,7 @@ from django.views.generic import (
     DeleteView,
 )
 from django.views.generic.edit import FormMixin
+from django.db.models import Prefetch
 
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, Http404
@@ -26,6 +27,7 @@ from projects.forms import (
     ProjectSearchForm,
 )
 from projects.models import Project
+from organizations.models import Organization
 from aids.models import AidProject, Aid, SuggestedAidProject
 from aids.views import AidPaginator
 from aids.forms import AidSearchForm, SuggestAidMatchProjectForm, AidProjectStatusForm
@@ -168,7 +170,15 @@ class PublicProjectListView(SearchMixin, FormMixin, ListView):
     def get_queryset(self):
         """Return the list of results to display."""
 
-        qs = Project.objects.filter(is_public=True, status=Project.STATUS.published)
+        organizations_qs = Organization.objects.all().select_related("perimeter")
+
+        qs = (
+            Project.objects.filter(is_public=True, status=Project.STATUS.published)
+            .prefetch_related(Prefetch("organizations", queryset=organizations_qs))
+            .prefetch_related("project_types")
+            .prefetch_related("aid_set")
+        )
+
         filter_form = self.form
         results = filter_form.filter_queryset(qs).distinct()
 

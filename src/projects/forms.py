@@ -303,13 +303,6 @@ class ProjectSearchForm(AidesTerrBaseForm):
     def filter_queryset(self, qs=None):
         """Filter querysets depending of input data."""
 
-        # If no qs was passed, just start with all published aids
-        if qs is None:
-            qs = Project.objects.filter(is_public=True, status=Project.STATUS.published)
-
-        if not self.is_bound:
-            return qs
-
         # Populate cleaned_data
         if not hasattr(self, "cleaned_data"):
             self.full_clean()
