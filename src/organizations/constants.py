@@ -38,6 +38,11 @@ ORGANIZATION_TYPES_OTHER_SINGULAR = [
     ("researcher", "Recherche"),
 ]
 
+ORGANIZATION_TYPE_CHOICES_COMMUNES_OR_EPCI = Choices(
+    ("commune", "Commune"),
+    ("epci", "Intercommunalité / Pays"),
+)
+
 ORGANIZATION_TYPES_SINGULAR_GROUPED = [
     ("Une collectivité", ORGANIZATION_TYPES_COLLECTIVITIES_SINGULAR),
     ("Un autre bénéficiaire", ORGANIZATION_TYPES_OTHER_SINGULAR),
