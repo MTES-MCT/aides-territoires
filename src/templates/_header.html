@@ -91,35 +91,38 @@
                                     <a class="fr-nav__link" href="{% url 'blog_post_list_view' %}" target="_self">Le blog</a>
                                 </li>
                                 <li>
-                                    <a class="fr-nav__link" href="/europe/" target="_self">Les financements européens 2021-2027</a>
+                                    <a class="fr-nav__link" href="{% url 'page_view' 'europe/' %}" target="_self">Les financements européens 2021-2027</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
                     <li class="fr-nav__item">
-                        <a class="fr-nav__link" href="/portails/" target="_self">Portails</a>
+                        <a class="fr-nav__link" href="{% url 'page_view' 'portails/' %}" target="_self">Portails</a>
                     </li>
                     <li class="fr-nav__item">
                         <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-en-savoir-plus">En savoir plus</button>
                         <div class="fr-collapse fr-menu" id="menu-en-savoir-plus">
                             <ul class="fr-menu__list">
                                 <li>
-                                    <a class="fr-nav__link" href="/plateforme-aides-territoires/" target="_self">La démarche</a>
+                                    <a class="fr-nav__link" href="{% url 'page_view' 'plateforme-aides-territoires/' %}" target="_self">La démarche</a>
                                 </li>
                                 <li>
-                                    <a class="fr-nav__link" href="/porteurs-aides/" target="_self">Porteurs d'aides</a>
+                                    <a class="fr-nav__link" href="{% url 'page_view' 'porteurs-aides/' %}" target="_self">Porteurs d'aides</a>
                                 </li>
                                 <li>
-                                    <a class="fr-nav__link" href="/aides-collectivités/" target="_self">Collectivités</a>
+                                    <a class="fr-nav__link" href="{% url 'page_view' 'aides-collectivités/' %}" target="_self">Collectivités</a>
                                 </li>
                                 <li>
-                                    <a class="fr-nav__link" href="/data/" target="_self">Données et API</a>
+                                    <a class="fr-nav__link" href="{% url 'data_doc' %}" target="_self">Données et API</a>
                                 </li>
                                 <li>
-                                    <a class="fr-nav__link" href="/stats/" target="_self">Statistiques</a>
+                                    <a class="fr-nav__link" href="{% url 'stats_view' %}" target="_self">Statistiques</a>
                                 </li>
                                 <li>
-                                    <a class="fr-nav__link" href="/contact/" target="_self">Contact</a>
+                                    <a class="fr-nav__link" href="{% url 'sitemap' %}" target="_self">Plan du site</a>
+                                </li>
+                                <li>
+                                    <a class="fr-nav__link" href="{% url 'contact' %}" target="_self">Contact</a>
                                 </li>
                             </ul>
                         </div>

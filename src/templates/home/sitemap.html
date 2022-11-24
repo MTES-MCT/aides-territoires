@@ -7,7 +7,7 @@
     They are mostly sorted by application, except when the only listable page is
     only visible from the user dashboard → it is then listed in the "Account" section.
 
-    The core and home apps are also grouped together for reader convenience.
+    The core, home and pages apps are also grouped together for reader convenience.
 
     Pages that are supposed to appear in modals or are merely confirmation pages are excluded.
     Pages that are only supposed to be visible under specific conditions (eg. organization create)
@@ -82,11 +82,6 @@
                                     </a>
                                 </li>
                                 <li class="fr-sidemenu__item">
-                                    <a class="fr-sidemenu__link" href="#section-pages-statiques" target="_self">
-                                        Pages statiques
-                                    </a>
-                                </li>
-                                <li class="fr-sidemenu__item">
                                     <a class="fr-sidemenu__link" href="#section-programmes" target="_self">
                                         Programmes
                                     </a>
@@ -147,7 +142,25 @@
                         <li>
                             <a href="{% url 'sitemap_xml' %}">Plan du site automatisé en XML</a>
                         </li>
-    
+                        {# App: pages #}
+                        <li>
+                            <a href="{% url 'page_view' 'aides-collectivités/' %}">Collectivités et porteurs de projets locaux</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'page_view' 'europe/' %}">Les financements européens 2021-2027</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'page_view' 'plateforme-aides-territoires/' %}">La démarche</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'page_view' 'portails/' %}">Les portails</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'page_view' 'porteurs-aides/' %}">Porteurs d'aides</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'page_view' 'webinaires/' %}">Nos webinaires</a>
+                        </li>            
                     </ul>
                 </section>
 
@@ -286,31 +299,6 @@
                             <a href="{% url 'map_view' %}">
                                 Cartographie
                             </a>
-                        </li>
-                    </ul>
-                </section>
-
-                <section id="section-pages-statiques">
-                    {# App: pages #}
-                    <h2>Pages statiques</h2>
-                    <ul>
-                        <li>
-                            <a href="{% url 'page_view' 'aides-collectivités/' %}">Collectivités et porteurs de projets locaux</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'page_view' 'europe/' %}">Les financements européens 2021-2027</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'page_view' 'plateforme-aides-territoires/' %}">La démarche</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'page_view' 'portails/' %}">Les portails</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'page_view' 'porteurs-aides/' %}">Porteurs d'aides</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'page_view' 'webinaires/' %}">Nos webinaires</a>
                         </li>
                     </ul>
                 </section>
