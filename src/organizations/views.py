@@ -50,6 +50,16 @@ class OrganizationCreateView(CreateView):
 
         return HttpResponseRedirect(success_url)
 
+    def get(self, request, *args, **kwargs):
+        """
+        Prevent access to this form if the user already has an organization
+        """
+        user = self.request.user
+        if user.organization_set.all().count():
+            return HttpResponseRedirect(reverse("user_dashboard"))
+
+        return super().get(request, *args, **kwargs)
+
 
 class OrganizationUpdateView(ContributorAndProfileCompleteRequiredMixin, UpdateView):
 

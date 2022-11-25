@@ -1,0 +1,473 @@
+{% extends "_base.html" %}
+{% load compress %}
+
+{% comment %}
+    This sitemap should contain all full pages of the site that don't need parameters.
+
+    They are mostly sorted by application, except when the only listable page is
+    only visible from the user dashboard → it is then listed in the "Account" section.
+
+    The core, home and pages apps are also grouped together for reader convenience.
+
+    Pages that are supposed to appear in modals or are merely confirmation pages are excluded.
+    Pages that are only supposed to be visible under specific conditions (eg. organization create)
+    are also excluded.
+{% endcomment %}
+
+{% block extratitle %}Plan du site{% endblock extratitle %}
+
+{% block meta_description %}Plan du site{% endblock meta_description %}
+
+{% block extra_head %}
+<meta property="og:title" content="Plan du site" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
+<meta property="og:site_name" content="Aides-territoires" />
+<meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
+<meta property="og:image:alt" content="Logo : Aides-territoires" />
+{% endblock extra_head %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil
+            d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Plan du site</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+    <article class="fr-container">
+        <div class="fr-grid-row fr-grid-row--gutters fr-b__two-col">
+            <div class="fr-col-12 fr-col-md-3">
+                <nav id="sitemap-sidemenu" class="fr-sidemenu" aria-label="Menu latéral">
+                    <div class="fr-sidemenu__inner">
+                        <button class="fr-sidemenu__btn" hidden aria-controls="fr-sidemenu-wrapper" aria-expanded="false">Dans cette rubrique</button>
+                        <div class="fr-collapse" id="fr-sidemenu-wrapper">
+                            <div class="fr-sidemenu__title">Sommaire</div>
+                            <ul class="fr-sidemenu__list">
+                                <li class="fr-sidemenu__item fr-sidemenu__item--active">
+                                    <a class="fr-sidemenu__link" href="#section-accueil" target="_self" aria-current="true">
+                                        Accueil et pages génériques
+                                    </a>
+                                </li>
+                                <li class="fr-sidemenu__item">
+                                    <a class="fr-sidemenu__link" href="#section-compte" target="_self">
+                                        Gestion du compte
+                                    </a>
+                                </li>
+                                <li class="fr-sidemenu__item">
+                                    <a class="fr-sidemenu__link" href="#section-aides" target="_self">
+                                        Aides
+                                    </a>
+                                </li>
+                                <li class="fr-sidemenu__item">
+                                    <a class="fr-sidemenu__link" href="#section-blog" target="_self">
+                                        Blog
+                                    </a>
+                                </li>
+                                <li class="fr-sidemenu__item">
+                                    <a class="fr-sidemenu__link" href="#section-cartographie" target="_self">
+                                        Cartographie
+                                    </a>
+                                </li>
+                                <li class="fr-sidemenu__item">
+                                    <a class="fr-sidemenu__link" href="#section-programmes" target="_self">
+                                        Programmes
+                                    </a>
+                                </li>
+                                <li class="fr-sidemenu__item">
+                                    <a class="fr-sidemenu__link" href="#section-projets" target="_self">
+                                        Projets
+                                    </a>
+                                </li>
+                                <li class="fr-sidemenu__item">
+                                    <a class="fr-sidemenu__link" href="#section-stats" target="_self">
+                                        Statistiques
+                                    </a>
+                                </li>
+                                <li class="fr-sidemenu__item">
+                                    <a class="fr-sidemenu__link" href="#section-api" target="_self">
+                                        API
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <div id="sitemap" class="fr-col-12 fr-col-md-9 fr-mb-5w">
+                <h1>Plan du site</h1>
+
+                <section id="section-accueil">
+                    <h2>Accueil et pages génériques</h2>
+                    <ul>
+                        {# App: home #}
+                        <li>
+                            <a href="{% url 'home' %}">Accueil</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'contact' %}">Contact</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'legal_mentions' %}">Mentions légales</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'privacy_policy' %}">Politique de confidentialité</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'accessibility' %}">Déclaration d’accessibilité</a>
+                        </li>
+                        {# App: core #}
+                        {% if user.is_superuser %}
+                            <li>
+                                <span class="fr-icon-lock-line" title="Page réservée aux administrateurs" aria-hidden="true"></span>
+                                <a href="{% url 'admin:index' %}">
+                                    Panneau d’administration
+                                    <span class="fr-sr-only">(Page réservée aux administrateurs)</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        <li>
+                            <a href="{% url 'sitemap_xml' %}">Plan du site automatisé en XML</a>
+                        </li>
+                        {# App: pages #}
+                        <li>
+                            <a href="{% url 'page_view' 'aides-collectivités/' %}">Collectivités et porteurs de projets locaux</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'page_view' 'europe/' %}">Les financements européens 2021-2027</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'page_view' 'plateforme-aides-territoires/' %}">La démarche</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'page_view' 'portails/' %}">Les portails</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'page_view' 'porteurs-aides/' %}">Porteurs d'aides</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'page_view' 'webinaires/' %}">Nos webinaires</a>
+                        </li>            
+                    </ul>
+                </section>
+
+                <section id="section-compte">
+                    <h2>Gestion du compte</h2>
+                    <ul>
+                        {# App: accounts #}
+                        <li>
+                            <a href="{% url 'register' %}">Création de compte</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'register_commune' %}">Création de compte (version spéciale municipalités)</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'login' %}">Connexion au compte</a>
+                        </li>
+                        <li>
+                            <span class="fr-icon-account-line" title="Page réservée aux utilisateurs connectés" aria-hidden="true"></span>
+                            <a href="{% url 'user_dashboard' %}">
+                                Tableau de bord utilisateur
+                                <span class="fr-sr-only">(Page réservée aux utilisateurs connectés)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="fr-icon-account-line" title="Page réservée aux utilisateurs connectés" aria-hidden="true"></span>
+                            <a href="{% url 'contributor_profile' %}">
+                                Profil utilisateur
+                                <span class="fr-sr-only">(Page réservée aux utilisateurs connectés)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="fr-icon-account-line" title="Page réservée aux utilisateurs connectés" aria-hidden="true"></span>
+                            <a href="{% url 'password_reset_confirm' %}">
+                                Changement de mot de passe
+                                <span class="fr-sr-only">(Page réservée aux utilisateurs connectés)</span>
+                            </a>
+                        </li>
+                        {# App: Alertes #}
+                        <li>
+                            <span class="fr-icon-account-line" title="Page réservée aux utilisateurs connectés" aria-hidden="true"></span>
+                            <a href="{% url 'alert_list_view' %}">
+                                Gestion des alertes et souscriptions
+                                <span class="fr-sr-only">(Page réservée aux utilisateurs connectés)</span>
+                            </a>
+                        </li>
+                        <li>Structure
+                            <ul>
+                                <li>
+                                    <span class="fr-icon-account-line" title="Page réservée aux utilisateurs connectés" aria-hidden="true"></span>
+                                    <a href="{% url 'collaborators' %}">
+                                        Liste des collaborateurs
+                                        <span class="fr-sr-only">(Page réservée aux utilisateurs connectés)</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <span class="fr-icon-account-line" title="Page réservée aux utilisateurs connectés" aria-hidden="true"></span>
+                                    <a href="{% url 'join_organization' %}">
+                                        Invitation à rejoindre une autre structure
+                                        <span class="fr-sr-only">(Page réservée aux utilisateurs connectés)</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="fr-icon-account-line" title="Page réservée aux utilisateurs connectés" aria-hidden="true"></span>
+                            <a href="{% url 'history_login' %}">
+                                Journal de connexion
+                                <span class="fr-sr-only">(Page réservée aux utilisateurs connectés)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="fr-icon-account-line" title="Page réservée aux utilisateurs connectés" aria-hidden="true"></span>
+                            <a href="{% url 'logout' %}">
+                                Déconnexion du compte
+                                <span class="fr-sr-only">(Page réservée aux utilisateurs connectés)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="fr-icon-account-line" title="Page réservée aux utilisateurs connectés" aria-hidden="true"></span>
+                            <a href="{% url 'delete_user_account' %}">
+                                Suppression du compte
+                                <span class="fr-sr-only">(Page réservée aux utilisateurs connectés)</span>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="section-aides">
+                    {# App: aids #}
+                    <h2>Aides</h2>
+                    <ul>
+                        <li>
+                            <a href="{% url 'search_view' %}">Liste des aides et recherche d’aides</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'advanced_search_view' %}">Recherche d’aides avancée</a>
+                        </li>
+                        <li>Espace contributeur
+                            <ul>
+                                <li>
+                                    <span class="fr-icon-account-line" title="Page réservée aux utilisateurs connectés" aria-hidden="true"></span>
+                                    <a href="{% url 'aid_create_view' %}">
+                                        Publication d’une aide
+                                        <span class="fr-sr-only">(Page réservée aux utilisateurs connectés)</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <span class="fr-icon-account-line" title="Page réservée aux utilisateurs connectés" aria-hidden="true"></span>
+                                    <a href="{% url 'aid_draft_list_view' %}">
+                                        Portefeuille d’aides
+                                        <span class="fr-sr-only">(Page réservée aux utilisateurs connectés)</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="section-blog">
+                    {# App: blog #}
+                    <h2>Blog</h2>
+                    <ul>
+                        <li>
+                            <a href="{% url 'blog_post_list_view' %}">
+                                Liste des billets
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="section-cartographie">
+                    {# App: geofr #}
+                    <h2>Cartographie</h2>
+                    <ul>
+                        <li>
+                            <a href="{% url 'map_view' %}">
+                                Cartographie
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="section-programmes">
+                    {# App: programs #}
+                    <h2>Programmes</h2>
+                    <ul>
+                        <li>
+                            <a href="{% url 'program_list' %}">
+                                Liste des programmes
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="section-projets">
+                    {# App: projects #}
+                    <h2>Projets</h2>
+                    <ul>
+                        <li>
+                            <a href="{% url 'public_project_list_view' %}">
+                                Liste des projets publics
+                            </a>
+                        </li>
+                        <li>
+                            Espace utilisateur
+                            <ul>
+                                <li>
+                                    <span class="fr-icon-account-line" title="Page réservée aux utilisateurs connectés" aria-hidden="true"></span>
+                                    <a href="{% url 'project_list_view' %}">
+                                        Liste des projets de l’utilisateur
+                                        <span class="fr-sr-only">(Page réservée aux utilisateurs connectés)</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <span class="fr-icon-account-line" title="Page réservée aux utilisateurs connectés" aria-hidden="true"></span>
+                                    <a href="{% url 'project_create_view' %}">
+                                        Création d’un nouveau projet
+                                        <span class="fr-sr-only">(Page réservée aux utilisateurs connectés)</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <span class="fr-icon-account-line" title="Page réservée aux utilisateurs connectés" aria-hidden="true"></span>
+                                    <a href="{% url 'favorite_project_list_view' %}">
+                                        Liste des projets favoris
+                                        <span class="fr-sr-only">(Page réservée aux utilisateurs connectés)</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="section-stats">
+                    {# App: stats #}
+                    <h2>Statistiques</h2>
+                    <ul>
+                        <li>
+                            <a href="{% url 'stats_view' %}">
+                                Statistiques publiques
+                            </a>
+                        </li>
+                        {% if user.is_superuser %}
+                        <li>
+                            <span class="fr-icon-lock-line" title="Page réservée aux administrateurs" aria-hidden="true"></span>
+                            <a href="{% url 'dashboard_view' %}">
+                                Statistiques internes - Consultation
+                                <span class="fr-sr-only">(Page réservée aux administrateurs)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="fr-icon-lock-line" title="Page réservée aux administrateurs" aria-hidden="true"></span>
+                            <a href="{% url 'dashboard_acquisition_view' %}">
+                                Statistiques internes - Acquisition
+                                <span class="fr-sr-only">(Page réservée aux administrateurs)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="fr-icon-lock-line" title="Page réservée aux administrateurs" aria-hidden="true"></span>
+                            <a href="{% url 'dashboard_engagement_view' %}">
+                                Statistiques internes - Engagement
+                                <span class="fr-sr-only">(Page réservée aux administrateurs)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="fr-icon-lock-line" title="Page réservée aux administrateurs" aria-hidden="true"></span>
+                            <a href="{% url 'dashboard_porteurs_view' %}">
+                                Statistiques internes - Porteurs
+                                <span class="fr-sr-only">(Page réservée aux administrateurs)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="fr-icon-lock-line" title="Page réservée aux administrateurs" aria-hidden="true"></span>
+                            <a href="{% url 'users_stats' %}">
+                                Statistiques internes - Utilisateurs
+                                <span class="fr-sr-only">(Page réservée aux administrateurs)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="fr-icon-lock-line" title="Page réservée aux administrateurs" aria-hidden="true"></span>
+                            <a href="{% url 'carto_stats' %}">
+                                Statistiques internes - Carte des communes et EPCI inscrits
+                                <span class="fr-sr-only">(Page réservée aux administrateurs)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="fr-icon-lock-line" title="Page réservée aux administrateurs" aria-hidden="true"></span>
+                            <a href="{% url 'projects_stats' %}">
+                                Statistiques internes - Projets
+                                <span class="fr-sr-only">(Page réservée aux administrateurs)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="fr-icon-lock-line" title="Page réservée aux administrateurs" aria-hidden="true"></span>
+                            <a href="{% url 'organizations_stats' %}">
+                                Statistiques internes - Structures
+                                <span class="fr-sr-only">(Page réservée aux administrateurs)</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </section>
+
+                <section id="section-api">
+                    <h2>API</h2>
+                    <ul>
+                        <li>
+                            <a href="{% url 'data_doc' %}">
+                                Introduction au sujet de l’API
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'aids-list' %}">
+                                API REST : Liste de toutes les aides actives présentes sur le site
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'swagger-ui' %}">
+                                Documentation de l’API.
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            
+            </div>
+        </div>
+    </article>
+{% endblock content %}
+
+{% block extra_css %}
+    {% compress css %}
+        <style>
+            #sitemap-sidemenu {
+                position: sticky;
+                top: 2em;
+                padding-bottom: 2em;
+            }
+        </style>
+    {% endcompress %}
+{% endblock extra_css %}
+
+{% block extra_js %}
+    <script nonce="{{ request.csp_nonce }}">
+        $("#sitemap-sidemenu .fr-sidemenu__item").click(function(){
+            $("#sitemap-sidemenu .fr-sidemenu__item").removeClass("fr-sidemenu__item--active");
+            $("#sitemap-sidemenu .fr-sidemenu__item a").removeAttr("aria-current");
+            $(this).addClass("fr-sidemenu__item--active");
+            $(this).find("a").attr("aria-current", "true")
+        });
+    </script>
+{% endblock extra_js %}

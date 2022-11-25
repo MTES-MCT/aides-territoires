@@ -85,7 +85,7 @@ urlpatterns = [
     path(_("data/"), include("data.urls")),
     path(_("search/"), include("search.urls")),
     path(_("upload/"), include("upload.urls")),
-    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap_xml"),
     path(
         "robots.txt",
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
