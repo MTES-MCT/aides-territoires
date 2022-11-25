@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     $('select#id_project_types').select2({
         placeholder: "Sélectionnez un type de projet",
         language: {
@@ -30,5 +29,7 @@ $(document).ready(function () {
         theme: "select2-dsfr",
         dropdownAutoWidth: true,
         width: "auto",
-    });
+    })
+        .on('select2:close', show_number_of_selected)
+        .each(show_number_of_selected);
 });
