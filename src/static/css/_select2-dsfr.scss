@@ -102,3 +102,14 @@
   --data-uri-svg: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23fff' d='M10 15.17l9.2-9.2 1.4 1.42L10 18l-6.36-6.36 1.4-1.42z'/></svg>");
   background-image: var(--data-uri-svg);
 }
+
+
+.select2-container .select2-search__field--force-normal-text {
+  font-style: normal;
+  color: var(--text-default-grey);
+}
+
+.select2-container .select2-search__field--force-normal-text::placeholder {
+  font-style: normal;
+  color: var(--text-default-grey);
+}
