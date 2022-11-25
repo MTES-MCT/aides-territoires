@@ -272,7 +272,7 @@ class ProjectSearchForm(AidesTerrBaseForm):
         choices=ORGANIZATION_TYPE_CHOICES_COMMUNES_OR_EPCI,
     )
 
-    perimeter = AutocompleteModelChoiceField(
+    project_perimeter = AutocompleteModelChoiceField(
         queryset=Perimeter.objects.all(), label="Territoire du projet", required=False
     )
 
@@ -315,9 +315,9 @@ class ProjectSearchForm(AidesTerrBaseForm):
         if contract_link:
             qs = qs.filter(contract_link=contract_link)
 
-        perimeter = self.cleaned_data.get("perimeter", None)
-        if perimeter:
-            qs = self.perimeter_filter(qs, perimeter)
+        project_perimeter = self.cleaned_data.get("project_perimeter", None)
+        if project_perimeter:
+            qs = self.perimeter_filter(qs, project_perimeter)
 
         project_types = self.cleaned_data.get("project_types", None)
         if project_types:
