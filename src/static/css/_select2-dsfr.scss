@@ -104,12 +104,9 @@
 }
 
 
-.select2-container .select2-search__field--force-normal-text {
-  font-style: normal;
-  color: var(--text-default-grey);
-}
-
+.select2-container .select2-search__field--force-normal-text,
 .select2-container .select2-search__field--force-normal-text::placeholder {
   font-style: normal;
   color: var(--text-default-grey);
+  opacity: 1;
 }
