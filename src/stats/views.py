@@ -739,6 +739,7 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
                 last_connexion__range=[month, next_month],
                 user__is_superuser=False,
                 user__organization__perimeter__scale=Perimeter.SCALES.commune,
+                user__beneficiary_organization__organization_type=["commune"],
             )
             .order_by("user__pk")
             .distinct("user__pk")
@@ -751,6 +752,7 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
                 last_connexion__range=[month, next_month],
                 user__is_superuser=False,
                 user__organization__perimeter__scale=Perimeter.SCALES.epci,
+                user__beneficiary_organization__organization_type=["epci"],
             )
             .order_by("user__pk")
             .distinct("user__pk")
