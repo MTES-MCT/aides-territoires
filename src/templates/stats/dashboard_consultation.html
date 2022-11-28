@@ -63,12 +63,26 @@
         <div class="fr-tile__body">
           <p class="fr-tile__title">
             <a class="fr-tile__link" href="{% url 'admin:stats_aidviewevent_changelist' %}">
-            Nombre d’aides vues
+            Nombre d’aides vues (sans l’API)
             </a>
           </p>
         </div>
         <div class="fr-tile__img overflow--initial" role="presentation">
           <p class="fr-text--lg"><strong>{{ nb_viewed_aids|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="{% url 'admin:stats_aidviewevent_changelist' %}">
+            Nombre d’aides vues différentes (sans l’API)
+            </a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_different_viewed_aids|intcomma }}</strong></p>
         </div>
       </div>
     </div>

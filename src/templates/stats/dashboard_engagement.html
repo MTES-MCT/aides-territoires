@@ -293,15 +293,28 @@
   <h3 class="fr-mt-5w">
     📈 Évolution des comptes actifs au cours des 6 derniers mois :
   </h3>
+  <p>
+    Les comptes actifs sont les comptes (uniques) étant passés par le formulaire d’identification au cours de la période.<br>
+    Par défaut, Django va forcer la re-authentification toutes les 2 semaines. Les super-utilisateur·ices sont exclu·es.
+  </p>
   <div class="charts">
     <div id="chart-activite" class="ct-chart"></div>
+  </div>
+  <div class="charts-legends">
+    <ul>
+      <li><span class="charts-legend charts-legend-accent"></span> Tous les comptes</li>
+      <li><span class="charts-legend charts-legend-regular"></span> Les comptes des communes</li>
+      <li><span class="charts-legend charts-legend-regular2"></span> Les comptes des EPCI</li>
+    </ul>
   </div>
 
   <script nonce="{{ request.csp_nonce }}">
     new Chartist.Line('#chart-activite', {
       labels: {{ nb_activite_months|safe }},
       series: [
-        {{ nb_activite_serie }}
+        {{ nb_activite_serie }},
+        {{ nb_activite_communes_serie }},
+        {{ nb_activite_epci_serie }}
       ]
     }, {
       chartPadding: {

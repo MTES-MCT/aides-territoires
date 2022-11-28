@@ -148,6 +148,9 @@
   fill: var(--warning-425-625-hover);
 }
 .ct-series-d .ct-slice-donut-solid {
+  fill: var(--background-action-high-blue-france);
+}
+.ct-series-e .ct-slice-donut-solid {
   fill: var(--background-contrast-grey);
 }
 .ct-series-a .ct-line,

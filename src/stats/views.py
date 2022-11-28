@@ -274,27 +274,40 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
 
         # Stats 'Collectivités'.
         context["nb_communes"] = (
-            Organization.objects.filter(organization_type__contains=["commune"])
+            Organization.objects.filter(
+                organization_type__contains=["commune"],
+                perimeter__scale=Perimeter.SCALES.commune,
+                perimeter__is_obsolete=False,
+            )
             .exclude(perimeter_id__isnull="True")
-            .values("city_name", "perimeter_id")
-            .distinct()
+            .order_by("perimeter")
+            .distinct("perimeter")
             .count()
         )
         context["objectif_communes"] = OBJECTIF_COMMUNES
         context["pourcent_communes"] = round(
             context["nb_communes"] * 100 / context["total_communes"], 1
         )
+        context["nb_extra_communes"] = max(
+            context["nb_communes"] - context["objectif_communes"], 0
+        )
+
         context["nb_epci"] = (
-            Organization.objects.filter(organization_type__contains=["epci"])
+            Organization.objects.filter(
+                organization_type=["epci"],
+                perimeter__scale=Perimeter.SCALES.epci,
+                perimeter__is_obsolete=False,
+            )
             .exclude(perimeter_id__isnull="True")
-            .values("name", "perimeter_id")
-            .distinct()
+            .order_by("perimeter")
+            .distinct("perimeter")
             .count()
         )
         context["objectif_epci"] = OBJECTIF_EPCI
         context["pourcent_epci"] = round(
             context["nb_epci"] * 100 / context["total_epci"], 1
         )
+        context["nb_extra_epci"] = max(context["nb_epci"] - context["objectif_epci"], 0)
 
         return context
 
@@ -360,9 +373,21 @@ class DashboardConsultationView(DashboardBaseView, TemplateView):
         context["nb_vu_serie_max"] = max(context["nb_vu_serie_values"])
 
         # stats 'Consultation':
-        context["nb_viewed_aids"] = AidViewEvent.objects.filter(
-            date_created__range=[start_date_range, end_date_range]
-        ).count()
+        context["nb_viewed_aids"] = (
+            AidViewEvent.objects.filter(
+                date_created__range=[start_date_range, end_date_range]
+            )
+            .exclude(source="api")
+            .count()
+        )
+        context["nb_different_viewed_aids"] = (
+            AidViewEvent.objects.filter(
+                date_created__range=[start_date_range, end_date_range]
+            )
+            .exclude(source="api")
+            .distinct("aid")
+            .count()
+        )
         context["nb_visits"] = matomo_visits_summary["nb_visits"]
         context["bounce_rate"] = matomo_visits_summary["bounce_rate"]
         context["avg_time_on_site"] = strftime(
@@ -702,6 +727,32 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
             UserLastConnexion.objects.filter(
                 last_connexion__range=[month, next_month],
                 user__is_superuser=False,
+            )
+            .order_by("user__pk")
+            .distinct("user__pk")
+            .count()
+            for (month, next_month) in neighborhood(last_6_months)
+            if next_month is not None
+        ]
+        context["nb_activite_communes_serie"] = [
+            UserLastConnexion.objects.filter(
+                last_connexion__range=[month, next_month],
+                user__is_superuser=False,
+                user__organization__perimeter__scale=Perimeter.SCALES.commune,
+                user__beneficiary_organization__organization_type=["commune"],
+            )
+            .order_by("user__pk")
+            .distinct("user__pk")
+            .count()
+            for (month, next_month) in neighborhood(last_6_months)
+            if next_month is not None
+        ]
+        context["nb_activite_epci_serie"] = [
+            UserLastConnexion.objects.filter(
+                last_connexion__range=[month, next_month],
+                user__is_superuser=False,
+                user__organization__perimeter__scale=Perimeter.SCALES.epci,
+                user__beneficiary_organization__organization_type=["epci"],
             )
             .order_by("user__pk")
             .distinct("user__pk")
