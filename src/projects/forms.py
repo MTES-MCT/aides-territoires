@@ -90,7 +90,7 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
     )
     image = forms.FileField(
         label="Image représentant votre projet",
-        help_text="""Choisissez de préférence une image respectant le ratio 16:9 (format 1920x1080px).
+        help_text="""Choisissez de préférence une image au format 1920x1080px.
             Attention la taille de l'image ne doit pas dépasser 2Mo.""",
         required=False,
     )
@@ -200,7 +200,7 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
     )
     image = forms.FileField(
         label="Image représentant votre projet",
-        help_text="""Choisissez de préférence une image respectant le ratio 16:9 (format 1920x1080px).
+        help_text="""Choisissez de préférence une image au format 1920x1080px.
             Attention la taille de l'image ne doit pas dépasser 2Mo.""",
         required=False,
         widget=forms.ClearableFileInput(attrs={"multiple": True}),
