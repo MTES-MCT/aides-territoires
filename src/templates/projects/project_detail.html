@@ -47,6 +47,12 @@
               </div>
             </div>
 
+            {% if project.image %}
+            <img class="fr-col-12 fr-col-md-3" src="{{ project.image.url }}" alt="" height="450"/>
+            {% else %}
+            <img class="fr-col-12 fr-col-md-3" src="{% static 'img/project_illustration.png' %}" alt="" height="450">
+            {% endif %}
+
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
                 <strong>État d’avancement du projet :</strong> 
                 <span>

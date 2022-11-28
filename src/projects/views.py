@@ -43,12 +43,13 @@ class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
     context_object_name = "project"
 
     def form_valid(self, form):
-
+        form = ProjectCreateForm(self.request.POST, self.request.FILES)
         project = form.save(commit=False)
         if project.is_public is True:
             project.status = Project.STATUS.reviewable
         else:
             project.status = Project.STATUS.draft
+        project.image = self.request.FILES["image"]
         project.save()
         form.save_m2m()
         project.author.add(self.request.user)
@@ -444,12 +445,14 @@ class ProjectUpdateView(
         return super().get_queryset()
 
     def form_valid(self, form):
-
         project = form.save(commit=False)
         if project.is_public is True:
             project.status = Project.STATUS.reviewable
         else:
             project.status = Project.STATUS.draft
+        images = self.request.FILES.getlist("image")
+        for image in images:
+            project.image = image
         project.save()
         form.save_m2m()
         response = super().form_valid(form)

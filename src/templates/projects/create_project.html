@@ -39,7 +39,7 @@
         <div class="fr-col-12 fr-col-md-9">
             <h1 class="fr-h3">Ajouter un projet</h1>
 
-            <form id="create_project" method="post" action="{% url 'project_create_view' %}">
+            <form id="create_project" enctype="multipart/form-data" method="post" action="{% url 'project_create_view' %}">
 
                 {% include 'projects/_create_or_update_project_form.html' with form=form %}
 

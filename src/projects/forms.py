@@ -1,5 +1,4 @@
 import re
-
 from django import forms
 
 from core.forms.baseform import AidesTerrBaseForm
@@ -89,6 +88,12 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
         label="Souhaitez-vous rendre ce projet public sur Aides-territoires?",
         required=False,
     )
+    image = forms.FileField(
+        label="Image représentant votre projet",
+        help_text="""Choisissez de préférence une image respectant le ratio 16:9 (format 1920x1080px).
+            Attention la taille de l'image ne doit pas dépasser 2Mo.""",
+        required=False,
+    )
 
     class Meta:
         model = Project
@@ -104,6 +109,7 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
             "project_types_suggestion",
             "contract_link",
             "is_public",
+            "image",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -192,6 +198,13 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
         label="Souhaitez-vous rendre ce projet public sur Aides-territoires?",
         required=False,
     )
+    image = forms.FileField(
+        label="Image représentant votre projet",
+        help_text="""Choisissez de préférence une image respectant le ratio 16:9 (format 1920x1080px).
+            Attention la taille de l'image ne doit pas dépasser 2Mo.""",
+        required=False,
+        widget=forms.ClearableFileInput(attrs={"multiple": True}),
+    )
 
     class Meta:
         model = Project
@@ -206,6 +219,7 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
             "project_types_suggestion",
             "contract_link",
             "is_public",
+            "image",
         ]
 
     def __init__(self, *args, **kwargs):
