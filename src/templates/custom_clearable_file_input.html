@@ -1,0 +1,13 @@
+{% if widget.is_initial %}
+<div class="fr-grid-row fr-grid-row--middle">
+    <p class="fr-mb-2w">{{ widget.initial_text }}: <a href="{{ widget.value.url }}">{{ widget.value }}</a></p>{% if not widget.required %}
+    <div class="fr-checkbox-group fr-ml-2w">
+        <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}"{% if widget.attrs.disabled %} disabled{% endif %}>
+        <label class="fr-label" for="{{ widget.checkbox_id }}">{{ widget.clear_checkbox_label }}</label>{% endif %}<br>
+    </div>    
+</div>
+{% endif %}
+<div class="fr-grid-row fr-grid-row--middle">
+    {% if widget.is_initial %}<p class="fr-mb-0">{{ widget.input_text }}:</p>{% endif %}
+    <input class="fr-upload" type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+</div>

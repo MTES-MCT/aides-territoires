@@ -18,6 +18,10 @@ from geofr.utils import get_all_related_perimeters
 from organizations.constants import ORGANIZATION_TYPE_CHOICES_COMMUNES_OR_EPCI
 
 
+class CustomClearableFileInput(forms.ClearableFileInput):
+    template_name = "custom_clearable_file_input.html"
+
+
 class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
     """allow user to create project."""
 
@@ -89,10 +93,11 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
         required=False,
     )
     image = forms.FileField(
-        label="Image représentant votre projet",
-        help_text="""Choisissez de préférence une image au format 1920x1080px.
-            Attention la taille de l'image ne doit pas dépasser 2Mo.""",
+        label="Ajouter une image représentant votre projet",
+        help_text="""Taille maximale : 2 Mo. Formats supportés : jpg, png.
+            Choisissez de préférence une image au format 1920x1080px.""",
         required=False,
+        widget=CustomClearableFileInput(),
     )
 
     class Meta:
@@ -199,11 +204,11 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
         required=False,
     )
     image = forms.FileField(
-        label="Image représentant votre projet",
-        help_text="""Choisissez de préférence une image au format 1920x1080px.
-            Attention la taille de l'image ne doit pas dépasser 2Mo.""",
+        label="Ajouter une image représentant votre projet",
+        help_text="""Taille maximale : 2 Mo. Formats supportés : jpg, png.
+            Choisissez de préférence une image au format 1920x1080px.""",
         required=False,
-        widget=forms.ClearableFileInput(attrs={"multiple": True}),
+        widget=CustomClearableFileInput(attrs={"multiple": True}),
     )
 
     class Meta:
