@@ -31,8 +31,12 @@
 .select2-container--select2-dsfr .select2-dropdown {
   color: var(--text-default-grey);
   background-color: var(--background-default-grey);
-  max-height: 300px;
+}
+
+.select2-container--select2-dsfr .select2-results>.select2-results__options {
+  max-height: 20rem;
   overflow-y: auto;
+  max-width: 42rem;
 }
 
 .select2-container--select2-dsfr .select2-search__field::placeholder,
