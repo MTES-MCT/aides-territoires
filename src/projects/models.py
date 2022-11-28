@@ -16,7 +16,7 @@ def image_upload_to(instance, filename):
 
     _, extension = splitext(filename)
     name = instance.slug
-    filename = "projects/{}_image{}".format(name, extension)
+    filename = f"projects/{name}_image{extension}"
     return filename
 
 
