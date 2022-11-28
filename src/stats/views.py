@@ -274,10 +274,14 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
 
         # Stats 'Collectivités'.
         context["nb_communes"] = (
-            Organization.objects.filter(organization_type__contains=["commune"])
+            Organization.objects.filter(
+                organization_type__contains=["commune"],
+                perimeter__scale=Perimeter.SCALES.commune,
+                perimeter__is_obsolete=False,
+            )
             .exclude(perimeter_id__isnull="True")
-            .values("city_name", "perimeter_id")
-            .distinct()
+            .order_by("perimeter")
+            .distinct("perimeter")
             .count()
         )
         context["objectif_communes"] = OBJECTIF_COMMUNES
@@ -289,10 +293,14 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
         )
 
         context["nb_epci"] = (
-            Organization.objects.filter(organization_type__contains=["epci"])
+            Organization.objects.filter(
+                organization_type=["epci"],
+                perimeter__scale=Perimeter.SCALES.epci,
+                perimeter__is_obsolete=False,
+            )
             .exclude(perimeter_id__isnull="True")
-            .values("name", "perimeter_id")
-            .distinct()
+            .order_by("perimeter")
+            .distinct("perimeter")
             .count()
         )
         context["objectif_epci"] = OBJECTIF_EPCI
