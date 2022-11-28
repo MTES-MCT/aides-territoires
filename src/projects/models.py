@@ -5,6 +5,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 from django.urls import reverse
+from django.core.validators import FileExtensionValidator
 
 from model_utils import Choices
 from django_resized import ResizedImageField
@@ -115,6 +116,7 @@ class Project(models.Model):
         crop=["middle", "center"],
         blank=True,
         null=True,
+        validators=[FileExtensionValidator(allowed_extensions=["png", "jpg", "jpeg"])],
     )
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)
