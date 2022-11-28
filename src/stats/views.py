@@ -365,13 +365,18 @@ class DashboardConsultationView(DashboardBaseView, TemplateView):
         context["nb_vu_serie_max"] = max(context["nb_vu_serie_values"])
 
         # stats 'Consultation':
-        context["nb_viewed_aids"] = AidViewEvent.objects.filter(
-            date_created__range=[start_date_range, end_date_range]
-        ).count()
+        context["nb_viewed_aids"] = (
+            AidViewEvent.objects.filter(
+                date_created__range=[start_date_range, end_date_range]
+            )
+            .exclude(source="api")
+            .count()
+        )
         context["nb_different_viewed_aids"] = (
             AidViewEvent.objects.filter(
                 date_created__range=[start_date_range, end_date_range]
             )
+            .exclude(source="api")
             .distinct("aid")
             .count()
         )
