@@ -21,7 +21,7 @@ crawler_detect = CrawlerDetect()
 
 @app.task
 def log_aidviewevent(
-    aid_id, querystring="", source="", request_ua="", request_referer=""
+    aid_id, querystring="", source="", request_ua="", request_referer="", is_live=True
 ):
     source_cleaned = get_site_from_host(source)
     querystring_cleaned = clean_search_querystring(querystring)
@@ -40,6 +40,7 @@ def log_aidviewevent(
 
         AidViewEvent.objects.create(
             aid_id=aid_id,
+            aid_live=is_live,
             targeted_audiences=targeted_audiences,
             querystring=querystring_cleaned,
             source=source_cleaned,

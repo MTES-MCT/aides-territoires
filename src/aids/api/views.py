@@ -164,6 +164,10 @@ class AidViewSet(
 
         # Fetching only 1 aid --> AidViewEvent
         if self.detail:
+            # TODO: set the is_live parameter but it requires to retrieve
+            # the object, maybe we can get it from the request/response?
+            # Also, it might be pertinent to filter out queries from
+            # superusers and Aid’s author but is that a real case scenario??
             if response.data.get("id"):
                 log_aidviewevent.delay(
                     aid_id=response.data.get("id"),

@@ -8,6 +8,7 @@ from aids.models import Aid
 
 class AidViewEvent(models.Model):
     aid = models.ForeignKey("aids.Aid", verbose_name=_("Aid"), on_delete=models.PROTECT)
+    aid_live = models.BooleanField(_("Aid was live at the moment of the hit/view"))
 
     targeted_audiences = ChoiceArrayField(
         verbose_name=_("Targeted audiences"),

@@ -537,7 +537,11 @@ class AidDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)
 
-        if self.object.is_published():
+        if (
+            self.object.is_published()
+            and not request.user.is_superuser()
+            and request.user != self.object.author
+        ):
             current_search = response.context_data.get("current_search", "")
             host = request.get_host()
             request_ua = request.META.get("HTTP_USER_AGENT", "")
@@ -548,6 +552,7 @@ class AidDetailView(DetailView):
                 source=host,
                 request_ua=request_ua,
                 request_referer=request_referer,
+                is_live=self.object.is_live(),
             )
 
         return response
