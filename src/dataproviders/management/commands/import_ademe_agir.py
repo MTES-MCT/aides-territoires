@@ -275,7 +275,7 @@ class Command(BaseImportCommand):
                             perimeters.append(
                                 Perimeter.objects.get(code=region_code).name
                             )
-                        except Exception():
+                        except Exception:
                             print(f"Code région : {region_code}")
                 perimeters_str = ", ".join(perimeters)
                 eligibility = f"Ce dispositif est applicable uniquement aux régions \
