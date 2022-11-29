@@ -176,6 +176,9 @@ class Command(BaseImportCommand):
         else:
             return False
 
+    def extract_aid_types(self, line):
+        return [Aid.TYPES.grant, Aid.TYPES.technical]
+
     def extract_start_date(self, line):
         start_date = datetime.strptime(line.get("date_debut"), "%Y-%m-%dT%H:%M:%S%z")
         return start_date
@@ -335,6 +338,11 @@ class Command(BaseImportCommand):
                             keyword = Keyword.objects.create(name=category)
                             keyword_list = []
                             keyword_list.append(keyword)
-                        except Exception:
-                            pass
+                        except Exception as e:
+                            print(e)
         return keywords
+
+    def extract_contact(self, line):
+        contact = """"Pour contacter l’Ademe ou candidater à l'offre, veuillez cliquer
+         sur le lien vers le descriptif complet."""
+        return contact
