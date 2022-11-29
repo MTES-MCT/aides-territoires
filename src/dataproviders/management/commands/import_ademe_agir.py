@@ -338,11 +338,12 @@ class Command(BaseImportCommand):
                             keyword = Keyword.objects.create(name=category)
                             keyword_list = []
                             keyword_list.append(keyword)
+                            keywords.extend(keyword_list)
                         except Exception as e:
                             print(e)
         return keywords
 
     def extract_contact(self, line):
-        contact = """"Pour contacter l’Ademe ou candidater à l'offre, veuillez cliquer
+        contact = """Pour contacter l’Ademe ou candidater à l'offre, veuillez cliquer
          sur le lien vers le descriptif complet."""
         return contact
