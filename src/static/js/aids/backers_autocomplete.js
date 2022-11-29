@@ -32,6 +32,4 @@ $(document).ready(function () {
         dropdownAutoWidth: true,
         width: "auto",
     })
-        .on('select2:close', show_number_of_selected)
-        .each(show_number_of_selected);
 });

@@ -36,7 +36,6 @@
 .select2-container--select2-dsfr .select2-results>.select2-results__options {
   max-height: 20rem;
   overflow-y: auto;
-  max-width: 42rem;
 }
 
 .select2-container--select2-dsfr .select2-search__field::placeholder,
@@ -77,7 +76,7 @@
   margin-top: 0.5em;
 }
 
-.select2-container--select2-dsfr .select2-results__option[role=option]:before {
+.select2-dsfr-checkboxes .select2-results__option[role=option]:before {
   --idle: transparent;
   --hover: var(--background-active-blue-france-hover);
   content: "";
@@ -92,7 +91,7 @@
   vertical-align: middle;
 }
 
-.select2-container--select2-dsfr .select2-results__option[role=option][aria-selected=true]:before {
+.select2-dsfr-checkboxes .select2-results__option[role=option][aria-selected=true]:before {
   background-color: var(--background-active-blue-france);
 
   --idle: transparent;

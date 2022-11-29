@@ -1,11 +1,13 @@
 $(document).ready(function () {
     $('select#id_destinations').select2({
         placeholder: "Tous les types de dépense",
-        language: "fr",
-        theme: "select2-dsfr",
+        theme: "select2-dsfr select2-dsfr-checkboxes",
         dropdownAutoWidth: true,
-        width: "100%",
+        width: "auto",
+        closeOnSelect: false,
+        selectionAdapter: $.fn.select2.amd.require("NumberOfSelectedSelectionAdapter"),
+        templateSelection: (data) => {
+            return format_number_of_selected(data)
+        },
     })
-        .on('select2:close', show_number_of_selected)
-        .each(show_number_of_selected);
 });
