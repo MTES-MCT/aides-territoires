@@ -451,9 +451,10 @@ class ProjectUpdateView(
             project.status = Project.STATUS.reviewable
         else:
             project.status = Project.STATUS.draft
-        images = self.request.FILES.getlist("image")
-        for image in images:
-            project.image = image
+        if self.request.FILES:
+            images = self.request.FILES.getlist("image")
+            for image in images:
+                project.image = image
         project.save()
         form.save_m2m()
         response = super().form_valid(form)
