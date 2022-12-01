@@ -8,6 +8,7 @@ from django.views.generic import TemplateView, FormView
 from aids.forms import AidSearchForm
 from aids.models import Aid
 from backers.models import Backer
+from blog.models import BlogPost
 from categories.models import Category
 from geofr.models import Perimeter
 from home.forms import ContactForm
@@ -60,6 +61,7 @@ class HomeView(FormView):
         )
         context["project_form"] = ProjectSearchForm
         context["recent_aids"] = aids_qs.order_by("-date_created")[:3]
+        context["recent_posts"] = BlogPost.objects.published()[:2]
 
         # Map section
         departments_list = Perimeter.objects.departments(
