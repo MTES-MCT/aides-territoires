@@ -1,16 +1,12 @@
 {% load i18n pagination %}
-<div class="fr-callout fr-fi-information-line">
+<div class="fr-callout fr-callout--green-menthe fr-icon-account-circle-line">
     <h3 class="fr-callout__title">Votre recherche comporte d’autres pages de résultats.</h3>
     <p class="fr-callout__text">
-        Nous vous conseillons de vous connecter pour accéder à toutes les fonctionnalités proposées par Aides-territoires.
+        Nous vous conseillons de vous connecter pour accéder à toutes les fonctionnalités
+        proposées par Aides-territoires (alertes, sauvegarde des aides, travail en équipe…)
     </p>
 
     <ul class="fr-btns-group fr-btns-group--inline-md fr-btns-group--icon-left">
-        <li>
-            <a class="fr-btn fr-icon-lock-line" href="{% url 'login' %}?next={{ request.path }}" target="_blank" rel="noopener" title="Se connecter - ouvre une nouvelle fenêtre">
-                Se connecter
-            </a>
-        </li>
         <li>
             <a class="fr-btn fr-icon-account-line" href="{% url 'register' %}?next={{ request.path }}" target="_blank" rel="noopener" title="S’inscrire - ouvre une nouvelle fenêtre">
                 S’inscrire
@@ -18,8 +14,6 @@
         </li>
     </ul>
 
-    {% if is_paginated %}
-    Vous pouvez aussi <a href="{% url_to_page page_obj.next_page_number %}">voir la suite des résultats</a> sans créer de compte.
-    {% endif %}
+    <p class="fr-text--xs">Le formulaire d’inscription s’ouvrira dans un nouvel onglet afin que vous ne perdiez pas votre recherche.</p>
 
 </div>
