@@ -1,5 +1,6 @@
 import re
 from django import forms
+from django.template.defaultfilters import filesizeformat
 
 from core.forms.baseform import AidesTerrBaseForm
 
@@ -135,6 +136,16 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
             self.add_error("project_types_suggestion", msg)
         return data
 
+    def clean_image(self):
+        if self.cleaned_data["image"]:
+            image = self.cleaned_data["image"]
+            if image.size > 2 * 1024 * 1024:
+                raise forms.ValidationError(
+                    f"Merci de choisir une image dont le poids est inférieur à 2 Mio. \
+                     Le poids de l'image actuellement choisie est de {filesizeformat(image.size)}"
+                )
+            return image
+
 
 class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
 
@@ -246,6 +257,16 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
             self.fields["project_types"].widget.attrs.update({"autofocus": True})
 
         return data
+
+    def clean_image(self):
+        if self.cleaned_data["image"]:
+            image = self.cleaned_data["image"]
+            if image.size > 2 * 1024 * 1024:
+                raise forms.ValidationError(
+                    f"Merci de choisir une image dont le poids est inférieur à 2 Mio. \
+                     Le poids de l'image actuellement choisie est de {filesizeformat(image.size)}"
+                )
+            return image
 
 
 class ProjectExportForm(forms.ModelForm):
