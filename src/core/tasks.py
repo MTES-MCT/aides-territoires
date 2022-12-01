@@ -46,3 +46,31 @@ def task_scale_up_scalingo_review_apps():
 def task_scale_down_scalingo_review_apps():
     logger.info("Starting Scalingo Review Apps scaling task")
     management.call_command("scale_scalingo_review_apps", "down", verbosity=1)
+
+
+@app.task
+def task_import_ministere_de_la_culture():
+    """Import data from the 'Ministère de la culture' data feed."""
+    logger.info("Starting Ministère de la culture import task")
+    management.call_command("import_ministere_de_la_culture", verbosity=1)
+
+
+@app.task
+def task_import_departement_drome():
+    """Import data from the 'Département Drome' data feed."""
+    logger.info("Starting Département Drome import task")
+    management.call_command("import_departement_drome", verbosity=1)
+
+
+@app.task
+def task_import_welcome_europe():
+    """Import data from the 'Welcome Europe' data feed."""
+    logger.info("Starting Welcome Europe import task")
+    management.call_command("import_welcome_europe", verbosity=1)
+
+
+@app.task
+def task_import_ile_de_france():
+    """Import data from the 'Conseil Régional Ile de France' data feed."""
+    logger.info("Starting Conseil Régional Ile de France import task")
+    management.call_command("import_ile_de_france", verbosity=1)

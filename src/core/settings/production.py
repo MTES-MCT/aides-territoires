@@ -125,3 +125,6 @@ CAPTCHA_NOISE_FUNCTIONS = env(
         "captcha.helpers.noise_dots",
     ),
 )
+
+ADEME_AGIR_API_USERNAME = env('ADEME_AGIR_API_USERNAME', default='')
+ADEME_AGIR_API_PASSWORD = env('ADEME_AGIR_API_PASSWORD', default='')
