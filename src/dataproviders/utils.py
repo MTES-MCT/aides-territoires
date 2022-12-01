@@ -196,3 +196,20 @@ def get_category_list_from_name(category_name):
             print(category_name)
 
     return category_list
+
+
+def mapping_categories_label(
+    categories_mapping_csv_path, source_column_name, source_column_label
+):
+    """
+    Method to extract category label from a specified category code
+    """
+
+    categories_label_dict = {}
+
+    with open(categories_mapping_csv_path) as csv_file:
+        csvreader = csv.DictReader(csv_file, delimiter=",")
+        for index, row in enumerate(csvreader):
+            if row[source_column_label]:
+                categories_label_dict[row[source_column_name]] = row[source_column_label]
+    return categories_label_dict
