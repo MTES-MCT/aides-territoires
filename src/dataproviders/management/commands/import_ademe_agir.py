@@ -165,10 +165,16 @@ class Command(BaseImportCommand):
         return description
 
     def extract_origin_url(self, line):
-        return line["url_agir"]
+        if line["url_agir"]:
+            return line["url_agir"]
+        else:
+            return ""
 
     def extract_application_url(self, line):
-        return line["url_agir"]
+        if line["url_agir"]:
+            return line["url_agir"]
+        else:
+            return ""
 
     def extract_is_call_for_project(self, line):
         if line.get("type") == "AAP":
