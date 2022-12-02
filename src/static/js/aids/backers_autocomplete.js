@@ -1,7 +1,6 @@
 $(document).ready(function () {
     $('select#id_backers').select2({
         placeholder: "Tous les porteurs d’aide",
-        language: 'fr',
         minimumInputLength: 3,
         language: {
             inputTooShort: function () { return "Saisissez quelques caractères pour des suggestions."; },
@@ -11,7 +10,7 @@ $(document).ready(function () {
             dataType: 'json',
             delay: 100,
             data: function (params) {
-                var query = {
+                let query = {
                     q: params.term,
                     has_published_financed_aids: true,
                     page: params.page || 1

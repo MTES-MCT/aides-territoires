@@ -17,8 +17,8 @@ makemessages:
 	pipenv run python manage.py makemessages --all --no-location --no-obsolete
 
 css:
-	sass -I $(include) $(infile) $(outfile)
+	sassc -I $(include) $(infile) $(outfile)
 
 fullcss:
-	sass -I $(include) $(infile) $(outfile)
+	sassc -I $(include) $(infile) $(outfile)
 	./node_modules/.bin/postcss --use autoprefixer -r $(outfile) --no-map

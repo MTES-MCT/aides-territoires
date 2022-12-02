@@ -1,11 +1,14 @@
 $(document).ready(function () {
     $('select#id_programs').select2({
         placeholder: "Tous les programmes",
-        language: "fr",
-        theme: "select2-dsfr",
+        theme: "select2-dsfr select2-dsfr-checkboxes",
         dropdownAutoWidth: true,
-        width: "100%",
+        width: "auto",
+        closeOnSelect: false,
+        selectionAdapter: $.fn.select2.amd.require("NumberOfSelectedSelectionAdapter"),
+        templateSelection: (data) => {
+            return format_number_of_selected(data)
+        },
+        dropdownAdapter: $.fn.select2.amd.require("DropdownWithSearchAdapter")
     })
-        .on('select2:close', show_number_of_selected)
-        .each(show_number_of_selected);
 });
