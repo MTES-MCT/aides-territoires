@@ -100,8 +100,8 @@ Il faut noter que le second mode peut significativement dégrader les
 performances et ralentir le travail. Pour améliorer les performances, deux
 possibilités :
 
- * Installer [la version native de Sass](http://sass-lang.com/install) et pas
-   la version en pure js ;
+ * Installer [la version native de Sassc](https://github.com/sass/sassc) et pas
+   la version en pure js (sous ubuntu: `sudo apt-get install sassc`);
  * Désactiver en local la compression par requête dans le fichier `.env.local`.
 
 ```
