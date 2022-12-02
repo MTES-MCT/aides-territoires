@@ -18,6 +18,7 @@ from django.core.exceptions import PermissionDenied
 from braces.views import MessageMixin
 from projects.constants import EXPORT_FORMAT_KEYS
 from projects.services.export import export_project
+from search.utils import clean_search_form
 
 from projects.tasks import send_project_deleted_email
 from projects.forms import (
@@ -204,6 +205,11 @@ class PublicProjectListView(SearchMixin, FormMixin, ListView):
         context["current_search"] = self.request.session.get(
             settings.SEARCH_COOKIE_NAME, ""
         )
+
+        context["project_current_search_dict"] = clean_search_form(
+            self.form.cleaned_data, remove_extra_fields=True
+        )
+
         context["user"] = self.request.user
         if self.request.user.is_authenticated:
             if self.request.user.beneficiary_organization:

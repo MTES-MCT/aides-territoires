@@ -1,0 +1,63 @@
+{% load i18n aids %}
+<div class="search-meta fr-mb-2w">
+
+    {% if not project_current_search_dict %}
+    <div class="fr-alert fr-alert--info">
+        <p><strong>Vous n’avez pas sélectionné de filtres.</strong></p>
+    </div>
+    {% endif %}
+
+    {% block search-meta-perimeter %}
+    {% if project_current_search_dict.project_perimeter %}
+    <div class="fr-tags-group">
+        <p title="Périmètre" class="fr-tag">
+            <span class="ri-map-pin-fill ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
+            {{ project_current_search_dict.project_perimeter }}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock search-meta-perimeter %}
+
+    {% block search-meta-organization %}
+    {% if project_current_search_dict.organization %}
+    <div class="fr-tags-group">
+        <p title="Type de porteur de projet" class="fr-tag">
+            <span class="ri-home-8-line ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
+            {% form_choice_display project_current_search_dict 'organization' %}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock search-meta-organization %}
+
+    {% block search-meta-project_types %}
+    {% if project_current_search_dict.project_types %}
+    <div class="fr-tags-group">
+        <p title="Types de projet" class="fr-tag fr-icon-arrow-right-line fr-tag--icon-left">
+            {{ project_current_search_dict.project_types|join:', ' }}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock search-meta-project_types %}
+
+    {% block search-meta-contract-link %}
+    {% if project_current_search_dict.contract_link %}
+    <div class="fr-tags-group">
+        <p title="Appartenance à un plan" class="fr-tag">
+            <span class="ri-folder-open-line ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
+            {% form_choice_display project_current_search_dict 'contract_link' %}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock search-meta-contract-link %}
+
+    {% block search-meta-step %}
+    {% if project_current_search_dict.step %}
+    <div class="fr-tags-group">
+        <p title="Avancement du projet" class="fr-tag">
+            <span class="ri-tools-line ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
+            {% form_choice_display project_current_search_dict 'step' %}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock search-meta-step %}
+</div>
