@@ -1,6 +1,6 @@
 import re
-
 from django import forms
+from django.template.defaultfilters import filesizeformat
 
 from core.forms.baseform import AidesTerrBaseForm
 
@@ -17,6 +17,10 @@ from keywords.models import SynonymList
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeters
 from organizations.constants import ORGANIZATION_TYPE_CHOICES_COMMUNES_OR_EPCI
+
+
+class CustomClearableFileInput(forms.ClearableFileInput):
+    template_name = "custom_clearable_file_input.html"
 
 
 class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
@@ -89,6 +93,13 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
         label="Souhaitez-vous rendre ce projet public sur Aides-territoires?",
         required=False,
     )
+    image = forms.FileField(
+        label="Ajouter une image représentant votre projet",
+        help_text="""Taille maximale : 2 Mio. Formats supportés : jpeg, jpg, png.
+            Choisissez de préférence une image au format 1920x1080px.""",
+        required=False,
+        widget=CustomClearableFileInput(),
+    )
 
     class Meta:
         model = Project
@@ -104,6 +115,7 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
             "project_types_suggestion",
             "contract_link",
             "is_public",
+            "image",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -123,6 +135,16 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
             self.add_error("project_types", msg)
             self.add_error("project_types_suggestion", msg)
         return data
+
+    def clean_image(self):
+        if self.cleaned_data["image"]:
+            image = self.cleaned_data["image"]
+            if image.size > 2 * 1024 * 1024:
+                raise forms.ValidationError(
+                    f"Merci de choisir une image dont le poids est inférieur à 2 Mio. \
+                     Le poids de l'image actuellement choisie est de {filesizeformat(image.size)}"
+                )
+            return image
 
 
 class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
@@ -192,6 +214,13 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
         label="Souhaitez-vous rendre ce projet public sur Aides-territoires?",
         required=False,
     )
+    image = forms.FileField(
+        label="Ajouter une image représentant votre projet",
+        help_text="""Taille maximale : 2 Mio. Formats supportés : jpeg, jpg, png.
+            Choisissez de préférence une image au format 1920x1080px.""",
+        required=False,
+        widget=CustomClearableFileInput(attrs={"multiple": True}),
+    )
 
     class Meta:
         model = Project
@@ -206,6 +235,7 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
             "project_types_suggestion",
             "contract_link",
             "is_public",
+            "image",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -227,6 +257,16 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
             self.fields["project_types"].widget.attrs.update({"autofocus": True})
 
         return data
+
+    def clean_image(self):
+        if self.cleaned_data["image"]:
+            image = self.cleaned_data["image"]
+            if image.size > 2 * 1024 * 1024:
+                raise forms.ValidationError(
+                    f"Merci de choisir une image dont le poids est inférieur à 2 Mio. \
+                     Le poids de l'image actuellement choisie est de {filesizeformat(image.size)}"
+                )
+            return image
 
 
 class ProjectExportForm(forms.ModelForm):

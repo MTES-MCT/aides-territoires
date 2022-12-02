@@ -45,7 +45,11 @@
         </div>
         <div class="fr-card__header">
             <div class="fr-card__img">
-                <img class="fr-responsive-img" src="{% static 'img/project_illustration.png' %}" alt="" />
+                {% if project.image %}
+                <img class="fr-responsive-img" src="{{ project.image.url }}" alt=""/>    
+                {% else %}
+                <img class="fr-responsive-img" src="{% static 'img/project_illustration.png' %}" alt="">
+                {% endif %}
             </div>
         </div>
     </div>

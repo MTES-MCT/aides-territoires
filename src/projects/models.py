@@ -1,11 +1,23 @@
+from os.path import splitext
 from uuid import uuid4
 
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 from django.urls import reverse
+from django.core.validators import FileExtensionValidator
 
 from model_utils import Choices
+from django_resized import ResizedImageField
+
+
+def image_upload_to(instance, filename):
+    """Rename uploaded files with the object's slug."""
+
+    _, extension = splitext(filename)
+    name = instance.slug
+    filename = f"projects/{name}_image{extension}"
+    return filename
 
 
 class Project(models.Model):
@@ -96,6 +108,15 @@ class Project(models.Model):
         max_length=10,
         choices=STATUS,
         default=STATUS.draft,
+    )
+
+    image = ResizedImageField(
+        size=[714, 450],
+        upload_to=image_upload_to,
+        crop=["middle", "center"],
+        blank=True,
+        null=True,
+        validators=[FileExtensionValidator(allowed_extensions=["png", "jpg", "jpeg"])],
     )
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)

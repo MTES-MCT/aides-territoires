@@ -49,6 +49,7 @@ xhtml2pdf = "*"
 python-stdnum = "*"
 drf-spectacular = {extras = ["sidecar"], version = "*"}
 django-csp = "*"
+django-resized = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"

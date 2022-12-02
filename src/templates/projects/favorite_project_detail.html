@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load i18n aids compress humanize %}
+{% load i18n aids static compress humanize %}
 
 {% block extratitle %}Mon projet favori « {{ project.name }} »{% endblock extratitle %}
 
@@ -47,6 +47,10 @@
               </div>
             </div>
 
+            {% if project.image %}
+            <img class="fr-col-12 fr-mb-3w" src="{{ project.image.url }}" alt="" height="450"/>
+            {% endif %}
+
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
                 <strong>Date de création du projet :</strong>
                 {{ project.date_created|date:'d/m/y' }}
@@ -55,7 +59,11 @@
             <p class="fr-pl-2w fr-mb-2w fr-text--sm">
                 <strong>État d’avancement du projet :</strong>
                 {% if project.step %}
-                {{ project.step }}
+                {% if project.step == "finished" %}
+                <span class="fr-mb-0 fr-badge fr-badge--success">{{ project.get_step_display }}</span>
+                {% else %}
+                <span class="fr-mb-0 fr-badge fr-badge--new">{{ project.get_step_display }}</span>
+                {% endif %}
                 {% else %}
                 non renseigné
                 {% endif %}

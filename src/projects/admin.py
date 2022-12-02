@@ -33,6 +33,7 @@ class ProjectAdmin(ImportExportActionModelAdmin):
         "slug",
         "description",
         "private_description",
+        "image",
         "due_date",
         "step",
         "budget",
