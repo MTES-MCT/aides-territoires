@@ -1,4 +1,5 @@
 <form id="search-form" method="get" action="{% url 'search_view' %}" autocomplete='off'>
+    {% csrf_token %}
 
     {{ form.integration }}
 

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from stats.models import (
+    AccountRegisterFromNextpagewarningClickEvent,
     AidContactClickEvent,
     AidOriginUrlClickEvent,
     AidApplicationUrlClickEvent,
@@ -8,6 +9,16 @@ from stats.models import (
     PromotionDisplayEvent,
     PromotionClickEvent,
 )
+
+
+class AccountRegisterFromNextpagewarningClickEventSerializer(
+    serializers.ModelSerializer
+):
+    querystring = serializers.CharField(allow_blank=True)
+
+    class Meta:
+        model = AccountRegisterFromNextpagewarningClickEvent
+        fields = "__all__"
 
 
 class AidContactClickEventSerializer(serializers.ModelSerializer):

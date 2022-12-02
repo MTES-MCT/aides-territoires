@@ -1,5 +1,5 @@
 {% extends "aids/_base_search.html" %}
-{% load i18n compress %}
+{% load i18n static compress %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -43,5 +43,6 @@
     ];
     var NB_RESULTS = {{ paginator.count }};
 </script>
-<script src="/static/js/search/track_search_events.js"></script>
+<script src="{% static 'js/accounts/track_account_events.js' %}"></script>
+<script src="{% static 'js/search/track_search_events.js' %}"></script>
 {% endblock extra_js %}

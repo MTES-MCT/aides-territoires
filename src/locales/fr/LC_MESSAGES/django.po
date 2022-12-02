@@ -492,48 +492,6 @@ msgstr "Lien associé au logo"
 msgid "The url for the partner's logo link"
 msgstr "L'url vers laquelle renvoie un clic sur le logo partenaire"
 
-msgid "form/"
-msgstr "formulaire/"
-
-msgid "audience/"
-msgstr "audience/"
-
-msgid "perimeter/"
-msgstr "territoire/"
-
-msgid "theme/"
-msgstr "thème/"
-
-msgid "category/"
-msgstr "catégorie/"
-
-msgid "project/"
-msgstr "projet/"
-
-msgid "Aid View Event"
-msgstr "Événement aide vue"
-
-msgid "Aid View Events"
-msgstr "Événements aides vues"
-
-msgid "Results count"
-msgstr "Nombre de résultats"
-
-msgid "Aid Search Event"
-msgstr "Événement recherche d'aides"
-
-msgid "Aid Search Events"
-msgstr "Événements recherche d'aides"
-
-msgid "Event"
-msgstr "Événement"
-
-msgid "Value"
-msgstr "Valeur"
-
-msgid "Events"
-msgstr "Événements"
-
 msgid "Tag"
 msgstr "Mot clé"
 
