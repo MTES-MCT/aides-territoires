@@ -95,7 +95,7 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
     )
     image = forms.FileField(
         label="Ajouter une image représentant votre projet",
-        help_text="""Taille maximale : 2 Mo. Formats supportés : jpeg, jpg, png.
+        help_text="""Taille maximale : 2 Mio. Formats supportés : jpeg, jpg, png.
             Choisissez de préférence une image au format 1920x1080px.""",
         required=False,
         widget=CustomClearableFileInput(),
