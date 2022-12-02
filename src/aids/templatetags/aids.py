@@ -9,7 +9,9 @@ from django.utils.html import format_html
 from django.conf import settings
 
 from aids.models import Aid
+from projects.models import Project
 from aids.constants import AID_TYPES_ALL
+from organizations.constants import ORGANIZATION_TYPE_CHOICES_COMMUNES_OR_EPCI
 
 
 register = template.Library()
@@ -165,6 +167,25 @@ def form_choices_display(obj, field):
 
     values = [force_str(choices_dict.get(key, "")) for key in keys]
     return ", ".join(filter(None, values))
+
+
+@register.simple_tag
+def form_choice_display(obj, field):
+    """Correct rendering of `ChoiceField` value.."""
+
+    choices_dict = dict()
+
+    if field == "organization":
+        choices_dict = dict(ORGANIZATION_TYPE_CHOICES_COMMUNES_OR_EPCI)
+    elif field == "step":
+        choices_dict = dict(Project.PROJECT_STEPS)
+    elif field == "contract_link":
+        choices_dict = dict(Project.CONTRACT_LINK)
+
+    key = obj.get(field)
+
+    value = force_str(choices_dict.get(key, ""))
+    return value
 
 
 @register.simple_tag(takes_context=True)

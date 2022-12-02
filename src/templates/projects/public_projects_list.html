@@ -54,6 +54,10 @@
             </div>
             {% endif %}
 
+            {% block search-meta %}
+            {% include "projects/_search_meta.html" %}
+            {% endblock search-meta %}
+
             <div id="search-engine" class="fr-mb-2w">
                 {% block search-engine %}
                     <div class="fr-card">
