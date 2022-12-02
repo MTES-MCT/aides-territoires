@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-{% load i18n aids %}
+{% load i18n compress static %}
 
 {% block extratitle %}{{ program.meta_title|default:program.name }}{% endblock %}
 {% block meta_description %}{{ program.meta_description }}{% endblock %}
@@ -54,3 +54,10 @@
     </div>    
 </article>
 {% endblock %}
+
+
+{% block extra_js %}
+    {% compress js %}
+    <script src="{% static 'js/responsive_iframe.js' %}"></script>
+    {% endcompress %}
+{% endblock extra_js %}
