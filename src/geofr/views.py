@@ -24,7 +24,7 @@ class MapView(TemplateView):
         context["departments"] = departments_list
         context["departments_json"] = json.dumps(departments_list)
         context["backers_count"] = Backer.objects.has_financed_aids().count()
-        context["programs_count"] = Program.objects.count()
+        context["programs_count"] = Program.objects.has_aids().count()
 
         return context
 
