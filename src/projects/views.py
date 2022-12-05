@@ -466,6 +466,8 @@ class ProjectUpdateView(
                 images = self.request.FILES.getlist("image")
                 for image in images:
                     project.image = image
+            elif self.request.POST.get("image-clear") == "on":
+                project.image.delete(save=True)
         project.save()
         form.save_m2m()
         response = super().form_valid(form)
