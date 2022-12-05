@@ -54,7 +54,7 @@ class HomeView(FormView):
 
         selected_programs = programs_qs.can_be_displayed_on_homepage()
         # We only display the latest 3
-        subset_selected_programs = selected_programs[0:5]
+        subset_selected_programs = selected_programs[0:3]
 
         context = super().get_context_data(**kwargs)
         context["nb_aids"] = aids_qs.values("id").count()
