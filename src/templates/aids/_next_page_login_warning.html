@@ -1,0 +1,21 @@
+{% load i18n pagination %}
+<div class="fr-callout fr-callout--green-menthe">
+    <h3 class="fr-callout__title">Optimisez votre recherche en vous créant un compte ou en vous connectant</h3>
+    <p class="fr-callout__text">
+        Votre recherche comporte plusieurs pages de résultats, nous vous conseillons de vous
+        connecter pour accéder à toutes les fonctionnalités proposées par Aides-territoires
+        (alertes, sauvegarde des aides, travail en équipe…)
+    </p>
+
+    <ul class="fr-btns-group fr-btns-group--inline-md fr-btns-group--icon-left">
+        <li>
+            <a class="fr-btn fr-icon-account-line" id="register-from-next-page-warning" href="{% url 'register' %}?next={{ request.path }}" target="_blank" rel="noopener" title="S’inscrire - ouvre une nouvelle fenêtre">
+                S’inscrire
+            </a>
+        </li>
+    </ul>
+
+    <p class="fr-text--xs">Le formulaire d’inscription s’ouvrira dans un nouvel onglet afin que vous ne perdiez pas votre recherche.</p>
+
+    {% include '_pagination.html' %}
+</div>

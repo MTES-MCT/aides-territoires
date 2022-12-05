@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from core.admin import pretty_print_readonly_jsonfield
 from stats.models import (
+    AccountRegisterFromNextpagewarningClickEvent,
     AidSearchEvent,
     AidViewEvent,
     AidContactClickEvent,
@@ -12,6 +13,21 @@ from stats.models import (
     PromotionDisplayEvent,
     Event,
 )
+
+
+class AccountRegisterFromNextpagewarningClickEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+
+    list_display = ["id", "date_created"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 class AidViewEventAdmin(admin.ModelAdmin):
@@ -170,6 +186,10 @@ class EventAdmin(admin.ModelAdmin):
         return False
 
 
+admin.site.register(
+    AccountRegisterFromNextpagewarningClickEvent,
+    AccountRegisterFromNextpagewarningClickEventAdmin,
+)
 admin.site.register(AidViewEvent, AidViewEventAdmin)
 admin.site.register(AidContactClickEvent, AidContactClickEventAdmin)
 admin.site.register(AidOriginUrlClickEvent, AidOriginUrlClickEventAdmin)

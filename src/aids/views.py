@@ -81,6 +81,10 @@ class SearchView(SearchMixin, FormMixin, ListView):
         self.form = self.get_form()
         self.form.full_clean()
         self.store_current_search()
+
+        # Used to display a warning when a user first consults the page
+        search_view_visits = request.session.get("search_view_visits", 0)
+        request.session["search_view_visits"] = search_view_visits + 1
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
@@ -189,6 +193,14 @@ class SearchView(SearchMixin, FormMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        user = self.request.user
+        search_view_visits = self.request.session["search_view_visits"]
+
+        if search_view_visits <= 1 and not user.is_authenticated:
+            context["next_page_login_warning"] = True
+        else:
+            context["next_page_login_warning"] = False
 
         context["current_search"] = self.request.session.get(
             settings.SEARCH_COOKIE_NAME, ""

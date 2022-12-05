@@ -1,11 +1,11 @@
 (function (exports) {
     "use strict";
 
-    exports.SavePromotionDisplayEvent = function(promotionLink) {
+    exports.SavePromotionDisplayEvent = function (promotionLink) {
 
-        promotionLink.each(function() {
+        promotionLink.each(function () {
             // Send an event to our stats DB
-            var statsData = JSON.stringify({
+            let statsData = JSON.stringify({
                 promotion: this.id,
                 querystring: CURRENT_SEARCH
             });
@@ -21,11 +21,11 @@
         });
     };
 
-    exports.SavePromotionClickEvent = function(promotionLink) {
+    exports.SavePromotionClickEvent = function (promotionLink) {
 
-        promotionLink.click(function() {
+        promotionLink.click(function () {
             // Send an event to our stats DB
-            var statsData = JSON.stringify({
+            let statsData = JSON.stringify({
                 promotion: this.id,
                 querystring: CURRENT_SEARCH
             });
@@ -43,8 +43,8 @@
 
     exports.trackSearchEvent = function (perimeter, categories, nbResults, stepName) {
         try {
-            var allCategories = categories.reduce(function (acc, value) {
-                var accumulated;
+            let allCategories = categories.reduce(function (acc, value) {
+                let accumulated;
                 if (acc == '') {
                     accumulated = value;
                 } else {
@@ -53,7 +53,7 @@
                 return accumulated;
             }, '');
 
-            var eventName;
+            let eventName;
             if (perimeter) {
                 eventName = perimeter + ' > ' + allCategories;
             } else {
@@ -71,11 +71,11 @@
 })(this);
 
 $(document).ready(function () {
-    var SEARCH_STEP = 'Étape 5 – Résultats';
+    let SEARCH_STEP = 'Étape 5 – Résultats';
     trackSearchEvent(PERIMETER, CATEGORIES, NB_RESULTS, SEARCH_STEP);
 
     // Track clicks on #promotion-block-link button
-    var promotionLink = $('#promotion-block-link>a');
+    let promotionLink = $('#promotion-block-link>a');
     SavePromotionDisplayEvent(promotionLink);
     SavePromotionClickEvent(promotionLink);
 });
