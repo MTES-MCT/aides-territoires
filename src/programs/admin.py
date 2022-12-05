@@ -30,6 +30,7 @@ class ProgramAdmin(admin.ModelAdmin):
                 "fields": (
                     "name",
                     "slug",
+                    "is_spotlighted",
                     "short_description",
                     "description",
                     "logo",

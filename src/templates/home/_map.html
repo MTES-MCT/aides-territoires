@@ -1,12 +1,8 @@
+{% load static %}
 <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
     <div class="fr-col-lg-5 fr-mb-10w">
-        <h2>Trouvez les aides disponibles pour votre territoire</h2>
+        <h2>Découvrez les programmes et porteurs d’aides de votre territoire</h2>
 
-        <p class="fr-text--lead">
-            <strong>
-                <span class="at-color--blue">{{ nb_aids }}</span> aides recensées par <span class="at-color--blue">{{ nb_backers }}</span> porteurs d’aides partout en France
-            </strong>
-        </p>
         <form id="department-search-form" method="post">
             <div class="fr-select-group">
                 <select class="fr-select fr-mt-3w at-live-change"
@@ -23,22 +19,46 @@
             </div>
         </form>
 
+        <p class="fr-text--lead fr-mt-3w">
+            <strong>
+                <span class="at-color--blue">{{ nb_aids }}</span> aides recensées par <span class="at-color--blue">{{ nb_backers }}</span> porteurs d’aides partout en France
+            </strong>
+        </p>
+
         {% if subset_selected_backers %}
-            <div id="home-partners" class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w at-centered fr-grid-row--bottom" >
+            <div id="home-partners" class="fr-grid-row fr-grid-row--center fr-grid-row--gutter at-centered fr-grid-row--bottom">
                 {% for selected_backer in subset_selected_backers %}
-                    {% if forloop.counter <= 5 %}
-                        <div class="fr-col-xs-12 fr-p-3w">
-                            <a href="{{ selected_backer.get_absolute_url }}" class="at-link__nodecorator">
-                            {% if selected_backer.logo %}
-                                <img src="{{ selected_backer.logo.url }}" alt="Logo : {{ selected_backer.name }}" loading="lazy" />
-                            {% endif %}
-                            </a>
-                        </div>
-                    {% endif %}
+                    <div class="fr-col-xs-12 fr-p-3w">
+                        <a href="{{ selected_backer.get_absolute_url }}" title="{{ selected_backer.name }}" class="at-link__nodecorator">
+                        {% if selected_backer.logo %}
+                            <img src="{{ selected_backer.logo.url }}" alt="" loading="lazy" />
+                        {% endif %}
+                        </a>
+                    </div>
                 {% endfor %}
             </div>        
         {% endif %}
-    
+
+        <p class="fr-text--lead fr-mt-3w">
+            <strong>
+                <span class="at-color--blue">{{ nb_programs }}</span> programmes d’aides nationaux
+            </strong>
+        </p>
+
+        {% if subset_selected_programs %}
+            <div id="home-programs" class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w at-centered fr-grid-row--bottom">
+                {% for selected_program in subset_selected_programs %}
+                    <div class="fr-col-xs-12 fr-p-3w">
+                        <a href="{{ selected_program.get_absolute_url }}" title="{{ selected_program.name }}" class="at-link__nodecorator">
+                        {% if selected_program.logo %}
+                            <img src="{{ selected_program.logo.url }}" alt="" loading="lazy" />
+                        {% endif %}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
     </div>
     <div class="fr-col-12 fr-col-lg-7" role="presentation">
         <div id="france-map" class="fr-mt-4w fr-mb-4w">{% include "geofr/france_departments.svg" %}</div>
