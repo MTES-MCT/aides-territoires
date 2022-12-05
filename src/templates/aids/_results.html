@@ -82,5 +82,6 @@
 
 {% if not search_page and next_page_login_warning %}
     {% include 'aids/_next_page_login_warning.html' %}
+{% else %}
+    {% include '_pagination.html' %}
 {% endif %}
-{% include '_pagination.html' %}
