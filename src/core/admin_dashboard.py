@@ -58,6 +58,14 @@ class CustomIndexDashboard(Dashboard):
         )
         self.children.append(
             modules.ModelList(
+                "Notifications",
+                deletable=False,
+                draggable=False,
+                models=("notifications.*",),
+            )
+        )
+        self.children.append(
+            modules.ModelList(
                 "Contenu éditorial",
                 deletable=False,
                 draggable=False,
