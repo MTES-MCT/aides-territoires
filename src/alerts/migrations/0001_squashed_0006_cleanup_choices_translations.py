@@ -5,22 +5,7 @@ import django.utils.timezone
 import uuid
 
 
-# Functions from the following migrations need manual copying.
-# Move them and any dependencies into this file, then update the
-# RunPython operations to refer to the local versions:
-# alerts.migrations.0003_
-
-
 class Migration(migrations.Migration):
-
-    replaces = [
-        ("alerts", "0001_initial"),
-        ("alerts", "0002_auto_20200117_1116"),
-        ("alerts", "0003_import_bookmarks"),
-        ("alerts", "0004_auto_20200302_1041"),
-        ("alerts", "0005_alert_source"),
-        ("alerts", "0006_cleanup_choices_translations"),
-    ]
 
     initial = True
 
