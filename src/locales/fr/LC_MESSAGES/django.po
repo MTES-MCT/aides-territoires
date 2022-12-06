@@ -207,57 +207,6 @@ msgstr ""
 "Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
 "60 caractères. Laissez vide pour réutiliser le titre de l'article."
 
-msgid "Owner"
-msgstr "Auteur"
-
-msgid "Send email alert"
-msgstr "Envoi d'alertes e-mail"
-
-msgid "Bookmark"
-msgstr "Sauvegarder"
-
-msgid "Bookmarks"
-msgstr "Recherches sauvegardées"
-
-msgid "Please confirm your Aides-territoires alert"
-msgstr "📢 Attention ! Validez maintenant votre alerte Aides-territoires."
-
-msgid ""
-"You will receive a daily email whenever new matching aids will be published."
-msgstr ""
-"Un e-mail vous sera envoyé une fois par jour dès lors qu'une aide est "
-"publiée."
-
-msgid ""
-"You will receive a weekly email whenever new matching aids will be published."
-msgstr ""
-"Un e-mail vous sera envoyé une fois par semaine dès lors qu'une aide est "
-"publiée."
-
-msgid "update/"
-msgstr "mise-à-jour/"
-
-#, python-format
-msgid ""
-"Your new bookmark was successfully created. <a href=\"%(url)s\">You will "
-"find in in your bookmark list.</a>"
-msgstr ""
-"Votre alerte a été sauvegardée. <a href=\"%(url)s\">Vous la retrouverez dans "
-"votre liste d'alertes.</a>"
-
-msgid "We just sent you an email to validate your address."
-msgstr "Nous venons de vous envoyer un e-mail afin de valider votre adresse."
-
-msgid "We could not create your bookmark because of those errors: {}"
-msgstr ""
-"Nous n'avons pas pu enregistrer votre alerte à cause de ces erreurs : {}"
-
-msgid "Your bookmark was deleted."
-msgstr "Votre alerte a été supprimée."
-
-msgid "The email notification settings was updated."
-msgstr "Configuration d'alerte mise à jour."
-
 msgid "Short description"
 msgstr "Brève description"
 
