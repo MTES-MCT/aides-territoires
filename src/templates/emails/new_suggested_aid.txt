@@ -4,7 +4,9 @@ Bonjour {{ project_author_name }},
 
 {{ suggester_user_name }} de "{{ suggester_organization_name }}" vous a suggéré l’aide suivante pour financer ou accompagner votre projet "{{project_name}}" sur Aides-territoires : 
 
-"{{ suggested_aid_name }}"
+Titre de l’aide : "{{ suggested_aid_name }}"
+Porteur de l'aide : "{{ suggested_aid_financer_name }}"
+Type d'aide : {{ suggested_aid_reccurence }}
 
 Cette aide vous semble pertinente ? Ajoutez-la à votre projet: {{ full_project_url }}
 

@@ -315,6 +315,8 @@ def send_new_suggested_aid_notification_email(
         return
 
     suggested_aid = Aid.objects.get(id=suggested_aid_id)
+    suggested_aid_financer_name = suggested_aid.financers.first().name
+    suggested_aid_reccurence = suggested_aid.get_recurrence_display()
     project = Project.objects.get(id=project_id)
     base_url = get_base_url()
     reverse_account_url = reverse("user_dashboard")
@@ -333,6 +335,8 @@ def send_new_suggested_aid_notification_email(
             "suggester_organization_name": suggester_organization_name,
             "project_name": project.name,
             "suggested_aid_name": suggested_aid.name,
+            "suggested_aid_financer_name": suggested_aid_financer_name,
+            "suggested_aid_reccurence": suggested_aid_reccurence,
             "full_account_url": full_account_url,
             "full_project_url": full_project_url,
         },
