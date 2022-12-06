@@ -6,15 +6,7 @@ To activate your custom menu add the following to your settings.py::
     ADMIN_TOOLS_MENU = 'src.admin_menu.CustomMenu'
 """
 
-try:
-    # we use django.urls import as version detection as it will fail
-    # on django 1.11 and thus we are safe to use
-    # gettext_lazy instead of ugettext_lazy instead
-    from django.urls import reverse
-    from django.utils.translation import gettext_lazy as _
-except ImportError:
-    from django.core.urlresolvers import reverse
-    from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 
 from admin_tools.menu import items, Menu
 
@@ -27,10 +19,10 @@ class CustomMenu(Menu):
     def __init__(self, **kwargs):
         Menu.__init__(self, **kwargs)
         self.children += [
-            items.MenuItem(_("Dashboard"), reverse("admin:index")),
+            items.MenuItem("Dashboard", reverse("admin:index")),
             items.Bookmarks(),
-            items.AppList(_("Applications"), exclude=("django.contrib.*",)),
-            items.AppList(_("Administration"), models=("django.contrib.*",)),
+            items.AppList("Applications", exclude=("django.contrib.*",)),
+            items.AppList("Administration", models=("django.contrib.*",)),
         ]
 
     def init_with_context(self, context):
