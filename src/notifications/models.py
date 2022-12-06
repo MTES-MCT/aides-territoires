@@ -15,7 +15,19 @@ class Notification(models.Model):
     date_read = models.DateTimeField("date de consultation", null=True, blank=True)
 
     def __str__(self):
-        return f"à:{self.recipient.full_name} – {self.message}"
+        return f"({self.id}) à:{self.recipient.full_name} – {self.message}"
+
+    def mark_as_read(self):
+        self.date_read = timezone.now()
+        self.save()
+
+    def is_read(self):
+        if self.date_read:
+            return True
+        else:
+            return False
+
+    is_read.boolean = True
 
     class Meta:
         verbose_name = "notification"
