@@ -19,7 +19,7 @@ class CustomMenu(Menu):
     def __init__(self, **kwargs):
         Menu.__init__(self, **kwargs)
         self.children += [
-            items.MenuItem("Dashboard", reverse("admin:index")),
+            items.MenuItem("Tableau de bord", reverse("admin:index")),
             items.Bookmarks(),
             items.AppList("Applications", exclude=("django.contrib.*",)),
             items.AppList("Administration", models=("django.contrib.*",)),
