@@ -9,6 +9,8 @@ from core.utils import get_base_url
 from core.celery import app
 from accounts.models import User
 from organizations.models import Organization
+from aids.models import Aid
+from projects.models import Project
 from emails.utils import send_email, send_email_with_template
 
 
@@ -285,5 +287,61 @@ def send_leave_organization_email(
         recipient_list=[user.email],
         from_email=settings.DEFAULT_FROM_EMAIL,
         tags=["connexion", settings.ENV_NAME],
+        fail_silently=False,
+    )
+
+
+@app.task
+def send_new_suggested_aid_notification_email(
+    project_author_email,
+    suggester_user_email,
+    suggester_organization_name,
+    project_id,
+    suggested_aid_id,
+    body_template="emails/new_suggested_aid.txt",
+):
+    """
+    Send an email to the project's authors to inform them
+    a new aid was suggested for the project.
+    """
+    try:
+        project_author = User.objects.get(email=project_author_email)
+        suggester_user = User.objects.get(email=suggester_user_email)
+    except User.DoesNotExist:
+        # In case we could not find any valid user with the given email
+        # we don't raise any exception, because we can't give any hints
+        # about whether or not any particular email has an account
+        # on our site.
+        return
+
+    suggested_aid = Aid.objects.get(id=suggested_aid_id)
+    project = Project.objects.get(id=project_id)
+    base_url = get_base_url()
+    reverse_account_url = reverse("user_dashboard")
+    full_account_url = f"{base_url}{reverse_account_url}"
+    reverse_project_url = reverse(
+        "project_detail_view", args=[project.id, project.slug]
+    )
+    full_project_url = f"{base_url}{reverse_project_url}"
+
+    login_email_body = render_to_string(
+        body_template,
+        {
+            "base_url": base_url,
+            "project_author_name": project_author.full_name,
+            "suggester_user_name": suggester_user.full_name,
+            "suggester_organization_name": suggester_organization_name,
+            "project_name": project.name,
+            "suggested_aid_name": suggested_aid.name,
+            "full_account_url": full_account_url,
+            "full_project_url": full_project_url,
+        },
+    )
+    send_email(
+        subject="Une aide vous a été suggérée pour votre projet",
+        body=login_email_body,
+        recipient_list=[project_author.email],
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        tags=["aide suggérée", settings.ENV_NAME],
         fail_silently=False,
     )

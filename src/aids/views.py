@@ -56,6 +56,10 @@ from stats.utils import log_aidviewevent, log_aidsearchevent
 from core.utils import remove_accents
 
 
+from accounts.tasks import send_new_suggested_aid_notification_email
+from analytics.utils import track_goal
+
+
 class AidPaginator(Paginator):
     """Custom paginator for aids.
 
@@ -908,6 +912,7 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
     def form_valid(self, form):
         aid = form.cleaned_data["aid"]
         projects = form.cleaned_data["project"]
+        user = self.request.user
 
         if projects and aid:
             try:
@@ -917,6 +922,14 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
                             project.pk, through_defaults={"creator": self.request.user}
                         )
                         aid.save()
+                        send_new_suggested_aid_notification_email.delay(
+                            project_author_email=project.author.first().email,
+                            suggester_user_email=user.email,
+                            suggester_organization_name=user.beneficiary_organization.name,
+                            project_id=project.id,
+                            suggested_aid_id=aid.id,
+                        )
+                        track_goal(self.request.session, settings.GOAL_REGISTER_ID)
                     else:
                         raise PermissionDenied()
             except Exception:
