@@ -21,14 +21,6 @@ class Notification(models.Model):
         self.date_read = timezone.now()
         self.save()
 
-    def is_read(self):
-        if self.date_read:
-            return True
-        else:
-            return False
-
-    is_read.boolean = True
-
     class Meta:
         verbose_name = "notification"
         ordering = ["-date_created"]
