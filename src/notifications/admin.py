@@ -32,5 +32,14 @@ class NotificationAdmin(admin.ModelAdmin):
         "date_created",
         "is_read",
     ]
-    list_filter = [("recipient", admin.RelatedOnlyFieldListFilter), IsReadFilter]
-    search_fields = ["recipient, message"]
+    list_filter = [IsReadFilter]
+    search_fields = ["recipient__email", "recipient__last_name", "message"]
+
+    def is_read(self, obj):
+        if obj.date_read:
+            return True
+        else:
+            return False
+
+    is_read.boolean = True
+    is_read.short_description = "Est lue"
