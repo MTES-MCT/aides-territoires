@@ -1,10 +1,3 @@
-try:
-    # we use django.urls import as version detection as it will fail
-    # on django 1.11 and thus we are safe to use
-    # gettext_lazy instead of ugettext_lazy instead
-    from django.utils.translation import gettext_lazy as _
-except ImportError:
-    from django.utils.translation import ugettext_lazy as _
 from admin_tools.dashboard import modules, Dashboard, AppIndexDashboard
 
 
@@ -113,7 +106,7 @@ class CustomIndexDashboard(Dashboard):
         )
         self.children.append(
             modules.RecentActions(
-                _("Recent Actions"),
+                "Actions récentes",
                 5,
                 deletable=False,
                 draggable=False,
@@ -165,7 +158,7 @@ class CustomAppIndexDashboard(AppIndexDashboard):
         self.children += [
             modules.ModelList(self.app_title, self.models),
             modules.RecentActions(
-                _("Recent Actions"), include_list=self.get_app_content_types(), limit=5
+                "Actions récentes", include_list=self.get_app_content_types(), limit=5
             ),
         ]
 

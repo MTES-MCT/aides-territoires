@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-10 17:50+0200\n"
+"POT-Creation-Date: 2022-12-06 15:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,9 +19,6 @@ msgstr ""
 
 msgid "Author"
 msgstr "Auteur"
-
-msgid "Administrators"
-msgstr "Administrateurs"
 
 msgid "Eligibility test"
 msgstr "Test d'éligibilité"
@@ -35,35 +32,14 @@ msgstr "Non"
 msgid "Backers"
 msgstr "Porteurs d'aides"
 
-msgid "Perimeter"
-msgstr "Périmètre"
-
-msgid "Instructors"
-msgstr "Instructeurs"
-
-msgid "Eligibility"
-msgstr "Éligibilité"
-
 msgid "Exported data will be available "
 msgstr "Les données exportées seront disponibles "
 
 msgid "Categories"
 msgstr "Sous-thématiques"
 
-msgid "Text search"
-msgstr "Recherche textuelle"
-
-msgid "Projects"
-msgstr "Projets"
-
 msgid "Themes"
 msgstr "Thématiques"
-
-msgid "Not displayed"
-msgstr "Non affichée"
-
-msgid "Displayed"
-msgstr "Affichée"
 
 msgid "Slug"
 msgstr "Fragment d’URL"
@@ -80,12 +56,6 @@ msgstr "Titre court"
 msgid "Targeted audiences"
 msgstr "Bénéficiaires de l'aide"
 
-msgid "Programs"
-msgstr "Programmes"
-
-msgid "Status"
-msgstr "Statut"
-
 msgid "Date created"
 msgstr "Date de création"
 
@@ -94,12 +64,6 @@ msgstr "Date de mise à jour"
 
 msgid "Tags"
 msgstr "Mots clés"
-
-msgid "Aid"
-msgstr "Aide"
-
-msgid "Aids"
-msgstr "Aides"
 
 msgid "Secret token"
 msgstr "Clé secrète"
@@ -137,21 +101,11 @@ msgstr "validation/"
 msgid "delete/"
 msgstr "supprimer/"
 
-msgid "We just sent you an email to validate your alert."
-msgstr "Nous venons de vous envoyer un e-mail afin de valider votre alerte."
-
-msgid "We could not create your alert because of those errors: {}"
-msgstr ""
-"Nous n'avons pas pu enregistrer votre alerte à cause de ces erreurs : {}"
-
 msgid "Logo image"
 msgstr "Logo du porteur"
 
 msgid "Description"
 msgstr "Description"
-
-msgid "SEO"
-msgstr "SEO"
 
 msgid "Backer Group"
 msgstr "Groupe de porteurs"
@@ -206,57 +160,6 @@ msgid ""
 msgstr ""
 "Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
 "60 caractères. Laissez vide pour réutiliser le titre de l'article."
-
-msgid "Owner"
-msgstr "Auteur"
-
-msgid "Send email alert"
-msgstr "Envoi d'alertes e-mail"
-
-msgid "Bookmark"
-msgstr "Sauvegarder"
-
-msgid "Bookmarks"
-msgstr "Recherches sauvegardées"
-
-msgid "Please confirm your Aides-territoires alert"
-msgstr "📢 Attention ! Validez maintenant votre alerte Aides-territoires."
-
-msgid ""
-"You will receive a daily email whenever new matching aids will be published."
-msgstr ""
-"Un e-mail vous sera envoyé une fois par jour dès lors qu'une aide est "
-"publiée."
-
-msgid ""
-"You will receive a weekly email whenever new matching aids will be published."
-msgstr ""
-"Un e-mail vous sera envoyé une fois par semaine dès lors qu'une aide est "
-"publiée."
-
-msgid "update/"
-msgstr "mise-à-jour/"
-
-#, python-format
-msgid ""
-"Your new bookmark was successfully created. <a href=\"%(url)s\">You will "
-"find in in your bookmark list.</a>"
-msgstr ""
-"Votre alerte a été sauvegardée. <a href=\"%(url)s\">Vous la retrouverez dans "
-"votre liste d'alertes.</a>"
-
-msgid "We just sent you an email to validate your address."
-msgstr "Nous venons de vous envoyer un e-mail afin de valider votre adresse."
-
-msgid "We could not create your bookmark because of those errors: {}"
-msgstr ""
-"Nous n'avons pas pu enregistrer votre alerte à cause de ces erreurs : {}"
-
-msgid "Your bookmark was deleted."
-msgstr "Votre alerte a été supprimée."
-
-msgid "The email notification settings was updated."
-msgstr "Configuration d'alerte mise à jour."
 
 msgid "Short description"
 msgstr "Brève description"
@@ -321,21 +224,11 @@ msgstr "Upload de périmètre"
 msgid "Perimeter combine"
 msgstr "Combinaison de périmètre"
 
-#, python-brace-format
-msgid "The {name} “{obj}” was changed successfully."
-msgstr "L’objet {name} « {obj} » a été modifié avec succès."
-
-msgid "We successfully configured the perimeter."
-msgstr "Le périmètre a bien été configuré."
-
 msgid "Perimeter type"
 msgstr "Type de périmètre"
 
 msgid "List of missing city codes:"
 msgstr "Liste des codes insee des communes manquants :"
-
-msgid "List of missing EPCI names:"
-msgstr "Liste des noms des EPCIs manquants :"
 
 msgid "Perimeters to add"
 msgstr "Périmètres à additionner"
@@ -348,24 +241,6 @@ msgstr "Périmètres à soustraire"
 
 msgid "Those perimeters will be substracted from the combined perimeters"
 msgstr "Ces périmètres seront enlevés du périmètre combiné."
-
-msgid "verb"
-msgstr "verbe"
-
-msgid "actor"
-msgstr "auteur"
-
-msgid "target"
-msgstr "cible"
-
-msgid "action object"
-msgstr "object de l'action"
-
-msgid "description"
-msgstr "description"
-
-msgid "logs"
-msgstr "logs"
 
 # This must be the same translation than the "/validate/" url
 msgid "<slug:token>/validate/"
@@ -380,40 +255,6 @@ msgid ""
 msgstr ""
 "Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
 "60 caractères. Laissez vide pour réutiliser le titre de la page."
-
-msgid "Logo"
-msgstr "Logo"
-
-msgid "Name of your project"
-msgstr "Nom de votre projet"
-
-msgid "Build a media library, build a bicycle road, ..."
-msgstr "Construire une médiathèque, mettre en place une piste cyclable, ..."
-
-msgid "Describe your project in a few words"
-msgstr "Parlez-nous de votre projet en quelques mots"
-
-msgid ""
-"Its goal, its mobilization step or any informations that can identify your "
-"project"
-msgstr ""
-"Quel est son objectif, son état d’avancement ou tout autre information "
-"permettant de le qualifier"
-
-msgid "Is a suggested project?"
-msgstr "Est-ce un projet suggéré ?"
-
-msgid "If the project is suggested by a user"
-msgstr "Si le projet est suggéré par un utilisateur"
-
-msgid "Project"
-msgstr "Projet"
-
-msgid "suggest/"
-msgstr "suggestion/"
-
-msgid "Thank you for contributing!"
-msgstr "Merci de votre contribution&nbsp;!"
 
 msgid "Page content"
 msgstr "Contenu de la page"
