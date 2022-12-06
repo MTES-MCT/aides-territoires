@@ -9,7 +9,6 @@ from django.contrib.auth.models import (
 from django.utils import timezone
 
 from model_utils import Choices
-
 from notifications.models import Notification
 
 
@@ -287,7 +286,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @property
     def unread_notifications(self):
-        """User has unread notifications"""
+        """Number of unread notifications for the user"""
         return Notification.objects.filter(recipient=self).count()
 
     @property
