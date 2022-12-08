@@ -287,7 +287,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def unread_notifications(self):
         """Number of unread notifications for the user"""
-        return Notification.objects.filter(recipient=self).count()
+        return Notification.objects.filter(
+            recipient=self, date_read__isnull=True
+        ).count()
 
     @property
     def bound_to_organization(self):

@@ -33,7 +33,7 @@
 <div class="fr-container fr-mb-5w fr-mt-0">
     <div class="fr-grid-row">
 
-        {% include 'accounts/_sidebar_menu.html' with alert_list=True %}
+        {% include 'accounts/_sidebar_menu.html' with notification_list=True %}
 
         <div class="fr-col-12 fr-col-md-9">
             <h1 class="fr-h3 fr-mb-5w">Gestion des notifications
@@ -57,9 +57,11 @@
                                     <td>
                                         <p id="notification-{{ notification.pk }}">
                                             {% if not notification.date_read %}
-                                                <strong>{{ notification.message }}</strong>
+                                                <strong>
+                                                    <a href="{% url 'notification_detail_view' notification.pk %}">{{ notification.title }}</a>
+                                                </strong>
                                             {% else %}
-                                                {{ notification.message }}
+                                                <a href="{% url 'notification_detail_view' notification.pk %}">{{ notification.title }}</a>
                                             {% endif %}
                                         </p>
                                     </td>
@@ -88,6 +90,27 @@
                     </tbody>
                 </table>
             </div>
+
+            {% if notifications %}
+                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
+                    <button type="button"
+                            class="fr-btn fr-icon-checkbox-circle-line"
+                            id="delete-all-notifications"
+                            title="Tout marquer comme lu"
+                            aria-controls="mark-all-notifications-read-modal"
+                    >
+                        Tout marquer comme lu
+                    </button>
+                    <button type="button"
+                            class="fr-btn fr-icon-delete-line fr-btn--secondary"
+                            id="delete-all-notifications"
+                            title="Tout supprimer"
+                            aria-controls="delete-all-notifications-modal"
+                    >
+                        Tout supprimer
+                    </button>
+                </ul>
+            {% endif %}
         </div>
     </div>
 </div>

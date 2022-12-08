@@ -1,5 +1,9 @@
+from uuid import uuid4
+
 from django.db import models
 from django.utils import timezone
+
+from notifications.constants import NOTIFICATION_TYPES_LIST
 
 
 class Notification(models.Model):
@@ -10,17 +14,43 @@ class Notification(models.Model):
         verbose_name="destinataire",
         on_delete=models.CASCADE,
     )
-    message = models.CharField("message", max_length=256)
+    notification_type = models.CharField(
+        "type de notification",
+        max_length=32,
+        choices=NOTIFICATION_TYPES_LIST,
+        default="others",
+        help_text="Utilisé pour la gestion des préférences de réception des notifications",
+    )
+    title = models.CharField("titre", max_length=100)
+    message = models.CharField("message", max_length=500)
     date_created = models.DateTimeField("date de création", default=timezone.now)
     date_read = models.DateTimeField("date de consultation", null=True, blank=True)
 
-    def __str__(self):
-        return f"({self.id}) à:{self.recipient.full_name} – {self.message}"
+    token = models.UUIDField(
+        "clé secrète",
+        unique=True,
+        default=uuid4,
+        editable=False,
+        help_text="Utilisé pour marquer comme lu",
+    )
 
     def mark_as_read(self):
         self.date_read = timezone.now()
         self.save()
 
+    def truncate_title(self):
+        if not self.title:
+            return id
+        if len(self.title) < 50:
+            return self.title
+        else:
+            return self.title[:49] + "…"
+
+    def __str__(self):
+        notification_type = self.get_notification_type_display()
+        user = self.recipient.full_name
+        return f"({notification_type} – {user} – {self.truncate_title()}"
+
     class Meta:
         verbose_name = "notification"
-        ordering = ["-date_created"]
+        ordering = ["date_created"]
