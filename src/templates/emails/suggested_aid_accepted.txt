@@ -1,0 +1,23 @@
+{% load settings %}
+
+Bonjour {{ suggester_user_name }}, 
+
+Vous avez suggéré l’aide "{{ suggested_aid_name }}" de "{{ suggested_aid_financer_name }}" pour le projet "{{ project_name }}" {{ full_public_project_url }}.
+
+Celle-ci a été jugée pertinente par {{ project_author_organization_name }}, félicitations ! 
+
+💡 Savez-vous que vous pouvez également ajouter ce projet à vos favoris ?
+
+Afin de faciliter la suggestion d’aides, vous pouvez ajouter ce projet à vos favoris. 
+
+Rendez-vous pour cela sur le projet, puis cliquez sur "ajouter ce projet à mes favoris". 
+Le projet sera ensuite accessible depuis votre compte dans l’onglet "mes projets favoris". 
+Vous pourrez de plus suggérer des aides directement depuis les fiches d’aides que vous parcourez, vous rendant en bas de la fiche sur le bloc "Cette aide correspond à un de vos projets publics favoris" et en cliquant sur "suggérer cette aide pour un projet".
+
+Nous vous remercions de contribuer à l’entraide et à l’accompagnement des collectivités sur Aides-territoires. Grâce à vous, de nouveaux projets voient le jour en France !
+
+Retrouvez dès maintenant d’autres projets cherchant des aides {{ full_public_projects_list_url }} .
+
+À très vite,
+
+L'équipe d'Aides-territoires

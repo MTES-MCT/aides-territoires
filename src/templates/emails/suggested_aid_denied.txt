@@ -1,0 +1,15 @@
+{% load settings %}
+
+Bonjour {{ suggester_user_name }}, 
+
+Vous avez suggéré l’aide "{{ suggested_aid_name }}" de "{{ suggested_aid_financer_name }}" pour le projet "{{project_name}}" {{ full_public_project_url }}.
+
+Malheureusement, celle-ci n’a pas été jugée pertinente par {{ project_author_organization_name }}.
+
+Nous vous remercions de contribuer à l’entraide et à l’accompagnement des collectivités sur Aides-territoires.
+
+Retrouvez dès maintenant d’autres projets cherchant des aides {{ full_public_projects_list_url }} .
+
+À très vite,
+
+L'équipe d'Aides-territoires

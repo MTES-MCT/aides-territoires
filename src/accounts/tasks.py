@@ -349,3 +349,113 @@ def send_new_suggested_aid_notification_email(
         tags=["aide suggérée", settings.ENV_NAME],
         fail_silently=False,
     )
+
+
+@app.task
+def send_suggested_aid_accepted_notification_email(
+    project_author_organization_name,
+    suggester_user_email,
+    project_id,
+    suggested_aid_id,
+    body_template="emails/suggested_aid_accepted.txt",
+):
+    """
+    Send an email to the aid's suggester to inform him
+    the aid was accepted for the project.
+    """
+    try:
+        suggester_user = User.objects.get(email=suggester_user_email)
+    except User.DoesNotExist:
+        # In case we could not find any valid user with the given email
+        # we don't raise any exception, because we can't give any hints
+        # about whether or not any particular email has an account
+        # on our site.
+        return
+
+    suggested_aid = Aid.objects.get(id=suggested_aid_id)
+    suggested_aid_financer_name = suggested_aid.financers.first().name
+    project = Project.objects.get(id=project_id)
+    base_url = get_base_url()
+    reverse_public_project_url = reverse(
+        "public_project_detail_view", args=[project.id, project.slug]
+    )
+    full_public_project_url = f"{base_url}{reverse_public_project_url}"
+    reverse_public_projects_list_url = reverse("public_project_list_view")
+    full_public_projects_list_url = f"{base_url}{reverse_public_projects_list_url}"
+
+    login_email_body = render_to_string(
+        body_template,
+        {
+            "base_url": base_url,
+            "project_author_organization_name": project_author_organization_name,
+            "suggester_user_name": suggester_user.full_name,
+            "project_name": project.name,
+            "suggested_aid_name": suggested_aid.name,
+            "suggested_aid_financer_name": suggested_aid_financer_name,
+            "full_public_project_url": full_public_project_url,
+            "full_public_projects_list_url": full_public_projects_list_url,
+        },
+    )
+    send_email(
+        subject="L’aide que vous avez suggérée a plu !",
+        body=login_email_body,
+        recipient_list=[suggester_user.email],
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        tags=["aide suggérée acceptée", settings.ENV_NAME],
+        fail_silently=False,
+    )
+
+
+@app.task
+def send_suggested_aid_denied_notification_email(
+    project_author_organization_name,
+    suggester_user_email,
+    project_id,
+    suggested_aid_id,
+    body_template="emails/suggested_aid_denied.txt",
+):
+    """
+    Send an email to the aid's suggester to inform him
+    the aid was denied for the project.
+    """
+    try:
+        suggester_user = User.objects.get(email=suggester_user_email)
+    except User.DoesNotExist:
+        # In case we could not find any valid user with the given email
+        # we don't raise any exception, because we can't give any hints
+        # about whether or not any particular email has an account
+        # on our site.
+        return
+
+    suggested_aid = Aid.objects.get(id=suggested_aid_id)
+    suggested_aid_financer_name = suggested_aid.financers.first().name
+    project = Project.objects.get(id=project_id)
+    base_url = get_base_url()
+    reverse_public_project_url = reverse(
+        "public_project_detail_view", args=[project.id, project.slug]
+    )
+    full_public_project_url = f"{base_url}{reverse_public_project_url}"
+    reverse_public_projects_list_url = reverse("public_project_list_view")
+    full_public_projects_list_url = f"{base_url}{reverse_public_projects_list_url}"
+
+    login_email_body = render_to_string(
+        body_template,
+        {
+            "base_url": base_url,
+            "project_author_organization_name": project_author_organization_name,
+            "suggester_user_name": suggester_user.full_name,
+            "project_name": project.name,
+            "suggested_aid_name": suggested_aid.name,
+            "suggested_aid_financer_name": suggested_aid_financer_name,
+            "full_public_project_url": full_public_project_url,
+            "full_public_projects_list_url": full_public_projects_list_url,
+        },
+    )
+    send_email(
+        subject="Des nouvelles de l’aide que vous avez suggérée",
+        body=login_email_body,
+        recipient_list=[suggester_user.email],
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        tags=["aide suggérée acceptée", settings.ENV_NAME],
+        fail_silently=False,
+    )
