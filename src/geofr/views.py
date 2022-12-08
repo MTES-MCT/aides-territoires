@@ -85,9 +85,9 @@ class DepartmentBackersView(TemplateView):
             current_dept["id"], target_audience=target_audience, aid_type=aid_type
         )
 
-        if aid_type == "financial":
+        if aid_type == "financial_group":
             caption_aid_type = " financières"
-        elif aid_type == "technical":
+        elif aid_type == "technical_group":
             caption_aid_type = " en ingénierie"
         else:
             caption_aid_type = ""
@@ -123,9 +123,9 @@ class DepartmentProgramsView(TemplateView):
             current_dept["id"], target_audience=target_audience, aid_type=aid_type
         )
 
-        if aid_type == "financial":
+        if aid_type == "financial_group":
             caption_aid_type = " financiers"
-        elif aid_type == "technical":
+        elif aid_type == "technical_group":
             caption_aid_type = " techniques"
         else:
             caption_aid_type = ""

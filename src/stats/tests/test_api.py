@@ -44,11 +44,11 @@ def test_aid_contact_click_events_api(client, contact_api_url):
     assert AidContactClickEvent.objects.count() == 1
 
     # querystring will be cleaned
-    data = {"aid": aid.id, "querystring": "perimeter=&aid_type=financial"}
+    data = {"aid": aid.id, "querystring": "perimeter=&aid_type=financial_group"}
     client.post(contact_api_url, data=data)
     assert AidContactClickEvent.objects.count() == 2
     event = AidContactClickEvent.objects.last()
-    assert event.querystring == "aid_type=financial"
+    assert event.querystring == "aid_type=financial_group"
 
 
 def test_aid_eligibility_test_events_api(client, eligibility_api_url):
@@ -132,9 +132,9 @@ def test_aid_eligibility_test_events_api(client, eligibility_api_url):
         "aid": aid.id,
         "eligibility_test": eligibility_test.id,
         "answer_success": True,
-        "querystring": "perimeter=&aid_type=financial",
+        "querystring": "perimeter=&aid_type=financial_group",
     }
     client.post(eligibility_api_url, data=data)
     assert AidEligibilityTestEvent.objects.count() == 4
     event = AidEligibilityTestEvent.objects.last()
-    assert event.querystring == "aid_type=financial"
+    assert event.querystring == "aid_type=financial_group"

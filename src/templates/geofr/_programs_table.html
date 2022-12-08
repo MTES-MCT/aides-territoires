@@ -1,6 +1,6 @@
 <table class="sortable-table at-table--xl">
     <caption>{{ caption }}</caption>
-    {% if aid_type == "financial" %}
+    {% if aid_type == "financial_group" %}
         <thead>
             <tr>
                 <th scope="col">Programme</th>
@@ -18,7 +18,7 @@
                         <a href="{% url 'program_detail' entry.slug %}">{{ entry.name }}</a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&aid_type=financial{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&aid_type=financial_group{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
                             {{ entry.financial_aids }}
                         </a>
                     </td>
@@ -45,7 +45,7 @@
                 </tr>
             {% endfor %}
         </tbody>
-    {% elif aid_type == "technical" %}
+    {% elif aid_type == "technical_group" %}
         <thead>
             <tr>
                 <th scope="col">Programme</th>
@@ -62,22 +62,22 @@
                         <a href="{% url 'program_detail' entry.slug %}">{{ entry.name }}</a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&aid_type=technical{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&aid_type=technical_group{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
                             {{ entry.technical_aids }}
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&technical_aids=technical{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&technical_aids=technical_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
                             {{ entry.technical_count }}
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&technical_aids=financial{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&technical_aids=financial_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
                             {{ entry.financial_count }}
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&technical_aids=legal{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&technical_aids=legal_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
                             {{ entry.legal_count }}
                         </a>
                     </td>
@@ -105,12 +105,12 @@
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&aid_type=financial">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&aid_type=financial_group">
                             {{ entry.financial_aids }}
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&aid_type=technical">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&aid_type=technical_group">
                             {{ entry.technical_aids }}
                         </a>
                     </td>

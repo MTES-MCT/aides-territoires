@@ -16,7 +16,7 @@ ADMIN_ID = 1
 TYPES_DICT = {
     "Avance récupérable": Aid.TYPES.recoverable_advance,
     "Innovation": None,
-    "Accompagnement": Aid.TYPES.financial,
+    "Accompagnement": Aid.TYPES.financial_engineering,
     "Subvention": Aid.TYPES.grant,
     "Prêt": Aid.TYPES.loan,
     "Investissement": Aid.TYPES.other,

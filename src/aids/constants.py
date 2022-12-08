@@ -45,12 +45,16 @@ ALL_FINANCIAL_AIDS = FINANCIAL_AIDS + OTHER_AIDS
 FINANCIAL_AIDS_LIST = ("grant", "loan", "recoverable_advance", "other", "cee")
 
 TECHNICAL_AIDS = (
-    ("technical", "Ingénierie technique"),
-    ("financial", "Ingénierie financière"),
-    ("legal", "Ingénierie Juridique / administrative"),
+    ("technical_engineering", "Ingénierie technique"),
+    ("financial_engineering", "Ingénierie financière"),
+    ("legal_engineering", "Ingénierie Juridique / administrative"),
 )
 
-TECHNICAL_AIDS_LIST = ("technical", "financial", "legal")
+TECHNICAL_AIDS_LIST = (
+    "technical_engineering",
+    "financial_engineering",
+    "legal_engineering",
+)
 
 AID_TYPES_ALL = FINANCIAL_AIDS + TECHNICAL_AIDS + OTHER_AIDS
 
@@ -60,8 +64,8 @@ AID_TYPES_GROUPED = (
 )
 
 AID_TYPES_GROUPS = (
-    ("financial", "Aide financière"),
-    ("technical", "Aide en ingénierie"),
+    ("financial_group", "Aide financière"),
+    ("technical_group", "Aide en ingénierie"),
 )
 
 AID_TYPES_ALL_WITH_GROUPS = AID_TYPES_ALL + AID_TYPES_GROUPS

@@ -33,7 +33,7 @@ def get_backers_count_by_department(
             financed_aids__perimeter_id__in=related_perimeters,
         )
 
-    if aid_type == "financial":
+    if aid_type == "financial_group":
         backers = (
             backers.distinct()
             .annotate(
@@ -94,19 +94,25 @@ def get_backers_count_by_department(
             .annotate(
                 technical_count=Count(
                     "financed_aids",
-                    filter=(Q(financed_aids__aid_types__contains=["technical"])),
+                    filter=(
+                        Q(financed_aids__aid_types__contains=["technical_engineering"])
+                    ),
                 )
             )
             .annotate(
                 financial_count=Count(
                     "financed_aids",
-                    filter=(Q(financed_aids__aid_types__contains=["financial"])),
+                    filter=(
+                        Q(financed_aids__aid_types__contains=["financial_engineering"])
+                    ),
                 )
             )
             .annotate(
                 legal_count=Count(
                     "financed_aids",
-                    filter=(Q(financed_aids__aid_types__contains=["legal"])),
+                    filter=(
+                        Q(financed_aids__aid_types__contains=["legal_engineering"])
+                    ),
                 )
             )
             .values(
@@ -169,7 +175,7 @@ def get_programs_count_by_department(
             aids__perimeter_id__in=related_perimeters,
         )
 
-    if aid_type == "financial":
+    if aid_type == "financial_group":
         programs = (
             programs.annotate(
                 financial_aids=Count(
@@ -214,7 +220,7 @@ def get_programs_count_by_department(
             )
             .order_by("-financial_aids")
         )
-    elif aid_type == "technical":
+    elif aid_type == "technical_group":
         programs = (
             programs.annotate(
                 technical_aids=Count(
@@ -226,19 +232,19 @@ def get_programs_count_by_department(
             .annotate(
                 technical_count=Count(
                     "aids",
-                    filter=(Q(aids__aid_types__contains=["technical"])),
+                    filter=(Q(aids__aid_types__contains=["technical_engineering"])),
                 )
             )
             .annotate(
                 financial_count=Count(
                     "aids",
-                    filter=(Q(aids__aid_types__contains=["financial"])),
+                    filter=(Q(aids__aid_types__contains=["financial_engineering"])),
                 )
             )
             .annotate(
                 legal_count=Count(
                     "aids",
-                    filter=(Q(aids__aid_types__contains=["legal"])),
+                    filter=(Q(aids__aid_types__contains=["legal_engineering"])),
                 )
             )
             .values(

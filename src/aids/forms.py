@@ -622,9 +622,9 @@ class BaseAidSearchForm(AidesTerrBaseForm):
         aid_types = financial_aids + technical_aids
 
         aid_type = self.cleaned_data.get("aid_type", [])
-        if "financial" in aid_type:
+        if "financial_group" in aid_type:
             aid_types += FINANCIAL_AIDS_LIST
-        if "technical" in aid_type:
+        if "technical_group" in aid_type:
             aid_types += TECHNICAL_AIDS_LIST
 
         if aid_type and not aid_types:
