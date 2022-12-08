@@ -328,15 +328,15 @@ def send_new_suggested_aid_notification_email(
 
     if settings.SIB_SUGGESTED_AID_EMAIL_ENABLED:
         data = {
-            "project_author_name": project_author.full_name,
-            "suggester_user_name": suggester_user.full_name,
-            "suggester_organization_name": suggester_organization_name,
-            "project_name": project.name,
-            "suggested_aid_name": suggested_aid.name,
-            "suggested_aid_financer_name": suggested_aid_financer_name,
-            "suggested_aid_reccurence": suggested_aid_reccurence,
-            "full_account_url": full_account_url,
-            "full_project_url": full_project_url,
+            "PROJECT_AUTHOR_NAME": project_author.full_name,
+            "SUGGESTER_USER_NAME": suggester_user.full_name,
+            "SUGGESTER_ORGANIZATION_NAME": suggester_organization_name,
+            "PROJECT_NAME": project.name,
+            "SUGGESTED_AID_NAME": suggested_aid.name,
+            "SUGGESTED_AID_FINANCER_NAME": suggested_aid_financer_name,
+            "SUGGESTED_AID_RECCURENCE": suggested_aid_reccurence,
+            "FULL_ACCOUNT_URL": full_account_url,
+            "FULL_PROJECT_URL": full_project_url,
         }
 
         template_id = settings.SIB_NEW_SUGGESTED_AID_TEMPLATE_ID
@@ -402,19 +402,19 @@ def send_suggested_aid_accepted_notification_email(
     reverse_public_project_url = reverse(
         "public_project_detail_view", args=[project.id, project.slug]
     )
-    full_public_project_url = f"{base_url}{reverse_public_project_url}"
+    full_project_url = f"{base_url}{reverse_public_project_url}"
     reverse_public_projects_list_url = reverse("public_project_list_view")
     full_public_projects_list_url = f"{base_url}{reverse_public_projects_list_url}"
 
     if settings.SIB_SUGGESTED_AID_EMAIL_ENABLED:
         data = {
-            "project_author_organization_name": project_author_organization_name,
-            "suggester_user_name": suggester_user.full_name,
-            "project_name": project.name,
-            "suggested_aid_name": suggested_aid.name,
-            "suggested_aid_financer_name": suggested_aid_financer_name,
-            "full_public_project_url": full_public_project_url,
-            "full_public_projects_list_url": full_public_projects_list_url,
+            "PROJECT_AUTHOR_ORGANIZATION_NAME": project_author_organization_name,
+            "SUGGESTER_USER_NAME": suggester_user.full_name,
+            "PROJECT_NAME": project.name,
+            "SUGGESTED_AID_NAME": suggested_aid.name,
+            "SUGGESTED_AID_FINANCER_NAME": suggested_aid_financer_name,
+            "FULL_PROJECT_URL": full_project_url,
+            "FULL_PUBLIC_PROJECTS_LIST_URL": full_public_projects_list_url,
         }
 
         template_id = settings.SIB_SUGGESTED_AID_ACCEPTED_TEMPLATE_ID
@@ -436,7 +436,7 @@ def send_suggested_aid_accepted_notification_email(
                 "project_name": project.name,
                 "suggested_aid_name": suggested_aid.name,
                 "suggested_aid_financer_name": suggested_aid_financer_name,
-                "full_public_project_url": full_public_project_url,
+                "full_project_url": full_project_url,
                 "full_public_projects_list_url": full_public_projects_list_url,
             },
         )
@@ -478,19 +478,19 @@ def send_suggested_aid_denied_notification_email(
     reverse_public_project_url = reverse(
         "public_project_detail_view", args=[project.id, project.slug]
     )
-    full_public_project_url = f"{base_url}{reverse_public_project_url}"
+    full_project_url = f"{base_url}{reverse_public_project_url}"
     reverse_public_projects_list_url = reverse("public_project_list_view")
     full_public_projects_list_url = f"{base_url}{reverse_public_projects_list_url}"
 
     if settings.SIB_SUGGESTED_AID_EMAIL_ENABLED:
         data = {
-            "project_author_organization_name": project_author_organization_name,
-            "suggester_user_name": suggester_user.full_name,
-            "project_name": project.name,
-            "suggested_aid_name": suggested_aid.name,
-            "suggested_aid_financer_name": suggested_aid_financer_name,
-            "full_public_project_url": full_public_project_url,
-            "full_public_projects_list_url": full_public_projects_list_url,
+            "PROJECT_AUTHOR_ORGANIZATION_NAME": project_author_organization_name,
+            "SUGGESTER_USER_NAME": suggester_user.full_name,
+            "PROJECT_NAME": project.name,
+            "SUGGESTED_AID_NAME": suggested_aid.name,
+            "SUGGESTED_AID_FINANCER_NAME": suggested_aid_financer_name,
+            "FULL_PROJECT_URL": full_project_url,
+            "FULL_PUBLIC_PROJECTS_LIST_URL": full_public_projects_list_url,
         }
 
         template_id = settings.SIB_SUGGESTED_AID_DENIED_TEMPLATE_ID
@@ -512,7 +512,7 @@ def send_suggested_aid_denied_notification_email(
                 "project_name": project.name,
                 "suggested_aid_name": suggested_aid.name,
                 "suggested_aid_financer_name": suggested_aid_financer_name,
-                "full_public_project_url": full_public_project_url,
+                "full_project_url": full_project_url,
                 "full_public_projects_list_url": full_public_projects_list_url,
             },
         )
