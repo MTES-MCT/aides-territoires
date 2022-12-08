@@ -1,0 +1,77 @@
+{% extends "_base.html" %}
+{% load i18n compress mailing_list %}
+
+{% block extratitle %}{{ object.title }}{% endblock extratitle %}
+
+{% block extraclasses %}light{% endblock extraclasses %}
+
+{% block sectionid %}user-account{% endblock sectionid %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil
+            d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'notification_list_view' %}">Mes notifications</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">{{ object.title }}</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' with notification_list=True %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <h1 class="fr-h3 fr-mb-5w" id="notification-{{ object.pk }}">
+                {{ object.title }}
+            </h1>
+
+            <p>
+                {{ object.message }}
+            </p>
+
+
+            <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
+                <a href="{% url 'notification_list_view' %}"
+                   class="fr-btn fr-icon-checkbox-circle-line fr-btn--secondary"
+                   title="Marquer cette notification comme lue"
+                >
+                    Marquer cette notification comme lue
+                </a>
+
+                <button type="button"
+                        class="fr-btn fr-icon-delete-line"
+                        id="delete-notification-btn-{{ object.pk }}"
+                        data-fr-opened="false"
+                        title="Supprimer cette notification"
+                        aria-controls="delete-notification-modal-{{ object.pk }}"
+                        aria-describedby="notification-{{ object.pk }}"
+                >
+                    Supprimer cette notification
+                </button>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block modals %}
+    {% include 'notifications/_delete_notification_modal.html' with notification=object.pk %}
+{% endblock modals %}
