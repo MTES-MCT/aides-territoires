@@ -17,7 +17,7 @@ Dans votre fichier /etc/hosts il est nécessaire de compléter la ligne 127.0.0.
 
 Le serveur peut ensuite être démarré avec la commande :
 
-    python manage.py runserver francemobilites.aides-territoires.localhost:8000 --settings minisites.settings.localhost
+    python manage.py runserver francemobilites.aides-territoires.localhost:8000 --settings minisites.settings.local
 
 La version dev du minisite sera alors accessible à cette adresse :
 
