@@ -41,7 +41,7 @@ class Notification(models.Model):
     def truncate_title(self):
         if not self.title:
             return id
-        if len(self.title) < 50:
+        if len(self.title) <= 50:
             return self.title
         else:
             return self.title[:49] + "…"
