@@ -167,6 +167,8 @@ Pour les environnements de Staging, il existe un mécanisme qui permet de n'envo
 Cette "Whitelist" est définie dans les `settings`.
 Pour connaître le fonctionnement historique de ce filtrage : https://github.com/MTES-MCT/aides-territoires/pull/399
 
+En local vous avez la possibilité de visualiser les emails dont le template n'est pas hébergé sur SendinBlue depuis votre shell. Pour ce faire la variable `EMAIL_BACKEND` doit être définie avec `django.core.mail.backends.console.EmailBackend` dans votre fichier `.env.local`
+
 ### Fichiers media
 
 Nous utilisons un service d'« Object Storage » compatible avec l'API S3 pour le stockage de tous les fichiers medias.
