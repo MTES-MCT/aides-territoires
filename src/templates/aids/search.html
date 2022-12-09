@@ -22,6 +22,14 @@
 </div>
 {% endblock breadcrumbs %}
 
+<!-- We need to call a csrf input to pass the csrf value to the track_account_event js file -->
+{% block content %}
+{% if not search_page and not user.is_authenticated %}
+    {% csrf_token %}
+{% endif %}
+{{ block.super }}
+{% endblock content %}
+
 {% block extra_js %}
 {{ block.super }}
 <script nonce="{{ request.csp_nonce }}">
