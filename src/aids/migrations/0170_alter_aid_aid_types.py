@@ -2,6 +2,71 @@
 
 import core.fields
 from django.db import migrations, models
+import datetime
+
+
+def update_aid_types_value(apps, schema_editor):
+    Aid = apps.get_model("aids", "Aid")
+    aids = Aid.objects.filter(aid_types__overlap=["technical", "financial", "legal"])
+    for aid in aids:
+        if "technical" in aid.aid_types:
+            aid.aid_types.append("technical_engineering")
+            aid.aid_types.remove("technical")
+        if "financial" in aid.aid_types:
+            aid.aid_types.append("financial_engineering")
+            aid.aid_types.remove("financial")
+        if "legal" in aid.aid_types:
+            aid.aid_types.append("legal_engineering")
+            aid.aid_types.remove("legal")
+        aid.save()
+
+    Alert = apps.get_model("alerts", "Alert")
+    deployment_date = datetime.datetime(
+        2022, 11, 21, 0, 0, 0, tzinfo=datetime.timezone.utc
+    )
+    alerts_before_changes = Alert.objects.filter(date_created__lte=deployment_date)
+    alerts_after_changes = Alert.objects.filter(date_created__gt=deployment_date)
+
+    financial_alerts_before_changes = alerts_before_changes.filter(
+        querystring__contains="aid_type=financial"
+    )
+    for financial_alert_before_changes in financial_alerts_before_changes:
+        financial_alert_before_changes.querystring.replace(
+            "aid_type=financial", "aid_type=financial_group"
+        )
+        financial_alert_before_changes.save()
+
+    technical_alerts_before_changes = alerts_before_changes.filter(
+        querystring__contains="aid_type=technical"
+    )
+    for technical_alert_before_changes in technical_alerts_before_changes:
+        technical_alert_before_changes.querystring.replace(
+            "aid_type=technical", "aid_type=technical_group"
+        )
+        technical_alert_before_changes.save()
+
+    financial_alerts_after_changes = alerts_after_changes.filter(
+        querystring__contains="aid_type=financial"
+    )
+    for financial_alert_after_changes in financial_alerts_after_changes:
+        financial_alert_after_changes.querystring.replace(
+            "aid_type=financial", "aid_type=financial_engineering"
+        )
+        financial_alert_after_changes.save()
+
+    technical_alerts_after_changes = alerts_after_changes.filter(
+        querystring__contains="aid_type=technical"
+    )
+    for technical_alert_after_changes in technical_alerts_after_changes:
+        technical_alert_after_changes.querystring.replace(
+            "aid_type=technical", "aid_type=technical_engineering"
+        )
+        technical_alert_after_changes.save()
+
+    legal_alerts = Alert.objects.filter(querystring__contains="aid_type=legal")
+    for legal_alert in legal_alerts:
+        legal_alert.querystring.replace("aid_type=legal", "aid_type=legal_engineering")
+        legal_alert.save()
 
 
 class Migration(migrations.Migration):
@@ -34,5 +99,8 @@ class Migration(migrations.Migration):
                 size=None,
                 verbose_name="Types d'aide",
             ),
+        ),
+        migrations.RunPython(
+            update_aid_types_value, reverse_code=migrations.RunPython.noop
         ),
     ]
