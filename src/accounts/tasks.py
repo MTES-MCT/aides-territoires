@@ -316,7 +316,15 @@ def send_new_suggested_aid_notification_email(
 
     suggested_aid = Aid.objects.get(id=suggested_aid_id)
     suggested_aid_financer_name = suggested_aid.financers.first().name
-    suggested_aid_reccurence = suggested_aid.get_recurrence_display()
+    if suggested_aid.recurrence == "oneoff" or suggested_aid.recurrence == "recurring":
+        suggested_aid_recurrence_string = ""
+        if suggested_aid.submission_deadline:
+            submission_deadline = suggested_aid.submission_deadline.strftime("%d/%m/%y")
+            suggested_aid_recurrence_string = (
+                f"clôture de l'aide le {submission_deadline}"
+            )
+    else:
+        suggested_aid_recurrence_string = suggested_aid.get_recurrence_display()
     project = Project.objects.get(id=project_id)
     base_url = get_base_url()
     reverse_account_url = reverse("user_dashboard")
@@ -334,7 +342,7 @@ def send_new_suggested_aid_notification_email(
             "PROJECT_NAME": project.name,
             "SUGGESTED_AID_NAME": suggested_aid.name,
             "SUGGESTED_AID_FINANCER_NAME": suggested_aid_financer_name,
-            "SUGGESTED_AID_RECCURENCE": suggested_aid_reccurence,
+            "SUGGESTED_AID_RECURRENCE": suggested_aid_recurrence_string,
             "FULL_ACCOUNT_URL": full_account_url,
             "FULL_PROJECT_URL": full_project_url,
         }
@@ -359,7 +367,7 @@ def send_new_suggested_aid_notification_email(
                 "project_name": project.name,
                 "suggested_aid_name": suggested_aid.name,
                 "suggested_aid_financer_name": suggested_aid_financer_name,
-                "suggested_aid_reccurence": suggested_aid_reccurence,
+                "suggested_aid_recurrence": suggested_aid_recurrence_string,
                 "full_account_url": full_account_url,
                 "full_project_url": full_project_url,
             },
@@ -398,6 +406,9 @@ def send_suggested_aid_accepted_notification_email(
     suggested_aid = Aid.objects.get(id=suggested_aid_id)
     suggested_aid_financer_name = suggested_aid.financers.first().name
     project = Project.objects.get(id=project_id)
+    favorite_project = False
+    if project in suggester_user.beneficiary_organization.favorite_projects.all():
+        favorite_project = True
     base_url = get_base_url()
     reverse_public_project_url = reverse(
         "public_project_detail_view", args=[project.id, project.slug]
@@ -415,6 +426,7 @@ def send_suggested_aid_accepted_notification_email(
             "SUGGESTED_AID_FINANCER_NAME": suggested_aid_financer_name,
             "FULL_PROJECT_URL": full_project_url,
             "FULL_PUBLIC_PROJECTS_LIST_URL": full_public_projects_list_url,
+            "FAVORITE_PROJECT": favorite_project,
         }
 
         template_id = settings.SIB_SUGGESTED_AID_ACCEPTED_TEMPLATE_ID
@@ -438,6 +450,7 @@ def send_suggested_aid_accepted_notification_email(
                 "suggested_aid_financer_name": suggested_aid_financer_name,
                 "full_project_url": full_project_url,
                 "full_public_projects_list_url": full_public_projects_list_url,
+                "favorite_project": favorite_project,
             },
         )
         send_email(
@@ -474,6 +487,9 @@ def send_suggested_aid_denied_notification_email(
     suggested_aid = Aid.objects.get(id=suggested_aid_id)
     suggested_aid_financer_name = suggested_aid.financers.first().name
     project = Project.objects.get(id=project_id)
+    favorite_project = False
+    if project in suggester_user.beneficiary_organization.favorite_projects.all():
+        favorite_project = True
     base_url = get_base_url()
     reverse_public_project_url = reverse(
         "public_project_detail_view", args=[project.id, project.slug]
@@ -491,6 +507,7 @@ def send_suggested_aid_denied_notification_email(
             "SUGGESTED_AID_FINANCER_NAME": suggested_aid_financer_name,
             "FULL_PROJECT_URL": full_project_url,
             "FULL_PUBLIC_PROJECTS_LIST_URL": full_public_projects_list_url,
+            "FAVORITE_PROJECT": favorite_project,
         }
 
         template_id = settings.SIB_SUGGESTED_AID_DENIED_TEMPLATE_ID
@@ -514,6 +531,7 @@ def send_suggested_aid_denied_notification_email(
                 "suggested_aid_financer_name": suggested_aid_financer_name,
                 "full_project_url": full_project_url,
                 "full_public_projects_list_url": full_public_projects_list_url,
+                "favorite_project": favorite_project,
             },
         )
         send_email(
