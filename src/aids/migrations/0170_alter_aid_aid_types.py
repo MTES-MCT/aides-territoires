@@ -31,8 +31,10 @@ def update_aid_types_value(apps, schema_editor):
         querystring__contains="aid_type=financial"
     )
     for financial_alert_before_changes in financial_alerts_before_changes:
-        financial_alert_before_changes.querystring = financial_alert_before_changes.querystring.replace(
-            "aid_type=financial", "aid_type=financial_group"
+        financial_alert_before_changes.querystring = (
+            financial_alert_before_changes.querystring.replace(
+                "aid_type=financial", "aid_type=financial_group"
+            )
         )
         financial_alert_before_changes.save()
 
@@ -40,8 +42,10 @@ def update_aid_types_value(apps, schema_editor):
         querystring__contains="aid_type=technical"
     )
     for technical_alert_before_changes in technical_alerts_before_changes:
-        technical_alert_before_changes.querystring = technical_alert_before_changes.querystring.replace(
-            "aid_type=technical", "aid_type=technical_group"
+        technical_alert_before_changes.querystring = (
+            technical_alert_before_changes.querystring.replace(
+                "aid_type=technical", "aid_type=technical_group"
+            )
         )
         technical_alert_before_changes.save()
 
@@ -49,8 +53,10 @@ def update_aid_types_value(apps, schema_editor):
         querystring__contains="aid_type=financial"
     )
     for financial_alert_after_changes in financial_alerts_after_changes:
-        financial_alert_after_changes.querystring = financial_alert_after_changes.querystring.replace(
-            "aid_type=financial", "aid_type=financial_engineering"
+        financial_alert_after_changes.querystring = (
+            financial_alert_after_changes.querystring.replace(
+                "aid_type=financial", "aid_type=financial_engineering"
+            )
         )
         financial_alert_after_changes.save()
 
@@ -58,14 +64,18 @@ def update_aid_types_value(apps, schema_editor):
         querystring__contains="aid_type=technical"
     )
     for technical_alert_after_changes in technical_alerts_after_changes:
-        technical_alert_after_changes.querystring = technical_alert_after_changes.querystring.replace(
-            "aid_type=technical", "aid_type=technical_engineering"
+        technical_alert_after_changes.querystring = (
+            technical_alert_after_changes.querystring.replace(
+                "aid_type=technical", "aid_type=technical_engineering"
+            )
         )
         technical_alert_after_changes.save()
 
     legal_alerts = Alert.objects.filter(querystring__contains="aid_type=legal")
     for legal_alert in legal_alerts:
-        legal_alert.querystring = legal_alert.querystring.replace("aid_type=legal", "aid_type=legal_engineering")
+        legal_alert.querystring = legal_alert.querystring.replace(
+            "aid_type=legal", "aid_type=legal_engineering"
+        )
         legal_alert.save()
 
 
@@ -73,6 +83,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("aids", "0169_alter_aid_status"),
+        ("alerts", "0001_squashed_0006_cleanup_choices_translations"),
     ]
 
     operations = [
