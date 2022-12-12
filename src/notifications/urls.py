@@ -1,9 +1,11 @@
 from django.urls import path
 
 from notifications.views import (
+    NotificationDeleteAllView,
     NotificationDetailView,
     NotificationListView,
     NotificationDeleteView,
+    NotificationMarkAllReadView,
 )
 
 urlpatterns = [
@@ -21,5 +23,15 @@ urlpatterns = [
         "<int:pk>/suppression/",
         NotificationDeleteView.as_view(),
         name="notification_delete_view",
+    ),
+    path(
+        "tout-marquer-comme-vu/",
+        NotificationMarkAllReadView.as_view(),
+        name="notification_mark_all_read_view",
+    ),
+    path(
+        "tout-supprimer/",
+        NotificationDeleteAllView.as_view(),
+        name="notification_delete_all_view",
     ),
 ]

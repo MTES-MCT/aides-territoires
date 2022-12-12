@@ -93,16 +93,17 @@
 
             {% if notifications %}
                 <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
-                    <button type="button"
+                    <a href="{% url 'notification_mark_all_read_view' %}"
                             class="fr-btn fr-icon-checkbox-circle-line"
-                            id="delete-all-notifications"
+                            id="mark-all-notifications-read"
                             title="Tout marquer comme lu"
                             aria-controls="mark-all-notifications-read-modal"
                     >
                         Tout marquer comme lu
-                    </button>
+                    </a>
                     <button type="button"
                             class="fr-btn fr-icon-delete-line fr-btn--secondary"
+                            data-fr-opened="false"
                             id="delete-all-notifications"
                             title="Tout supprimer"
                             aria-controls="delete-all-notifications-modal"
@@ -121,5 +122,6 @@
         {% for notification in notifications %}
             {% include 'notifications/_delete_notification_modal.html' with notification=notification.pk %}
         {% endfor %}
+        {% include 'notifications/_delete_all_notifications_modal.html' %}
     {% endif %}
 {% endblock modals %}
