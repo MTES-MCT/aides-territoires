@@ -1,10 +1,12 @@
-from django.views.generic import ListView, DeleteView, DetailView
-from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
+from django.utils import timezone
+from django.views.generic import ListView, DeleteView, DetailView, View
+
+from braces.views import MessageMixin
 
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
-
 from notifications.models import Notification
-from braces.views import MessageMixin
 
 
 class NotificationListView(ContributorAndProfileCompleteRequiredMixin, ListView):
@@ -61,3 +63,27 @@ class NotificationDeleteView(
         msg = "Votre notification a été supprimée."
         self.messages.success(msg)
         return res
+
+
+class NotificationMarkAllReadView(ContributorAndProfileCompleteRequiredMixin, View):
+    """Allows user to mark all unread notifications as read"""
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        queryset = Notification.objects.filter(recipient=user).order_by("-date_created")
+
+        queryset.update(date_read=timezone.now())
+
+        return HttpResponseRedirect(reverse_lazy("notification_list_view"))
+
+
+class NotificationDeleteAllView(ContributorAndProfileCompleteRequiredMixin, ListView):
+    """Allows user to delete all their notifications"""
+
+    def post(self, request, *args, **kwargs):
+        user = self.request.user
+        queryset = Notification.objects.filter(recipient=user).order_by("-date_created")
+
+        queryset.delete()
+
+        return HttpResponseRedirect(reverse("notification_list_view"))

@@ -1,0 +1,35 @@
+{% load i18n %}
+
+<dialog aria-labelledby="fr-modal-title-delete-all-notifications" role="dialog" id="delete-all-notifications-modal" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="delete-all-notifications-modal">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h2 id="fr-modal-title-delete-all-notifications" class="fr-modal__title"><span class="fr-icon-arrow-right-line fr-icon--lg"></span>Supprimer vos notifications</h2>
+
+                        <p>En cliquant sur le bouton ci-dessous, vous supprimerez définitivement toutes vos notifications.</p>
+                        <form action="{% url 'notification_delete_all_view' %}" method="post">
+                            {% csrf_token %}
+                            <footer>
+                                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--right">
+                                    <li>
+                                        <button class="btn-block fr-btn fr-btn--secondary" type="button" title="Fermer la fenêtre modale" aria-controls="delete-all-notifications-modal">Annuler</button>
+                                    </li>
+                                    <li>
+                                        <button type="submit" class="fr-btn">
+                                            Supprimer les notifications
+                                        </button>
+                                    </li>
+                                </ul>
+                            </footer>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
