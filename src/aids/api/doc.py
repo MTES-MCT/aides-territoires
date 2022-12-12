@@ -75,8 +75,8 @@ aid_type = OpenApiParameter(
     enum=[id for (id, name) in AID_TYPES_GROUPS],
     examples=[
         OpenApiExample("", value=""),
-        OpenApiExample("Aides financières", value="financial"),
-        OpenApiExample("Aides en ingénierie", value="technical"),
+        OpenApiExample("Aides financières", value="financial_group"),
+        OpenApiExample("Aides en ingénierie", value="technical_group"),
     ],
 )
 aids_api_parameters.append(aid_type)
