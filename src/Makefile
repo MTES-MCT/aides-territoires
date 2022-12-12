@@ -10,6 +10,9 @@ build:
 test:
 	pipenv run py.test -v -n 10
 
+coverage:
+	pipenv run coverage run --source='.' -m pytest $(PARAMS) && pipenv run coverage html
+
 checkstyle:
 	pipenv run flake8 --config=.flake8
 
