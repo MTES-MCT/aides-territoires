@@ -9,6 +9,8 @@ from core.utils import get_base_url
 from core.celery import app
 from accounts.models import User
 from organizations.models import Organization
+from aids.models import Aid
+from projects.models import Project
 from emails.utils import send_email, send_email_with_template
 
 
@@ -287,3 +289,238 @@ def send_leave_organization_email(
         tags=["connexion", settings.ENV_NAME],
         fail_silently=False,
     )
+
+
+@app.task
+def send_new_suggested_aid_notification_email(
+    project_author_email,
+    suggester_user_email,
+    suggester_organization_name,
+    project_id,
+    suggested_aid_id,
+    body_template="emails/new_suggested_aid.txt",
+):
+    """
+    Send an email to the project's authors to inform them
+    a new aid was suggested for the project.
+    """
+    try:
+        project_author = User.objects.get(email=project_author_email)
+        suggester_user = User.objects.get(email=suggester_user_email)
+    except User.DoesNotExist:
+        # In case we could not find any valid user with the given email
+        # we don't raise any exception, because we can't give any hints
+        # about whether or not any particular email has an account
+        # on our site.
+        return
+
+    suggested_aid = Aid.objects.get(id=suggested_aid_id)
+    suggested_aid_financer_name = suggested_aid.financers.first().name
+    suggested_aid_reccurence = suggested_aid.get_recurrence_display()
+    project = Project.objects.get(id=project_id)
+    base_url = get_base_url()
+    reverse_account_url = reverse("user_dashboard")
+    full_account_url = f"{base_url}{reverse_account_url}"
+    reverse_project_url = reverse(
+        "project_detail_view", args=[project.id, project.slug]
+    )
+    full_project_url = f"{base_url}{reverse_project_url}"
+
+    if settings.SIB_SUGGESTED_AID_EMAIL_ENABLED:
+        data = {
+            "PROJECT_AUTHOR_NAME": project_author.full_name,
+            "SUGGESTER_USER_NAME": suggester_user.full_name,
+            "SUGGESTER_ORGANIZATION_NAME": suggester_organization_name,
+            "PROJECT_NAME": project.name,
+            "SUGGESTED_AID_NAME": suggested_aid.name,
+            "SUGGESTED_AID_FINANCER_NAME": suggested_aid_financer_name,
+            "SUGGESTED_AID_RECCURENCE": suggested_aid_reccurence,
+            "FULL_ACCOUNT_URL": full_account_url,
+            "FULL_PROJECT_URL": full_project_url,
+        }
+
+        template_id = settings.SIB_NEW_SUGGESTED_AID_TEMPLATE_ID
+
+        send_email_with_template(
+            recipient_list=[project_author.email],
+            template_id=template_id,
+            data=data,
+            tags=["aide suggérée", settings.ENV_NAME],
+            fail_silently=True,
+        )
+
+    else:
+        login_email_body = render_to_string(
+            body_template,
+            {
+                "project_author_name": project_author.full_name,
+                "suggester_user_name": suggester_user.full_name,
+                "suggester_organization_name": suggester_organization_name,
+                "project_name": project.name,
+                "suggested_aid_name": suggested_aid.name,
+                "suggested_aid_financer_name": suggested_aid_financer_name,
+                "suggested_aid_reccurence": suggested_aid_reccurence,
+                "full_account_url": full_account_url,
+                "full_project_url": full_project_url,
+            },
+        )
+        send_email(
+            subject="Une aide vous a été suggérée pour votre projet",
+            body=login_email_body,
+            recipient_list=[project_author.email],
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            tags=["aide suggérée", settings.ENV_NAME],
+            fail_silently=False,
+        )
+
+
+@app.task
+def send_suggested_aid_accepted_notification_email(
+    project_author_organization_name,
+    suggester_user_email,
+    project_id,
+    suggested_aid_id,
+    body_template="emails/suggested_aid_accepted.txt",
+):
+    """
+    Send an email to the aid's suggester to inform him
+    the aid was accepted for the project.
+    """
+    try:
+        suggester_user = User.objects.get(email=suggester_user_email)
+    except User.DoesNotExist:
+        # In case we could not find any valid user with the given email
+        # we don't raise any exception, because we can't give any hints
+        # about whether or not any particular email has an account
+        # on our site.
+        return
+
+    suggested_aid = Aid.objects.get(id=suggested_aid_id)
+    suggested_aid_financer_name = suggested_aid.financers.first().name
+    project = Project.objects.get(id=project_id)
+    base_url = get_base_url()
+    reverse_public_project_url = reverse(
+        "public_project_detail_view", args=[project.id, project.slug]
+    )
+    full_project_url = f"{base_url}{reverse_public_project_url}"
+    reverse_public_projects_list_url = reverse("public_project_list_view")
+    full_public_projects_list_url = f"{base_url}{reverse_public_projects_list_url}"
+
+    if settings.SIB_SUGGESTED_AID_EMAIL_ENABLED:
+        data = {
+            "PROJECT_AUTHOR_ORGANIZATION_NAME": project_author_organization_name,
+            "SUGGESTER_USER_NAME": suggester_user.full_name,
+            "PROJECT_NAME": project.name,
+            "SUGGESTED_AID_NAME": suggested_aid.name,
+            "SUGGESTED_AID_FINANCER_NAME": suggested_aid_financer_name,
+            "FULL_PROJECT_URL": full_project_url,
+            "FULL_PUBLIC_PROJECTS_LIST_URL": full_public_projects_list_url,
+        }
+
+        template_id = settings.SIB_SUGGESTED_AID_ACCEPTED_TEMPLATE_ID
+
+        send_email_with_template(
+            recipient_list=[suggester_user.email],
+            template_id=template_id,
+            data=data,
+            tags=["aide suggérée acceptée", settings.ENV_NAME],
+            fail_silently=True,
+        )
+
+    else:
+        login_email_body = render_to_string(
+            body_template,
+            {
+                "project_author_organization_name": project_author_organization_name,
+                "suggester_user_name": suggester_user.full_name,
+                "project_name": project.name,
+                "suggested_aid_name": suggested_aid.name,
+                "suggested_aid_financer_name": suggested_aid_financer_name,
+                "full_project_url": full_project_url,
+                "full_public_projects_list_url": full_public_projects_list_url,
+            },
+        )
+        send_email(
+            subject="L’aide que vous avez suggérée a plu !",
+            body=login_email_body,
+            recipient_list=[suggester_user.email],
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            tags=["aide suggérée acceptée", settings.ENV_NAME],
+            fail_silently=False,
+        )
+
+
+@app.task
+def send_suggested_aid_denied_notification_email(
+    project_author_organization_name,
+    suggester_user_email,
+    project_id,
+    suggested_aid_id,
+    body_template="emails/suggested_aid_denied.txt",
+):
+    """
+    Send an email to the aid's suggester to inform him
+    the aid was denied for the project.
+    """
+    try:
+        suggester_user = User.objects.get(email=suggester_user_email)
+    except User.DoesNotExist:
+        # In case we could not find any valid user with the given email
+        # we don't raise any exception, because we can't give any hints
+        # about whether or not any particular email has an account
+        # on our site.
+        return
+
+    suggested_aid = Aid.objects.get(id=suggested_aid_id)
+    suggested_aid_financer_name = suggested_aid.financers.first().name
+    project = Project.objects.get(id=project_id)
+    base_url = get_base_url()
+    reverse_public_project_url = reverse(
+        "public_project_detail_view", args=[project.id, project.slug]
+    )
+    full_project_url = f"{base_url}{reverse_public_project_url}"
+    reverse_public_projects_list_url = reverse("public_project_list_view")
+    full_public_projects_list_url = f"{base_url}{reverse_public_projects_list_url}"
+
+    if settings.SIB_SUGGESTED_AID_EMAIL_ENABLED:
+        data = {
+            "PROJECT_AUTHOR_ORGANIZATION_NAME": project_author_organization_name,
+            "SUGGESTER_USER_NAME": suggester_user.full_name,
+            "PROJECT_NAME": project.name,
+            "SUGGESTED_AID_NAME": suggested_aid.name,
+            "SUGGESTED_AID_FINANCER_NAME": suggested_aid_financer_name,
+            "FULL_PROJECT_URL": full_project_url,
+            "FULL_PUBLIC_PROJECTS_LIST_URL": full_public_projects_list_url,
+        }
+
+        template_id = settings.SIB_SUGGESTED_AID_DENIED_TEMPLATE_ID
+
+        send_email_with_template(
+            recipient_list=[suggester_user.email],
+            template_id=template_id,
+            data=data,
+            tags=["aide suggérée rejetée", settings.ENV_NAME],
+            fail_silently=True,
+        )
+
+    else:
+        login_email_body = render_to_string(
+            body_template,
+            {
+                "project_author_organization_name": project_author_organization_name,
+                "suggester_user_name": suggester_user.full_name,
+                "project_name": project.name,
+                "suggested_aid_name": suggested_aid.name,
+                "suggested_aid_financer_name": suggested_aid_financer_name,
+                "full_project_url": full_project_url,
+                "full_public_projects_list_url": full_public_projects_list_url,
+            },
+        )
+        send_email(
+            subject="Des nouvelles de l’aide que vous avez suggérée",
+            body=login_email_body,
+            recipient_list=[suggester_user.email],
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            tags=["aide suggérée rejetée", settings.ENV_NAME],
+            fail_silently=False,
+        )

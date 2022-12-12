@@ -56,6 +56,14 @@ from stats.utils import log_aidviewevent, log_aidsearchevent
 from core.utils import remove_accents
 
 
+from accounts.tasks import (
+    send_new_suggested_aid_notification_email,
+    send_suggested_aid_denied_notification_email,
+    send_suggested_aid_accepted_notification_email,
+)
+from analytics.utils import track_goal
+
+
 class AidPaginator(Paginator):
     """Custom paginator for aids.
 
@@ -855,6 +863,14 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
                     suggestedaidproject_obj.date_associated = timezone.now()
                     suggestedaidproject_obj.save()
                     url = project_url
+                    user = self.request.user
+                    send_suggested_aid_accepted_notification_email.delay(
+                        project_author_organization_name=user.beneficiary_organization.name,
+                        suggester_user_email=suggestedaidproject_obj.creator.email,
+                        project_id=project_obj.pk,
+                        suggested_aid_id=aid.pk,
+                    )
+                    track_goal(self.request.session, settings.GOAL_REGISTER_ID)
 
                 msg = f"L’aide a bien été associée au projet <a href='{project_url}'>{project_name}</a>"  # noqa
                 messages.success(self.request, msg)
@@ -920,6 +936,7 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
     def form_valid(self, form):
         aid = form.cleaned_data["aid"]
         projects = form.cleaned_data["project"]
+        user = self.request.user
 
         if projects and aid:
             try:
@@ -929,6 +946,14 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
                             project.pk, through_defaults={"creator": self.request.user}
                         )
                         aid.save()
+                        send_new_suggested_aid_notification_email.delay(
+                            project_author_email=project.author.first().email,
+                            suggester_user_email=user.email,
+                            suggester_organization_name=user.beneficiary_organization.name,
+                            project_id=project.id,
+                            suggested_aid_id=aid.id,
+                        )
+                        track_goal(self.request.session, settings.GOAL_REGISTER_ID)
                     else:
                         raise PermissionDenied()
             except Exception:
@@ -1011,6 +1036,14 @@ class SuggestedAidUnmatchProjectView(
         suggested_aidproject.is_rejected = True
         suggested_aidproject.date_rejected = timezone.now()
         suggested_aidproject.save()
+        user = self.request.user
+        send_suggested_aid_denied_notification_email.delay(
+            project_author_organization_name=user.beneficiary_organization.name,
+            suggester_user_email=suggested_aidproject.creator.email,
+            project_id=project_pk,
+            suggested_aid_id=aid.pk,
+        )
+        track_goal(self.request.session, settings.GOAL_REGISTER_ID)
 
         msg = "L’aide a bien été supprimée de la liste des aides suggérées pour votre projet."
         messages.success(self.request, msg)

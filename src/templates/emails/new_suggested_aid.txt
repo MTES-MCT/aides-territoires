@@ -1,0 +1,22 @@
+{% load settings %}
+
+Bonjour {{ PROJECT_AUTHOR_NAME }}, 
+
+{{ SUGGESTER_USER_NAME }} de "{{ SUGGESTER_ORGANIZATION_NAME }}" vous a suggéré l’aide suivante pour financer ou accompagner votre projet "{{ PROJECT_NAME }}" sur Aides-territoires : 
+
+Titre de l’aide : "{{ SUGGESTED_AID_NAME }}"
+Porteur de l'aide : "{{ SUGGESTED_AID_FINANCER_NAME }}"
+Type d'aide : {{ SUGGESTED_AID_RECCURENCE }}
+
+Cette aide vous semble pertinente ? Ajoutez-la à votre projet: {{ FULL_PROJECT_URL }}
+
+Pour cela, rendez-vous sur votre compte: {{ FULL_ACCOUNT_URL }} 
+
+- Dans le menu "Gérer mes projets"
+- Sélectionnez votre projet "{{ PROJECT_NAME }}"
+- Retrouvez cette aide dans le tableau “Liste des aides suggérées” tout en bas de l’écran
+- Dans la colonne “Action”, cliquez sur les boutons ✅ ou ❌ si vous souhaitez ou non associer l’aide qui vous a été suggérée à votre projet.
+
+À très vite !
+
+L'équipe d'Aides-territoires
