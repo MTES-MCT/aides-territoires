@@ -3,8 +3,10 @@ import pytest
 from bs4 import BeautifulSoup
 
 from django.urls import reverse
+from accounts.factories import UserFactory
 
 from notifications.factories import NotificationFactory
+from notifications.models import Notification
 
 pytestmark = pytest.mark.django_db
 
@@ -60,3 +62,110 @@ def test_notification_list_displays_notifications(client, user):
 
     assert "strong" in str(unread)
     assert "strong" not in str(read)
+
+
+def test_notification_detail_view_marks_it_as_read(client, user):
+    notification = NotificationFactory(recipient=user, title="New notification")
+
+    client.force_login(user)
+    url = reverse("notification_detail_view", kwargs={"pk": notification.id})
+    res = client.get(url)
+
+    assert res.status_code == 200
+    notification.refresh_from_db()
+
+    assert notification.date_read is not None
+
+
+def test_notification_detail_can_only_show_own_notifications(client, user):
+    """Trying to see someone else's notification will return a 404"""
+    other_user = UserFactory(email="other.user@example.org")
+    notification = NotificationFactory(
+        recipient=other_user, title="Forbidden notification"
+    )
+
+    client.force_login(user)
+    url = reverse("notification_detail_view", kwargs={"pk": notification.id})
+    res = client.get(url)
+
+    assert res.status_code == 404
+    notification.refresh_from_db()
+
+    assert notification.date_read is None
+
+
+def test_notification_can_be_deleted(client, user):
+    notification = NotificationFactory(recipient=user, title="New notification")
+
+    client.force_login(user)
+    url = reverse("notification_delete_view", kwargs={"pk": notification.id})
+    res = client.post(url)
+
+    assert res.status_code == 302
+
+    assert Notification.objects.count() == 0
+
+
+def test_other_users_notifications_cannot_be_deleted(client, user):
+    """Trying to delete someone else's notification will return a 404"""
+    other_user = UserFactory(email="other.user@example.org")
+    notification = NotificationFactory(
+        recipient=other_user, title="Forbidden notification"
+    )
+
+    client.force_login(user)
+    url = reverse("notification_delete_view", kwargs={"pk": notification.id})
+    res = client.post(url)
+
+    assert res.status_code == 404
+    assert Notification.objects.count() == 1
+
+
+def test_notifications_can_all_be_marked_as_read(client, user):
+    """All the users notifications can be marked as read, and this doesn't
+    affect already read notificiations or another user's notifications"""
+
+    read = NotificationFactory(recipient=user, title="Read notification")
+    NotificationFactory(recipient=user, title="Unread notification")
+    NotificationFactory(recipient=user, title="Another unread notification")
+
+    read.mark_as_read()
+    read.save()
+
+    other_user = UserFactory(email="other.user@example.org")
+    NotificationFactory(recipient=other_user, title="Unaffected notification")
+
+    client.force_login(user)
+    url = reverse("notification_mark_all_read_view")
+    res = client.get(url)
+
+    assert res.status_code == 302
+
+    assert (
+        Notification.objects.filter(recipient=user, date_read__isnull=True).count() == 0
+    )
+    assert Notification.objects.filter(date_read__isnull=True).count() == 1
+
+
+def test_notifications_can_all_be_deleted(client, user):
+    """All the users notifications can be deleted, and this doesn't
+    another user's notifications"""
+
+    read = NotificationFactory(recipient=user, title="Read notification")
+    NotificationFactory(recipient=user, title="Unread notification")
+    NotificationFactory(recipient=user, title="Another unread notification")
+
+    read.mark_as_read()
+    read.save()
+
+    other_user = UserFactory(email="other.user@example.org")
+    NotificationFactory(recipient=other_user, title="Unaffected notification")
+
+    client.force_login(user)
+    url = reverse("notification_delete_all_view")
+    res = client.post(url)
+
+    assert res.status_code == 302
+
+    assert Notification.objects.filter(recipient=user).count() == 0
+    assert Notification.objects.all().count() == 1

@@ -32,7 +32,7 @@ def browser():
 def user():
     """Generates a valid and active user."""
 
-    user = UserFactory(email="sample.user@example.org")
+    user = UserFactory()
     user_org = OrganizationFactory(perimeter=Perimeter.objects.first())
     user_org.save()
     user.beneficiary_organization_id = user_org.pk
