@@ -1,0 +1,4 @@
+Voici la liste des aides dont au moins l'un des liens renvoie vers une 404 :
+{% for aid in aids_list %}
+    {{ aid }}
+{% endfor %}

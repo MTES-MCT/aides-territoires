@@ -336,6 +336,10 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     application_url = models.URLField(
         "Lien vers une démarche en ligne", max_length=500, blank=True
     )
+    has_broken_link = models.BooleanField(
+        "Contient un lien cassé ?",
+        default=False,
+    )
     targeted_audiences = ChoiceArrayField(
         verbose_name="Bénéficiaires de l'aide",
         null=True,
