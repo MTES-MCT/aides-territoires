@@ -1,10 +1,10 @@
 {% load settings %}
 
-Bonjour {{ suggester_user_name }}, 
+Bonjour {{ SUGGESTER_USER_NAME }}, 
 
-Vous avez suggéré l’aide "{{ suggested_aid_name }}" de "{{ suggested_aid_financer_name }}" pour le projet "{{ project_name }}" {{ full_public_project_url }}.
+Vous avez suggéré l’aide "{{ SUGGESTED_AID_NAME }}" de "{{ SUGGESTED_AID_FINANCER_NAME }}" pour le projet "{{ PROJECT_NAME }}" {{ FULL_PUBLIC_PROJECT_URL }}.
 
-Celle-ci a été jugée pertinente par {{ project_author_organization_name }}, félicitations ! 
+Celle-ci a été jugée pertinente par {{ PROJECT_AUTHOR_ORGANIZATION_NAME }}, félicitations ! 
 
 💡 Savez-vous que vous pouvez également ajouter ce projet à vos favoris ?
 
@@ -16,7 +16,7 @@ Vous pourrez de plus suggérer des aides directement depuis les fiches d’aides
 
 Nous vous remercions de contribuer à l’entraide et à l’accompagnement des collectivités sur Aides-territoires. Grâce à vous, de nouveaux projets voient le jour en France !
 
-Retrouvez dès maintenant d’autres projets cherchant des aides {{ full_public_projects_list_url }} .
+Retrouvez dès maintenant d’autres projets cherchant des aides {{ FULL_PUBLIC_PROJECTS_LIST_URL }} .
 
 À très vite,
 
