@@ -69,6 +69,7 @@ ipdb = "*"
 black = "*"
 pre-commit = "*"
 bandit = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.10"

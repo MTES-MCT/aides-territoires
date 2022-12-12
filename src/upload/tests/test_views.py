@@ -30,7 +30,7 @@ def test_superuser_can_post_to_upload_view(client, superuser):
     assert response.status_code == 200
 
 
-def test_annonymous_cannot_post_to_upload_view(client):
+def test_anonymous_cannot_post_to_upload_view(client):
     client.logout()
     response = upload_image(client)
     assert response.status_code == 302
@@ -46,7 +46,7 @@ def test_superuser_can_upload_an_image(client, superuser):
 
 
 @override_settings(DEFAULT_FILE_STORAGE="django.core.files.storage.FileSystemStorage")
-def test_annonymous_cannot_upload_an_image(client):
+def test_anonymous_cannot_upload_an_image(client):
     client.logout()
     count_before = UploadImage.objects.count()
     upload_image(client)
