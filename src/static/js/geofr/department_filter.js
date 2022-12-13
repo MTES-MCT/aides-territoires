@@ -13,7 +13,7 @@ function department_filter(return_page) {
         let department = $(this).val();
         if (department.match(SANE_ID_REGEX)) {
             let new_url = window.location.origin + "/cartographie/" + department + return_page;
-            window.location.replace(new_url + window.location.search);
+            window.location.href = new_url + window.location.search;
         } else {
             console.log("Invalid department id");
         }
