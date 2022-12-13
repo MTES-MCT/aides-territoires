@@ -1,3 +1,4 @@
+import requests
 from django.db.models.query import QuerySet
 
 from geofr.models import Perimeter
@@ -46,3 +47,12 @@ def filter_generic_aids(qs: QuerySet, search_perimeter: Perimeter = None) -> Que
             aids_to_exclude.append(aid_id)
     qs = qs.exclude(pk__in=aids_to_exclude)
     return qs
+
+
+def check_if_url_return_an_error(url):
+    try:
+        response = requests.get(url)
+        if response.status_code == 404:
+            return True
+    except Exception:
+        return True
