@@ -39,8 +39,6 @@ class Notification(models.Model):
         self.save()
 
     def truncate_title(self):
-        if not self.title:
-            return id
         if len(self.title) <= 50:
             return self.title
         else:
@@ -49,7 +47,7 @@ class Notification(models.Model):
     def __str__(self):
         notification_type = self.get_notification_type_display()
         user = self.recipient.full_name
-        return f"({notification_type} – {user} – {self.truncate_title()}"
+        return f"{notification_type} – {user} – {self.truncate_title()}"
 
     class Meta:
         verbose_name = "notification"
