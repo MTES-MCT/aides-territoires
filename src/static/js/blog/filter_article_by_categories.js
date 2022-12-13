@@ -5,7 +5,7 @@ $(document).ready(function () {
     $('#select').on('change', function () {
         let url_fragment = $(this).val();
         if (url_fragment.match(URL_FRAGMENT_REGEX)) {
-            window.location.replace(url_fragment);
+            window.location.href = url_fragment;
         } else {
             console.log("Invalid URL fragment");
         }
