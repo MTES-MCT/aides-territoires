@@ -1,4 +1,5 @@
 import requests
+import logging
 
 from django.core.management.base import BaseCommand
 from django.core.mail import send_mail
@@ -21,6 +22,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         from aids.models import Aid
 
+        logger = logging.getLogger("console_log")
+        logger.info("Command find_broken_links starting")
+
         aids = Aid.objects.filter(has_broken_link=False).live()
 
         nb_links = 0
@@ -29,18 +33,21 @@ class Command(BaseCommand):
         domain = site.domain
 
         for aid in aids:
+            logger.info(f"check for aid_id {aid.id} links")
             if aid.origin_url:
                 if self.check_if_url_return_a_404(aid.origin_url):
                     nb_links += 1
                     aids_list.append(aid)
                     aid.has_broken_link = True
                     aid.save()
+                    logger.info(f"{aid.name} contains a broken 'origin_url' link")
             if aid.application_url:
                 if self.check_if_url_return_a_404(aid.application_url):
                     nb_links += 1
-                    aids_list.append(aid.get_absolute_url())
+                    aids_list.append(aid)
                     aid.has_broken_link = True
                     aid.save()
+                    logger.info(f"{aid.name} contains a broken 'application_url' link")
 
         email_body = render_to_string(
             "emails/find_broken_links.txt",
@@ -55,3 +62,4 @@ class Command(BaseCommand):
         email_to = [settings.SERVER_EMAIL]
 
         send_mail(email_subject, email_body, email_from, email_to, fail_silently=False)
+        logger.info("email sent")
