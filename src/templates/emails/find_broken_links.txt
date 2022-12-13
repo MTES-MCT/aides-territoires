@@ -1,4 +1,5 @@
 Voici la liste des aides dont au moins l'un des liens renvoie vers une 404 :
 {% for aid in aids_list %}
-    {{ aid }}
+    - {{ aid.name|safe }}
+    https://{{ domain }}{{ aid.get_admin_url }}
 {% endfor %}

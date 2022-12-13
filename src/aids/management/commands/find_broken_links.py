@@ -4,6 +4,7 @@ from django.core.management.base import BaseCommand
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
+from django.contrib.sites.models import Site
 
 
 class Command(BaseCommand):
@@ -14,9 +15,8 @@ class Command(BaseCommand):
             response = requests.get(url)
             if response.status_code == 404:
                 return True
-        except Exception as e:
-            print(e)
-            print(url)
+        except Exception:
+            return True
 
     def handle(self, *args, **options):
         from aids.models import Aid
@@ -25,12 +25,14 @@ class Command(BaseCommand):
 
         nb_links = 0
         aids_list = []
+        site = Site.objects.get_current()
+        domain = site.domain
 
         for aid in aids:
             if aid.origin_url:
                 if self.check_if_url_return_a_404(aid.origin_url):
                     nb_links += 1
-                    aids_list.append(aid.get_absolute_url())
+                    aids_list.append(aid)
                     aid.has_broken_link = True
                     aid.save()
             if aid.application_url:
@@ -45,9 +47,10 @@ class Command(BaseCommand):
             {
                 "nb_links": nb_links,
                 "aids_list": aids_list,
+                "domain": domain,
             },
         )
-        email_subject = f"{nb_links} liens contact d'aide sont rompus"
+        email_subject = f"{nb_links} liens sont cassés dans des fiches aide"
         email_from = settings.DEFAULT_FROM_EMAIL
         email_to = [settings.SERVER_EMAIL]
 
