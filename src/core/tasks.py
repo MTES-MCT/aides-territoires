@@ -74,3 +74,10 @@ def task_import_ile_de_france():
     """Import data from the 'Conseil Régional Ile de France' data feed."""
     logger.info("Starting Conseil Régional Ile de France import task")
     management.call_command("import_ile_de_france", verbosity=1)
+
+
+@app.task
+def find_broken_links():
+    """Check the reliability of aid associated links"""
+    logger.info("Starting find_broken_links task")
+    management.call_command("find_broken_links", verbosity=1)
