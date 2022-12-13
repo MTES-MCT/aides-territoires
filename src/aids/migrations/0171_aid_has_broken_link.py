@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("aids", "0169_alter_aid_status"),
+        ("aids", "0170_alter_aid_aid_types"),
     ]
 
     operations = [
