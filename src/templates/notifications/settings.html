@@ -1,0 +1,70 @@
+{% extends "_base.html" %}
+{% load i18n compress mailing_list %}
+
+{% block extratitle %}Mes préférences de notifications{% endblock extratitle %}
+
+{% block extraclasses %}light{% endblock extraclasses %}
+
+{% block sectionid %}user-account{% endblock sectionid %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil
+            d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'notification_list_view' %}">Mes notifications</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mes préférences de notification</a>
+                </li>
+
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' with notification_list=True %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <h1 class="fr-h3 fr-mb-5w">Mes préférences de notifications
+            </h1>
+
+            <form id="update_organization" method="post">
+                <p>Les champs marqués d’un astérisque (*) sont obligatoires.</p>
+                {% csrf_token %}
+
+                {% include '_field_snippet.html' with field=form.notification_aid_team %}
+                {% include '_field_snippet.html' with field=form.notification_aid_user %}
+                {% include '_field_snippet.html' with field=form.notification_internal_team %}
+                {% include '_field_snippet.html' with field=form.notification_internal_user %}
+
+                <button type="submit" class="fr-btn">Mettre à jour</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block modals %}
+    {% if notifications %}
+        {% for notification in notifications %}
+            {% include 'notifications/_delete_notification_modal.html' with notification=notification.pk %}
+        {% endfor %}
+        {% include 'notifications/_delete_all_notifications_modal.html' %}
+    {% endif %}
+{% endblock modals %}

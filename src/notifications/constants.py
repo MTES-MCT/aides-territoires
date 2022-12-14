@@ -1,14 +1,12 @@
 NOTIFICATION_TYPES_LIST = [
-    ("aid_team_frequent", "Notification aide structure (fréquente)"),
-    ("aid_user_frequent", "Notification aide personnelle (fréquente)"),
-    ("aid_user_occasional", "Notification aide personnelle (occasionnelle)"),
-    ("aid_suggested_accepted", "Notification aide suggérée acceptée"),
-    ("aid_suggested_rejected", "Notification aide suggérée rejetée"),
-    ("aid", "Notification aide"),
-    ("internal_team_occasional", "Notification interne structure (occasionnelle)"),
-    ("internal_team_frequent", "Notification interne structure (fréquente)"),
-    ("internal_user_occasional", "Notification interne personnelle (occasionnelle)"),
-    ("project_team", "Notification projet structure"),
-    ("favouriteprojects_user", "Notification projets favori personnelle"),
-    ("other", "Autres"),
+    ("aid_team", "Notification aide structure"),
+    ("aid_user", "Notification aide personnelle"),
+    ("internal_team", "Notification interne structure"),
+    ("internal_user", "Notification interne personnelle"),
+]
+
+NOTIFICATION_SETTING_LIST = [
+    ("none", "Aucune"),
+    ("internal_only", "Notification interne uniquement"),
+    ("internal_email", "Notification interne et par email"),
 ]

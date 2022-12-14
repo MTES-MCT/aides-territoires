@@ -206,6 +206,17 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
         ("Espace animateur", {"fields": ("animator_perimeter",)}),
         ("Permissions", {"fields": ("is_superuser", "api_token")}),
         (
+            "Préférences de notifications",
+            {
+                "fields": (
+                    "notification_aid_team",
+                    "notification_aid_user",
+                    "notification_internal_team",
+                    "notification_internal_user",
+                )
+            },
+        ),
+        (
             "Données diverses",
             {
                 "fields": (
@@ -271,7 +282,7 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
     def in_mailing_list(self, user):
         return user.ml_consent
 
-    in_mailing_list.short_description = mark_safe(
+    in_mailing_list.short_description = mark_safe(  # nosec B308
         '<abbr title="Dans la newsletter">NL</abbr>'
     )
     in_mailing_list.boolean = True
