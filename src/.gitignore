@@ -120,3 +120,4 @@ temp.txt
 
 *.xls
 .*.swp
+.~lock*
