@@ -7,11 +7,9 @@ from tablib.core import Databook, Dataset
 from typing import Pattern
 
 from logging import Logger
-from django.core.exceptions import FieldError
 from django.db import transaction
 
 from geofr.models import Perimeter
-
 
 """
 Imports the population
@@ -46,13 +44,13 @@ def import_commune_data_from_banatic(logger: Logger) -> dict:
         result = {"nb_treated": 0, "not_found": []}
 
         with zip_file.open(annual_files[year]) as xlsx_file:
-            data = get_spreadsheet_content(xlsx_file, "insee_siren")
-            headers = data.headers
+            dataset = get_spreadsheet_content(xlsx_file, "insee_siren")
+            headers = dataset.headers
 
-            for row in data:
+            for row in dataset:
                 name = row[headers.index("nom_com")]
                 insee = row[headers.index("insee")]
-                population = row[headers.index(f"ptot_{year}")]
+                population = row[headers.index(f"pmun_{year}")]
 
                 row_result = import_row_from_banatic(insee, population)
                 if row_result:
@@ -70,7 +68,7 @@ def import_row_from_banatic(insee: str, population: int) -> bool:
         commune.population = population
         commune.save()
         return True
-    except FieldError:
+    except Perimeter.DoesNotExist:
         return False
 
 
