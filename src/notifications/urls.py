@@ -6,6 +6,7 @@ from notifications.views import (
     NotificationListView,
     NotificationDeleteView,
     NotificationMarkAllReadView,
+    NotificationSettingsView,
 )
 
 urlpatterns = [
@@ -15,14 +16,9 @@ urlpatterns = [
         name="notification_list_view",
     ),
     path(
-        "<int:pk>/",
-        NotificationDetailView.as_view(),
-        name="notification_detail_view",
-    ),
-    path(
-        "<int:pk>/suppression/",
-        NotificationDeleteView.as_view(),
-        name="notification_delete_view",
+        "préférences/",
+        NotificationSettingsView.as_view(),
+        name="notification_settings_view",
     ),
     path(
         "tout-marquer-comme-vu/",
@@ -33,5 +29,15 @@ urlpatterns = [
         "tout-supprimer/",
         NotificationDeleteAllView.as_view(),
         name="notification_delete_all_view",
+    ),
+    path(
+        "<int:pk>/",
+        NotificationDetailView.as_view(),
+        name="notification_detail_view",
+    ),
+    path(
+        "<int:pk>/suppression/",
+        NotificationDeleteView.as_view(),
+        name="notification_delete_view",
     ),
 ]

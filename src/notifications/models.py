@@ -1,5 +1,3 @@
-from uuid import uuid4
-
 from django.db import models
 from django.utils import timezone
 
@@ -18,21 +16,13 @@ class Notification(models.Model):
         "type de notification",
         max_length=32,
         choices=NOTIFICATION_TYPES_LIST,
-        default="others",
+        default="internal_user",
         help_text="Utilisé pour la gestion des préférences de réception des notifications",
     )
     title = models.CharField("titre", max_length=100)
     message = models.CharField("message", max_length=500)
     date_created = models.DateTimeField("date de création", default=timezone.now)
     date_read = models.DateTimeField("date de consultation", null=True, blank=True)
-
-    token = models.UUIDField(
-        "clé secrète",
-        unique=True,
-        default=uuid4,
-        editable=False,
-        help_text="Utilisé pour marquer comme lu",
-    )
 
     def mark_as_read(self):
         self.date_read = timezone.now()

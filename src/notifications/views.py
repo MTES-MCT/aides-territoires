@@ -1,11 +1,13 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
-from django.views.generic import ListView, DeleteView, DetailView, View
+from django.views.generic import DeleteView, DetailView, ListView, FormView, View
 
 from braces.views import MessageMixin
 
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
+from accounts.models import User
+from notifications.forms import NotificationSettingsForm
 from notifications.models import Notification
 
 
@@ -87,3 +89,20 @@ class NotificationDeleteAllView(ContributorAndProfileCompleteRequiredMixin, List
         queryset.delete()
 
         return HttpResponseRedirect(reverse("notification_list_view"))
+
+
+class NotificationSettingsView(ContributorAndProfileCompleteRequiredMixin, FormView):
+    model = User
+    form_class = NotificationSettingsForm
+    template_name = "notifications/settings.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context["notification_aid_team"] = user.notification_aid_team
+        context["notification_aid_user"] = user.notification_aid_user
+        context["notification_internal_team"] = user.notification_internal_team
+        context["notification_internal_user"] = user.notification_internal_user
+
+        print(context)
+        return context

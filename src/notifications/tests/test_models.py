@@ -1,6 +1,6 @@
 import pytest
-from notifications.constants import NOTIFICATION_TYPES_LIST
 
+from notifications.constants import NOTIFICATION_TYPES_LIST
 from notifications.factories import NotificationFactory
 
 pytestmark = pytest.mark.django_db

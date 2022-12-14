@@ -9,6 +9,8 @@ from django.contrib.auth.models import (
 from django.utils import timezone
 
 from model_utils import Choices
+
+from notifications.constants import NOTIFICATION_SETTING_LIST
 from notifications.models import Notification
 
 
@@ -118,7 +120,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ("other", "Autre"),
     )
 
-    ACQUISITION_CHANNEL = Choices(
+    ACQUISITION_CHANNEL_CHOICES = Choices(
         ("webinar", "Webinaire"),
         ("animator", "Animateur local"),
         ("trade_press", "Presse spécialisée"),
@@ -227,19 +229,49 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
     )
     acquisition_channel = models.CharField(
-        "Canal d'acquisition",
+        "Canal d’acquisition",
         max_length=32,
-        choices=ACQUISITION_CHANNEL,
+        choices=ACQUISITION_CHANNEL_CHOICES,
         null=True,
         blank=True,
-        help_text="Comment l'utilisateur a-t-il connu Aides-territoires?",
+        help_text="Comment l’utilisateur a-t-il connu Aides-territoires?",
     )
     acquisition_channel_comment = models.CharField(
-        "Commentaire Canal d'acquisition",
+        "Commentaire Canal d’acquisition",
         max_length=1000,
         null=True,
         blank=True,
-        help_text="Comment l'utilisateur a-t-il connu Aides-territoires (champ libre)?",
+        help_text="Comment l’utilisateur a-t-il connu Aides-territoires (champ libre)?",
+    )
+
+    # Notification settings
+    notification_aid_team = models.CharField(
+        "Notifications aides équipe",
+        max_length=32,
+        choices=NOTIFICATION_SETTING_LIST,
+        default="internal_email",
+        help_text="Notifications liées aux aides envoyées à tous les membres de la structure",
+    )
+    notification_aid_user = models.CharField(
+        "Notifications aides individuelles",
+        max_length=32,
+        choices=NOTIFICATION_SETTING_LIST,
+        default="internal_email",
+        help_text="Notifications liées aux aides concernant l’utilisateur",
+    )
+    notification_internal_team = models.CharField(
+        "Notifications internes équipe",
+        max_length=32,
+        choices=NOTIFICATION_SETTING_LIST,
+        default="internal_email",
+        help_text="Notifications internes envoyées à tous les membres de la structure",
+    )
+    notification_internal_user = models.CharField(
+        "Notifications interne individuelles",
+        max_length=32,
+        choices=NOTIFICATION_SETTING_LIST,
+        default="internal_email",
+        help_text="Notifications internes concernant l’utilisateur",
     )
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)

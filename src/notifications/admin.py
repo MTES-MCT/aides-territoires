@@ -49,7 +49,7 @@ class NotificationAdmin(admin.ModelAdmin):
     list_filter = ["notification_type", IsReadFilter]
     search_fields = ["recipient__email", "recipient__last_name", "message"]
 
-    readonly_fields = ["date_created", "id", "token"]
+    readonly_fields = ["date_created", "id"]
 
     def is_read(self, obj):
         if obj.date_read:

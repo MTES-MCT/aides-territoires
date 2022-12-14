@@ -64,7 +64,8 @@ class RegisterForm(UserCreationForm, AidesTerrBaseForm):
     )
 
     acquisition_channel = forms.ChoiceField(
-        required=True, choices=sorted(User.ACQUISITION_CHANNEL, key=lambda x: x[1])
+        required=True,
+        choices=sorted(User.ACQUISITION_CHANNEL_CHOICES, key=lambda x: x[1]),
     )
 
     acquisition_channel_comment = forms.CharField(

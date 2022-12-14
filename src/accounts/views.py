@@ -405,7 +405,7 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, FormView):
                 first_name=collaborator_first_name,
                 is_beneficiary=self.request.user.is_beneficiary,
                 is_contributor=self.request.user.is_contributor,
-                acquisition_channel=User.ACQUISITION_CHANNEL.invited,
+                acquisition_channel=User.ACQUISITION_CHANNEL_CHOICES.invited,
             )
             collaborator.beneficiary_organization = (
                 self.request.user.beneficiary_organization
