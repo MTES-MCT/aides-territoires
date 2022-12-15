@@ -353,12 +353,14 @@ class AidEditForm(BaseAidForm):
         required=False,
         help_text="Sélectionnez la ou les thématiques associées à votre aide. N’hésitez pas à en choisir plusieurs.",  # noqa
     )
+    slug = forms.CharField(widget=forms.HiddenInput, required=False)
 
     class Meta:
         model = Aid
         fields = [
             "name",
             "name_initial",
+            "slug",
             "short_title",
             "description",
             "categories",

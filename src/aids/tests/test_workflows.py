@@ -135,6 +135,7 @@ def test_aid_edition_view(client, contributor, aid_form_data):
     assert aids.count() == 1
 
     aid_form_data["name"] = "New title"
+    aid_form_data["slug"] = aid.slug
     res = client.post(form_url, data=aid_form_data)
     assert res.status_code == 302
     assert aids.count() == 1
@@ -156,6 +157,7 @@ def test_draft_aids_can_stay_invalid(client, contributor, aid_form_data):
     assert aids[0].status == "draft"
 
     aid_form_data["description"] = ""
+    aid_form_data["slug"] = aid.slug
     res = client.post(form_url, data=aid_form_data)
     assert res.status_code == 302
     assert aids.count() == 1
@@ -176,6 +178,7 @@ def test_reviewable_aids_cannot_become_invalid(client, contributor, aid_form_dat
     assert aids[0].status == "reviewable"
 
     aid_form_data["description"] = ""
+    aid_form_data["slug"] = aid.slug
     res = client.post(form_url, data=aid_form_data)
     assert res.status_code == 200
     assert aids.count() == 1
@@ -196,6 +199,7 @@ def test_published_aids_cannot_become_invalid(client, contributor, aid_form_data
     assert aids[0].status == "published"
 
     aid_form_data["description"] = ""
+    aid_form_data["slug"] = aid.slug
     res = client.post(form_url, data=aid_form_data)
     assert res.status_code == 200
     assert aids.count() == 1
@@ -262,6 +266,7 @@ def test_aid_status_workflow(client, contributor, aid_form_data):
     client.force_login(contributor)
     form_url = reverse("aid_edit_view", args=[aid.slug])
     aid_form_data.update({"_action": "update_status"})
+    aid_form_data["slug"] = aid.slug
 
     res = client.post(form_url, data=aid_form_data)
     aid.refresh_from_db()
@@ -297,6 +302,7 @@ def test_invalid_aids_cannot_be_in_review(client, contributor, aid_form_data):
     assert aids[0].status == "draft"
 
     aid_form_data.update({"description": "", "_action": "update_status"})
+    aid_form_data["slug"] = aid.slug
     res = client.post(form_url, data=aid_form_data)
     assert res.status_code == 200
     assert aids.count() == 1
@@ -318,6 +324,7 @@ def test_invalid_aids_can_be_unpublished(client, contributor, aid_form_data):
     assert aids[0].status == "published"
 
     aid_form_data.update({"description": "", "_action": "update_status"})
+    aid_form_data["slug"] = aid.slug
     res = client.post(form_url, data=aid_form_data)
     assert res.status_code == 302
     assert aids.count() == 1

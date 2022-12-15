@@ -70,7 +70,7 @@
         var maxResults = Math.min(count, MAX_RESULTS);
         var duplicates = apiData['results']
             .filter(function (result) {
-                return result['slug'] != currentSlug;
+                return result['slug'] !== currentSlug;
             })
             .slice(0, maxResults)
             .map(formatSingleDuplicate);
@@ -123,7 +123,7 @@
         var currentSlug = slugField.val();
 
         // Be careful as to not count the current aid as a duplicate of itself
-        if (count == 0 || count == 1 && results[0]['slug'] == currentSlug) {
+        if (count === 0 || count === 1 && results[0]['slug'] === currentSlug) {
             topErrorDiv.html('');
             inlineErrorDiv.html('');
         } else {
