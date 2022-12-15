@@ -113,8 +113,8 @@ def content_prettify(
                         target_warning = soup.new_tag("span")
                         target_warning.attrs = {"class": "fr-sr-only"}
                         target_warning.string = "Ouvre une nouvelle fenêtre"
-
-                        tag.append(target_warning)
+                        if "Ouvre une nouvelle fenêtre" not in tag.text:
+                            tag.append(target_warning)
 
             # Some tags are not allowed, but we do not want to remove
             # their content.
@@ -211,5 +211,7 @@ def mapping_categories_label(
         csvreader = csv.DictReader(csv_file, delimiter=",")
         for index, row in enumerate(csvreader):
             if row[source_column_label]:
-                categories_label_dict[row[source_column_name]] = row[source_column_label]
+                categories_label_dict[row[source_column_name]] = row[
+                    source_column_label
+                ]
     return categories_label_dict
