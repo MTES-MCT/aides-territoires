@@ -51,7 +51,10 @@ def filter_generic_aids(qs: QuerySet, search_perimeter: Perimeter = None) -> Que
 
 def check_if_url_return_an_error(url):
     try:
-        response = requests.get(url)
+        headers = {
+            "user-agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:107.0) Gecko/20100101 Firefox/107.0",  # noqa
+        }
+        response = requests.get(url, headers=headers)
         if response.status_code == 404:
             return True
     except Exception:
