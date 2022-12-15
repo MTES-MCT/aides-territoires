@@ -202,9 +202,9 @@ class LoginView(views.LoginView, TemplateView):
             user.send_notification(
                 notification_type="internal_user",
                 title="Mise en place du système de notifications",
-                message=f"""<p>Bienvenue dans le nouveau système de notifications d‘Aides-territoires !
-                Vous recevrez bientôt des notifications lors de certaines actions liées à vos aides,
-                mais aussi à votre structure ou à vos projets.</p>
+                message=f"""<p>Bienvenue dans le nouveau système de notifications
+                d‘Aides-territoires ! Vous recevrez bientôt des notifications lors de certaines
+                actions liées à vos aides, mais aussi à votre structure ou à vos projets.</p>
 
                 <p>Vous pouvez régler le type de notifications que vous souhaitez recevoir via vos
                 <a href="{reverse('notification_settings_view')}">préférences.</p>
