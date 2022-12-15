@@ -249,6 +249,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     # Notification settings
+    notification_counter = models.PositiveIntegerField(
+        "Nombre de notifications reçues", default=0
+    )
     notification_aid_team = models.CharField(
         "Notifications aides équipe",
         max_length=32,
@@ -368,7 +371,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         Send a notification to the user through the internal notification system
         """
         if self.check_notification_allowed(notification_type):
+            # Message should be valid html with content enclosed in one or several p tag(s)
+            # Though if the message is very basic, we can add it here.
+            if "<p>" not in message:
+                message = f"<p>{message}</p>"
+
             Notification.objects.create(recipient=self, title=title, message=message)
+            self.notification_counter += 1
+            self.save()
 
     def get_search_preferences(self):
         """
