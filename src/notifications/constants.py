@@ -5,8 +5,15 @@ NOTIFICATION_TYPES_LIST = [
     ("internal_user", "Notification interne personnelle"),
 ]
 
-NOTIFICATION_SETTING_LIST = [
+NOTIFICATION_TYPES_KEYS = [k[0] for k in NOTIFICATION_TYPES_LIST]
+
+NOTIFICATION_SETTINGS_MODES_LIST = [
     ("none", "Aucune"),
     ("internal_only", "Notification interne uniquement"),
     ("internal_email", "Notification interne et par email"),
+]
+
+NOTIFICATION_SETTINGS_FREQUENCIES_LIST = [
+    ("daily", "Quotidienne"),
+    ("weekly", "Hebdomadaire"),
 ]

@@ -213,6 +213,7 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
                     "notification_aid_user",
                     "notification_internal_team",
                     "notification_internal_user",
+                    "notification_email_frequency",
                 )
             },
         ),
