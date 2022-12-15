@@ -329,6 +329,7 @@ class BaseAidAdmin(
                 "fields": (
                     "status",
                     "author_notification",
+                    "has_broken_link",
                 )
             },
         ),
