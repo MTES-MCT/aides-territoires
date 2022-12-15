@@ -63,7 +63,7 @@ def import_commune_data_from_banatic(logger: Logger) -> dict:
 
 def import_row_from_banatic(insee: str, population: int) -> bool:
     try:
-        commune = Perimeter.objects.get(code=insee)
+        commune = Perimeter.objects.get(code=insee, scale=Perimeter.SCALES.commune)
 
         commune.population = population
         commune.save()
