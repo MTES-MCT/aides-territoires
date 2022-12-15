@@ -10,7 +10,11 @@ from django.utils import timezone
 
 from model_utils import Choices
 
-from notifications.constants import NOTIFICATION_SETTING_LIST
+from notifications.constants import (
+    NOTIFICATION_TYPES_KEYS,
+    NOTIFICATION_SETTINGS_MODES_LIST,
+    NOTIFICATION_SETTINGS_FREQUENCIES_LIST,
+)
 from notifications.models import Notification
 
 
@@ -248,30 +252,36 @@ class User(AbstractBaseUser, PermissionsMixin):
     notification_aid_team = models.CharField(
         "Notifications aides équipe",
         max_length=32,
-        choices=NOTIFICATION_SETTING_LIST,
+        choices=NOTIFICATION_SETTINGS_MODES_LIST,
         default="internal_email",
         help_text="Notifications liées aux aides envoyées à tous les membres de la structure",
     )
     notification_aid_user = models.CharField(
         "Notifications aides individuelles",
         max_length=32,
-        choices=NOTIFICATION_SETTING_LIST,
+        choices=NOTIFICATION_SETTINGS_MODES_LIST,
         default="internal_email",
         help_text="Notifications liées aux aides concernant l’utilisateur",
     )
     notification_internal_team = models.CharField(
         "Notifications internes équipe",
         max_length=32,
-        choices=NOTIFICATION_SETTING_LIST,
+        choices=NOTIFICATION_SETTINGS_MODES_LIST,
         default="internal_email",
         help_text="Notifications internes envoyées à tous les membres de la structure",
     )
     notification_internal_user = models.CharField(
         "Notifications interne individuelles",
         max_length=32,
-        choices=NOTIFICATION_SETTING_LIST,
+        choices=NOTIFICATION_SETTINGS_MODES_LIST,
         default="internal_email",
         help_text="Notifications internes concernant l’utilisateur",
+    )
+    notification_email_frequency = models.CharField(
+        "Fréquence d’envoi des emails de notification",
+        max_length=32,
+        choices=NOTIFICATION_SETTINGS_FREQUENCIES_LIST,
+        default="daily",
     )
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)
@@ -339,6 +349,27 @@ class User(AbstractBaseUser, PermissionsMixin):
         certain pages of the app."""
         return self.search_pages.exists()
 
+    def check_notification_allowed(self, notification_type: str) -> bool:
+        """Checks if a user allowed a specific notification type"""
+        if notification_type not in NOTIFICATION_TYPES_KEYS:
+            raise ValueError("Unknown notification type")
+        else:
+            type_parameter = f"notification_{notification_type}"
+            type_parameter_value = getattr(self, type_parameter)
+            if type_parameter_value != "none":
+                return True
+            else:
+                return False
+
+    def send_notification(
+        self, notification_type: str, title: str, message: str
+    ) -> None:
+        """
+        Send a notification to the user through the internal notification system
+        """
+        if self.check_notification_allowed(notification_type):
+            Notification.objects.create(recipient=self, title=title, message=message)
+
     def get_search_preferences(self):
         """
         Returns the perimeter and organization type of the user to pre-fill the search forms
@@ -360,7 +391,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class UserLastConnexion(models.Model):
-
     user = models.ForeignKey(
         "accounts.User", verbose_name="Utilisateur", on_delete=models.CASCADE, null=True
     )

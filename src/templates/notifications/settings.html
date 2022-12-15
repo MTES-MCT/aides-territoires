@@ -47,14 +47,16 @@
                 <p>Les champs marqués d’un astérisque (*) sont obligatoires.</p>
                 {% csrf_token %}
 
-                {% include '_field_snippet.html' with field=form.notification_aid_team %}
-                {% include '_field_snippet.html' with field=form.notification_aid_user %}
-                {% include '_field_snippet.html' with field=form.notification_internal_team %}
-                {% include '_field_snippet.html' with field=form.notification_internal_user %}
-
-                <button type="submit" class="fr-btn">Mettre à jour</button>
+                {% include '_field_snippet.html' with field=form.notification_email_frequency %}
+                <fieldset>
+                    <legend class="fr-h4">Types de notification</legend>
+                    {% include '_field_snippet.html' with field=form.notification_aid_team %}
+                    {% include '_field_snippet.html' with field=form.notification_aid_user %}
+                    {% include '_field_snippet.html' with field=form.notification_internal_team %}
+                    {% include '_field_snippet.html' with field=form.notification_internal_user %}
+                </fieldset>
+                <button type="submit" class="fr-btn fr-mt-2w">Mettre à jour</button>
             </form>
-
         </div>
     </div>
 </div>

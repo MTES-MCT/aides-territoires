@@ -3,7 +3,10 @@ from django import forms
 from accounts.models import User
 from core.forms.baseform import AidesTerrBaseForm
 
-from notifications.constants import NOTIFICATION_SETTING_LIST
+from notifications.constants import (
+    NOTIFICATION_SETTINGS_MODES_LIST,
+    NOTIFICATION_SETTINGS_FREQUENCIES_LIST,
+)
 
 
 class NotificationSettingsForm(forms.ModelForm, AidesTerrBaseForm):
@@ -12,23 +15,27 @@ class NotificationSettingsForm(forms.ModelForm, AidesTerrBaseForm):
     # Notification settings
     notification_aid_team = forms.ChoiceField(
         label="Notifications aides équipe",
-        choices=NOTIFICATION_SETTING_LIST,
+        choices=NOTIFICATION_SETTINGS_MODES_LIST,
         help_text="Notifications liées aux aides envoyées à tous les membres de la structure",
     )
     notification_aid_user = forms.ChoiceField(
         label="Notifications aides individuelles",
-        choices=NOTIFICATION_SETTING_LIST,
+        choices=NOTIFICATION_SETTINGS_MODES_LIST,
         help_text="Notifications liées aux aides concernant l’utilisateur",
     )
     notification_internal_team = forms.ChoiceField(
         label="Notifications internes équipe",
-        choices=NOTIFICATION_SETTING_LIST,
+        choices=NOTIFICATION_SETTINGS_MODES_LIST,
         help_text="Notifications internes envoyées à tous les membres de la structure",
     )
     notification_internal_user = forms.ChoiceField(
         label="Notifications interne individuelles",
-        choices=NOTIFICATION_SETTING_LIST,
+        choices=NOTIFICATION_SETTINGS_MODES_LIST,
         help_text="Notifications internes concernant l’utilisateur",
+    )
+    notification_email_frequency = forms.ChoiceField(
+        label="Fréquence d’envoi des emails de notification",
+        choices=NOTIFICATION_SETTINGS_FREQUENCIES_LIST,
     )
 
     class Meta:
@@ -38,4 +45,5 @@ class NotificationSettingsForm(forms.ModelForm, AidesTerrBaseForm):
             "notification_aid_user",
             "notification_internal_team",
             "notification_internal_user",
+            "notification_email_frequency",
         ]
