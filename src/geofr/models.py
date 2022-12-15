@@ -137,6 +137,10 @@ class Perimeter(models.Model):
     )
     is_overseas = models.BooleanField(verbose_name="En Outre-mer ?", null=True)
 
+    population = models.PositiveIntegerField(
+        verbose_name="population", null=True, blank=True
+    )  # Sourced from Banatic
+
     # Counters: used only at Department level
     # script-updated nightly
     backers_count = models.PositiveSmallIntegerField(
