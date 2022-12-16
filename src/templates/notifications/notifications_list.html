@@ -92,6 +92,8 @@
                 </table>
             </div>
 
+            {% include '_pagination.html' %}
+
             {% if notifications %}
                 <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
                     <a href="{% url 'notification_mark_all_read_view' %}"

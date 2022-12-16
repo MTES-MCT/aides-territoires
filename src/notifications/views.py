@@ -21,6 +21,9 @@ from notifications.models import Notification
 class NotificationListView(ContributorAndProfileCompleteRequiredMixin, ListView):
     """User notifications dashboard"""
 
+    paginate_by = 10
+    model = Notification
+
     template_name = "notifications/notifications_list.html"
     context_object_name = "notifications"
 
