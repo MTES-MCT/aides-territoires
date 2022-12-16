@@ -203,7 +203,7 @@ class LoginView(views.LoginView, TemplateView):
                 notification_type="internal_user",
                 title="Mise en place du système de notifications",
                 message=f"""<p>Bienvenue dans le nouveau système de notifications
-                d‘Aides-territoires ! Vous recevrez bientôt des notifications lors de certaines
+                d’Aides-territoires ! Vous recevrez bientôt des notifications lors de certaines
                 actions liées à vos aides, mais aussi à votre structure ou à vos projets.</p>
 
                 <p>Vous pouvez régler le type de notifications que vous souhaitez recevoir via vos
@@ -469,7 +469,7 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, FormView):
             users = User.objects.none()
         return self.render_to_response(
             self.get_context_data(form=form, error_mail=error, users=users)
-        )  # noqa
+        )
 
 
 class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
