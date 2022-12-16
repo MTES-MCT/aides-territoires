@@ -1,4 +1,5 @@
 import logging
+import asyncio
 
 from django.core.management.base import BaseCommand
 from django.core.mail import send_mail
@@ -11,35 +12,40 @@ from aids.utils import check_if_url_return_an_error
 class Command(BaseCommand):
     """Check the reliability of aid associated links"""
 
+    async def check_aid(self, aid):
+
+        logger = logging.getLogger("console_log")
+        logger.info(f"check for aid_id {aid.id} links")
+        if aid.origin_url:
+            if check_if_url_return_an_error(aid.origin_url):
+                aid.has_broken_link = True
+                aid.save()
+                logger.info(f"{aid.name} contains a broken 'origin_url' link")
+        if aid.application_url:
+            if check_if_url_return_an_error(aid.application_url):
+                aid.has_broken_link = True
+                aid.save()
+                logger.info(f"{aid.name} contains a broken 'application_url' link")
+
+    async def check_aids_task_group(self, aids):
+        await asyncio.gather(*(self.check_aid(aid) for aid in aids))
+
     def handle(self, *args, **options):
         from aids.models import Aid
 
         logger = logging.getLogger("console_log")
         logger.info("Command find_broken_links starting")
 
-        aids = Aid.objects.filter(has_broken_link=False).live()
+        aids = list(Aid.objects.filter(has_broken_link=False).live())
 
-        nb_links = 0
-        aids_list = []
         site = Site.objects.get_current()
         domain = site.domain
 
-        for aid in aids:
-            logger.info(f"check for aid_id {aid.id} links")
-            if aid.origin_url:
-                if check_if_url_return_an_error(aid.origin_url):
-                    nb_links += 1
-                    aids_list.append(aid)
-                    aid.has_broken_link = True
-                    aid.save()
-                    logger.info(f"{aid.name} contains a broken 'origin_url' link")
-            if aid.application_url:
-                if check_if_url_return_an_error(aid.application_url):
-                    nb_links += 1
-                    aids_list.append(aid)
-                    aid.has_broken_link = True
-                    aid.save()
-                    logger.info(f"{aid.name} contains a broken 'application_url' link")
+        asyncio.run(self.check_aids_task_group(aids))
+
+        aids_with_broken_link = Aid.objects.filter(has_broken_link=True)
+        nb_links = aids_with_broken_link.count()
+        aids_list = list(aids_with_broken_link)
 
         email_body = render_to_string(
             "emails/find_broken_links.txt",
