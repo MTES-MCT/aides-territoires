@@ -383,6 +383,72 @@ def send_new_suggested_aid_notification_email(
 
 
 @app.task
+def send_new_aid_in_favorite_project_notification_email(
+    project_author_email,
+    project_follower_email,
+    project_id,
+    body_template="emails/new_aid_in_favorite_project.txt",
+):
+    """
+    Send an email to users with project in favorite to inform them
+    a new aid was associated to the project.
+    """
+    try:
+        project_author = User.objects.get(email=project_author_email)
+        project_follower_email = User.objects.get(email=project_follower_email)
+    except User.DoesNotExist:
+        # In case we could not find any valid user with the given email
+        # we don't raise any exception, because we can't give any hints
+        # about whether or not any particular email has an account
+        # on our site.
+        return
+
+    project = Project.objects.get(id=project_id)
+    base_url = get_base_url()
+    reverse_project_url = reverse(
+        "public_project_detail_view", args=[project.id, project.slug]
+    )
+    full_project_url = f"{base_url}{reverse_project_url}"
+
+    if settings.SIB_SUGGESTED_AID_EMAIL_ENABLED:
+        data = {
+            "PROJECT_AUTHOR_NAME": project_author.full_name,
+            "USER_NAME": project_follower_email.full_name,
+            "PROJECT_NAME": project.name,
+            "FULL_PROJECT_URL": full_project_url,
+        }
+
+        template_id = settings.SIB_NEW_SUGGESTED_AID_TEMPLATE_ID
+
+        send_email_with_template(
+            recipient_list=[project_follower_email.email],
+            template_id=template_id,
+            data=data,
+            tags=["aide associée à un projet favori", settings.ENV_NAME],
+            fail_silently=True,
+        )
+
+    else:
+        login_email_body = render_to_string(
+            body_template,
+            {
+                "project_author_name": project_author.full_name,
+                "user_name": project_follower_email.full_name,
+                "project_name": project.name,
+                "full_project_url": full_project_url,
+            },
+        )
+        send_email(
+            subject="Une nouvelle aide a été identifiée pour le projet public que vous suivez!",
+            body=login_email_body,
+            recipient_list=[project_follower_email.email],
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            tags=["aide associée à un projet favori", settings.ENV_NAME],
+            fail_silently=False,
+        )
+
+
+@app.task
 def send_suggested_aid_accepted_notification_email(
     project_author_organization_name,
     suggester_user_email,
