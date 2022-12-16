@@ -929,6 +929,7 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
         # stats for beneficiaries:
         context["nb_beneficiary_accounts_created"] = (
             User.objects.filter(is_beneficiary=True)
+            .exclude(is_contributor=True)
             .filter(date_created__range=[start_date_range, end_date_range])
             .count()
         )
@@ -947,6 +948,7 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
         # stats for contributors:
         context["nb_contributor_accounts_created"] = (
             User.objects.filter(is_contributor=True)
+            .exclude(is_beneficiary=True)
             .filter(date_created__range=[start_date_range, end_date_range])
             .count()
         )
@@ -957,6 +959,12 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
         )
         context["nb_aids_live_for_period"] = (
             Aid.objects.live()
+            .filter(date_created__range=[start_date_range, end_date_range])
+            .count()
+        )
+
+        context["nb_beneficiary_and_contributor_accounts_created"] = (
+            User.objects.filter(is_contributor=True, is_beneficiary=True)
             .filter(date_created__range=[start_date_range, end_date_range])
             .count()
         )

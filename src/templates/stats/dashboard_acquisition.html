@@ -72,7 +72,11 @@
     </div>
   </div>
 
-  <h3 class="fr-mt-5w">🧲 Principales sources d’entrées :</h3>
+  <h3 class="fr-mt-5w">🧲 Principales sources d’entrées sur la période ({{ start_date }}→{{ end_date }}) :</h3>
+  <div class="fr-alert fr-alert--info">
+    <p>Entrées sur le site en fonction du domaine, aucun regroupement n’est fait sur les sous-domaines des listes de diffusion.</p>
+    <p>La colonne excluant la recherche permet d’avoir des écarts résultants d’actions de l’équipe plus significatifs.</p>
+  </div>
   <div
     class="fr-table fr-table--layout-fixed fr-table--no-caption"
     data-controller="table"
@@ -121,7 +125,10 @@
       </tbody>
     </table>
   </div>
-  <h3 class="fr-mt-5w">🙋 Nouvelles inscriptions sur la période :</h3>
+  <h3 class="fr-mt-5w">🙋 Nouvelles inscriptions sur la période ({{ start_date }}→{{ end_date }}) :</h3>
+  <div class="fr-alert fr-alert--info">
+    <p>Flux des inscriptions avec une cadence hebdomadaire classique.</p>
+  </div>
 
   <div class="charts">
     <div id="chart-nouvelles-inscriptions" class="ct-chart"></div>
@@ -156,6 +163,10 @@
     })
   </script>
 
+  <div class="fr-alert fr-alert--info">
+    <p>Tableau de détail des inscriptions sur la période.</p>
+    <p>Cela permet d’identifier si les pics correspondent à des actions localisées par exemple.</p>
+  </div>
   <div
     class="fr-table fr-table--layout-fixed fr-table--no-caption"
     data-controller="table"

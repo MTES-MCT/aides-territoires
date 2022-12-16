@@ -129,7 +129,7 @@ export default class extends Controller {
       })
     }
     this.legend.setContent(`
-      <i style="background:purple;"></i> Probable incohérence<br>
+      <i style="background:purple;"></i> Inscriptions multiples<br>
       <i style="background:${this.#getAgeColor(3)};"></i> Ces 30 derniers jours<br>
       <i style="background:${this.#getAgeColor(2)};"></i> Dans le dernier trimestre<br>
       <i style="background:${this.#getAgeColor(1)};"></i> Inscription plus ancienne<br>

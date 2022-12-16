@@ -88,7 +88,11 @@
     </div>
   </div>
 
-  <h3 class="fr-mt-5w">🚀 Visites uniques :</h3>
+  <h3 class="fr-mt-5w">🚀 Visites uniques ces 10 dernières semaines :</h3>
+  <div class="fr-alert fr-alert--info">
+    <p>Les inscriptions et alertes créées sont multipliées par 20 afin qu’elles soient visibles et comparables avec les visites uniques.</p>
+    <p>Cela permet de visualiser une conversion hebdomadaire en fonction des actions engagées par l’équipe.</p>
+  </div>
   <div class="charts">
     <div id="chart-visites-uniques" class="ct-chart"></div>
   </div>
@@ -100,6 +104,11 @@
     </ul>
   </div>
 
+  <style type="text/css">
+    .ct-label.ct-horizontal.ct-end {
+      margin-left: -32px;
+    }
+  </style>
   <script nonce="{{ request.csp_nonce }}">
     new Chartist.Line('#chart-visites-uniques', {
       labels: {{ nb_vu_weeks|safe }},
@@ -122,8 +131,10 @@
       axisX: {
         labelInterpolationFnc: function(value) {
           // Only display day/month (from ISO date).
+          const date = new Date(value)
+          date.setDate(date.getDate() - 5)
           const [ month, day ] = value.slice(5, 10).split('-')
-          return `${day}/${month}`
+          return `[${date.getDate()}/${date.getMonth() + 1}-${day}/${month}]`
         }
       },
       axisY: {
