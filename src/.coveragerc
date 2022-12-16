@@ -1,5 +1,5 @@
 [run]
-omit = */virtualenvs/*,*tests/*,*/apps.py,*migrations/*,*manage.py,*__init__.py,*/factories.py,*asgi*,core/wsgi.py,*/admin.py,*/urls.py
+omit = */virtualenvs/*,*tests/*,*/apps.py,*migrations/*,*manage.py,*__init__.py,*/settings/*,*/factories.py,*asgi*,*wsgi*,*/admin.py,*/tasks.py,*/urls.py,core/admin_*
 
 [report]
-omit = */virtualenvs/*,*tests/*,*/apps.py,*migrations/*,*manage.py,*__init__.py,*/factories.py,*asgi*,core/wsgi.py,*/admin.py,*/urls.py
+omit = */virtualenvs/*,*tests/*,*/apps.py,*migrations/*,*manage.py,*__init__.py,*/settings/*,*/factories.py,*asgi*,*wsgi*,*/admin.py,*/tasks.py,*/urls.py,core/admin_*
