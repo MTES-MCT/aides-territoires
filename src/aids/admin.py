@@ -201,6 +201,7 @@ class BaseAidAdmin(
     search_fields = ["id", "name", "name_initial"]
     list_filter = [
         "status",
+        "has_broken_link",
         LiveAidListFilter,
         GenericAidListFilter,
         "recurrence",
@@ -329,6 +330,7 @@ class BaseAidAdmin(
                 "fields": (
                     "status",
                     "author_notification",
+                    "has_broken_link",
                 )
             },
         ),
