@@ -2,6 +2,7 @@ from django.views.generic import ListView, DetailView
 
 from programs.models import Program
 from aids.models import Aid
+from pages.models import Tab
 
 
 class ProgramList(ListView):
@@ -24,5 +25,6 @@ class ProgramDetail(DetailView):
 
         context = super().get_context_data(**kwargs)
         context["aids"] = aids
+        context["program_tabs"] = Tab.objects.filter(program=self.object)
 
         return context
