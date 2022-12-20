@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchRank
 from model_utils import Choices
+from django.utils import timezone
 
 from dsfr.forms import DsfrBaseForm
 from core.forms import (
@@ -143,6 +144,7 @@ class BaseAidForm(forms.ModelForm, DsfrBaseForm):
         self.instance.set_search_vector_unaccented(
             financers, instructors, categories, keywords, programs
         )
+        self.instance.date_updated = timezone.now()
         return super().save(commit=commit)
 
 
