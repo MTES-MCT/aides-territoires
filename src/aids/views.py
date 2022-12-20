@@ -520,25 +520,25 @@ class AidDetailView(DetailView):
         if (
             self.object.perimeter.scale == 18
             and self.object.import_data_source.pk == 10
+            and "regions_" in self.object.perimeter.name
         ):
-            if "regions_" in self.object.perimeter.name:
-                perimeter_name = self.object.perimeter.name.replace("regions_", "")
-                perimeter_list = perimeter_name.split("_")
-                regions_list = []
-                for region_code in perimeter_list:
+            perimeter_name = self.object.perimeter.name.replace("regions_", "")
+            perimeter_list = perimeter_name.split("_")
+            regions_list = []
+            for region_code in perimeter_list:
+                try:
+                    perimeter = Perimeter.objects.get(
+                        code=region_code, scale=Perimeter.SCALES.region
+                    )
+                    regions_list.append(perimeter.name)
+                except Exception:
                     try:
-                        perimeter = Perimeter.objects.get(
-                            code=region_code, scale=Perimeter.SCALES.region
-                        )
+                        perimeter = Perimeter.objects.get(code=region_code)
                         regions_list.append(perimeter.name)
                     except Exception:
-                        try:
-                            perimeter = Perimeter.objects.get(code=region_code)
-                            regions_list.append(perimeter.name)
-                        except Exception:
-                            print(f"Code région : {region_code}")
-                regions_names = ", ".join(sorted(regions_list))
-                context["readable_adhoc_perimeter"] = regions_names
+                        print(f"Code région : {region_code}")
+            regions_names = ", ".join(sorted(regions_list))
+            context["readable_adhoc_perimeter"] = regions_names
 
         context["eligibility_criteria"] = any(
             (
