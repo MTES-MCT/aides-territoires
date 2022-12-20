@@ -512,6 +512,11 @@ class AidDetailView(DetailView):
             financers.exclude(logo__isnull=True).exclude(logo="").distinct()
         )
 
+        """
+        Aid imported from Ademe-Agir API contains sometimes an adhoc perimeter
+        with unreadable name starting with "regions_" and regions-code list.
+        In that case, we need to translate this name.
+        """
         if (
             self.object.perimeter.scale == 18
             and self.object.import_data_source.pk == 10
