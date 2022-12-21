@@ -110,16 +110,32 @@
         </div>
       </div>
     </div>
+    <div class="fr-col-12 fr-col-md-2">
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body">
+          <p class="fr-tile__title">
+            <a class="fr-tile__link" href="{% url 'admin:accounts_user_changelist' %}?is_contributor__exact=1">Nombre de nouveaux comptes porteurs de projets et d’aides</a>
+          </p>
+        </div>
+        <div class="fr-tile__img overflow--initial" role="presentation">
+          <p class="fr-text--lg"><strong>{{ nb_beneficiary_and_contributor_accounts_created|intcomma }}</strong></p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <h3 class="fr-mt-5w">
-    📍 Nombre d’inscriptions communes <span class="charts-legend charts-legend-accent"></span> :
+    📍 Inscriptions de nouvelles communes au cours des 10 dernières semaines :
   </h3>
+  <div class="fr-alert fr-alert--info">
+    <p>Graphe permettant de représenter l’activité sur la plateforme des nouvelles communes inscrites.</p>
+  </div>
   <div class="charts">
     <div id="chart-inscriptions-communes" class="ct-chart"></div>
   </div>
   <div class="charts-legends">
     <ul>
+      <li><span class="charts-legend charts-legend-accent"></span> Toutes les communes</li>
       <li><span class="charts-legend charts-legend-regular"></span> Avec une aide publiée</li>
       <li><span class="charts-legend charts-legend-regular2"></span> Avec un projet</li>
     </ul>
@@ -149,13 +165,17 @@
   </script>
 
   <h3 class="fr-mt-5w">
-    🗺 Nombre d’inscriptions EPCI <span class="charts-legend charts-legend-accent"></span> :
+    🗺 Inscriptions de nouveaux EPCI au cours des 10 dernières semaines  :
   </h3>
+  <div class="fr-alert fr-alert--info">
+    <p>Graphe permettant de représenter l’activité sur la plateforme des nouveaux EPCI inscrits.</p>
+  </div>
   <div class="charts">
     <div id="chart-inscriptions-epcis" class="ct-chart"></div>
   </div>
   <div class="charts-legends">
     <ul>
+      <li><span class="charts-legend charts-legend-accent"></span> Tous les EPCI</li>
       <li><span class="charts-legend charts-legend-regular"></span> Avec une aide publiée</li>
       <li><span class="charts-legend charts-legend-regular2"></span> Avec un projet</li>
     </ul>

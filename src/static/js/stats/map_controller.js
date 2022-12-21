@@ -129,7 +129,7 @@ export default class extends Controller {
       })
     }
     this.legend.setContent(`
-      <i style="background:purple;"></i> Probable incohérence<br>
+      <i style="background:purple;"></i> Inscriptions multiples<br>
       <i style="background:${this.#getAgeColor(3)};"></i> Ces 30 derniers jours<br>
       <i style="background:${this.#getAgeColor(2)};"></i> Dans le dernier trimestre<br>
       <i style="background:${this.#getAgeColor(1)};"></i> Inscription plus ancienne<br>
@@ -172,6 +172,12 @@ export default class extends Controller {
       <h2>
         Communes et leurs organisations (département ${department})
       </h2>
+      <div class="fr-alert fr-alert--info">
+        <p>
+          Ce tableau comporte l’ensemble des communes
+          (incluant les doublons/inscriptions multiples pour un même périmètre).
+        </p>
+      </div>
       <table
         data-controller="table"
         data-downloadable="true"
@@ -233,6 +239,12 @@ export default class extends Controller {
       <h2>
         EPCI et leurs organisations (département ${department})
       </h2>
+      <div class="fr-alert fr-alert--info">
+        <p>
+          Ce tableau comporte l’ensemble des EPCI
+          (incluant les doublons/inscriptions multiples pour un même périmètre).
+        </p>
+      </div>
       <table
         data-controller="table"
         data-downloadable="true"

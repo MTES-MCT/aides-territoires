@@ -1,3 +1,10 @@
+.fr-alert.fr-alert--info {
+  margin-bottom: 1rem;
+}
+.fr-alert.fr-alert--info p:last-of-type {
+  margin-bottom: 0;
+}
+
 /* Sortable tables. */
 .fr-table[data-controller='table'] {
   display: block;
