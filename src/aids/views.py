@@ -48,6 +48,7 @@ from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from organizations.constants import ORGANIZATION_TYPES_SINGULAR_ALL
 from programs.models import Program
 from projects.models import Project
+from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeters
 from blog.models import PromotionPost
 from search.utils import clean_search_form
@@ -510,6 +511,35 @@ class AidDetailView(DetailView):
         context["financers_with_logo"] = (
             financers.exclude(logo__isnull=True).exclude(logo="").distinct()
         )
+
+        """
+        Aid imported from Ademe-Agir API contains sometimes an adhoc perimeter
+        with unreadable name starting with "regions_" and regions-code list.
+        In that case, we need to translate this name.
+        """
+        if (
+            self.object.perimeter
+            and self.object.perimeter.scale == 18
+            and self.object.import_data_source.pk == 10
+            and "regions_" in self.object.perimeter.name
+        ):
+            perimeter_name = self.object.perimeter.name.replace("regions_", "")
+            perimeter_list = perimeter_name.split("_")
+            regions_list = []
+            for region_code in perimeter_list:
+                try:
+                    perimeter = Perimeter.objects.get(
+                        code=region_code, scale=Perimeter.SCALES.region
+                    )
+                    regions_list.append(perimeter.name)
+                except Exception:
+                    try:
+                        perimeter = Perimeter.objects.get(code=region_code)
+                        regions_list.append(perimeter.name)
+                    except Exception:
+                        print(f"Code région : {region_code}")
+            regions_names = ", ".join(sorted(regions_list))
+            context["readable_adhoc_perimeter"] = regions_names
 
         context["eligibility_criteria"] = any(
             (

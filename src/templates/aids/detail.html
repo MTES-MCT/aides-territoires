@@ -239,7 +239,13 @@
                     <h2 class="fr-text--md fr-mb-0 fr-ml-1w">
                         Zone géographique couverte par l’aide :
                     </h2>
-                    <p class="fr-mb-0 fr-ml-1w">{{ aid.perimeter }}</p>
+                    <p class="fr-mb-0 fr-ml-1w">
+                        {% if readable_adhoc_perimeter %}
+                        {{ readable_adhoc_perimeter }}
+                        {% else %}
+                        {{ aid.perimeter }}
+                        {% endif %}
+                    </p>
                 </div>
             </div>
 
