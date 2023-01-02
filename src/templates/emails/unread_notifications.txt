@@ -1,0 +1,9 @@
+{% load settings %}
+
+Bonjour {{ user_name }},
+
+Vous avez {{ unread_notifications_count }} nouvelles notifications en attente.
+
+À très vite !
+
+L’équipe d’Aides-territoires

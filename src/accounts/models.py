@@ -380,6 +380,26 @@ class User(AbstractBaseUser, PermissionsMixin):
             self.notification_counter += 1
             self.save()
 
+    def get_email_notification_settings(self):
+        """
+        Returns the list of notifications types for which user wants to receive emails
+        """
+        types = []
+
+        if self.notification_aid_team == "internal_email":
+            types.append("aid_team")
+
+        if self.notification_aid_user == "internal_email":
+            types.append("aid_user")
+
+        if self.notification_internal_team == "internal_email":
+            types.append("internal_team")
+
+        if self.notification_internal_user == "internal_email":
+            types.append("internal_user")
+
+        return types
+
     def get_search_preferences(self):
         """
         Returns the perimeter and organization type of the user to pre-fill the search forms

@@ -39,9 +39,10 @@
         {% include 'accounts/_sidebar_menu.html' with notification_list=True %}
 
         <div class="fr-col-12 fr-col-md-9">
-            <h1 class="fr-h3 fr-mb-5w" id="notification-{{ object.pk }}">
+            <h1 class="fr-h3" id="notification-{{ object.pk }}">
                 {{ object.title }}
             </h1>
+            <p class="fr-text--sm fr-mb-5w">{{ object.get_notification_type_display }} — {{ object.date_created|date }}</p>
 
             {{ object.message|safe }}
 

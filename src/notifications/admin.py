@@ -1,8 +1,12 @@
 from django.contrib import admin
+from django.forms import ModelForm
 from django.utils import timezone
 
 from core.constants import YES_NO_CHOICES
+from core.forms import RichTextField
 from notifications import models
+
+from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
 class IsReadFilter(admin.SimpleListFilter):
@@ -33,8 +37,14 @@ def mark_unread(modeladmin, request, queryset):
     queryset.update(date_read=None)
 
 
+class NotificationAdminForm(ModelForm):
+    message = RichTextField(label="message")
+
+
 @admin.register(models.Notification)
 class NotificationAdmin(admin.ModelAdmin):
+    form = NotificationAdminForm
+
     actions = [mark_read, mark_unread]
 
     autocomplete_fields = ["recipient"]
@@ -64,3 +74,18 @@ class NotificationAdmin(admin.ModelAdmin):
         return obj.truncate_title()
 
     truncated_title.short_description = "titre"
+
+    class Media:
+        css = {
+            "all": (
+                "/static/css/admin.css",
+                "/static/trumbowyg/dist/ui/trumbowyg.css",
+            )
+        }
+        js = [
+            "admin/js/jquery.init.js",
+            "/static/js/shared_config.js",
+            "/static/trumbowyg/dist/trumbowyg.js",
+            "/static/trumbowyg/dist/langs/fr.js",
+            "/static/js/enable_rich_text_editor.js",
+        ] + TRUMBOWYG_UPLOAD_ADMIN_JS
