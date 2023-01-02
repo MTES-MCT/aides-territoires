@@ -48,7 +48,6 @@
                             {% include '_checkbox_snippet_multiple.html' with field=form.aid_type %}
                         </div>
     
-    
                         <div class="fr-col-12 fr-col-md-3">
                             {% include '_field_snippet.html' with field=form.backers %}
                         </div>
@@ -68,9 +67,14 @@
                         <div class="fr-col-12 fr-col-md-3">
                             {% include '_checkbox_snippet_multiple.html' with field=form.destinations  %}
                         </div>
-                    </div>
-                    <div>
-                        {% include '_checkbox_snippet.html' with field=form.call_for_projects_only  %}
+
+                        <div class="fr-col-12 fr-col-md-3">
+                            {% include '_checkbox_snippet.html' with field=form.call_for_projects_only  %}
+                        </div>
+                        
+                        <div class="fr-col-12 fr-col-md-3">
+                            {% include '_field_snippet.html' with field=form.is_charged  %}
+                        </div>
                     </div>
                 </div>
 

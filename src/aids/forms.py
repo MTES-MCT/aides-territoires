@@ -387,6 +387,7 @@ class AidEditForm(BaseAidForm):
             "loan_amount",
             "recoverable_advance_amount",
             "other_financial_aid_comment",
+            "is_charged",
             "mobilization_steps",
             "destinations",
             "eligibility",
@@ -526,6 +527,15 @@ class BaseAidSearchForm(AidesTerrBaseForm):
         choices=TECHNICAL_AIDS,
         widget=forms.CheckboxSelectMultiple,
     )
+    is_charged = forms.ChoiceField(
+        label="Aides payantes ou gratuites",
+        required=False,
+        choices={
+            ("yes", "Aides payantes"),
+            ("no", "Aides gratuites"),
+            ("all", "Toutes les aides"),
+        },
+    )
     mobilization_step = forms.MultipleChoiceField(
         label="Avancement du projet",
         required=False,
@@ -656,6 +666,14 @@ class BaseAidSearchForm(AidesTerrBaseForm):
         call_for_projects_only = self.cleaned_data.get("call_for_projects_only", False)
         if call_for_projects_only:
             qs = qs.filter(is_call_for_project=True)
+
+        is_charged = self.cleaned_data.get("is_charged", False)
+        if is_charged == "no":
+            qs = qs.filter(is_charged=False)
+        elif is_charged == "yes":
+            qs = qs.filter(is_charged=True)
+        elif is_charged == "all":
+            qs = qs
 
         in_france_relance = self.cleaned_data.get("in_france_relance", False)
         if in_france_relance:
