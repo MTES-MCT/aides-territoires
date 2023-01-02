@@ -354,7 +354,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         help_text="Précisez le ou les types de l'aide.",
     )
     is_charged = models.BooleanField(
-        "Aide Payante ?",
+        "Aide Payante",
         help_text=(
             "Ne pas cocher pour les aides sous adhésion et ajouter la mention \
         '*sous adhésion' dans les critères d’éligibilité."
