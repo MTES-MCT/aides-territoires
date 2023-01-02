@@ -353,6 +353,14 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         base_field=models.CharField(max_length=32, choices=TYPES),
         help_text="Précisez le ou les types de l'aide.",
     )
+    is_charged = models.BooleanField(
+        "Aide Payante ?",
+        help_text=(
+            "Ne pas cocher pour les aides sous adhésion et ajouter la mention \
+        '*sous adhésion' dans les critères d’éligibilité."
+        ),
+        default=False,
+    )
     is_generic = models.BooleanField(
         "Aide générique ?", help_text="Cette aide est-elle générique ?", default=False
     )

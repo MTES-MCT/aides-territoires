@@ -203,6 +203,7 @@ class BaseAidAdmin(
         "status",
         "has_broken_link",
         LiveAidListFilter,
+        "is_charged",
         GenericAidListFilter,
         "recurrence",
         "is_imported",
@@ -297,6 +298,7 @@ class BaseAidAdmin(
             {
                 "fields": (
                     "is_call_for_project",
+                    "is_charged",
                     "programs",
                     "aid_types",
                     "subvention_rate",
