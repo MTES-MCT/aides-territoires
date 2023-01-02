@@ -23,6 +23,9 @@ class Notification(models.Model):
     message = models.CharField("message", max_length=500)
     date_created = models.DateTimeField("date de création", default=timezone.now)
     date_read = models.DateTimeField("date de consultation", null=True, blank=True)
+    date_email = models.DateTimeField(
+        "date d’envoi de la notification par courriel", null=True, blank=True
+    )
 
     def mark_as_read(self):
         self.date_read = timezone.now()
