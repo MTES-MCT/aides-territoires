@@ -279,7 +279,7 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
                 perimeter__scale=Perimeter.SCALES.commune,
                 perimeter__is_obsolete=False,
             )
-            .exclude(perimeter_id__isnull="True")
+            .exclude(perimeter_id__isnull=True)
             .order_by("perimeter")
             .distinct("perimeter")
             .count()
@@ -298,7 +298,7 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
                 perimeter__scale=Perimeter.SCALES.epci,
                 perimeter__is_obsolete=False,
             )
-            .exclude(perimeter_id__isnull="True")
+            .exclude(perimeter_id__isnull=True)
             .order_by("perimeter")
             .distinct("perimeter")
             .count()
@@ -1075,7 +1075,7 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
                     perimeter__scale=Perimeter.SCALES.commune,
                     perimeter__is_obsolete=False,
                 )
-                .exclude(perimeter_id__isnull="True")
+                .exclude(perimeter_id__isnull=True)
                 .order_by("perimeter")
                 .distinct("perimeter")
                 .values("id")
@@ -1088,7 +1088,7 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
                     perimeter__scale=Perimeter.SCALES.epci,
                     perimeter__is_obsolete=False,
                 )
-                .exclude(perimeter_id__isnull="True")
+                .exclude(perimeter_id__isnull=True)
                 .order_by("perimeter")
                 .distinct("perimeter")
                 .values("id")
@@ -1116,7 +1116,7 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
                     perimeter__scale=Perimeter.SCALES.commune,
                     perimeter__is_obsolete=False,
                 )
-                .exclude(perimeter_id__isnull="True")
+                .exclude(perimeter_id__isnull=True)
                 .order_by("perimeter")
                 .distinct("perimeter")
                 .values("id")
@@ -1128,7 +1128,7 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
                     perimeter__scale=Perimeter.SCALES.epci,
                     perimeter__is_obsolete=False,
                 )
-                .exclude(perimeter_id__isnull="True")
+                .exclude(perimeter_id__isnull=True)
                 .order_by("perimeter")
                 .distinct("perimeter")
                 .values("id")
@@ -1404,7 +1404,7 @@ class OrganizationsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
 
         communes_count = (
             Organization.objects.filter(organization_type__contains=["commune"])
-            .exclude(perimeter_id__isnull="True")
+            .exclude(perimeter_id__isnull=True)
             .values("organization_type", "city_name", "perimeter_id")
             .distinct()
             .count()
@@ -1415,7 +1415,7 @@ class OrganizationsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
         other_organizations = (
             Organization.objects.exclude(organization_type__contains=["commune"])
             .exclude(organization_type__isnull=True)
-            .exclude(perimeter_id__isnull="True")
+            .exclude(perimeter_id__isnull=True)
             .values("organization_type", "name", "perimeter_id")
             .distinct()
             .order_by("organization_type")
