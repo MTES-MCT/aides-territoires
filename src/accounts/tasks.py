@@ -418,7 +418,7 @@ def send_new_aid_in_favorite_project_notification_email(
             "FULL_PROJECT_URL": full_project_url,
         }
 
-        template_id = settings.SIB_NEW_SUGGESTED_AID_TEMPLATE_ID
+        template_id = settings.SIB_NEW_AID_ASSOCIATED_IN_FAVORITE_PROJECT_TEMPLATE_ID
 
         send_email_with_template(
             recipient_list=[project_follower_email.email],
