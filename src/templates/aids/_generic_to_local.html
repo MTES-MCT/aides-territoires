@@ -5,7 +5,7 @@
     <form name="generic_to_local" action="{% url 'aid_generic_to_local_view' aid.slug %}" method="post">
         {% csrf_token %}
         <button type="submit" class="fr-btn">
-            <span class="ri-file-copy-line ri-xl at-icon-align--sub color-white fr-mr-1w"></span>
+            <span class="ri-file-copy-line ri-xl at-icon-align--sub at-color--text-inverted-blue-france fr-mr-1w"></span>
             Créer une variante locale de cette aide
         </button>
     </form>

@@ -63,6 +63,19 @@
     <section class="aid-content fr-grid-row fr-mt-5w">
         <div class="sidebar fr-col-12 fr-col-md-4 fr-p-3w fr-background-alt">
 
+            {% if aid.is_charged %}
+            <div class="fr-mb-4w fr-grid-row">
+                <div class="fr-col-1">
+                    <span class="ri-error-warning-line ri-xl" aria-hidden="true"></span>
+                </div>
+                <div class="fr-col-11">
+                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
+                        <strong>Aide payante</strong>
+                    </h2>
+                </div>
+            </div>
+            {% endif %}
+
             {% if financers %}
             <div class="fr-mb-4w fr-grid-row">
                 <div class="fr-col-1">
@@ -368,6 +381,9 @@
             <p class="at-color--blue">
                 <strong>
                     {% financers_type_display aid %}
+                    {% if aid.is_charged %}
+                    / AIDE PAYANTE
+                    {% endif %}
                 </strong>
             </p>
 
