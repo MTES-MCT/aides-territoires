@@ -672,8 +672,6 @@ class BaseAidSearchForm(AidesTerrBaseForm):
             qs = qs.filter(is_charged=False)
         elif is_charged == "True":
             qs = qs.filter(is_charged=True)
-        elif is_charged == "all":
-            qs = qs
 
         in_france_relance = self.cleaned_data.get("in_france_relance", False)
         if in_france_relance:
