@@ -84,6 +84,21 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
         user.save()
         organization.beneficiaries.add(user.pk)
 
+        user.send_notification(
+            notification_type="internal_user",
+            title="Bienvenue sur Aides-territoires !",
+            message=f"""
+            <p>Bienvenue sur Aides-territoires !</p>
+            <p>
+                Vous devriez avoir reçu un courrier électronique présentant notre site.
+                Si ce n’est pas le cas, n’hésitez pas à
+                <a href="{reverse('contact')}">nous contacter</a>.
+            </p>
+            <p>Vous pouvez régler le type de notifications que vous souhaitez recevoir via vos
+            <a href="{reverse('notification_settings_view')}">préférences.</p>
+            """,
+        )
+
         response = super().form_valid(form)
         send_connection_email.delay(user.email)
         track_goal(self.request.session, settings.GOAL_REGISTER_ID)
