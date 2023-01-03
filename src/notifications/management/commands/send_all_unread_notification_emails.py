@@ -23,4 +23,4 @@ class Command(BaseCommand):
         if frequency:
             send_all_unread_notification_emails(frequency)
         else:
-            send_all_unread_notification_emails(frequency)
+            send_all_unread_notification_emails()
