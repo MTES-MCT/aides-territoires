@@ -319,6 +319,7 @@ class BaseAidAdmin(
                 "fields": (
                     "origin_url",
                     "application_url",
+                    "has_broken_link",
                     "contact",
                 )
             },
@@ -330,7 +331,6 @@ class BaseAidAdmin(
                 "fields": (
                     "status",
                     "author_notification",
-                    "has_broken_link",
                 )
             },
         ),
