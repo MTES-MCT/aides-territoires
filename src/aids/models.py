@@ -359,7 +359,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
             "Ne pas cocher pour les aides sous adhésion et ajouter la mention \
         '*sous adhésion' dans les critères d’éligibilité."
         ),
-        null=True,
+        default=False,
     )
     is_generic = models.BooleanField(
         "Aide générique ?", help_text="Cette aide est-elle générique ?", default=False

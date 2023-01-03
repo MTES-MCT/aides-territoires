@@ -530,11 +530,11 @@ class BaseAidSearchForm(AidesTerrBaseForm):
     is_charged = forms.ChoiceField(
         label="Aides payantes ou gratuites",
         required=False,
-        choices={
-            ("yes", "Aides payantes"),
-            ("no", "Aides gratuites"),
+        choices=(
             ("all", "Toutes les aides"),
-        },
+            ("True", "Aides payantes"),
+            ("False", "Aides gratuites"),
+        ),
     )
     mobilization_step = forms.MultipleChoiceField(
         label="Avancement du projet",
@@ -668,9 +668,9 @@ class BaseAidSearchForm(AidesTerrBaseForm):
             qs = qs.filter(is_call_for_project=True)
 
         is_charged = self.cleaned_data.get("is_charged", False)
-        if is_charged == "no":
+        if is_charged == "False":
             qs = qs.filter(is_charged=False)
-        elif is_charged == "yes":
+        elif is_charged == "True":
             qs = qs.filter(is_charged=True)
         elif is_charged == "all":
             qs = qs
