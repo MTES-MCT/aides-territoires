@@ -46,13 +46,13 @@ def financers_type_display(obj):
             financers_type_list.append(financer_type)
 
     if len(financers_type_list) > 1:
-        financers_type_str += "PORTEURS D'AIDE PUBLIC ET PRIVÉ"
+        financers_type_str += "PORTEURS D’AIDE PUBLIC ET PRIVÉ"
     else:
         for financer_type in financers_type_list:
             if financer_type is False:
-                financers_type_str += "PORTEUR D'AIDE PUBLIC"
+                financers_type_str += "PORTEUR D’AIDE PUBLIC"
             else:
-                financers_type_str += "PORTEUR D'AIDE PRIVÉ"
+                financers_type_str += "PORTEUR D’AIDE PRIVÉ"
 
     return financers_type_str
 
