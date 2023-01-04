@@ -169,3 +169,32 @@ def test_notifications_can_all_be_deleted(client, user):
 
     assert Notification.objects.filter(recipient=user).count() == 0
     assert Notification.objects.all().count() == 1
+
+
+def test_notification_parameters_can_be_updated(client, user):
+
+    client.force_login(user)
+
+    assert user.notification_email_frequency == "daily"
+    assert user.notification_aid_team == "internal_email"
+
+    params_url = reverse(
+        "notification_settings_view",
+    )
+
+    res = client.post(
+        params_url,
+        {
+            "notification_email_frequency": "weekly",
+            "notification_aid_team": "internal_only",
+            "notification_aid_user": "internal_only",
+            "notification_internal_team": "internal_only",
+            "notification_internal_user": "internal_only",
+        },
+    )
+
+    assert res.status_code == 302
+
+    user.refresh_from_db()
+    assert user.notification_email_frequency == "weekly"
+    assert user.notification_aid_team == "internal_only"
