@@ -94,8 +94,8 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
                 Si ce n’est pas le cas, n’hésitez pas à
                 <a href="{reverse('contact')}">nous contacter</a>.
             </p>
-            <p>Vous pouvez régler le type de notifications que vous souhaitez recevoir via vos
-            <a href="{reverse('notification_settings_view')}">préférences.</p>
+            <p>Vous pouvez régler le type de notifications que vous souhaitez recevoir via
+            <a href="{reverse('notification_settings_view')}">vos préférences</a>.</p>
             """,
         )
 
@@ -221,8 +221,8 @@ class LoginView(views.LoginView, TemplateView):
                 d’Aides-territoires ! Vous recevrez bientôt des notifications lors de certaines
                 actions liées à vos aides, mais aussi à votre structure ou à vos projets.</p>
 
-                <p>Vous pouvez régler le type de notifications que vous souhaitez recevoir via vos
-                <a href="{reverse('notification_settings_view')}">préférences.</p>
+                <p>Vous pouvez régler le type de notifications que vous souhaitez recevoir via
+                <a href="{reverse('notification_settings_view')}">vos préférences</a>.</p>
                 """,
             )
 
