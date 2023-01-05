@@ -93,12 +93,12 @@
                         {% if financers_with_logo %}
                         <div id="logos-financers" class="fr-mt-2w">
                             {% for financer in financers_with_logo %}
-                            <a href="{% url 'backer_detail_view' financer.pk financer.slug %}"
-                            class="fr-col-10 at-link__nodecorator"
-                            title="{{ financer.name }} - Ouvrir dans une nouvelle fenêtre"
-                            >
-                                <img src="{{ financer.logo.url }}" class="fr-responsive-img" alt="" />
-                            </a>
+                                <a href="{% url 'backer_detail_view' financer.pk financer.slug %}"
+                                class="fr-col-10 at-link__nodecorator"
+                                title="{{ financer.name }} - Ouvrir dans une nouvelle fenêtre"
+                                >
+                                    <img src="{{ financer.logo.url }}" class="fr-responsive-img" alt="" />
+                                </a>
                             {% endfor %}
                         </div>
                         {% endif %}
@@ -382,7 +382,7 @@
                 <strong>
                     {% financers_type_display aid %}
                     {% if aid.is_charged %}
-                    / AIDE PAYANTE
+                        / AIDE PAYANTE
                     {% endif %}
                 </strong>
             </p>
