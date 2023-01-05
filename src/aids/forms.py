@@ -530,11 +530,7 @@ class BaseAidSearchForm(AidesTerrBaseForm):
     is_charged = forms.ChoiceField(
         label="Aides payantes ou gratuites",
         required=False,
-        choices=(
-            ("all", "Toutes les aides"),
-            ("True", "Aides payantes"),
-            ("False", "Aides gratuites"),
-        ),
+        choices=Aid.IS_CHARGED,
     )
     mobilization_step = forms.MultipleChoiceField(
         label="Avancement du projet",

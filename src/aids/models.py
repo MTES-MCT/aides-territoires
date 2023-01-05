@@ -231,6 +231,12 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ("recurring", "Récurrente"),
     )
 
+    IS_CHARGED = (
+        ("all", "Aides gratuites et payantes"),
+        ("True", "Aides payantes"),
+        ("False", "Aides gratuites"),
+    )
+
     objects = ExistingAidsManager()
     all_aids = AidQuerySet.as_manager()
     deleted_aids = DeletedAidsManager()

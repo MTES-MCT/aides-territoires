@@ -114,6 +114,17 @@
     {% endif %}
     {% endblock search-meta-call-for-project %}
 
+    {% block search-meta-is-charged %}
+    {% if current_search_dict.is_charged %}
+    <div class="fr-tags-group">
+        <p title="aides gratuites ou payantes" class="fr-tag fr-icon-arrow-right-line fr-tag--icon-left">
+            {% form_choice_display current_search_dict 'is_charged' %}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock search-meta-is-charged %}
+
+
     {% block search-meta-text %}
     {% if current_search_dict.text %}
     <div class="fr-tags-group">
