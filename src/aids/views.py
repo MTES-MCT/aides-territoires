@@ -521,6 +521,7 @@ class AidDetailView(DetailView):
         if (
             self.object.perimeter
             and self.object.perimeter.scale == 18
+            and self.object.import_data_source
             and self.object.import_data_source.pk == 10
             and "regions_" in self.object.perimeter.name
         ):

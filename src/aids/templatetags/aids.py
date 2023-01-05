@@ -181,6 +181,8 @@ def form_choice_display(obj, field):
         choices_dict = dict(Project.PROJECT_STEPS)
     elif field == "contract_link":
         choices_dict = dict(Project.CONTRACT_LINK)
+    elif field == "is_charged":
+        choices_dict = dict(Aid.IS_CHARGED)
 
     key = obj.get(field)
 

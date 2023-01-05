@@ -16,6 +16,10 @@
                 </a>
             </h2>
             <div class="fr-card__desc">
+                {% if aid.is_charged %}
+                <span class="fr-tag at-color--text-inverted-blue-france background-blue"><span class="ri-error-warning-line ri-xl at-icon-align--sub fr-mr-1w" aria-hidden="true"></span><strong>Aide payante</strong></span>
+                {% endif %}
+
                 {% if aid.financers.all %}
                     <h3 class="fr-mb-1w fr-mt-3w fr-text--lg fr-text--bold at-uppercase">
                         <span class="ri-hand-coin-line ri-xl at-color--blue at-icon-align--sub fr-mr-1w"></span>

@@ -158,6 +158,18 @@ call_for_projects_only = OpenApiParameter(
 )
 aids_api_parameters.append(call_for_projects_only)
 
+is_charged = OpenApiParameter(
+    name="is_charged",
+    type=OpenApiTypes.BOOL,
+    location=OpenApiParameter.QUERY,
+    description="Aides payantes uniquement.",
+    examples=[
+        OpenApiExample("", value=""),
+        OpenApiExample("true", value=True),
+    ],
+)
+aids_api_parameters.append(is_charged)
+
 perimeter = OpenApiParameter(
     name="perimeter",
     type=OpenApiTypes.STR,
