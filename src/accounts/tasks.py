@@ -387,6 +387,7 @@ def send_new_aid_in_favorite_project_notification_email(
     project_author_email,
     project_follower_email,
     project_id,
+    aid_name,
     body_template="emails/new_aid_in_favorite_project.txt",
 ):
     """
@@ -416,6 +417,7 @@ def send_new_aid_in_favorite_project_notification_email(
             "USER_NAME": project_follower_email.full_name,
             "PROJECT_NAME": project.name,
             "FULL_PROJECT_URL": full_project_url,
+            "AID_NAME": aid_name,
         }
 
         template_id = settings.SIB_NEW_AID_ASSOCIATED_IN_FAVORITE_PROJECT_TEMPLATE_ID
@@ -436,6 +438,7 @@ def send_new_aid_in_favorite_project_notification_email(
                 "user_name": project_follower_email.full_name,
                 "project_name": project.name,
                 "full_project_url": full_project_url,
+                "aid_name": aid_name,
             },
         )
         send_email(
