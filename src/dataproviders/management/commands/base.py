@@ -207,8 +207,8 @@ class BaseImportCommand(BaseCommand):
                 meta=success_message,
                 source=data_source_name,
                 value=len(aids_and_related_objects),
-            )  # noqa
-        except:  # noqa
+            )
+        except Exception:
             pass
 
     def fetch_data(self):
@@ -231,6 +231,7 @@ class BaseImportCommand(BaseCommand):
         form_fields = AidEditForm.Meta.fields
         more_fields = [
             "author_id",
+            "is_charged",
             "import_data_source",
             "is_imported",
             "import_uniqueid",
@@ -324,6 +325,9 @@ class BaseImportCommand(BaseCommand):
         return ""
 
     def extract_in_france_relance(self, line):
+        return False
+
+    def extract_is_charged(self, line):
         return False
 
     def extract_european_aid(self, line):
