@@ -916,6 +916,7 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
                                 project_author_email=user.email,
                                 project_follower_email=project_follower.email,
                                 project_id=project_obj.pk,
+                                aid_name=aid.name,
                             )
 
                 msg = f"L’aide a bien été associée au projet <a href='{project_url}'>{project_name}.</a>"  # noqa
