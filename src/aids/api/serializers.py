@@ -338,7 +338,7 @@ class AidSerializer16(BaseAidSerializer):
     categories = CategoryRelatedField(
         many=True,
         label="Thème et catégorie, séparés par « | ».",
-        help_text='E.g: "Nature / environnement|Qualité de l\'air"',
+        help_text='E.g: "Nature / environnement|Qualité de l’air"',
     )
 
     class Meta(BaseAidSerializer.Meta):
