@@ -418,19 +418,19 @@
                     {% if aid.mobilization_steps %}
                         <div class="fr-mb-2w at-inline--force">
                             <h3 class="fr-text--md fr-mb-0">Avancée du projet :</h3>
-                            {% choices_display aid 'mobilization_steps' %}
+                            <p>{% choices_display aid 'mobilization_steps' %}</p>
                         </div>
                     {% endif %}
 
                     {% if aid.destinations %}
                         <div class="fr-mb-2w at-inline--force">
                             <h3 class="fr-text--md fr-mb-0">Dépenses/actions couvertes :</h3>
-                            {% choices_display aid 'destinations' %}
+                            <p>{% choices_display aid 'destinations' %}</p>
                         </div>
                     {% endif %}
 
                     {% if aid.eligibility %}
-                        <div class="fr-mb-2w at-inline--force">
+                        <div class="fr-mb-2w">
                             <h3 class="fr-text--md fr-mb-0">Autres critères d’éligibilité :</h3>
                             {% if aid.headline_eligibility %}
                                 {{ aid.headline_eligibility|safe }}
@@ -449,7 +449,7 @@
                     {% endif %}
 
                     {% if aid.project_examples %}
-                        <div class="fr-mb-2w at-inline--force">
+                        <div class="fr-mb-2w">
                             <h3 class="fr-text--md fr-mb-0">
                                 Exemples de projets réalisables :
                             </h3>
