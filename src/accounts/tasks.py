@@ -419,7 +419,7 @@ def send_new_aid_in_favorite_project_notification_email(
         }
 
         template_id = settings.SIB_NEW_AID_ASSOCIATED_IN_FAVORITE_PROJECT_TEMPLATE_ID
-
+        print(f"template_id={template_id}")
         send_email_with_template(
             recipient_list=[project_follower_email.email],
             template_id=template_id,

@@ -887,7 +887,7 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
                                 project_id=project_obj.pk,
                             )
 
-                msg = f"L’aide a bien été associée au projet <a href='{project_url}'>{project_name}</a>"  # noqa
+                msg = f"L’aide a bien été associée au projet <a href='{project_url}'>{project_name} et un mail a été envoyé</a>"  # noqa
                 messages.success(self.request, msg)
 
         if self.request.POST.get("new_project"):
