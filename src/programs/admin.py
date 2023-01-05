@@ -3,8 +3,10 @@ from django.contrib import admin
 from django.db.models import Count
 
 from core.forms import RichTextField
-from programs.models import Program
+from programs.models import Program, ProgramTab
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
+
+from pages.admin import TabAdmin
 
 
 class ProgramAdminForm(forms.ModelForm):
@@ -82,4 +84,21 @@ class ProgramAdmin(admin.ModelAdmin):
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
+class ProgramTabAdmin(TabAdmin):
+    list_display = ["title", "program", "date_created", "date_updated"]
+    list_filter = ["program"]
+    autocomplete_fields = ["program"]
+    readonly_fields = ["date_created", "date_updated"]
+    fieldsets = [
+        (
+            None,
+            {
+                "fields": ("program", "title", "content"),
+            },
+        ),
+        ("À propos de cet onglet", {"fields": ("date_created", "date_updated")}),
+    ]
+
+
 admin.site.register(Program, ProgramAdmin)
+admin.site.register(ProgramTab, ProgramTabAdmin)

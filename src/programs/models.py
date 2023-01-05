@@ -4,6 +4,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 
+from pages.models import Tab
+
 
 def logo_upload_to(instance, filename):
     """Rename uploaded files with the object's slug."""
@@ -86,3 +88,15 @@ class Program(models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         return super().save(*args, **kwargs)
+
+
+class ProgramTab(Tab):
+    """
+    Proxy class to make Tab model available for programs
+    as a Tab.
+    """
+
+    class Meta:
+        proxy = True
+        verbose_name = "onglet programme"
+        verbose_name_plural = "onglets programme"

@@ -64,3 +64,31 @@ class Page(FlatPage):
 
     date_created = models.DateTimeField(_("Date created"), default=timezone.now)
     date_updated = models.DateTimeField(_("Date updated"), auto_now=True)
+
+
+class Tab(models.Model):
+    """A tab that can be created/customized in admin."""
+
+    objects = PageQueryset.as_manager()
+
+    title = models.CharField(
+        "Titre",
+        max_length=180,
+        null=False,
+        blank=False,
+    )
+
+    content = models.TextField("Contenu de l'onglet", blank=False)
+
+    program = models.ForeignKey(
+        "programs.Program",
+        verbose_name="Program",
+        related_name="pages",
+        help_text="Programme lié à cette page.",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+
+    date_created = models.DateTimeField(_("Date created"), default=timezone.now)
+    date_updated = models.DateTimeField(_("Date updated"), auto_now=True)

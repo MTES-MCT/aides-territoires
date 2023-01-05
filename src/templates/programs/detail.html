@@ -31,14 +31,33 @@
         <div class="fr-col-md-10">
             <div id="program-content">
                 <h1>{{ program.name }}</h1>
-                {% if program.description %}
-                    <div>
-                        <h2>Présentation générale</h2>
-                        <div>
-                            {{ program.description | safe }}
-                        </div>
+
+                <div class="fr-tabs">
+                    <ul class="fr-tabs__list" role="tablist" aria-label="Onglets du programme">
+                        <li role="presentation">
+                            <button id="tabpanel-aids" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-aids-panel">Présentation générale</button>
+                        </li>
+                        {% if program_tabs %}
+                        {% for tab in program_tabs %}
+                        <li role="presentation">
+                            <button id="tabpanel-{{ tab.title }}" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-{{ tab.title }}-panel">{{ tab.title }}</button>
+                        </li>
+                        {% endfor %}
+                        {% endif %}
+                    </ul>
+                    {% if program.description %}
+                    <div id="tabpanel-aids-panel" class="fr-tabs__panel at-tabs__panel--opaque fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-aids" tabindex="0">
+                        {{ program.description | safe }}
                     </div>
-                {% endif %}
+                    {% endif %}
+                    {% if program_tabs %}
+                    {% for tab in program_tabs %}
+                    <div id="tabpanel-{{ tab.title }}-panel" class="fr-tabs__panel at-tabs__panel--opaque" role="tabpanel" aria-labelledby="tabpanel-{{ tab.title }}" tabindex="0">
+                        {{ tab.content|safe }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
             </div>
         
             <section id="aid-list">
