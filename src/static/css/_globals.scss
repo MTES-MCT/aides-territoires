@@ -69,13 +69,6 @@ h6 {
   color: var(--text-action-high-blue-france);
 }
 
-.at-inline--force p,
-.at-inline--force h2,
-.at-inline--force h3,
-.at-inline--force h4 {
-  display: inline;
-}
-
 // we override ri-xl class to remove line-height propertie that false the icon alignment
 .ri-xl {
   line-height: 1.5rem;
