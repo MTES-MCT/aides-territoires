@@ -20,6 +20,7 @@ from aids.api.serializers import (
     AidSerializer13,
     AidSerializer14,
     AidSerializer15,
+    AidSerializer16,
     AidSerializerLatest,
     AidAudienceSerializer,
     AidTypeSerializer,
@@ -96,6 +97,8 @@ class AidViewSet(
 
         if version == settings.CURRENT_API_VERSION or version is None:
             serializer_class = AidSerializerLatest
+        elif version == "1.6":
+            serializer_class = AidSerializer16
         elif version == "1.5":
             serializer_class = AidSerializer15
         elif version == "1.4":

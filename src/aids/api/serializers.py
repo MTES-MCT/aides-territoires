@@ -332,12 +332,57 @@ class AidSerializer15(BaseAidSerializer):
         )
 
 
-# No changes for aids in this release
-class AidSerializer16(AidSerializer15):
-    pass
+# Add 'is_charged' field
+class AidSerializer16(BaseAidSerializer):
+
+    categories = CategoryRelatedField(
+        many=True,
+        label="Thème et catégorie, séparés par « | ».",
+        help_text='E.g: "Nature / environnement|Qualité de l\'air"',
+    )
+
+    class Meta(BaseAidSerializer.Meta):
+        fields = (
+            "id",
+            "slug",
+            "url",
+            "name",
+            "name_initial",
+            "short_title",
+            "financers",
+            "instructors",
+            "programs",
+            "description",
+            "eligibility",
+            "perimeter",
+            "mobilization_steps",
+            "origin_url",
+            "categories",
+            "is_call_for_project",
+            "application_url",
+            "targeted_audiences",
+            "aid_types",
+            "is_charged",
+            "destinations",
+            "start_date",
+            "predeposit_date",
+            "submission_deadline",
+            "subvention_rate_lower_bound",
+            "subvention_rate_upper_bound",
+            "loan_amount",
+            "recoverable_advance_amount",
+            "contact",
+            "recurrence",
+            "project_examples",
+            "import_data_url",
+            "import_data_mention",
+            "import_share_licence",
+            "date_created",
+            "date_updated",
+        )
 
 
-class AidSerializerLatest(AidSerializer15):
+class AidSerializerLatest(AidSerializer16):
     pass
 
 
