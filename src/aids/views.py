@@ -770,11 +770,9 @@ class AidEditView(
             obj = form.save(commit=False)
             obj = self.copy_aid(obj)
             form.save_m2m()
-            msg = "La nouvelle aide a été créée. Vous pouvez poursuivre l’édition. "
-            "Et retrouvez l’aide dupliquée sur "
-            '<a href="{url}">votre portefeuille d’aides</a>.'.format(
-                url=reverse("aid_draft_list_view")
-            )
+            msg = f"""La nouvelle aide a été créée. Vous pouvez poursuivre l’édition.
+            Et retrouvez l’aide dupliquée sur
+            <a href="{reverse('aid_draft_list_view')}">votre portefeuille d’aides</a>."""
             response = HttpResponseRedirect(self.get_success_url())
         else:
 
@@ -804,7 +802,14 @@ class AidDeleteView(
 ):
     """Soft deletes an existing aid."""
 
-    def delete(self, request, *args, **kwargs):
+    def get_success_url(self):
+        return reverse("aid_draft_list_view")
+
+    def form_valid(self, form):
+        """
+        Overriding by not calling the super() method
+        to prevent actual deletion of the aid
+        """
         self.object = self.get_object()
         confirmed = self.request.POST.get("confirm", False)
         if confirmed:
@@ -812,9 +817,8 @@ class AidDeleteView(
             msg = "Votre aide a été supprimée."
             messages.success(self.request, msg)
 
-        success_url = reverse("aid_draft_list_view")
-        redirect = HttpResponseRedirect(success_url)
-        return redirect
+        success_url = self.get_success_url()
+        return HttpResponseRedirect(success_url)
 
 
 class GenericToLocalAidView(
