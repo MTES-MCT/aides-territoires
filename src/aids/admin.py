@@ -10,7 +10,7 @@ from import_export.admin import ImportMixin, ExportActionMixin
 from import_export.formats import base_formats
 from admin_auto_filters.filters import AutocompleteFilter
 from fieldsets_with_inlines import FieldsetsInlineMixin
-from adminsortable2.admin import SortableInlineAdminMixin
+from adminsortable2.admin import SortableInlineAdminMixin, SortableAdminBase
 
 from core.services.json_compare import json_compare
 from accounts.admin import AuthorFilter
@@ -610,7 +610,7 @@ class BaseAidAdmin(
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
-class AidAdmin(WithViewPermission, BaseAidAdmin):
+class AidAdmin(WithViewPermission, BaseAidAdmin, SortableAdminBase):
     def get_queryset(self, request):
         qs = (
             Aid.objects.all()
