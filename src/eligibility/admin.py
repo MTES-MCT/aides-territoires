@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.db.models import Count
 from django.utils.html import format_html
 
-from adminsortable2.admin import SortableInlineAdminMixin
+from adminsortable2.admin import SortableInlineAdminMixin, SortableAdminBase
 
 from core.forms import RichTextField
 from eligibility.models import EligibilityTest, EligibilityQuestion
@@ -33,7 +33,7 @@ class EligibilityQuestionInline(SortableInlineAdminMixin, admin.TabularInline):
     extra = 1
 
 
-class EligibilityTestAdmin(admin.ModelAdmin):
+class EligibilityTestAdmin(admin.ModelAdmin, SortableAdminBase):
     list_display = ["id", "name", "author", "nb_aids", "nb_results", "date_created"]
     search_fields = ["name"]
     list_filter = [AuthorFilter]

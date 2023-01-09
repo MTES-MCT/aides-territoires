@@ -323,3 +323,27 @@ def test_authenticated_user_can_suggest_aid_from_aid_detail_page(client, backer)
     assert SuggestedAidProject.objects.first().project == project
     res = client.get(aid_detail_page, follow=True)
     assert "Merci! L’aide a bien été suggérée!" in res.content.decode()
+
+
+def test_project_owner_can_delete_project(client):
+    user = UserFactory(email="public@project.creator")
+    user_organization = CommuneOrganizationFactory()
+    user_organization.beneficiaries.add(user.pk)
+    user_organization.save()
+    user.beneficiary_organization = user_organization
+    user.save()
+    project = ProjectFactory(
+        status=Project.STATUS.published,
+        is_public=True,
+    )
+    project.organizations.add(user_organization.pk)
+    project.save()
+
+    client.force_login(user)
+
+    project_delete_url = reverse("project_delete_view", args=[project.pk])
+    res = client.post(project_delete_url)
+
+    assert res.status_code == 302
+
+    assert Project.objects.all().count() == 0

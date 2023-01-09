@@ -1,8 +1,7 @@
 import json
 import requests
-import datetime
 from collections import defaultdict
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from time import strftime, gmtime
 from pathlib import Path
 
@@ -237,11 +236,9 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
             start_date = period
             end_date = start_date
 
-        start_date_range = datetime.datetime.strptime(start_date, "%Y-%m-%d")
+        start_date_range = datetime.strptime(start_date, "%Y-%m-%d")
         start_date_range = timezone.make_aware(start_date_range)
-        end_date_range = datetime.datetime.strptime(end_date, "%Y-%m-%d") + timedelta(
-            days=1
-        )
+        end_date_range = datetime.strptime(end_date, "%Y-%m-%d") + timedelta(days=1)
         end_date_range = timezone.make_aware(end_date_range)
         context["start_date"] = start_date
         context["end_date"] = end_date
@@ -343,13 +340,12 @@ class DashboardConsultationView(DashboardBaseView, TemplateView):
             for dates, numbers in matomo_last_10_weeks.items()
         }
         last_10_weeks = [
-            datetime.datetime.fromisoformat(week)
-            for week in list(nb_vu_serie_items.keys())
+            datetime.fromisoformat(week) for week in list(nb_vu_serie_items.keys())
         ]
         week_inscriptions_counts = []
         for week in last_10_weeks:
             users = User.objects.filter(
-                date_created__range=[week - datetime.timedelta(days=7), week],
+                date_created__range=[week - timedelta(days=7), week],
             ).annotate(
                 aids_subscription_count=Count(
                     "aids", filter=Q(aids__isnull=False), distinct=True
@@ -363,7 +359,7 @@ class DashboardConsultationView(DashboardBaseView, TemplateView):
         context["nb_inscriptions_with_created_alert_serie"] = [
             Alert.objects.filter(validated=True)
             .filter(
-                date_created__range=[week - datetime.timedelta(days=7), week],
+                date_created__range=[week - timedelta(days=7), week],
             )
             .count()
             for week in last_10_weeks
@@ -636,8 +632,7 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
             for dates, numbers in matomo_last_10_weeks.items()
         }
         last_10_weeks = [
-            datetime.datetime.fromisoformat(week)
-            for week in list(nb_vu_serie_items.keys())
+            datetime.fromisoformat(week) for week in list(nb_vu_serie_items.keys())
         ]
         week_inscriptions_counts = []
         nb_inscriptions_with_created_aid_serie = []
@@ -645,7 +640,7 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
         for week in last_10_weeks:
             users = (
                 User.objects.filter(
-                    date_created__range=[week - datetime.timedelta(days=7), week],
+                    date_created__range=[week - timedelta(days=7), week],
                 )
                 .annotate(
                     aids_subscription_count=Count(
@@ -683,7 +678,7 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
         context["nb_inscriptions_with_created_alert_serie"] = [
             Alert.objects.filter(validated=True)
             .filter(
-                date_created__range=[week - datetime.timedelta(days=7), week],
+                date_created__range=[week - timedelta(days=7), week],
             )
             .count()
             for week in last_10_weeks
@@ -814,8 +809,7 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
             for dates, numbers in matomo_last_10_weeks.items()
         }
         last_10_weeks = [
-            datetime.datetime.fromisoformat(week)
-            for week in list(nb_vu_serie_items.keys())
+            datetime.fromisoformat(week) for week in list(nb_vu_serie_items.keys())
         ]
         week_inscriptions_communes_counts = []
         week_inscriptions_epcis_counts = []
@@ -828,7 +822,7 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
         for week in last_10_weeks:
             users = (
                 User.objects.filter(
-                    date_created__range=[week - datetime.timedelta(days=7), week],
+                    date_created__range=[week - timedelta(days=7), week],
                 )
                 .annotate(
                     aids_commune_subscription_count=Count(
@@ -1016,11 +1010,9 @@ class UsersStatsView(SuperUserRequiredMixin, FormMixin, ListView):
             start_date = period
             end_date = start_date
 
-        start_date_range = datetime.datetime.strptime(start_date, "%Y-%m-%d")
+        start_date_range = datetime.strptime(start_date, "%Y-%m-%d")
         start_date_range = timezone.make_aware(start_date_range)
-        end_date_range = datetime.datetime.strptime(end_date, "%Y-%m-%d") + timedelta(
-            days=1
-        )
+        end_date_range = datetime.strptime(end_date, "%Y-%m-%d") + timedelta(days=1)
         end_date_range = timezone.make_aware(end_date_range)
 
         users = (
@@ -1173,10 +1165,10 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
         )
 
         def get_age(date_):
-            now = datetime.datetime.now(timezone.utc)
-            if now - datetime.timedelta(days=30) < date_:
+            now = timezone.now()
+            if now - timedelta(days=30) < date_:
                 return 3
-            if now - datetime.timedelta(days=90) < date_:
+            if now - timedelta(days=90) < date_:
                 return 2
             else:
                 return 1
@@ -1311,11 +1303,9 @@ class ProjectsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
             start_date = period
             end_date = start_date
 
-        start_date_range = datetime.datetime.strptime(start_date, "%Y-%m-%d")
+        start_date_range = datetime.strptime(start_date, "%Y-%m-%d")
         start_date_range = timezone.make_aware(start_date_range)
-        end_date_range = datetime.datetime.strptime(end_date, "%Y-%m-%d") + timedelta(
-            days=1
-        )
+        end_date_range = datetime.strptime(end_date, "%Y-%m-%d") + timedelta(days=1)
         end_date_range = timezone.make_aware(end_date_range)
 
         projects = (
@@ -1373,11 +1363,9 @@ class OrganizationsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
             start_date = period
             end_date = start_date
 
-        start_date_range = datetime.datetime.strptime(start_date, "%Y-%m-%d")
+        start_date_range = datetime.strptime(start_date, "%Y-%m-%d")
         start_date_range = timezone.make_aware(start_date_range)
-        end_date_range = datetime.datetime.strptime(end_date, "%Y-%m-%d") + timedelta(
-            days=1
-        )
+        end_date_range = datetime.strptime(end_date, "%Y-%m-%d") + timedelta(days=1)
         end_date_range = timezone.make_aware(end_date_range)
 
         organizations = (

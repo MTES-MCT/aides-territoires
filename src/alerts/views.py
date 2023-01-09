@@ -107,19 +107,21 @@ class AlertDelete(MessageMixin, DeleteView):
             url = f"{reverse('search_view')}?{self.object.querystring}"
         return url
 
-    def delete(self, *args, **kwargs):
-        res = super().delete(*args, **kwargs)
+    def form_valid(self, form):
         msg = format_html(
             f"""
-            Votre alerte vient d'être supprimée.<br />
+            Votre alerte vient d’être supprimée.<br />
             Pour nous aider à mieux comprendre votre choix, pourriez-vous
             <a href="{settings.ALERT_DELETE_FEEDBACK_FORM_URL}" target="_blank" rel="noopener">
                 nous expliquer la raison de votre désabonnement
                 <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span>
-            </a>"""
+            </a> ?"""
         )
         self.messages.success(msg)
-        return res
+
+        response = super().form_valid(form)
+
+        return response
 
 
 class AlertListView(ContributorAndProfileCompleteRequiredMixin, ListView):
