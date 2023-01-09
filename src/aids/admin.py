@@ -640,7 +640,7 @@ class DeletedAid(Aid):
         verbose_name_plural = "Aides supprimées"
 
 
-class DeletedAidAdmin(BaseAidAdmin):
+class DeletedAidAdmin(BaseAidAdmin, SortableAdminBase):
     def get_queryset(self, request):
         qs = (
             Aid.deleted_aids.all()
