@@ -386,7 +386,9 @@ class FavoriteProjectDetailView(ContributorAndProfileCompleteRequiredMixin, Deta
         return context
 
 
-class ProjectDeleteView(ContributorAndProfileCompleteRequiredMixin, DeleteView):
+class ProjectDeleteView(
+    ContributorAndProfileCompleteRequiredMixin, DeleteView, MessageMixin
+):
     """Delete an existing project."""
 
     def get_queryset(self):
@@ -398,19 +400,24 @@ class ProjectDeleteView(ContributorAndProfileCompleteRequiredMixin, DeleteView):
         url = reverse("project_list_view")
         return url
 
-    def delete(self, *args, **kwargs):
+    def form_valid(self, form):
+
         project_name = self.get_object().name
         eraser = self.request.user
         eraser_email = self.request.user.email
         eraser_name = self.request.user.full_name
-        res = super().delete(*args, **kwargs)
+
+        response = super().form_valid(form)
+
         for user in eraser.beneficiary_organization.beneficiaries.all():
             user_email = user.email
             if user_email != eraser_email:
                 send_project_deleted_email.delay(user_email, project_name, eraser_name)
-        msg = f"Votre projet { project_name } a bien été supprimé."  # noqa
-        messages.success(self.request, msg)
-        return res
+
+        msg = f"Votre projet { project_name } a bien été supprimé."
+        self.messages.success(msg)
+
+        return response
 
 
 class ProjectUpdateView(
