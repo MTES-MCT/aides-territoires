@@ -149,8 +149,8 @@ class AddProjectToFavoriteView(ContributorAndProfileCompleteRequiredMixin, Updat
             project_name = project_obj.name
             project_slug = project_obj.slug
             favorite_projects_url = reverse("favorite_project_list_view")
-            msg = f"Le projet «{project_name}» a bien été ajouté à \
-                <a href='{favorite_projects_url}'>vos projets favoris<a/>."
+            msg = f"""Le projet « {project_name} » a bien été ajouté à
+                <a href='{favorite_projects_url}'>vos projets favoris<a/>."""
             messages.success(self.request, msg)
 
         url = reverse("public_project_detail_view", args=[project_pk, project_slug])
