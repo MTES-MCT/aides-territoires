@@ -30,6 +30,7 @@ def test_public_project_status_by_default_is_reviewable(client, perimeters):
             "description": "this is a public description",
             "private_description": "very private notes",
             "project_types_suggestion": "this a suggested project type",
+            "step": "ongoing",
             "is_public": True,
         },
     )
@@ -143,13 +144,10 @@ def test_authenticated_user_can_add_public_project_to_favorite(client):
         "public_project_detail_view", args=[project.pk, project.slug]
     )
     res = client.get(public_project_page, follow=True)
-    assert (
-        f"Le projet «{project.name}» a bien été ajouté à vos projets favoris"
-        in res.content.decode()
-    )
+    assert f"Le projet « {project.name} » a bien été ajouté" in res.content.decode()
 
 
-def test_project_owner_can_associate_suggested_aid_to_project(client):
+def test_project_owner_can_associate_suggested_aid_to_project(client, backer):
     user = UserFactory(email="public@project.creator")
     user_organization = CommuneOrganizationFactory()
     user_organization.beneficiaries.add(user.pk)
@@ -162,7 +160,7 @@ def test_project_owner_can_associate_suggested_aid_to_project(client):
     )
     project.organizations.add(user_organization.pk)
     project.save()
-    aid = AidFactory()
+    aid = AidFactory(financers=[backer])
     suggested_aid = SuggestedAidProjectFactory()
     suggested_aid.creator = user
     suggested_aid.project = project
@@ -188,7 +186,7 @@ def test_project_owner_can_associate_suggested_aid_to_project(client):
     assert "L’aide a bien été associée au projet" in res.content.decode()
 
 
-def test_project_owner_can_reject_a_suggested_aid(client):
+def test_project_owner_can_reject_a_suggested_aid(client, backer):
     user = UserFactory(email="public@project.creator")
     user_organization = CommuneOrganizationFactory()
     user_organization.beneficiaries.add(user.pk)
@@ -201,7 +199,7 @@ def test_project_owner_can_reject_a_suggested_aid(client):
     )
     project.organizations.add(user_organization.pk)
     project.save()
-    aid = AidFactory()
+    aid = AidFactory(financers=[backer])
     suggested_aid = SuggestedAidProjectFactory()
     suggested_aid.creator = user
     suggested_aid.project = project
@@ -230,7 +228,7 @@ def test_project_owner_can_reject_a_suggested_aid(client):
     )
 
 
-def test_authenticated_user_can_suggest_aid_with_url(client):
+def test_authenticated_user_can_suggest_aid_with_url(client, backer):
     user = UserFactory(email="friendly@user.test")
     user_organization = CommuneOrganizationFactory()
     user_organization.beneficiaries.add(user.pk)
@@ -249,11 +247,12 @@ def test_authenticated_user_can_suggest_aid_with_url(client):
         status=Project.STATUS.published,
         is_public=True,
     )
+    project.author.add(project_owner)
     project.organizations.add(user_organization.pk)
     project.organization_favorite.add(project_owner_organization.pk)
     project.save()
 
-    aid = AidFactory()
+    aid = AidFactory(financers=[backer])
     aid_url = f"https://aides-territoires.beta.gouv.fr{aid.get_absolute_url()}"
 
     client.force_login(user)
@@ -279,7 +278,7 @@ def test_authenticated_user_can_suggest_aid_with_url(client):
     assert "Merci! L’aide a bien été suggérée!" in res.content.decode()
 
 
-def test_authenticated_user_can_suggest_aid_from_aid_detail_page(client):
+def test_authenticated_user_can_suggest_aid_from_aid_detail_page(client, backer):
     user = UserFactory(email="friendly@user.test")
     user_organization = CommuneOrganizationFactory()
     user_organization.beneficiaries.add(user.pk)
@@ -298,11 +297,12 @@ def test_authenticated_user_can_suggest_aid_from_aid_detail_page(client):
         status=Project.STATUS.published,
         is_public=True,
     )
+    project.author.add(project_owner)
     project.organizations.add(user_organization.pk)
     project.organization_favorite.add(project_owner_organization.pk)
     project.save()
 
-    aid = AidFactory()
+    aid = AidFactory(financers=[backer])
 
     client.force_login(user)
 

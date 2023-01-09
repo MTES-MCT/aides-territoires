@@ -12,6 +12,6 @@ class ProjectFactory(DjangoModelFactory):
     class Meta:
         model = Project
 
-    name = factory.Faker("name")
+    name = factory.Faker("company")
     slug = factory.LazyAttribute(lambda o: slugify(o.name))
     description = factory.Faker("text")
