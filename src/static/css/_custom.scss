@@ -82,13 +82,6 @@ article#aid .aid-details h3 {
   background-color: white; // iframe background
 }
 
-#aid .deadline-data {
-  float: right;
-
-  @media screen and (max-width: 1000px) {
-    display: none;
-  }
-}
 
 #match-aid-modal #form-group-aids_associated {
   display: none;
@@ -134,9 +127,17 @@ div#how img {
   max-height: 8rem;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 992px) {
   div #what-image {
     margin-top: 0;
+  }
+}
+
+
+// Hide the home map on mobile
+@media screen and (max-width: 992px) {
+  #france-map {
+    display: none;
   }
 }
 

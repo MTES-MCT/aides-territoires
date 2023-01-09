@@ -65,123 +65,8 @@
         </div>
     </section>
 
-    <section id="map" class="fr-pb-4w at-background-alt-grey">
+    <section id="news" class="fr-pb-4w fr-pt-2w at-background-alt-grey">
         <div class="fr-container">
-            {% include "home/_map.html" %}
-        </div>
-    </section>
-
-    {% if recent_aids %}
-    <section id="recent-aids">
-        <div class="fr-container fr-py-5w">
-            <div id="aid-list" class="fr-grid-row fr-grid-row--center">
-                <div class="fr-col-md-11">
-                    <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
-                        <h2 class="fr-col-md-10 fr-mt-0">Les aides les plus récentes</h2>
-                    </div>
-                    <div class="fr-grid-row">
-                        {% for aid in recent_aids %}
-                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                                {% include 'aids/_aid_result.html' with aid=aid %}
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
-                <li>
-                    <a class="fr-btn fr-icon-search-line" href="{% url 'search_view' %}{% if user.is_authenticated %}{{ user.get_search_preferences.base_search_string }}{% endif %}">
-                        Trouver des aides pour mon projet
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </section>
-    {% endif %}
-
-    <div id="home-users-types">
-        <div class="fr-container-fluid at-background-alt-green">
-            <div class="fr-container">
-                <div class="fr-grid-row fr-grid-row--center">
-                    <div class="fr-mb-5w fr-col-md-11">
-                        <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w at-centered" >
-                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                                <h2>Porteur d’aides</h2>
-                                <p>Valorisez gratuitement et rapidement vos aides</p>
-                                {% if not user.is_authenticated %}
-                                    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left">
-                                        <li>
-                                            <a class="fr-btn fr-icon-account-line fr-btn--secondary" href="{% url 'register' %}">Inscription</a>
-                                        </li>
-                                        <li>
-                                            <a class="fr-btn fr-icon-lock-line" href="{% url 'login' %}">Connexion</a>
-                                        </li>
-                                    </ul>
-                                {% endif %}        
-                            </div>
-                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                                <h2>Porteur de projet</h2>
-                                <p>Simplifiez votre recherche d’aides et créez des alertes personnalisées</p>
-                                {% if not user.is_authenticated %}
-                                    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left">
-                                        <li>
-                                            <a class="fr-btn fr-icon-account-line fr-btn--secondary" href="{% url 'register' %}">Inscription</a>
-                                        </li>
-                                        <li>
-                                            <a class="fr-btn fr-icon-lock-line" href="{% url 'login' %}">Connexion</a>
-                                        </li>
-                                    </ul>
-                                {% endif %}        
-                            </div>
-                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                                <h2>Accompagnateurs</h2>
-                                <p>Consultez les projets de votre territoire et suggérez-leur des aides</p>
-                                {% if not user.is_authenticated %}
-                                    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left">
-                                        <li>
-                                            <a class="fr-btn fr-icon-account-line fr-btn--secondary" href="{% url 'register' %}">Inscription</a>
-                                        </li>
-                                        <li>
-                                            <a class="fr-btn fr-icon-lock-line" href="{% url 'login' %}">Connexion</a>
-                                        </li>
-                                    </ul>
-                                {% endif %}        
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {% if public_projects.all %}
-    <section id="featured-projects" class="at-background-alt-grey">
-        <div class="fr-container fr-py-5w">
-            <div class="fr-grid-row fr-grid-row--center">
-                <div class="fr-col-md-11">
-                    <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
-                        <h2 class="fr-col-md-10 fr-mt-0">Ces collectivités utilisent Aides-territoires pour leur projet</h2>
-                        <p>
-                            <a href="{% url 'public_project_list_view' %}" class="fr-btn fr-btn--secondary">
-                            Voir plus de projets
-                            </a>
-                        </p>
-                    </div>
-                    <div class="fr-grid-row">
-                    {% for project in public_projects.all %}
-                    {% include 'projects/_public_project_card.html' with project=project %}
-                    {% endfor %}
-                    </div>        
-                </div>
-            </div>
-        </div>
-    </section>
-    {% endif %}
-
-
-
-    <section id="news" class="fr-container fr-pb-5w">
-
             <h2>Actualités</h2>
             <div class="fr-grid-row fr-grid-row--gutters">
                 <div class="fr-col-xs-12 fr-col-md-6">
@@ -205,7 +90,7 @@
                             </div>
                         </div>
                     </div>
-
+    
                 </div>
                 <div class="fr-col-xs-12 fr-col-md-6">
                     <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
@@ -238,7 +123,109 @@
                     </div>
                 </div>
             </div>        
+        </div>
     </section>
+
+    <section id="map" class="fr-pb-4w">
+        <div class="fr-container">
+            {% include "home/_map.html" %}
+        </div>
+    </section>
+
+    {% if not user.is_authenticated %}
+    <div id="home-users-types">
+        <div class="fr-container-fluid at-background-alt-green">
+            <div class="fr-container">
+                <div class="fr-grid-row fr-grid-row--center">
+                    <div class="fr-mb-5w fr-col-md-11">
+                        <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w at-centered" >
+                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                                <h2>Porteur d’aides</h2>
+                                <p>Valorisez gratuitement et rapidement vos aides</p>                                
+                                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
+                                    <li>
+                                        <a class="fr-btn fr-icon-account-line fr-btn--secondary" href="{% url 'register' %}">Inscription</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                                <h2>Porteur de projet</h2>
+                                <p>Simplifiez votre recherche d’aides et créez des alertes personnalisées</p>
+                                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
+                                    <li>
+                                        <a class="fr-btn fr-icon-account-line fr-btn--secondary" href="{% url 'register' %}">Inscription</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                                <h2>Accompagnateurs</h2>
+                                <p>Consultez les projets de votre territoire et suggérez-leur des aides</p>
+                                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
+                                    <li>
+                                        <a class="fr-btn fr-icon-account-line fr-btn--secondary" href="{% url 'register' %}">Inscription</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if recent_aids %}
+    <section id="recent-aids" class="at-background-alt-grey">
+        <div class="fr-container fr-py-5w">
+            <div id="aid-list" class="fr-grid-row fr-grid-row--center">
+                <div class="fr-col-md-11">
+                    <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+                        <h2 class="fr-col-md-10 fr-mt-0">Les aides les plus récentes</h2>
+                    </div>
+                    <div class="fr-grid-row">
+                        {% for aid in recent_aids %}
+                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                                {% include 'aids/_aid_result.html' with aid=aid %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
+                <li>
+                    <a class="fr-btn fr-icon-search-line" href="{% url 'search_view' %}{% if user.is_authenticated %}{{ user.get_search_preferences.base_search_string }}{% endif %}">
+                        Trouver des aides pour mon projet
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if public_projects.all %}
+    <section id="featured-projects">
+        <div class="fr-container fr-py-5w">
+            <div class="fr-grid-row fr-grid-row--center">
+                <div class="fr-col-md-11">
+                    <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+                        <h2 class="fr-col-md-10 fr-mt-0">Ces collectivités utilisent Aides-territoires pour leur projet</h2>
+                        <p>
+                            <a href="{% url 'public_project_list_view' %}" class="fr-btn fr-btn--secondary">
+                            Voir plus de projets
+                            </a>
+                        </p>
+                    </div>
+                    <div class="fr-grid-row">
+                    {% for project in public_projects.all %}
+                    {% include 'projects/_public_project_card.html' with project=project %}
+                    {% endfor %}
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
 {% endblock main %}
 
 {% block extra_js %}
