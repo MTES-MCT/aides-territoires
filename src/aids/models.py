@@ -520,6 +520,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     import_last_access = models.DateField(
         "Date du dernier accès", null=True, blank=True
     )
+    import_updated = models.BooleanField(
+        "En attente de revue des données importées mises à jour",
+        help_text="Cette aide est en attente d'une revue des mises à jour proposées par l'outil d'import",
+        default=False,
+    )
     import_raw_object = models.JSONField("Donnée JSON brute", editable=False, null=True)
     import_raw_object_calendar = models.JSONField(
         "Donnée JSON brute du calendrier", editable=False, null=True
