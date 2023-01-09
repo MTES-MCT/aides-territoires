@@ -183,7 +183,7 @@ class Command(BaseImportCommand):
             return False
 
     def extract_aid_types(self, line):
-        return [Aid.TYPES.grant, Aid.TYPES.technical]
+        return [Aid.TYPES.grant, Aid.TYPES.technical_engineering]
 
     def extract_start_date(self, line):
         start_date = datetime.strptime(line.get("date_debut"), "%Y-%m-%dT%H:%M:%S%z")
