@@ -1,7 +1,10 @@
 import pytest
 
+from django.core.management import call_command
+
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.management.commands.base import BaseImportCommand
+from dataproviders.factories import DataSourceFactory
 from accounts.factories import UserFactory
 from backers.factories import BackerFactory
 from aids.factories import AidFactory
@@ -94,4 +97,17 @@ def test_importing_existing_aids():
     # On the second run, since aid with those unique id already exist,
     # no new aid are created
     stub.handle()
+    assert aids.count() == 5
+
+
+def test_import_aids_from_ademe_agir(perimeters):
+    DataSourceFactory(name="ademe agir", perimeter=perimeters["montpellier"], id=10)
+
+    aids = Aid.objects.all()
+    assert aids.count() == 0
+
+    args = []
+    opts = {"data-file": "dataproviders/tests/ademe_agir_data.json"}
+    call_command("import_ademe_agir", *args, **opts)
+
     assert aids.count() == 5

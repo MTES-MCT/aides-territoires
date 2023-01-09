@@ -1,3 +1,4 @@
+import json
 import os
 import csv
 import requests
@@ -99,19 +100,28 @@ class Command(BaseImportCommand):
         super().handle(*args, **options)
 
     def fetch_data(self, **options):
-        headers = {
-            "accept": "application/json",
-            "content-type": "application/json",
-            "client_id": settings.ADEME_AGIR_API_USERNAME,
-            "client_secret": settings.ADEME_AGIR_API_PASSWORD,
-        }
-        req = requests.get(DATA_SOURCE.import_api_url, headers=headers)
-        data = req.json()
-        self.stdout.write(
-            "Total number of aids: {}".format(len(data["ListeDispositifs"]))
-        )
-        for line in data["ListeDispositifs"]:
-            yield line
+        if options["data-file"]:
+            data_file = os.path.abspath(options["data-file"])
+            data = json.load(open(data_file))
+            self.stdout.write(
+                "Total number of aids: {}".format(len(data["ListeDispositifs"]))
+            )
+            for line in data["ListeDispositifs"]:
+                yield line
+        else:
+            headers = {
+                "accept": "application/json",
+                "content-type": "application/json",
+                "client_id": settings.ADEME_AGIR_API_USERNAME,
+                "client_secret": settings.ADEME_AGIR_API_PASSWORD,
+            }
+            req = requests.get(DATA_SOURCE.import_api_url, headers=headers)
+            data = req.json()
+            self.stdout.write(
+                "Total number of aids: {}".format(len(data["ListeDispositifs"]))
+            )
+            for line in data["ListeDispositifs"]:
+                yield line
 
     def line_should_be_processed(self, line):
         return True

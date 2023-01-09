@@ -1,0 +1,143 @@
+{
+    "correlationId": "###",
+    "success": true,
+    "timestamp": "2023-01-09T15:48:18.92Z",
+    "NbDispositif": 5,
+    "ListeDispositifs": [
+        {
+            "id": "1ed7d411",
+            "date_derniere_modification": "2023-01-09T14:40:19+01:00",
+            "titre": "Investissements d’écoconception pour améliorer la performance environnementale",
+            "type": "GAG",
+            "date_debut": "2023-01-01T00:00:00+01:00",
+            "date_fin": "2023-12-31T23:59:59+01:00",
+            "millesime": 2023,
+            "description_longue": "<p>Les démarches d’amélioration de la performance environnementale des produits et services se déploient en France, au sein des entreprises. Elles contribuent à créer une offre permettant de se différencier, plus respectueuse de l’environnement, disponible pour les consommateurs ou les acheteurs. </p><p>L’ADEME soutient les <strong>travaux et investissements issus d’un diagnostic et s’intégrant dans une démarche de mise en œuvre de l’écoconception</strong>. Les investissements doivent viser la fabrication d’un produit écoconçu, l’obtention d’un produit ou service certifié Ecolabel européen, ou l’amélioration d’une note d’affichage environnemental.</p><p>Dans le domaine de l’alimentation, les investissements d’<strong>optimisation des outils </strong>de transformation, ainsi que ceux permettant la mise sur le marché d’une nouvelle gamme de produits sous labels AB (Agriculture Biologique) ou HVE-niveau 3 (Haute Valeur Environnementale-Niveau 3) sont éligibles.</p><p>L’ADEME soutient aussi les projets comportant une <strong>innovation de rupture</strong>, qui permettra au fabricant de développer une offre globale produit/service, créatrice de valeur non plus sur la multiplication des volumes de ventes, mais sur la fidélisation des clients, par les performances d’usage du produit.</p><p>Selon la nature des projets et la taille de l’entreprise, les <strong>aides aux investissements peuvent atteindre 15 % à 55 %</strong>.</p><p>Sauf exception, l’aide de l’ADEME est accordée sur la base du règlement de minimis n° 1407/2013 du 18 décembre 2013, selon lequel une même entreprise ne peut pas percevoir plus de 200 000 € d’aides en provenance de l’État, sur une période de trois exercices fiscaux.</p><p>Les projets peuvent être déposés au fil de l’eau et seront financés selon leur ordre d’arrivée.&nbsp;</p><p>L’initiative est ouverte jusqu’à épuisement des ressources budgétaires et <strong>au plus tard au 31 décembre 2023</strong>.<br></p>",
+            "cible_projet": [
+                "SCA3",
+                "SCA2",
+                "SCA1"
+            ],
+            "sous_type_aap": null,
+            "thematiques": [
+                "ECD",
+                "ECO",
+                "ALIBIO",
+                "PRODUR"
+            ],
+            "couverture_geo": {
+                "code": "1",
+                "libelle": "National"
+            },
+            "regions": [],
+            "url_agir": "https: //agirpourlatransition.ademe.fr/entreprises/aides-financieres/2023/investissements-decoconception-ameliorer-performance-environnementale"
+        },
+        {
+            "id": "1ed7d40a",
+            "date_derniere_modification": "2023-01-09T14:19:54+01:00",
+            "titre": "Études d’écoconception des produits et des services",
+            "type": "GAG",
+            "date_debut": "2023-01-01T00:00:00+01:00",
+            "date_fin": "2023-12-31T23:59:59+01:00",
+            "millesime": 2023,
+            "description_longue": "<p> \n<!-- StartFragment --> </p><p>L’ADEME propose une aide financière pour soutenir les projets d’écoconception, de production durable, et d’obtention de l’Ecolabel européen.</p><p> </p><p>L’ADEME soutient les études avec l’étape de diagnostic, qui est la première étape structurante d’engagement d’une entreprise dans une démarche d’amélioration de la performance environnementale de ses produits, et avec l’étape suivante de mise en œuvre, qui concrétise le passage à la réalisation d’actions et à la commercialisation de produits ou services à moindres impacts.</p><p> </p><p>Pour les PME, l’accompagnement de l’étape de diagnostic est porté par Bpifrance, via le Diag Ecoconception</p><p> </p>",
+            "cible_projet": [
+                "SCA3",
+                "SCA2",
+                "SCA1"
+            ],
+            "sous_type_aap": null,
+            "thematiques": [
+                "ECD",
+                "ECO",
+                "ALIBIO",
+                "PRODUR"
+            ],
+            "couverture_geo": {
+                "code": "1",
+                "libelle": "National"
+            },
+            "regions": [],
+            "url_agir": "https://agirpourlatransition.ademe.fr/entreprises/aides-financieres/2023/etudes-decoconception-produits-services"
+        },
+        {
+            "id": "1ec8f1be",
+            "date_derniere_modification": "2023-01-09T13:53:41+01:00",
+            "titre": "Biomasse Chaleur pour l’Industrie du Bois (BCIB)",
+            "type": "AAP",
+            "date_debut": "2022-12-26T12:00:00+01:00",
+            "date_fin": "2023-02-27T15:00:00+01:00",
+            "millesime": null,
+            "description_longue": "<p>Cet appel à projets vise à accompagner les industries du bois dans la mise en place d’installations biomasse performantes pour répondre à leurs besoins de séchage et assurer une autonomie énergétique, en réduisant l’usage des énergies fossiles.</p><p>Pour assurer la mise en place d’un projet performant sur les plans énergétique, économique et environnemental, le candidat doit être vigilant sur cinq points principaux : </p><ul><li>conduire au préalable une démarche d’économies d’énergie sur les différentes utilisations&nbsp;;</li><li>optimiser le dimensionnement thermique de l’installation biomasse pour limiter au maximum un fonctionnement à taux de charge réduit&nbsp;;</li><li>définir un plan d’approvisionnement en biomasse assurant une garantie de fonctionnement de l’installation en préservant l’environnement et les usages existants&nbsp;;</li><li>recourir à des systèmes de traitement des fumées performants&nbsp;;</li><li>assurer le montage technique et financier.</li></ul><p>L’ADEME réalisera une évaluation technique, économique et environnementale du projet.&nbsp;</p><p><strong>Les projets prioritaires seront ceux associés&nbsp;: </strong></p><ul><li>à l’augmentation des capacités de séchage ;</li><li>présentant une efficacité énergétique élevée ;</li><li>avec un ratio « aide en € / énergie annuelle produite à partir de biomasse (MWh) » le plus efficient ;</li><li>apportant des engagements en matière de contractualisation des approvisionnements bois liés à l’activité globale de l’entreprise.</li></ul><p>L’aide à l’investissement sera déterminée pour permettre de rapprocher les couts totaux de la solution biomasse de ceux de la solution fossile de référence et de permettre la réalisation des investissements en tenant compte du niveau de risque encouru par les entreprises.</p><p><br></p><p>Deux clôtures auront lieu en 2023 : la première le 27/02/2023 et la seconde le 20/09/2023.<br></p>",
+            "cible_projet": [
+                "SCA3"
+            ],
+            "sous_type_aap": "AAPAAP",
+            "thematiques": [
+                "ENR",
+                "BOIBIO"
+            ],
+            "couverture_geo": {
+                "code": "1",
+                "libelle": "National"
+            },
+            "regions": [],
+            "url_agir": "https://agirpourlatransition.ademe.fr/entreprises/aides-financieres/20220216/biomasse-chaleur-lindustrie-bois-bcib"
+        },
+        {
+            "id": "1ed7fb5d",
+            "date_derniere_modification": "2023-01-08T21:25:01+01:00",
+            "titre": "Installations de production de chaleur et de froid à partir de géothermie de surface et d'aérothermie",
+            "type": "GAG",
+            "date_debut": "2023-01-01T00:00:00+01:00",
+            "date_fin": "2023-12-31T23:59:59+01:00",
+            "millesime": 2023,
+            "description_longue": "<p><strong>Il   existe plusieurs bonnes raisons pour passer le cap du fossile au renouvelable   grâce à la géothermie ou à l’aérothermie&nbsp;:<br></strong></p><ul><li>maîtriser   sa facture énergétique en ayant de la visibilité sur les coûts de la chaleur&nbsp;et   éventuellement sur les coûts du froid ;</li><li>accéder   à l’exemplarité environnementale ;</li><li>bénéficier de technologies éprouvées à haut   rendement énergétique ;</li><li>permettre de produire du chaud mais aussi du rafraîchissement avec les mêmes équipements ;</li><li>promouvoir   des ressources locales, disponibles 24 h sur 24 indépendamment des conditions   climatiques ;</li><li>exploiter   une énergie qui s’intègre harmonieusement à son environnement ;</li><li>agir avec le soutien du Fonds Chaleur et de   l’ADEME.</li></ul><p><strong>L’ADEME peut accompagner les opérations suivantes :</strong></p><ul><li>géothermie   de surface avec pompes à chaleur sur aquifère superficiel, sur champ de   sondes géothermiques, sur géostructures énergétiques, sur échangeurs   compacts géothermiques ou sur chaussées thermoactives ;</li><li>installations   utilisant les mêmes principes que la géothermie mais valorisant par pompe à   chaleur l’énergie des eaux usées, de l’eau de mer, des eaux de surface ou des   eaux thermales ;</li><li>aérothermie <strong>uniquement les pompes chaleur air/eau</strong>.<br></li></ul><p>Les opérations de géothermie de   surface ou",
+            "cible_projet": [
+                "SCA3",
+                "SCA2",
+                "SCA1"
+            ],
+            "sous_type_aap": null,
+            "thematiques": [
+                "ENR",
+                "GEOTER",
+                "ENRAUT"
+            ],
+            "couverture_geo": {
+                "code": "1",
+                "libelle": "National"
+            },
+            "regions": [],
+            "url_agir": "https://agirpourlatransition.ademe.fr/entreprises/aides-financieres/2023/installations-production-chaleur-froid-a-partir-geothermie-surface"
+        },
+        {
+            "id": "1ed85d34",
+            "date_derniere_modification": "2023-01-06T17:01:34+01:00",
+            "titre": "Études d'opportunité et de faisabilité du déploiement de l'hydrogène sur un territoire",
+            "type": "GAG",
+            "date_debut": "2023-01-01T00:00:00+01:00",
+            "date_fin": "2023-12-31T23:59:59+01:00",
+            "millesime": 2023,
+            "description_longue": "<p>En tant que collectivité, entreprise ou association",
+            "cible_projet": [
+                "SCA3",
+                "SCA2",
+                "SCA1"
+            ],
+            "sous_type_aap": null,
+            "thematiques": [
+                "ENR",
+                "MTR",
+                "PRODUR",
+                "ENRAUT"
+            ],
+            "couverture_geo": {
+                "code": "1",
+                "libelle": "National"
+            },
+            "regions": [],
+            "url_agir": "https://agirpourlatransition.ademe.fr/entreprises/aides-financieres/2023/etudes-dopportunite-faisabilite-deploiement-lhydrogene-territoire"
+        }
+    ]
+} 
