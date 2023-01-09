@@ -201,6 +201,7 @@ class BaseAidAdmin(
     search_fields = ["id", "name", "name_initial"]
     list_filter = [
         "status",
+        "import_updated",
         "has_broken_link",
         LiveAidListFilter,
         "is_charged",
@@ -332,6 +333,7 @@ class BaseAidAdmin(
             {
                 "fields": (
                     "status",
+                    "import_updated",
                     "author_notification",
                 )
             },

@@ -126,7 +126,7 @@ class BaseImportCommand(BaseCommand):
                                     import_raw_object_temp=aid.import_raw_object,
                                     import_raw_object_temp_calendar=aid.import_raw_object_calendar,  # noqa
                                     import_last_access=timezone.now(),
-                                    status="reviewable",
+                                    import_updated=True,
                                 )
                                 updated_counter += 1
                                 self.stdout.write(
