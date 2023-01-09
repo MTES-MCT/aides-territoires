@@ -14,21 +14,26 @@
   -webkit-transition: opacity .2s linear;
   -moz-transition: opacity .2s linear;
   -o-transition: opacity .2s linear;
-  transition: opacity .2s linear; }
-  .chartist-tooltip:before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    margin-left: -15px;
-    border: 15px solid transparent;
-    border-top-color: var(--blue-france-975-75); }
-  .chartist-tooltip.tooltip-show {
-    opacity: 1; }
+  transition: opacity .2s linear;
+}
 
-.ct-area, .ct-line {
-  pointer-events: none; }
+.chartist-tooltip:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -15px;
+  border: 15px solid transparent;
+  border-top-color: var(--blue-france-975-75);
+}
 
-/*# sourceMappingURL=chartist-plugin-tooltip.css.map */
+.chartist-tooltip.tooltip-show {
+  opacity: 1;
+}
+
+.ct-area,
+.ct-line {
+  pointer-events: none;
+}
