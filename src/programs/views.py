@@ -26,5 +26,7 @@ class ProgramDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context["aids"] = aids
         context["program_tabs"] = Tab.objects.filter(program=self.object)
+        if self.request.GET.get("tab") == "faq":
+            context["faq_selected"] = True
 
         return context

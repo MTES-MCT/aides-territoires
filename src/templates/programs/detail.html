@@ -35,12 +35,12 @@
                 <div class="fr-tabs">
                     <ul class="fr-tabs__list" role="tablist" aria-label="Onglets du programme">
                         <li role="presentation">
-                            <button id="tabpanel-aids" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-aids-panel">Présentation générale</button>
+                            <button id="tabpanel-aids" class="fr-tabs__tab" {% if faq_selected %} tabindex="-1" aria-selected="false" {% else %} tabindex="0" aria-selected="true" {% endif %} role="tab" aria-controls="tabpanel-aids-panel">Présentation générale</button>
                         </li>
                         {% if program_tabs %}
                         {% for tab in program_tabs %}
                         <li role="presentation">
-                            <button id="tabpanel-{{ tab.title }}" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-{{ tab.title }}-panel">{{ tab.title }}</button>
+                            <button id="tabpanel-{{ tab.title }}" class="fr-tabs__tab" {% if faq_selected and tab.title == "Foire aux questions" %} tabindex="0" aria-selected="true" {% else %}tabindex="-1" aria-selected="false"{% endif %} role="tab" aria-controls="tabpanel-{{ tab.title }}-panel">{{ tab.title }}</button>
                         </li>
                         {% endfor %}
                         {% endif %}
