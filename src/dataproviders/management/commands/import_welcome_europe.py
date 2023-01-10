@@ -116,7 +116,7 @@ class Command(BaseImportCommand):
         if options["data-file"]:
             data_file = os.path.abspath(options["data-file"])
             data = json.load(open(data_file))
-            for line in data["data"]:
+            for line in data:
                 yield line
         else:
             headers = {
