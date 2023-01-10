@@ -266,15 +266,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         default="internal_email",
         help_text="Notifications liées aux aides concernant l’utilisateur",
     )
-    notification_internal_team = models.CharField(
-        "Notifications internes équipe",
+    notification_generic_team = models.CharField(
+        "Notifications génériques équipe",
         max_length=32,
         choices=NOTIFICATION_SETTINGS_MODES_LIST,
         default="internal_email",
-        help_text="Notifications internes envoyées à tous les membres de la structure",
+        help_text="Notifications génériques envoyées à tous les membres de la structure",
     )
-    notification_internal_user = models.CharField(
-        "Notifications interne individuelles",
+    notification_generic_user = models.CharField(
+        "Notifications génériques individuelles",
         max_length=32,
         choices=NOTIFICATION_SETTINGS_MODES_LIST,
         default="internal_email",
@@ -392,11 +392,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         if self.notification_aid_user == "internal_email":
             types.append("aid_user")
 
-        if self.notification_internal_team == "internal_email":
-            types.append("internal_team")
+        if self.notification_generic_team == "internal_email":
+            types.append("generic_team")
 
-        if self.notification_internal_user == "internal_email":
-            types.append("internal_user")
+        if self.notification_generic_user == "internal_email":
+            types.append("generic_user")
 
         return types
 

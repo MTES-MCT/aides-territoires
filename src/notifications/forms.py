@@ -23,15 +23,15 @@ class NotificationSettingsForm(forms.ModelForm, AidesTerrBaseForm):
         choices=NOTIFICATION_SETTINGS_MODES_LIST,
         help_text="Notifications liées aux aides concernant l’utilisateur",
     )
-    notification_internal_team = forms.ChoiceField(
-        label="Notifications internes équipe",
+    notification_generic_team = forms.ChoiceField(
+        label="Notifications génériques équipe",
         choices=NOTIFICATION_SETTINGS_MODES_LIST,
-        help_text="Notifications internes envoyées à tous les membres de la structure",
+        help_text="Notifications génériques envoyées à tous les membres de la structure",
     )
-    notification_internal_user = forms.ChoiceField(
-        label="Notifications interne individuelles",
+    notification_generic_user = forms.ChoiceField(
+        label="Notifications génériques individuelles",
         choices=NOTIFICATION_SETTINGS_MODES_LIST,
-        help_text="Notifications internes concernant l’utilisateur",
+        help_text="Notifications génériques concernant l’utilisateur",
     )
     notification_email_frequency = forms.ChoiceField(
         label="Fréquence d’envoi des emails de notification",
@@ -43,7 +43,7 @@ class NotificationSettingsForm(forms.ModelForm, AidesTerrBaseForm):
         fields = [
             "notification_aid_team",
             "notification_aid_user",
-            "notification_internal_team",
-            "notification_internal_user",
+            "notification_generic_team",
+            "notification_generic_user",
             "notification_email_frequency",
         ]

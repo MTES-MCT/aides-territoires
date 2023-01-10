@@ -16,7 +16,7 @@ class Notification(models.Model):
         "type de notification",
         max_length=32,
         choices=NOTIFICATION_TYPES_LIST,
-        default="internal_user",
+        default="generic_user",
         help_text="Utilisé pour la gestion des préférences de réception des notifications",
     )
     title = models.CharField("titre", max_length=100)

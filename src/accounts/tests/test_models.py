@@ -12,12 +12,12 @@ def test_user_check_notification_allowed(user):
 
     user.notification_aid_team = "none"
     user.notification_aid_user = "internal_only"
-    user.notification_internal_team = "internal_email"
+    user.notification_generic_team = "internal_email"
     user.save()
 
     assert user.check_notification_allowed("aid_team") is False
     assert user.check_notification_allowed("aid_user") is True
-    assert user.check_notification_allowed("internal_team") is True
+    assert user.check_notification_allowed("generic_team") is True
 
 
 def test_user_send_notification_creates_a_notification_if_type_allowed(user):

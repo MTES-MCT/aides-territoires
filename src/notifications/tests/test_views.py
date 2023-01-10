@@ -188,8 +188,8 @@ def test_notification_parameters_can_be_updated(client, user):
             "notification_email_frequency": "weekly",
             "notification_aid_team": "internal_only",
             "notification_aid_user": "internal_only",
-            "notification_internal_team": "internal_only",
-            "notification_internal_user": "internal_only",
+            "notification_generic_team": "internal_only",
+            "notification_generic_user": "internal_only",
         },
     )
 

@@ -211,8 +211,8 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
                 "fields": (
                     "notification_aid_team",
                     "notification_aid_user",
-                    "notification_internal_team",
-                    "notification_internal_user",
+                    "notification_generic_team",
+                    "notification_generic_user",
                     "notification_email_frequency",
                 )
             },

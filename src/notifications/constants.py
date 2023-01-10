@@ -1,8 +1,8 @@
 NOTIFICATION_TYPES_LIST = [
     ("aid_team", "Notification aide structure"),
     ("aid_user", "Notification aide personnelle"),
-    ("internal_team", "Notification interne structure"),
-    ("internal_user", "Notification interne personnelle"),
+    ("generic_team", "Notification générique structure"),
+    ("generic_user", "Notification générique personnelle"),
 ]
 
 NOTIFICATION_TYPES_KEYS = [k[0] for k in NOTIFICATION_TYPES_LIST]

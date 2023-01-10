@@ -85,7 +85,7 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
         organization.beneficiaries.add(user.pk)
 
         user.send_notification(
-            notification_type="internal_user",
+            notification_type="generic_user",
             title="Bienvenue sur Aides-territoires !",
             message=f"""
             <p>Bienvenue sur Aides-territoires !</p>
@@ -215,7 +215,7 @@ class LoginView(views.LoginView, TemplateView):
 
         if user.notification_counter == 0:
             user.send_notification(
-                notification_type="internal_user",
+                notification_type="generic_user",
                 title="Mise en place du système de notifications",
                 message=f"""<p>Bienvenue dans le nouveau système de notifications
                 d’Aides-territoires ! Vous recevrez bientôt des notifications lors de certaines
