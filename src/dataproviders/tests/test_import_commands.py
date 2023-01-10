@@ -126,3 +126,18 @@ def test_import_aids_from_ministere_de_la_culture(perimeters):
     call_command("import_ministere_de_la_culture", *args, **opts)
 
     assert aids.count() == 3
+
+
+def test_import_aids_from_ile_de_france(perimeters):
+    DataSourceFactory(
+        name="conseil régional d'île de France", perimeter=perimeters["france"], id=4
+    )
+
+    aids = Aid.objects.all()
+    assert aids.count() == 0
+
+    args = []
+    opts = {"data-file": "dataproviders/tests/ile_de_france_data.json"}
+    call_command("import_ile_de_france", *args, **opts)
+
+    assert aids.count() == 3
