@@ -101,7 +101,7 @@ def test_importing_existing_aids():
 
 
 def test_import_aids_from_ademe_agir(perimeters):
-    DataSourceFactory(name="ademe agir", perimeter=perimeters["montpellier"], id=10)
+    DataSourceFactory(name="ademe agir", perimeter=perimeters["france"], id=10)
 
     aids = Aid.objects.all()
     assert aids.count() == 0
@@ -111,3 +111,18 @@ def test_import_aids_from_ademe_agir(perimeters):
     call_command("import_ademe_agir", *args, **opts)
 
     assert aids.count() == 5
+
+
+def test_import_aids_from_ministere_de_la_culture(perimeters):
+    DataSourceFactory(
+        name="ministère de la culture", perimeter=perimeters["france"], id=8
+    )
+
+    aids = Aid.objects.all()
+    assert aids.count() == 0
+
+    args = []
+    opts = {"data-file": "dataproviders/tests/ministere_de_la_culture_data.json"}
+    call_command("import_ministere_de_la_culture", *args, **opts)
+
+    assert aids.count() == 3
