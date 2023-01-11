@@ -172,7 +172,11 @@ class InstructorsInline(SortableInlineAdminMixin, admin.TabularInline):
 
 
 class BaseAidAdmin(
-    FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.ModelAdmin
+    FieldsetsInlineMixin,
+    ImportMixin,
+    ExportActionMixin,
+    SortableAdminBase,
+    admin.ModelAdmin,
 ):
     """Admin module for aids."""
 
@@ -610,7 +614,7 @@ class BaseAidAdmin(
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
-class AidAdmin(WithViewPermission, BaseAidAdmin, SortableAdminBase):
+class AidAdmin(WithViewPermission, BaseAidAdmin):
     def get_queryset(self, request):
         qs = (
             Aid.objects.all()
@@ -640,7 +644,7 @@ class DeletedAid(Aid):
         verbose_name_plural = "Aides supprimées"
 
 
-class DeletedAidAdmin(BaseAidAdmin, SortableAdminBase):
+class DeletedAidAdmin(BaseAidAdmin):
     def get_queryset(self, request):
         qs = (
             Aid.deleted_aids.all()
