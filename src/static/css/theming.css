@@ -40,6 +40,10 @@
     color: #3a3188;
 }
 
+#logout-form button {
+    color: #3a3188;
+}
+
 /* breacrumbs */
 
 div.breadcrumbs {

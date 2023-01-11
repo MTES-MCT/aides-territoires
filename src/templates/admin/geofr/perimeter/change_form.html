@@ -4,9 +4,9 @@
 <div class="perimeter-list inline-group">
     <fieldset>
         <h2>
-            {{ _('Contains the following perimeters') }} ↴
+            Contient les périmètres suivants
             <button id="toggle-perimeters" class="reveal-btn">
-                {{ _('Toggle perimeters') }}
+                Afficher / masquer les périmètres
             </button>
         </h2>
 
@@ -14,7 +14,7 @@
         {% for perimeter in contained_perimeters %}
             <li>{{ perimeter }}</li>
         {% empty %}
-            <li>{{ _('This does not contain any other perimeter') }}</li>
+            <li>Ne contient pas d'autres périmètres</li>
         {% endfor %}
         </ul>
     </fieldset>
