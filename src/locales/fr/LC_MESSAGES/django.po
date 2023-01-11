@@ -351,21 +351,6 @@ msgstr "Aides en brouillon"
 msgid "Home"
 msgstr "Accueil"
 
-msgid "Aids by this author"
-msgstr "Aides par cet auteur"
-
-msgid "There are no related aids"
-msgstr "Il n'y a pas d'aides à afficher"
-
-msgid "Contains the following perimeters"
-msgstr "Contient les périmètres suivants"
-
-msgid "Toggle perimeters"
-msgstr "Afficher / masquer les périmètres"
-
-msgid "This does not contain any other perimeter"
-msgstr "Ne contient pas d'autres périmètres"
-
 msgid "Image"
 msgstr "Image"
 
