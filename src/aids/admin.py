@@ -172,7 +172,11 @@ class InstructorsInline(SortableInlineAdminMixin, admin.TabularInline):
 
 
 class BaseAidAdmin(
-    FieldsetsInlineMixin, ImportMixin, ExportActionMixin, admin.ModelAdmin
+    FieldsetsInlineMixin,
+    ImportMixin,
+    ExportActionMixin,
+    SortableAdminBase,
+    admin.ModelAdmin,
 ):
     """Admin module for aids."""
 
