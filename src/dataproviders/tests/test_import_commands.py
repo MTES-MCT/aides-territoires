@@ -1,7 +1,10 @@
 import pytest
 
+from django.core.management import call_command
+
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.management.commands.base import BaseImportCommand
+from dataproviders.factories import DataSourceFactory
 from accounts.factories import UserFactory
 from backers.factories import BackerFactory
 from aids.factories import AidFactory
@@ -95,3 +98,76 @@ def test_importing_existing_aids():
     # no new aid are created
     stub.handle()
     assert aids.count() == 5
+
+
+def test_import_aids_from_ademe_agir(perimeters):
+    DataSourceFactory(name="ademe agir", perimeter=perimeters["france"], id=10)
+
+    aids = Aid.objects.all()
+    assert aids.count() == 0
+
+    args = []
+    opts = {"data-file": "dataproviders/tests/ademe_agir_data.json"}
+    call_command("import_ademe_agir", *args, **opts)
+
+    assert aids.count() == 5
+
+
+def test_import_aids_from_ministere_de_la_culture(perimeters):
+    DataSourceFactory(
+        name="ministère de la culture", perimeter=perimeters["france"], id=8
+    )
+
+    aids = Aid.objects.all()
+    assert aids.count() == 0
+
+    args = []
+    opts = {"data-file": "dataproviders/tests/ministere_de_la_culture_data.json"}
+    call_command("import_ministere_de_la_culture", *args, **opts)
+
+    assert aids.count() == 3
+
+
+def test_import_aids_from_ile_de_france(perimeters):
+    DataSourceFactory(
+        name="conseil régional d'île de France", perimeter=perimeters["france"], id=4
+    )
+
+    aids = Aid.objects.all()
+    assert aids.count() == 0
+
+    args = []
+    opts = {"data-file": "dataproviders/tests/ile_de_france_data.json"}
+    call_command("import_ile_de_france", *args, **opts)
+
+    assert aids.count() == 3
+
+
+def test_import_aids_from_welcom_europe(perimeters):
+    DataSourceFactory(
+        name="WelcomEurope", perimeter=perimeters["france"], id=7
+    )
+
+    aids = Aid.objects.all()
+    assert aids.count() == 0
+
+    args = []
+    opts = {"data-file": "dataproviders/tests/welcom_europe_data.json"}
+    call_command("import_welcome_europe", *args, **opts)
+
+    assert aids.count() == 2
+
+
+def test_import_aids_from_departement_de_la_drome(perimeters):
+    DataSourceFactory(
+        name="Conseil Départemental de la Drôme", perimeter=perimeters["france"], id=9
+    )
+
+    aids = Aid.objects.all()
+    assert aids.count() == 0
+
+    args = []
+    opts = {"data-file": "dataproviders/tests/departement_drome_data.json"}
+    call_command("import_departement_drome", *args, **opts)
+
+    assert aids.count() == 3

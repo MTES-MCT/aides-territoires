@@ -34,7 +34,7 @@ class Command(BaseImportCommand):
         if options["data-file"]:
             data_file = os.path.abspath(options["data-file"])
             data = json.load(open(data_file))
-            for line in data["data"]:
+            for line in data["results"]:
                 yield line
         else:
             req = requests.get(DATA_SOURCE.import_api_url)

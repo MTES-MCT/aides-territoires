@@ -1,0 +1,163 @@
+[
+    {
+        "title": "Soutien régional aux radios locales d’Île-de-France",
+        "tenant": "cridfprd",
+        "reference": "Sy2cc9WqE",
+        "id": "/guide-des-aides/api/tenants/cridfprd/aides/Sy2cc9WqE",
+        "index": 1,
+        "kind": "aides",
+        "statut": "PUBLIEE",
+        "documentsPublics": {
+            "documentsInformatifs": [],
+            "documentsNecessaires": []
+        },
+        "referenceAdministrative": "00000003",
+        "date": "2021-05-05T16:14:04.384Z",
+        "tags": [
+            {
+                "href": "/guide-des-aides/api/tenants/cridfprd/mots-cles/121",
+                "title": "Région solidaire"
+            }
+        ],
+        "entete": "Le soutien aux radios locales procède de la volonté de l’exécutif local d’appuyer et d’encourager les initiatives touchant au plus près les Franciliens et favorisant une information régionale.",
+        "objectif": "Les projets accompagnés dans le cadre du soutien aux radios locales devront s’inscrire dans une mission de communication sociale de proximité. Cette mission se déclinera par la mise en place d’actions s’inscrivant dans les exigences du Conseil supérieur de l’audiovisuel (CSA) : actions culturelles et éducatives, en faveur des échanges entre groupes sociaux et culturels, en faveur de l’intégration et de la lutte contre toutes les formes de discriminations et pour l’égalité femmes-hommes et des personnes en situation de handicap, et en faveur de l’environnement et du développement local.<br>La Région soutient les projets des médias autour de ces thématiques qui entrent dans le champ des de ses engagements et qui renforcent leur rôle de liant, informateur / médiateur, auprès des Franciliens.<br>",
+        "publicsBeneficiaire": [
+            {
+                "href": "/guide-des-aides/api/tenants/cridfprd/publics-beneficiaires/131",
+                "title": "Associations"
+            }
+        ],
+        "publicsBeneficiairePrecision": "Les organismes bénéficiaires de l’aide régionale, au titre des projets sont des radios locales franciliennes justifiant de l’autorisation d’émettre du Conseil supérieur de l’audiovisuel (CSA) en catégorie A.",
+        "modalite": "Les dépenses éligibles se composent de dépenses de fonctionnement exclusivement imputables à la mise en œuvre des projets retenus. <br>Les dépenses prises en compte sont les dépenses hors taxes, sauf si les bénéficiaires justifient qu’ils ne récupèrent pas la TVA. La subvention régionale est fixée à 50 % maximum de la dépense subventionnable, dans la limite d’un plafond annuel de subvention fixé à 150 00 € maximum par an, soit 45 000 € maximum sur 3 ans. Elles pourront inclure notamment des frais techniques et administratifs, de communication, d’organisation, de personnel, de diffusion et d’émission, de production. Les aides apportées sont distinctes et non cumulables avec des subventions issues d’autres dispositifs régionaux. Aucun nouveau soutien financier ne sera apporté à un organisme qui n’aurait pas produit un compte-rendu d’étape (financier et qualitatif) à un projet en cours.<br>",
+        "informationNonPubliee": "A DEFINIR APRES REPRISE",
+        "demarches": "Les dossiers complets et déposés dans les délais sur la plateforme des aides régionales <a href=\"https://mesdemarches.iledefrance.fr/\">mesdemarches.iledefrance.fr</a> seront pré-instruits par les services régionaux.",
+        "notes": "L’examen de l’éligibilité du projet portera sur la démarche mise en place par le porteur de projet suivant des critères principalement méthodologiques : ingénierie développée, construction de la démarche avec les habitants, évaluation du nombre d’auditeurs et/ou de personnes touchées, capacité à diffuser des informations d’intérêt régionales, mode d’évaluation envisagé.<br>Seront privilégiés les projets présentant une dimension régionale et qui contribuent à : <br>- mener une communication de proximité ; <br>- créer du lien social, en donnant la parole aux auditeurs ;<br>- diffuser des informations et reportages concernant les manifestations et événements sportifs,<br>- identifier dans leur programme les émissions traitant de prévention de la radicalisation de lutte contre les discriminations et de défense des valeurs de la République.<br>",
+        "datePublicationSouhaitee": "2019-03-20T00:00:00Z",
+        "competences": [
+            {
+                "href": "/guide-des-aides/api/tenants/cridfprd/competences/115",
+                "title": "Citoyenneté"
+            }
+        ],
+        "contact": "Service jeunesse, citoyenneté et lutte contre les discriminations (SJCLCD)<br>salima.benabdallah@iledefrance.fr",
+        "deliberationCadre": "CR 2017-121 du 21 septembre 2017",
+        "engagementsAssocies": [
+            {
+                "href": "/guide-des-aides/api/tenants/cridfprd/engagements/1",
+                "title": "Mesure \"Trouvez un stage\""
+            },
+            {
+                "href": "/guide-des-aides/api/tenants/cridfprd/engagements/2",
+                "title": "Charte des valeurs de la République et de la laïcité"
+            }
+        ]
+    },
+    {
+        "title": "Soutien régional en investissement pour la protection des jeunes en situation de précarité",
+        "tenant": "cridfprd",
+        "reference": "Skxo55-5N",
+        "id": "/guide-des-aides/api/tenants/cridfprd/aides/Skxo55-5N",
+        "index": 1,
+        "kind": "aides",
+        "statut": "PUBLIEE",
+        "documentsPublics": {
+            "documentsInformatifs": [],
+            "documentsNecessaires": []
+        },
+        "referenceAdministrative": "00000006",
+        "date": "2021-05-05T16:14:04.386Z",
+        "tags": [
+            {
+                "href": "/guide-des-aides/api/tenants/cridfprd/mots-cles/121",
+                "title": "Région solidaire"
+            }
+        ],
+        "entete": "Cet appel à projets vise à soutenir les structures en investissement qui agissent en faveur des jeunes en situation de précarité, suite à une rupture familiale ou sociale pouvant entraîner de graves conséquences sur leur santé ou leur sécurité. ",
+        "objectif": "La Région Île-de-France finance la construction, l’acquisition et la réhabilitation de lieux d’accueil et/ou d’hébergement temporaire dédiés aux jeunes en rupture sociale et familiale. La subvention portera sur le gros œuvre nécessaire. <br>Dans le cas où le lieu d’accueil est acquis au préalable, la Région peut également financer l’aménagement du lieu d’accueil lorsqu’il vise à l’élargissement du projet initial. Les travaux devront nécessairement veiller à l’accessibilité des personnes en situation de handicap. Afin qu’un projet soit éligible, il devra contenir les éléments suivants : <br>- état des lieux des besoins identifiés en matière d’offre d’hébergement temporaire réservée aux jeunes en rupture sociale et familiale ; - lieu d’accueil ou d’hébergement en Ile-de-France ;<br>- caractérisation du besoin, définition précise du public concerné et démarche innovante du projet.<br>",
+        "publicsBeneficiaire": [
+            {
+                "href": "/guide-des-aides/api/tenants/cridfprd/publics-beneficiaires/131",
+                "title": "Associations"
+            }
+        ],
+        "publicsBeneficiairePrecision": "- les associations relevant de la loi de 1901 et les fondations, dont l’objet concerne l’hébergement temporaire de jeunes en rupture familiale, notamment du fait de leur orientation sexuelle,<br>- les communes et établissements publics.<br>",
+        "modalite": "Les dépenses éligibles se composent de dépenses de fonctionnement exclusivement imputables à la mise en œuvre des projets retenus dans le cadre de ce dispositif.<br>La subvention régionale est fixée à 50 % maximum de la dépense subventionnable (total des dépenses éligibles), dans la limite d’un plafond de subvention fixé à 75 000 € maximum.<br>",
+        "informationNonPubliee": "Champ non publi&eacute;",
+        "demarches": "Dépôt du dossier de candidature sur la plateforme des aides régionales (<a href=\"https://mesdemarches.iledefrance.fr/\">mesdemarches.iledefrance.fr</a>).",
+        "notes": "Les projets devront démarrer à partir du vote en commission permanente, sauf autorisation exceptionnelle de démarrage anticipé, conformément aux dispositions du règlement budgétaire et financier en vigueur. Ils pourront être annuels.<br>Ils pourront également s’inscrire dans la durée, dans le cadre de conventions pluriannuelles. Ces projets ne pourront toutefois pas dépasser trois années, et chaque année devra faire l’objet d’une évaluation.<br>Les aides apportées dans ce cadre sont distinctes et non cumulables avec des subventions régionales issues des autres dispositifs régionaux.<br>Aucun nouveau soutien financier ne sera apporté à un organisme qui n’aurait pas produit un rapport intermédiaire (bilan financier et qualitatif) à un projet en cours.<br>",
+        "datePublicationSouhaitee": "2019-03-20T00:00:00Z",
+        "competences": [
+            {
+                "href": "/guide-des-aides/api/tenants/cridfprd/competences/115",
+                "title": "Citoyenneté"
+            }
+        ],
+        "contact": "Service jeunesse, citoyenneté et lutte contre les discriminations (SJCLCD)<br>lcd@iledefrance.fr ",
+        "dateFinCampagne": "2019-07-07T22:00:00.000Z",
+        "dateOuvertureCampagne": "2019-06-02T22:00:00.000Z",
+        "deliberationCadre": "CR 100-16 du 22 septembre 2016 / CP 2018-428 du 17 octobre 2018",
+        "engagementsAssocies": [
+            {
+                "href": "/guide-des-aides/api/tenants/cridfprd/engagements/1",
+                "title": "Mesure \"Trouvez un stage\""
+            },
+            {
+                "href": "/guide-des-aides/api/tenants/cridfprd/engagements/2",
+                "title": "Charte des valeurs de la République et de la laïcité"
+            }
+        ]
+    },
+    {
+        "title": "Aide à l’achat d’équipements sportifs en faveur des personnes en situation de handicap",
+        "tenant": "cridfprd",
+        "reference": "S1Xj5qb5N",
+        "id": "/guide-des-aides/api/tenants/cridfprd/aides/S1Xj5qb5N",
+        "index": 1,
+        "kind": "aides",
+        "statut": "PUBLIEE",
+        "documentsPublics": {
+            "documentsInformatifs": [],
+            "documentsNecessaires": []
+        },
+        "referenceAdministrative": "00000009",
+        "date": "2019-04-15T05:46:04.334Z",
+        "tags": [
+            {
+                "href": "/guide-des-aides/api/tenants/cridfprd/mots-cles/119",
+                "title": "Handicap"
+            }
+        ],
+        "entete": "La Région Île-de-France favorise l’acquisition de matériels destinés à la pratique sportive des personnes en situation de handicap en collaboration avec le mouvement sportif régional.",
+        "objectif": "Ce dispositif vise à:<br>- offrir les meilleures conditions de pratique aux personnes en situation de handicap ;<br>- aider les ligues et comités régionaux à se doter du matériel nécessaire ;<br>- répondre au besoin ponctuel des ambassadeurs du sport paralympiques en matériels sportifs et aides auxiliaires spécifiques en collaboration étroite avec le Comité Ile-de-France Handisport ou avec le comité ou la ligue de leur discipline et à leur demande ;<br>- mettre gratuitement à disposition des clubs ou associations qui en feront la demande, le matériel régional pour des actions de découverte de la pratique handisport ou de manifestations.<br>",
+        "publicsBeneficiaire": [
+            {
+                "href": "/guide-des-aides/api/tenants/cridfprd/publics-beneficiaires/131",
+                "title": "Associations"
+            }
+        ],
+        "publicsBeneficiairePrecision": "Le mouvement sportif régional relevant du milieu associatif, conventionné avec la Région Ile-de-France dans le cadre du dispositif \"Développement de la pratique sportive en faveur de tous les publics\"  ",
+        "modalite": "L’aide régionale correspond au maximum à 80 % du coût global de la demande. <br>Le plafond de subvention est fixé 100 000 € par structure. Une subvention complémentaire de 20 000 € est prévue pour les demandes de renouvellement du matériel dédié aux ambassadeurs du sport paralympiques, faites par le Comité Ile-de-France Handisport ou par le comité ou la ligue de leur discipline.",
+        "informationNonPubliee": "A DEFINIR APRES REPRISE",
+        "demarches": "Dépôt du dossier de candidature sur la plateforme des aides régionales (<a href=\"https://mesdemarches.iledefrance.fr/\">mesdemarches.iledefrance.fr</a>).<br><br>Le dossier doit notamment comprendre les éléments suivants : <br>- une note explicative du projet (usage du matériel, plan d’action),<br>- les modalités permettant de valoriser l’action de la Région dans le cadre du projet,<br>- le descriptif détaillé des matériels à acquérir,<br>- un devis,<br>- un plan de financement prévisionnel.",
+        "notes": "A DEFINR APRES REPRISE",
+        "datePublicationSouhaitee": "2019-03-20T00:00:00Z",
+        "competences": [
+            {
+                "href": "/guide-des-aides/api/tenants/cridfprd/competences/82",
+                "title": "Sport"
+            }
+        ],
+        "contact": "Direction des Sports, des Loisirs et de la Citoyenneté <br>Jeannie Jacques-André-Coquin : jeannie.jacques-andre-coquin@iledefrance.fr - Tél : 01 53 85 51 53",
+        "deliberationCadre": "CR 204-16",
+        "engagementsAssocies": [
+            {
+                "href": "/guide-des-aides/api/tenants/cridfprd/engagements/1",
+                "title": "Mesure \"Trouvez un stage\""
+            },
+            {
+                "href": "/guide-des-aides/api/tenants/cridfprd/engagements/2",
+                "title": "Charte des valeurs de la République et de la laïcité"
+            }
+        ]
+    }
+]
