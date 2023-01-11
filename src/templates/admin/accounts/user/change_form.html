@@ -3,7 +3,7 @@
 {% block after_field_sets %}
 <div class="inline-group">
     <fieldset>
-        <h2>{{ _('Aids by this author') }} ({{ other_aids.count }})</h2>
+        <h2>Aides par cet auteur ({{ other_aids.count }})</h2>
 
         {% if other_aids %}
             <table>
@@ -25,7 +25,7 @@
                 </tbody>
             </table>
         {% else %}
-            <div>{{ _('There are no related aids') }}</div>
+            <div>Il n’y a pas d'aides à afficher</div>
         {% endif %}
     </fieldset>
 </div>
