@@ -34,7 +34,7 @@ class NotificationSettingsForm(forms.ModelForm, AidesTerrBaseForm):
         help_text="Notifications génériques concernant l’utilisateur",
     )
     notification_email_frequency = forms.ChoiceField(
-        label="Fréquence d’envoi des emails de notification",
+        label="Fréquence d’envoi des emails de notifications",
         choices=NOTIFICATION_SETTINGS_FREQUENCIES_LIST,
     )
 

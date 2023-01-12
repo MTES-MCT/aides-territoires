@@ -9,8 +9,8 @@ NOTIFICATION_TYPES_KEYS = [k[0] for k in NOTIFICATION_TYPES_LIST]
 
 NOTIFICATION_SETTINGS_MODES_LIST = [
     ("none", "Aucune"),
-    ("internal_only", "Notification interne uniquement"),
-    ("internal_email", "Notification interne et par email"),
+    ("internal_only", "Notification en ligne uniquement"),
+    ("internal_email", "Notification en ligne et par email"),
 ]
 
 NOTIFICATION_SETTINGS_FREQUENCIES_LIST = [

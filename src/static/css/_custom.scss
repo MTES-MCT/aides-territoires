@@ -612,9 +612,12 @@ section#post-content img {
 
 // Notifications
 #at-notification-icon {
+  margin-right: 1em;
+}
+
+.at-notification-icon-unread {
   --hover-tint: var(--hover);
   --hover: var(--background-action-high-red-marianne-hover);
-  margin-right: 1em;
   background-color: var(--background-action-low-red-marianne);
   color: var(--text-action-high-red-marianne);
 }

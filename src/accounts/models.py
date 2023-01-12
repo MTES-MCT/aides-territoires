@@ -281,7 +281,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text="Notifications internes concernant l’utilisateur",
     )
     notification_email_frequency = models.CharField(
-        "Fréquence d’envoi des emails de notification",
+        "Fréquence d’envoi des emails de notifications",
         max_length=32,
         choices=NOTIFICATION_SETTINGS_FREQUENCIES_LIST,
         default="daily",
