@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 
 
 from core.forms import RichTextField
-from pages.models import Page, Tab
+from pages.models import Page, Tab, FaqCategory, FaqQuestionAnswer
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
@@ -104,6 +104,66 @@ class TabAdmin(admin.ModelAdmin):
         ] + TRUMBOWYG_UPLOAD_ADMIN_JS
 
 
+class FaqCategoryAdmin(admin.ModelAdmin):
+    list_display = ["name", "program", "date_created", "date_updated"]
+    readonly_fields = ["date_created", "date_updated"]
+    search_fields = ["name"]
+
+    class Media:
+        css = {
+            "all": (
+                "/static/css/admin.css",
+                "/static/trumbowyg/dist/ui/trumbowyg.css",
+            )
+        }
+        js = [
+            "admin/js/jquery.init.js",
+            "/static/js/shared_config.js",
+            "/static/trumbowyg/dist/trumbowyg.js",
+            "/static/trumbowyg/dist/langs/fr.js",
+            "/static/js/enable_rich_text_editor.js",
+        ] + TRUMBOWYG_UPLOAD_ADMIN_JS
+
+
+class FaqQuestionAnswerForm(forms.ModelForm):
+    answer = RichTextField(label="Réponse", required=False)
+
+    class Meta:
+        model = FaqQuestionAnswer
+        fields = "__all__"
+
+
+class FaqQuestionAnswerAdmin(admin.ModelAdmin):
+    list_display = [
+        "question",
+        "program",
+        "faq_category",
+        "order",
+        "date_created",
+        "date_updated",
+    ]
+    readonly_fields = ["date_created", "date_updated"]
+    search_fields = ["question", "program", "faq_category"]
+    form = FaqQuestionAnswerForm
+
+    class Media:
+        css = {
+            "all": (
+                "/static/css/admin.css",
+                "/static/trumbowyg/dist/ui/trumbowyg.css",
+            )
+        }
+        js = [
+            "admin/js/jquery.init.js",
+            "/static/js/shared_config.js",
+            "/static/trumbowyg/dist/trumbowyg.js",
+            "/static/trumbowyg/dist/langs/fr.js",
+            "/static/js/enable_rich_text_editor.js",
+        ] + TRUMBOWYG_UPLOAD_ADMIN_JS
+
+
 admin.site.unregister(FlatPage)
 admin.site.register(Page, PageAdmin)
 admin.site.register(Tab, TabAdmin)
+admin.site.register(FaqCategory, FaqCategoryAdmin)
+admin.site.register(FaqQuestionAnswer, FaqQuestionAnswerAdmin)
