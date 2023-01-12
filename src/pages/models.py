@@ -92,3 +92,77 @@ class Tab(models.Model):
 
     date_created = models.DateTimeField(_("Date created"), default=timezone.now)
     date_updated = models.DateTimeField(_("Date updated"), auto_now=True)
+
+
+class FaqCategory(models.Model):
+    name = models.CharField(
+        "Nom",
+        max_length=600,
+        null=False,
+        blank=False,
+    )
+
+    program = models.ForeignKey(
+        "programs.Program",
+        verbose_name="Programme",
+        related_name="faqcategory",
+        help_text="Programme lié à cette rubrique.",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+    date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
+
+    class Meta:
+        verbose_name = "Rubrique de la FAQ"
+        verbose_name_plural = "Rubriques de la FAQ"
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+
+class FaqQuestionAnswer(models.Model):
+    question = models.CharField(
+        "Question",
+        max_length=180,
+        null=False,
+        blank=False,
+    )
+
+    answer = models.TextField("Réponse", blank=False)
+
+    faq_category = models.ForeignKey(
+        "pages.FaqCategory",
+        verbose_name="Rubrique",
+        related_name="faqquestionanswer",
+        help_text="Rubrique liée à cette Question-Réponse",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+
+    program = models.ForeignKey(
+        "programs.Program",
+        verbose_name="Programme",
+        related_name="faqquestionanswer",
+        help_text="Programme lié à cette Question-Réponse",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+
+    order = models.PositiveIntegerField("Rang", blank=False, default=1)
+
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+    date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
+
+    class Meta:
+        verbose_name = "Question-Réponse de la FAQ"
+        verbose_name_plural = "Question-Réponse de la FAQ"
+        ordering = ["pk"]
+
+    def __str__(self):
+        return self.question
