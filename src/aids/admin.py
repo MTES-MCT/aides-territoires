@@ -11,6 +11,7 @@ from import_export.formats import base_formats
 from admin_auto_filters.filters import AutocompleteFilter
 from fieldsets_with_inlines import FieldsetsInlineMixin
 from adminsortable2.admin import SortableInlineAdminMixin, SortableAdminBase
+from aids.constants import AUDIENCES_ALL
 
 from core.services.json_compare import json_compare
 from accounts.admin import AuthorFilter
@@ -76,7 +77,7 @@ class LiveAidListFilter(admin.SimpleListFilter):
 class EligibilityTestFilter(admin.SimpleListFilter):
     """Custom admin filter to target aids with eligibility tests."""
 
-    title = "Test d'éligibilité"
+    title = "Test d’éligibilité"
     parameter_name = "has_eligibility_test"
 
     def lookups(self, request, model_admin):
@@ -128,6 +129,19 @@ class BackersFilter(InputFilter):
             return queryset.filter(
                 Q(reduce(and_, financer_filters)) | Q(reduce(and_, instructor_filters))
             )
+
+
+class TargetedAudiencesFilter(admin.SimpleListFilter):
+    parameter_name = "targeted_audiences"
+    title = "Bénéficiaires"
+
+    def lookups(self, request, model_admin):
+        return AUDIENCES_ALL
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value is not None:
+            return queryset.filter(Q(targeted_audiences__icontains=value))
 
 
 class PerimeterFilter(InputFilter):
@@ -219,6 +233,7 @@ class BaseAidAdmin(
         AuthorFilter,
         BackersFilter,
         PerimeterAutocompleteFilter,
+        TargetedAudiencesFilter,
         "programs",
         "categories__theme",
         "categories",
@@ -258,7 +273,7 @@ class BaseAidAdmin(
 
     fieldsets_with_inlines = [
         (
-            "Présentation de l'aide",
+            "Présentation de l’aide",
             {
                 "fields": (
                     "name",
@@ -275,11 +290,11 @@ class BaseAidAdmin(
             },
         ),
         FinancersInline,
-        ("PORTEURS D'AIDES SUGGÉRÉS", {"fields": ("financer_suggestion",)}),
+        ("PORTEURS D’AIDES SUGGÉRÉS", {"fields": ("financer_suggestion",)}),
         InstructorsInline,
         ("INSTRUCTEURS SUGGÉRÉS", {"fields": ("instructor_suggestion",)}),
         (
-            "Périmètre de l'aide",
+            "Périmètre de l’aide",
             {
                 "fields": (
                     "perimeter",
@@ -288,7 +303,7 @@ class BaseAidAdmin(
             },
         ),
         (
-            "Calendrier de l'aide",
+            "Calendrier de l’aide",
             {
                 "fields": (
                     "recurrence",
@@ -299,7 +314,7 @@ class BaseAidAdmin(
             },
         ),
         (
-            "Description de l'aide",
+            "Description de l’aide",
             {
                 "fields": (
                     "is_call_for_project",
@@ -333,7 +348,7 @@ class BaseAidAdmin(
         ),
         ("Éligibilité", {"fields": ("eligibility_test",)}),
         (
-            "Administration de l'aide",
+            "Administration de l’aide",
             {
                 "fields": (
                     "status",
@@ -353,7 +368,7 @@ class BaseAidAdmin(
             },
         ),
         (
-            "Données liées à l'import",
+            "Données liées à l’import",
             {
                 "fields": (
                     "is_imported",
@@ -457,7 +472,7 @@ class BaseAidAdmin(
 
     sibling_aids.short_description = "Du même auteur"
     sibling_aids.help_text = (
-        "Nb. d'autres aides (sauf brouillons) créées par le même utilisateur"
+        "Nb. d’autres aides (sauf brouillons) créées par le même utilisateur"
     )
 
     def get_form(self, request, obj=None, **kwargs):
@@ -476,7 +491,7 @@ class BaseAidAdmin(
         financers = [backer.name for backer in aid.financers.all()]
         return ", ".join(financers)
 
-    all_financers.short_description = "Porteurs d'aides"
+    all_financers.short_description = "Porteurs d’aides"
 
     def all_instructors(self, aid):
         instructors = [backer.name for backer in aid.instructors.all()]
@@ -494,7 +509,7 @@ class BaseAidAdmin(
         return aid.has_eligibility_test()
 
     has_eligibility_test.boolean = True
-    has_eligibility_test.short_description = "Test d'éligibilité"
+    has_eligibility_test.short_description = "Test d’éligibilité"
 
     def get_pprint_import_raw_object(self, obj=None):
         if obj:
@@ -549,10 +564,10 @@ class BaseAidAdmin(
     def make_mark_as_CFP(self, request, queryset):
         queryset.update(is_call_for_project=True)
         self.message_user(
-            request, "Les aides sélectionnées ont été marquées en tant qu'AAP"
+            request, "Les aides sélectionnées ont été marquées en tant qu’AAP"
         )
 
-    make_mark_as_CFP.short_description = "Marquer en tant qu'AAP"
+    make_mark_as_CFP.short_description = "Marquer en tant qu’AAP"
 
     def show_export_message(self, request):
         self.message_user(request, get_admin_export_message())
@@ -674,7 +689,7 @@ class AmendmentAdmin(admin.ModelAdmin):
 
 
 class AidProjectStatusFilter(admin.SimpleListFilter):
-    title = "Statut de l'aide par rapport au projet"
+    title = "Statut de l’aide par rapport au projet"
     parameter_name = "aidproject_status"
 
     def lookups(self, request, model_admin):
