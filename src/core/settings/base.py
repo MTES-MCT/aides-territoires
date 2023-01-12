@@ -372,6 +372,7 @@ CSP_FRAME_SRC = (
     "'self'",
     "https://stats.data.gouv.fr",
     "https://www.youtube.com",
+    "https://www.dailymotion.com",
     "https://aides-territoires-metabase.osc-fr1.scalingo.io",
 )
 

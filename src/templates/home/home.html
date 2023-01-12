@@ -132,46 +132,45 @@
         </div>
     </section>
 
-    {% if not user.is_authenticated %}
-    <div id="home-users-types">
+    {% if user.is_authenticated %}
+    <div id="home-green">
         <div class="fr-container-fluid at-background-alt-green">
             <div class="fr-container">
-                <div class="fr-grid-row fr-grid-row--center">
-                    <div class="fr-mb-5w fr-col-md-11">
-                        <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutter fr-pb-3w fr-pt-2w at-centered" >
-                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                                <h2>Porteur d’aides</h2>
-                                <p>Valorisez gratuitement et rapidement vos aides</p>                                
-                                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
-                                    <li>
-                                        <a class="fr-btn fr-icon-account-line fr-btn--secondary" href="{% url 'register' %}">Inscription</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                                <h2>Porteur de projet</h2>
-                                <p>Simplifiez votre recherche d’aides et créez des alertes personnalisées</p>
-                                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
-                                    <li>
-                                        <a class="fr-btn fr-icon-account-line fr-btn--secondary" href="{% url 'register' %}">Inscription</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                                <h2>Accompagnateurs</h2>
-                                <p>Consultez les projets de votre territoire et suggérez-leur des aides</p>
-                                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
-                                    <li>
-                                        <a class="fr-btn fr-icon-account-line fr-btn--secondary" href="{% url 'register' %}">Inscription</a>
-                                    </li>
-                                </ul>
+                {% include "home/_video.html" %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div id="home-green">
+            <div class="fr-container-fluid at-background-alt-green">
+                <div class="fr-container">
+                    <div class="fr-grid-row fr-grid-row--gutters">
+                        <div class="fr-col-xs-12 fr-col-md-6">
+                            {% include "home/_video.html" %}
+                        </div>
+                        <div class="fr-col-xs-12 fr-col-md-6">
+                            <div id="home-role-types" class="fr-grid-row fr-mb-1w">
+                                <div class="at-centered">
+                                    <h2>Porteur d’aides</h2>
+                                    <p>Valorisez gratuitement et rapidement vos aides</p>
+
+                                    <h2>Porteur de projet</h2>
+                                    <p>Simplifiez votre recherche d’aides et créez des alertes personnalisées</p>
+
+                                    <h2>Accompagnateur</h2>
+                                    <p>Consultez les projets de votre territoire et suggérez-leur des aides</p>
+                                    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
+                                        <li>
+                                            <a class="fr-btn fr-icon-account-line fr-btn--secondary" href="{% url 'register' %}">Inscription</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     {% endif %}
 
     {% if recent_aids %}
