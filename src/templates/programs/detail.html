@@ -33,23 +33,36 @@
                 <h1>{{ program.name }}</h1>
 
                 <div class="fr-tabs">
-                    <ul class="fr-tabs__list" role="tablist" aria-label="Onglets du programme">
-                        <li role="presentation">
-                            <button id="tabpanel-aids" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-aids-panel">Présentation générale</button>
-                        </li>
+                    <div class="fr-tabs__list" role="tablist" aria-label="Onglets du programme">
+                        <h2 class="fr-mb-0" role="presentation">
+                            <button id="tabpanel-program-description" class="fr-tabs__tab" {% if faq_selected %} tabindex="-1" aria-selected="false" {% else %} tabindex="0" aria-selected="true" {% endif %} role="tab" aria-controls="tabpanel-program-description-panel">Présentation générale</button>
+                        </h2>
+                        {% if program_fonds_vert %}
+                        <h2 class="fr-mb-0" role="presentation">
+                            <button id="tabpanel-faq" class="fr-tabs__tab" {% if faq_selected %} tabindex="0" aria-selected="true" {% else %}tabindex="-1" aria-selected="false"{% endif %} role="tab" aria-controls="tabpanel-faq-panel">Foire aux questions</button>
+                        </h2>
+                        {% endif %}
                         {% if program_tabs %}
                         {% for tab in program_tabs %}
-                        <li role="presentation">
-                            <button id="tabpanel-{{ tab.title }}" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-{{ tab.title }}-panel">{{ tab.title }}</button>
-                        </li>
+                        <h2 class="fr-mb-0" role="presentation">
+                            <button id="tabpanel-{{ tab.title }}" class="fr-tabs__tab" tabindex="-1" aria-selected="false" role="tab" aria-controls="tabpanel-{{ tab.title }}-panel">{{ tab.title }}</button>
+                        </h2>
                         {% endfor %}
                         {% endif %}
-                    </ul>
+                    </div>
+
                     {% if program.description %}
-                    <div id="tabpanel-aids-panel" class="fr-tabs__panel at-tabs__panel--opaque fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-aids" tabindex="0">
+                    <div id="tabpanel-program-description-panel" class="fr-tabs__panel at-tabs__panel--opaque fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-program-description" tabindex="0">
                         {{ program.description | safe }}
                     </div>
                     {% endif %}
+
+                    {% if program_fonds_vert %}
+                    <div id="tabpanel-faq-panel" class="fr-tabs__panel at-tabs__panel--opaque fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-faq" tabindex="0">
+                        {% include 'programs/_faq_program.html' with program=program.pk %}
+                    </div>
+                    {% endif %}
+
                     {% if program_tabs %}
                     {% for tab in program_tabs %}
                     <div id="tabpanel-{{ tab.title }}-panel" class="fr-tabs__panel at-tabs__panel--opaque" role="tabpanel" aria-labelledby="tabpanel-{{ tab.title }}" tabindex="0">
