@@ -58,7 +58,6 @@ class FaqQuestionAnswerResource(resources.ModelResource):
         Why do we need to override import_field() ?
         - avoid None in text fields
         - avoid empty string in lists & relations
-        - revert the translation of some specific fields
         """
         if field.attribute and field.column_name in data:
             field_model = FaqQuestionAnswer._meta.get_field(field.column_name)
@@ -73,6 +72,14 @@ class FaqQuestionAnswerResource(resources.ModelResource):
             # avoid empty string for fields with base_field
             if hasattr(field_model, "base_field") and not data[field.column_name]:
                 data[field.column_name] = None
+            # create faq_category object if not exists
+            if field.column_name == "faq_category":
+                if (
+                    FaqCategory.objects.filter(name=data[field.column_name]).exists()
+                    is False
+                ):
+                    if data[field.column_name]:
+                        FaqCategory.objects.create(name=data[field.column_name])
             field.save(obj, data, is_m2m, **kwargs)
 
     def after_import(self, dataset, result, using_transactions, dry_run, **kwargs):
