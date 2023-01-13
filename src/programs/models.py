@@ -1,6 +1,7 @@
 from os.path import splitext
 
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
 
@@ -10,9 +11,27 @@ from pages.models import Tab
 def logo_upload_to(instance, filename):
     """Rename uploaded files with the object's slug."""
     _, extension = splitext(filename)
-    name = instance.slug
-    filename = "programs/{}_logo{}".format(name, extension)
+    filename = f"programs/{instance.slug}_logo{extension}"
     return filename
+
+
+class ProgramQuerySet(models.QuerySet):
+    """Custom queryset with additional filtering methods for programs."""
+
+    def has_aids(self):
+        """Only return programs with aids."""
+
+        return self.exclude(aids=None)
+
+    def has_logo(self):
+        """Only return programs with a logo."""
+
+        return self.exclude(models.Q(logo="") | models.Q(logo=None))
+
+    def can_be_displayed_on_homepage(self):
+        """Only return spotlighted programs with a logo."""
+
+        return self.filter(is_spotlighted=True).has_logo()
 
 
 class Program(models.Model):
@@ -25,6 +44,8 @@ class Program(models.Model):
     Aid programs regroup new or existing aids, and generally
     are limited to a specific perimeter.
     """
+
+    objects = ProgramQuerySet.as_manager()
 
     name = models.CharField("Nom", max_length=256)
     slug = models.SlugField("Fragment d’URL")
@@ -49,6 +70,12 @@ class Program(models.Model):
         on_delete=models.PROTECT,
         null=True,
         blank=True,
+    )
+
+    is_spotlighted = models.BooleanField(
+        "Le programme est-il mis en avant ?",
+        default=False,
+        help_text="Si le programme est mis en avant, son logo apparaît sur la page d’accueil",
     )
 
     # SEO
@@ -88,6 +115,10 @@ class Program(models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         return super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        url_args = [self.slug]
+        return reverse("program_detail", args=url_args)
 
 
 class ProgramTab(Tab):

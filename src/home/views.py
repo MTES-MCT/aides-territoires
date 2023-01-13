@@ -1,13 +1,19 @@
+import json
+
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Prefetch
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, FormView
 
 from aids.forms import AidSearchForm
 from aids.models import Aid
 from backers.models import Backer
+from blog.models import BlogPost
 from categories.models import Category
+from geofr.models import Perimeter
 from home.forms import ContactForm
 from home.tasks import send_contact_form_email
+from programs.models import Program
 from projects.models import Project
 from projects.forms import ProjectSearchForm
 
@@ -32,15 +38,31 @@ class HomeView(FormView):
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        aids_qs = Aid.objects.live()
-        selected_backers = Backer.objects.can_be_displayed_in_carousel()
-        # We only display the first 15
-        subset_selected_backers = selected_backers.order_by("?")[0:15]
+        financers_qs = Backer.objects.order_by("aidfinancer__order", "name")
+        instructors_qs = Backer.objects.order_by("aidinstructor__order", "name")
+        programs_qs = Program.objects.order_by("-date_created")
+        aids_qs = (
+            Aid.objects.live()
+            .select_related("perimeter")
+            .prefetch_related(Prefetch("financers", queryset=financers_qs))
+            .prefetch_related(Prefetch("instructors", queryset=instructors_qs))
+            .prefetch_related(Prefetch("programs", queryset=programs_qs))
+        )
+        selected_backers = financers_qs.can_be_displayed_on_homepage()
+        # We only display 5 at random
+        subset_selected_backers = selected_backers.order_by("?")[0:5]
+
+        selected_programs = programs_qs.can_be_displayed_on_homepage()
+        # We only display the latest 3
+        subset_selected_programs = selected_programs[0:3]
+
         context = super().get_context_data(**kwargs)
         context["nb_aids"] = aids_qs.values("id").count()
         context["nb_categories"] = Category.objects.all().count()
-        context["nb_backers"] = Backer.objects.has_financed_aids().count()
+        context["nb_backers"] = financers_qs.has_financed_aids().count()
+        context["nb_programs"] = programs_qs.has_aids().count()
         context["subset_selected_backers"] = subset_selected_backers
+        context["subset_selected_programs"] = subset_selected_programs
         context["skiplinks"] = [{"link": "#intro", "label": "Contenu"}]
         context["public_projects"] = (
             Project.objects.filter(is_public=True, status=Project.STATUS.published)
@@ -48,6 +70,18 @@ class HomeView(FormView):
             .order_by("-date_created")[:3]
         )
         context["project_form"] = ProjectSearchForm
+        context["recent_aids"] = aids_qs.order_by("-date_created")[:3]
+        context["recent_posts"] = BlogPost.objects.published()[:2]
+
+        # Map section
+        departments_list = Perimeter.objects.departments(
+            values=["id", "name", "code", "backers_count", "programs_count"]
+        )
+        context["departments"] = departments_list
+        context["departments_json"] = json.dumps(departments_list)
+
+        context["project_form"] = ProjectSearchForm
+
         return context
 
     def get_initial(self):

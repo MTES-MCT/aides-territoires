@@ -70,7 +70,7 @@ class BackerQuerySet(models.QuerySet):
 
         return self.exclude(Q(logo="") | Q(logo=None))
 
-    def can_be_displayed_in_carousel(self):
+    def can_be_displayed_on_homepage(self):
         """Only return spotlighted backers with a logo."""
 
         return self.filter(is_spotlighted=True).has_logo()
@@ -163,9 +163,7 @@ class Backer(models.Model):
         blank=True,
         default="",
         max_length=256,
-        help_text=_(
-            "This will be displayed in SERPs. " "Keep it under 120 characters."
-        ),
+        help_text=_("This will be displayed in SERPs. Keep it under 120 characters."),
     )
 
     date_created = models.DateTimeField(_("Date created"), default=timezone.now)
