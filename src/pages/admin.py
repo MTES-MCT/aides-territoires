@@ -145,6 +145,7 @@ class FaqQuestionAnswerAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
         "date_created",
         "date_updated",
     ]
+    list_filter = ["program", "faq_category"]
     readonly_fields = ["date_created", "date_updated"]
     search_fields = ["question", "program", "faq_category"]
     form = FaqQuestionAnswerForm
