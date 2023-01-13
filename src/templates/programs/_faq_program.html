@@ -1,4 +1,10 @@
-<p class="fr-mb-5 fr-text--sm">Cette FAQ a été mise à jour le {{ faq_questions_answers.first.date_updated|date:'d/m/Y'}}</p>
+{% if faq_questions_answers.all %}
+<p class="fr-mb-5 fr-text--sm">Cette FAQ a été mise à jour le {{ faq_questions_answers.first.date_updated|date:'d/m/Y'}}.</p>
+{% else %}
+<div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mt-5w fr-mb-5w">
+    <p class="fr-mb-1w"><strong>La FAQ est cours de reconstruction, merci de recharger la page dans quelques instants.</strong></p>
+</div>
+{% endif %}
 
 {% regroup faq_questions_answers.all by faq_category as faq_categories_list %}
 {% for faq_category in faq_categories_list %}
