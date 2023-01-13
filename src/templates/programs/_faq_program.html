@@ -1,14 +1,10 @@
-<p class="fr-mb-5 fr-text--sm">Dernière mise à jour de la Foire aux questions : {{ faq_questions_answers.first.date_updated|date:'d/m/Y'}}</p>
+<p class="fr-mb-5 fr-text--sm">Cette FAQ a été mise à jour le {{ faq_questions_answers.first.date_updated|date:'d/m/Y'}}</p>
 
 {% regroup faq_questions_answers.all by faq_category as faq_categories_list %}
 {% for faq_category in faq_categories_list %}
-    <div class="fr-accordion">
-        <h3 class="fr-accordion__title fr-grid-row">
-            <button type="button" class="fr-accordion__btn fr-col-md-12" aria-expanded="false" aria-controls="{{ faq_category.grouper }}">
-                {{ faq_category.grouper }}
-            </button>
-        </h3>
-        <div id="{{ faq_category.grouper }}" class="fr-collapse">
+    <div>
+        <h3 class="at-color--blue">{{ faq_category.grouper }}</h3>
+        <div>
         {% for faq_question_answer in faq_category.list %}
             <div class="fr-accordion">
                 <h4 class="fr-accordion__title fr-grid-row">
