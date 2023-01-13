@@ -1,3 +1,5 @@
+from import_export.admin import ImportMixin, ExportActionMixin
+
 from django import forms
 from django.contrib import admin
 from django.contrib.flatpages.admin import FlatPageAdmin
@@ -10,6 +12,7 @@ from django.core.exceptions import ValidationError
 from core.forms import RichTextField
 from pages.models import Page, Tab, FaqCategory, FaqQuestionAnswer
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
+from pages.resources import FaqQuestionAnswerResource
 
 
 class PageForm(FlatpageForm):
@@ -133,7 +136,7 @@ class FaqQuestionAnswerForm(forms.ModelForm):
         fields = "__all__"
 
 
-class FaqQuestionAnswerAdmin(admin.ModelAdmin):
+class FaqQuestionAnswerAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
     list_display = [
         "question",
         "program",
@@ -145,6 +148,7 @@ class FaqQuestionAnswerAdmin(admin.ModelAdmin):
     readonly_fields = ["date_created", "date_updated"]
     search_fields = ["question", "program", "faq_category"]
     form = FaqQuestionAnswerForm
+    resource_class = FaqQuestionAnswerResource
 
     class Media:
         css = {
