@@ -164,7 +164,7 @@ class FaqQuestionAnswer(models.Model):
     class Meta:
         verbose_name = "Question-Réponse de la FAQ"
         verbose_name_plural = "Question-Réponse de la FAQ"
-        ordering = ["faq_category", "order"]
+        ordering = ["faq_category", "order", "pk"]
 
     def __str__(self):
         return self.question
