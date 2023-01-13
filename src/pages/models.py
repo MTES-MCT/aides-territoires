@@ -112,13 +112,15 @@ class FaqCategory(models.Model):
         blank=True,
     )
 
+    order = models.PositiveIntegerField("Rang", blank=False, default=1)
+
     date_created = models.DateTimeField("Date de création", default=timezone.now)
     date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
 
     class Meta:
         verbose_name = "Rubrique de la FAQ"
         verbose_name_plural = "Rubriques de la FAQ"
-        ordering = ["name"]
+        ordering = ["order", "pk"]
 
     def __str__(self):
         return self.name
@@ -162,7 +164,7 @@ class FaqQuestionAnswer(models.Model):
     class Meta:
         verbose_name = "Question-Réponse de la FAQ"
         verbose_name_plural = "Question-Réponse de la FAQ"
-        ordering = ["pk"]
+        ordering = ["faq_category", "order"]
 
     def __str__(self):
         return self.question
