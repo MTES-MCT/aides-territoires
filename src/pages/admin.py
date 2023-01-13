@@ -108,7 +108,7 @@ class TabAdmin(admin.ModelAdmin):
 
 
 class FaqCategoryAdmin(admin.ModelAdmin):
-    list_display = ["name", "program", "date_created", "date_updated"]
+    list_display = ["name", "date_created", "date_updated"]
     readonly_fields = ["date_created", "date_updated"]
     search_fields = ["name"]
 

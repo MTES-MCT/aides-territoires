@@ -102,16 +102,6 @@ class FaqCategory(models.Model):
         blank=False,
     )
 
-    program = models.ForeignKey(
-        "programs.Program",
-        verbose_name="Programme",
-        related_name="faqcategory",
-        help_text="Programme lié à cette rubrique.",
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-    )
-
     order = models.PositiveIntegerField("Rang", blank=False, default=1)
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)
@@ -129,7 +119,7 @@ class FaqCategory(models.Model):
 class FaqQuestionAnswer(models.Model):
     question = models.CharField(
         "Question",
-        max_length=180,
+        max_length=600,
         null=False,
         blank=False,
     )
