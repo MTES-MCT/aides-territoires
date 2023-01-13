@@ -8,9 +8,6 @@ from pages.models import FaqQuestionAnswer, FaqCategory
 from stats.utils import log_event
 
 
-FAQQUESTIONANSWER_IMPORT_CLEAN_FIELDS = ["is_imported", "author", "subvention_rate"]
-
-
 class FaqQuestionAnswerResource(resources.ModelResource):
     """Resource for Import-export."""
 
