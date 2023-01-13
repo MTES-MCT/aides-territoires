@@ -2,7 +2,7 @@ from django.views.generic import ListView, DetailView
 
 from programs.models import Program
 from aids.models import Aid
-from pages.models import Tab
+from pages.models import FaqQuestionAnswer, Tab
 
 
 class ProgramList(ListView):
@@ -26,5 +26,12 @@ class ProgramDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context["aids"] = aids
         context["program_tabs"] = Tab.objects.filter(program=self.object)
+        if self.object.pk == 36:
+            context["program_fonds_vert"] = True
+        if self.request.GET.get("tab") == "faq":
+            context["faq_selected"] = True
+        context["faq_questions_answers"] = FaqQuestionAnswer.objects.filter(
+            program=self.object.pk
+        )
 
         return context
