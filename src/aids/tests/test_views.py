@@ -133,3 +133,28 @@ def test_anonymous_can_see_expired_aids(client, past_week):
     res = client.get(url)
     assert res.status_code == 200
     assert "Cette aide n’est plus disponible" in res.content.decode()
+
+
+def test_superuser_has_a_edit_button(client, superuser):
+    client.force_login(superuser)
+    aid = AidFactory(status="published")
+    url = aid.get_absolute_url()
+    res = client.get(url)
+    assert res.status_code == 200
+    assert "admin-edit-page" in res.content.decode()
+
+
+def test_others_have_no_edit_button(client, contributor):
+    aid = AidFactory(status="published")
+    url = aid.get_absolute_url()
+
+    # anonymous
+    res = client.get(url)
+    assert res.status_code == 200
+    assert "admin-edit-page" not in res.content.decode()
+
+    # standard user
+    client.force_login(contributor)
+    res = client.get(url)
+    assert res.status_code == 200
+    assert "admin-edit-page" not in res.content.decode()

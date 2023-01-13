@@ -357,23 +357,31 @@
                 </div>
             </div>
 
-            {% if aid.origin_url %}
-            <p>
-                <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers le descriptif complet - ouvre une nouvelle fenêtre" href="{{ aid.origin_url }}">
-                    Descriptif complet
-                </a>
-            </p>
+            {% if aid.origin_url or aid.application_url or user.is_superuser %}
+                <ul class="fr-btns-group fr-btns-group--icon-left">
+                    {% if user.is_superuser %}
+                        <li>
+                            <a id="admin-edit-page" class="fr-btn fr-btn--secondary fr-btn--icon-left fr-icon-lock-fill" href="{% url 'admin:aids_aid_change' aid.id %}">
+                                Modifier cette aide
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if aid.origin_url %}
+                        <li>
+                            <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers le descriptif complet - ouvre une nouvelle fenêtre" href="{{ aid.origin_url }}">
+                                Descriptif complet
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if aid.application_url %}
+                        <li>
+                            <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l’aide - ouvre une nouvelle fenêtre" href="{{ aid.application_url }}">
+                                Candidater à l’aide
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
             {% endif %}
-
-            {% if aid.application_url %}
-            <p>
-                <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l’aide - ouvre une nouvelle fenêtre" href="{{ aid.application_url }}">
-                    Candidater à l’aide
-                </a>
-            </p>
-            {% endif %}
-
-
         </div>
 
         <div class="aid-details fr-col-12 fr-col-md-8 fr-pb-3w fr-px-3w">
