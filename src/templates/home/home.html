@@ -28,7 +28,7 @@
         {% endif %}
     {% endblock messages %}
 
-    <section id="intro" class="fr-pb-4w">
+    <div id="intro" class="fr-pb-4w">
         <div class="fr-container">
             <div class="fr-grid-row fr-grid-row--center">
                 <div class="fr-col-xs-12 fr-col-md-8 fr-mb-5w fr-pt-4w at-centered">
@@ -63,7 +63,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <section id="news" class="fr-pb-4w fr-pt-2w at-background-alt-grey">
         <div class="fr-container">
@@ -135,7 +135,7 @@
     {% if user.is_authenticated %}
     <div id="home-green">
         <div class="fr-container-fluid at-background-alt-green">
-            <div class="fr-container">
+            <div class="fr-container fr-py-2w">
                 {% include "home/_video.html" %}
             </div>
         </div>
@@ -143,7 +143,7 @@
     {% else %}
         <div id="home-green">
             <div class="fr-container-fluid at-background-alt-green">
-                <div class="fr-container">
+                <div class="fr-container fr-py-2w">
                     <div class="fr-grid-row fr-grid-row--gutters">
                         <div class="fr-col-xs-12 fr-col-md-6">
                             {% include "home/_video.html" %}
@@ -161,7 +161,9 @@
                                     <p>Consultez les projets de votre territoire et suggérez-leur des aides</p>
                                     <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
                                         <li>
-                                            <a class="fr-btn fr-icon-account-line fr-btn--secondary" href="{% url 'register' %}">Inscription</a>
+                                            <a class="fr-btn fr-icon-account-line fr-btn--secondary" href="{% url 'register' %}">
+                                                Inscrivez-vous
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
