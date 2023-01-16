@@ -8,7 +8,7 @@ from pages.resources import FaqQuestionAnswerResource
 pytestmark = pytest.mark.django_db
 
 
-def test_can_import_faq_question_answer_with_unexistent_(client):
+def test_can_import_faq_question_answer_with_unexistent_faq_category(client):
 
     resource = FaqQuestionAnswerResource()
 
