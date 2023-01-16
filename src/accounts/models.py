@@ -10,11 +10,7 @@ from django.utils import timezone
 
 from model_utils import Choices
 
-from notifications.constants import (
-    NOTIFICATION_TYPES_KEYS,
-    NOTIFICATION_SETTINGS_MODES_LIST,
-    NOTIFICATION_SETTINGS_FREQUENCIES_LIST,
-)
+from notifications.constants import NOTIFICATION_SETTINGS_FREQUENCIES_LIST
 from notifications.models import Notification
 
 
@@ -252,34 +248,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     notification_counter = models.PositiveIntegerField(
         "Nombre de notifications reçues", default=0
     )
-    notification_aid_team = models.CharField(
-        "Notifications aides équipe",
-        max_length=32,
-        choices=NOTIFICATION_SETTINGS_MODES_LIST,
-        default="internal_email",
-        help_text="Notifications liées aux aides envoyées à tous les membres de la structure",
-    )
-    notification_aid_user = models.CharField(
-        "Notifications aides individuelles",
-        max_length=32,
-        choices=NOTIFICATION_SETTINGS_MODES_LIST,
-        default="internal_email",
-        help_text="Notifications liées aux aides concernant l’utilisateur",
-    )
-    notification_generic_team = models.CharField(
-        "Notifications génériques équipe",
-        max_length=32,
-        choices=NOTIFICATION_SETTINGS_MODES_LIST,
-        default="internal_email",
-        help_text="Notifications génériques envoyées à tous les membres de la structure",
-    )
-    notification_generic_user = models.CharField(
-        "Notifications génériques individuelles",
-        max_length=32,
-        choices=NOTIFICATION_SETTINGS_MODES_LIST,
-        default="internal_email",
-        help_text="Notifications internes concernant l’utilisateur",
-    )
     notification_email_frequency = models.CharField(
         "Fréquence d’envoi des emails de notifications",
         max_length=32,
@@ -352,53 +320,18 @@ class User(AbstractBaseUser, PermissionsMixin):
         certain pages of the app."""
         return self.search_pages.exists()
 
-    def check_notification_allowed(self, notification_type: str) -> bool:
-        """Checks if a user allowed a specific notification type"""
-        if notification_type not in NOTIFICATION_TYPES_KEYS:
-            raise ValueError("Unknown notification type")
-        else:
-            type_parameter = f"notification_{notification_type}"
-            type_parameter_value = getattr(self, type_parameter)
-            if type_parameter_value != "none":
-                return True
-            else:
-                return False
-
-    def send_notification(
-        self, notification_type: str, title: str, message: str
-    ) -> None:
+    def send_notification(self, title: str, message: str) -> None:
         """
         Send a notification to the user through the internal notification system
         """
-        if self.check_notification_allowed(notification_type):
-            # Message should be valid html with content enclosed in one or several p tag(s)
-            # Though if the message is very basic, we can add it here.
-            if "<p>" not in message:
-                message = f"<p>{message}</p>"
+        # Message should be valid html with content enclosed in one or several p tag(s)
+        # Though if the message is very basic, we can add it here.
+        if "<p>" not in message:
+            message = f"<p>{message}</p>"
 
-            Notification.objects.create(recipient=self, title=title, message=message)
-            self.notification_counter += 1
-            self.save()
-
-    def get_email_notification_settings(self):
-        """
-        Returns the list of notifications types for which user wants to receive emails
-        """
-        types = []
-
-        if self.notification_aid_team == "internal_email":
-            types.append("aid_team")
-
-        if self.notification_aid_user == "internal_email":
-            types.append("aid_user")
-
-        if self.notification_generic_team == "internal_email":
-            types.append("generic_team")
-
-        if self.notification_generic_user == "internal_email":
-            types.append("generic_user")
-
-        return types
+        Notification.objects.create(recipient=self, title=title, message=message)
+        self.notification_counter += 1
+        self.save()
 
     def get_search_preferences(self):
         """

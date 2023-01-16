@@ -13,6 +13,5 @@ class NotificationFactory(DjangoModelFactory):
         model = Notification
 
     recipient = factory.SubFactory(UserFactory)
-    notification_type = "other"
     title = factory.Faker("text", locale="fr_FR")
     message = factory.Faker("text", locale="fr_FR")

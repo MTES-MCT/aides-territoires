@@ -22,13 +22,8 @@ def send_single_unread_notification_email(user_email: str) -> None:
     body_template = "emails/unread_notifications.txt"
     subject = "Vous avez des notifications non lues"
 
-    allowed_notification_types = user.get_email_notification_settings()
-    if not len(allowed_notification_types):
-        return
-
     unread_notifications = Notification.objects.filter(
         recipient=user,
-        notification_type__in=allowed_notification_types,
         date_read__isnull=True,
         date_email__isnull=True,
     )

@@ -42,7 +42,7 @@
             <h1 class="fr-h3" id="notification-{{ object.pk }}">
                 {{ object.title }}
             </h1>
-            <p class="fr-text--sm fr-mb-5w">{{ object.get_notification_type_display }} — {{ object.date_created|date }}</p>
+            <p class="fr-text--sm fr-mb-5w">{{ object.date_created }}</p>
 
             {{ object.message|safe }}
 

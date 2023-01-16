@@ -1,8 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-from notifications.constants import NOTIFICATION_TYPES_LIST
-
 
 class Notification(models.Model):
     """A notification that a user receives upon the completion of certain actions"""
@@ -11,13 +9,6 @@ class Notification(models.Model):
         "accounts.User",
         verbose_name="destinataire",
         on_delete=models.CASCADE,
-    )
-    notification_type = models.CharField(
-        "type de notification",
-        max_length=32,
-        choices=NOTIFICATION_TYPES_LIST,
-        default="generic_user",
-        help_text="Utilisé pour la gestion des préférences de réception des notifications",
     )
     title = models.CharField("titre", max_length=100)
     message = models.CharField("message", max_length=500)
@@ -38,9 +29,8 @@ class Notification(models.Model):
             return self.title[:49] + "…"
 
     def __str__(self):
-        notification_type = self.get_notification_type_display()
         user = self.recipient.full_name
-        return f"{notification_type} – {user} – {self.truncate_title()}"
+        return f"{user} – {self.truncate_title()}"
 
     class Meta:
         verbose_name = "notification"

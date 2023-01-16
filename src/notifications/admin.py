@@ -51,12 +51,11 @@ class NotificationAdmin(admin.ModelAdmin):
 
     list_display = [
         "truncated_title",
-        "notification_type",
         "recipient",
         "date_created",
         "is_read",
     ]
-    list_filter = ["notification_type", IsReadFilter]
+    list_filter = [IsReadFilter]
     search_fields = ["recipient__email", "recipient__last_name", "message"]
 
     readonly_fields = ["date_created", "id"]

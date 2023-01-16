@@ -28,8 +28,8 @@ def test_authenticated_notification_notice_if_notifications_present(client, user
     assert "at-notification-icon" in res.content.decode()
 
 
-def test_authenticated_notification_no_notice_if_no_notification(client, user):
-    """Authenticated users do not have the bell icon if no unread notification"""
+def test_authenticated_notification_notice_if_no_notification(client, user):
+    """Authenticated users have a different bell icon if no unread notification"""
 
     read = NotificationFactory(recipient=user, title="Read notification")
     read.mark_as_read()
@@ -39,7 +39,8 @@ def test_authenticated_notification_no_notice_if_no_notification(client, user):
     login_url = reverse("login")
 
     res = client.get(login_url, follow=True)
-    assert "at-notification-icon" not in res.content.decode()
+    assert "Voir la page des notifications" in res.content.decode()
+    assert "at-notification-icon-no-unread" in res.content.decode()
 
 
 def test_notification_list_displays_notifications(client, user):
@@ -176,7 +177,6 @@ def test_notification_parameters_can_be_updated(client, user):
     client.force_login(user)
 
     assert user.notification_email_frequency == "daily"
-    assert user.notification_aid_team == "internal_email"
 
     params_url = reverse(
         "notification_settings_view",
@@ -184,17 +184,10 @@ def test_notification_parameters_can_be_updated(client, user):
 
     res = client.post(
         params_url,
-        {
-            "notification_email_frequency": "weekly",
-            "notification_aid_team": "internal_only",
-            "notification_aid_user": "internal_only",
-            "notification_generic_team": "internal_only",
-            "notification_generic_user": "internal_only",
-        },
+        {"notification_email_frequency": "weekly"},
     )
 
     assert res.status_code == 302
 
     user.refresh_from_db()
     assert user.notification_email_frequency == "weekly"
-    assert user.notification_aid_team == "internal_only"

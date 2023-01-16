@@ -207,15 +207,7 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
         ("Permissions", {"fields": ("is_superuser", "api_token")}),
         (
             "Préférences de notifications",
-            {
-                "fields": (
-                    "notification_aid_team",
-                    "notification_aid_user",
-                    "notification_generic_team",
-                    "notification_generic_user",
-                    "notification_email_frequency",
-                )
-            },
+            {"fields": ("notification_email_frequency",)},
         ),
         (
             "Données diverses",

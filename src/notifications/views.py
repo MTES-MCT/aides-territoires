@@ -70,11 +70,11 @@ class NotificationDeleteView(
         self.queryset = qs
         return super().get_queryset()
 
-    def delete(self, *args, **kwargs):
-        res = super().delete(*args, **kwargs)
+    def form_valid(self, form):
+        response = super().form_valid(form)
         msg = "Votre notification a été supprimée."
         self.messages.success(msg)
-        return res
+        return response
 
 
 class NotificationMarkAllReadView(ContributorAndProfileCompleteRequiredMixin, View):

@@ -48,13 +48,6 @@
                 {% csrf_token %}
 
                 {% include '_field_snippet.html' with field=form.notification_email_frequency %}
-                <fieldset>
-                    <legend class="fr-h4">Types de notification</legend>
-                    {% include '_field_snippet.html' with field=form.notification_aid_team %}
-                    {% include '_field_snippet.html' with field=form.notification_aid_user %}
-                    {% include '_field_snippet.html' with field=form.notification_generic_team %}
-                    {% include '_field_snippet.html' with field=form.notification_generic_user %}
-                </fieldset>
                 <button type="submit" class="fr-btn fr-mt-2w">Mettre à jour</button>
             </form>
         </div>
