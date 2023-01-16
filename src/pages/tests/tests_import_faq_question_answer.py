@@ -20,7 +20,12 @@ def test_can_import_faq_question_answer_with_unexistent_(client):
     assert faq_category.count() == 0
 
     dataset = tablib.Dataset(headers=["faq_category", "question", "answer", "program"])
-    row = ["Principes généraux", "Quel est le sens de la vie", "42", "Fonds vert"]
+    row = [
+        "Principes généraux",
+        "La grande question sur la vie, l'univers et le reste",
+        "42",
+        "Fonds vert",
+    ]
     dataset.append(row)
 
     resource.import_data(dataset, raise_errors=True)
@@ -30,7 +35,10 @@ def test_can_import_faq_question_answer_with_unexistent_(client):
 
     new_faq_question_answer_object = FaqQuestionAnswer.objects.first()
 
-    assert new_faq_question_answer_object.question == "Quel est le sens de la vie"
+    assert (
+        new_faq_question_answer_object.question
+        == "La grande question sur la vie, l'univers et le reste"
+    )
     assert new_faq_question_answer_object.answer == "42"
     assert new_faq_question_answer_object.program.name == "Fonds vert"
     assert new_faq_question_answer_object.faq_category.name == "Principes généraux"
