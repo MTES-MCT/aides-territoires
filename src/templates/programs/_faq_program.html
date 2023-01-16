@@ -1,4 +1,9 @@
 {% if faq_questions_answers.all %}
+    {% if program_fonds_vert %}
+    <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mt-5w fr-mb-5w">
+        <p class="fr-mb-1w"><strong>Pour tout complément, vous êtes invités à contacter votre sous-préfet d'arrondissement ou les services déconcentrés de l'Etat compétents (DREAL, DDT-M, directions et services de l'Etat en outre-mer...).</strong></p>
+    </div>
+    {% endif %}
 <p class="fr-mb-5 fr-text--sm">Cette FAQ a été mise à jour le {{ faq_questions_answers.first.date_updated|date:'d/m/Y'}}.</p>
 {% else %}
 <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mt-5w fr-mb-5w">
