@@ -4,6 +4,8 @@ Bonjour {{ user_name }},
 
 Vous avez {{ unread_notifications_count }} nouvelles notifications en attente.
 
+Rendez-vous sur https://aides-territoires.beta.gouv.fr/notifications/ pour les consulter. 
+
 À très vite !
 
 L’équipe d’Aides-territoires

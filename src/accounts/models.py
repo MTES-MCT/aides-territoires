@@ -129,7 +129,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ("other", "Autre"),
     )
 
-    objects = UserManager()
+    objects = UserManager().from_queryset(UserQueryset)()
 
     email = models.EmailField("Adresse e-mail", unique=True)
     first_name = models.CharField("Prénom", max_length=256)
