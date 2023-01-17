@@ -1,12 +1,46 @@
 {% extends "_base.html" %}
 {% load i18n compress static %}
 
-{% block extratitle %}Projets publics{% endblock extratitle %}
+{% block extratitle %}
+{% if commune_search %}
+Projets réalisés par les mairies à côté de {nom_structure}
+{% elif department_search %}
+Projets réalisés par les mairies du département {nom_departement} ({numero_departement})
+{% else %}
+Trouvez des projets similaires réalisés par des mairies proches
+{% endif %}
+{% endblock extratitle %}
+
+{% block meta_description %}
+{% if commune_search %}
+Découvrez la liste des projets réalisés par des mairies proches. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées.
+{% elif department_search %}
+Découvrez la liste des projets réalisés par les mairies dans le département {nom_departement}. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées dans ce département.
+{% else %}
+Inspirez-vous des projets réalisés par des mairies voisines au fil des années. Aides Territoires vous permet de facilement trouver des idées et des solutions adaptées à votre ville.
+{% endif %}
+{% endblock meta_description%}
 
 {% block extra_head %}
-<meta property="og:title" content="Aides-territoires | Toutes les aides pour les acteurs locaux  🏡" />
+<meta property="og:title"
+    {% if commune_search %}
+    content="Projets réalisés par les mairies à côté de {nom_structure} - Aides Territoires"
+    {% elif department_search %}
+    content="Projets réalisés par les mairies du département {nom_departement} ({numero_departement}) - Aides Territoires"
+    {% else %}
+    content="Trouvez des projets similaires réalisés par des mairies proches - Aides Territoires"
+    {% endif %}
+/>
 <meta property="og:type" content="website" />
-<meta property="og:description" content="Trouvez les aides pertinentes pour financer et accompagner les projets de votre territoire" />
+<meta property="og:description"
+    {% if commune_search %}
+    content="Découvrez la liste des projets réalisés par des mairies proches. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées."
+    {% elif department_search %}
+    content="Découvrez la liste des projets réalisés par les mairies dans le département {nom_departement}. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées dans ce département."
+    {% else %}
+    content="Inspirez-vous des projets réalisés par des mairies voisines au fil des années. Aides Territoires vous permet de facilement trouver des idées et des solutions adaptées à votre ville."
+    {% endif %}
+/>
 <meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
 <meta property="og:site_name" content="Aides-territoires" />
 <meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
@@ -37,10 +71,30 @@
         <h1>
             {% with paginator.count as nb_projects %}
             <span class="result-count">
-                {{ nb_projects }} projet{% if nb_projects > 1 %}s{% endif %} subventionné{% if nb_projects > 1 %}s{% endif %}
+                {% if commune_search %}
+                    {% if nb_projects > 1 %}
+                    Liste des {{ nb_projects }} projets subventionnés dans un rayon de 50 kms
+                    {% else %}
+                    {{ nb_projects }} projet subventionné dans un rayon de 50 kms
+                    {% endif %}
+                {% elif department_search %}
+                    {% if nb_projects > 1 %}
+                    Liste des {{ nb_projects }} projets subventionnés dans le département {nom_departement}
+                    {% else %}
+                    {{ nb_projects }} projet subventionné dans le département {nom_departement}
+                    {% endif %}
+                {% else %}
+                Inspirez-vous des {{ nb_projects }} projets similaires aux vôtres !
+                {% endif %}
             </span>
             {% endwith %}
         </h1>
+
+        {% if not commune_search and not department_search %}
+        <h2 class="fr-h5">
+            Pour améliorer la vie de vos concitoyens, consultez les projets mis en place dans les communes proches de chez vous.
+        </h2>
+        {% endif %}
         
         {% block search-meta %}
         {% include "projects/_search_meta.html" %}

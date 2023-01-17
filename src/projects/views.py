@@ -287,12 +287,14 @@ class PublicFinishedProjectListView(SearchMixin, FormMixin, ListView):
         context["current_search"] = self.request.session.get(
             settings.SEARCH_COOKIE_NAME, ""
         )
-
         context["project_current_search_dict"] = clean_search_form(
             self.form.cleaned_data, remove_extra_fields=True
         )
-
         context["user"] = self.request.user
+        if self.request.GET.get("commune_search") == "true":
+            context["commune_search"] = True
+        if self.request.GET.get("department_search") == "true":
+            context["department_search"] = True
         return context
 
 
