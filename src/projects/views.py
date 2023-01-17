@@ -26,6 +26,7 @@ from projects.forms import (
     ProjectExportForm,
     ProjectUpdateForm,
     ProjectSearchForm,
+    FinishedProjectSearchForm,
 )
 from projects.models import Project
 from organizations.models import Organization
@@ -232,6 +233,66 @@ class PublicProjectListView(SearchMixin, FormMixin, ListView):
                 context[
                     "user_favorite_projects"
                 ] = self.request.user.beneficiary_organization.favorite_projects.all()
+        return context
+
+
+class PublicFinishedProjectListView(SearchMixin, FormMixin, ListView):
+    """Search and display public finished projects."""
+
+    template_name = "projects/public_finished_projects_list.html"
+    context_object_name = "projects"
+    form_class = FinishedProjectSearchForm
+    paginate_by = 18
+    paginator_class = AidPaginator
+
+    def get(self, request, *args, **kwargs):
+        self.form = self.get_form()
+        self.form.full_clean()
+        self.store_current_search()
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        """Return the list of results to display."""
+
+        organizations_qs = Organization.objects.all().select_related("perimeter")
+
+        qs = (
+            Project.objects.filter(
+                is_public=True,
+                status=Project.STATUS.published,
+                step=Project.PROJECT_STEPS.finished,
+            )
+            .prefetch_related(Prefetch("organizations", queryset=organizations_qs))
+            .prefetch_related("project_types")
+            .prefetch_related("aid_set")
+        )
+
+        filter_form = self.form
+        results = filter_form.filter_queryset(qs).distinct()
+
+        return results
+
+    def store_current_search(self):
+        """Store the current search query in a cookie.
+
+        This is needed to provide the correct "go back to your search" link in
+        other pages' breadcrumbs.
+        """
+        current_search_query = self.request.GET.urlencode()
+        self.request.session[settings.SEARCH_COOKIE_NAME] = current_search_query
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["current_search"] = self.request.session.get(
+            settings.SEARCH_COOKIE_NAME, ""
+        )
+
+        context["project_current_search_dict"] = clean_search_form(
+            self.form.cleaned_data, remove_extra_fields=True
+        )
+
+        context["user"] = self.request.user
         return context
 
 

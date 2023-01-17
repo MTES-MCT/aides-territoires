@@ -3,6 +3,7 @@ from django import forms
 from django.template.defaultfilters import filesizeformat
 
 from core.forms.baseform import AidesTerrBaseForm
+from core.utils import remove_accents
 
 from projects.constants import EXPORT_FORMAT_CHOICES
 from core.forms import (
@@ -366,6 +367,69 @@ class ProjectSearchForm(AidesTerrBaseForm):
         organization = self.cleaned_data.get("organization", None)
         if organization:
             qs = qs.filter(organizations__organization_type=[organization])
+
+        return qs
+
+    def perimeter_filter(self, qs, search_perimeter):
+        """Filter queryset depending on the given perimeter.
+
+        When we search for a given perimeter, we must return all projects:
+         - where the perimeter is wider and contains the searched perimeter ;
+         - where the perimeter is smaller and contained by the search
+         perimeter ;
+
+        E.g if we search for projects in "Hérault (department), we must display all
+        aids that are applicable to:
+
+         - Hérault ;
+         - Occitanie ;
+         - France ;
+         - Europe ;
+         - M3M (and all other epcis in Hérault) ;
+         - Montpellier (and all other communes in Hérault) ;
+        """
+        perimeter_ids = get_all_related_perimeters(search_perimeter.id, values=["id"])
+        qs = qs.filter(organizations__perimeter__in=perimeter_ids)
+        return qs
+
+
+class FinishedProjectSearchForm(AidesTerrBaseForm):
+    """Specific form for finished projects search engine."""
+
+    name = forms.CharField(
+        label="Votre projet",
+        required=False,
+    )
+
+    project_perimeter = AutocompleteModelChoiceField(
+        queryset=Perimeter.objects.all(), label="Périmètre", required=False
+    )
+
+    def clean_zipcode(self):
+        zipcode = self.cleaned_data["zipcode"]
+        if zipcode and re.match(r"\d{5}", zipcode) is None:
+            msg = "Ce code postal semble invalide."
+            raise forms.ValidationError(msg)
+
+        return zipcode
+
+    def filter_queryset(self, qs=None):
+        """Filter querysets depending of input data."""
+
+        # Populate cleaned_data
+        if not hasattr(self, "cleaned_data"):
+            self.full_clean()
+
+        qs = qs.filter(step=Project.PROJECT_STEPS.finished)
+
+        project_perimeter = self.cleaned_data.get("project_perimeter", None)
+        if project_perimeter:
+            qs = self.perimeter_filter(qs, project_perimeter)
+
+        name = self.cleaned_data.get("name", None)
+        if name:
+            name_unaccented = remove_accents(name)
+            qs = qs.filter(name__icontains=name_unaccented)
 
         return qs
 

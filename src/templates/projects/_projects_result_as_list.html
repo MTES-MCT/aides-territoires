@@ -1,0 +1,36 @@
+{% load i18n humanize projects%}
+
+{% if projects %}
+<div class="fr-table" id="project_in_list">
+    <table title="Liste des projets">
+        <thead>
+            <tr>
+                <th scope="col">Distance</th>
+                <th scope="col">Année</th>
+                <th scope="col">Mairie</th>
+                <th scope="col">Projet</th>
+                <th scope="col">Aide</th>
+                <th scope="col">Coût total</th>
+                <th scope="col">Subvention accordée</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.organizations.first.perimeter.name }}</td>
+                <td>{{ project.date_created|date:"Y"}}</td>
+                <td>{{ project.organizations.first.name }}</td>
+                <td>
+                    <a href="{% url 'public_project_detail_view' project.pk project.slug %}">
+                    {{ project.name }}
+                    </a>
+                </td>
+                <td>{{ project.aidproject_set.first.aid.name }}</td>
+                <td>{{ project.final_budget|intcomma }} €</td>
+                <td>{{ project.aidproject_set.first.amount_obtained|intcomma }} € ({% budget_percentage project project.aidproject_set.first.amount_obtained %}%)</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
