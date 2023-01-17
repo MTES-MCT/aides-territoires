@@ -923,6 +923,22 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
                                 aid_name=aid.name,
                             )
 
+                # send notification to other org members
+                user = self.request.user
+                other_members = project_obj.organization.beneficiaries.exclude(
+                    id=user.id
+                )
+                for member in other_members:
+                    member.send_notification(
+                        title="Nouvelle aide ajoutée à un projet",
+                        message=f"""
+                        <p>
+                            {user.full_name} a ajouté une aide au projet
+                            <a href="{project_obj.get_absolute_url()}">{project_obj.name}</a>
+                        </p>
+                        """,
+                    )
+
                 msg = f"L’aide a bien été associée au projet <a href='{project_url}'>{project_name}.</a>"  # noqa
                 messages.success(self.request, msg)
 
@@ -961,6 +977,21 @@ class AidUnmatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateVi
         aid.projects.remove(project_pk)
         aid.date_updated = aid.date_updated
         aid.save()
+
+        # send notification to other org members
+        project_obj = Project.objects.get(pk=project_pk)
+        user = self.request.user
+        other_members = project_obj.organization.beneficiaries.exclude(id=user.id)
+        for member in other_members:
+            member.send_notification(
+                title="Une aide a été supprimée d’un projet",
+                message=f"""
+                <p>
+                    {user.full_name} a supprimé une aide du projet
+                    <a href="{project_obj.get_absolute_url()}">{project_obj.name}</a>
+                </p>
+                """,
+            )
 
         msg = "L’aide a bien été supprimée."
         messages.success(self.request, msg)
