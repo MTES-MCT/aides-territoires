@@ -37,6 +37,7 @@ class ProjectAdmin(ImportExportActionModelAdmin):
         "due_date",
         "step",
         "budget",
+        "final_budget",
         "key_words",
         "author",
         "organizations",

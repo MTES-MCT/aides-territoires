@@ -114,6 +114,18 @@ class Organization(models.Model):
         blank=True,
     )
 
+    is_imported = models.BooleanField(
+        "Organisation importée ?",
+        help_text="Cette organisation a-t-elle été importée ?",
+        default=False,
+    )
+    imported_date = models.DateTimeField(
+        "Date de l'import",
+        help_text="Date à laquelle cette organisation a été importée",
+        null=True,
+        blank=True,
+    )
+
     perimeter = models.ForeignKey(
         "geofr.Perimeter",
         verbose_name="Périmètre de la structure",

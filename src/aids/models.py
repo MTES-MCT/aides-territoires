@@ -893,6 +893,9 @@ class AidProject(models.Model):
         null=True,
         blank=True,
     )
+    amount_obtained = models.PositiveIntegerField(
+        "Montant obtenu", null=True, blank=True
+    )
     date_created = models.DateTimeField("Date de création", default=timezone.now)
 
 

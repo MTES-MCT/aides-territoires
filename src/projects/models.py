@@ -103,6 +103,10 @@ class Project(models.Model):
 
     budget = models.PositiveIntegerField("Budget prévisionnel", null=True, blank=True)
 
+    final_budget = models.PositiveIntegerField(
+        "Budget définitif", null=True, blank=True
+    )
+
     status = models.CharField(
         "Statut",
         max_length=10,

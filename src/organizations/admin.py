@@ -33,7 +33,7 @@ class OrganizationAdmin(ImportExportActionModelAdmin):
     formats = [base_formats.CSV, base_formats.XLSX]
     list_display = ["name", "date_created"]
     search_fields = ["name"]
-    list_filter = [OrganizationTypeListFilter]
+    list_filter = [OrganizationTypeListFilter, "is_imported"]
     autocomplete_fields = ["beneficiaries", "perimeter", "favorite_projects"]
     prepopulated_fields = {"slug": ("name",)}
     readonly_fields = ["date_created", "date_updated", "get_projects"]
@@ -101,6 +101,8 @@ class OrganizationAdmin(ImportExportActionModelAdmin):
                 "fields": (
                     "date_created",
                     "date_updated",
+                    "is_imported",
+                    "imported_date",
                 )
             },
         ),
