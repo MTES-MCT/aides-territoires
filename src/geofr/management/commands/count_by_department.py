@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 
 from geofr.services.counts_by_department import (
+    get_projects_count_by_department,
     get_backers_count_by_department,
     get_categories_total_by_department,
     get_live_aids_total_by_department,
@@ -10,7 +11,7 @@ from geofr.models import Perimeter
 
 
 class Command(BaseCommand):
-    """For every French department, check how many backers and programs have live aids"""
+    """For every French department, check how many backers, projects and programs have live aids"""
 
     def handle(self, *args, **options):
 
@@ -28,4 +29,5 @@ class Command(BaseCommand):
             department.categories_count = get_categories_total_by_department(
                 department.id
             )
+            department.projects_count = get_projects_count_by_department(department.id)
             department.save()

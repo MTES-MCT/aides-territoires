@@ -8,6 +8,24 @@ from django.db.models import Q
 from backers.models import Backer
 from programs.models import Program
 from categories.models import Category
+from projects.models import Project
+
+
+def get_projects_count_by_department(
+    dep_id: str,
+) -> QuerySet:
+    """
+    For a given department, returns a list of projects
+    """
+    related_perimeters = get_all_related_perimeters(dep_id, values=["id"])
+
+    projects = Project.objects.prefetch_related("organizations__perimeter")
+    projects = projects.filter(
+        step=Project.PROJECT_STEPS.finished,
+        organizations__perimeter_id__in=related_perimeters,
+    )
+
+    return projects.count()
 
 
 def get_backers_count_by_department(

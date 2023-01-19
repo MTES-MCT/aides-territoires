@@ -157,7 +157,9 @@ class Perimeter(models.Model):
     programs_count = models.PositiveSmallIntegerField(
         verbose_name="nombre de programmes", null=True, blank=True
     )
-
+    projects_count = models.PositiveSmallIntegerField(
+        verbose_name="nombre de projets subventionnés", null=True, blank=True
+    )
     live_aids_count = models.PositiveSmallIntegerField(
         verbose_name="nombre d’aides live", null=True, blank=True
     )
