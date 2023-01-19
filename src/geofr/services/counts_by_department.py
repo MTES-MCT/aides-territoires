@@ -21,7 +21,7 @@ def get_projects_count_by_department(
 
     projects = Project.objects.prefetch_related("organizations__perimeter")
     projects = projects.filter(
-        step=Project.PROJECT_STEPS.finished,
+        step=Project.PROJECT_STEPS.validated,
         organizations__perimeter_id__in=related_perimeters,
     )
 

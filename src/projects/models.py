@@ -41,6 +41,13 @@ class Project(models.Model):
         ("considered", "En réflexion"),
         ("ongoing", "En cours"),
         ("finished", "Réalisé"),
+        ("validated", "Validé"),
+    )
+
+    PROJECT_STEPS_FRONT = Choices(
+        ("considered", "En réflexion"),
+        ("ongoing", "En cours"),
+        ("finished", "Réalisé"),
     )
 
     name = models.CharField(

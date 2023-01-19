@@ -260,7 +260,7 @@ class PublicFinishedProjectHomeView(SearchMixin, FormMixin, ListView):
         qs = Project.objects.filter(
             is_public=True,
             status=Project.STATUS.published,
-            step=Project.PROJECT_STEPS.finished,
+            step=Project.PROJECT_STEPS.validated,
         )
 
         filter_form = self.form
@@ -326,7 +326,7 @@ class PublicFinishedProjectResultsView(SearchMixin, FormMixin, ListView):
             Project.objects.filter(
                 is_public=True,
                 status=Project.STATUS.published,
-                step=Project.PROJECT_STEPS.finished,
+                step=Project.PROJECT_STEPS.validated,
             )
             .prefetch_related(Prefetch("organizations", queryset=organizations_qs))
             .prefetch_related("project_types")
