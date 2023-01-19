@@ -1,23 +1,24 @@
-<form id="project-finished-search-form" method="get" action="{% url 'public_finished_project_list_view' %}" autocomplete='off'>
+<form id="project-finished-search-form" method="get" action="{% url 'public_finished_project_results_view' %}"
+    autocomplete='off'>
 
     <div class="form-container">
         <div class="form-body">
             {% block form-body %}
-                <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center fr-grid-row--bottom">
-                    <div class="fr-col-12 fr-col-md-3">
-                        {% include '_field_snippet.html' with field=form.project_perimeter %}
-                    </div>
-
-                    <div class="fr-col-12 fr-col-md-3">
-                        {% include '_field_snippet.html' with field=form.name %}
-                    </div>
-                    
-                    <div class="fr-col-12 fr-col-md-3">
-                        <button name="commune_search" value="true" class="fr-btn fr-mb-0" title="Rechercher" type="submit">
-                            <span class="fr-icon-search-line fr-mr-1w" aria-hidden="true"></span> Rechercher
-                        </button>
-                    </div>
+            <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center fr-grid-row--bottom">
+                <div class="fr-col-12 fr-col-md-3">
+                    {% include '_field_snippet.html' with field=form.project_perimeter %}
                 </div>
+
+                <div class="fr-col-12 fr-col-md-3">
+                    {% include '_field_snippet.html' with field=form.name %}
+                </div>
+
+                <div class="fr-col-12 fr-col-md-3">
+                    <button name="commune_search" value="true" class="fr-btn fr-mb-0" title="Rechercher" type="submit">
+                        <span class="fr-icon-search-line fr-mr-1w" aria-hidden="true"></span> Rechercher
+                    </button>
+                </div>
+            </div>
             {% endblock form-body %}
         </div>
     </div>

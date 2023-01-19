@@ -1,0 +1,102 @@
+{% extends "_base.html" %}
+{% load i18n compress static %}
+
+{% block extratitle %}
+Trouvez des projets similaires réalisés par des mairies proches
+{% endblock extratitle %}
+
+{% block meta_description %}
+Inspirez-vous des projets réalisés par des mairies voisines au fil des années. Aides Territoires vous permet de facilement trouver des idées et des solutions adaptées à votre ville.
+{% endblock meta_description%}
+
+{% block extra_head %}
+<meta property="og:title" content="Trouvez des projets similaires réalisés par des mairies proches - Aides Territoires"/>
+<meta property="og:type" content="website" />
+<meta property="og:description"content="Inspirez-vous des projets réalisés par des mairies voisines au fil des années. Aides Territoires vous permet de facilement trouver des idées et des solutions adaptées à votre ville."/>
+<meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
+<meta property="og:site_name" content="Aides-territoires" />
+<meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
+<meta property="og:image:alt" content="Logo : Aides-territoires" />
+{% endblock extra_head %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Projets subventionnés</a>
+                </li>
+           </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="fr-container">
+    <div>
+        <h1>
+            {% with paginator.count as nb_projects %}
+            <span class="result-count">
+                Inspirez-vous des {{ nb_projects }} projets similaires aux vôtres !
+            </span>
+            {% endwith %}
+        </h1>
+
+        <h2 class="fr-h5">
+            Pour améliorer la vie de vos concitoyens, consultez les projets mis en place dans les communes proches de chez vous.
+        </h2>
+        
+        <div id="search-engine" class="fr-mb-2w">
+            {% block search-engine %}
+                <div class="fr-card">
+                    <div class="fr-card__body">
+                        <div class="fr-card__content">
+                            {% include "projects/_finished_project_search_form.html" %}
+                        </div>
+                    </div>
+                </div>
+            {% endblock search-engine %}
+        </div>
+    </div>
+    <div>
+        {% include 'projects/_map.html' %}
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_css %}
+    {% compress css %}
+        <style>
+            .search-form-extra-action {
+                display: block;
+            }
+        </style>
+    {% endcompress %}
+{% endblock extra_css %}
+
+{% block extra_js %}
+{% compress js %}
+<script src="{% static 'select2/dist/js/select2.js' %}"></script>
+<script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+<script src="{% static 'js/select2_custom.js' %}"></script>
+<script src="{% static 'js/aids/project_perimeter_autocomplete.js' %}"></script>
+<script src="{% static 'js/projects/project_types_autocomplete.js' %}"></script>
+<script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
+<script src="{% static 'js/url_parameters.js' %}"></script>
+<script src="{% static 'js/projects/search_project_form_advanced.js' %}"></script>
+<script src="{% static 'js/geofr/department_projects_filter.js' %}"></script>
+<script src="{% static 'js/geofr/map_projects.js' %}"></script>
+{% endcompress %}
+<script nonce="{{ request.csp_nonce }}">
+    let departments_data = JSON.parse("{{ departments_json|escapejs }}");
+    $(document).ready(function () {
+        department_filter('/');
+    });
+</script>
+{% endblock extra_js %}

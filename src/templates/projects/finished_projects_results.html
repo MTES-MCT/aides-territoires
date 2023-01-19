@@ -1,13 +1,11 @@
 {% extends "_base.html" %}
-{% load i18n compress static %}
+{% load i18n compress static projects %}
 
 {% block extratitle %}
 {% if commune_search %}
 Projets réalisés par les mairies à côté de {nom_structure}
 {% elif department_search %}
 Projets réalisés par les mairies du département {nom_departement} ({numero_departement})
-{% else %}
-Trouvez des projets similaires réalisés par des mairies proches
 {% endif %}
 {% endblock extratitle %}
 
@@ -16,8 +14,6 @@ Trouvez des projets similaires réalisés par des mairies proches
 Découvrez la liste des projets réalisés par des mairies proches. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées.
 {% elif department_search %}
 Découvrez la liste des projets réalisés par les mairies dans le département {nom_departement}. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées dans ce département.
-{% else %}
-Inspirez-vous des projets réalisés par des mairies voisines au fil des années. Aides Territoires vous permet de facilement trouver des idées et des solutions adaptées à votre ville.
 {% endif %}
 {% endblock meta_description%}
 
@@ -27,8 +23,6 @@ Inspirez-vous des projets réalisés par des mairies voisines au fil des années
     content="Projets réalisés par les mairies à côté de {nom_structure} - Aides Territoires"
     {% elif department_search %}
     content="Projets réalisés par les mairies du département {nom_departement} ({numero_departement}) - Aides Territoires"
-    {% else %}
-    content="Trouvez des projets similaires réalisés par des mairies proches - Aides Territoires"
     {% endif %}
 />
 <meta property="og:type" content="website" />
@@ -37,8 +31,6 @@ Inspirez-vous des projets réalisés par des mairies voisines au fil des années
     content="Découvrez la liste des projets réalisés par des mairies proches. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées."
     {% elif department_search %}
     content="Découvrez la liste des projets réalisés par les mairies dans le département {nom_departement}. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées dans ce département."
-    {% else %}
-    content="Inspirez-vous des projets réalisés par des mairies voisines au fil des années. Aides Territoires vous permet de facilement trouver des idées et des solutions adaptées à votre ville."
     {% endif %}
 />
 <meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
@@ -57,7 +49,10 @@ Inspirez-vous des projets réalisés par des mairies voisines au fil des années
                     <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" aria-current="page">Projets publics</a>
+                    <a class="fr-breadcrumb__link" href="{% url 'public_finished_project_home_view' %}">Projets subventionnés</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Résutats de votre recherche de projets subventionnés</a>
                 </li>
            </ol>
         </div>
@@ -79,38 +74,35 @@ Inspirez-vous des projets réalisés par des mairies voisines au fil des années
                     {% endif %}
                 {% elif department_search %}
                     {% if nb_projects > 1 %}
-                    Liste des {{ nb_projects }} projets subventionnés dans le département {nom_departement}
+                    Liste des {{ nb_projects }} projets subventionnés 
                     {% else %}
-                    {{ nb_projects }} projet subventionné dans le département {nom_departement}
+                    {{ nb_projects }} projet subventionné
                     {% endif %}
-                {% else %}
-                Inspirez-vous des {{ nb_projects }} projets similaires aux vôtres !
+                    sur le département 
+                    {% if project_current_search_dict.project_perimeter %}
+                    "{{ project_current_search_dict.project_perimeter.name }}" :
+                    {% endif %}
                 {% endif %}
             </span>
             {% endwith %}
         </h1>
 
-        {% if not commune_search and not department_search %}
-        <h2 class="fr-h5">
-            Pour améliorer la vie de vos concitoyens, consultez les projets mis en place dans les communes proches de chez vous.
-        </h2>
-        {% endif %}
-        
-        {% block search-meta %}
-        {% include "projects/_search_meta.html" %}
-        {% endblock search-meta %}
-
-        <div id="search-engine" class="fr-mb-2w">
-            {% block search-engine %}
-                <div class="fr-card">
-                    <div class="fr-card__body">
-                        <div class="fr-card__content">
-                            {% include "projects/_finished_project_search_form.html" %}
+        {% if commune_search %}
+            {% block search-meta %}
+            {% include "projects/_search_meta.html" %}
+            {% endblock search-meta %}
+            <div id="search-engine" class="fr-mb-2w">
+                {% block search-engine %}
+                    <div class="fr-card">
+                        <div class="fr-card__body">
+                            <div class="fr-card__content">
+                                {% include "projects/_finished_project_search_form.html" %}
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endblock search-engine %}
-        </div>
+                {% endblock search-engine %}
+            </div>
+        {% endif %}
     </div>
     <div id="projects-list">
         {% if projects %}
@@ -138,14 +130,22 @@ Inspirez-vous des projets réalisés par des mairies voisines au fil des années
 {% endblock extra_css %}
 
 {% block extra_js %}
-    {% compress js %}
-        <script src="{% static 'select2/dist/js/select2.js' %}"></script>
-        <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
-        <script src="{% static 'js/select2_custom.js' %}"></script>
-        <script src="{% static 'js/aids/project_perimeter_autocomplete.js' %}"></script>
-        <script src="{% static 'js/projects/project_types_autocomplete.js' %}"></script>
-        <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
-        <script src="{% static 'js/url_parameters.js' %}"></script>
-        <script src="{% static 'js/projects/search_project_form_advanced.js' %}"></script>
-    {% endcompress %}
+{% compress js %}
+<script src="{% static 'select2/dist/js/select2.js' %}"></script>
+<script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+<script src="{% static 'js/select2_custom.js' %}"></script>
+<script src="{% static 'js/aids/project_perimeter_autocomplete.js' %}"></script>
+<script src="{% static 'js/projects/project_types_autocomplete.js' %}"></script>
+<script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
+<script src="{% static 'js/url_parameters.js' %}"></script>
+<script src="{% static 'js/projects/search_project_form_advanced.js' %}"></script>
+<script src="{% static 'js/geofr/department_filter.js' %}"></script>
+<script src="{% static 'js/geofr/map_projects.js' %}"></script>
+{% endcompress %}
+<script nonce="{{ request.csp_nonce }}">
+    let departments_data = JSON.parse("{{ departments_json|escapejs }}");
+    $(document).ready(function () {
+        department_filter('/');
+    });
+</script>
 {% endblock extra_js %}
