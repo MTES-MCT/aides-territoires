@@ -2,7 +2,6 @@ from django.urls import path
 
 from notifications.views import (
     NotificationDeleteAllView,
-    NotificationDetailView,
     NotificationListView,
     NotificationDeleteView,
     NotificationMarkAllReadView,
@@ -29,11 +28,6 @@ urlpatterns = [
         "tout-supprimer/",
         NotificationDeleteAllView.as_view(),
         name="notification_delete_all_view",
-    ),
-    path(
-        "<int:pk>/",
-        NotificationDetailView.as_view(),
-        name="notification_detail_view",
     ),
     path(
         "<int:pk>/suppression/",

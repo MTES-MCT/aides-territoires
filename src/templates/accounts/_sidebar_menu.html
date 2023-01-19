@@ -49,10 +49,8 @@
                 <li class="fr-sidemenu__item fr-py-2w">
                     <div class="at-sidemenu__separator fr-px-2w"><hr /></div>
                 </li>
-                <li class="fr-sidemenu__item">
-                    <li class="fr-sidemenu__item {% if project_admin %}fr-sidemenu__item--active{% endif %}">
-                        <a class="fr-sidemenu__link" href="{% url 'favorite_project_list_view' %}" target="_self" {% if favorite_project_admin %}aria-current="page"{% endif %} rel="noopener">Consulter mes projets favoris</a>
-                    </li>
+                <li class="fr-sidemenu__item {% if project_admin %}fr-sidemenu__item--active{% endif %}">
+                    <a class="fr-sidemenu__link" href="{% url 'favorite_project_list_view' %}" target="_self" {% if favorite_project_admin %}aria-current="page"{% endif %} rel="noopener">Consulter mes projets favoris</a>
                 </li>
                 <li class="fr-sidemenu__item fr-py-2w">
                     <div class="at-sidemenu__separator fr-px-2w"><hr /></div>

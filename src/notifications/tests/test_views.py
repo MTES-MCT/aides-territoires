@@ -61,15 +61,15 @@ def test_notification_list_displays_notifications(client, user):
     unread = soup.find(id=f"notification-{unread.pk}")
     read = soup.find(id=f"notification-{read.pk}")
 
-    assert "strong" in str(unread)
-    assert "strong" not in str(read)
+    assert "at-text--bold" in str(unread)
+    assert "at-text--bold" not in str(read)
 
 
-def test_notification_detail_view_marks_it_as_read(client, user):
+def test_notification_list_view_marks_it_as_read(client, user):
     notification = NotificationFactory(recipient=user, title="New notification")
 
     client.force_login(user)
-    url = reverse("notification_detail_view", kwargs={"pk": notification.id})
+    url = reverse("notification_list_view")
     res = client.get(url)
 
     assert res.status_code == 200
@@ -78,21 +78,22 @@ def test_notification_detail_view_marks_it_as_read(client, user):
     assert notification.date_read is not None
 
 
-def test_notification_detail_can_only_show_own_notifications(client, user):
+def test_notification_list_only_shows_own_notifications(client, user):
     """Trying to see someone else's notification will return a 404"""
+    own_notification = NotificationFactory(recipient=user, title="Allowed notification")
     other_user = UserFactory(email="other.user@example.org")
-    notification = NotificationFactory(
+    other_notification = NotificationFactory(
         recipient=other_user, title="Forbidden notification"
     )
 
     client.force_login(user)
-    url = reverse("notification_detail_view", kwargs={"pk": notification.id})
+    url = reverse("notification_list_view")
     res = client.get(url)
+    soup = BeautifulSoup(res.content.decode(), "html.parser")
 
-    assert res.status_code == 404
-    notification.refresh_from_db()
+    assert len(soup.find_all(id=f"notification-{own_notification.pk}")) == 1
 
-    assert notification.date_read is None
+    assert len(soup.find_all(id=f"notification-{other_notification.pk}")) == 0
 
 
 def test_notification_can_be_deleted(client, user):

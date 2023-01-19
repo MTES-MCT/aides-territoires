@@ -43,7 +43,9 @@
             
             <div class="fr-table fr-table--bordered at-table--fullwidth">
                 <table class="data-table">
-                    <caption>Mes notifications</caption>
+                    <caption>
+                        <h2 class="fr-h4">Mes notifications</h2>
+                    </caption>
                     <thead>
                         <tr>
                             <th scope="col">Texte</th>
@@ -56,15 +58,12 @@
                             {% for notification in notifications %}
                                 <tr>
                                     <td>
-                                        <p id="notification-{{ notification.pk }}">
-                                            {% if not notification.date_read %}
-                                                <strong>
-                                                    <a href="{% url 'notification_detail_view' notification.pk %}">{{ notification.title }}</a>
-                                                </strong>
-                                            {% else %}
-                                                <a href="{% url 'notification_detail_view' notification.pk %}">{{ notification.title }}</a>
-                                            {% endif %}
-                                        </p>
+                                        <div id="notification-{{ notification.pk }}">
+                                            <h3 class="fr-h6 at-title--nomargin">{{ notification.title }}</h3>
+                                            <div{% if notification.id in unread_notifications %} class="at-text--bold"{% endif %}>
+                                                {{ notification.message|safe }}
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>{{ notification.date_created }}</td>
                                     <td class="fr-text">
@@ -96,23 +95,26 @@
 
             {% if notifications %}
                 <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
-                    <a href="{% url 'notification_mark_all_read_view' %}"
-                            class="fr-btn fr-icon-checkbox-circle-line"
-                            id="mark-all-notifications-read"
-                            title="Tout marquer comme lu"
-                            aria-controls="mark-all-notifications-read-modal"
-                    >
-                        Tout marquer comme lu
-                    </a>
-                    <button type="button"
-                            class="fr-btn fr-icon-delete-line fr-btn--secondary"
-                            data-fr-opened="false"
-                            id="delete-all-notifications"
-                            title="Tout supprimer"
-                            aria-controls="delete-all-notifications-modal"
-                    >
-                        Tout supprimer
-                    </button>
+                    <li>
+                        <a href="{% url 'notification_mark_all_read_view' %}"
+                                class="fr-btn fr-icon-checkbox-circle-line"
+                                id="mark-all-notifications-read"
+                                title="Tout marquer comme lu"
+                        >
+                            Tout marquer comme lu
+                        </a>
+                    </li>
+                    <li>
+                        <button type="button"
+                                class="fr-btn fr-icon-delete-line fr-btn--secondary"
+                                data-fr-opened="false"
+                                id="delete-all-notifications"
+                                title="Tout supprimer"
+                                aria-controls="delete-all-notifications-modal"
+                        >
+                            Tout supprimer
+                        </button>
+                    </li>
                 </ul>
             {% endif %}
         </div>
@@ -121,10 +123,10 @@
 {% endblock content %}
 
 {% block modals %}
-    {% if notifications %}
-        {% for notification in notifications %}
-            {% include 'notifications/_delete_notification_modal.html' with notification=notification.pk %}
-        {% endfor %}
-        {% include 'notifications/_delete_all_notifications_modal.html' %}
-    {% endif %}
+{% if notifications %}
+    {% for notification in notifications %}
+        {% include 'notifications/_delete_notification_modal.html' with notification=notification.pk %}
+    {% endfor %}
+    {% include 'notifications/_delete_all_notifications_modal.html' %}
+{% endif %}
 {% endblock modals %}

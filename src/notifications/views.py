@@ -4,7 +4,6 @@ from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.views.generic import (
     DeleteView,
-    DetailView,
     ListView,
     View,
     UpdateView,
@@ -34,25 +33,20 @@ class NotificationListView(ContributorAndProfileCompleteRequiredMixin, ListView)
 
         return queryset
 
-
-class NotificationDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
-    """User notifications dashboard"""
-
-    template_name = "notifications/notification_detail.html"
-    context_object_name = "notifications"
-
-    def get_queryset(self):
-        # Only allow own notifications
-        qs = Notification.objects.filter(recipient=self.request.user)
-        self.queryset = qs
-        return super().get_queryset()
-
     def get_context_data(self, **kwargs):
         """Notifications are marked as read when the list page is displayed"""
         context = super().get_context_data(**kwargs)
 
-        self.object.mark_as_read()
+        unread_notifications = []
 
+        # mark notifications on the current page as read
+        current_page_notifications = list(context["object_list"])
+        for notification in current_page_notifications:
+            if not notification.date_read:
+                unread_notifications.append(notification.id)
+                notification.mark_as_read()
+
+        context["unread_notifications"] = unread_notifications
         return context
 
 

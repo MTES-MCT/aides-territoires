@@ -934,7 +934,7 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
                         message=f"""
                         <p>
                             {user.full_name} a ajouté une aide au projet
-                            <a href="{project_obj.get_absolute_url()}">{project_obj.name}</a>
+                            <a href="{project_obj.get_absolute_url()}">{project_obj.name}</a>.
                         </p>
                         """,
                     )
@@ -943,10 +943,12 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
                 messages.success(self.request, msg)
 
         if self.request.POST.get("new_project"):
+            user = self.request.user
+            user_organization = user.beneficiary_organization
             # create the new project's object
             project = Project.objects.create(name=self.request.POST.get("new_project"))
-            project.author.add(self.request.user)
-            project.organizations.add(self.request.user.beneficiary_organization)
+            project.author.add(user)
+            project.organizations.add(user_organization)
 
             # associate this new project's object to the aid
             aid.projects.add(
@@ -957,6 +959,20 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
             project_url = reverse(
                 "project_detail_view", args=[project.pk, project.slug]
             )
+
+            # send notification to other org members
+            other_members = user_organization.beneficiaries.exclude(id=user.id)
+            for member in other_members:
+                member.send_notification(
+                    title="Un projet a été créé",
+                    message=f"""
+                    <p>
+                        {user.full_name} a créé le projet
+                        <a href="{project.get_absolute_url()}">{project.name}</a>.
+                    </p>
+                    """,
+                )
+
             msg = f"Votre nouveau projet <a href='{project_url}'>{project.name}</a> a bien été créé et l’aide a été associée."  # noqa
             messages.success(self.request, msg)
 
@@ -988,7 +1004,7 @@ class AidUnmatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateVi
                 message=f"""
                 <p>
                     {user.full_name} a supprimé une aide du projet
-                    <a href="{project_obj.get_absolute_url()}">{project_obj.name}</a>
+                    <a href="{project_obj.get_absolute_url()}">{project_obj.name}</a>.
                 </p>
                 """,
             )

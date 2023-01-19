@@ -56,10 +56,10 @@
 {% endblock content %}
 
 {% block modals %}
-    {% if notifications %}
-        {% for notification in notifications %}
-            {% include 'notifications/_delete_notification_modal.html' with notification=notification.pk %}
-        {% endfor %}
-        {% include 'notifications/_delete_all_notifications_modal.html' %}
-    {% endif %}
+{% if notifications %}
+    {% for notification in notifications %}
+        {% include 'notifications/_delete_notification_modal.html' with notification=notification.pk %}
+    {% endfor %}
+    {% include 'notifications/_delete_all_notifications_modal.html' %}
+{% endif %}
 {% endblock modals %}

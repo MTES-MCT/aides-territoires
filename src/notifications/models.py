@@ -11,7 +11,7 @@ class Notification(models.Model):
         on_delete=models.CASCADE,
     )
     title = models.CharField("titre", max_length=100)
-    message = models.CharField("message", max_length=500)
+    message = models.TextField("message")
     date_created = models.DateTimeField("date de création", default=timezone.now)
     date_read = models.DateTimeField("date de consultation", null=True, blank=True)
     date_email = models.DateTimeField(
