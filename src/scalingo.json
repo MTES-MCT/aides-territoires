@@ -47,7 +47,10 @@
   },
   "addons": [
     {
-      "plan": "postgresql:postgresql-starter-512"
+      "plan": "postgresql:postgresql-starter-512",
+      "options": {
+        "version": "14.6.0"
+      }
     }
   ]
 }
