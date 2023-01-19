@@ -50,7 +50,7 @@ $('#france-map .land').click(function() {
     let selected_path = $( this );
     let data = get_department_data(selected_path);
     if ("code" in data) {
-        let new_url = window.location.origin + "/projects/projets-publics-subventionnés/résultats/?department_search=true&project_perimeter=" + data.id;
+        let new_url = window.location.origin + "/projets/projets-publics-subventionnés/résultats/?department_search=true&project_perimeter=" + data.id;
         window.location = new_url; 
     }
 });

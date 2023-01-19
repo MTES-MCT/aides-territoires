@@ -12,7 +12,7 @@ function department_filter(return_page) {
     $("#select-department").change(function () {
         let department = $(this).val();
         if (department.match(SANE_ID_REGEX)) {
-            let new_url = window.location.origin + "/projects/projets-publics-subventionnés/résultats/?department_search=true&project_perimeter=" + department;
+            let new_url = window.location.origin + "/projets/projets-publics-subventionnés/résultats/?department_search=true&project_perimeter=" + department;
             window.location.href = new_url + window.location.search;
         } else {
             console.log("Invalid department id");
