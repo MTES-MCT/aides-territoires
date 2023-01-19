@@ -5,6 +5,8 @@
 # When operating the first deployment of the application, it
 # replaces the post deploy hook.
 
+dbclient-fetcher psql
+export PATH=/app/bin:$PATH
 echo "Entering first deploy hook for Review Apps"
 PG_OPTIONS="--clean --if-exists --no-owner --no-privileges --no-comments"
 PG_EXCLUDE_SCHEMA="-N 'information_schema' -N '^pg_*'"
