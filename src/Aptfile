@@ -3,4 +3,5 @@ flite
 sassc
 binutils
 libproj-dev
+libgdal-dev
 gdal-bin
