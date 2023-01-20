@@ -1,7 +1,7 @@
 import logging
 
 from django.core.management.base import BaseCommand
-from geofr.services.import_population_communes import import_commune_data_from_banatic
+from geofr.services.import_communes_population import import_commune_data_from_banatic
 
 
 class Command(BaseCommand):
