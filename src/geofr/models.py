@@ -143,7 +143,7 @@ class Perimeter(models.Model):
     )  # Sourced from Banatic
 
     location = PointField(verbose_name="coordonnées", null=True, blank=True)
-    # Sourced from IGN's Admin Express
+    # Sourced from API Découpage Administratif - (API Geo)
 
     # Counters: used only at Department level
     # script-updated nightly
