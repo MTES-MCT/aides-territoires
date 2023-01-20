@@ -66,7 +66,7 @@ jobs:
 
     - name: Install the required packages
       run: |
-        sudo apt install gettext sassc
+        sudo apt install gettext sassc binutils libproj-dev gdal-bin
 
     - name: Install pip and pipenv
       working-directory: ./src
