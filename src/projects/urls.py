@@ -25,12 +25,12 @@ urlpatterns = [
         name="public_project_list_view",
     ),
     path(
-        "projets-publics-subventionnés/résultats/",
+        "projets-subventionnés/résultats/",
         PublicFinishedProjectResultsView.as_view(),
         name="public_finished_project_results_view",
     ),
     path(
-        "projets-publics-subventionnés/",
+        "projets-subventionnés/",
         PublicFinishedProjectHomeView.as_view(),
         name="public_finished_project_home_view",
     ),
