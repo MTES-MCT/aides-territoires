@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.query import QuerySet
 from django.utils import timezone
 from django.utils.text import slugify
+from django.contrib.gis.db.models import PointField
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.indexes import GinIndex
 
@@ -140,6 +141,9 @@ class Perimeter(models.Model):
     population = models.PositiveIntegerField(
         verbose_name="population", null=True, blank=True
     )  # Sourced from Banatic
+
+    location = PointField(verbose_name="coordonnées", null=True, blank=True)
+    # Sourced from IGN's Admin Express
 
     # Counters: used only at Department level
     # script-updated nightly
