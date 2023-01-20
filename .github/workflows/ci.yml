@@ -21,7 +21,7 @@ jobs:
     # Configure the database service
     services:
       database:
-        image: postgres
+        image: postgis/postgis:latest
         env:
           POSTGRES_USER: aides
           POSTGRES_PASSWORD: aides
