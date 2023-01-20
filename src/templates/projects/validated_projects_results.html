@@ -3,9 +3,10 @@
 
 {% block extratitle %}
 {% if commune_search %}
-Projets réalisés par les mairies à côté de {nom_structure}
+Projets réalisés par les mairies à côté de {% if project_current_search_dict.project_perimeter %}{{ project_current_search_dict.project_perimeter.name }}{% endif %}
 {% elif department_search %}
-Projets réalisés par les mairies du département {nom_departement} ({numero_departement})
+Projets réalisés par les mairies du département {% if project_current_search_dict.project_perimeter %}
+{{ project_current_search_dict.project_perimeter.name }} ({{ project_current_search_dict.project_perimeter.code}}){% endif %}
 {% endif %}
 {% endblock extratitle %}
 
@@ -13,16 +14,18 @@ Projets réalisés par les mairies du département {nom_departement} ({numero_de
 {% if commune_search %}
 Découvrez la liste des projets réalisés par des mairies proches. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées.
 {% elif department_search %}
-Découvrez la liste des projets réalisés par les mairies dans le département {nom_departement}. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées dans ce département.
+Découvrez la liste des projets réalisés par les mairies dans le département {% if project_current_search_dict.project_perimeter %}
+{{ project_current_search_dict.project_perimeter.name }} ({{ project_current_search_dict.project_perimeter.code}}){% endif %}. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées dans ce département.
 {% endif %}
 {% endblock meta_description%}
 
 {% block extra_head %}
 <meta property="og:title"
     {% if commune_search %}
-    content="Projets réalisés par les mairies à côté de {nom_structure} - Aides Territoires"
+    content="Projets réalisés par les mairies à côté de {% if project_current_search_dict.project_perimeter %}{{ project_current_search_dict.project_perimeter.name }}{% endif %} - Aides Territoires"
     {% elif department_search %}
-    content="Projets réalisés par les mairies du département {nom_departement} ({numero_departement}) - Aides Territoires"
+    content="Projets réalisés par les mairies du département {% if project_current_search_dict.project_perimeter %}
+    {{ project_current_search_dict.project_perimeter.name }} ({{ project_current_search_dict.project_perimeter.code}}){% endif %} - Aides Territoires"
     {% endif %}
 />
 <meta property="og:type" content="website" />
@@ -30,7 +33,8 @@ Découvrez la liste des projets réalisés par les mairies dans le département 
     {% if commune_search %}
     content="Découvrez la liste des projets réalisés par des mairies proches. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées."
     {% elif department_search %}
-    content="Découvrez la liste des projets réalisés par les mairies dans le département {nom_departement}. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées dans ce département."
+    content="Découvrez la liste des projets réalisés par les mairies dans le département {% if project_current_search_dict.project_perimeter %}
+    {{ project_current_search_dict.project_perimeter.name }} ({{ project_current_search_dict.project_perimeter.code}}){% endif %}. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées dans ce département."
     {% endif %}
 />
 <meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
