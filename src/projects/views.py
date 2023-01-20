@@ -239,10 +239,10 @@ class PublicProjectListView(SearchMixin, FormMixin, ListView):
         return context
 
 
-class PublicFinishedProjectHomeView(SearchMixin, FormMixin, ListView):
+class ValidatedProjectHomeView(SearchMixin, FormMixin, ListView):
     """Home View for public finished projects."""
 
-    template_name = "projects/finished_projects_home.html"
+    template_name = "projects/validated_projects_home.html"
     context_object_name = "projects"
     form_class = FinishedProjectSearchForm
     paginate_by = 18
@@ -302,10 +302,10 @@ class PublicFinishedProjectHomeView(SearchMixin, FormMixin, ListView):
         return context
 
 
-class PublicFinishedProjectResultsView(SearchMixin, FormMixin, ListView):
+class ValidatedProjectResultsView(SearchMixin, FormMixin, ListView):
     """Search and display public finished projects."""
 
-    template_name = "projects/finished_projects_results.html"
+    template_name = "projects/validated_projects_results.html"
     context_object_name = "projects"
     form_class = FinishedProjectSearchForm
     paginate_by = 18

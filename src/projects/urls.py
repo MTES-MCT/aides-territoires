@@ -5,8 +5,8 @@ from projects.views import (
     ProjectExportView,
     ProjectListView,
     PublicProjectListView,
-    PublicFinishedProjectResultsView,
-    PublicFinishedProjectHomeView,
+    ValidatedProjectResultsView,
+    ValidatedProjectHomeView,
     FavoriteProjectListView,
     ProjectDetailView,
     PublicProjectDetailView,
@@ -26,13 +26,13 @@ urlpatterns = [
     ),
     path(
         "projets-subventionnés/résultats/",
-        PublicFinishedProjectResultsView.as_view(),
-        name="public_finished_project_results_view",
+        ValidatedProjectResultsView.as_view(),
+        name="validated_project_results_view",
     ),
     path(
         "projets-subventionnés/",
-        PublicFinishedProjectHomeView.as_view(),
-        name="public_finished_project_home_view",
+        ValidatedProjectHomeView.as_view(),
+        name="validated_project_home_view",
     ),
     path(
         "projets-favoris/",

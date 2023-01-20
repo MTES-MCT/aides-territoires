@@ -49,7 +49,7 @@ Découvrez la liste des projets réalisés par les mairies dans le département 
                     <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" href="{% url 'public_finished_project_home_view' %}">Projets subventionnés</a>
+                    <a class="fr-breadcrumb__link" href="{% url 'validated_project_home_view' %}">Projets subventionnés</a>
                 </li>
                 <li>
                     <a class="fr-breadcrumb__link" aria-current="page">Résutats de votre recherche de projets subventionnés</a>
@@ -96,7 +96,7 @@ Découvrez la liste des projets réalisés par les mairies dans le département 
                     <div class="fr-card">
                         <div class="fr-card__body">
                             <div class="fr-card__content">
-                                {% include "projects/_finished_project_search_form.html" %}
+                                {% include "projects/_validated_project_search_form.html" %}
                             </div>
                         </div>
                     </div>
