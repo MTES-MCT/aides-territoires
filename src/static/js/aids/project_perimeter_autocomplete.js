@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     // Filter on scale on certain forms
     let scale = null;
-    let RESTRICT_TO_COMMUNES = $('#register-commune-page').length
+    let RESTRICT_TO_COMMUNES = $('#register-commune-page').length || $('#validated-project-search-form').length;
     if (RESTRICT_TO_COMMUNES) {
         scale = 'commune';
     }
