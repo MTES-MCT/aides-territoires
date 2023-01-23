@@ -55,7 +55,7 @@ def get_coordinates_for_department(code: str) -> tuple:
         if is_imported:
             nb_treated += 1
         else:
-            not_found.append(commune_entry["nom"])
+            not_found.append(f"{commune_entry['nom']} ({code})")
 
     return (nb_treated, not_found)
 

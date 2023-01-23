@@ -37,7 +37,7 @@ def is_overseas(zipcode):
 
 def list_insee_codes_for_departments_and_coms() -> list:
     """
-    Returns a list of all INSEE department-level codes, including the
+    Returns a list of all 109 INSEE department-level codes, including the
     overseas communities (COMs)
     """
     codes = sorted(
