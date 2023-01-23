@@ -9,6 +9,7 @@ from geofr.utils import (
     get_all_related_perimeters,
     attach_perimeters,
     attach_epci_perimeters,
+    list_insee_codes_for_departments_and_coms,
 )
 from geofr.factories import PerimeterFactory
 
@@ -28,6 +29,14 @@ def test_is_overseas():
     assert not is_overseas("27370")
     assert is_overseas("97200")
     assert is_overseas("97414")
+
+
+def test_list_insee_codes_for_departments_and_coms(perimeters) -> None:
+    depts_list = list_insee_codes_for_departments_and_coms()
+
+    assert len(depts_list) == 15
+    assert depts_list[0] == "12"  # First department in the test perimeters
+    assert depts_list[-1] == "989"
 
 
 def test_get_all_related_perimeters_objects(perimeters):

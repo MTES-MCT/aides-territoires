@@ -35,6 +35,30 @@ def is_overseas(zipcode):
     return zipcode.startswith(OVERSEAS_PREFIX)
 
 
+def list_insee_codes_for_departments_and_coms() -> list:
+    """
+    Returns a list of all INSEE department-level codes, including the
+    overseas communities (COMs)
+    """
+    codes = sorted(
+        Perimeter.objects.filter(
+            scale=Perimeter.SCALES.department, is_obsolete=False
+        ).values_list("code", flat=True)
+    )
+
+    # Add the COMs
+    codes.append("975")  # Saint-Pierre-et-Miquelon
+    codes.append("977")  # Saint-Barthélemy
+    codes.append("978")  # Saint-Martin
+    codes.append("984")  # TAAF
+    codes.append("986")  # Wallis et Futuna
+    codes.append("987")  # Polynésie française
+    codes.append("988")  # Nouvelle-Calédonie
+    codes.append("989")  # Clipperton
+
+    return codes
+
+
 def get_all_related_perimeters(
     search_perimeter_id, direction="both", scale=None, values=None
 ):

@@ -24,7 +24,7 @@ class Command(BaseCommand):
 
         departments_codes = options["departments"]
 
-        if len(departments_codes):
+        if departments_codes:
             result = import_communes_coordinates(logger, departments_codes)
         else:
             result = import_communes_coordinates(logger)
