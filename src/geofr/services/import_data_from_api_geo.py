@@ -23,10 +23,25 @@ def api_call(api_url: str, payload: dict) -> dict:
 
 
 @transaction.atomic
-def import_communes_coordinates(logger: Logger) -> dict:
-    departments_codes = Perimeter.objects.filter(
-        scale=Perimeter.SCALES.department, is_obsolete=False
-    ).values_list("code", flat=True)
+def import_communes_coordinates(
+    logger: Logger, departments_codes: list | None = None
+) -> dict:
+    if not departments_codes:
+        departments_codes = list(
+            Perimeter.objects.filter(
+                scale=Perimeter.SCALES.department, is_obsolete=False
+            ).values_list("code", flat=True)
+        )
+
+        # Add the COMs
+        departments_codes.append("975")  # Saint-Pierre-et-Miquelon
+        departments_codes.append("977")  # Saint-Barthélemy
+        departments_codes.append("978")  # Saint-Martin
+        departments_codes.append("984")  # TAAF
+        departments_codes.append("986")  # Wallis et Futuna
+        departments_codes.append("987")  # Polynésie française
+        departments_codes.append("988")  # Nouvelle-Calédonie
+        departments_codes.append("989")  # Clipperton
 
     total_treated = 0
     not_found = []
@@ -40,6 +55,7 @@ def import_communes_coordinates(logger: Logger) -> dict:
 
 
 def get_coordinates_for_department(code: str) -> tuple:
+    """Import the coordinates for the communes of said department"""
     api_url = f"{ENDPOINT_URL}/departements/{code}/communes"
     payload = {"fields": "nom,code,centre", "format": "json", "geometry": "centre"}
 
