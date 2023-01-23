@@ -715,6 +715,7 @@ class AidProjectAdmin(admin.ModelAdmin):
 
     list_display = [
         "aid",
+        "aid_unknown",
         "project",
         "creator",
         "aid_obtained",
@@ -732,6 +733,7 @@ class AidProjectAdmin(admin.ModelAdmin):
     ]
     readonly_fields = [
         "aid",
+        "aid_unknown",
         "project",
         "creator",
         "aid_requested",

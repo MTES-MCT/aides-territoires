@@ -839,6 +839,13 @@ class AidProject(models.Model):
     aid = models.ForeignKey(
         "Aid", on_delete=models.CASCADE, verbose_name="Aide", blank=True
     )
+    aid_unknown = models.CharField(
+        "Aide inconnue en base",
+        max_length=600,
+        help_text="Nom de l'aide inconnue dans notre base de données",
+        blank=True,
+        null=True,
+    )
     project = models.ForeignKey(
         "projects.Project", on_delete=models.CASCADE, verbose_name="Projet", blank=True
     )
