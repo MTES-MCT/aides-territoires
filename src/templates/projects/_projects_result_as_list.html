@@ -28,9 +28,20 @@
                     {{ project.name }}
                     </a>
                 </td>
+                {% if project.aidproject_set.first.aid %}
                 <td>{{ project.aidproject_set.first.aid.name }}</td>
+                {% else %}
+                <td>{{ project.aidproject_set.first.aid_unknown }}</td>
+                {% endif %}
                 <td>{{ project.final_budget|intcomma }} €</td>
-                <td>{{ project.aidproject_set.first.amount_obtained|intcomma }} € ({% budget_percentage project project.aidproject_set.first.amount_obtained %}%)</td>
+                <td>
+                    {% if project.aidproject_set.first.amount_obtained %}
+                    {{ project.aidproject_set.first.amount_obtained|intcomma }} €
+                     ({% budget_percentage project project.aidproject_set.first.amount_obtained %}%)
+                    {% else %}
+                    inconnu
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
