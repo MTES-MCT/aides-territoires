@@ -21,7 +21,7 @@ jobs:
     # Configure the database service
     services:
       database:
-        image: postgis/postgis:latest
+        image: postgres
         env:
           POSTGRES_USER: aides
           POSTGRES_PASSWORD: aides
@@ -60,14 +60,13 @@ jobs:
       run: |
         psql -d postgresql://aides:aides@localhost/template1 -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;'
         psql -d postgresql://aides:aides@localhost/template1 -c 'CREATE EXTENSION IF NOT EXISTS unaccent;'
-        psql -d postgresql://aides:aides@localhost/template1 -c 'CREATE EXTENSION IF NOT EXISTS postgis;'
         psql -d postgresql://aides:aides@localhost/template1 -c 'CREATE TEXT SEARCH CONFIGURATION french_unaccent( COPY = french ); ALTER TEXT SEARCH CONFIGURATION french_unaccent ALTER MAPPING FOR hword, hword_part, word WITH unaccent, french_stem;'
       env:
         PGPASSWORD: aides
 
     - name: Install the required packages
       run: |
-        sudo apt install gettext sassc binutils libproj-dev gdal-bin
+        sudo apt install gettext sassc
 
     - name: Install pip and pipenv
       working-directory: ./src

@@ -2,7 +2,6 @@ import requests
 from logging import Logger
 
 from django.db import transaction
-from django.contrib.gis.geos import Point
 
 from geofr.models import Perimeter
 
@@ -59,7 +58,8 @@ def import_commune_row_coordinates(commune_row: dict) -> bool:
             code=insee, scale=Perimeter.SCALES.commune, is_obsolete=False
         )
 
-        commune.location = Point(coordinates)
+        commune.longitude = coordinates[0]
+        commune.latitude = coordinates[1]
         commune.save()
         return True
     except Perimeter.DoesNotExist:

@@ -1,7 +1,3 @@
 gettext
 flite
 sassc
-binutils
-libproj-dev
-gdal-bin
-libgdal-dev

@@ -1,8 +1,9 @@
 from django.db import models
+from django.db.models import F
 from django.db.models.query import QuerySet
+from django.db.models.functions import ACos, Cos, Radians, Sin
 from django.utils import timezone
 from django.utils.text import slugify
-from django.contrib.gis.db.models import PointField
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.indexes import GinIndex
 
@@ -142,7 +143,10 @@ class Perimeter(models.Model):
         verbose_name="population", null=True, blank=True
     )  # Sourced from Banatic
 
-    location = PointField(verbose_name="coordonnées", null=True, blank=True)
+    # Location, stored as floats to avoid using GeoDjango
+    # and its many dependencies
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
     # Sourced from API Découpage Administratif - (API Geo)
 
     # Counters: used only at Department level
@@ -210,6 +214,31 @@ class Perimeter(models.Model):
     def save(self, *args, **kwargs):
         self.unaccented_name = remove_accents(self.name)
         return super().save(*args, **kwargs)
+
+    def get_communes_within_radius(self, radius: int) -> QuerySet:
+        """
+        Returns a list of the closest communes objects sorted by distance
+        within a radius (in kilometers) from a center commune object.
+        """
+        if self.scale != Perimeter.SCALES.commune:
+            raise ValueError("The center object must be a commune itself")
+        results = (
+            Perimeter.objects.filter(scale=Perimeter.SCALES.commune, is_obsolete=False)
+            .annotate(
+                distance=ACos(
+                    Cos(Radians(self.latitude))
+                    * Cos(Radians(F("latitude")))
+                    * Cos(Radians(F("longitude")) - Radians(self.longitude))
+                    + Sin(Radians(self.latitude)) * Sin(Radians(F("latitude")))
+                )
+                * 6371
+            )
+            .exclude(id=self.id)
+            .filter(distance__lte=radius)
+            .order_by("distance")
+        )
+
+        return results
 
 
 class PerimeterImport(models.Model):

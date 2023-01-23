@@ -35,7 +35,6 @@ DJANGO_APPS = [
     "django.contrib.flatpages",
     "django.contrib.sitemaps",
     "django.contrib.humanize",
-    "django.contrib.gis",
 ]
 
 THIRD_PARTY_APPS = [
