@@ -189,7 +189,7 @@ def attach_epci_perimeters(
 
 
 def attach_perimeters_check(
-    adhoc: Perimeter, city_codes: list, user: User, logger=None
+    adhoc: Perimeter, city_codes: list | set, user: User, logger=None
 ) -> dict:
     """
     Checks the numbers of city codes to import
