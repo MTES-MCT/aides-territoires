@@ -47,14 +47,10 @@ def list_insee_codes_for_departments_and_coms() -> list:
     )
 
     # Add the COMs
-    codes.append("975")  # Saint-Pierre-et-Miquelon
-    codes.append("977")  # Saint-Barthélemy
-    codes.append("978")  # Saint-Martin
-    codes.append("984")  # TAAF
-    codes.append("986")  # Wallis et Futuna
-    codes.append("987")  # Polynésie française
-    codes.append("988")  # Nouvelle-Calédonie
-    codes.append("989")  # Clipperton
+    # Resp. 975 = Saint-Pierre-et-Miquelon, 977 = Saint-Barthélemy,
+    # 978 = Saint-Martin, 984 = TAAF, 986 = Wallis et Futuna,
+    # 987 = Polynésie française, 988 = Nouvelle-Calédonie, 989 = Clipperton
+    codes += ["975", "977", "978", "984", "986", "987", "988", "989"]
 
     return codes
 
