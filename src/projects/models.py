@@ -129,6 +129,7 @@ class Project(models.Model):
         null=True,
         validators=[FileExtensionValidator(allowed_extensions=["png", "jpg", "jpeg"])],
     )
+    is_imported = models.BooleanField("Importé ?", default=False)
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)
 
