@@ -1,7 +1,7 @@
 import logging
 
 from django.core.management.base import BaseCommand
-from geofr.services.import_communes_coordinates import import_communes_coordinates
+from geofr.services.import_data_from_api_geo import import_communes_coordinates
 
 
 class Command(BaseCommand):

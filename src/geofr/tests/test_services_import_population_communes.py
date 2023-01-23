@@ -3,7 +3,7 @@ import re
 from unittest import mock
 
 from geofr.models import Perimeter
-from geofr.services.import_communes_population import (
+from geofr.services.import_population_communes import (
     get_spreadsheet_content,
     import_row_from_banatic,
     match_filenames_in_zip,
@@ -33,7 +33,7 @@ def test_match_filenames_in_zip() -> None:
     ]
 
     title_regex = re.compile(r"Banatic_SirenInsee(?P<year>\d{4})\.xlsx")
-    with mock.patch("geofr.services.import_communes_population.ZipFile") as MockZipFile:
+    with mock.patch("geofr.services.import_population_communes.ZipFile") as MockZipFile:
         MockZipFile.return_value.namelist.return_value = MOCK_LISTING
         zip_file = MockZipFile()
 

@@ -41,6 +41,8 @@ def test_get_all_related_perimeters_objects(perimeters):
         perimeters["herault"],
         perimeters["montpellier"],
         perimeters["vic"],
+        perimeters["abeilhan"],
+        perimeters["beziers"],
     ]
 
 
@@ -77,6 +79,8 @@ def test_get_all_related_perimeters_objects_downward(perimeters):
         perimeters["herault"],
         perimeters["montpellier"],
         perimeters["vic"],
+        perimeters["abeilhan"],
+        perimeters["beziers"],
     ]
 
 
@@ -94,6 +98,8 @@ def test_get_all_related_perimeters_values(perimeters):
             {"id": perimeters["herault"].id},
             {"id": perimeters["montpellier"].id},
             {"id": perimeters["vic"].id},
+            {"id": perimeters["abeilhan"].id},
+            {"id": perimeters["beziers"].id},
         ],
         key=itemgetter("id"),
     )
