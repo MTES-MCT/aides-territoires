@@ -25,7 +25,8 @@ class ImportValidatedProjects(MessageMixin, FormView):
         return reverse_lazy("admin:projects_validatedproject_changelist")
 
     def form_valid(self, form):
-        import_validated_projects()
+        csv_file = self.request.FILES["validated_projects_list"]
+        import_validated_projects(csv_file=csv_file)
         msg = "Les projets subventionnés ont été importés avec succès."
         self.messages.success(msg)
 
