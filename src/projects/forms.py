@@ -396,13 +396,13 @@ class ProjectSearchForm(AidesTerrBaseForm):
 class ValidatedProjectSearchForm(AidesTerrBaseForm):
     """Specific form for validated projects search engine."""
 
-    name = forms.CharField(
+    project_name = forms.CharField(
         label="Votre projet",
         required=False,
     )
 
     project_perimeter = AutocompleteModelChoiceField(
-        queryset=Perimeter.objects.all(), label="Périmètre", required=True
+        queryset=Perimeter.objects.all(), label="Périmètre", required=False
     )
 
     def clean_zipcode(self):
@@ -424,10 +424,10 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
         if project_perimeter:
             qs = self.perimeter_filter(qs, project_perimeter)
 
-        name = self.cleaned_data.get("name", None)
-        if name:
-            name_unaccented = remove_accents(name)
-            qs = qs.filter(project_name__icontains=name_unaccented)
+        project_name = self.cleaned_data.get("project_name", None)
+        if project_name:
+            project_name_unaccented = remove_accents(project_name)
+            qs = qs.filter(project_name__icontains=project_name_unaccented)
 
         return qs
 
