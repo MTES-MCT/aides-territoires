@@ -64,6 +64,12 @@ def get_backers_count_by_department(
                 )
             )
             .annotate(
+                cee_count=Count(
+                    "financed_aids",
+                    filter=(Q(financed_aids__aid_types__contains=["cee"])),
+                )
+            )
+            .annotate(
                 other_count=Count(
                     "financed_aids",
                     filter=(Q(financed_aids__aid_types__contains=["other"])),
@@ -77,6 +83,7 @@ def get_backers_count_by_department(
                 "grant_count",
                 "loan_count",
                 "recoverable_advance_count",
+                "cee_count",
                 "other_count",
             )
             .order_by("-financial_aids")
@@ -203,6 +210,12 @@ def get_programs_count_by_department(
                 )
             )
             .annotate(
+                cee_count=Count(
+                    "aids",
+                    filter=(Q(aids__aid_types__contains=["cee"])),
+                )
+            )
+            .annotate(
                 other_count=Count(
                     "aids",
                     filter=(Q(aids__aid_types__contains=["other"])),
@@ -216,6 +229,7 @@ def get_programs_count_by_department(
                 "grant_count",
                 "loan_count",
                 "recoverable_advance_count",
+                "cee_count",
                 "other_count",
             )
             .order_by("-financial_aids")

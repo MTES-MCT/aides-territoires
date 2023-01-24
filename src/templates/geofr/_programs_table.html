@@ -8,6 +8,7 @@
                 <th scope="col">Subvention</th>
                 <th scope="col">Prêt</th>
                 <th scope="col">Avance récupérable</th>
+                <th scope="col">Certificat d'économie d'énergie (CEE)</th>
                 <th scope="col">Autres aides financières</th>
             </tr>
         </thead>
@@ -35,6 +36,11 @@
                     <td>
                         <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&financial_aids=recoverable_advance{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
                             {{ entry.recoverable_advance_count }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&programs={{ entry.slug }}&financial_aids=cee{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                            {{ entry.cee_count }}
                         </a>
                     </td>
                     <td>
