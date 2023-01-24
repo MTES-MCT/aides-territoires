@@ -839,13 +839,6 @@ class AidProject(models.Model):
     aid = models.ForeignKey(
         "Aid", on_delete=models.CASCADE, verbose_name="Aide", blank=True, null=True
     )
-    aid_unknown = models.CharField(
-        "Aide inconnue en base",
-        max_length=600,
-        help_text="Nom de l'aide inconnue dans notre base de données",
-        blank=True,
-        null=True,
-    )
     project = models.ForeignKey(
         "projects.Project",
         on_delete=models.CASCADE,
@@ -903,9 +896,6 @@ class AidProject(models.Model):
         help_text="Date à laquelle cette aide a été reçue par le porteur du projet",
         null=True,
         blank=True,
-    )
-    amount_obtained = models.PositiveIntegerField(
-        "Montant obtenu", null=True, blank=True
     )
     date_created = models.DateTimeField("Date de création", default=timezone.now)
 
