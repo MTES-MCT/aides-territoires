@@ -9,3 +9,6 @@ Rendez-vous sur https://aides-territoires.beta.gouv.fr/notifications/ pour les c
 À très vite !
 
 L’équipe d’Aides-territoires
+
+----
+PS : pour paramétrer la fréquence d’envoi de cet email, rendez-vous sur https://aides-territoires.beta.gouv.fr/notifications/préférences/
