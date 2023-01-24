@@ -5,8 +5,10 @@
 # When operating the first deployment of the application, it
 # replaces the post deploy hook.
 
+echo "$PATH"
 dbclient-fetcher psql
 export PATH=/app/bin:$PATH
+echo "$PATH"
 echo "Entering first deploy hook for Review Apps"
 PG_OPTIONS="--clean --if-exists --no-owner --no-privileges --no-comments"
 PG_EXCLUDE_SCHEMA="-N 'information_schema' -N '^pg_*'"
@@ -18,5 +20,6 @@ psql -d $DATABASE_URL -c 'CREATE EXTENSION IF NOT EXISTS unaccent;'
 psql -d $DATABASE_URL -c 'CREATE TEXT SEARCH CONFIGURATION french_unaccent( COPY = french ); ALTER TEXT SEARCH CONFIGURATION french_unaccent ALTER MAPPING FOR hword, hword_part, word WITH unaccent, french_stem;'
 
 # We want to include commands from the post deploy hook as well:
+echo "$HOME"
 bash $HOME/scripts/post_deploy.sh
 echo "Completed first deploy hook"
