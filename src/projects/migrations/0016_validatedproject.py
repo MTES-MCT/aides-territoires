@@ -8,7 +8,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("aids", "0174_alter_aidproject_aid_alter_aidproject_project"),
+        ("aids", "0173_aid_import_updated"),
         ("organizations", "0009_organization_imported_date_organization_is_imported"),
         ("projects", "0015_project_image"),
     ]

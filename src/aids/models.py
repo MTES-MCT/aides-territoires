@@ -837,14 +837,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 class AidProject(models.Model):
 
     aid = models.ForeignKey(
-        "Aid", on_delete=models.CASCADE, verbose_name="Aide", blank=True, null=True
+        "Aid", on_delete=models.CASCADE, verbose_name="Aide", blank=True
     )
     project = models.ForeignKey(
         "projects.Project",
         on_delete=models.CASCADE,
         verbose_name="Projet",
         blank=True,
-        null=True,
     )
     creator = models.ForeignKey(
         "accounts.User",
