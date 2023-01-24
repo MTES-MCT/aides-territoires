@@ -57,9 +57,8 @@ def import_validated_projects():
                         amount_obtained=int(
                             row["subvention_accordee"].replace(",", "")
                         ),
+                        organization=organization,
                     )
-                    validatedproject.organizations.add(organization)
-                    validatedproject.save()
                     if aid.exists():
                         logger.info("aid found")
                         validatedproject.aid = aid.first()

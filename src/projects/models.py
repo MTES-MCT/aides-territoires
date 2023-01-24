@@ -205,9 +205,7 @@ class ValidatedProject(models.Model):
         null=False,
         blank=False,
     )
-    final_budget = models.PositiveIntegerField(
-        "Budget définitif", null=True, blank=True
-    )
+    budget = models.PositiveIntegerField("Budget définitif", null=True, blank=True)
     amount_obtained = models.PositiveIntegerField(
         "Montant obtenu", null=True, blank=True
     )
