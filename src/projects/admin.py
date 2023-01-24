@@ -115,11 +115,11 @@ class ProjectAdmin(ImportExportActionModelAdmin):
 class ValidatedProjectAdmin(admin.ModelAdmin):
     change_list_template = "admin/projects/change_list_template.html"
     form = ProjectForm
-    list_display = []
+    list_display = ["project_name"]
     fields = [
+        "project_name",
+        "project" "aid_name",
         "aid",
-        "aid_unknown",
-        "project_unknown",
         "organization",
         "financer",
         "financer_unknown",

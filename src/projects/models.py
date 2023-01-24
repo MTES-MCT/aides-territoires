@@ -159,15 +159,15 @@ class Project(models.Model):
 
 class ValidatedProject(models.Model):
 
-    aid_unknown = models.CharField(
-        "Nom de l'aide non présente en base",
-        max_length=600,
+    project_name = models.CharField(
+        "Nom du projet",
+        max_length=1000,
         null=False,
         blank=False,
     )
-    project_unknown = models.CharField(
-        "Nom du projet non présent en base",
-        max_length=1000,
+    aid_name = models.CharField(
+        "Nom de l'aide",
+        max_length=600,
         null=False,
         blank=False,
     )
@@ -223,3 +223,8 @@ class ValidatedProject(models.Model):
         null=True,
         blank=True,
     )
+
+    class Meta:
+        verbose_name = "Projet subventionné"
+        verbose_name_plural = "Projets subventionnés"
+        ordering = ["project_name"]
