@@ -22,7 +22,11 @@
             <tr>
                 <td>{{ project.organization.perimeter }}</td>
                 <td>{{ project.date_obtained|date:"Y"}}</td>
-                <td>{{ project.organization.name }}</td>
+                <td>
+                    <a href="{% url 'validated_project_results_view' %}?project_perimeter={{ project.organization.perimeter.id }}&commune_search=true">
+                        {{ project.organization.name }}
+                    </a>
+                </td>
                 <td>
                     {% if project.project_linked %}
                     <a href="{% url 'public_project_detail_view' project.project_linked.pk project.project_linked.slug %}">
