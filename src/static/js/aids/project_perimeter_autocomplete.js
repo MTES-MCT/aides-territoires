@@ -10,8 +10,15 @@ $(document).ready(function () {
         scale = 'commune';
     }
 
+    // Set the placeholder message
+    let placeholder_message = "Tapez les premiers caractères"
+
+    if ($('#search-form').length || $('#advanced-search-form').length) {
+        placeholder_message = "Tous les territoires"
+    }
+
     $('select#id_project_perimeter').select2({
-        placeholder: "Tous les territoires",
+        placeholder: placeholder_message,
         allowClear: true,
         minimumInputLength: 1,
         language: {
