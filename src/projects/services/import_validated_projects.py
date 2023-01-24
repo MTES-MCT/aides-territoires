@@ -21,7 +21,6 @@ def create_validated_project(row):
         scale=1,
         departments__contains=[row["departement"]],
     ).exists():
-        logger.info("perimeter found")
         try:
             perimeter = Perimeter.objects.get(
                 name=row["beneficiaire"],
@@ -32,8 +31,6 @@ def create_validated_project(row):
                 name__icontains=row["appelation"],
                 perimeter__code=row["departement"],
             )
-            if Backer.objects.filter(id=row["porteur_id"]).exists():
-                financer = Backer.objects.get(id=row["porteur_id"])
             if Organization.objects.filter(
                 name=row["beneficiaire"],
                 perimeter=perimeter,
@@ -60,19 +57,18 @@ def create_validated_project(row):
                 organization=organization,
                 financer_name=row["porteur_name"],
             )
+            logger.info("project created")
             if aid.exists():
-                logger.info("aid found")
                 validatedproject.aid_linked = aid.first()
                 validatedproject.aid_name = aid.first().name
                 validatedproject.save()
-            if financer:
-                validatedproject.financer = financer
+            if Backer.objects.filter(id=row["porteur_id"]).exists():
+                financer = Backer.objects.get(id=row["porteur_id"])
+                validatedproject.financer_linked = financer
                 validatedproject.save()
         except Exception as e:
             print(e)
             print(row["projet"])
-    else:
-        logger.info("perimeter not found")
 
 
 def import_validated_projects(csv_file=None, csv_url=None):
