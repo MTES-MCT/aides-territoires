@@ -10,6 +10,7 @@ from geofr.models import Perimeter
 from projects.models import ValidatedProject
 from organizations.models import Organization
 from aids.models import Aid
+from backers.models import Backer
 
 
 def create_validated_project(row):
@@ -31,6 +32,8 @@ def create_validated_project(row):
                 name__icontains=row["appelation"],
                 perimeter__code=row["departement"],
             )
+            if Backer.objects.filter(id=row["porteur_id"]).exists():
+                financer = Backer.objects.get(id=row["porteur_id"])
             if Organization.objects.filter(
                 name=row["beneficiaire"],
                 perimeter=perimeter,
@@ -55,11 +58,15 @@ def create_validated_project(row):
                 date_obtained=datetime.strptime(row["annee"], "%Y"),
                 amount_obtained=int(row["subvention_accordee"].replace(",", "")),
                 organization=organization,
+                financer_name=row["porteur_name"],
             )
             if aid.exists():
                 logger.info("aid found")
                 validatedproject.aid_linked = aid.first()
                 validatedproject.aid_name = aid.first().name
+                validatedproject.save()
+            if financer:
+                validatedproject.financer = financer
                 validatedproject.save()
         except Exception as e:
             print(e)
