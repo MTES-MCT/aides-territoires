@@ -35,6 +35,26 @@ def is_overseas(zipcode):
     return zipcode.startswith(OVERSEAS_PREFIX)
 
 
+def list_insee_codes_for_departments_and_coms() -> list:
+    """
+    Returns a list of all 109 INSEE department-level codes, including the
+    overseas communities (COMs)
+    """
+    codes = sorted(
+        Perimeter.objects.filter(
+            scale=Perimeter.SCALES.department, is_obsolete=False
+        ).values_list("code", flat=True)
+    )
+
+    # Add the COMs
+    # Resp. 975 = Saint-Pierre-et-Miquelon, 977 = Saint-Barthélemy,
+    # 978 = Saint-Martin, 984 = TAAF, 986 = Wallis et Futuna,
+    # 987 = Polynésie française, 988 = Nouvelle-Calédonie, 989 = Clipperton
+    codes += ["975", "977", "978", "984", "986", "987", "988", "989"]
+
+    return codes
+
+
 def get_all_related_perimeters(
     search_perimeter_id, direction="both", scale=None, values=None
 ):
@@ -169,7 +189,7 @@ def attach_epci_perimeters(
 
 
 def attach_perimeters_check(
-    adhoc: Perimeter, city_codes: list, user: User, logger=None
+    adhoc: Perimeter, city_codes: list | set, user: User, logger=None
 ) -> dict:
     """
     Checks the numbers of city codes to import

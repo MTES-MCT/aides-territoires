@@ -9,6 +9,7 @@ from geofr.utils import (
     get_all_related_perimeters,
     attach_perimeters,
     attach_epci_perimeters,
+    list_insee_codes_for_departments_and_coms,
 )
 from geofr.factories import PerimeterFactory
 
@@ -30,6 +31,14 @@ def test_is_overseas():
     assert is_overseas("97414")
 
 
+def test_list_insee_codes_for_departments_and_coms(perimeters) -> None:
+    depts_list = list_insee_codes_for_departments_and_coms()
+
+    assert len(depts_list) == 15
+    assert depts_list[0] == "12"  # First department in the test perimeters
+    assert depts_list[-1] == "989"
+
+
 def test_get_all_related_perimeters_objects(perimeters):
     related_perimeters = get_all_related_perimeters(perimeters["herault"].id)
 
@@ -41,6 +50,8 @@ def test_get_all_related_perimeters_objects(perimeters):
         perimeters["herault"],
         perimeters["montpellier"],
         perimeters["vic"],
+        perimeters["abeilhan"],
+        perimeters["beziers"],
     ]
 
 
@@ -77,6 +88,8 @@ def test_get_all_related_perimeters_objects_downward(perimeters):
         perimeters["herault"],
         perimeters["montpellier"],
         perimeters["vic"],
+        perimeters["abeilhan"],
+        perimeters["beziers"],
     ]
 
 
@@ -94,6 +107,8 @@ def test_get_all_related_perimeters_values(perimeters):
             {"id": perimeters["herault"].id},
             {"id": perimeters["montpellier"].id},
             {"id": perimeters["vic"].id},
+            {"id": perimeters["abeilhan"].id},
+            {"id": perimeters["beziers"].id},
         ],
         key=itemgetter("id"),
     )

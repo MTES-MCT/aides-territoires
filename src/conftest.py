@@ -171,6 +171,26 @@ def perimeters():
         departments=["34"],
         basin="FR000006",
     )
+    abeilhan = PerimeterFactory(
+        scale=Perimeter.SCALES.commune,
+        contained_in=[europe, france, occitanie, herault, rhonemed, metropole],
+        is_overseas=False,
+        name="Abeilhan",
+        code="34001",
+        regions=["76"],
+        departments=["34"],
+        basin="FR000006",
+    )
+    beziers = PerimeterFactory(
+        scale=Perimeter.SCALES.commune,
+        contained_in=[europe, france, occitanie, herault, rhonemed, metropole],
+        is_overseas=False,
+        name="Béziers",
+        code="34032",
+        regions=["76"],
+        departments=["34"],
+        basin="FR000006",
+    )
     aveyron = PerimeterFactory(
         scale=Perimeter.SCALES.department,
         contained_in=[europe, france, occitanie, metropole],
@@ -285,6 +305,8 @@ def perimeters():
         "herault": herault,
         "montpellier": montpellier,
         "vic": vic,
+        "abeilhan": abeilhan,
+        "beziers": beziers,
         "aveyron": aveyron,
         "rodez": rodez,
         "normandie": normandie,

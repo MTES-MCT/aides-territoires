@@ -24,3 +24,34 @@ def test_departments_adds_a_slug(perimeters):
     aveyron = departments_list[0]
 
     assert aveyron["slug"] == "aveyron"
+
+
+def test_get_communes_within_radius(perimeters):
+    """The method should not return Montpellier (center) nor Béziers (too far away)"""
+    abeilhan = Perimeter.objects.get(code="34001")
+    abeilhan.longitude = 3.3026
+    abeilhan.latitude = 43.46
+    abeilhan.save()
+
+    beziers = Perimeter.objects.get(code="34032")
+    beziers.longitude = 3.2342
+    beziers.latitude = 43.3481
+    beziers.save()
+
+    montpellier = Perimeter.objects.get(code="34172")
+    montpellier.longitude = 3.8742
+    montpellier.latitude = 43.61
+    montpellier.save()
+
+    vic = Perimeter.objects.get(code="34333")
+    vic.longitude = 3.8046
+    vic.latitude = 43.4838
+    vic.save()
+
+    near_montpellier = montpellier.get_communes_within_radius(50)
+
+    assert abeilhan in near_montpellier
+    assert vic in near_montpellier
+
+    assert montpellier not in near_montpellier
+    assert beziers not in near_montpellier
