@@ -28,9 +28,9 @@ from projects.forms import (
     ProjectExportForm,
     ProjectUpdateForm,
     ProjectSearchForm,
-    FinishedProjectSearchForm,
+    ValidatedProjectSearchForm,
 )
-from projects.models import Project
+from projects.models import Project, ValidatedProject
 from organizations.models import Organization
 from aids.models import AidProject, Aid, SuggestedAidProject
 from geofr.models import Perimeter
@@ -244,7 +244,7 @@ class ValidatedProjectHomeView(SearchMixin, FormMixin, ListView):
 
     template_name = "projects/validated_projects_home.html"
     context_object_name = "projects"
-    form_class = FinishedProjectSearchForm
+    form_class = ValidatedProjectSearchForm
     paginate_by = 18
     paginator_class = AidPaginator
 
@@ -257,12 +257,7 @@ class ValidatedProjectHomeView(SearchMixin, FormMixin, ListView):
     def get_queryset(self):
         """Return the list of results to display."""
 
-        qs = Project.objects.filter(
-            is_public=True,
-            status=Project.STATUS.published,
-            step=Project.PROJECT_STEPS.validated,
-        )
-
+        qs = ValidatedProject.objects.all()
         filter_form = self.form
         results = filter_form.filter_queryset(qs).distinct()
 
@@ -303,11 +298,11 @@ class ValidatedProjectHomeView(SearchMixin, FormMixin, ListView):
 
 
 class ValidatedProjectResultsView(SearchMixin, FormMixin, ListView):
-    """Search and display public finished projects."""
+    """Search and display validated projects."""
 
     template_name = "projects/validated_projects_results.html"
     context_object_name = "projects"
-    form_class = FinishedProjectSearchForm
+    form_class = ValidatedProjectSearchForm
     paginate_by = 18
     paginator_class = AidPaginator
 
@@ -320,17 +315,12 @@ class ValidatedProjectResultsView(SearchMixin, FormMixin, ListView):
     def get_queryset(self):
         """Return the list of results to display."""
 
-        organizations_qs = Organization.objects.all().select_related("perimeter")
-
         qs = (
-            Project.objects.filter(
-                is_public=True,
-                status=Project.STATUS.published,
-                step=Project.PROJECT_STEPS.validated,
-            )
-            .prefetch_related(Prefetch("organizations", queryset=organizations_qs))
-            .prefetch_related("project_types")
-            .prefetch_related("aid_set")
+            ValidatedProject.objects.all()
+            .select_related("organization")
+            .select_related("aid")
+            .select_related("financer")
+            .select_related("project")
         )
 
         filter_form = self.form

@@ -393,8 +393,8 @@ class ProjectSearchForm(AidesTerrBaseForm):
         return qs
 
 
-class FinishedProjectSearchForm(AidesTerrBaseForm):
-    """Specific form for finished projects search engine."""
+class ValidatedProjectSearchForm(AidesTerrBaseForm):
+    """Specific form for validated projects search engine."""
 
     name = forms.CharField(
         label="Votre projet",
@@ -420,8 +420,6 @@ class FinishedProjectSearchForm(AidesTerrBaseForm):
         if not hasattr(self, "cleaned_data"):
             self.full_clean()
 
-        qs = qs.filter(step=Project.PROJECT_STEPS.validated)
-
         project_perimeter = self.cleaned_data.get("project_perimeter", None)
         if project_perimeter:
             qs = self.perimeter_filter(qs, project_perimeter)
@@ -429,7 +427,7 @@ class FinishedProjectSearchForm(AidesTerrBaseForm):
         name = self.cleaned_data.get("name", None)
         if name:
             name_unaccented = remove_accents(name)
-            qs = qs.filter(name__icontains=name_unaccented)
+            qs = qs.filter(project_unknown__icontains=name_unaccented)
 
         return qs
 
