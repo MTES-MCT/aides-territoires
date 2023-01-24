@@ -454,3 +454,9 @@ class FinishedProjectSearchForm(AidesTerrBaseForm):
         perimeter_ids = get_all_related_perimeters(search_perimeter.id, values=["id"])
         qs = qs.filter(organizations__perimeter__in=perimeter_ids)
         return qs
+
+
+class ValidatedProjectImportForm(forms.Form):
+    validated_projects_list = forms.FileField(
+        label="Liste des projets subventionnés", required=True
+    )
