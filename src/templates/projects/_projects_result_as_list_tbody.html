@@ -1,0 +1,44 @@
+{% load humanize projects %}
+
+
+<tr>
+    {% if commune_search %}
+        <td>
+            {% distance_between_two_perimeters project.organization.perimeter project_current_search_dict.project_perimeter %} km
+        </td>
+    {% endif %}
+
+    <td>{{ project.date_obtained|date:"Y"}}</td>
+    <td>
+        <a href="{% url 'validated_project_results_view' %}?project_perimeter={{ project.organization.perimeter.id }}&commune_search=true">
+            {{ project.organization.name }}
+        </a>
+    </td>
+    <td>
+        {% if project.project_linked %}
+            <a href="{% url 'public_project_detail_view' project.project_linked.pk project.project_linked.slug %}">
+            {{ project.project_linked.name }}
+            </a>
+        {% else %}
+            {{ project.project_name }}
+        {% endif %}
+    </td>
+    <td>
+        {% if project.aid_linked %}
+            <a href="{% url 'aid_detail_view' project.aid_linked.slug %}">
+                {{ project.aid_linked.name}}
+            </a>
+        {% else %}
+            {{ project.aid_name }}
+        {% endif %}
+    </td>
+    <td>{{ project.budget|intcomma }} €</td>
+    <td>
+        {% if project.amount_obtained %}
+            {{ project.amount_obtained|intcomma }} €
+            ({% budget_percentage project project.amount_obtained %}%)
+        {% else %}
+            inconnue
+        {% endif %}
+    </td>
+</tr>

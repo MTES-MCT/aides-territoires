@@ -119,7 +119,9 @@ Découvrez la liste des projets réalisés par les mairies dans le département 
         </div>
         {% endif %}
     </div>
-    {% include '_pagination.html' %}
+    {% if user.is_authenticated %}
+        {% include '_pagination.html' %}
+    {% endif %}
 </div>
 {% endblock content %}
 
