@@ -20,24 +20,32 @@
         <tbody>
             {% for project in projects %}
             <tr>
-                <td>{{ project.organizations.first.perimeter.name }}</td>
-                <td>{{ project.date_created|date:"Y"}}</td>
-                <td>{{ project.organizations.first.name }}</td>
+                <td>{{ project.organization.perimeter }}</td>
+                <td>{{ project.date_obtention|date:"Y"}}</td>
+                <td>{{ project.organization.name }}</td>
                 <td>
-                    <a href="{% url 'public_project_detail_view' project.pk project.slug %}">
-                    {{ project.name }}
+                    {% if project.project %}
+                    <a href="{% url 'public_project_detail_view' project.project.pk project.project.slug %}">
+                    {{ project.project.name }}
                     </a>
+                    {% else %}
+                    {{ project.project_name }}
+                    {% endif %}
                 </td>
-                {% if project.aidproject_set.first.aid %}
-                <td>{{ project.aidproject_set.first.aid.name }}</td>
-                {% else %}
-                <td>{{ project.aidproject_set.first.aid_unknown }}</td>
-                {% endif %}
-                <td>{{ project.final_budget|intcomma }} €</td>
                 <td>
-                    {% if project.aidproject_set.first.amount_obtained %}
-                    {{ project.aidproject_set.first.amount_obtained|intcomma }} €
-                     ({% budget_percentage project project.aidproject_set.first.amount_obtained %}%)
+                    {% if project.aid %}
+                    <a href="{% url 'aid_detail_view' project.aid.slug %}">
+                        {{ project.aid.name}}
+                    </a>
+                    {% else %}
+                    {{ project.aid_name }}
+                    {% endif %}
+                </td>
+                <td>{{ project.budget|intcomma }} €</td>
+                <td>
+                    {% if project.amount_obtained %}
+                    {{ project.amount_obtained|intcomma }} €
+                     ({% budget_percentage project project.amount_obtained %}%)
                     {% else %}
                     inconnu
                     {% endif %}

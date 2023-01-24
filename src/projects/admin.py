@@ -118,7 +118,8 @@ class ValidatedProjectAdmin(admin.ModelAdmin):
     list_display = ["project_name"]
     fields = [
         "project_name",
-        "project" "aid_name",
+        "project",
+        "aid_name",
         "aid",
         "organization",
         "financer",

@@ -67,3 +67,5 @@ def import_validated_projects():
                 except Exception as e:
                     print(e)
                     print(row["projet"])
+            else:
+                logger.info("perimeter not found")
