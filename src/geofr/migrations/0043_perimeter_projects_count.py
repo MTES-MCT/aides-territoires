@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("geofr", "0041_perimeter_population"),
+        ("geofr", "0042_perimeter_latitude_perimeter_longitude"),
     ]
 
     operations = [
