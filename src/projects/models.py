@@ -43,12 +43,6 @@ class Project(models.Model):
         ("finished", "Réalisé"),
     )
 
-    PROJECT_STEPS_FRONT = Choices(
-        ("considered", "En réflexion"),
-        ("ongoing", "En cours"),
-        ("finished", "Réalisé"),
-    )
-
     name = models.CharField(
         "Nom du projet", max_length=256, null=False, blank=False, db_index=True
     )

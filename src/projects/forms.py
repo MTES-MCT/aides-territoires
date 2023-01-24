@@ -55,7 +55,7 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
     )
     step = forms.ChoiceField(
         label="État d’avancement du projet",
-        choices=Project.PROJECT_STEPS_FRONT,
+        choices=Project.PROJECT_STEPS,
         required=True,
     )
     budget = forms.IntegerField(
@@ -126,7 +126,7 @@ class ProjectCreateForm(forms.ModelForm, AidesTerrBaseForm):
         ] + Project.CONTRACT_LINK
         self.fields["step"].choices = [
             ("", "À quel stade est ce projet?")
-        ] + Project.PROJECT_STEPS_FRONT
+        ] + Project.PROJECT_STEPS
 
     def clean(self):
         data = super().clean()
@@ -170,7 +170,7 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
     )
     step = forms.ChoiceField(
         label="État d’avancement du projet",
-        choices=Project.PROJECT_STEPS_FRONT,
+        choices=Project.PROJECT_STEPS,
         required=True,
     )
     budget = forms.IntegerField(
@@ -246,7 +246,7 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
         ] + Project.CONTRACT_LINK
         self.fields["step"].choices = [
             ("", "À quel stade est ce projet?")
-        ] + Project.PROJECT_STEPS_FRONT
+        ] + Project.PROJECT_STEPS
 
     def clean(self):
         data = super().clean()
@@ -292,7 +292,7 @@ class ProjectSearchForm(AidesTerrBaseForm):
     step = forms.ChoiceField(
         label="Avancement du projet",
         required=False,
-        choices=Project.PROJECT_STEPS_FRONT,
+        choices=Project.PROJECT_STEPS,
     )
 
     contract_link = forms.ChoiceField(
