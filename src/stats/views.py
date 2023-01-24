@@ -276,7 +276,7 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
                 perimeter__scale=Perimeter.SCALES.commune,
                 perimeter__is_obsolete=False,
             )
-            .exclude(perimeter_id__isnull=True)
+            .exclude(perimeter_id__isnull=True, is_imported=True)
             .order_by("perimeter")
             .distinct("perimeter")
             .count()
@@ -295,7 +295,7 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
                 perimeter__scale=Perimeter.SCALES.epci,
                 perimeter__is_obsolete=False,
             )
-            .exclude(perimeter_id__isnull=True)
+            .exclude(perimeter_id__isnull=True, is_imported=True)
             .order_by("perimeter")
             .distinct("perimeter")
             .count()
@@ -929,6 +929,7 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
         context["nb_beneficiary_organizations"] = (
             Organization.objects.filter(beneficiaries__is_beneficiary=True)
             .filter(date_created__range=[start_date_range, end_date_range])
+            .exclude(is_imported=True)
             .count()
         )
         context["nb_projects_for_period"] = Project.objects.filter(
@@ -948,6 +949,7 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
         context["nb_contributor_organizations"] = (
             Organization.objects.filter(beneficiaries__is_contributor=True)
             .filter(date_created__range=[start_date_range, end_date_range])
+            .exclude(is_imported=True)
             .count()
         )
         context["nb_aids_live_for_period"] = (
@@ -1151,6 +1153,7 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
                 perimeter__is_obsolete=False,
                 organization_type=["commune"],
             )
+            .exclude(is_imported=True)
             .annotate(projects_count=Count("project", distinct=True))
             .values(
                 "name",
@@ -1205,6 +1208,7 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
                 perimeter__is_obsolete=False,
                 organization_type=["epci"],
             )
+            .exclude(is_imported=True)
             .annotate(projects_count=Count("project", distinct=True))
             .values(
                 "name",
@@ -1371,6 +1375,7 @@ class OrganizationsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
             Organization.objects.filter(
                 date_created__range=[start_date_range, end_date_range]
             )
+            .exclude(is_imported=True)
             .prefetch_related("beneficiaries")
             .select_related("perimeter")
             .order_by("-date_created")
@@ -1391,7 +1396,7 @@ class OrganizationsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
 
         communes_count = (
             Organization.objects.filter(organization_type__contains=["commune"])
-            .exclude(perimeter_id__isnull=True)
+            .exclude(perimeter_id__isnull=True, is_imported=True)
             .values("organization_type", "city_name", "perimeter_id")
             .distinct()
             .count()
@@ -1403,6 +1408,7 @@ class OrganizationsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
             Organization.objects.exclude(organization_type__contains=["commune"])
             .exclude(organization_type__isnull=True)
             .exclude(perimeter_id__isnull=True)
+            .exclude(is_imported=True)
             .values("organization_type", "name", "perimeter_id")
             .distinct()
             .order_by("organization_type")
