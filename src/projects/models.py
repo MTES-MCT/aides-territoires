@@ -215,14 +215,12 @@ class ValidatedProject(models.Model):
         null=True,
         blank=True,
     )
-    date_created = models.DateTimeField(
-        "Date de création",
-        help_text="Date de création de l'objet",
-        null=True,
-        blank=True,
-    )
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
 
     class Meta:
         verbose_name = "Projet subventionné"
         verbose_name_plural = "Projets subventionnés"
         ordering = ["project_name"]
+
+    def __str__(self):
+        return self.project_name
