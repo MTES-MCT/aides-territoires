@@ -202,8 +202,8 @@ class ValidatedProject(models.Model):
     financer_name = models.CharField(
         "Nom du porteur de l'aide obtenue",
         max_length=600,
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
     )
     budget = models.PositiveIntegerField("Budget définitif", null=True, blank=True)
     amount_obtained = models.PositiveIntegerField(

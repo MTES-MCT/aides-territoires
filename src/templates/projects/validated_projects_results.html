@@ -3,7 +3,7 @@
 
 {% block extratitle %}
 {% if commune_search %}
-Projets réalisés par les mairies à côté de {% if project_current_search_dict.project_perimeter %}{{ project_current_search_dict.project_perimeter.name }}{% endif %}
+Projets réalisés par les mairies {% if project_current_search_dict.project_perimeter.latitude %}à côté de {{ project_current_search_dict.project_perimeter.name }}{% endif %}
 {% elif department_search %}
 Projets réalisés par les mairies du département {% if project_current_search_dict.project_perimeter %}
 {{ project_current_search_dict.project_perimeter.name }} ({{ project_current_search_dict.project_perimeter.code}}){% endif %}
@@ -22,7 +22,7 @@ Découvrez la liste des projets réalisés par les mairies dans le département 
 {% block extra_head %}
 <meta property="og:title"
     {% if commune_search %}
-    content="Projets réalisés par les mairies à côté de {% if project_current_search_dict.project_perimeter %}{{ project_current_search_dict.project_perimeter.name }}{% endif %} - Aides Territoires"
+    content="Projets réalisés par les mairies {% if project_current_search_dict.project_perimeter.latitude %}à côté de {{ project_current_search_dict.project_perimeter.name }}{% endif %} - Aides Territoires"
     {% elif department_search %}
     content="Projets réalisés par les mairies du département {% if project_current_search_dict.project_perimeter %}
     {{ project_current_search_dict.project_perimeter.name }} ({{ project_current_search_dict.project_perimeter.code}}){% endif %} - Aides Territoires"
@@ -72,9 +72,12 @@ Découvrez la liste des projets réalisés par les mairies dans le département 
             <span class="result-count">
                 {% if commune_search %}
                     {% if nb_projects > 1 %}
-                    Liste des {{ nb_projects }} projets subventionnés dans un rayon de 50 kms
+                        Liste des {{ nb_projects }} projets subventionnés
                     {% else %}
-                    {{ nb_projects }} projet subventionné dans un rayon de 50 kms
+                        {{ nb_projects }} projet subventionné
+                    {% endif %}
+                    {% if project_current_search_dict.project_perimeter.latitude and project_current_search_dict.project_perimeter.longitude %}
+                        dans un rayon de 50 kms
                     {% endif %}
                 {% elif department_search %}
                     {% if nb_projects > 1 %}
