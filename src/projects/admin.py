@@ -2,14 +2,15 @@ from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from django.utils.html import format_html
-from django.urls import reverse
+from django.urls import reverse, path
 
 from import_export.admin import ImportExportActionModelAdmin
 from import_export.formats import base_formats
 
 from core.forms import RichTextField
-from projects.models import Project
+from projects.models import Project, ValidatedProject
 from projects.resources import ProjectResource
+from projects.admin_views import ImportValidatedProjects
 
 
 class ProjectForm(forms.ModelForm):
@@ -21,7 +22,6 @@ class ProjectForm(forms.ModelForm):
 
 
 class ProjectAdmin(ImportExportActionModelAdmin):
-
     resource_class = ProjectResource
     formats = [base_formats.CSV, base_formats.XLSX]
     form = ProjectForm
@@ -30,7 +30,6 @@ class ProjectAdmin(ImportExportActionModelAdmin):
         "is_public",
         "status",
         "contract_link",
-        "is_imported",
     ]
     prepopulated_fields = {"slug": ("name",)}
     fields = [
@@ -42,7 +41,6 @@ class ProjectAdmin(ImportExportActionModelAdmin):
         "due_date",
         "step",
         "budget",
-        "final_budget",
         "key_words",
         "author",
         "organizations",
@@ -54,7 +52,6 @@ class ProjectAdmin(ImportExportActionModelAdmin):
         "project_types",
         "project_types_suggestion",
         "status",
-        "is_imported",
         "date_created",
     ]
     search_fields = ["name"]
@@ -115,4 +112,74 @@ class ProjectAdmin(ImportExportActionModelAdmin):
         ]
 
 
+class ValidatedProjectAdmin(admin.ModelAdmin):
+    change_list_template = "admin/projects/change_list_template.html"
+    form = ProjectForm
+    list_display = []
+    fields = [
+        "aid",
+        "aid_unknown",
+        "project_unknown",
+        "organization",
+        "financer",
+        "financer_unknown",
+        "budget",
+        "amount_obtained",
+        "date_obtention",
+        "date_created",
+    ]
+    readonly_fields = ["date_created"]
+    autocomplete_fields = ["aid", "project", "organization", "financer"]
+
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            path(
+                "validated_projects_import/",
+                self.admin_site.admin_view(self.validated_projects_import_view),
+                name="validated_projects_import",
+            ),
+        ]
+        return my_urls + urls
+
+    def validated_projects_import_view(self, request, object_id=None):
+        """Display the form to upload a list of validated projects."""
+
+        opts = self.model._meta
+        app_label = opts.app_label
+        obj = self.get_object(request, object_id)
+
+        context = {
+            **self.admin_site.each_context(request),
+            "title": "Import des projets subventionnés",
+            "opts": opts,
+            "app_label": app_label,
+            "original": obj,
+        }
+        return ImportValidatedProjects.as_view(extra_context=context)(
+            request, object_id=object_id
+        )
+
+    class Media:
+        css = {
+            "all": (
+                "css/admin.css",
+                "/static/trumbowyg/dist/ui/trumbowyg.css",
+            )
+        }
+        js = [
+            "admin/js/jquery.init.js",
+            "/static/js/shared_config.js",
+            "/static/js/plugins/softmaxlength.js",
+            "/static/js/search/enable_softmaxlength.js",
+            "/static/trumbowyg/dist/trumbowyg.js",
+            "/static/trumbowyg/dist/langs/fr.js",
+            "/static/trumbowyg/dist/plugins/upload/trumbowyg.upload.js",
+            "/static/jquery-resizable-dom/dist/jquery-resizable.js",
+            "/static/trumbowyg/dist/plugins/resizimg/trumbowyg.resizimg.js",
+            "/static/js/enable_rich_text_editor.js",
+        ]
+
+
+admin.site.register(ValidatedProject, ValidatedProjectAdmin)
 admin.site.register(Project, ProjectAdmin)

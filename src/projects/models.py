@@ -41,7 +41,6 @@ class Project(models.Model):
         ("considered", "En réflexion"),
         ("ongoing", "En cours"),
         ("finished", "Réalisé"),
-        ("validated", "Validé"),
     )
 
     PROJECT_STEPS_FRONT = Choices(
@@ -110,10 +109,6 @@ class Project(models.Model):
 
     budget = models.PositiveIntegerField("Budget prévisionnel", null=True, blank=True)
 
-    final_budget = models.PositiveIntegerField(
-        "Budget définitif", null=True, blank=True
-    )
-
     status = models.CharField(
         "Statut",
         max_length=10,
@@ -129,7 +124,6 @@ class Project(models.Model):
         null=True,
         validators=[FileExtensionValidator(allowed_extensions=["png", "jpg", "jpeg"])],
     )
-    is_imported = models.BooleanField("Importé ?", default=False)
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)
 
@@ -167,3 +161,71 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         self.set_slug()
         return super().save(*args, **kwargs)
+
+
+class ValidatedProject(models.Model):
+
+    aid_unknown = models.CharField(
+        "Nom de l'aide non présente en base",
+        max_length=600,
+        null=False,
+        blank=False,
+    )
+    project_unknown = models.CharField(
+        "Nom du projet non présent en base",
+        max_length=1000,
+        null=False,
+        blank=False,
+    )
+    project = models.ForeignKey(
+        "projects.Project",
+        verbose_name="Projet lié",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+    aid = models.ForeignKey(
+        "aids.Aid",
+        verbose_name="Aide liée",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+    organization = models.ForeignKey(
+        "organizations.Organization",
+        verbose_name="Organisation porteuse",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+    financer = models.ForeignKey(
+        "backers.Backer",
+        verbose_name="Porteur de l'aide obtenue",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+    financer_unknown = models.CharField(
+        "Porteur de l'aide obtenue inconnu en base",
+        max_length=600,
+        null=False,
+        blank=False,
+    )
+    final_budget = models.PositiveIntegerField(
+        "Budget définitif", null=True, blank=True
+    )
+    amount_obtained = models.PositiveIntegerField(
+        "Montant obtenu", null=True, blank=True
+    )
+    date_obtention = models.DateTimeField(
+        "Date de l'obtention",
+        help_text="Date à laquelle l'aide a été obtenue par le porteur du projet",
+        null=True,
+        blank=True,
+    )
+    date_created = models.DateTimeField(
+        "Date de création",
+        help_text="Date de création de l'objet",
+        null=True,
+        blank=True,
+    )
