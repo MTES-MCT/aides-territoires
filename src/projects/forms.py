@@ -402,7 +402,7 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
     )
 
     project_perimeter = AutocompleteModelChoiceField(
-        queryset=Perimeter.objects.all(), label="Périmètre", required=False
+        queryset=Perimeter.objects.all(), label="Périmètre", required=True
     )
 
     def clean_zipcode(self):
@@ -427,7 +427,7 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
         name = self.cleaned_data.get("name", None)
         if name:
             name_unaccented = remove_accents(name)
-            qs = qs.filter(project_unknown__icontains=name_unaccented)
+            qs = qs.filter(project_name__icontains=name_unaccented)
 
         return qs
 
@@ -450,7 +450,7 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
          - Montpellier (and all other communes in Hérault) ;
         """
         perimeter_ids = get_all_related_perimeters(search_perimeter.id, values=["id"])
-        qs = qs.filter(organizations__perimeter__in=perimeter_ids)
+        qs = qs.filter(organization__perimeter__in=perimeter_ids)
         return qs
 
 
