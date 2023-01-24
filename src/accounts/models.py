@@ -7,7 +7,11 @@ from django.contrib.auth.models import (
     BaseUserManager,
 )
 from django.utils import timezone
+
 from model_utils import Choices
+
+from notifications.constants import NOTIFICATION_SETTINGS_FREQUENCIES_LIST
+from notifications.models import Notification
 
 
 class UserQueryset(models.QuerySet):
@@ -116,7 +120,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ("other", "Autre"),
     )
 
-    ACQUISITION_CHANNEL = Choices(
+    ACQUISITION_CHANNEL_CHOICES = Choices(
         ("webinar", "Webinaire"),
         ("animator", "Animateur local"),
         ("trade_press", "Presse spécialisée"),
@@ -125,7 +129,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ("other", "Autre"),
     )
 
-    objects = UserManager()
+    objects = UserManager().from_queryset(UserQueryset)()
 
     email = models.EmailField("Adresse e-mail", unique=True)
     first_name = models.CharField("Prénom", max_length=256)
@@ -225,19 +229,30 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
     )
     acquisition_channel = models.CharField(
-        "Canal d'acquisition",
+        "Canal d’acquisition",
         max_length=32,
-        choices=ACQUISITION_CHANNEL,
+        choices=ACQUISITION_CHANNEL_CHOICES,
         null=True,
         blank=True,
-        help_text="Comment l'utilisateur a-t-il connu Aides-territoires?",
+        help_text="Comment l’utilisateur a-t-il connu Aides-territoires?",
     )
     acquisition_channel_comment = models.CharField(
-        "Commentaire Canal d'acquisition",
+        "Commentaire Canal d’acquisition",
         max_length=1000,
         null=True,
         blank=True,
-        help_text="Comment l'utilisateur a-t-il connu Aides-territoires (champ libre)?",
+        help_text="Comment l’utilisateur a-t-il connu Aides-territoires (champ libre)?",
+    )
+
+    # Notification settings
+    notification_counter = models.PositiveIntegerField(
+        "Nombre de notifications reçues", default=0
+    )
+    notification_email_frequency = models.CharField(
+        "Fréquence d’envoi des emails de notifications",
+        max_length=32,
+        choices=NOTIFICATION_SETTINGS_FREQUENCIES_LIST,
+        default="daily",
     )
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)
@@ -283,6 +298,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_contributor or self.is_beneficiary
 
     @property
+    def unread_notifications(self):
+        """Number of unread notifications for the user"""
+        return Notification.objects.filter(
+            recipient=self, date_read__isnull=True
+        ).count()
+
+    @property
     def bound_to_organization(self):
         """User need to specify more personal data."""
         return self.beneficiary_organization
@@ -297,6 +319,19 @@ class User(AbstractBaseUser, PermissionsMixin):
         """Only the minisite administrators can access
         certain pages of the app."""
         return self.search_pages.exists()
+
+    def send_notification(self, title: str, message: str) -> None:
+        """
+        Send a notification to the user through the internal notification system
+        """
+        # Message should be valid html with content enclosed in one or several p tag(s)
+        # Though if the message is very basic, we can add it here.
+        if "<p>" not in message:
+            message = f"<p>{message}</p>"
+
+        Notification.objects.create(recipient=self, title=title, message=message)
+        self.notification_counter += 1
+        self.save()
 
     def get_search_preferences(self):
         """
@@ -319,7 +354,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class UserLastConnexion(models.Model):
-
     user = models.ForeignKey(
         "accounts.User", verbose_name="Utilisateur", on_delete=models.CASCADE, null=True
     )

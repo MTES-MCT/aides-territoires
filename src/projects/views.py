@@ -44,7 +44,9 @@ class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
     context_object_name = "project"
 
     def form_valid(self, form):
-        org_type = self.request.user.beneficiary_organization.organization_type[0]
+        user = self.request.user
+        user_organization = user.beneficiary_organization
+        org_type = user_organization.organization_type[0]
         if org_type == "commune" or org_type == "epci":
             form = ProjectCreateForm(self.request.POST, self.request.FILES)
         project = form.save(commit=False)
@@ -57,8 +59,21 @@ class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
                 project.image = self.request.FILES["image"]
         project.save()
         form.save_m2m()
-        project.author.add(self.request.user)
-        project.organizations.add(self.request.user.beneficiary_organization)
+        project.author.add(user)
+        project.organizations.add(user_organization)
+
+        # send notification to other org members
+        other_members = user_organization.beneficiaries.exclude(id=user.id)
+        for member in other_members:
+            member.send_notification(
+                title="Un projet a été créé",
+                message=f"""
+                <p>
+                    {user.full_name} a créé le projet
+                    <a href="{project.get_absolute_url()}">{project.name}</a>.
+                </p>
+                """,
+            )
 
         msg = "Votre nouveau projet a été créé !"
         messages.success(self.request, msg)
@@ -401,18 +416,28 @@ class ProjectDeleteView(
         return url
 
     def form_valid(self, form):
-
         project_name = self.get_object().name
         eraser = self.request.user
-        eraser_email = self.request.user.email
         eraser_name = self.request.user.full_name
+        eraser_organization = eraser.beneficiary_organization
 
         response = super().form_valid(form)
 
-        for user in eraser.beneficiary_organization.beneficiaries.all():
-            user_email = user.email
-            if user_email != eraser_email:
-                send_project_deleted_email.delay(user_email, project_name, eraser_name)
+        # send notification to other org members
+        other_members = eraser_organization.beneficiaries.exclude(id=eraser.id)
+        for member in other_members:
+            # email notification
+            send_project_deleted_email.delay(member.email, project_name, eraser_name)
+
+            # internal_notification
+            member.send_notification(
+                title="Un projet a été supprimé",
+                message=f"""
+                <p>
+                    {eraser_name} a supprimé le projet {project_name}.
+                </p>
+                """,
+            )
 
         msg = f"Votre projet { project_name } a bien été supprimé."
         self.messages.success(msg)
@@ -462,12 +487,14 @@ class ProjectUpdateView(
         return super().get_queryset()
 
     def form_valid(self, form):
+        user = self.request.user
+        user_organization = user.beneficiary_organization
         project = form.save(commit=False)
         if project.is_public is True:
             project.status = Project.STATUS.reviewable
         else:
             project.status = Project.STATUS.draft
-        org_type = self.request.user.beneficiary_organization.organization_type[0]
+        org_type = user_organization.organization_type[0]
         if org_type == "commune" or org_type == "epci":
             if self.request.FILES:
                 images = self.request.FILES.getlist("image")
@@ -478,6 +505,19 @@ class ProjectUpdateView(
         project.save()
         form.save_m2m()
         response = super().form_valid(form)
+
+        # send notification to other org members
+        other_members = user_organization.beneficiaries.exclude(id=user.id)
+        for member in other_members:
+            member.send_notification(
+                title="Un projet a été mis à jour",
+                message=f"""
+                <p>
+                    {user.full_name} a modifié les informations du projet
+                    <a href="{project.get_absolute_url()}">{project.name}</a>.
+                </p>
+                """,
+            )
 
         msg = "Le projet a bien été mis à jour."
 

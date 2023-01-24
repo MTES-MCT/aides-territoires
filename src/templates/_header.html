@@ -3,7 +3,7 @@
 {% if not search_page and not user.is_authenticated %}                    
 <div class="fr-background-alt fr-p-2w">
     <div class="fr-container at-centered">
-        <p class="fr-mb-0 fr-text--bold">Créez rapidement votre compte pour trouver plus simplement des aides pour vos projets. <a href="{% url 'register' %}">J'y vais&nbsp;!</a></p>
+        <p class="fr-mb-0 at-text--bold">Créez rapidement votre compte pour trouver plus simplement des aides pour vos projets. <a href="{% url 'register' %}">J'y vais&nbsp;!</a></p>
     </div>
 </div>
 {% endif %}
@@ -41,6 +41,17 @@
                             <li>
                                 <a class="fr-btn fr-icon-account-line" href="{% url 'user_dashboard' %}">
                                     {{ user.full_name }}
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    id="at-notification-icon"
+                                    href="{% url 'notification_list_view' %}"
+                                    class="fr-tag fr-icon-notification-3-line fr-tag--icon-left {% if user.unread_notifications %}at-notification-icon-unread{% else %}at-notification-icon-no-unread{% endif %}"
+                                    target="_self"
+                                    title="{% if user.unread_notifications == 0 %}Voir la page des notifications{% elif user.unread_notifications == 1 %}Voir la notification non lue{% else %}Voir les {{ user.unread_notifications }} notifications non lues{% endif %}"
+                                >
+                                    {% if user.unread_notifications %}{{ user.unread_notifications }}{% endif %}
                                 </a>
                             </li>
                             {% else %}
@@ -84,7 +95,7 @@
                         <a class="fr-nav__link" href="{% url 'map_view' %}" target="_self">Cartographie</a>
                     </li>
                     <li class="fr-nav__item">
-                        <a class="fr-nav__link" href="{% url 'program_list' %}" target="_self">Programmes d'aides</a>
+                        <a class="fr-nav__link" href="{% url 'program_list' %}" target="_self">Programmes d’aides</a>
                     </li>
                     <li class="fr-nav__item">
                         <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-actualites">Actualités</button>

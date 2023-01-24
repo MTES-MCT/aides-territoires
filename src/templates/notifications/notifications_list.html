@@ -1,0 +1,132 @@
+{% extends "_base.html" %}
+{% load i18n compress mailing_list %}
+
+{% block extratitle %}Mes notifications{% endblock extratitle %}
+
+{% block extraclasses %}light{% endblock extraclasses %}
+
+{% block sectionid %}user-account{% endblock sectionid %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil
+            d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Mes notifications</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' with notification_list=True %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <div class="fr-grid-row fr-grid-row--middle">    
+                <h1 class="fr-h3 fr-col-12 fr-col-md-9">Gestion des notifications</h1>
+                <a class="fr-btn fr-col-12 fr-col-md-3 fr-grid-row--center" href="{% url 'notification_settings_view' %}">Préférences</a>
+            </div>
+            
+            <div class="fr-table fr-table--bordered at-table--fullwidth">
+                <table class="data-table">
+                    <caption>
+                        <h2 class="fr-h4">Mes notifications</h2>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Texte</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if notifications %}
+                            {% for notification in notifications %}
+                                <tr>
+                                    <td>
+                                        <div id="notification-{{ notification.pk }}">
+                                            <h3 class="fr-h6 at-title--nomargin">{{ notification.title }}</h3>
+                                            <div{% if notification.id in unread_notifications %} class="at-text--bold"{% endif %}>
+                                                {{ notification.message|safe }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{ notification.date_created }}</td>
+                                    <td class="fr-text">
+                                        <button type="button"
+                                                class="fr-btn fr-icon-delete-line fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"
+                                                id="delete-notification-btn-{{ notification.pk }}"
+                                                data-fr-opened="false"
+                                                title="Supprimer cette notification"
+                                                aria-controls="delete-notification-modal-{{ notification.pk }}"
+                                                aria-describedby="notification-{{ notification.pk }}"
+                                        >
+                                            Supprimer cette notification
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="3" class="at-centered-important">
+                                    Vous n’avez aucune notification pour l’instant
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% include '_pagination.html' %}
+
+            {% if notifications %}
+                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--center fr-btns-group--icon-left">
+                    <li>
+                        <a href="{% url 'notification_mark_all_read_view' %}"
+                                class="fr-btn fr-icon-checkbox-circle-line"
+                                id="mark-all-notifications-read"
+                                title="Tout marquer comme lu"
+                        >
+                            Tout marquer comme lu
+                        </a>
+                    </li>
+                    <li>
+                        <button type="button"
+                                class="fr-btn fr-icon-delete-line fr-btn--secondary"
+                                data-fr-opened="false"
+                                id="delete-all-notifications"
+                                title="Tout supprimer"
+                                aria-controls="delete-all-notifications-modal"
+                        >
+                            Tout supprimer
+                        </button>
+                    </li>
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block modals %}
+{% if notifications %}
+    {% for notification in notifications %}
+        {% include 'notifications/_delete_notification_modal.html' with notification=notification.pk %}
+    {% endfor %}
+    {% include 'notifications/_delete_all_notifications_modal.html' %}
+{% endif %}
+{% endblock modals %}

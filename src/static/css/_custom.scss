@@ -610,6 +610,24 @@ section#post-content img {
   pointer-events: none;
 }
 
+// Notifications
+#at-notification-icon {
+  margin-right: 1em;
+}
+
+#at-notification-icon.at-notification-icon-unread {
+  --hover-tint: var(--hover);
+  --hover: var(--background-action-high-red-marianne-hover);
+  background-color: var(--background-action-low-red-marianne);
+  color: var(--text-action-high-red-marianne);
+}
+
+// Remove the margin if the notification is empty
+#at-notification-icon.at-notification-icon-no-unread::before {
+  margin-right: 0;
+}
+
+
 // Honeypot antispam field on contact form
 #formset-website {
   display: none;

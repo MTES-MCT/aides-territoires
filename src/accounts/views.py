@@ -84,6 +84,27 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
         user.save()
         organization.beneficiaries.add(user.pk)
 
+        user.send_notification(
+            title="Bienvenue sur Aides-territoires !",
+            message=f"""
+            <p>Bienvenue sur Aides-territoires !</p>
+            <p>
+                Vous venez de créer votre compte et devriez avoir reçu un courrier
+                électronique présentant notre site.
+            </p>
+            <p>
+                Si ce n’est pas le cas, n’hésitez pas à
+                <a href="{reverse('contact')}">nous contacter</a>.
+            </p>
+            <p>
+                Vous pouvez paramétrer les notifications que vous souhaitez recevoir
+                via <a href="{reverse('notification_settings_view')}">
+                vos préférences
+                </a>.
+            </p>
+            """,
+        )
+
         response = super().form_valid(form)
         send_connection_email.delay(user.email)
         track_goal(self.request.session, settings.GOAL_REGISTER_ID)
@@ -193,6 +214,32 @@ class LoginView(views.LoginView, TemplateView):
     def get_default_redirect_url(self):
         """Return the default redirect URL."""
         return resolve_url(self.next_page or settings.LOGIN_REDIRECT_URL)
+
+    def form_valid(self, form):
+        """Security check complete. Log the user in."""
+        user = form.get_user()
+
+        if user.notification_counter == 0:
+            user.send_notification(
+                title="Mise en place du système de notifications",
+                message=f"""
+                <p>
+                    Bienvenue dans le nouveau système de notifications
+                    d’Aides-territoires !
+                </p>
+                <p>
+                    Vous recevrez bientôt des notifications liées à vos aides,
+                    mais aussi à votre structure ou à vos projets.
+                </p>
+
+                <p>
+                    Vous pouvez paramétrer la fréquence des notifications via
+                    <a href="{reverse('notification_settings_view')}">vos préférences</a>.
+                </p>
+                """,
+            )
+
+        return super().form_valid(form)
 
 
 class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
@@ -405,7 +452,7 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, FormView):
                 first_name=collaborator_first_name,
                 is_beneficiary=self.request.user.is_beneficiary,
                 is_contributor=self.request.user.is_contributor,
-                acquisition_channel=User.ACQUISITION_CHANNEL.invited,
+                acquisition_channel=User.ACQUISITION_CHANNEL_CHOICES.invited,
             )
             collaborator.beneficiary_organization = (
                 self.request.user.beneficiary_organization
@@ -450,7 +497,7 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, FormView):
             users = User.objects.none()
         return self.render_to_response(
             self.get_context_data(form=form, error_mail=error, users=users)
-        )  # noqa
+        )
 
 
 class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
@@ -471,6 +518,15 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
             )
             track_goal(self.request.session, settings.GOAL_REGISTER_ID)
             user_queryset.update(proposed_organization=None)
+
+            invitation_author.send_notification(
+                title="Votre invitation a été refusée",
+                message=f"""
+                <p>
+                    {user.full_name} a refusé votre invitation.
+                </p>
+                """,
+            )
             msg = "Votre refus a bien été pris en compte. Un email indiquant votre refus a été envoyé."  # noqa
         elif "yes-join" in self.request.POST:
             projects = form.cleaned_data["projects"]
@@ -562,6 +618,15 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
                     beneficiary_organization=user.beneficiary_organization.pk
                 ).exclude(pk=user.pk)
                 for former_collaborator in former_collaborators:
+                    former_collaborator.send_notification(
+                        title="Un collaborateur quitte votre structure",
+                        message=f"""
+                        <p>
+                            {user.full_name} a quitté votre structure {user_current_org.name}.
+                        </p>
+                        """,
+                    )
+
                     send_leave_organization_email.delay(
                         former_collaborator.email,
                         user.full_name,
@@ -593,6 +658,30 @@ class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
                 invitation_author.email, user.full_name, proposed_organization.pk
             )
             track_goal(self.request.session, settings.GOAL_REGISTER_ID)
+
+            # Send a notification to the invitation_author and other members
+            invitation_author.send_notification(
+                title="Votre invitation a été acceptée",
+                message=f"""
+                <p>
+                    {user.full_name} a accepté votre invitation et vient de
+                    rejoindre votre structure {proposed_organization.name}.
+                </p>
+                """,
+            )
+            other_members = proposed_organization.beneficiaries.exclude(
+                id__in=[user.id, invitation_author.id]
+            )
+            for member in other_members:
+                member.send_notification(
+                    title="Une invitation a été acceptée",
+                    message=f"""
+                    <p>
+                        {user.full_name} a accepté l’invitation de {invitation_author.full_name}
+                        et vient de rejoindre votre structure {proposed_organization.name}.
+                    </p>
+                    """,
+                )
 
             msg = f"Félicitations, vous avez rejoint la structure { proposed_organization } !"
 
