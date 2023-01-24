@@ -122,14 +122,20 @@ class ValidatedProjectAdmin(admin.ModelAdmin):
         "aid_name",
         "aid_linked",
         "organization",
-        "financer_unknown",
+        "financer_name",
+        "financer_linked",
         "budget",
         "amount_obtained",
         "date_obtained",
         "date_created",
     ]
     readonly_fields = ["date_created"]
-    autocomplete_fields = ["aid_linked", "project_linked", "organization"]
+    autocomplete_fields = [
+        "aid_linked",
+        "project_linked",
+        "financer_linked",
+        "organization",
+    ]
 
     def get_urls(self):
         urls = super().get_urls()

@@ -174,26 +174,33 @@ class ValidatedProject(models.Model):
     project_linked = models.ForeignKey(
         "projects.Project",
         verbose_name="Projet lié",
-        on_delete=models.PROTECT,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
     aid_linked = models.ForeignKey(
         "aids.Aid",
         verbose_name="Aide liée",
-        on_delete=models.PROTECT,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
     organization = models.ForeignKey(
         "organizations.Organization",
         verbose_name="Organisation porteuse",
-        on_delete=models.PROTECT,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
-    financer_unknown = models.CharField(
-        "Porteur de l'aide obtenue inconnu en base",
+    financer_linked = models.ForeignKey(
+        "backers.Backer",
+        verbose_name="Porteur d'aides lié",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    financer_name = models.CharField(
+        "Nom du porteur de l'aide obtenue",
         max_length=600,
         null=False,
         blank=False,
