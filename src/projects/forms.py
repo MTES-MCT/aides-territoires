@@ -449,8 +449,15 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
          - M3M (and all other epcis in Hérault) ;
          - Montpellier (and all other communes in Hérault) ;
         """
-        perimeter_ids = get_all_related_perimeters(search_perimeter.id, values=["id"])
-        qs = qs.filter(organization__perimeter__in=perimeter_ids)
+
+        if search_perimeter.scale == Perimeter.SCALES.commune:
+            perimeter_ids = search_perimeter.get_communes_within_radius(50)
+            qs = qs.filter(organization__perimeter__in=perimeter_ids)
+        else:
+            perimeter_ids = get_all_related_perimeters(
+                search_perimeter.id, values=["id"]
+            )
+            qs = qs.filter(organization__perimeter__in=perimeter_ids)
         return qs
 
 

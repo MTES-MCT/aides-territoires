@@ -1,4 +1,4 @@
-{% load i18n humanize projects%}
+{% load i18n humanize projects %}
 
 {% if projects %}
 <div class="fr-table" id="project_in_list">
@@ -20,7 +20,10 @@
         <tbody>
             {% for project in projects %}
             <tr>
-                <td>{{ project.organization.perimeter }}</td>
+                <td>
+                    {% distance_between_two_perimeters project.organization.perimeter project_current_search_dict.project_perimeter %} km
+                </td>
+
                 <td>{{ project.date_obtained|date:"Y"}}</td>
                 <td>
                     <a href="{% url 'validated_project_results_view' %}?project_perimeter={{ project.organization.perimeter.id }}&commune_search=true">

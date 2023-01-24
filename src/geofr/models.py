@@ -235,7 +235,6 @@ class Perimeter(models.Model):
                 )
                 * 6371
             )
-            .exclude(id=self.id)
             .filter(distance__lte=radius)
             .order_by("distance")
         )
