@@ -4,6 +4,7 @@ import codecs
 import requests
 from contextlib import closing
 from datetime import datetime
+from io import TextIOWrapper
 
 from geofr.models import Perimeter
 from projects.models import ValidatedProject
@@ -78,7 +79,7 @@ def import_validated_projects(csv_file=None, csv_url=None):
             for index, row in enumerate(projects_reader):
                 create_validated_project(row)
     elif csv_file:
-        with open(csv_file) as csv_file_open:
-            projects_reader = csv.DictReader(csv_file_open, delimiter=";")
-            for index, row in enumerate(projects_reader):
-                create_validated_project(row)
+        csv_file_open = TextIOWrapper(csv_file, encoding="utf-8")
+        projects_reader = csv.DictReader(csv_file_open, delimiter=";")
+        for index, row in enumerate(projects_reader):
+            create_validated_project(row)
