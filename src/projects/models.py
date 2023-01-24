@@ -171,14 +171,14 @@ class ValidatedProject(models.Model):
         null=False,
         blank=False,
     )
-    project = models.ForeignKey(
+    project_linked = models.ForeignKey(
         "projects.Project",
         verbose_name="Projet lié",
         on_delete=models.PROTECT,
         null=True,
         blank=True,
     )
-    aid = models.ForeignKey(
+    aid_linked = models.ForeignKey(
         "aids.Aid",
         verbose_name="Aide liée",
         on_delete=models.PROTECT,
@@ -188,13 +188,6 @@ class ValidatedProject(models.Model):
     organization = models.ForeignKey(
         "organizations.Organization",
         verbose_name="Organisation porteuse",
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-    )
-    financer = models.ForeignKey(
-        "backers.Backer",
-        verbose_name="Porteur de l'aide obtenue",
         on_delete=models.PROTECT,
         null=True,
         blank=True,
@@ -209,7 +202,7 @@ class ValidatedProject(models.Model):
     amount_obtained = models.PositiveIntegerField(
         "Montant obtenu", null=True, blank=True
     )
-    date_obtention = models.DateTimeField(
+    date_obtained = models.DateTimeField(
         "Date de l'obtention",
         help_text="Date à laquelle l'aide a été obtenue par le porteur du projet",
         null=True,

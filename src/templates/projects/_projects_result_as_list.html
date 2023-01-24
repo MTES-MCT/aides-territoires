@@ -21,21 +21,21 @@
             {% for project in projects %}
             <tr>
                 <td>{{ project.organization.perimeter }}</td>
-                <td>{{ project.date_obtention|date:"Y"}}</td>
+                <td>{{ project.date_obtained|date:"Y"}}</td>
                 <td>{{ project.organization.name }}</td>
                 <td>
-                    {% if project.project %}
-                    <a href="{% url 'public_project_detail_view' project.project.pk project.project.slug %}">
-                    {{ project.project.name }}
+                    {% if project.project_linked %}
+                    <a href="{% url 'public_project_detail_view' project.project_linked.pk project.project_linked.slug %}">
+                    {{ project.project_linked.name }}
                     </a>
                     {% else %}
                     {{ project.project_name }}
                     {% endif %}
                 </td>
                 <td>
-                    {% if project.aid %}
-                    <a href="{% url 'aid_detail_view' project.aid.slug %}">
-                        {{ project.aid.name}}
+                    {% if project.aid_linked %}
+                    <a href="{% url 'aid_detail_view' project.aid_linked.slug %}">
+                        {{ project.aid_linked.name}}
                     </a>
                     {% else %}
                     {{ project.aid_name }}

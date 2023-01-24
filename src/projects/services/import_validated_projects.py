@@ -53,7 +53,7 @@ def import_validated_projects():
                         project_name=row["projet"],
                         aid_name=row["appelation"],
                         budget=int(row["cout_total_ht"].replace(",", "")),
-                        date_obtention=datetime.strptime(row["annee"], "%Y"),
+                        date_obtained=datetime.strptime(row["annee"], "%Y"),
                         amount_obtained=int(
                             row["subvention_accordee"].replace(",", "")
                         ),
@@ -61,7 +61,7 @@ def import_validated_projects():
                     )
                     if aid.exists():
                         logger.info("aid found")
-                        validatedproject.aid = aid.first()
+                        validatedproject.aid_linked = aid.first()
                         validatedproject.aid_name = aid.first().name
                         validatedproject.save()
                 except Exception as e:
