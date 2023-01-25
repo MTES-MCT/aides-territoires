@@ -1,11 +1,14 @@
 from os.path import splitext
 from uuid import uuid4
 
+from django.db.models import Value
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 from django.urls import reverse
 from django.core.validators import FileExtensionValidator
+from django.contrib.postgres.search import SearchVector, SearchVectorField
+from django.contrib.postgres.indexes import GinIndex
 
 from model_utils import Choices
 from django_resized import ResizedImageField
@@ -207,7 +210,7 @@ class ValidatedProject(models.Model):
     financer_name = models.CharField(
         "Nom du porteur de l'aide obtenue",
         max_length=255,
-        null=True,
+        default="",
         blank=True,
     )
     budget = models.PositiveIntegerField("Budget définitif", null=True, blank=True)
@@ -222,10 +225,45 @@ class ValidatedProject(models.Model):
     )
     date_created = models.DateTimeField("Date de création", default=timezone.now)
 
+    search_vector_unaccented_validated_project = SearchVectorField(
+        "Search vector unaccented_validated_project", null=True
+    )
+
     class Meta:
         verbose_name = "Projet subventionné"
         verbose_name_plural = "Projets subventionnés"
         ordering = ["project_name"]
+        indexes = [
+            GinIndex(fields=["search_vector_unaccented_validated_project"]),
+        ]
 
     def __str__(self):
         return self.project_name
+
+    def set_search_vector_unaccented_validated_project(self):
+        """Update the full text unaccented cache field."""
+
+        # Note: we use `SearchVector(Value(self.field))` instead of
+        # `SearchVector('field')` because the latter only works for updates,
+        # not when inserting new records.
+        #
+        # Note 2: we have to pass the financers parameter instead of using
+        # `self.financers.all()` because that last expression would not work
+        # during an object creation.
+        search_vector_unaccented_validated_project = SearchVector(
+            Value(self.project_name, output_field=models.CharField()),
+            weight="A",
+            config="french_unaccent",
+        ) + SearchVector(
+            Value(self.description, output_field=models.CharField()),
+            weight="B",
+            config="french_unaccent",
+        )
+
+        self.search_vector_unaccented_validated_project = (
+            search_vector_unaccented_validated_project
+        )
+
+    def save(self, *args, **kwargs):
+        self.set_search_vector_unaccented_validated_project()
+        return super().save(*args, **kwargs)

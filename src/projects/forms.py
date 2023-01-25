@@ -2,14 +2,17 @@ import re
 from django import forms
 from django.template.defaultfilters import filesizeformat
 
+from django.db.models import F
+from django.contrib.postgres.search import SearchRank
 from core.forms.baseform import AidesTerrBaseForm
-from core.utils import remove_accents
+from core.utils import remove_accents, parse_query
 
 from projects.constants import EXPORT_FORMAT_CHOICES
 from core.forms import (
     AutocompleteModelMultipleChoiceField,
     RichTextField,
     AutocompleteModelChoiceField,
+    AutocompleteSynonymChoiceField,
 )
 
 from projects.models import Project
@@ -396,9 +399,8 @@ class ProjectSearchForm(AidesTerrBaseForm):
 class ValidatedProjectSearchForm(AidesTerrBaseForm):
     """Specific form for validated projects search engine."""
 
-    project_name = forms.CharField(
-        label="Votre projet",
-        required=False,
+    text = AutocompleteSynonymChoiceField(
+        label="Votre projet", queryset=SynonymList.objects.all(), required=False
     )
 
     project_perimeter = AutocompleteModelChoiceField(
@@ -424,10 +426,13 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
         if project_perimeter:
             qs = self.perimeter_filter(qs, project_perimeter)
 
-        project_name = self.cleaned_data.get("project_name", None)
-        if project_name:
-            project_name_unaccented = remove_accents(project_name)
-            qs = qs.filter(project_name__icontains=project_name_unaccented)
+        text = self.cleaned_data.get("text", None)
+        if text:
+            text_unaccented = remove_accents(text)
+            query = parse_query(text_unaccented)
+            qs = qs.filter(search_vector_unaccented_validated_project=query).annotate(
+                rank=SearchRank(F("search_vector_unaccented_validated_project"), query)
+            )
 
         return qs
 
