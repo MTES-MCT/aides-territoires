@@ -6,7 +6,7 @@ class Command(BaseCommand):
     help = "Import multiple validated projects from a distant csv"
 
     def add_arguments(self, parser):
-        parser.add_argument("--csv_url")
+        parser.add_argument("--url")
 
     def handle(self, *args, **options):
         csv_url = options["url"]
