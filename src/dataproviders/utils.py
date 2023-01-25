@@ -27,6 +27,10 @@ ALLOWED_TAGS = [
     "br",
     "a",
     "iframe",
+    "figcaption",
+    "figure",
+    "video",
+    "source",
 ]
 ALLOWED_ATTRS = [
     "href",
@@ -41,6 +45,8 @@ ALLOWED_ATTRS = [
     "allowfullscreen",  # to display iframe
     "target",
     "rel",  # for links opening in a new tab
+    "controls",  # for the video tag
+    "type",  # for the source tag
 ]
 
 
@@ -94,12 +100,23 @@ def content_prettify(
                         tag.attrs.pop(attr)
 
                 # Remove tags with no content
-                if not tag.contents and tag.name not in ["br", "img", "iframe"]:
+                if not tag.contents and tag.name not in [
+                    "br",
+                    "img",
+                    "iframe",
+                    "source",
+                ]:
                     tag.decompose()
 
                 # Remove tags with empty strings (or newlines, etc.)
                 elif (
-                    tag.string and not tag.string.strip() and tag.name not in ["iframe"]
+                    tag.string
+                    and not tag.string.strip()
+                    and tag.name
+                    not in [
+                        "iframe",
+                        "source",
+                    ]
                 ):
                     tag.decompose()
 
