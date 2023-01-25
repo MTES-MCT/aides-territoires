@@ -78,7 +78,7 @@ def import_validated_projects(csv_file=None, csv_url=None):
     if csv_url:
         with closing(requests.get(csv_url, stream=True)) as response:
             csv_content = codecs.iterdecode(response.iter_lines(), "utf-8")
-            projects_reader = csv.DictReader(csv_content, delimiter=",")
+            projects_reader = csv.DictReader(csv_content, delimiter=";")
             for index, row in enumerate(projects_reader):
                 create_validated_project(row)
     elif csv_file:
