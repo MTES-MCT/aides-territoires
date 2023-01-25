@@ -48,8 +48,15 @@ def create_validated_project(row):
                     organization_type=["commune"],
                     is_imported=True,
                 )
+            if len(row["projet"]) <= 255:
+                project_name = row["projet"]
+                project_description = ""
+            else:
+                project_name = row["projet"][:254] + "…"
+                project_description = row["projet"]
             validatedproject = ValidatedProject.objects.create(
-                project_name=row["projet"],
+                project_name=project_name,
+                description=project_description,
                 aid_name=row["appelation"],
                 budget=int(row["cout_total_ht"].replace(",", "")),
                 date_obtained=datetime.strptime(row["annee"], "%Y"),

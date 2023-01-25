@@ -161,13 +161,18 @@ class ValidatedProject(models.Model):
 
     project_name = models.CharField(
         "Nom du projet",
-        max_length=1000,
+        max_length=255,
         null=False,
         blank=False,
     )
+    description = models.TextField(
+        "Description du projet",
+        default="",
+        blank=True,
+    )
     aid_name = models.CharField(
         "Nom de l'aide",
-        max_length=600,
+        max_length=180,
         null=False,
         blank=False,
     )
@@ -201,7 +206,7 @@ class ValidatedProject(models.Model):
     )
     financer_name = models.CharField(
         "Nom du porteur de l'aide obtenue",
-        max_length=600,
+        max_length=255,
         null=True,
         blank=True,
     )

@@ -119,6 +119,7 @@ class ValidatedProjectAdmin(admin.ModelAdmin):
     fields = [
         "project_name",
         "project_linked",
+        "description",
         "aid_name",
         "aid_linked",
         "organization",
