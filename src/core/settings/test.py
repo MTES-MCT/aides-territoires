@@ -30,3 +30,6 @@ GOAL_FIRST_LOGIN_ID = 2
 PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 
 ENABLE_MINISITES_REDIRECTION = False
+
+AWS_S3_ENDPOINT_URL = "https://cloud.example.org"
+AWS_STORAGE_BUCKET_NAME = "test-bucket"

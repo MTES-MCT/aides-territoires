@@ -28,6 +28,14 @@ def staging_warning():
     return mark_safe(warning_div)  # nosec B308
 
 
+@register.simple_tag
+def cloud_file_url(file_name):
+    """Returns the full url of a file from the cloud storage"""
+    cloud_root = getattr(settings, "AWS_S3_ENDPOINT_URL", "")
+    bucket_name = getattr(settings, "AWS_STORAGE_BUCKET_NAME", "")
+    return f"{cloud_root}/{bucket_name}/upload/{file_name}"
+
+
 @register.filter
 def phone(raw_phone):
     """Convert a E.164 format french number to a pretty display."""
