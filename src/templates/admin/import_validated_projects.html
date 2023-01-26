@@ -16,15 +16,13 @@
 <form method='post' enctype='multipart/form-data'>
     {% csrf_token %}
     <div>
-        <p>
-            Utilisez ce formulaire pour importer une liste de projets subventionnés
-        </p>
-
-        {% if form.errors %}
-            {{ form.errors }}
-        {% endif %}
-
         <fieldset class="module aligned">
+            <legend>
+                Utilisez ce formulaire pour importer une liste de projets subventionnés
+            </legend>
+            {% if form.errors %}
+                {{ form.errors }}
+            {% endif %}
             <div class="form-row">
                 <div>{{ form.validated_projects_list.label_tag }}{{ form.validated_projects_list }}</div>
             </div>

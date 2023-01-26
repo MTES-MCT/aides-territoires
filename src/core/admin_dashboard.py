@@ -41,11 +41,18 @@ class CustomIndexDashboard(Dashboard):
                 models=(
                     "geofr.*",
                     "backers.*",
-                    "projects.*",
                     "programs.*",
                     "categories.*",
                     "keywords.*",
                 ),
+            )
+        )
+        self.children.append(
+            modules.ModelList(
+                "Projets",
+                deletable=False,
+                draggable=False,
+                models=("projects.*",),
             )
         )
         self.children.append(
