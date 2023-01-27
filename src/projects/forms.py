@@ -3,6 +3,8 @@ from django import forms
 from django.template.defaultfilters import filesizeformat
 
 from django.db.models import F
+from django.db.models.functions import ACos, Cos, Radians, Sin
+
 from django.contrib.postgres.search import SearchRank
 from core.forms.baseform import AidesTerrBaseForm
 from core.utils import remove_accents, parse_query
@@ -456,10 +458,24 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
         """
 
         if search_perimeter.scale == Perimeter.SCALES.commune:
-            perimeter_ids = search_perimeter.get_communes_within_radius(50)
-            qs = qs.filter(organization__perimeter__in=perimeter_ids)
-            print("here")
-            print(qs)
+            qs = (
+                qs.annotate(
+                    distance=ACos(
+                        Cos(Radians(search_perimeter.latitude))
+                        * Cos(Radians(F("organization__perimeter__latitude")))
+                        * Cos(
+                            Radians(F("organization__perimeter__longitude"))
+                            - Radians(search_perimeter.longitude)
+                        )
+                        + Sin(Radians(search_perimeter.latitude))
+                        * Sin(Radians(F("organization__perimeter__latitude")))
+                    )
+                    * 6371
+                )
+                .filter(distance__lte=50)
+                .order_by("distance")
+            )
+
         else:
             perimeter_ids = get_all_related_perimeters(
                 search_perimeter.id, values=["id"]

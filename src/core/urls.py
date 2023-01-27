@@ -92,7 +92,7 @@ urlpatterns = [
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
     ),
     path("admin_tools/", include("admin_tools.urls")),
-    path(_("projects/"), include("projects.urls")),
+    path("projets/", include("projects.urls")),
     path(_("organizations/"), include("organizations.urls")),
     # Api related routes
     path("api/", include(api_patterns)),

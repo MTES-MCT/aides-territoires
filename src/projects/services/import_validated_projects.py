@@ -28,9 +28,10 @@ def create_validated_project(row, logger=None):
         logger = logging.getLogger("console_log")
 
     project_name = row["projet"]
+    organization_name = row["beneficiaire"]
 
     perimeter = Perimeter.objects.filter(
-        name=row["beneficiaire"],
+        name=organization_name,
         scale=1,
         departments__contains=[row["departement"]],
     ).first()
@@ -46,14 +47,14 @@ def create_validated_project(row, logger=None):
             )
 
             organization = Organization.objects.filter(
-                name=row["beneficiaire"],
+                name=organization_name,
                 perimeter=perimeter,
                 organization_type=["commune"],
             ).first()
 
             if organization is None:
                 organization = Organization.objects.create(
-                    name=row["beneficiaire"],
+                    name=organization_name,
                     perimeter=perimeter,
                     organization_type=["commune"],
                     is_imported=True,
@@ -62,8 +63,8 @@ def create_validated_project(row, logger=None):
             if len(project_name) <= 255:
                 project_description = ""
             else:
-                project_name = project_name[:254] + "…"
                 project_description = project_name
+                project_name = project_name[:254] + "…"
 
             year = row["annee"]
             date_obtained = datetime.strptime(year, "%Y")

@@ -52,6 +52,25 @@ class PerimeterQuerySet(models.QuerySet):
 
         return departments_list
 
+    def communes_by_distance(
+        self, latitude: float, longitude: float, radius: int | None = None
+    ) -> QuerySet:
+        qs = self.filter(scale=Perimeter.SCALES.commune, is_obsolete=False)
+        qs = qs.annotate(
+            distance=ACos(
+                Cos(Radians(latitude))
+                * Cos(Radians(F("latitude")))
+                * Cos(Radians(F("longitude")) - Radians(longitude))
+                + Sin(Radians(latitude)) * Sin(Radians(F("latitude")))
+            )
+            * 6371
+        )
+
+        if radius:
+            qs = qs.filter(distance__lte=radius)
+
+        return qs.order_by("distance")
+
 
 class Perimeter(models.Model):
     """
@@ -224,22 +243,9 @@ class Perimeter(models.Model):
         """
         if self.scale != Perimeter.SCALES.commune:
             raise ValueError("The center object must be a commune itself")
-        results = (
-            Perimeter.objects.filter(scale=Perimeter.SCALES.commune, is_obsolete=False)
-            .annotate(
-                distance=ACos(
-                    Cos(Radians(self.latitude))
-                    * Cos(Radians(F("latitude")))
-                    * Cos(Radians(F("longitude")) - Radians(self.longitude))
-                    + Sin(Radians(self.latitude)) * Sin(Radians(F("latitude")))
-                )
-                * 6371
-            )
-            .filter(distance__lte=radius)
-            .order_by("distance")
+        return Perimeter.objects.communes_by_distance(
+            latitude=self.latitude, longitude=self.longitude, radius=radius
         )
-
-        return results
 
 
 class PerimeterImport(models.Model):
