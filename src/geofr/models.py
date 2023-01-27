@@ -262,7 +262,7 @@ class PerimeterImport(models.Model):
     city_codes = ArrayField(
         models.CharField(max_length=5),
         verbose_name="périmètres contenus",
-        help_text="Liste d'identifiants INSEE de communes",
+        help_text="Liste d’identifiants INSEE de communes",
     )
     author = models.ForeignKey(
         "accounts.User",
