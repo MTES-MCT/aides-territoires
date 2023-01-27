@@ -458,6 +458,8 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
         if search_perimeter.scale == Perimeter.SCALES.commune:
             perimeter_ids = search_perimeter.get_communes_within_radius(50)
             qs = qs.filter(organization__perimeter__in=perimeter_ids)
+            print("here")
+            print(qs)
         else:
             perimeter_ids = get_all_related_perimeters(
                 search_perimeter.id, values=["id"]

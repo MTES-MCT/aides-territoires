@@ -1,3 +1,4 @@
+import logging
 from django.core.management.base import BaseCommand
 from projects.services.import_validated_projects import import_validated_projects
 
@@ -10,4 +11,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         csv_url = options["url"]
-        import_validated_projects(csv_url=csv_url)
+
+        logger = logging.getLogger("console_log")
+        verbosity = int(options["verbosity"])
+        if verbosity > 1:
+            logger.setLevel(logging.DEBUG)
+        else:
+            logger.setLevel(logging.INFO)
+
+        import_validated_projects(logger, csv_url=csv_url)

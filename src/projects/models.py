@@ -1,8 +1,9 @@
 from os.path import splitext
 from uuid import uuid4
 
-from django.db.models import Value
 from django.db import models
+from django.db.models import Value, UniqueConstraint
+from django.db.models.functions import Lower
 from django.utils import timezone
 from django.utils.text import slugify
 from django.urls import reverse
@@ -66,7 +67,7 @@ class Project(models.Model):
         "organizations.Organization", verbose_name="Structures", blank=True
     )
     other_project_owner = models.CharField(
-        "Autre maître d'ouvrage",
+        "Autre maître d’ouvrage",
         max_length=180,
         null=True,
         blank=True,
@@ -94,7 +95,7 @@ class Project(models.Model):
         "Type de projet suggéré", max_length=256, blank=True
     )
 
-    due_date = models.DateField("Date d'échéance", null=True, blank=True)
+    due_date = models.DateField("Date d’échéance", null=True, blank=True)
 
     step = models.CharField(
         "Avancement du projet",
@@ -161,7 +162,6 @@ class Project(models.Model):
 
 
 class ValidatedProject(models.Model):
-
     project_name = models.CharField(
         "Nom du projet",
         max_length=255,
@@ -174,7 +174,7 @@ class ValidatedProject(models.Model):
         blank=True,
     )
     aid_name = models.CharField(
-        "Nom de l'aide",
+        "Nom de l’aide",
         max_length=180,
         null=False,
         blank=False,
@@ -202,13 +202,13 @@ class ValidatedProject(models.Model):
     )
     financer_linked = models.ForeignKey(
         "backers.Backer",
-        verbose_name="Porteur d'aides lié",
+        verbose_name="Porteur d’aides lié",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
     financer_name = models.CharField(
-        "Nom du porteur de l'aide obtenue",
+        "Nom du porteur de l’aide obtenue",
         max_length=255,
         default="",
         blank=True,
@@ -218,8 +218,8 @@ class ValidatedProject(models.Model):
         "Montant obtenu", null=True, blank=True
     )
     date_obtained = models.DateTimeField(
-        "Date de l'obtention",
-        help_text="Date à laquelle l'aide a été obtenue par le porteur du projet",
+        "Date de l’obtention",
+        help_text="Date à laquelle l’aide a été obtenue par le porteur du projet",
         null=True,
         blank=True,
     )
@@ -229,12 +229,33 @@ class ValidatedProject(models.Model):
         "Search vector unaccented_validated_project", null=True
     )
 
+    # Manually setting a unique import_uniqueid because get_or_create fails at
+    # detecting duplicates over so many fields.
+    # See the import script for format.
+    import_uniqueid = models.CharField(
+        "Identifiant d’import unique",
+        max_length=64,
+        unique=True,
+        null=True,
+        blank=True,
+    )
+
     class Meta:
         verbose_name = "Projet subventionné"
         verbose_name_plural = "Projets subventionnés"
         ordering = ["project_name"]
         indexes = [
             GinIndex(fields=["search_vector_unaccented_validated_project"]),
+        ]
+        constraints = [
+            UniqueConstraint(
+                Lower("project_name"),
+                Lower("aid_name"),
+                "financer_name",
+                "amount_obtained",
+                "date_obtained",
+                name="unique_projectname_aidname_financername_amount_date",
+            ),
         ]
 
     def __str__(self):

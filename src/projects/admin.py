@@ -115,7 +115,15 @@ class ProjectAdmin(ImportExportActionModelAdmin):
 class ValidatedProjectAdmin(admin.ModelAdmin):
     change_list_template = "admin/projects/change_list_template.html"
     form = ProjectForm
-    list_display = ["project_name"]
+    list_display = [
+        "project_name",
+        "aid_name",
+        "organization",
+        "financer_name",
+        "date_obtained",
+        "amount_obtained",
+    ]
+
     fields = [
         "project_name",
         "project_linked",
@@ -137,6 +145,7 @@ class ValidatedProjectAdmin(admin.ModelAdmin):
         "financer_linked",
         "organization",
     ]
+    search_fields = ["project_name"]
 
     def get_urls(self):
         urls = super().get_urls()
