@@ -28,6 +28,7 @@ class ProgramDetail(DetailView):
         context["program_tabs"] = Tab.objects.filter(program=self.object)
         if self.object.pk == 36:
             context["program_fonds_vert"] = True
+        context["tab_selected"] = self.request.GET.get("tab")
         if self.request.GET.get("tab") == "faq":
             context["faq_selected"] = True
         context["faq_questions_answers"] = FaqQuestionAnswer.objects.filter(
