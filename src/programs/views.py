@@ -75,6 +75,6 @@ class ProgramDetail(SearchView):
             context["faq_selected"] = True
         context["faq_questions_answers"] = FaqQuestionAnswer.objects.filter(
             program=self.program.pk
-        )
+        ).select_related("faq_category")
 
         return context
