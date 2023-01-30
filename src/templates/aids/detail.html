@@ -369,7 +369,7 @@
                     {% if aid.origin_url %}
                         <li>
                             <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers le descriptif complet - ouvre une nouvelle fenêtre" href="{{ aid.origin_url }}">
-                                Descriptif complet
+                                {% if programs.first.slug == "fonds-vert" and aid.origin_url|slice:"-4:" == ".pdf" %}Cahier d’accompagnement{% else %}Descriptif complet{% endif %}
                             </a>
                         </li>
                     {% endif %}
@@ -520,7 +520,7 @@
                         {% if aid.origin_url %}
                         <li>
                             <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers le descriptif complet - ouvre une nouvelle fenêtre" href="{{ aid.origin_url }}">
-                                Descriptif complet
+                                {% if programs.first.slug == "fonds-vert" and aid.origin_url|slice:"-4:" == ".pdf" %}Cahier d’accompagnement{% else %}Descriptif complet{% endif %}
                             </a>
                         </li>
                         {% endif %}
