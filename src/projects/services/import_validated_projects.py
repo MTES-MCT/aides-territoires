@@ -31,15 +31,20 @@ def create_validated_project(row, logger=None):
     organization_name = row["beneficiaire"]
 
     perimeter = Perimeter.objects.filter(
-        name=organization_name,
+        name__iexact=organization_name,
         scale=1,
         departments__contains=[row["departement"]],
     ).first()
 
+    # Fixing case
+    organization_name = perimeter.name
+
     budget = clean_numeric_input(row["cout_total_ht"], logger)
     amount_obtained = clean_numeric_input(row["subvention_accordee"], logger)
 
-    if perimeter is not None and project_name and budget and amount_obtained:
+    if perimeter is None:
+        logger.debug(f"Perimeter not found for {organization_name}.")
+    elif project_name and budget and amount_obtained:
         try:
             aid = Aid.objects.filter(
                 name__icontains=row["appelation"],
