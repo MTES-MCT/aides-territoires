@@ -67,18 +67,19 @@
             <div id="tabpanel-program-description-panel" class="fr-tabs__panel at-tabs__panel--opaque fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-program-description" tabindex="0">
                 <h2 class="fr-mt-0 fr-mb-2w">Présentation générale</h2>
                 {{ program.description | safe }}
-                {% if aids %}
                 <section id="aid-list">
-                    <h2>Liste des aides liées au programme</h2>
+                    <h2>{{ aids.count }} aides liées au programme {{ program.name }}</h2>
+                    {% include 'aids/_search_meta.html' %}
+                    {% include "programs/_search_form.html" %}
                     <div class="fr-grid-row">
                         {% for aid in aids %}
                         <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
                             {% include 'aids/_aid_result.html' with aid=aid %}
                         </div>
                         {% endfor %}
+                        {% include '_pagination.html' %}
                     </div>
                 </section>
-                {% endif %}
             </div>
             {% endif %}
 
@@ -102,9 +103,31 @@
 </article>
 {% endblock %}
 
+{% block extra_css %}
+    {% compress css %}
+        <style>
+            .search-form-extra-action {
+                display: block;
+            }
+        </style>
+    {% endcompress %}
+{% endblock extra_css %}
 
 {% block extra_js %}
     {% compress js %}
     <script src="{% static 'js/responsive_iframe.js' %}"></script>
+    <script src="{% static 'select2/dist/js/select2.js' %}"></script>
+    <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+    <script src="{% static 'js/select2_custom.js' %}"></script>
+    <script src="{% static 'js/aids/aid_types_autocomplete.js' %}"></script>
+    <script src="{% static 'js/aids/backers_autocomplete.js' %}"></script>
+    <script src="{% static 'js/aids/categories_autocomplete.js' %}"></script>
+    <script src="{% static 'js/aids/destinations_autocomplete.js' %}"></script>
+    <script src="{% static 'js/aids/mobilization_steps_autocomplete.js' %}"></script>
+    <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
+    <script src="{% static 'js/aids/text_autocomplete.js' %}"></script>
+    <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
+    <script src="{% static 'js/aids/search_form_advanced.js' %}"></script>
+    <script src="{% static 'js/url_parameters.js' %}"></script>
     {% endcompress %}
 {% endblock extra_js %}
