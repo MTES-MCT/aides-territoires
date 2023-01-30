@@ -36,15 +36,15 @@ def create_validated_project(row, logger=None):
         departments__contains=[row["departement"]],
     ).first()
 
-    # Fixing case
-    organization_name = perimeter.name
-
     budget = clean_numeric_input(row["cout_total_ht"], logger)
     amount_obtained = clean_numeric_input(row["subvention_accordee"], logger)
 
     if perimeter is None:
         logger.debug(f"Perimeter not found for {organization_name}.")
     elif project_name and budget and amount_obtained:
+        # Force the organization name to use the same case as the perimeter
+        organization_name = perimeter.name
+
         try:
             aid = Aid.objects.filter(
                 name__icontains=row["appelation"],
@@ -52,7 +52,7 @@ def create_validated_project(row, logger=None):
             )
 
             organization = Organization.objects.filter(
-                name=organization_name,
+                name__iexact=organization_name,
                 perimeter=perimeter,
                 organization_type=["commune"],
             ).first()
@@ -128,11 +128,15 @@ def import_validated_projects(logger=None, csv_file=None, csv_url=None):
             csv_content = codecs.iterdecode(response.iter_lines(), "utf-8")
             projects_reader = csv.DictReader(csv_content, delimiter=";")
             for index, row in enumerate(projects_reader):
+                if index % 1000 == 0:
+                    logger.info(f"{index} rows treated")
                 create_validated_project(row, logger)
     elif csv_file:
         csv_file_open = TextIOWrapper(csv_file, encoding="utf-8")
         projects_reader = csv.DictReader(csv_file_open, delimiter=";")
         for index, row in enumerate(projects_reader):
+            if index % 1000 == 0:
+                logger.info(f"{index} rows treated")
             create_validated_project(row, logger)
 
 
