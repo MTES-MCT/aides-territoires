@@ -28,7 +28,21 @@
 {% block content %}
 <article id="program" class="fr-container fr-mb-5w fr-pb-5w">
     <div id="program-content">
-        <h1>{{ program.name }}</h1>
+
+        <div id="program-title">
+            {% if program.logo %}
+            <div class="fr-grid-row fr-grid-row--middle">
+                <div class="fr-col-12 fr-col-md-9">
+                    <h1>{{ program.name }}</h1>
+                </div>
+                <div class="fr-col-12 fr-col-md-3">
+                    <img src="{{ program.logo.url }}" class="fr-responsive-img" alt="logo du programme {{ program.name }}">
+                </div>
+            </div>
+            {% else %}
+                <h1>{{ program.name }}</h1>
+            {% endif %}
+        </div>
 
         <div class="fr-tabs">
             <ul class="fr-tabs__list" role="tablist" aria-label="Onglets du programme">
