@@ -339,7 +339,10 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_URLS_REGEX = r"^/api/.*$"
 
 # Content Security Policy
-CSP_DEFAULT_SRC = ("'self'",)  # 'self' needed for the captcha audio alternative
+CSP_DEFAULT_SRC = (
+    "'self'",
+    "https://*.scw.cloud",
+)  # 'self' needed for the captcha audio alternative
 
 CSP_CONNECT_SRC = (
     "'self'",

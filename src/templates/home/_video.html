@@ -1,5 +1,13 @@
+{% load settings %}
 <figure role="group" class="fr-content-media">
-    <iframe class="fr-responsive-vid" src="https://www.dailymotion.com/embed/video/x8gyqrn" allowfullscreen title="Lecteur vidéo Dailymotion — Présentation d’Aides-territoires" allow="autoplay"> </iframe>
+    <video controls class="fr-responsive-vid" poster="{% cloud_file_url 'Aides-territoires-presentation.jpg' %}">
+        <source src="{% cloud_file_url 'Aides-territoires-presentation.mp4' %}" type="video/mp4">
+        <source src="{% cloud_file_url 'Aides-territoires-presentation.webm' %}" type="video/webm">
+        <p>
+            Votre navigateur ne prend pas en charge les vidéos HTML5.
+            Voici <a href="{% cloud_file_url 'Aides-territoires-presentation.mp4' %}">un lien pour télécharger la vidéo</a>.
+        </p>
+    </video>
     <figcaption class="fr-content-media__caption at-left">
         Vidéo de présentation d’Aides-territoires
     </figcaption>
