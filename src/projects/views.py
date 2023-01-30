@@ -303,12 +303,18 @@ class ValidatedProjectResultsView(SearchMixin, FormMixin, ListView):
     template_name = "projects/validated_projects_results.html"
     context_object_name = "projects"
     form_class = ValidatedProjectSearchForm
-    paginate_by = 18
-    paginator_class = AidPaginator
 
     def get(self, request, *args, **kwargs):
         self.form = self.get_form()
         self.form.full_clean()
+
+        project_perimeter = self.request.GET.get("project_perimeter", None)
+
+        if not project_perimeter:
+            msg = "Veuillez sélectionner un département ou une commune"
+            messages.warning(self.request, msg)
+            return HttpResponseRedirect(reverse("validated_project_home_view"))
+
         self.store_current_search()
         return super().get(request, *args, **kwargs)
 
