@@ -49,10 +49,22 @@
                 {% endif %}
             </ul>
 
-            {% if program.description %}
+            {% if program.description or aids %}
             <div id="tabpanel-program-description-panel" class="fr-tabs__panel at-tabs__panel--opaque fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-program-description" tabindex="0">
                 <h2 class="fr-mt-0 fr-mb-2w">Présentation générale</h2>
                 {{ program.description | safe }}
+                {% if aids %}
+                <section id="aid-list">
+                    <h2>Liste des aides liées au programme</h2>
+                    <div class="fr-grid-row">
+                        {% for aid in aids %}
+                        <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
+                            {% include 'aids/_aid_result.html' with aid=aid %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </section>
+                {% endif %}
             </div>
             {% endif %}
 
@@ -73,19 +85,6 @@
             {% endif %}
         </div>
     </div>
-
-    {% if aids %}
-    <section id="aid-list">
-        <h2>Liste des aides liées au programme</h2>
-        <div class="fr-grid-row">
-            {% for aid in aids %}
-            <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
-                {% include 'aids/_aid_result.html' with aid=aid %}
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
 </article>
 {% endblock %}
 
