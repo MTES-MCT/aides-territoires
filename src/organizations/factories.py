@@ -1,7 +1,7 @@
 import factory
 from factory.django import DjangoModelFactory
 from organizations.models import Organization
-from aids.factories import FuzzyMultipleChoice
+from core.services.factory_utils import FuzzyMultipleChoice
 
 
 class OrganizationFactory(DjangoModelFactory):

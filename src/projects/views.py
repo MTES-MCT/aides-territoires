@@ -8,6 +8,7 @@ from django.views.generic import (
     UpdateView,
     DetailView,
     DeleteView,
+    FormView,
 )
 from django.views.generic.edit import FormMixin
 from django.db.models import Prefetch
@@ -239,53 +240,16 @@ class PublicProjectListView(SearchMixin, FormMixin, ListView):
         return context
 
 
-class ValidatedProjectHomeView(SearchMixin, FormMixin, ListView):
+class ValidatedProjectHomeView(FormView):
     """Home View for public finished projects."""
 
     template_name = "projects/validated_projects_home.html"
     context_object_name = "projects"
     form_class = ValidatedProjectSearchForm
-    paginate_by = 18
-    paginator_class = AidPaginator
-
-    def get(self, request, *args, **kwargs):
-        self.form = self.get_form()
-        self.form.full_clean()
-        self.store_current_search()
-        return super().get(request, *args, **kwargs)
-
-    def get_queryset(self):
-        """Return the list of results to display."""
-
-        qs = ValidatedProject.objects.all()
-        filter_form = self.form
-        results = filter_form.filter_queryset(qs).distinct()
-
-        return results
-
-    def store_current_search(self):
-        """Store the current search query in a cookie.
-
-        This is needed to provide the correct "go back to your search" link in
-        other pages' breadcrumbs.
-        """
-        current_search_query = self.request.GET.urlencode()
-        self.request.session[settings.SEARCH_COOKIE_NAME] = current_search_query
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        context["current_search"] = self.request.session.get(
-            settings.SEARCH_COOKIE_NAME, ""
-        )
-        context["project_current_search_dict"] = clean_search_form(
-            self.form.cleaned_data, remove_extra_fields=True
-        )
         context["user"] = self.request.user
-        if self.request.GET.get("commune_search") == "true":
-            context["commune_search"] = True
-        if self.request.GET.get("department_search") == "true":
-            context["department_search"] = True
 
         # Map section
         departments_list = Perimeter.objects.departments(
@@ -295,6 +259,26 @@ class ValidatedProjectHomeView(SearchMixin, FormMixin, ListView):
         context["departments_json"] = json.dumps(departments_list)
 
         return context
+
+    def get_initial(self):
+        # if user is authenticated
+        # and if user organization's perimeter are defined
+        # we pre-populate the project_perimeter field
+
+        if self.request.user.is_authenticated:
+            user = self.request.user
+            organization = user.beneficiary_organization
+
+            preferences = {"project_perimeter": None}
+            if (
+                organization is not None
+                and organization.perimeter is not None
+                and organization.perimeter.scale == Perimeter.SCALES.commune
+            ):
+                preferences["project_perimeter"] = organization.perimeter_id
+
+            initial = preferences
+            return initial
 
 
 class ValidatedProjectResultsView(SearchMixin, FormMixin, ListView):
