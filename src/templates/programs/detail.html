@@ -68,7 +68,7 @@
                 <h2 class="fr-mt-0 fr-mb-2w">Présentation générale</h2>
                 {{ program.description | safe }}
                 <section id="aid-list">
-                    <h2>{{ aids.count }} aides liées au programme {{ program.name }}</h2>
+                    <h2>{{ aids.count }} aide{% if aids.count > 1 %}s{% endif %} liée{% if aids.count > 1 %}s{% endif %} au programme {{ program.name }}</h2>
                     {% include 'aids/_search_meta.html' %}
                     {% include "programs/_search_form.html" %}
                     <div class="fr-grid-row">
