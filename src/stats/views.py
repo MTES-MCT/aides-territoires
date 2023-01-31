@@ -586,8 +586,7 @@ class DashboardEngagementView(DashboardBaseView, TemplateView):
                 # the given period, if the range is more that one day. Otherwise,
                 # the `nb_uniq_visitors` key is present in the page result.
                 "nb_uniq_visitors": page.get("nb_uniq_visitors")
-                or page["sum_daily_nb_uniq_visitors"]
-                * (end_date_range - start_date_range).days,
+                or page["sum_daily_nb_uniq_visitors"],
             }
             aid = slugs_aids.get(slug)
             if aid is None:  # Recent aid, not yet in local database.
