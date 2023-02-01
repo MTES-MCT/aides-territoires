@@ -2,8 +2,8 @@ import re
 from django import forms
 from django.template.defaultfilters import filesizeformat
 
-from django.db.models import F
-from django.db.models.functions import ACos, Cos, Radians, Sin
+from django.db.models import F, IntegerField
+from django.db.models.functions import ACos, Cos, Radians, Sin, Round
 
 from django.contrib.postgres.search import SearchRank
 from core.forms.baseform import AidesTerrBaseForm
@@ -406,7 +406,7 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
     )
 
     project_perimeter = AutocompleteModelChoiceField(
-        queryset=Perimeter.objects.all(), label="Périmètre", required=False
+        queryset=Perimeter.objects.all(), label="Votre territoire", required=False
     )
 
     def clean_zipcode(self):
@@ -460,19 +460,22 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
         if search_perimeter.scale == Perimeter.SCALES.commune:
             qs = (
                 qs.annotate(
-                    distance=ACos(
-                        Cos(Radians(search_perimeter.latitude))
-                        * Cos(Radians(F("organization__perimeter__latitude")))
-                        * Cos(
-                            Radians(F("organization__perimeter__longitude"))
-                            - Radians(search_perimeter.longitude)
+                    distance=Round(
+                        ACos(
+                            Cos(Radians(search_perimeter.latitude))
+                            * Cos(Radians(F("organization__perimeter__latitude")))
+                            * Cos(
+                                Radians(F("organization__perimeter__longitude"))
+                                - Radians(search_perimeter.longitude)
+                            )
+                            + Sin(Radians(search_perimeter.latitude))
+                            * Sin(Radians(F("organization__perimeter__latitude")))
                         )
-                        + Sin(Radians(search_perimeter.latitude))
-                        * Sin(Radians(F("organization__perimeter__latitude")))
+                        * 6371,
+                        output_field=IntegerField(),
                     )
-                    * 6371
                 )
-                .filter(distance__lte=50)
+                .filter(distance__lte=30)
                 .order_by("distance")
             )
 

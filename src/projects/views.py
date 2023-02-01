@@ -251,6 +251,8 @@ class ValidatedProjectHomeView(FormView):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user
 
+        context["validated_projects_count"] = ValidatedProject.objects.count()
+
         # Map section
         departments_list = Perimeter.objects.departments(
             values=["id", "name", "code", "projects_count"]

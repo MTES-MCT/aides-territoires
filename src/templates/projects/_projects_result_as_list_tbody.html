@@ -3,8 +3,8 @@
 
 <tr>
     {% if commune_search and project_current_search_dict.project_perimeter.latitude and project_current_search_dict.project_perimeter.longitude %}
-        <td>
-            {{ project.distance|floatformat:"0" }}
+        <td data-order="{{ project.distance }}">
+            {% if project.distance > 0 %}{{ project.distance }} km{% endif %}
         </td>
     {% endif %}
 
@@ -24,7 +24,7 @@
         {% endif %}
     </td>
     <td>
-        {% if project.aid_linked %}
+        {% if project.aid_linked and project.aid_linked.is_live %}
             <a href="{% url 'aid_detail_view' project.aid_linked.slug %}">
                 {{ project.aid_linked.name}}
             </a>
@@ -41,8 +41,8 @@
             {{ project.financer_name }}
         {% endif %}
     </td>
-    <td>{{ project.budget|intcomma }} €</td>
-    <td>
+    <td  data-order="{{ project.budget }}">{{ project.budget|intcomma }} €</td>
+    <td  data-order="{{ project.amount_obtained }}">
         {% if project.amount_obtained %}
             {{ project.amount_obtained|intcomma }} €
             ({% budget_percentage project project.amount_obtained %}%)

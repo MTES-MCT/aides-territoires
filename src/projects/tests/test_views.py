@@ -371,18 +371,16 @@ def test_validated_projects_home_view_logged_in_user(client, contributor, perime
 def test_validated_projects_results_view_displays_results_for_commune(
     client, perimeters
 ):
-    abeilhan = perimeters["abeilhan"]
-    abeilhan.longitude = 3.3026
-    abeilhan.latitude = 43.46
-    abeilhan.save()
+    vic = perimeters["vic"]
+    vic.longitude = 3.8046
+    vic.latitude = 43.4838
+    vic.save()
 
-    abeilhan_org = CommuneOrganizationFactory(
-        name=abeilhan.name, zip_code=abeilhan.code
-    )
-    abeilhan_org.perimeter = abeilhan
-    abeilhan_org.save()
+    vic_org = CommuneOrganizationFactory(name=vic.name, zip_code=vic.code)
+    vic_org.perimeter = vic
+    vic_org.save()
 
-    abeilhan_project = ValidatedProjectFactory(organization=abeilhan_org)
+    vic_project = ValidatedProjectFactory(organization=vic_org)
 
     montpellier = perimeters["montpellier"]
     montpellier.longitude = 3.8742
@@ -402,8 +400,8 @@ def test_validated_projects_results_view_displays_results_for_commune(
 
     assert res.status_code == 200
     assert "Liste des 2 projets subventionnés" in res.content.decode()
-    assert "dans un rayon de 50 km" in res.content.decode()
-    assert abeilhan_project.aid_name in res.content.decode()
+    assert "dans un rayon de 30 km" in res.content.decode()
+    assert vic_project.aid_name in res.content.decode()
     assert montpellier_project.aid_name in res.content.decode()
 
 

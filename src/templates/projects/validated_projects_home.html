@@ -1,18 +1,14 @@
 {% extends "_base.html" %}
 {% load i18n compress static %}
 
-{% block extratitle %}
-Trouvez des projets similaires réalisés par des mairies proches
-{% endblock extratitle %}
+{% block extratitle %}Trouvez des projets similaires réalisés par des mairies proches{% endblock extratitle %}
 
-{% block meta_description %}
-Inspirez-vous des projets réalisés par des mairies voisines au fil des années. Aides Territoires vous permet de facilement trouver des idées et des solutions adaptées à votre ville.
-{% endblock meta_description%}
+{% block meta_description %}Inspirez-vous des projets réalisés par des mairies voisines au fil des années. Aides Territoires vous permet de facilement trouver des idées et des solutions adaptées à votre ville.{% endblock meta_description%}
 
 {% block extra_head %}
 <meta property="og:title" content="Trouvez des projets similaires réalisés par des mairies proches - Aides Territoires"/>
 <meta property="og:type" content="website" />
-<meta property="og:description"content="Inspirez-vous des projets réalisés par des mairies voisines au fil des années. Aides Territoires vous permet de facilement trouver des idées et des solutions adaptées à votre ville."/>
+<meta property="og:description" content="Inspirez-vous des {{ validated_projects_count }} projets réalisés par des mairies voisines au fil des années. Aides Territoires vous permet de facilement trouver des idées et des solutions adaptées à votre ville."/>
 <meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
 <meta property="og:site_name" content="Aides-territoires" />
 <meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
@@ -41,11 +37,9 @@ Inspirez-vous des projets réalisés par des mairies voisines au fil des années
 <div class="fr-container">
     <div>
         <h1>
-            {% with paginator.count as nb_projects %}
             <span class="result-count">
-                Inspirez-vous des {{ nb_projects }} projets similaires aux vôtres !
+                Inspirez-vous des {{ validated_projects_count }} projets similaires aux vôtres !
             </span>
-            {% endwith %}
         </h1>
 
         <h2 class="fr-h5 fr-col-lg-10">

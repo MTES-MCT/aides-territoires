@@ -9,7 +9,7 @@
             <thead>
                 <tr>
                     {% if commune_search and project_current_search_dict.project_perimeter.latitude and project_current_search_dict.project_perimeter.longitude %}
-                        <th scope="col">Distance (en km)</th>
+                        <th scope="col">Distance</th>
                     {% endif %}
                     <th scope="col">Année</th>
                     <th scope="col">Mairie</th>
@@ -34,12 +34,21 @@
         </table>
     </div>
     {% if not user.is_authenticated %}
-    <div class="fr-alert fr-alert--info">
+    <div class="fr-alert fr-alert--info fr-mb-6w">
         <h3 class="fr-alert__title">Connectez-vous pour consulter la liste complète</h3>
         <p>Connectez-vous ou inscrivez-vous en 30 secondes pour consulter tous les résultats de recherche sans aucune limitation.</p>
-        <a class="fr-btn" href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}">
-            Se connecter
-        </a>
+        <ul class="fr-btns-group fr-btns-group--inline-md fr-btns-group--icon-left">
+            <li>
+                <a class="fr-btn fr-icon-lock-line" href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}">
+                    Se connecter
+                </a>
+            </li>
+            <li>
+                <a class="fr-btn fr-icon-account-line" href="{% url 'register' %}?next={{ request.get_full_path|urlencode }}">
+                    S’inscrire
+                </a>
+            </li>
+        </ul>
     </div>
     {% endif %}
 {% endif %}
