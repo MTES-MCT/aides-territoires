@@ -89,7 +89,17 @@
                         <a class="fr-nav__link" href="{% url 'home' %}" target="_self">Accueil</a>
                     </li>
                     <li class="fr-nav__item">
-                        <a class="fr-nav__link" href="{% url 'public_project_list_view' %}" target="_self">Projets</a>
+                        <button class="fr-nav__btn" aria-expanded="false" aria-controls="menu-projets">Projets</button>
+                        <div class="fr-collapse fr-menu" id="menu-projets">
+                            <ul class="fr-menu__list">
+                                <li class="fr-nav__item">
+                                    <a class="fr-nav__link" href="{% url 'validated_project_home_view' %}" target="_self">Projets subventionnés</a>
+                                </li>
+                                <li class="fr-nav__item">
+                                    <a class="fr-nav__link" href="{% url 'public_project_list_view' %}" target="_self">Projets publics</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="fr-nav__item">
                         <a class="fr-nav__link" href="{% url 'map_view' %}" target="_self">Cartographie</a>

@@ -39,13 +39,27 @@ class CustomIndexDashboard(Dashboard):
                 deletable=False,
                 draggable=False,
                 models=(
-                    "geofr.*",
                     "backers.*",
-                    "projects.*",
                     "programs.*",
                     "categories.*",
                     "keywords.*",
                 ),
+            )
+        )
+        self.children.append(
+            modules.ModelList(
+                "Périmètres",
+                deletable=False,
+                draggable=False,
+                models=("geofr.*",),
+            )
+        )
+        self.children.append(
+            modules.ModelList(
+                "Projets",
+                deletable=False,
+                draggable=False,
+                models=("projects.*",),
             )
         )
         self.children.append(

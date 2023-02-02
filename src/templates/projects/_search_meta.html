@@ -60,4 +60,16 @@
     </div>
     {% endif %}
     {% endblock search-meta-step %}
+
+    {% block search-meta-text %}
+    {% if project_current_search_dict.text %}
+    <div class="fr-tags-group">
+        <p title="Mot-clé" class="fr-tag">
+            <span class="ri-double-quotes-r ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
+            {{ project_current_search_dict.text }}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock search-meta-text %}
+
 </div>

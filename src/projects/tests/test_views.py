@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from accounts.factories import UserFactory
 from organizations.factories import CommuneOrganizationFactory
-from projects.factories import ProjectFactory
+from projects.factories import ProjectFactory, ValidatedProjectFactory
 from projects.models import Project
 from aids.factories import AidFactory, SuggestedAidProjectFactory
 from aids.models import SuggestedAidProject
@@ -347,3 +347,106 @@ def test_project_owner_can_delete_project(client):
     assert res.status_code == 302
 
     assert Project.objects.all().count() == 0
+
+
+def test_validated_projects_home_view_is_displayed(client):
+    url = reverse("validated_project_home_view")
+    res = client.get(url)
+
+    assert res.status_code == 200
+
+
+def test_validated_projects_home_view_logged_in_user(client, contributor, perimeters):
+    """…has pre-filled perimeter"""
+    montpellier = perimeters["montpellier"]
+    contributor.beneficiary_organization.perimeter = montpellier
+    contributor.beneficiary_organization.save()
+
+    client.force_login(contributor)
+    res = client.get(reverse("validated_project_home_view"))
+
+    assert "Montpellier" in res.content.decode()
+
+
+def test_validated_projects_results_view_displays_results_for_commune(
+    client, perimeters
+):
+    vic = perimeters["vic"]
+    vic.longitude = 3.8046
+    vic.latitude = 43.4838
+    vic.save()
+
+    vic_org = CommuneOrganizationFactory(name=vic.name, zip_code=vic.code)
+    vic_org.perimeter = vic
+    vic_org.save()
+
+    vic_project = ValidatedProjectFactory(organization=vic_org)
+
+    montpellier = perimeters["montpellier"]
+    montpellier.longitude = 3.8742
+    montpellier.latitude = 43.61
+    montpellier.save()
+
+    montpellier_org = CommuneOrganizationFactory()
+    montpellier_org.perimeter = montpellier
+    montpellier_org.save()
+
+    montpellier_project = ValidatedProjectFactory(organization=montpellier_org)
+
+    url = reverse("validated_project_results_view")
+    res = client.get(
+        url, data={"project_perimeter": montpellier.id_slug, "commune_search": "true"}
+    )
+
+    assert res.status_code == 200
+    assert "Liste des 2 projets subventionnés" in res.content.decode()
+    assert "dans un rayon de 30 km" in res.content.decode()
+    assert vic_project.aid_name in res.content.decode()
+    assert montpellier_project.aid_name in res.content.decode()
+
+
+def test_validated_projects_results_view_displays_results_for_dept(client, perimeters):
+    abeilhan = perimeters["abeilhan"]
+    abeilhan.longitude = 3.3026
+    abeilhan.latitude = 43.46
+    abeilhan.save()
+
+    abeilhan_org = CommuneOrganizationFactory(
+        name=abeilhan.name, zip_code=abeilhan.code
+    )
+    abeilhan_org.perimeter = abeilhan
+    abeilhan_org.save()
+
+    abeilhan_project = ValidatedProjectFactory(organization=abeilhan_org)
+
+    montpellier = perimeters["montpellier"]
+    montpellier.longitude = 3.8742
+    montpellier.latitude = 43.61
+    montpellier.save()
+
+    montpellier_org = CommuneOrganizationFactory()
+    montpellier_org.perimeter = montpellier
+    montpellier_org.save()
+
+    montpellier_project = ValidatedProjectFactory(organization=montpellier_org)
+
+    herault = perimeters["herault"]
+
+    url = reverse("validated_project_results_view")
+    res = client.get(
+        url, data={"project_perimeter": herault.id, "department_search": "true"}
+    )
+
+    assert res.status_code == 200
+    assert "Liste des 2 projets subventionnés" in res.content.decode()
+    assert "sur le département" in res.content.decode()
+    assert "Hérault" in res.content.decode()
+    assert abeilhan_project.aid_name in res.content.decode()
+    assert montpellier_project.aid_name in res.content.decode()
+
+
+def test_validated_projects_results_redirects_if_perimeter_missing(client):
+    url = reverse("validated_project_results_view")
+    res = client.get(url, follow=True)
+    assert res.redirect_chain[-1] == ("/projets/projets-subventionn%C3%A9s/", 302)
+    assert "Veuillez sélectionner un département ou une commune" in res.content.decode()

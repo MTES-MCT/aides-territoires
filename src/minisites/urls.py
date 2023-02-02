@@ -51,10 +51,10 @@ urlpatterns = [
         ),
     ),
     # This is the full search form
-    path(_("search/"), SiteSearch.as_view(), name="advanced_search_view"),
+    path("recherche/", SiteSearch.as_view(), name="advanced_search_view"),
     # Minisite users must be able to create alerts
     path(
-        _("alerts/"),
+        "alertes/",
         include(
             [
                 path("", SiteAlert.as_view(), name="alert_create_view"),
@@ -69,7 +69,7 @@ urlpatterns = [
             ]
         ),
     ),
-    path(_("stats/"), SiteStats.as_view(), name="stats_view"),
+    path("stats/", SiteStats.as_view(), name="stats_view"),
     path(_("programs/<slug:slug>/"), SiteProgram.as_view(), name="program_detail"),
     path(_("backers/<int:pk>/"), SiteBackers.as_view(), name="backer_detail_view"),
     path(

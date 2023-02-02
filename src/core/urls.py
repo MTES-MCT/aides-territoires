@@ -3,7 +3,6 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
-from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import TemplateView
 
 from rest_framework import routers
@@ -76,24 +75,24 @@ urlpatterns = [
     path("aids/<slug:slug>/", RedirectAidDetailView.as_view()),
     path("aides/", include("aids.urls")),
     path("partenaires/", include("backers.urls")),
-    path(_("blog/"), include("blog.urls")),
+    path("blog/", include("blog.urls")),
     path("captcha/", include("captcha.urls")),
     path("cartographie/", include("geofr.urls")),
-    path(_("programs/"), include("programs.urls")),
-    path(_("stats/"), include("stats.urls")),
-    path(_("alerts/"), include("alerts.urls")),
+    path("programmes/", include("programs.urls")),
+    path("stats/", include("stats.urls")),
+    path("alertes/", include("alerts.urls")),
     path("notifications/", include("notifications.urls")),
-    path(_("data/"), include("data.urls")),
-    path(_("search/"), include("search.urls")),
-    path(_("upload/"), include("upload.urls")),
+    path("data/", include("data.urls")),
+    path("recherche/", include("search.urls")),
+    path("upload/", include("upload.urls")),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap_xml"),
     path(
         "robots.txt",
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
     ),
     path("admin_tools/", include("admin_tools.urls")),
-    path(_("projects/"), include("projects.urls")),
-    path(_("organizations/"), include("organizations.urls")),
+    path("projets/", include("projects.urls")),
+    path("organizations/", include("organizations.urls")),
     # Api related routes
     path("api/", include(api_patterns)),
     # Static pages are at the url root.

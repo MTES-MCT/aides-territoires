@@ -1,0 +1,10 @@
+{% extends "admin/change_list.html" %}
+
+{% block object-tools-items %}
+  <li>
+    <a href="{% url 'admin:validated_projects_import' %}" class="addlink">
+     Importer des projets subventionnés
+    </a>
+  </li>
+  {{ block.super }}
+{% endblock %}

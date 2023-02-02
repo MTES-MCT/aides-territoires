@@ -170,35 +170,8 @@ msgstr "Thématique"
 msgid "Category"
 msgstr "Sous-thématique"
 
-msgid "blog/"
-msgstr "blog/"
-
-msgid "programs/"
-msgstr "programmes/"
-
-msgid "projects/"
-msgstr "projets/"
-
-msgid "stats/"
-msgstr "stats/"
-
-msgid "alerts/"
-msgstr "alertes/"
-
-msgid "data/"
-msgstr "data/"
-
-msgid "search/"
-msgstr "recherche/"
-
-msgid "upload/"
-msgstr "upload/"
-
 msgid "Eligibility tests"
 msgstr "Tests d'éligibilité"
-
-msgid "Emails"
-msgstr "Courriels"
 
 msgid "data export"
 msgstr "export de données"

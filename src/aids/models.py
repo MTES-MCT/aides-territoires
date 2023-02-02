@@ -840,7 +840,10 @@ class AidProject(models.Model):
         "Aid", on_delete=models.CASCADE, verbose_name="Aide", blank=True
     )
     project = models.ForeignKey(
-        "projects.Project", on_delete=models.CASCADE, verbose_name="Projet", blank=True
+        "projects.Project",
+        on_delete=models.CASCADE,
+        verbose_name="Projet",
+        blank=True,
     )
     creator = models.ForeignKey(
         "accounts.User",

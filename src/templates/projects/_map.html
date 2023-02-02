@@ -1,0 +1,42 @@
+{% load static %}
+<h2>Vous pouvez aussi consulter tous les projets subventionnés par département.</h2>
+<div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+    <div class="fr-col-12 fr-col-lg-7" role="presentation">
+        <div id="france-map" class="fr-mt-4w fr-mb-4w">{% include "geofr/france_departments.svg" %}</div>
+        <div id="tooltip"></div>
+    </div>
+    <div class="fr-col-lg-5 fr-mb-10w">
+        <div class="fr-grid-row fr-grid-row--gutters fr-mb-5w">
+            <div class="fr-col-12 fr-col-lg-6 at-background-alt-grey ">
+                <div class="fr-card fr-card--no-arrow">
+                    <div class="fr-card__body fr-pb-0">
+                        <h3 class="fr-card__title">7 années</h3>
+                        <p class="fr-card__desc fr-text--sm fr-mb-3w">de données à consulter</p>
+                    </div>
+                </div>
+            </div>
+            <div class="fr-col-12 fr-col-lg-6 at-background-alt-grey ">
+                <div class="fr-card fr-card--no-arrow">
+                    <div class="fr-card__body fr-pb-0">
+                        <h3 class="fr-card__title">4 aides principales</h3>
+                        <p class="fr-card__desc fr-text--sm fr-mb-3w">DETR, DSIL, DSID, DPV</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form id="department-search-form" method="post">
+            <div class="fr-select-group">
+                <select class="fr-select fr-mt-3w at-live-change"
+                    title="Choisissez un département - La sélection recharge la page" id="select-department"
+                    name="department">
+                    <option value="">Choisissez un département</option>
+                    {% for department in departments %}
+                    <option value="{{ department.id }}">
+                        {{ department.code }} - {{ department.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+    </div>
+</div>

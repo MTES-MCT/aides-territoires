@@ -63,6 +63,7 @@
 {% block extra_js %}
     {% compress js %}
         <script src="{% static 'datatables.net/js/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'js/plugins/datatables_i18n.js' %}"></script>
         <script src="{% static 'js/url_parameters.js' %}"></script>
         <script src="{% static 'js/geofr/department_filter.js' %}"></script>
     {% endcompress %}
@@ -73,10 +74,7 @@
                     paging: false,
                     info: false,
                     "order": [[ 1, 'desc' ]],
-                    "language": {
-                        "search": "Filtrer :",
-                        "zeroRecords": "Aucun résultat trouvé"
-                    }
+                    "language": datatables_fr_strings
                 });
             });
         </script>

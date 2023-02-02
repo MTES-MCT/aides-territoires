@@ -2,10 +2,14 @@ from os.path import splitext
 from uuid import uuid4
 
 from django.db import models
+from django.db.models import Value, UniqueConstraint
+from django.db.models.functions import Lower
 from django.utils import timezone
 from django.utils.text import slugify
 from django.urls import reverse
 from django.core.validators import FileExtensionValidator
+from django.contrib.postgres.search import SearchVector, SearchVectorField
+from django.contrib.postgres.indexes import GinIndex
 
 from model_utils import Choices
 from django_resized import ResizedImageField
@@ -63,7 +67,7 @@ class Project(models.Model):
         "organizations.Organization", verbose_name="Structures", blank=True
     )
     other_project_owner = models.CharField(
-        "Autre maître d'ouvrage",
+        "Autre maître d’ouvrage",
         max_length=180,
         null=True,
         blank=True,
@@ -91,7 +95,7 @@ class Project(models.Model):
         "Type de projet suggéré", max_length=256, blank=True
     )
 
-    due_date = models.DateField("Date d'échéance", null=True, blank=True)
+    due_date = models.DateField("Date d’échéance", null=True, blank=True)
 
     step = models.CharField(
         "Avancement du projet",
@@ -154,4 +158,133 @@ class Project(models.Model):
 
     def save(self, *args, **kwargs):
         self.set_slug()
+        return super().save(*args, **kwargs)
+
+
+class ValidatedProject(models.Model):
+    project_name = models.CharField(
+        "Nom du projet",
+        max_length=255,
+        null=False,
+        blank=False,
+    )
+    description = models.TextField(
+        "Description du projet",
+        default="",
+        blank=True,
+    )
+    aid_name = models.CharField(
+        "Nom de l’aide",
+        max_length=180,
+        null=False,
+        blank=False,
+    )
+    project_linked = models.ForeignKey(
+        "projects.Project",
+        verbose_name="Projet lié",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    aid_linked = models.ForeignKey(
+        "aids.Aid",
+        verbose_name="Aide liée",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    organization = models.ForeignKey(
+        "organizations.Organization",
+        verbose_name="Organisation porteuse",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    financer_linked = models.ForeignKey(
+        "backers.Backer",
+        verbose_name="Porteur d’aides lié",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    financer_name = models.CharField(
+        "Nom du porteur de l’aide obtenue",
+        max_length=255,
+        default="",
+        blank=True,
+    )
+    budget = models.PositiveIntegerField("Budget définitif", null=True, blank=True)
+    amount_obtained = models.PositiveIntegerField(
+        "Montant obtenu", null=True, blank=True
+    )
+    date_obtained = models.DateTimeField(
+        "Date de l’obtention",
+        help_text="Date à laquelle l’aide a été obtenue par le porteur du projet",
+        null=True,
+        blank=True,
+    )
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+    search_vector_unaccented_validated_project = SearchVectorField(
+        "Search vector unaccented_validated_project", null=True
+    )
+
+    # Manually setting a unique import_uniqueid because get_or_create fails at
+    # detecting duplicates over so many fields.
+    # See the import script for format.
+    import_uniqueid = models.CharField(
+        "Identifiant d’import unique",
+        max_length=64,
+        unique=True,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Projet subventionné"
+        verbose_name_plural = "Projets subventionnés"
+        ordering = ["project_name"]
+        indexes = [
+            GinIndex(fields=["search_vector_unaccented_validated_project"]),
+        ]
+        constraints = [
+            UniqueConstraint(
+                Lower("project_name"),
+                Lower("aid_name"),
+                "financer_name",
+                "amount_obtained",
+                "date_obtained",
+                name="unique_projectname_aidname_financername_amount_date",
+            ),
+        ]
+
+    def __str__(self):
+        return self.project_name
+
+    def set_search_vector_unaccented_validated_project(self):
+        """Update the full text unaccented cache field."""
+
+        # Note: we use `SearchVector(Value(self.field))` instead of
+        # `SearchVector('field')` because the latter only works for updates,
+        # not when inserting new records.
+        #
+        # Note 2: we have to pass the financers parameter instead of using
+        # `self.financers.all()` because that last expression would not work
+        # during an object creation.
+        search_vector_unaccented_validated_project = SearchVector(
+            Value(self.project_name, output_field=models.CharField()),
+            weight="A",
+            config="french_unaccent",
+        ) + SearchVector(
+            Value(self.description, output_field=models.CharField()),
+            weight="B",
+            config="french_unaccent",
+        )
+
+        self.search_vector_unaccented_validated_project = (
+            search_vector_unaccented_validated_project
+        )
+
+    def save(self, *args, **kwargs):
+        self.set_search_vector_unaccented_validated_project()
         return super().save(*args, **kwargs)

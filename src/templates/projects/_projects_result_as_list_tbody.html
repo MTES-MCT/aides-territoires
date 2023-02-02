@@ -1,0 +1,53 @@
+{% load l10n humanize projects %}
+
+
+<tr>
+    {% if commune_search and project_current_search_dict.project_perimeter.latitude and project_current_search_dict.project_perimeter.longitude %}
+        <td data-order="{{ project.distance|unlocalize }}">
+            {% if project.distance > 0 %}{{ project.distance }} km{% endif %}
+        </td>
+    {% endif %}
+
+    <td>{{ project.date_obtained|date:"Y"}}</td>
+    <td>
+        <a href="{% url 'validated_project_results_view' %}?project_perimeter={{ project.organization.perimeter.id }}&commune_search=true">
+            {{ project.organization.name }}
+        </a>
+    </td>
+    <td>
+        {% if project.project_linked %}
+            <a href="{% url 'public_project_detail_view' project.project_linked.pk project.project_linked.slug %}">
+            {{ project.project_linked.name }}
+            </a>
+        {% else %}
+            {{ project.project_name }}
+        {% endif %}
+    </td>
+    <td>
+        {% if project.aid_linked and project.aid_linked.is_live %}
+            <a href="{% url 'aid_detail_view' project.aid_linked.slug %}">
+                {{ project.aid_linked.name}}
+            </a>
+        {% else %}
+            {{ project.aid_name }}
+        {% endif %}
+    </td>
+    <td>
+        {% if project.financer_linked %}
+            <a href="{% url 'backer_detail_view' project.financer_linked.pk %}">
+                {{ project.financer_linked.name}}
+            </a>
+        {% else %}
+            {{ project.financer_name }}
+        {% endif %}
+    </td>
+    <td  data-order="{{ project.budget }}">{{ project.budget|intcomma }} €</td>
+    <td  data-order="{{ project.amount_obtained }}">
+        {% if project.amount_obtained %}
+            {{ project.amount_obtained|intcomma }} €
+            ({% budget_percentage project project.amount_obtained %}%)
+        {% else %}
+            inconnue
+        {% endif %}
+    </td>
+</tr>

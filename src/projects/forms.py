@@ -2,13 +2,19 @@ import re
 from django import forms
 from django.template.defaultfilters import filesizeformat
 
+from django.db.models import F
+from django.db.models.functions import ACos, Cos, Radians, Sin, Round
+
+from django.contrib.postgres.search import SearchRank
 from core.forms.baseform import AidesTerrBaseForm
+from core.utils import remove_accents, parse_query
 
 from projects.constants import EXPORT_FORMAT_CHOICES
 from core.forms import (
     AutocompleteModelMultipleChoiceField,
     RichTextField,
     AutocompleteModelChoiceField,
+    AutocompleteSynonymChoiceField,
 )
 
 from projects.models import Project
@@ -390,3 +396,98 @@ class ProjectSearchForm(AidesTerrBaseForm):
         perimeter_ids = get_all_related_perimeters(search_perimeter.id, values=["id"])
         qs = qs.filter(organizations__perimeter__in=perimeter_ids)
         return qs
+
+
+class ValidatedProjectSearchForm(AidesTerrBaseForm):
+    """Specific form for validated projects search engine."""
+
+    text = AutocompleteSynonymChoiceField(
+        label="Votre projet", queryset=SynonymList.objects.all(), required=False
+    )
+
+    project_perimeter = AutocompleteModelChoiceField(
+        queryset=Perimeter.objects.all(), label="Votre territoire", required=False
+    )
+
+    def clean_zipcode(self):
+        zipcode = self.cleaned_data["zipcode"]
+        if zipcode and re.match(r"\d{5}", zipcode) is None:
+            msg = "Ce code postal semble invalide."
+            raise forms.ValidationError(msg)
+
+        return zipcode
+
+    def filter_queryset(self, qs=None):
+        """Filter querysets depending of input data."""
+
+        # Populate cleaned_data
+        if not hasattr(self, "cleaned_data"):
+            self.full_clean()
+
+        project_perimeter = self.cleaned_data.get("project_perimeter", None)
+        if project_perimeter:
+            qs = self.perimeter_filter(qs, project_perimeter)
+
+        text = self.cleaned_data.get("text", None)
+        if text:
+            text_unaccented = remove_accents(text)
+            query = parse_query(text_unaccented)
+            qs = qs.filter(search_vector_unaccented_validated_project=query).annotate(
+                rank=SearchRank(F("search_vector_unaccented_validated_project"), query)
+            )
+
+        return qs
+
+    def perimeter_filter(self, qs, search_perimeter):
+        """Filter queryset depending on the given perimeter.
+
+        When we search for a given perimeter, we must return all projects:
+         - where the perimeter is wider and contains the searched perimeter ;
+         - where the perimeter is smaller and contained by the search
+         perimeter ;
+
+        E.g if we search for projects in "Hérault (department), we must display all
+        aids that are applicable to:
+
+         - Hérault ;
+         - Occitanie ;
+         - France ;
+         - Europe ;
+         - M3M (and all other epcis in Hérault) ;
+         - Montpellier (and all other communes in Hérault) ;
+        """
+
+        if search_perimeter.scale == Perimeter.SCALES.commune:
+            qs = (
+                qs.annotate(
+                    distance=Round(
+                        ACos(
+                            Cos(Radians(search_perimeter.latitude))
+                            * Cos(Radians(F("organization__perimeter__latitude")))
+                            * Cos(
+                                Radians(F("organization__perimeter__longitude"))
+                                - Radians(search_perimeter.longitude)
+                            )
+                            + Sin(Radians(search_perimeter.latitude))
+                            * Sin(Radians(F("organization__perimeter__latitude")))
+                        )
+                        * 6371,
+                        precision=2,
+                    )
+                )
+                .filter(distance__lte=30)
+                .order_by("distance")
+            )
+
+        else:
+            perimeter_ids = get_all_related_perimeters(
+                search_perimeter.id, values=["id"]
+            )
+            qs = qs.filter(organization__perimeter__in=perimeter_ids)
+        return qs
+
+
+class ValidatedProjectImportForm(forms.Form):
+    validated_projects_list = forms.FileField(
+        label="Liste des projets subventionnés", required=True
+    )

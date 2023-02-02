@@ -1,0 +1,158 @@
+{% extends "_base.html" %}
+{% load i18n compress static projects %}
+
+{% block extratitle %}{% if commune_search %}Projets réalisés par les mairies {% if project_current_search_dict.project_perimeter.latitude %}à côté de {{ project_current_search_dict.project_perimeter.name }}{% endif %}{% elif department_search %}Projets réalisés par les mairies du département {% if project_current_search_dict.project_perimeter %}{{ project_current_search_dict.project_perimeter.name }} ({{ project_current_search_dict.project_perimeter.code}}){% endif %}{% endif %}{% endblock extratitle %}
+
+{% block meta_description %}{% if commune_search %}Découvrez la liste des projets réalisés par des mairies proches. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées.{% elif department_search %}Découvrez la liste des projets réalisés par les mairies dans le département {% if project_current_search_dict.project_perimeter %}{{ project_current_search_dict.project_perimeter.name }} ({{ project_current_search_dict.project_perimeter.code}}){% endif %}. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées dans ce département.{% endif %}{% endblock meta_description%}
+
+{% block extra_head %}
+<meta property="og:title"
+    {% if commune_search %}
+    content="Projets réalisés par les mairies {% if project_current_search_dict.project_perimeter.latitude %}à côté de {{ project_current_search_dict.project_perimeter.name }}{% endif %} - Aides Territoires"
+    {% elif department_search %}
+    content="Projets réalisés par les mairies du département {% if project_current_search_dict.project_perimeter %}
+    {{ project_current_search_dict.project_perimeter.name }} ({{ project_current_search_dict.project_perimeter.code}}){% endif %} - Aides Territoires"
+    {% endif %}
+/>
+<meta property="og:type" content="website" />
+<meta property="og:description"
+    {% if commune_search %}
+    content="Découvrez la liste des projets réalisés par des mairies proches. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées."
+    {% elif department_search %}
+    content="Découvrez la liste des projets réalisés par les mairies dans le département {% if project_current_search_dict.project_perimeter %}
+    {{ project_current_search_dict.project_perimeter.name }} ({{ project_current_search_dict.project_perimeter.code}}){% endif %}. Aides Territoires vous permet de voir le coût total des projets et les subventions accordées dans ce département."
+    {% endif %}
+/>
+<meta property="og:url" content="https://aides-territoires.beta.gouv.fr" />
+<meta property="og:site_name" content="Aides-territoires" />
+<meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
+<meta property="og:image:alt" content="Logo : Aides-territoires" />
+{% endblock extra_head %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'validated_project_home_view' %}">Projets subventionnés</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Résutats de votre recherche de projets subventionnés</a>
+                </li>
+           </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="fr-container">
+    <div>
+        <h1>
+            {% with projects.count as nb_projects %}
+            <span class="result-count">
+                {% if commune_search %}
+                    {% if nb_projects > 1 %}
+                        Liste des {{ nb_projects }} projets subventionnés
+                    {% else %}
+                        {{ nb_projects }} projet subventionné
+                    {% endif %}
+                    {% if project_current_search_dict.project_perimeter.latitude and project_current_search_dict.project_perimeter.longitude %}
+                        dans un rayon de 30 km
+                    {% endif %}
+                {% elif department_search %}
+                    {% if nb_projects > 1 %}
+                    Liste des {{ nb_projects }} projets subventionnés 
+                    {% else %}
+                    {{ nb_projects }} projet subventionné
+                    {% endif %}
+                    sur le département 
+                    {% if project_current_search_dict.project_perimeter %}
+                    {{ project_current_search_dict.project_perimeter.name }} :
+                    {% endif %}
+                {% endif %}
+            </span>
+            {% endwith %}
+        </h1>
+
+        {% if commune_search %}
+            {% block search-meta %}
+            {% include "projects/_search_meta.html" %}
+            {% endblock search-meta %}
+            <div id="search-engine" class="fr-mb-2w">
+                {% block search-engine %}
+                    <div class="fr-card">
+                        <div class="fr-card__body">
+                            <div class="fr-card__content">
+                                {% include "projects/_validated_project_search_form.html" %}
+                            </div>
+                        </div>
+                    </div>
+                {% endblock search-engine %}
+            </div>
+        {% endif %}
+    </div>
+    <div id="projects-list">
+        {% if projects %}
+        {% include "projects/_projects_result_as_list.html" with projects=projects %}
+        {% else %}
+        <div class="fr-mb-5w">
+            <div role="alert" class="fr-alert fr-alert--info fr-alert--sm">
+                <p>Nous n’avons pu trouver aucun résultat.</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'datatables.net-dt/css/jquery.dataTables.min.css' %}" type="text/css" />
+    {% compress css %}
+        <style>
+            .search-form-extra-action {
+                display: block;
+            }
+        </style>
+    {% endcompress %}
+{% endblock extra_css %}
+
+{% block extra_js %}
+    {% compress js %}
+        <script src="{% static 'datatables.net/js/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'js/plugins/datatables_i18n.js' %}"></script>
+        <script src="{% static 'select2/dist/js/select2.js' %}"></script>
+        <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+        <script src="{% static 'js/select2_custom.js' %}"></script>
+        <script src="{% static 'js/aids/project_perimeter_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/text_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
+        <script src="{% static 'js/url_parameters.js' %}"></script>
+        <script src="{% static 'js/projects/search_project_form_advanced.js' %}"></script>
+        <script src="{% static 'js/geofr/department_filter.js' %}"></script>
+        <script src="{% static 'js/geofr/map_projects.js' %}"></script>
+    {% endcompress %}
+    <script nonce="{{ request.csp_nonce }}">
+        let departments_data = JSON.parse("{{ departments_json|escapejs }}");
+        $(document).ready(function () {
+            department_filter('/');
+        });
+
+        $(document).ready( function () {
+            $('#validated_projects_table').DataTable({
+                info: false,
+                {% if commune_search %}
+                    "order": [[ 0, 'asc' ], [ 2, 'asc' ], [ 1, 'asc' ]],
+                {% else %}
+                    "order": [[ 1, 'asc' ], [ 0, 'asc' ]],
+                {% endif %}
+                "language": datatables_fr_strings,
+            });
+        } );
+    </script>
+{% endblock extra_js %}

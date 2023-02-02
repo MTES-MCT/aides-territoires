@@ -5,6 +5,8 @@ from projects.views import (
     ProjectExportView,
     ProjectListView,
     PublicProjectListView,
+    ValidatedProjectResultsView,
+    ValidatedProjectHomeView,
     FavoriteProjectListView,
     ProjectDetailView,
     PublicProjectDetailView,
@@ -21,6 +23,16 @@ urlpatterns = [
         "projets-publics/",
         PublicProjectListView.as_view(),
         name="public_project_list_view",
+    ),
+    path(
+        "projets-subventionnes/resultats/",
+        ValidatedProjectResultsView.as_view(),
+        name="validated_project_results_view",
+    ),
+    path(
+        "projets-subventionnes/",
+        ValidatedProjectHomeView.as_view(),
+        name="validated_project_home_view",
     ),
     path(
         "projets-favoris/",
