@@ -6,7 +6,7 @@ $(document).ready(function () {
     tabBtns.each(function(index) {
 		$(this).on('click', function() {
 			let tabBtnId = $(this).attr("id").split("tabpanel-")[1]
-            window.history.pushState({}, '', '?tab=' + tabBtnId);
+            window.history.pushState({}, '', `?tab=${tabBtnId}`);
         })
 	})	
 })
