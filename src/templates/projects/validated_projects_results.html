@@ -147,7 +147,7 @@
             $('#validated_projects_table').DataTable({
                 info: false,
                 {% if commune_search %}
-                    "order": [[ 0, 'asc' ], [ 1, 'asc' ]],
+                    "order": [[ 0, 'asc' ], [ 2, 'asc' ], [ 1, 'asc' ]],
                 {% else %}
                     "order": [[ 1, 'asc' ], [ 0, 'asc' ]],
                 {% endif %}

@@ -2,7 +2,7 @@ import re
 from django import forms
 from django.template.defaultfilters import filesizeformat
 
-from django.db.models import F, IntegerField
+from django.db.models import F
 from django.db.models.functions import ACos, Cos, Radians, Sin, Round
 
 from django.contrib.postgres.search import SearchRank
@@ -472,7 +472,7 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
                             * Sin(Radians(F("organization__perimeter__latitude")))
                         )
                         * 6371,
-                        output_field=IntegerField(),
+                        precision=2,
                     )
                 )
                 .filter(distance__lte=30)

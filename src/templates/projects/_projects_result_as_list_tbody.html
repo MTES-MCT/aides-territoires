@@ -1,9 +1,9 @@
-{% load humanize projects %}
+{% load l10n humanize projects %}
 
 
 <tr>
     {% if commune_search and project_current_search_dict.project_perimeter.latitude and project_current_search_dict.project_perimeter.longitude %}
-        <td data-order="{{ project.distance }}">
+        <td data-order="{{ project.distance|unlocalize }}">
             {% if project.distance > 0 %}{{ project.distance }} km{% endif %}
         </td>
     {% endif %}
