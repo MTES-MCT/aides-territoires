@@ -237,6 +237,12 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ("False", "Aides gratuites"),
     )
 
+    IS_PUBLIC = (
+        ("all", "Aides publiques et privées"),
+        ("True", "Aides publiques"),
+        ("False", "Aides privées"),
+    )
+
     objects = ExistingAidsManager()
     all_aids = AidQuerySet.as_manager()
     deleted_aids = DeletedAidsManager()

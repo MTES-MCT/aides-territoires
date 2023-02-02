@@ -532,6 +532,11 @@ class BaseAidSearchForm(AidesTerrBaseForm):
         required=False,
         choices=Aid.IS_CHARGED,
     )
+    is_public = forms.ChoiceField(
+        label="Aides publiques ou privées",
+        required=False,
+        choices=Aid.IS_PUBLIC,
+    )
     mobilization_step = forms.MultipleChoiceField(
         label="Avancement du projet",
         required=False,
@@ -668,6 +673,12 @@ class BaseAidSearchForm(AidesTerrBaseForm):
             qs = qs.filter(is_charged=False)
         elif is_charged == "True":
             qs = qs.filter(is_charged=True)
+
+        is_public = self.cleaned_data.get("is_public", False)
+        if is_public == "False":
+            qs = qs.filter(financers__is_corporate=True).distinct()
+        elif is_public == "True":
+            qs = qs.filter(financers__is_corporate=False).distinct()
 
         in_france_relance = self.cleaned_data.get("in_france_relance", False)
         if in_france_relance:

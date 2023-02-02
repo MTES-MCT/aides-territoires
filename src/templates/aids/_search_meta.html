@@ -124,6 +124,15 @@
     {% endif %}
     {% endblock search-meta-is-charged %}
 
+    {% block search-meta-is-public %}
+    {% if current_search_dict.is_public %}
+    <div class="fr-tags-group">
+        <p title="aides publiques ou privées" class="fr-tag fr-icon-arrow-right-line fr-tag--icon-left">
+            {% form_choice_display current_search_dict 'is_public' %}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock search-meta-is-public %}
 
     {% block search-meta-text %}
     {% if current_search_dict.text %}
