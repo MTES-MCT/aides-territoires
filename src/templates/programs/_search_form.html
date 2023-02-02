@@ -1,0 +1,103 @@
+<form id="search-form" method="get" action="{% url 'program_detail' program.slug %}" autocomplete='off'>
+
+    {{ form.integration }}
+
+    {% block other_actions %}
+    <div class="other-actions fr-mb-2w fr-grid-row fr-grid-row--middle">
+        {% block other-actions %}
+        {% endblock other-actions %}
+    </div>
+    {% endblock other_actions %}
+
+    <div class="form-container">
+        <div class="form-body">
+            {% block form-body %}
+                <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+                    <div class="fr-col-12 fr-col-md-3">
+                        <div class="fr-select-group">
+                            <div id="form-group-targeted_audiences" class="fr-input-group">
+                                <label class="fr-label" for="id_targeted_audiences">Vous cherchez pour…</label>
+                                <select class="fr-select" name="targeted_audiences" id="id_targeted_audiences">
+                                    <option value="">Tous types de structures</option>
+                                    {% for option in form.targeted_audiences %}
+                                        {{ option }}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fr-col-12 fr-col-md-3">
+                        {% include '_field_snippet.html' with field=form.perimeter %}
+                    </div>
+
+                    <div class="fr-col-12 fr-col-md-3">
+                        {% include '_field_snippet.html' with field=form.text %}
+                    </div>
+
+                    {# Categories = Thématiques #}
+                    <div class="fr-col-12 fr-col-md-3">
+                        {% include '_field_snippet.html' with field=form.categories %}
+                    </div>
+
+                </div>
+                <div class="search-form-extra-fields">
+
+                    <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+                        <div class="fr-col-12 fr-col-md-3">
+                            {% include '_checkbox_snippet_multiple.html' with field=form.aid_type %}
+                        </div>
+    
+                        <div class="fr-col-12 fr-col-md-3">
+                            {% include '_field_snippet.html' with field=form.backers %}
+                        </div>
+    
+                        <div class="fr-col-12 fr-col-md-3">
+                            {% include '_field_snippet.html' with field=form.apply_before %}
+                        </div>
+    
+                        <div class="fr-col-12 fr-col-md-3">
+                            {% include '_select_snippet.html' with field=form.mobilization_step %}
+                        </div>
+    
+                        <div class="fr-col-12 fr-col-md-3">
+                            {% include '_checkbox_snippet_multiple.html' with field=form.destinations  %}
+                        </div>
+                        
+                        <div class="fr-col-12 fr-col-md-3">
+                            {% include '_field_snippet.html' with field=form.is_charged  %}
+                        </div>
+                    </div>
+                    <div>
+                        {% include '_checkbox_snippet.html' with field=form.call_for_projects_only  %}
+                    </div>
+                </div>
+
+                <div class="fr-mt-2w">
+                    <ul class="fr-btns-group fr-btns-group--center fr-btns-group--inline">
+                        <li>
+                            <button id="search-form-more-options" class="fr-btn fr-btn--tertiary-no-outline search-form-extra-action">
+                                <span class="fr-icon-add-line" aria-hidden="true"></span> Afficher les critères avancés
+                            </button>
+                        </li>
+                    </ul>
+
+                    <ul class="fr-btns-group fr-btns-group--center fr-btns-group--inline">
+                        <li>
+                            <a href="{% url 'search_view' %}" class="fr-btn fr-btn--tertiary-no-outline search-form-extra-action">
+                                <span class="fr-icon-arrow-go-back-line" aria-hidden="true"></span> Nouvelle recherche
+                            </a>
+                        </li>
+                        <li>
+                            <button name="action" value="search-filter" class="fr-btn" title="Rechercher" type="submit">
+                                <span class="fr-icon-search-line fr-mr-1w" aria-hidden="true"></span> Rechercher
+                            </button>
+                        </li>
+                    </ul>                    
+                    <div>
+                    </div>
+                </div>
+            {% endblock form-body %}
+        </div>
+    </div>
+</form>
