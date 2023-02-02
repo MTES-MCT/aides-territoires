@@ -149,8 +149,8 @@ def clean_numeric_input(input_string: str, logger) -> int | None:
     if any(i in input_string for i in common_wrong_values):
         return None
 
-    input_string = input_string.replace(" ", "")
-    input_string = input_string.replace(" ", "")
+    input_string = input_string.replace(" ", "")  # normal space
+    input_string = input_string.replace(" ", "")  # non-breakable space
     input_string = input_string.replace(",", "")
     input_string = input_string.replace("€", "")
     input_string = input_string.replace("E", "")
