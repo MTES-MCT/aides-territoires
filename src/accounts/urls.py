@@ -41,13 +41,17 @@ urlpatterns = [
     ),
     path("connexion/<uidb64>/<token>/", TokenLoginView.as_view(), name="token_login"),
     path(
-        "mot-de-passe-confirmation/",
+        "reinitiatisation-mot-de-passe/",
         PasswordResetConfirmView.as_view(),
         name="password_reset_confirm",
     ),
-    path("nouveau-mot-de-passe/", PasswordResetView.as_view(), name="password_reset"),
     path(
-        "mot-de-passe-envoyé/",
+        "demande-nouveau-mot-de-passe/",
+        PasswordResetView.as_view(),
+        name="password_reset",
+    ),
+    path(
+        "lien-renouvellement-mot-de-passe-envoye/",
         PasswordResetSentView.as_view(),
         name="password_reset_sent",
     ),
