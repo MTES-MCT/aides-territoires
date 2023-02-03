@@ -448,5 +448,5 @@ def test_validated_projects_results_view_displays_results_for_dept(client, perim
 def test_validated_projects_results_redirects_if_perimeter_missing(client):
     url = reverse("validated_project_results_view")
     res = client.get(url, follow=True)
-    assert res.redirect_chain[-1] == ("/projets/projets-subventionn%C3%A9s/", 302)
+    assert res.redirect_chain[-1] == ("/projets/projets-subventionnes/", 302)
     assert "Veuillez sélectionner un département ou une commune" in res.content.decode()
