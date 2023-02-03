@@ -28,12 +28,12 @@ def aid_admin_form_class():
 
 
 @pytest.fixture
-def aids(user, backer):
+def aids(user, backer, backers):
     """Generates a few aids and return the corresponding queryset."""
 
     AidFactory(
         author=user,
-        financers=[backer],
+        financers=[backers["corporate_backer"], backer],
         submission_deadline="2018-01-01",
         mobilization_steps=["preop"],
         aid_types=["grant", "loan"],
@@ -41,7 +41,7 @@ def aids(user, backer):
     )
     AidFactory(
         author=user,
-        financers=[backer],
+        financers=[backers["corporate_backer"]],
         submission_deadline="2018-01-01",
         mobilization_steps=["preop"],
         aid_types=["grant", "loan"],
@@ -483,3 +483,15 @@ def test_aid_creation_description_sanitization(aid_form_data):
     assert "script" not in description
     assert "<div" not in description
     assert 'class="toto"' not in description
+
+
+def test_search_form_filter_by_is_public(aids):
+    # if filter is_public is True aids with at least one public backer are displayed
+    form = AidSearchForm({"is_public": True})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 11
+
+    # if filter is_public is False aids with at least one corporate backer are displayed
+    form = AidSearchForm({"is_public": False})
+    qs = form.filter_queryset(aids)
+    assert qs.count() == 2

@@ -88,6 +88,20 @@ def backer():
 
 
 @pytest.fixture
+def backers():
+
+    corporate_backer = BackerFactory(is_corporate=True)
+    public_backer = BackerFactory(is_corporate=False)
+
+    backers = {
+        "corporate_backer": corporate_backer,
+        "public_backer": public_backer,
+    }
+
+    return backers
+
+
+@pytest.fixture
 def perimeter():
     """Generates a valid Perimeter."""
 
