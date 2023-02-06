@@ -105,6 +105,7 @@ def test_login_email_token_works(client, user, mailoutbox):
     res = client.get(url, follow=True)
     assert res.status_code == 200
     assert "Vous êtes maintenant connecté" in res.content.decode()
+    assert "Mon nouveau mot de passe" in res.content.decode()
     assert res.wsgi_request.user.is_authenticated
 
 

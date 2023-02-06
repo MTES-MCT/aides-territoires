@@ -104,7 +104,10 @@ def parse_query(raw_query):
 
 def get_base_url():
     site = Site.objects.get_current()
-    scheme = "https"
+    if "localhost" in site.domain:
+        scheme = "http"
+    else:
+        scheme = "https"
     base_url = "{scheme}://{domain}".format(scheme=scheme, domain=site.domain)
     return base_url
 

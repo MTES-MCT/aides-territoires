@@ -567,6 +567,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         indexes = [
             GinIndex(fields=["search_vector_unaccented"]),
         ]
+        ordering = ["-id"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
