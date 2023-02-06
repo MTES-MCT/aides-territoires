@@ -47,7 +47,7 @@
         <div class="fr-tabs">
             <ul class="fr-tabs__list" role="tablist" aria-label="Onglets du programme">
                 <li role="presentation">
-                    <button id="tabpanel-program-description" class="fr-tabs__tab" {% if faq_selected or tab_selected %} tabindex="-1" aria-selected="false" {% else %} tabindex="0" aria-selected="true" {% endif %} role="tab" aria-controls="tabpanel-program-description-panel">Présentation générale</button>
+                    <button id="tabpanel-program-description" class="fr-tabs__tab" {% if tab_selected == "program-description" or not tab_selected %} tabindex="0" aria-selected="true" {% else %} tabindex="-1" aria-selected="false" {% endif %} role="tab" aria-controls="tabpanel-program-description-panel">Présentation générale</button>
                 </li>
                 {% if program_fonds_vert %}
                 <li role="presentation">
