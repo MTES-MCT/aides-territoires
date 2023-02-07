@@ -115,8 +115,8 @@ class BaseAidForm(forms.ModelForm, DsfrBaseForm):
             "instructors": "Instructeur de l’aide",
             "new_backer": "…ou ajoutez un nouveau porteur d’aide",
             "destinations": "Types de dépenses / actions couvertes",
-            "origin_url": "Lien vers le descriptif complet",
-            "application_url": "Lien vers la démarche en ligne",
+            "origin_url": "Plus d'informations",
+            "application_url": "Candidater à l'aide",
             "is_call_for_project": "Cochez cette case s’il s’agit d’un appel à projets (AAP) ou d’un appel à manifestation d’intérêt (AMI)",  # noqa
         }
         for field, label in custom_labels.items():
@@ -356,6 +356,16 @@ class AidEditForm(BaseAidForm):
         help_text="Sélectionnez la ou les thématiques associées à votre aide. N’hésitez pas à en choisir plusieurs.",  # noqa
     )
     slug = forms.CharField(widget=forms.HiddenInput, required=False)
+
+    origin_url = forms.URLField(
+        label="Lien vers plus d’information (url d’origine, site du porteur d’aides)",
+        required=True,
+        max_length=500,
+    )
+
+    application_url = forms.URLField(
+        label="Lien vers une démarche en ligne pour candidater", max_length=500
+    )
 
     class Meta:
         model = Aid

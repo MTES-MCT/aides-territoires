@@ -338,10 +338,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         blank=True,
         base_field=models.CharField(max_length=32, choices=STEPS, default=STEPS.preop),
     )
-    origin_url = models.URLField("URL d'origine", max_length=500, blank=True)
-    application_url = models.URLField(
-        "Lien vers une démarche en ligne", max_length=500, blank=True
-    )
+    origin_url = models.URLField("Plus d'informations", max_length=500, blank=True)
+    application_url = models.URLField("Candidater à l'aide", max_length=500, blank=True)
     has_broken_link = models.BooleanField(
         "Contient un lien cassé ?",
         default=False,

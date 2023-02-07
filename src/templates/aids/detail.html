@@ -368,8 +368,8 @@
                     {% endif %}
                     {% if aid.origin_url %}
                         <li>
-                            <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers le descriptif complet - ouvre une nouvelle fenêtre" href="{{ aid.origin_url }}">
-                                {% if programs.first.slug == "fonds-vert" and aid.origin_url|slice:"-4:" == ".pdf" %}Cahier d’accompagnement{% else %}Descriptif complet{% endif %}
+                            <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers plus d'informations - ouvre une nouvelle fenêtre" href="{{ aid.origin_url }}">
+                                {% if programs.first.slug == "fonds-vert" and aid.origin_url|slice:"-4:" == ".pdf" %}Cahier d’accompagnement{% else %}Plus d'informations{% endif %}
                             </a>
                         </li>
                     {% endif %}
@@ -519,8 +519,8 @@
                     <ul class="fr-btns-group fr-btns-group--inline-md fr-btns-group--right">
                         {% if aid.origin_url %}
                         <li>
-                            <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers le descriptif complet - ouvre une nouvelle fenêtre" href="{{ aid.origin_url }}">
-                                {% if programs.first.slug == "fonds-vert" and aid.origin_url|slice:"-4:" == ".pdf" %}Cahier d’accompagnement{% else %}Descriptif complet{% endif %}
+                            <a class="fr-btn fr-btn--secondary" id="origin_url_btn" target="_blank" rel="noopener" title="Lien vers plus d'informations - ouvre une nouvelle fenêtre" href="{{ aid.origin_url }}">
+                                {% if programs.first.slug == "fonds-vert" and aid.origin_url|slice:"-4:" == ".pdf" %}Cahier d’accompagnement{% else %}Plus d'informations{% endif %}
                             </a>
                         </li>
                         {% endif %}
