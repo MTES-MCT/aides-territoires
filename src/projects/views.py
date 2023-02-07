@@ -310,8 +310,10 @@ class ValidatedProjectResultsView(SearchMixin, FormMixin, ListView):
         qs = (
             ValidatedProject.objects.all()
             .select_related("organization")
+            .select_related("organization__perimeter")
             .select_related("aid_linked")
             .select_related("project_linked")
+            .select_related("financer_linked")
         )
 
         filter_form = self.form
