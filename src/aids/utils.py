@@ -62,7 +62,6 @@ def filter_generic_aids(qs: QuerySet, search_perimeter: Perimeter = None) -> Que
     for aid_id, perimeter_scale, generic_aid_id in local_aids_expired_list:
         if search_perimeter:
             search_smaller = search_perimeter.scale <= perimeter_scale
-            search_wider = search_perimeter.scale > perimeter_scale
         if search_smaller:
             aids_to_exclude.append(generic_aid_id)
 
