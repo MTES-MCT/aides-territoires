@@ -15,6 +15,7 @@ USER_EXPORT_FIELDS = (
     "perimeter",
     "perimeter_region",
     "perimeter_department",
+    "perimeter_population",
     "is_contributor",
     "is_beneficiary",
     "nb_aids",
@@ -63,6 +64,10 @@ class UserResource(resources.ModelResource):
 
     perimeter_department = fields.Field(
         column_name="Périmètre (Département)",
+    )
+
+    perimeter_population = fields.Field(
+        column_name="Périmètre (Population)",
     )
 
     nb_aids = fields.Field(
@@ -129,6 +134,14 @@ class UserResource(resources.ModelResource):
             if obj.beneficiary_organization.perimeter:
                 if obj.beneficiary_organization.perimeter.departments:
                     return obj.beneficiary_organization.perimeter.departments[0]
+        else:
+            return ""
+
+    def dehydrate_perimeter_population(self, obj):
+        if obj.beneficiary_organization:
+            if obj.beneficiary_organization.perimeter:
+                if obj.beneficiary_organization.perimeter.population:
+                    return obj.beneficiary_organization.perimeter.population
         else:
             return ""
 
