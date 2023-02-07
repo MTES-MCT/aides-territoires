@@ -66,6 +66,7 @@ def test_user_can_filter_aids_displayed_in_program_detail_page(client, perimeter
 
     res = client.get(program_detail_url, data={"perimeter": perimeters["normandie"].pk})
     assert res.status_code == 200
+    print(res.content.decode())
     assert "1 aide liée au programme" in res.content.decode()
     assert first_aid.name in res.content.decode()
     assert second_aid.name not in res.content.decode()
