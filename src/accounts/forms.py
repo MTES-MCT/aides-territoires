@@ -4,6 +4,7 @@ from django.contrib.auth import password_validation
 
 from core.forms.baseform import AidesTerrBaseForm
 from core.forms.fields import AutocompleteModelChoiceField
+from core.forms.widgets import SelectWidgetWithDisabledEmptyOption
 
 from accounts.models import User
 from accounts.utils import check_current_password
@@ -18,6 +19,10 @@ from dsfr.forms import DsfrBaseForm
 
 class RegisterForm(UserCreationForm, AidesTerrBaseForm):
     """Form used to create new user accounts."""
+
+    ORGANIZATION_TYPES = [
+        ("", "Sélectionnez une valeur")
+    ] + ORGANIZATION_TYPES_SINGULAR_GROUPED
 
     first_name = forms.CharField(label="Votre prénom", required=True)
     last_name = forms.CharField(label="Votre nom", required=True)
@@ -44,7 +49,8 @@ class RegisterForm(UserCreationForm, AidesTerrBaseForm):
     organization_type = forms.ChoiceField(
         label="Type de votre structure",
         required=True,
-        choices=ORGANIZATION_TYPES_SINGULAR_GROUPED,
+        choices=ORGANIZATION_TYPES,
+        widget=SelectWidgetWithDisabledEmptyOption,
     )
     intercommunality_type = forms.ChoiceField(
         label="Type d’intercommunalité",

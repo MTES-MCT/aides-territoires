@@ -8,14 +8,9 @@
      * will never be hidden.
      */
     exports.toggleIntercommunalityTypeField = function (form, div) {
-        console.log("here");
-
         let select = form.find('#id_organization_type option[value="epci"]');
         let selected = select.prop('selected');
         let hasErrors = div.find('p.error').length > 0;
-
-        console.log(selected);
-        console.log(hasErrors);
 
         if (selected || hasErrors) {
             div.addClass('fr-collapse--expanded');
