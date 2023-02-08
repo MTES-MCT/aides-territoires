@@ -7,11 +7,11 @@
      * was submitted before), we always display them so the error message
      * will never be hidden.
      */
-    exports.toggleBeneficiaryFields = function(form, div) {
+    exports.toggleBeneficiaryFields = function (form, div) {
 
-        var select = form.find('select#id_organization_type option[value="commune"]');
-        var selected = select.prop('selected');
-        var hasErrors = div.find('p.error').length > 0;
+        let select = form.find('#id_organization_type option[value="commune"]');
+        let selected = select.prop('selected');
+        let hasErrors = div.find('p.error').length > 0;
 
         if (selected || hasErrors) {
             div.addClass('fr-collapse--expanded');
@@ -26,12 +26,12 @@ $(document).ready(function () {
 
     // Only display subvention related fields when the `subvention`
     // checkbox is checked.
-    var registerForm = $('form#register-form');
-    var beneficiaryFieldsDiv = $('div#beneficiary-fields-collapse');
+    let registerForm = $('#register-form');
+    let beneficiaryFieldsDiv = $('#beneficiary-fields-collapse');
 
     toggleBeneficiaryFields(registerForm, beneficiaryFieldsDiv);
 
-    registerForm.on('change', function() {
+    registerForm.on('change', function () {
         toggleBeneficiaryFields(registerForm, beneficiaryFieldsDiv);
     });
 });
