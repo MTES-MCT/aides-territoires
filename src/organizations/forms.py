@@ -20,7 +20,7 @@ class OrganizationCreateForm(forms.ModelForm, AidesTerrBaseForm):
 
     name = forms.CharField(label="Nom de votre structure", required=True)
     organization_type = forms.MultipleChoiceField(
-        label="Vous êtes un/une",
+        label="Type de votre structure",
         required=False,
         choices=ORGANIZATION_TYPE_CHOICES_WITH_DEFAULT,
         widget=OrganizationTypeWidget,

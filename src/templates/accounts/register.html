@@ -82,7 +82,7 @@
                                             <legend class="fr-h3 fr-pt-3w">Informations professionnelles</legend>
 
                                             <div id="form-group-organization_type" class="fr-input-group required ">
-                                                <label for="id_organization_type">Vous êtes un/une</label>
+                                                <label for="id_organization_type">Type de votre structure</label>
                                                 <select class="fr-select" name="organization_type" id="id_organization_type">
                                                     <option value="" hidden>Sélectionnez une option</option>
                                                     {% for option in form.organization_type %}
@@ -95,6 +95,9 @@
                                                 </p>
                                                 {% endif %}
                                             </div>
+
+
+                                            {% include '_field_snippet.html' with field=form.perimeter %}
 
                                             {% include '_field_snippet.html' with field=form.organization_name %}
 
@@ -117,8 +120,6 @@
     
                                                 {% include '_field_snippet.html' with field=form.beneficiary_role %}
                                             </div>
-
-                                            {% include '_field_snippet.html' with field=form.perimeter %}
 
                                             <div class="fr-form-group">
                                                 <fieldset class="fr-fieldset fr-fieldset--inline">
@@ -195,6 +196,7 @@
     {% compress js %}
         <script src="{% static 'js/accounts/toggle_beneficiary_related_fields.js' %}"></script>
         <script src="{% static 'js/accounts/toggle_acquisition_channel_related_field.js' %}"></script>
+        <script src="{% static 'js/accounts/pre_fill_organization_name.js' %}"></script>
         <script src="{% static 'select2/dist/js/select2.js' %}"></script>
         <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
         <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>

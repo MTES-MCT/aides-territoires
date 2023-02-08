@@ -57,7 +57,9 @@ class RegisterForm(UserCreationForm, AidesTerrBaseForm):
     is_beneficiary = forms.BooleanField(label="Trouver des aides", required=False)
     organization_name = forms.CharField(label="Nom de votre structure", required=True)
     organization_type = forms.ChoiceField(
-        label="Vous êtes un/une", required=True, choices=ORGANIZATION_TYPE_CHOICES
+        label="Type de votre structure",
+        required=True,
+        choices=ORGANIZATION_TYPE_CHOICES,
     )
     perimeter = AutocompleteModelChoiceField(
         label="Votre territoire", queryset=Perimeter.objects.all(), required=True

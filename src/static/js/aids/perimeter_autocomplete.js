@@ -5,9 +5,41 @@ $(document).ready(function () {
 
     // Filter on scale on certain forms
     let scale = null;
-    let RESTRICT_TO_COMMUNES = $('#register-commune-page').length
+    let RESTRICT_TO_COMMUNES = $('#register-commune-page').length;
+    let RESTRICT_DYNAMICALLY = $('#register-page').length;
+
     if (RESTRICT_TO_COMMUNES) {
         scale = 'commune';
+    } else if (RESTRICT_DYNAMICALLY) {
+        $("#id_organization_type").on("change", function () {
+            let organizationType = $("#id_organization_type option:selected").val();
+            let perimeterField = $("#id_perimeter")
+
+            switch (organizationType) {
+                case "commune": {
+                    scale = 'commune';
+                    perimeterField.val(null).trigger('change');
+                    break;
+                }
+                case "epci": {
+                    scale = 'epci,adhoc';
+                    perimeterField.val(null).trigger('change');
+                    break;
+                }
+                case "department": {
+                    scale = 'department';
+                    perimeterField.val(null).trigger('change');
+                    break;
+                }
+                case "region": {
+                    scale = 'region';
+                    perimeterField.val(null).trigger('change');
+                    break;
+                }
+                default:
+                    scale = null;
+            };
+        });
     }
 
     // Set the placeholder message
@@ -17,7 +49,7 @@ $(document).ready(function () {
         placeholder_message = "Tous les territoires"
     }
 
-    $('select#id_perimeter').select2({
+    $('#id_perimeter').select2({
         placeholder: placeholder_message,
         allowClear: true,
         minimumInputLength: 1,
