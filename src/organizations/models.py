@@ -4,15 +4,16 @@ from django.utils import timezone
 
 from core.fields import ChoiceArrayField
 from model_utils import Choices
-from aids.constants import AUDIENCES_ALL
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeters
-from organizations.constants import INTERCOMMUNALITY_TYPES
+from organizations.constants import (
+    INTERCOMMUNALITY_TYPES,
+    ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES,
+)
 
 
 class Organization(models.Model):
-
-    ORGANIZATION_TYPE_CHOICES = Choices(*AUDIENCES_ALL)
+    ORGANIZATION_TYPE_CHOICES = ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES
     INTERCOMMUNALITY_TYPES_CHOICES = Choices(*INTERCOMMUNALITY_TYPES)
 
     name = models.CharField("Nom", max_length=256, db_index=True)

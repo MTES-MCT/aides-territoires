@@ -81,21 +81,11 @@
                                         <fieldset>
                                             <legend class="fr-h3 fr-pt-3w">Informations professionnelles</legend>
 
-                                            <div id="form-group-organization_type" class="fr-input-group required ">
-                                                <label for="id_organization_type">Type de votre structure</label>
-                                                <select class="fr-select" name="organization_type" id="id_organization_type">
-                                                    <option value="" hidden>Sélectionnez une option</option>
-                                                    {% for option in form.organization_type %}
-                                                    {{ option }}
-                                                    {% endfor %}
-                                                </select>
-                                                {% if form.organization_type.errors %}
-                                                <p id="text-input-error-organization-type" class="fr-error-text">
-                                                    {{ form.organization_type.errors.0 }}
-                                                </p>
-                                                {% endif %}
+                                            {% include '_field_snippet.html' with field=form.organization_type %}
+                                            <div id="intercommunality-type-field-collapse" class="fr-collapse fr-mb-3w">
+                                                {% include '_field_snippet.html' with field=form.intercommunality_type %}
                                             </div>
-
+    
 
                                             {% include '_field_snippet.html' with field=form.perimeter %}
 
@@ -195,6 +185,7 @@
 {% block extra_js %}
     {% compress js %}
         <script src="{% static 'js/accounts/toggle_beneficiary_related_fields.js' %}"></script>
+        <script src="{% static 'js/accounts/toggle_intercommunality_type_field.js' %}"></script>
         <script src="{% static 'js/accounts/toggle_acquisition_channel_related_field.js' %}"></script>
         <script src="{% static 'js/accounts/pre_fill_organization_name.js' %}"></script>
         <script src="{% static 'select2/dist/js/select2.js' %}"></script>

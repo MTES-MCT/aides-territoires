@@ -57,6 +57,7 @@ class OrganizationAdmin(ImportExportActionModelAdmin):
             {
                 "fields": (
                     "perimeter",
+                    "intercommunality_type",
                     "address",
                     "city_name",
                     "zip_code",

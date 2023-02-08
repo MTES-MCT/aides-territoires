@@ -1,13 +1,16 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import password_validation
+
 from core.forms.baseform import AidesTerrBaseForm
 from core.forms.fields import AutocompleteModelChoiceField
 
-from model_utils import Choices
-
 from accounts.models import User
 from accounts.utils import check_current_password
+from organizations.constants import (
+    INTERCOMMUNALITY_TYPES,
+    ORGANIZATION_TYPES_SINGULAR_GROUPED,
+)
 from projects.models import Project
 from geofr.models import Perimeter
 from dsfr.forms import DsfrBaseForm
@@ -15,24 +18,6 @@ from dsfr.forms import DsfrBaseForm
 
 class RegisterForm(UserCreationForm, AidesTerrBaseForm):
     """Form used to create new user accounts."""
-
-    ORGANIZATION_TYPE_CHOICES = Choices(
-        ("farmer", "Agriculteur"),
-        ("association", "Association"),
-        ("special", "Collectivité d’outre-mer à statuts particuliers"),
-        ("commune", "Commune"),
-        ("department", "Département"),
-        ("private_sector", "Entreprise privée"),
-        ("public_cies", "Entreprise publique locale (Sem, Spl, SemOp)"),
-        ("epci", "Intercommunalité / Pays"),
-        (
-            "public_org",
-            "Établissement public (école, bibliothèque…) / Service de l’État",
-        ),
-        ("private_person", "Particulier"),
-        ("region", "Région"),
-        ("researcher", "Recherche"),
-    )
 
     first_name = forms.CharField(label="Votre prénom", required=True)
     last_name = forms.CharField(label="Votre nom", required=True)
@@ -59,8 +44,14 @@ class RegisterForm(UserCreationForm, AidesTerrBaseForm):
     organization_type = forms.ChoiceField(
         label="Type de votre structure",
         required=True,
-        choices=ORGANIZATION_TYPE_CHOICES,
+        choices=ORGANIZATION_TYPES_SINGULAR_GROUPED,
     )
+    intercommunality_type = forms.ChoiceField(
+        label="Type d’intercommunalité",
+        required=False,
+        choices=INTERCOMMUNALITY_TYPES,
+    )
+
     perimeter = AutocompleteModelChoiceField(
         label="Votre territoire", queryset=Perimeter.objects.all(), required=True
     )

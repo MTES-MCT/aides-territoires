@@ -63,6 +63,6 @@ INTERCOMMUNALITY_TYPES = [
     ("METRO", "Métropole"),
     ("GAL", "Groupe d’action locale"),
     ("PNR", "Parc naturel régional"),
-    ("PETR", "pays et pôles d'équilibre territorial et rural pays"),
-    ("SM", "syndicat mixte et syndicat de commune"),
+    ("PETR", "Pays et pôles d’équilibre territorial et rural"),
+    ("SM", "Syndicat mixte et syndicat de commune"),
 ]
