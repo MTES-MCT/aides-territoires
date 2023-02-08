@@ -5,9 +5,9 @@
      */
     exports.toggleAcquisitionChannelCommentField = function (form, div) {
 
-        var select = form.find('select#id_acquisition_channel option[value="other"]');
-        var selected = select.prop('selected');
-        var hasErrors = div.find('p.error').length > 0;
+        let select = form.find('#id_acquisition_channel option[value="other"]');
+        let selected = select.prop('selected');
+        let hasErrors = div.find('p.error').length > 0;
 
         if (selected || hasErrors) {
             div.addClass('fr-collapse--expanded');
@@ -33,8 +33,8 @@ $(document).ready(function () {
     if (allowToggle) {
         // Only display acquisition_channel related field when the `other`
         // option is selected.
-        var registerForm = $('form#register-form');
-        var AcquisitionChannelCommentFieldDiv = $('div#acquisition-channel-comment-collapse');
+        let registerForm = $('#register-form');
+        let AcquisitionChannelCommentFieldDiv = $('#acquisition-channel-comment-collapse');
 
         toggleAcquisitionChannelCommentField(registerForm, AcquisitionChannelCommentFieldDiv);
 
