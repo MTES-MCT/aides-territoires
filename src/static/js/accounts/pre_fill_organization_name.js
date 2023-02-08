@@ -27,7 +27,7 @@
             let organizationName = perimeterNameValue;
 
             if (organizationType == "commune") {
-                organizationName = "Commune de " + perimeterNameValue
+                organizationName = "Mairie de " + perimeterNameValue
             } else if (organizationType == "region") {
                 organizationName = "Région " + perimeterNameValue
             }

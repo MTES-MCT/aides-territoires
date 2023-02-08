@@ -18,7 +18,7 @@ $(document).ready(function () {
             switch (organizationType) {
                 case "commune": {
                     scale = 'commune';
-                    perimeterField.val(null).trigger('change');
+                    perimeterField.val(null).trigger('change'); // unselect current value
                     break;
                 }
                 case "epci": {
