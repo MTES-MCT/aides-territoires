@@ -116,7 +116,7 @@ class BaseAidForm(forms.ModelForm, DsfrBaseForm):
             "new_backer": "…ou ajoutez un nouveau porteur d’aide",
             "destinations": "Types de dépenses / actions couvertes",
             "origin_url": "Plus d’informations",
-            "application_url": "Candidater à l'aide",
+            "application_url": "Candidater à l’aide",
             "is_call_for_project": "Cochez cette case s’il s’agit d’un appel à projets (AAP) ou d’un appel à manifestation d’intérêt (AMI)",  # noqa
         }
         for field, label in custom_labels.items():
