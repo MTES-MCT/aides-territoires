@@ -280,7 +280,7 @@ origin_url = OpenApiParameter(
     name="origin_url",
     type=OpenApiTypes.URI,
     location=OpenApiParameter.QUERY,
-    description="Lien vers plus d'informations",
+    description="Lien vers plus d’informations",
     examples=[
         OpenApiExample("", value=""),
         OpenApiExample(
