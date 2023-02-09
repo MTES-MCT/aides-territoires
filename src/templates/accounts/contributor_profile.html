@@ -54,17 +54,15 @@
                 {% include '_field_snippet.html' with field=form.beneficiary_function %}
                 {% include '_field_snippet.html' with field=form.beneficiary_role %}
                 <div class="fr-form-group">
-                    <fieldset class="fr-fieldset">
-                        <p>Vous souhaitez utiliser Aides-territoires pour :</p>
-                        <div class="fr-grid-row fr-grid--middle">
-                            <div class="fr-fieldset__content fr-pr-2w">
-                                {% include '_checkbox_snippet.html' with field=form.is_beneficiary %}
-                            </div>        
-                            <div class="fr-fieldset__content">
-                                {% include '_checkbox_snippet.html' with field=form.is_contributor %}
-                            </div>
+                    <fieldset class="fr-fieldset fr-fieldset--inline">
+                        <legend class="fr-fieldset__legend fr-text--regular" id='checkboxes-inline-legend'>
+                            Vous souhaitez utiliser Aides-territoires pour :
+                        </legend>
+                        <div class="fr-fieldset__content">
+                            {% include '_checkbox_snippet.html' with field=form.is_beneficiary %}
+                            {% include '_checkbox_snippet.html' with field=form.is_contributor %}
                         </div>
-                    </fieldset>    
+                    </fieldset>
                 </div>
                 {% include '_field_snippet.html' with field=form.current_password %}
                 {% include '_field_snippet.html' with field=form.new_password %}

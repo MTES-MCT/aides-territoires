@@ -11,7 +11,7 @@
     {% block search-meta-targeted-audiences %}
     {% if current_search_dict.targeted_audiences %}
     <div class="fr-tags-group">
-        <p title="Bénéficiaires de l'aide" class="fr-tag">
+        <p title="Bénéficiaires de l’aide" class="fr-tag">
             <span class="ri-home-8-line ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
             {% form_choices_display current_search_dict 'targeted_audiences' %}
         </p>
@@ -33,7 +33,7 @@
     {% block search-meta-programs %}
     {% if current_search_dict.programs %}
     <div class="fr-tags-group">
-        <p title="Programmes d'aides" class="fr-tag fr-icon-arrow-right-line fr-tag--icon-left">
+        <p title="Programmes d’aides" class="fr-tag fr-icon-arrow-right-line fr-tag--icon-left">
             {{ current_search_dict.programs|join:', ' }}
         </p>
     </div>
