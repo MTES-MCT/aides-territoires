@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
             name="aidoriginurlclickevent",
             options={
                 "verbose_name": "Événement aide plus d’informations",
-                "verbose_name_plural": "Événements aide plus d'informations",
+                "verbose_name_plural": "Événements aide plus d’informations",
             },
         ),
     ]
