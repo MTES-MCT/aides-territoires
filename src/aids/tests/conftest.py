@@ -17,6 +17,7 @@ def aid_form_data(user, backer, perimeter, category):
         "contact": "Some contact data",
         "perimeter": perimeter.id,
         "recurrence": "oneoff",
+        "origin_url": "https://ademe.fr",
         "mobilization_steps": ["preop"],
         "targeted_audiences": ["department"],
         "aid_types": ["grant", "loan"],
