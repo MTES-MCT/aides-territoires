@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
             model_name="aid",
             name="origin_url",
             field=models.URLField(
-                blank=True, max_length=500, verbose_name="Plus d'informations"
+                blank=True, max_length=500, verbose_name="Plus d’informations"
             ),
         ),
     ]
