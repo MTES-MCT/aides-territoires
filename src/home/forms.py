@@ -22,6 +22,7 @@ class ContactForm(AidesTerrBaseForm):
         ("contact_blog", "J’ai une question concernant le blog"),
         ("contact_api", "Je souhaite utiliser les données d’Aides-territoires / API"),
         ("contact_tech", "J'ai un problème technique sur le site"),
+        ("contact_fonds_vert", "J’ai une question sur le fonds vert"),
         ("contact_other", "Autres"),
     )
 
