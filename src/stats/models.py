@@ -61,7 +61,7 @@ class AidOriginUrlClickEvent(models.Model):
 
     class Meta:
         verbose_name = "Événement aide plus d’informations"
-        verbose_name_plural = "Événements aide plus d'informations"
+        verbose_name_plural = "Événements aide plus d’informations"
 
 
 class AidApplicationUrlClickEvent(models.Model):
