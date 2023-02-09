@@ -364,7 +364,9 @@ class AidEditForm(BaseAidForm):
     )
 
     application_url = forms.URLField(
-        label="Lien vers une démarche en ligne pour candidater", max_length=500
+        label="Lien vers une démarche en ligne pour candidater",
+        required=False,
+        max_length=500,
     )
 
     class Meta:
