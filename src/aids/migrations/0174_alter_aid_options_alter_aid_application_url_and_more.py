@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
             model_name="aid",
             name="application_url",
             field=models.URLField(
-                blank=True, max_length=500, verbose_name="Candidater à l'aide"
+                blank=True, max_length=500, verbose_name="Candidater à l’aide"
             ),
         ),
         migrations.AlterField(
