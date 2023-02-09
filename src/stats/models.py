@@ -60,7 +60,7 @@ class AidOriginUrlClickEvent(models.Model):
     date_created = models.DateTimeField("Date de création", default=timezone.now)
 
     class Meta:
-        verbose_name = "Événement aide plus d'informations"
+        verbose_name = "Événement aide plus d’informations"
         verbose_name_plural = "Événements aide plus d'informations"
 
 
