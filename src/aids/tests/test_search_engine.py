@@ -88,6 +88,27 @@ def test_generic_aid_is_listed(client, perimeters):
     assert generic in res.context["aids"]
 
 
+def test_generic_aid_is_not_listed_if_local_aid_is_expired(client, perimeters):
+    today = timezone.now().date()
+    yesterday = today - timedelta(days=1)
+    generic = AidFactory(perimeter=perimeters["france"], is_generic=True)
+    local = AidFactory(
+        generic_aid=generic,
+        perimeter=perimeters["occitanie"],
+        submission_deadline=yesterday,
+    )
+    url = reverse("search_view")
+    res = client.get(url, data={"perimeter": perimeters["occitanie"].pk})
+    assert res.status_code == 200
+    assert generic not in res.context["aids"]
+    assert local not in res.context["aids"]
+
+    res = client.get(url)
+    assert res.status_code == 200
+    assert generic in res.context["aids"]
+    assert local not in res.context["aids"]
+
+
 def test_local_aid_is_listed(client, perimeters):
     generic = AidFactory(perimeter=perimeters["france"], is_generic=True)
     local = AidFactory(generic_aid=generic, perimeter=perimeters["occitanie"])
