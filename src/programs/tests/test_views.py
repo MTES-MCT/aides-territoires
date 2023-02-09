@@ -46,7 +46,11 @@ def test_user_can_filter_aids_displayed_in_program_detail_page(client, perimeter
     )
     second_aid.programs.add(program_selected)
     second_aid.save()
-    third_aid = AidFactory(perimeter=perimeters["montpellier"])
+    third_aid = AidFactory(
+        name="Aide non-pertinente",
+        description="Description",
+        perimeter=perimeters["montpellier"],
+    )
     third_aid.programs.add(program_selected)
     third_aid.save()
 
