@@ -16,7 +16,7 @@ from organizations.factories import OrganizationFactory
 @pytest.fixture(scope="module")
 def browser():
     opts = Options()
-    opts.headless = True
+    opts.add_argument("-headless")
     browser = webdriver.Firefox(options=opts)
     browser.implicitly_wait(1)
     browser.set_window_position(0, 0)
