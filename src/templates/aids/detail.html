@@ -375,7 +375,12 @@
                     {% endif %}
                     {% if aid.application_url %}
                         <li>
-                            <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l’aide - ouvre une nouvelle fenêtre" href="{{ aid.application_url }}">
+                            <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l’aide - ouvre une nouvelle fenêtre"
+                                {% if prepopulate_application_url %}
+                                    href="{{ prepopulate_application_url }}">
+                                {% else %}
+                                    href="{{ aid.application_url }}">
+                                {% endif %}
                                 Candidater à l’aide
                             </a>
                         </li>
@@ -526,7 +531,12 @@
                         {% endif %}
                         {% if aid.application_url %}
                         <li>
-                            <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l’aide - ouvre une nouvelle fenêtre" href="{{ aid.application_url }}">
+                            <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l’aide - ouvre une nouvelle fenêtre"
+                            {% if prepopulate_application_url %}
+                                href="{{ prepopulate_application_url }}">
+                            {% else %}
+                                href="{{ aid.application_url }}">
+                            {% endif %}
                                 Candidater à l’aide
                             </a>
                         </li>
