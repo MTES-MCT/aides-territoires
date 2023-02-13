@@ -93,7 +93,7 @@ class AidApplicationUrlClickEvent(models.Model):
         verbose_name_plural = "Événements aide candidater"
 
 
-class AidCreateDSFileEvent(models.Model):
+class AidCreateDSFolderEvent(models.Model):
     aid = models.ForeignKey("aids.Aid", verbose_name="Aide", on_delete=models.PROTECT)
     user = models.ForeignKey(
         "accounts.User",
