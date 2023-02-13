@@ -594,11 +594,11 @@ class AidDetailView(DetailView):
                     post_url = f"https://www.demarches-simplifiees.fr/api/public/v1/demarches/{number_demarche}/dossiers"
 
                     """
-                        "champ_Q2hhbXAtMjkzMzk3NQ==": Comment avez-vous connu cette mesure du fonds vert ? ,
+                        "champ_Q2hhbXAtMjkzMzk3NQ==": Comment avez-vous connu cette mesure du fonds vert ?,
                         "champ_Q2hhbXAtMjkzNDM2MA==": Nom,
                         "champ_Q2hhbXAtMjkzNDM2Mg==": Prénom,
-                        "champ_Q2hhbXAtMjkzNDQwMA==":  Email,
-                        "champ_Q2hhbXAtODgwMjQ0": Quelle est l'échelle géographique de votre projet ?
+                        "champ_Q2hhbXAtMjkzNDQwMA==": Email,
+                        "champ_Q2hhbXAtODgwMjQ0": Quelle est l'échelle géographique de votre projet ?,
                     """
 
                     data = {
