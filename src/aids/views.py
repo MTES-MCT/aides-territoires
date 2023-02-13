@@ -615,6 +615,7 @@ class AidDetailView(DetailView):
                         context["prepopulate_application_url"] = json.loads(
                             response.content
                         )["dossier_url"]
+
                 else:
                     context["ds_application_url"] = True
 
