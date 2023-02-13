@@ -2,7 +2,7 @@
 
 Bonjour {{ user_name }},
 
-Vous avez {{ unread_notifications_count }} nouvelles notifications en attente.
+Vous avez {{ unread_notifications_count }} nouvelle{{ unread_notifications_count|pluralize }} notification{{ unread_notifications_count|pluralize }} en attente.
 
 Rendez-vous sur https://aides-territoires.beta.gouv.fr/notifications/ pour les consulter. 
 
@@ -11,4 +11,4 @@ Rendez-vous sur https://aides-territoires.beta.gouv.fr/notifications/ pour les c
 L’équipe d’Aides-territoires
 
 ----
-PS : pour paramétrer la fréquence d’envoi de cet email, rendez-vous sur https://aides-territoires.beta.gouv.fr/notifications/préférences/
+PS : pour paramétrer la fréquence d’envoi de cet email, rendez-vous sur https://aides-territoires.beta.gouv.fr/notifications/preferences/
