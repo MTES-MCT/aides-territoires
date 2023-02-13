@@ -375,14 +375,20 @@
                     {% endif %}
                     {% if aid.application_url %}
                         <li>
+                            {% if ds_application_url and not search_page %}
+                            <button class="fr-btn" data-fr-opened="false" aria-controls="ds-modal">
+                                Candidater à l’aide
+                            </button>
+                            {% else %}
                             <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l’aide - ouvre une nouvelle fenêtre"
-                                {% if prepopulate_application_url %}
-                                    href="{{ prepopulate_application_url }}">
-                                {% else %}
-                                    href="{{ aid.application_url }}">
-                                {% endif %}
+                            {% if prepopulate_application_url and not search_page %}
+                                href="{{ prepopulate_application_url }}">
+                            {% else %}
+                                href="{{ aid.application_url }}">
+                            {% endif %}
                                 Candidater à l’aide
                             </a>
+                            {% endif %}
                         </li>
                     {% endif %}
                 </ul>
@@ -531,14 +537,20 @@
                         {% endif %}
                         {% if aid.application_url %}
                         <li>
+                            {% if ds_application_url and not search_page %}
+                            <button class="fr-btn" data-fr-opened="false" aria-controls="ds-modal">
+                                Candidater à l’aide
+                            </button>
+                            {% else %}
                             <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l’aide - ouvre une nouvelle fenêtre"
-                            {% if prepopulate_application_url %}
+                            {% if prepopulate_application_url and not search_page %}
                                 href="{{ prepopulate_application_url }}">
                             {% else %}
                                 href="{{ aid.application_url }}">
                             {% endif %}
                                 Candidater à l’aide
                             </a>
+                            {% endif %}
                         </li>
                         {% endif %} 
                     </ul>
@@ -640,6 +652,7 @@
     {% include 'eligibility/_eligibility_test_modal.html' %}
     {% include 'projects/_match_aid_modal.html' %}
     {% if not search_page %}
+    {% include 'aids/_ds_modal.html' %}
     {% include 'projects/_suggest_aid_modal.html' with project=project %}
     {% endif %}
 {% endblock modals %}

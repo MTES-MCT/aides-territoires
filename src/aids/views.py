@@ -565,15 +565,13 @@ class AidDetailView(DetailView):
 
         context["alert_form"] = AlertForm(label_suffix="")
 
-        if self.request.user:
-            if self.object.application_url and self.request.user.is_authenticated:
-                application_url = self.object.application_url
-                if (
-                    application_url.find(
-                        "https://www.demarches-simplifiees.fr/commencer"
-                    )
-                    == 0
-                ):
+        if self.object.application_url:
+            application_url = self.object.application_url
+            if (
+                application_url.find("https://www.demarches-simplifiees.fr/commencer")
+                == 0
+            ):
+                if self.request.user.is_authenticated:
                     user = self.request.user
                     slug_demarche = str(
                         application_url.partition(
@@ -617,6 +615,8 @@ class AidDetailView(DetailView):
                         context["prepopulate_application_url"] = json.loads(
                             response.content
                         )["dossier_url"]
+                else:
+                    context["ds_application_url"] = True
 
         if self.request.user.is_authenticated:
             context["aid_match_project_form"] = AidMatchProjectForm(label_suffix="")
