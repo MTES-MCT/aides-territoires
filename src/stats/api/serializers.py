@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from stats.models import (
+    AidCreateDSFolderEvent,
     AccountRegisterFromNextpagewarningClickEvent,
     AidContactClickEvent,
     AidOriginUrlClickEvent,
@@ -9,6 +10,12 @@ from stats.models import (
     PromotionDisplayEvent,
     PromotionClickEvent,
 )
+
+
+class AidCreateDSFolderEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AidCreateDSFolderEvent
+        fields = "__all__"
 
 
 class AccountRegisterFromNextpagewarningClickEventSerializer(

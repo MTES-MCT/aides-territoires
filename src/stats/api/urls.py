@@ -1,6 +1,7 @@
 from rest_framework import routers
 
 from stats.api.views import (
+    AidCreateDSFolderEventViewSet,
     AccountRegisterFromNextpagewarningClickEventViewSet,
     AidContactClickEventViewSet,
     AidOriginUrlClickEventViewSet,
@@ -12,6 +13,11 @@ from stats.api.views import (
 
 
 router = routers.SimpleRouter()
+router.register(
+    r"aid-create-ds-folder-events",
+    AidCreateDSFolderEventViewSet,
+    basename="aid-create-ds-folder-events",
+)
 router.register(
     r"account-register-from-nextpagewarning-click-events",
     AccountRegisterFromNextpagewarningClickEventViewSet,

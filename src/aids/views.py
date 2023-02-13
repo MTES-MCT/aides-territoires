@@ -615,8 +615,14 @@ class AidDetailView(DetailView):
                         context["prepopulate_application_url"] = json.loads(
                             response.content
                         )["dossier_url"]
-
+                        context["ds_folder_id"] = json.loads(response.content)[
+                            "dossier_id"
+                        ]
+                        context["ds_folder_number"] = json.loads(response.content)[
+                            "dossier_number"
+                        ]
                 else:
+                    context["prepopulate_application_url"] = False
                     context["ds_application_url"] = True
 
         if self.request.user.is_authenticated:
