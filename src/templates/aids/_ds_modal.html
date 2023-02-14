@@ -16,7 +16,7 @@
                             <p>
                                 <strong>Nouveau ! </strong>
                                 Si vous avez un compte sur Aides-territoires, nous pourrons<strong> remplir automatiquement</strong> pour vous certains champs du dossier d'instruction afin de vous faciliter la saisie.
-                                <a href="{% url 'login' %}" target="_blank" rel="noopener" title="Se connecter - ouvre une nouvelle fenêtre">
+                                <a href="{% url 'login' %}?next={{ aid.get_absolute_url }}" title="Se connecter">
                                 Connectez-vous
                                 </a>
                                 ou
@@ -30,7 +30,7 @@
                                     <a class="fr-btn fr-btn--secondary" href="{{ aid.application_url }}" id="application_url_btn" target="_blank" rel="noopener" title="Accéder à la démarche - ouvre une nouvelle fenêtre">Accéder à la démarche</a>
                                 </li>
                                 <li>
-                                    <a class="fr-btn fr-icon-account-line" href="{% url 'login' %}" target="_blank" rel="noopener" title="Se connecter - ouvre une nouvelle fenêtre">
+                                    <a class="fr-btn fr-icon-account-line" href="{% url 'login' %}?next={{ aid.get_absolute_url }}"title="Se connecter">
                                         Se connecter
                                     </a>
                                 </li>
