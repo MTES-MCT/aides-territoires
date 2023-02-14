@@ -1,6 +1,7 @@
 import requests
 from django.db.models.query import QuerySet
 
+from geofr.utils import get_all_related_perimeters
 from geofr.models import Perimeter
 from aids.models import Aid
 
@@ -27,8 +28,13 @@ def filter_generic_aids(qs: QuerySet, search_perimeter: Perimeter = None) -> Que
         "pk", "perimeter__scale", "generic_aid__pk"
     )
 
+    perimeter_ids = get_all_related_perimeters(search_perimeter.id, values=["id"])
+
     local_aids_expired = (
-        Aid.objects.local_aids().filter(generic_aid__in=generic_aids).expired()
+        Aid.objects.local_aids()
+        .filter(generic_aid__in=generic_aids, perimeter__in=perimeter_ids)
+        .expired()
+        .published()
     )
     # We use a python list for better performance
     local_aids_expired_list = local_aids_expired.values_list(
