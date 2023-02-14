@@ -470,6 +470,49 @@ class AidDetailView(DetailView):
 
         return qs
 
+    def prepopulate_ds_folder(self, user, org):
+        application_url = self.object.application_url
+        slug_demarche = str(
+            application_url.partition(
+                "https://www.demarches-simplifiees.fr/commencer/"
+            )[2]
+        )
+
+        headers = {
+            "Content-Type": "application/json",
+        }
+
+        url = f"https://www.demarches-simplifiees.fr/preremplir/{slug_demarche}/schema"
+        req = requests.get(url, headers=headers)
+        data = req.json()
+
+        number_demarche = data["number"]
+
+        post_url = f"https://www.demarches-simplifiees.fr/api/public/v1/demarches/{number_demarche}/dossiers"
+
+        """
+            "champ_Q2hhbXAtMjkzMzk3NQ==": Comment avez-vous connu cette mesure du fonds vert ?,
+            "champ_Q2hhbXAtMjkzNDM2MA==": Nom,
+            "champ_Q2hhbXAtMjkzNDM2Mg==": Prénom,
+            "champ_Q2hhbXAtMjkzNDQwMA==": Email,
+            "champ_Q2hhbXAtODgwMjQ0": Quelle est l'échelle géographique de votre projet ?,
+        """
+
+        data = {
+            "champ_Q2hhbXAtMjkzMzk3NQ==": "Par Aides-territoires",
+            "champ_Q2hhbXAtMjkzNDM2MA==": user.first_name,
+            "champ_Q2hhbXAtMjkzNDM2Mg==": user.last_name,
+            "champ_Q2hhbXAtMjkzNDQwMA==": user.email,
+        }
+        if org.organization_type == ["commune"]:
+            data["champ_Q2hhbXAtODgwMjQ0"] = ("Communale",)
+        elif org.organization_type == ["epci"]:
+            data["champ_Q2hhbXAtODgwMjQ0"] = ("Intercommunale",)
+
+        response = requests.request("POST", post_url, json=data, headers=headers)
+
+        return response
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -573,54 +616,22 @@ class AidDetailView(DetailView):
             ):
                 if self.request.user.is_authenticated:
                     user = self.request.user
-                    slug_demarche = str(
-                        application_url.partition(
-                            "https://www.demarches-simplifiees.fr/commencer/"
-                        )[2]
-                    )
+                    if self.request.user.beneficiary_organization:
+                        org = self.request.user.beneficiary_organization
+                        org_type = org.organization_type
 
-                    headers = {
-                        "Content-Type": "application/json",
-                    }
-
-                    url = f"https://www.demarches-simplifiees.fr/preremplir/{slug_demarche}/schema"
-                    req = requests.get(url, headers=headers)
-                    data = req.json()
-
-                    number_demarche = data["number"]
-
-                    post_url = f"https://www.demarches-simplifiees.fr/api/public/v1/demarches/{number_demarche}/dossiers"
-
-                    """
-                        "champ_Q2hhbXAtMjkzMzk3NQ==": Comment avez-vous connu cette mesure du fonds vert ?,
-                        "champ_Q2hhbXAtMjkzNDM2MA==": Nom,
-                        "champ_Q2hhbXAtMjkzNDM2Mg==": Prénom,
-                        "champ_Q2hhbXAtMjkzNDQwMA==": Email,
-                        "champ_Q2hhbXAtODgwMjQ0": Quelle est l'échelle géographique de votre projet ?,
-                    """
-
-                    data = {
-                        "champ_Q2hhbXAtMjkzMzk3NQ==": "Par Aides-territoires",
-                        "champ_Q2hhbXAtMjkzNDM2MA==": user.first_name,
-                        "champ_Q2hhbXAtMjkzNDM2Mg==": user.last_name,
-                        "champ_Q2hhbXAtMjkzNDQwMA==": user.email,
-                        "champ_Q2hhbXAtODgwMjQ0": "Communale",
-                    }
-
-                    response = requests.request(
-                        "POST", post_url, json=data, headers=headers
-                    )
-
-                    if response:
-                        context["prepopulate_application_url"] = json.loads(
-                            response.content
-                        )["dossier_url"]
-                        context["ds_folder_id"] = json.loads(response.content)[
-                            "dossier_id"
-                        ]
-                        context["ds_folder_number"] = json.loads(response.content)[
-                            "dossier_number"
-                        ]
+                        if org_type == ["commune"] or org_type == ["epci"]:
+                            response = self.prepopulate_ds_folder(user, org)
+                            if response:
+                                context["prepopulate_application_url"] = json.loads(
+                                    response.content
+                                )["dossier_url"]
+                                context["ds_folder_id"] = json.loads(response.content)[
+                                    "dossier_id"
+                                ]
+                                context["ds_folder_number"] = json.loads(
+                                    response.content
+                                )["dossier_number"]
                 else:
                     context["prepopulate_application_url"] = False
                     context["ds_application_url"] = True
