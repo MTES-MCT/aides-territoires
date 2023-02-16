@@ -49,7 +49,13 @@ class RegisterForm(UserCreationForm, AidesTerrBaseForm):
     )
     is_contributor = forms.BooleanField(label="Publier des aides", required=False)
     is_beneficiary = forms.BooleanField(label="Trouver des aides", required=False)
-    organization_name = forms.CharField(label="Nom de votre structure", required=True)
+    organization_name = forms.CharField(
+        label="Nom de votre structure",
+        required=True,
+        help_text="""En fonction des informations saisies précédemment,
+        nous pouvons parfois pré-remplir ce champ automatiquement.
+        Vous pouvez cependant corriger le nom proposé si besoin.""",
+    )
     organization_type = forms.ChoiceField(
         label="Type de votre structure",
         required=True,
