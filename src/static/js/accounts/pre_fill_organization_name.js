@@ -22,7 +22,7 @@
             if (!hasErrors) {
                 organizationNameDiv.addClass('fr-collapse');
             }
-        } else if (["commune", "department", "region"].includes(organizationType)) {
+        } else if (["commune", "department", "region", "epci"].includes(organizationType)) {
             // Set organization name relative to perimeter name for collectivities
             let organizationName = perimeterNameValue;
 
