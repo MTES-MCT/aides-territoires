@@ -24,6 +24,10 @@ class RegisterForm(UserCreationForm, AidesTerrBaseForm):
         ("", "Sélectionnez une valeur")
     ] + ORGANIZATION_TYPES_SINGULAR_GROUPED
 
+    INTERCOMMUNALITY_TYPES_WITH_EMPTY = [
+        ("", "Sélectionnez une valeur")
+    ] + INTERCOMMUNALITY_TYPES
+
     first_name = forms.CharField(label="Votre prénom", required=True)
     last_name = forms.CharField(label="Votre nom", required=True)
     email = forms.EmailField(
@@ -55,7 +59,8 @@ class RegisterForm(UserCreationForm, AidesTerrBaseForm):
     intercommunality_type = forms.ChoiceField(
         label="Type d’intercommunalité",
         required=False,
-        choices=INTERCOMMUNALITY_TYPES,
+        choices=INTERCOMMUNALITY_TYPES_WITH_EMPTY,
+        widget=SelectWidgetWithDisabledEmptyOption,
     )
 
     perimeter = AutocompleteModelChoiceField(

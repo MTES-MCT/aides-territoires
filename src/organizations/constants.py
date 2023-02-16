@@ -57,12 +57,12 @@ ORGANIZATION_TYPES_SINGULAR_ALL = (
 ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES = Choices(*ORGANIZATION_TYPES_SINGULAR_ALL)
 
 INTERCOMMUNALITY_TYPES = [
-    ("CC", "Communauté de communes"),
-    ("CA", "Communauté d’agglomération"),
-    ("CU", "Communauté urbaine"),
+    ("CC", "Communauté de communes (CC)"),
+    ("CA", "Communauté d’agglomération (CA)"),
+    ("CU", "Communauté urbaine (CU)"),
     ("METRO", "Métropole"),
-    ("GAL", "Groupe d’action locale"),
-    ("PNR", "Parc naturel régional"),
-    ("PETR", "Pays et pôles d’équilibre territorial et rural"),
+    ("GAL", "Groupe d’action locale (GAL)"),
+    ("PNR", "Parc naturel régional (PNR)"),
+    ("PETR", "Pays et pôles d’équilibre territorial et rural (PETR)"),
     ("SM", "Syndicat mixte et syndicat de commune"),
 ]

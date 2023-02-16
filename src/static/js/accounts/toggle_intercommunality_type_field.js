@@ -13,9 +13,9 @@
         let hasErrors = div.find('p.error').length > 0;
 
         if (selected || hasErrors) {
-            div.addClass('fr-collapse--expanded');
+            div.addClass('fr-collapse--expanded fr-mb-3w at-required--label');
         } else {
-            div.removeClass('fr-collapse--expanded');
+            div.removeClass('fr-collapse--expanded fr-mb-3w at-required--label');
         }
     };
 

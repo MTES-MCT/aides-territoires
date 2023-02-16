@@ -1,3 +1,57 @@
+(function (exports) {
+
+    /**
+     * Enable the acquisition_channel_comment field toggling.
+     */
+    exports.setPerimeterScale = function (organizationType, scale) {
+        let perimeterField = $("#id_perimeter");
+
+        switch (organizationType) {
+            case "commune": {
+                scale = 'commune';
+                perimeterField.val(null).trigger('change'); // unselect current value
+                break;
+            }
+            case "epci": {
+                let intercommunalityType = $("#id_intercommunality_type option:selected").val();
+                switch (intercommunalityType) {
+                    case "CA":
+                    case "CC":
+                    case "CU":
+                    case "METRO":
+                        scale = "epci";
+                        break;
+                    case "GAL":
+                    case "PNR":
+                    case "PETR":
+                        scale = "adhoc";
+                        break;
+                    case "SM":
+                        scale = null;
+                        break;
+                }
+                perimeterField.val(null).trigger('change');
+
+                break;
+            }
+            case "department": {
+                scale = 'department';
+                perimeterField.val(null).trigger('change');
+                break;
+            }
+            case "region": {
+                scale = 'region';
+                perimeterField.val(null).trigger('change');
+                break;
+            }
+            default:
+                scale = null;
+        };
+
+        return scale;
+    };
+})(this);
+
 $(document).ready(function () {
     // hide "custom" perimeters in the user part of the website
     let RESTRICT_TO_VISIBLE_PERIMETERS = $('#perimeter').length || $('#project_perimeter').length || $('#search-form').length || $('#advanced-search-form').length || $('#register-page').length || $('#register-commune-page').length;
@@ -11,34 +65,9 @@ $(document).ready(function () {
     if (RESTRICT_TO_COMMUNES) {
         scale = 'commune';
     } else if (RESTRICT_DYNAMICALLY) {
-        $("#id_organization_type").on("change", function () {
+        $("#id_organization_type, #id_intercommunality_type").on("change", function () {
             let organizationType = $("#id_organization_type option:selected").val();
-            let perimeterField = $("#id_perimeter")
-
-            switch (organizationType) {
-                case "commune": {
-                    scale = 'commune';
-                    perimeterField.val(null).trigger('change'); // unselect current value
-                    break;
-                }
-                case "epci": {
-                    scale = 'epci,adhoc';
-                    perimeterField.val(null).trigger('change');
-                    break;
-                }
-                case "department": {
-                    scale = 'department';
-                    perimeterField.val(null).trigger('change');
-                    break;
-                }
-                case "region": {
-                    scale = 'region';
-                    perimeterField.val(null).trigger('change');
-                    break;
-                }
-                default:
-                    scale = null;
-            };
+            scale = setPerimeterScale(organizationType, scale);
         });
     }
 
