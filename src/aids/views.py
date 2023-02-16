@@ -2,6 +2,7 @@ import requests
 import json
 from datetime import timedelta
 
+from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -57,7 +58,6 @@ from search.utils import clean_search_form
 from stats.models import AidViewEvent
 from stats.utils import log_aidviewevent, log_aidsearchevent
 from core.utils import remove_accents
-
 
 from accounts.tasks import (
     send_new_suggested_aid_notification_email,
@@ -471,43 +471,37 @@ class AidDetailView(DetailView):
         return qs
 
     def prepopulate_ds_folder(self, user, org):
-        application_url = self.object.application_url
-        slug_demarche = str(
-            application_url.partition(
-                "https://www.demarches-simplifiees.fr/commencer/"
-            )[2]
-        )
-
+        ds_id = self.object.ds_id
         headers = {
             "Content-Type": "application/json",
         }
+        post_url = f"https://www.demarches-simplifiees.fr/api/public/v1/demarches/{ds_id}/dossiers"
+        data = {}
+        ds_mapping = self.object.ds_mapping
 
-        url = f"https://www.demarches-simplifiees.fr/preremplir/{slug_demarche}/schema"
-        req = requests.get(url, headers=headers)
-        data = req.json()
-
-        number_demarche = data["number"]
-
-        post_url = f"https://www.demarches-simplifiees.fr/api/public/v1/demarches/{number_demarche}/dossiers"
-
-        """
-            "champ_Q2hhbXAtMjkzMzk3NQ==": Comment avez-vous connu cette mesure du fonds vert ?,
-            "champ_Q2hhbXAtMjkzNDM2MA==": Nom,
-            "champ_Q2hhbXAtMjkzNDM2Mg==": Prénom,
-            "champ_Q2hhbXAtMjkzNDQwMA==": Email,
-            "champ_Q2hhbXAtODgwMjQ0": Quelle est l'échelle géographique de votre projet ?,
-        """
-
-        data = {
-            "champ_Q2hhbXAtMjkzMzk3NQ==": "Par Aides-territoires",
-            "champ_Q2hhbXAtMjkzNDM2MA==": user.first_name,
-            "champ_Q2hhbXAtMjkzNDM2Mg==": user.last_name,
-            "champ_Q2hhbXAtMjkzNDQwMA==": user.email,
-        }
-        if org.organization_type == ["commune"]:
-            data["champ_Q2hhbXAtODgwMjQ0"] = ("Communale",)
-        elif org.organization_type == ["epci"]:
-            data["champ_Q2hhbXAtODgwMjQ0"] = ("Intercommunale",)
+        for field in ds_mapping["FieldsList"]:
+            if field["response_value"] is not None:
+                data[field["ds_field_id"]] = field["response_value"]
+            elif (
+                field["at_app"] is not None
+                and field["at_model"] is not None
+                and field["at_model_attr"] is not None
+            ):
+                at_model = apps.get_model(field["at_app"], field["at_model"])
+                if field["at_model"] == "User":
+                    data[field["ds_field_id"]] = user._meta.get_field(
+                        field["at_model_attr"]
+                    ).value_from_object(user)
+                elif field["at_model"] == "Organization":
+                    if field["at_model_attr"] == "organization_type":
+                        if org.organization_type is not None:
+                            data[field["ds_field_id"]] = org._meta.get_field(
+                                field["at_model_attr"]
+                            ).value_from_object(org)[0]
+                    else:
+                        data[field["ds_field_id"]] = org._meta.get_field(
+                            field["at_model_attr"]
+                        ).value_from_object(org)
 
         response = requests.request("POST", post_url, json=data, headers=headers)
 
@@ -608,33 +602,28 @@ class AidDetailView(DetailView):
 
         context["alert_form"] = AlertForm(label_suffix="")
 
-        if self.object.application_url:
-            application_url = self.object.application_url
-            if (
-                application_url.find("https://www.demarches-simplifiees.fr/commencer")
-                == 0
-            ):
-                if self.request.user.is_authenticated:
-                    user = self.request.user
-                    if self.request.user.beneficiary_organization:
-                        org = self.request.user.beneficiary_organization
-                        org_type = org.organization_type
+        if self.object.ds_schema_exists:
+            if self.request.user.is_authenticated:
+                user = self.request.user
+                if self.request.user.beneficiary_organization:
+                    org = self.request.user.beneficiary_organization
+                    org_type = org.organization_type
 
-                        if org_type == ["commune"] or org_type == ["epci"]:
-                            response = self.prepopulate_ds_folder(user, org)
-                            if response:
-                                context["prepopulate_application_url"] = json.loads(
-                                    response.content
-                                )["dossier_url"]
-                                context["ds_folder_id"] = json.loads(response.content)[
-                                    "dossier_id"
-                                ]
-                                context["ds_folder_number"] = json.loads(
-                                    response.content
-                                )["dossier_number"]
-                else:
-                    context["prepopulate_application_url"] = False
-                    context["ds_application_url"] = True
+                    if org_type == ["commune"] or org_type == ["epci"]:
+                        response = self.prepopulate_ds_folder(user, org)
+                        if response:
+                            context["prepopulate_application_url"] = json.loads(
+                                response.content
+                            )["dossier_url"]
+                            context["ds_folder_id"] = json.loads(response.content)[
+                                "dossier_id"
+                            ]
+                            context["ds_folder_number"] = json.loads(response.content)[
+                                "dossier_number"
+                            ]
+            else:
+                context["prepopulate_application_url"] = False
+                context["ds_application_url"] = False
 
         if self.request.user.is_authenticated:
             context["aid_match_project_form"] = AidMatchProjectForm(label_suffix="")
