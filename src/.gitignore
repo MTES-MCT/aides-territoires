@@ -111,6 +111,7 @@ pyrightconfig.json
 
 TODO
 temp.txt
+temp.csv
 
 .env.local
 .env.production
