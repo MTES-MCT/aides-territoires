@@ -488,20 +488,30 @@ class AidDetailView(DetailView):
                 and field["at_model_attr"] is not None
             ):
                 at_model = apps.get_model(field["at_app"], field["at_model"])
+                at_field = field["at_model_attr"]
+                at_field_type = at_model._meta.get_field(at_field).get_internal_type()
                 if field["at_model"] == "User":
-                    data[field["ds_field_id"]] = user._meta.get_field(
-                        field["at_model_attr"]
-                    ).value_from_object(user)
-                elif field["at_model"] == "Organization":
-                    if field["at_model_attr"] == "organization_type":
-                        if org.organization_type is not None:
-                            data[field["ds_field_id"]] = org._meta.get_field(
-                                field["at_model_attr"]
-                            ).value_from_object(org)[0]
+                    if at_field_type == "CharField":
+                        if user._meta.get_field(at_field).choices:
+                            at_field_value = getattr(
+                                user, "get_%s_display" % at_field
+                            )()
+                        else:
+                            at_field_value = getattr(user, at_field)
                     else:
-                        data[field["ds_field_id"]] = org._meta.get_field(
-                            field["at_model_attr"]
-                        ).value_from_object(org)
+                        at_field_value = getattr(user, at_field)
+                    data[field["ds_field_id"]] = at_field_value
+                elif field["at_model"] == "Organization":
+                    at_field_value = getattr(org, at_field)
+                    if at_field == "organization_type":
+                        if org.organization_type is not None:
+                            if field["choices_mapping"]:
+                                at_field_value = field["choices_mapping"][
+                                    at_field_value[0]
+                                ]
+                                data[field["ds_field_id"]] = at_field_value
+                    else:
+                        data[field["ds_field_id"]] = at_field_value
 
         response = requests.request("POST", post_url, json=data, headers=headers)
 
