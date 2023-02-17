@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import F
 from django.db.models.query import QuerySet
-from django.db.models.functions import ACos, Cos, Radians, Sin
+from django.db.models.functions import ACos, Cos, Radians, Sin, Least
 from django.utils import timezone
 from django.utils.text import slugify
 from django.contrib.postgres.fields import ArrayField
@@ -55,13 +55,20 @@ class PerimeterQuerySet(models.QuerySet):
     def communes_by_distance(
         self, latitude: float, longitude: float, radius: int | None = None
     ) -> QuerySet:
+        # Based on the Haversine formula
+        # The operations being on floats can cause rounding errors,
+        # so using the Least to ensure we don't try to calculate the
+        # ACos of a value > 1.0
         qs = self.filter(scale=Perimeter.SCALES.commune, is_obsolete=False)
         qs = qs.annotate(
             distance=ACos(
-                Cos(Radians(latitude))
-                * Cos(Radians(F("latitude")))
-                * Cos(Radians(F("longitude")) - Radians(longitude))
-                + Sin(Radians(latitude)) * Sin(Radians(F("latitude")))
+                Least(
+                    Cos(Radians(latitude))
+                    * Cos(Radians(F("latitude")))
+                    * Cos(Radians(F("longitude")) - Radians(longitude))
+                    + Sin(Radians(latitude)) * Sin(Radians(F("latitude"))),
+                    1.0,
+                )
             )
             * 6371
         )
