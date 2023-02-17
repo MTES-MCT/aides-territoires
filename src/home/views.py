@@ -13,6 +13,7 @@ from categories.models import Category
 from geofr.models import Perimeter
 from home.forms import ContactForm
 from home.tasks import send_contact_form_email
+from organizations.models import Organization
 from programs.models import Program
 from projects.models import Project
 from projects.forms import ProjectSearchForm
@@ -41,6 +42,8 @@ class HomeView(FormView):
         financers_qs = Backer.objects.order_by("aidfinancer__order", "name")
         instructors_qs = Backer.objects.order_by("aidinstructor__order", "name")
         programs_qs = Program.objects.order_by("-date_created")
+        organizations_qs = Organization.objects.all().select_related("perimeter")
+        categories_qs = Category.objects.all().select_related("theme")
         aids_qs = (
             Aid.objects.live()
             .select_related("perimeter")
@@ -58,7 +61,7 @@ class HomeView(FormView):
 
         context = super().get_context_data(**kwargs)
         context["nb_aids"] = aids_qs.values("id").count()
-        context["nb_categories"] = Category.objects.all().count()
+        context["nb_categories"] = categories_qs.count()
         context["nb_backers"] = financers_qs.has_financed_aids().count()
         context["nb_programs"] = programs_qs.has_aids().count()
         context["subset_selected_backers"] = subset_selected_backers
@@ -66,7 +69,8 @@ class HomeView(FormView):
         context["skiplinks"] = [{"link": "#intro", "label": "Contenu"}]
         context["public_projects"] = (
             Project.objects.filter(is_public=True, status=Project.STATUS.published)
-            .all()
+            .prefetch_related(Prefetch("organizations", queryset=organizations_qs))
+            .prefetch_related("project_types")
             .order_by("-date_created")[:3]
         )
         context["project_form"] = ProjectSearchForm
