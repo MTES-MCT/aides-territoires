@@ -37,6 +37,7 @@
             } else {
                 organizationNameField.val("");
             }
+            organizationNameDiv.removeClass('fr-collapse');
         } else {
             organizationNameDiv.removeClass('fr-collapse');
         }
