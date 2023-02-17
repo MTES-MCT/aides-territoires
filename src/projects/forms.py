@@ -3,7 +3,7 @@ from django import forms
 from django.template.defaultfilters import filesizeformat
 
 from django.db.models import F
-from django.db.models.functions import ACos, Cos, Radians, Sin, Round
+from django.db.models.functions import ACos, Cos, Radians, Sin, Round, Least
 
 from django.contrib.postgres.search import SearchRank
 from core.forms.baseform import AidesTerrBaseForm
@@ -455,6 +455,10 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
          - Europe ;
          - M3M (and all other epcis in Hérault) ;
          - Montpellier (and all other communes in Hérault) ;
+
+        If the perimeter is a commune, we perform a search by distance.
+        See the definition of the method communes_by_distance in the class
+        PerimeterQuerySet for an explanation of the logic
         """
 
         if search_perimeter.scale == Perimeter.SCALES.commune:
@@ -462,14 +466,17 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
                 qs.annotate(
                     distance=Round(
                         ACos(
-                            Cos(Radians(search_perimeter.latitude))
-                            * Cos(Radians(F("organization__perimeter__latitude")))
-                            * Cos(
-                                Radians(F("organization__perimeter__longitude"))
-                                - Radians(search_perimeter.longitude)
+                            Least(
+                                Cos(Radians(search_perimeter.latitude))
+                                * Cos(Radians(F("organization__perimeter__latitude")))
+                                * Cos(
+                                    Radians(F("organization__perimeter__longitude"))
+                                    - Radians(search_perimeter.longitude)
+                                )
+                                + Sin(Radians(search_perimeter.latitude))
+                                * Sin(Radians(F("organization__perimeter__latitude"))),
+                                1.0,
                             )
-                            + Sin(Radians(search_perimeter.latitude))
-                            * Sin(Radians(F("organization__perimeter__latitude")))
                         )
                         * 6371,
                         precision=2,
