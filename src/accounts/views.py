@@ -86,7 +86,6 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
         user.send_notification(
             title="Bienvenue sur Aides-territoires !",
             message=f"""
-            <p>Bienvenue sur Aides-territoires !</p>
             <p>
                 Vous venez de créer votre compte et devriez avoir reçu un courrier
                 électronique présentant notre site.

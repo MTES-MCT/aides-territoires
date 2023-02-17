@@ -15,7 +15,7 @@ urlpatterns = [
         name="notification_list_view",
     ),
     path(
-        "préférences/",
+        "preferences/",
         NotificationSettingsView.as_view(),
         name="notification_settings_view",
     ),

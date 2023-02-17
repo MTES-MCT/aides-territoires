@@ -20,7 +20,6 @@ def send_single_unread_notification_email(user_email: str) -> None:
         return
 
     body_template = "emails/unread_notifications.txt"
-    subject = "Vous avez des notifications non lues"
 
     unread_notifications = Notification.objects.filter(
         recipient=user,
@@ -29,6 +28,10 @@ def send_single_unread_notification_email(user_email: str) -> None:
     )
     if not unread_notifications.count():
         return
+    elif unread_notifications.count() == 1:
+        subject = "Vous avez une notification non lue"
+    else:
+        subject = "Vous avez des notifications non lues"
 
     email_body = render_to_string(
         body_template,
