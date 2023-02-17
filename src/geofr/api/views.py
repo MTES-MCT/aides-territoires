@@ -30,17 +30,9 @@ class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         q = remove_accents(accented_q)
 
         scale = self.request.query_params.get("scale", "")
+        scale_weight = getattr(Perimeter.SCALES, scale, 0)
         if scale:
-            # The scale parameter allows several values
-            scales = scale.split(",")
-            scale_weights = []
-            for s in scales:
-                scale_weights.append(getattr(Perimeter.SCALES, s, 0))
-
-            if len(scale_weights) == 1:
-                qs = qs.filter(scale=scale_weights[0])
-            elif len(scale_weights) > 1:
-                qs = qs.filter(scale__in=scale_weights)
+            qs = qs.filter(scale=scale_weight)
 
         is_visible_to_users = self.request.query_params.get(
             "is_visible_to_users", "false"
