@@ -70,7 +70,11 @@ class RegisterForm(UserCreationForm, AidesTerrBaseForm):
     )
 
     perimeter = AutocompleteModelChoiceField(
-        label="Votre territoire", queryset=Perimeter.objects.all(), required=True
+        label="Votre territoire",
+        queryset=Perimeter.objects.all(),
+        required=True,
+        help_text="""Tous les périmètres géographiques sont disponibles :
+        CA, CU, CC, pays, parc, etc. Contactez-nous si vous ne trouvez pas vôtre.""",
     )
 
     acquisition_channel = forms.ChoiceField(
