@@ -55,10 +55,24 @@ class PerimeterQuerySet(models.QuerySet):
     def communes_by_distance(
         self, latitude: float, longitude: float, radius: int | None = None
     ) -> QuerySet:
-        # Based on the Haversine formula
-        # The operations being on floats can cause rounding errors,
-        # so using the Least to ensure we don't try to calculate the
-        # ACos of a value > 1.0
+        """
+        Returns a queryset of the communes closest to the given coordinates,
+        with a calculation based on the Haversine formula.
+
+        The queryset can be constricted to communes within a given radus.
+
+        The operations are made on floats, which can cause rounding errors,
+        so we use "Least" to ensure we don't try to calculate the
+        arccosine of a value > 1.0, which would result in a math error.
+
+        Args:
+            latitude (float): the latitude of the center, in decimal
+            longitude (float): the longitude of the center, in decimal
+            radius (int | None, optional): An optional radius in km.
+
+        Returns:
+            QuerySet: the queryset, filtered and with a new "distance" annotation.
+        """
         qs = self.filter(scale=Perimeter.SCALES.commune, is_obsolete=False)
         qs = qs.annotate(
             distance=ACos(
