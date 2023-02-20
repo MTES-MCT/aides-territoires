@@ -667,7 +667,6 @@
     <script nonce="{{ request.csp_nonce }}">
         if ( '{{prepopulate_application_url}}') {
             PREPOPULATE_APPLICATION_URL = true;
-            USER = parseInt('{{ request.user.id }}');
             ORGANIZATION = parseInt('{{ request.user.beneficiary_organization.id }}');
             DS_FOLDER_URL = '{{ prepopulate_application_url }}';
             DS_FOLDER_ID = '{{ ds_folder_id }}';

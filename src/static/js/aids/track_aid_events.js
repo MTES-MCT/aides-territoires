@@ -30,7 +30,7 @@
         });
     };
 
-    exports.applicationUrlCTA = function(ApplicationUrlBtn, aid_slug, prepopulate_application_url=None, user=None, organization=None, ds_folder_url=None, ds_folder_id=None, ds_folder_number=None) {
+    exports.applicationUrlCTA = function(ApplicationUrlBtn, aid_slug, prepopulate_application_url=None, organization=None, ds_folder_url=None, ds_folder_id=None, ds_folder_number=None) {
 
         ApplicationUrlBtn.click(function() {
 
@@ -57,7 +57,6 @@
             if(PREPOPULATE_APPLICATION_URL) {
                 var statsData2 = JSON.stringify({
                     aid: AID_ID,
-                    user:USER,
                     organization:ORGANIZATION,
                     ds_folder_url:DS_FOLDER_URL,
                     ds_folder_id:DS_FOLDER_ID,
@@ -96,7 +95,7 @@ $(document).ready(function () {
 
     // Track clicks on "application_url" & "origin_url" buttons
     originUrlCTA(OriginUrlBtn, AID_SLUG);
-    applicationUrlCTA(ApplicationUrlBtn, AID_SLUG, PREPOPULATE_APPLICATION_URL, USER, ORGANIZATION, DS_FOLDER_URL, DS_FOLDER_ID, DS_FOLDER_NUMBER);
+    applicationUrlCTA(ApplicationUrlBtn, AID_SLUG, PREPOPULATE_APPLICATION_URL, ORGANIZATION, DS_FOLDER_URL, DS_FOLDER_ID, DS_FOLDER_NUMBER);
 
     // Track clicks on outlinks
     var links = dataDiv.find('a');

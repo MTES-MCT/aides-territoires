@@ -95,13 +95,6 @@ class AidApplicationUrlClickEvent(models.Model):
 
 class AidCreateDSFolderEvent(models.Model):
     aid = models.ForeignKey("aids.Aid", verbose_name="Aide", on_delete=models.PROTECT)
-    user = models.ForeignKey(
-        "accounts.User",
-        verbose_name="Utilisateur",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-    )
     organization = models.ForeignKey(
         "organizations.Organization",
         verbose_name="Structure",
