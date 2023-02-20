@@ -342,7 +342,10 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     application_url = models.URLField("Candidater à l’aide", max_length=500, blank=True)
     ds_schema_exists = models.BooleanField(
         "Schéma existant",
-        help_text="Un schéma pour l'api de pré-remplissage de Démarches-Simplifiées est-il renseigné ?",
+        help_text=(
+            "Un schéma pour l'api de pré-remplissage"
+            "de Démarches-Simplifiées est-il renseigné ?"
+        ),
         default=False,
     )
     ds_id = models.PositiveIntegerField(

@@ -10,7 +10,7 @@
         OriginUrlBtn.click(function() {
 
             // Send an event to our stats DB
-            var statsData = JSON.stringify({
+            let statsData = JSON.stringify({
                 aid: AID_ID,
                 querystring: CURRENT_SEARCH
             });
@@ -35,7 +35,7 @@
         ApplicationUrlBtn.click(function() {
 
             // Send an event to our stats DB
-            var statsData = JSON.stringify({
+            let statsData = JSON.stringify({
                 aid: AID_ID,
                 querystring: CURRENT_SEARCH
             });
@@ -55,7 +55,7 @@
             // if application_url is a link to a prepopulate Démarches-Simplifiées folder
             // create a AidCreateDSFolderEvent
             if(PREPOPULATE_APPLICATION_URL) {
-                var statsData2 = JSON.stringify({
+                let statsData2 = JSON.stringify({
                     aid: AID_ID,
                     organization:ORGANIZATION,
                     ds_folder_url:DS_FOLDER_URL,
@@ -89,15 +89,15 @@
 })(this);
 
 $(document).ready(function () {
-    var dataDiv = $('div#contact');
-    var OriginUrlBtn = $('a#origin_url_btn');
-    var ApplicationUrlBtn = $('a#application_url_btn');
+    let dataDiv = $('div#contact');
+    let OriginUrlBtn = $('a#origin_url_btn');
+    let ApplicationUrlBtn = $('a#application_url_btn');
 
     // Track clicks on "application_url" & "origin_url" buttons
     originUrlCTA(OriginUrlBtn, AID_SLUG);
     applicationUrlCTA(ApplicationUrlBtn, AID_SLUG, PREPOPULATE_APPLICATION_URL, ORGANIZATION, DS_FOLDER_URL, DS_FOLDER_ID, DS_FOLDER_NUMBER);
 
     // Track clicks on outlinks
-    var links = dataDiv.find('a');
+    let links = dataDiv.find('a');
     trackOutclicks(links, AID_SLUG);
 });
