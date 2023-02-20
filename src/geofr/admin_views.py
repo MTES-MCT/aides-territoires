@@ -115,7 +115,7 @@ class PerimeterCombine(MessageMixin, SingleObjectMixin, FormView):
         rm_perimeters = form.cleaned_data["rm_perimeters"]
         city_codes = list(combine_perimeters(add_perimeters, rm_perimeters))
         result = attach_perimeters_check(
-            current_perimeter, city_codes, self.request.user
+            current_perimeter, city_codes, self.request.user, logger
         )
 
         if result["method"] == "delayed import":
