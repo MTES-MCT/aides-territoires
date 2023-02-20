@@ -119,6 +119,10 @@ class RegisterForm(UserCreationForm, AidesTerrBaseForm):
         self.fields["password1"].widget.attrs.update({"autocomplete": "new-password"})
         self.fields["password2"].widget.attrs.update({"autocomplete": "new-password"})
 
+        for visible in self.visible_fields():
+            if type(visible.field.widget) == SelectWidgetWithDisabledEmptyOption:
+                visible.field.widget.attrs["class"] = "fr-select"
+
         if len(self.errors):
             self.set_autofocus_on_first_error()
         else:

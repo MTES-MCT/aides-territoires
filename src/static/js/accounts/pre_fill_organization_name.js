@@ -4,19 +4,34 @@
      * and hide it in some case
      */
     exports.preFillOrganizationName = function (form) {
+
         let organizationType = form.find("#id_organization_type option:selected").val();
-        let organizationNameField = $("#id_organization_name")
-        let organizationNameDiv = form.find("#form-group-organization_name");
+
+        let organizationNameField = $("#id_name");
+        let organizationNameDiv = form.find("#form-group-name");
+
+        if (form.attr('id') == "register-form") {
+            organizationNameField = $("#id_organization_name")
+            organizationNameDiv = form.find("#form-group-organization_name");
+        }
+
+
         let perimeterNameValue = $("#id_perimeter").find('option:selected').text().split(' (')[0];
 
         // Check if the field has errors. Do not hide it if is the case
         let hasErrors = organizationNameDiv.find('p.error').length > 0;
 
         if (organizationType == "private_person") {
+            let full_name = "";
             // Set organization name to user name for private persons
-            let first_name = form.find("#id_first_name").val();
-            let last_name = form.find("#id_last_name").val();
-            let full_name = first_name + " " + last_name;
+            if (form.attr('id') == "register-form") {
+                let first_name = form.find("#id_first_name").val();
+                let last_name = form.find("#id_last_name").val();
+                full_name = first_name + " " + last_name;
+            } else {
+                full_name = $('.at-username').first().text()
+            }
+
             organizationNameField.val(full_name);
 
             if (!hasErrors) {
@@ -45,9 +60,9 @@
 })(this);
 
 $(document).ready(function () {
-    let registerForm = $('#register-form');
+    let organizationForm = $('#register-form, #create-organization-form, #update-organization-form');
 
-    registerForm.on('change', function () {
-        preFillOrganizationName(registerForm);
+    organizationForm.on('change', function () {
+        preFillOrganizationName(organizationForm);
     });
 });

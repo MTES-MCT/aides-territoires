@@ -3,7 +3,7 @@
 
 {% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}register-form{% endblock sectionid %}
+{% block sectionid %}create-organization-page{% endblock sectionid %}
 
 {% block extratitle %}Inscription - étape 2/2{% endblock extratitle %}
 
@@ -16,7 +16,7 @@
 
             <p>Les champs marqués d’un astérisque (*) sont obligatoires.</p>
 
-            <form method="post" novalidate>
+            <form id="create-organization-form" method="post" novalidate>
                 {% csrf_token %}
                 {{ form.media }}
 
@@ -24,9 +24,16 @@
 
                 <fieldset class="fr-pl-0">
                     <legend class="fr-pt-4w">Informations professionnelles</legend>
-                    {% include '_field_snippet.html' with field=form.name %}
+                    {% include '_field_snippet.html' with field=form.organization_type %}
+
+                    <div id="intercommunality-type-field-collapse" class="fr-collapse">
+                        {% include '_field_snippet.html' with field=form.intercommunality_type %}
+                    </div>
+
                     {% include '_field_snippet.html' with field=form.perimeter %}
-                    {% include '_field_snippet.html' with field=form.organization_type required=required %}
+
+                    {% include '_field_snippet.html' with field=form.name %}
+
                 </fieldset>
 
                 <button type="submit" class="fr-btn fr-mb-5w fr-mt-1w">Finaliser mon inscription</button>
@@ -54,6 +61,8 @@
     {% compress js %}
         <script src="{% static 'select2/dist/js/select2.js' %}"></script>
         <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+        <script src="{% static 'js/accounts/toggle_intercommunality_type_field.js' %}"></script>
+        <script src="{% static 'js/accounts/pre_fill_organization_name.js' %}"></script>
         <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
         <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
     {% endcompress %}

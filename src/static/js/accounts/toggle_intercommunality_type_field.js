@@ -25,12 +25,12 @@ $(document).ready(function () {
 
     // Only display subvention related fields when the `subvention`
     // checkbox is checked.
-    let registerForm = $('#register-form');
+    let form = $('#register-form, #create-organization-form, #update-organization-form');
     let intercommunalityTypeFieldDiv = $('#intercommunality-type-field-collapse');
 
-    toggleIntercommunalityTypeField(registerForm, intercommunalityTypeFieldDiv);
+    toggleIntercommunalityTypeField(form, intercommunalityTypeFieldDiv);
 
-    registerForm.on('change', function () {
-        toggleIntercommunalityTypeField(registerForm, intercommunalityTypeFieldDiv);
+    form.on('change', function () {
+        toggleIntercommunalityTypeField(form, intercommunalityTypeFieldDiv);
     });
 });

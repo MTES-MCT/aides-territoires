@@ -60,7 +60,7 @@ $(document).ready(function () {
     // Filter on scale on certain forms
     let scale = null;
     let RESTRICT_TO_COMMUNES = $('#register-commune-page').length;
-    let RESTRICT_DYNAMICALLY = $('#register-page').length;
+    let RESTRICT_DYNAMICALLY = $('#register-page').length || $('#create-organization-page').length || $('#update-organization-page').length;
 
     if (RESTRICT_TO_COMMUNES) {
         scale = 'commune';
