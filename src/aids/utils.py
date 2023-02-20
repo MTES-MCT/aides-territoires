@@ -28,19 +28,6 @@ def filter_generic_aids(qs: QuerySet, search_perimeter: Perimeter = None) -> Que
         "pk", "perimeter__scale", "generic_aid__pk"
     )
 
-    perimeter_ids = get_all_related_perimeters(search_perimeter.id, values=["id"])
-
-    local_aids_expired = (
-        Aid.objects.local_aids()
-        .filter(generic_aid__in=generic_aids, perimeter__in=perimeter_ids)
-        .expired()
-        .published()
-    )
-    # We use a python list for better performance
-    local_aids_expired_list = local_aids_expired.values_list(
-        "pk", "perimeter__scale", "generic_aid__pk"
-    )
-
     aids_to_exclude = []
     if not search_perimeter:
         # If the user does not specify a search perimeter, then we go wide.
@@ -65,11 +52,24 @@ def filter_generic_aids(qs: QuerySet, search_perimeter: Perimeter = None) -> Que
     # If the local aid is expired the search perimeter is smaller or matches
     # exactly the local perimeter then its relevant to not displayed local aid
     # AND the generic aid
-    for aid_id, perimeter_scale, generic_aid_id in local_aids_expired_list:
-        if search_perimeter:
-            search_smaller = search_perimeter.scale <= perimeter_scale
-        if search_smaller:
-            aids_to_exclude.append(generic_aid_id)
+    if search_perimeter is not None:
+        perimeter_ids = get_all_related_perimeters(search_perimeter.id, values=["id"])
+
+        local_aids_expired = (
+            Aid.objects.local_aids()
+            .filter(generic_aid__in=generic_aids, perimeter__in=perimeter_ids)
+            .expired()
+            .published()
+        )
+        # We use a python list for better performance
+        local_aids_expired_list = local_aids_expired.values_list(
+            "pk", "perimeter__scale", "generic_aid__pk"
+        )
+        for aid_id, perimeter_scale, generic_aid_id in local_aids_expired_list:
+            if search_perimeter:
+                search_smaller = search_perimeter.scale <= perimeter_scale
+            if search_smaller:
+                aids_to_exclude.append(generic_aid_id)
 
     qs = qs.exclude(pk__in=aids_to_exclude)
     return qs
