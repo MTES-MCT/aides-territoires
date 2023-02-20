@@ -1,4 +1,5 @@
 import requests
+from django.apps import apps
 from django.db.models.query import QuerySet
 
 from geofr.utils import get_all_related_perimeters
@@ -85,3 +86,38 @@ def check_if_url_return_an_error(url):
             return True
     except Exception:
         return True
+
+
+def prepopulate_ds_folder(ds_mapping, user, org):
+    data = {}
+
+    for field in ds_mapping["FieldsList"]:
+        if field["response_value"] is not None:
+            data[field["ds_field_id"]] = field["response_value"]
+        elif (
+            field["at_app"] is not None
+            and field["at_model"] is not None
+            and field["at_model_attr"] is not None
+        ):
+            at_model = apps.get_model(field["at_app"], field["at_model"])
+            at_field = field["at_model_attr"]
+            at_field_type = at_model._meta.get_field(at_field).get_internal_type()
+            if field["at_model"] == "User":
+                if at_field_type == "CharField":
+                    if user._meta.get_field(at_field).choices:
+                        at_field_value = getattr(user, "get_%s_display" % at_field)()
+                    else:
+                        at_field_value = getattr(user, at_field)
+                else:
+                    at_field_value = getattr(user, at_field)
+                data[field["ds_field_id"]] = at_field_value
+            elif field["at_model"] == "Organization":
+                at_field_value = getattr(org, at_field)
+                if at_field == "organization_type":
+                    if org.organization_type is not None:
+                        if field["choices_mapping"]:
+                            at_field_value = field["choices_mapping"][at_field_value[0]]
+                            data[field["ds_field_id"]] = at_field_value
+                else:
+                    data[field["ds_field_id"]] = at_field_value
+    return data
