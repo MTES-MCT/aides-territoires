@@ -463,7 +463,11 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
 
         if search_perimeter.scale == Perimeter.SCALES.commune:
             qs = (
-                qs.annotate(
+                qs.filter(
+                    organization__perimeter__scale=Perimeter.SCALES.commune,
+                    organization__perimeter__is_obsolete=False,
+                )
+                .annotate(
                     distance=Round(
                         ACos(
                             Least(
@@ -491,6 +495,7 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
                 search_perimeter.id, values=["id"]
             )
             qs = qs.filter(organization__perimeter__in=perimeter_ids)
+
         return qs
 
 
