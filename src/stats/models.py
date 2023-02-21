@@ -269,3 +269,12 @@ class PromotionClickEvent(models.Model):
     class Meta:
         verbose_name = "Événement click promotion"
         verbose_name_plural = "Événements click promotion"
+
+
+class ContactFormSendEvent(models.Model):
+    subject = models.CharField("Subject", max_length=256, blank=False, null=False)
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+    class Meta:
+        verbose_name = "Événement envoi du formulaire de contact"
+        verbose_name_plural = "Événements envoi du formulaire de contact"
