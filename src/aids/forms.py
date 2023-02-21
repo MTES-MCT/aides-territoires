@@ -745,7 +745,7 @@ class BaseAidSearchForm(AidesTerrBaseForm):
             elif pre_order == "relevance":
                 order_fields = ["-is_highlighted_aid"] + order_fields
         elif has_highlighted_aids and not self.cleaned_data.get("order_by"):
-            order_fields = ["is_highlighted_aid"] + order_fields
+            order_fields = ["-is_highlighted_aid"] + order_fields
 
         # If the user submitted a text query, we order by query rank first
         text = self.cleaned_data.get("text", None)
