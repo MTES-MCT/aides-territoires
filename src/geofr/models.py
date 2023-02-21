@@ -65,6 +65,8 @@ class PerimeterQuerySet(models.QuerySet):
         so we use "Least" to ensure we don't try to calculate the
         arccosine of a value > 1.0, which would result in a math error.
         """
+
+        # Filtering out obsolete communes because they don't have coordinates
         qs = self.filter(scale=Perimeter.SCALES.commune, is_obsolete=False)
         qs = qs.annotate(
             distance=ACos(
