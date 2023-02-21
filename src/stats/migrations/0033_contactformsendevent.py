@@ -7,7 +7,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("stats", "0030_alter_aidoriginurlclickevent_options"),
+        ("stats", "0032_aidcreatedsfolderevent"),
     ]
 
     operations = [

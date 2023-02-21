@@ -123,7 +123,7 @@ class ContactView(SuccessMessageMixin, FormView):
         # Only send the message if the honeypot field is empty
         if form_dict["website"] == "":
             send_contact_form_email.delay(form_dict)
-            log_contactformsendevent.delay(
+            log_contactformsendevent(
                 subject=form_dict["subject"],
             )
         # track_goal(self.request.session, settings.GOAL_CONTACT_ID)
