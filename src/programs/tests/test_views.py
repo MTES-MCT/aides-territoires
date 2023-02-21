@@ -81,6 +81,9 @@ def test_user_can_filter_aids_displayed_in_program_detail_page(client, perimeter
         data={"perimeter": perimeters["montpellier"].pk, "text": "1-synonyms-"},
     )
     assert res.status_code == 200
+    print(res.content.decode())
+    print(first_aid.__dict__)
+    print(third_aid.__dict__)
     assert "1 aide liée au programme" in res.content.decode()
     assert first_aid.name not in res.content.decode()
     assert second_aid.name in res.content.decode()
