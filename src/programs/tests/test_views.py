@@ -42,7 +42,8 @@ def test_user_can_filter_aids_displayed_in_program_detail_page(client, perimeter
     first_aid.programs.add(program_selected)
     first_aid.save()
     second_aid = AidFactory(
-        name="Créer une piste cyclable", perimeter=perimeters["montpellier"]
+        name="Créer une statue à Champignac-en-Cambrousse",
+        perimeter=perimeters["montpellier"],
     )
     second_aid.programs.add(program_selected)
     second_aid.save()
@@ -56,8 +57,8 @@ def test_user_can_filter_aids_displayed_in_program_detail_page(client, perimeter
     third_aid.save()
 
     SynonymListFactory(
-        name="Voie douce",
-        keywords_list="voie douce, vélo, vélos, liaisons douces, bmx, piste cyclable",
+        name="Spirou",
+        keywords_list="Champignac-en-Cambrousse",
     )
 
     program_detail_url = reverse("program_detail", args=[program_selected.slug])
@@ -81,9 +82,6 @@ def test_user_can_filter_aids_displayed_in_program_detail_page(client, perimeter
         data={"perimeter": perimeters["montpellier"].pk, "text": "1-synonyms-"},
     )
     assert res.status_code == 200
-    print(res.content.decode())
-    print(first_aid.__dict__)
-    print(third_aid.__dict__)
     assert "1 aide liée au programme" in res.content.decode()
     assert first_aid.name not in res.content.decode()
     assert second_aid.name in res.content.decode()
