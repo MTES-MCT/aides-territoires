@@ -42,21 +42,23 @@ def test_user_can_filter_aids_displayed_in_program_detail_page(client, perimeter
     first_aid.programs.add(program_selected)
     first_aid.save()
     second_aid = AidFactory(
-        name="Créer une piste cyclable", perimeter=perimeters["montpellier"]
+        name="Créer une statue à Champignac-en-Cambrousse",
+        perimeter=perimeters["montpellier"],
     )
     second_aid.programs.add(program_selected)
     second_aid.save()
     third_aid = AidFactory(
         name="Aide non-pertinente",
         description="Description",
+        eligibility="Eligibility",
         perimeter=perimeters["montpellier"],
     )
     third_aid.programs.add(program_selected)
     third_aid.save()
 
     SynonymListFactory(
-        name="Voie douce",
-        keywords_list="voie douce, vélo, vélos, liaisons douces, bmx, piste cyclable",
+        name="Spirou",
+        keywords_list="Champignac-en-Cambrousse",
     )
 
     program_detail_url = reverse("program_detail", args=[program_selected.slug])
