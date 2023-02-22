@@ -58,7 +58,7 @@ def test_user_can_filter_aids_displayed_in_program_detail_page(client, perimeter
     third_aid.save()
 
     SynonymListFactory(
-        name="Spirou",
+        name="spirou",
         keywords_list="Champignac-en-Cambrousse",
     )
 
