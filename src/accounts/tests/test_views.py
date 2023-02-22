@@ -211,7 +211,6 @@ def test_register_form_expects_valid_data(client, perimeters):
             "is_contributor": False,
         },
     )
-    print(res.content.decode())
     assert res.status_code == 200
     assert (
         "Saisissez une adresse e-mail valide, par exemple prenom.nom@domaine.fr."

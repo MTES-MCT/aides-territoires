@@ -79,7 +79,7 @@ def test_user_can_filter_aids_displayed_in_program_detail_page(client, perimeter
 
     res = client.get(
         program_detail_url,
-        data={"perimeter": perimeters["montpellier"].pk, "text": "1-synonyms-"},
+        data={"perimeter": perimeters["montpellier"].pk, "text": "1-synonyms-Spirou"},
     )
     assert res.status_code == 200
     print(res.content.decode())
