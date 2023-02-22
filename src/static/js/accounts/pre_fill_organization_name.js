@@ -62,6 +62,8 @@
 $(document).ready(function () {
     let organizationForm = $('#register-form, #create-organization-form, #update-organization-form');
 
+    preFillOrganizationName(organizationForm);
+
     organizationForm.on('change', function () {
         preFillOrganizationName(organizationForm);
     });

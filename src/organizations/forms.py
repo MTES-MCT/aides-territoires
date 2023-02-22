@@ -58,7 +58,12 @@ class OrganizationCreateForm(forms.ModelForm, AidesTerrBaseForm):
     )
 
     perimeter = AutocompleteModelChoiceField(
-        label="Votre territoire", queryset=Perimeter.objects.all(), required=True
+        label="Votre territoire",
+        queryset=Perimeter.objects.all(),
+        required=True,
+        help_text="""Ce champ sera utilisé par défaut pour trouver des aides.
+                Tous les périmètres géographiques sont disponibles :
+        CA, CU, CC, pays, parc, etc. Contactez-nous si vous ne trouvez pas vôtre.""",
     )
 
     class Meta:
@@ -122,7 +127,9 @@ class OrganizationUpdateForm(forms.ModelForm, AidesTerrBaseForm):
         label="Votre territoire",
         queryset=Perimeter.objects.all(),
         required=True,
-        help_text="Ce champ sera utilisé par défaut pour trouver des aides",
+        help_text="""Ce champ sera utilisé par défaut pour trouver des aides.
+                Tous les périmètres géographiques sont disponibles :
+        CA, CU, CC, pays, parc, etc. Contactez-nous si vous ne trouvez pas vôtre.""",
     )
 
     class Meta:
