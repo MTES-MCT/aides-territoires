@@ -14,6 +14,8 @@ from search.utils import (
 )
 from stats.models import AidViewEvent, AidSearchEvent, Event
 from aids.models import Aid
+from accounts.models import User
+from organizations.models import Organization
 
 
 crawler_detect = CrawlerDetect()
@@ -21,7 +23,13 @@ crawler_detect = CrawlerDetect()
 
 @app.task
 def log_aidviewevent(
-    aid_id, querystring="", source="", request_ua="", request_referer=""
+    aid_id,
+    user_pk=None,
+    org_pk=None,
+    querystring="",
+    source="",
+    request_ua="",
+    request_referer="",
 ):
     source_cleaned = get_site_from_host(source)
     querystring_cleaned = clean_search_querystring(querystring)
@@ -37,13 +45,24 @@ def log_aidviewevent(
             get_querystring_value_list_from_key(querystring, "targeted_audiences")
             or None
         )  # noqa
-
-        AidViewEvent.objects.create(
-            aid_id=aid_id,
-            targeted_audiences=targeted_audiences,
-            querystring=querystring_cleaned,
-            source=source_cleaned,
-        )
+        if user_pk is not None and org_pk is not None:
+            user = User.objects.get(pk=user_pk)
+            org = Organization.objects.get(pk=org_pk)
+            AidViewEvent.objects.create(
+                aid_id=aid_id,
+                user=user,
+                organization=org,
+                targeted_audiences=targeted_audiences,
+                querystring=querystring_cleaned,
+                source=source_cleaned,
+            )
+        else:
+            AidViewEvent.objects.create(
+                aid_id=aid_id,
+                targeted_audiences=targeted_audiences,
+                querystring=querystring_cleaned,
+                source=source_cleaned,
+            )
 
 
 @app.task

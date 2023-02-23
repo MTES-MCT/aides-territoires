@@ -21,6 +21,22 @@ class AccountRegisterFromNextpagewarningClickEvent(models.Model):
 class AidViewEvent(models.Model):
     aid = models.ForeignKey("aids.Aid", verbose_name="Aide", on_delete=models.PROTECT)
 
+    user = models.ForeignKey(
+        "accounts.User",
+        verbose_name="Utilisateur",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    organization = models.ForeignKey(
+        "organizations.Organization",
+        verbose_name="Structure",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
     targeted_audiences = ChoiceArrayField(
         verbose_name="Bénéficiaires de l’aide",
         null=True,

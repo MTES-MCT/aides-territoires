@@ -594,13 +594,30 @@ class AidDetailView(DetailView):
             host = request.get_host()
             request_ua = request.META.get("HTTP_USER_AGENT", "")
             request_referer = request.META.get("HTTP_REFERER", "")
-            log_aidviewevent.delay(
-                aid_id=self.object.id,
-                querystring=current_search,
-                source=host,
-                request_ua=request_ua,
-                request_referer=request_referer,
-            )
+            if (
+                self.request.user
+                and self.request.user.is_authenticated
+                and self.request.user.beneficiary_organization
+            ):
+                user = self.request.user
+                org = user.beneficiary_organization
+                log_aidviewevent.delay(
+                    aid_id=self.object.id,
+                    user_pk=user.pk,
+                    org_pk=org.pk,
+                    querystring=current_search,
+                    source=host,
+                    request_ua=request_ua,
+                    request_referer=request_referer,
+                )
+            else:
+                log_aidviewevent.delay(
+                    aid_id=self.object.id,
+                    querystring=current_search,
+                    source=host,
+                    request_ua=request_ua,
+                    request_referer=request_referer,
+                )
 
         return response
 
