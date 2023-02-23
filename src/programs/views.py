@@ -73,8 +73,13 @@ class ProgramDetail(SearchView):
         context["tab_selected"] = self.request.GET.get("tab")
         if self.request.GET.get("tab") == "faq":
             context["faq_selected"] = True
-        context["faq_questions_answers"] = FaqQuestionAnswer.objects.filter(
+        faq_questions_answers = FaqQuestionAnswer.objects.filter(
             program=self.program.pk
         ).select_related("faq_category")
+        context["faq_questions_answers"] = faq_questions_answers
+        if faq_questions_answers:
+            context[
+                "faq_questions_answers_date_updated"
+            ] = faq_questions_answers.latest("date_updated").date_updated
 
         return context
