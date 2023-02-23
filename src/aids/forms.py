@@ -732,9 +732,8 @@ class BaseAidSearchForm(AidesTerrBaseForm):
         # Default results order
         # show the narrower perimeter first, then aids with a deadline
         order_fields = ["perimeter__scale", "submission_deadline"]
-
         # If the search comes from a PP
-        if pre_order and has_highlighted_aids:
+        if pre_order and has_highlighted_aids and not self.cleaned_data.get("order_by"):
             if pre_order == "publication_date":
                 order_fields = (
                     ["-is_highlighted_aid"] + ["-date_published"] + order_fields
@@ -743,7 +742,9 @@ class BaseAidSearchForm(AidesTerrBaseForm):
                 order_fields = (
                     ["-is_highlighted_aid"] + ["submission_deadline"] + order_fields
                 )
-        elif has_highlighted_aids:
+            elif pre_order == "relevance":
+                order_fields = ["-is_highlighted_aid"] + order_fields
+        elif has_highlighted_aids and not self.cleaned_data.get("order_by"):
             order_fields = ["-is_highlighted_aid"] + order_fields
 
         # If the user submitted a text query, we order by query rank first
@@ -752,11 +753,12 @@ class BaseAidSearchForm(AidesTerrBaseForm):
             order_fields = ["-rank"] + order_fields
 
         # If the user requested a manual order by publication date
-        manual_order = self.cleaned_data.get("order_by", "relevance")
-        if manual_order == "publication_date":
-            order_fields = ["-date_published"] + order_fields
-        elif manual_order == "submission_deadline":
-            order_fields = ["submission_deadline"] + order_fields
+        if self.cleaned_data.get("order_by"):
+            manual_order = self.cleaned_data.get("order_by", "relevance")
+            if manual_order == "publication_date":
+                order_fields = ["-date_published"] + order_fields
+            elif manual_order == "submission_deadline":
+                order_fields = ["submission_deadline"] + order_fields
 
         return order_fields
 
