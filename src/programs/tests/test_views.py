@@ -3,9 +3,9 @@ import pytest
 from django.urls import reverse
 
 from aids.factories import AidFactory
-from programs.factories import ProgramFactory
 from keywords.factories import SynonymListFactory
 from keywords.models import SynonymList
+from programs.factories import ProgramFactory
 
 pytestmark = pytest.mark.django_db
 
