@@ -40,7 +40,7 @@
                             {% if user.is_authenticated %}
                             <li>
                                 <a class="fr-btn fr-icon-account-line" href="{% url 'user_dashboard' %}">
-                                    {{ user.full_name }}
+                                    <span class="at-username">{{ user.full_name }}</span>
                                 </a>
                             </li>
                             <li>

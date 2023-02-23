@@ -3,6 +3,8 @@
 
 {% block extratitle %}Ma structure{% endblock extratitle %}
 
+{% block sectionid %}update-organization-page{% endblock sectionid %}
+
 {% block extraclasses %}light{% endblock extraclasses %}
 
 {% block breadcrumbs %}
@@ -37,21 +39,31 @@
 
             <p>Les champs marqués d’un astérisque (*) sont obligatoires.</p>
 
-            <form id="update_organization" method="post" novalidate>
+            <form id="update-organization-form" method="post" novalidate>
                 {% csrf_token %}
 
                 <fieldset class="fr-my-5w">
-                    <legend>Coordonnées </legend>
-                    {% include '_field_snippet.html' with field=form.name %}
+                    <legend class="fr-h4">Généralités</legend>
+
                     {% include '_field_snippet.html' with field=form.organization_type %}
-                    {% include '_field_snippet.html' with field=form.address %}
-                    {% include '_field_snippet.html' with field=form.city_name %}
-                    {% include '_field_snippet.html' with field=form.zip_code %}
+
+                    <div id="intercommunality-type-field-collapse" class="fr-collapse">
+                        {% include '_field_snippet.html' with field=form.intercommunality_type %}
+                    </div>
+
                     {% include '_field_snippet.html' with field=form.perimeter %}
+                    {% include '_field_snippet.html' with field=form.name %}
                 </fieldset>
 
                 <fieldset class="fr-my-5w">
-                    <legend>Données administratives </legend>
+                    <legend class="fr-h4">Coordonnées</legend>
+                    {% include '_field_snippet.html' with field=form.address %}
+                    {% include '_field_snippet.html' with field=form.city_name %}
+                    {% include '_field_snippet.html' with field=form.zip_code %}
+                </fieldset>
+
+                <fieldset id="organization-administrative-data" class="fr-my-5w">
+                    <legend class="fr-h4">Données administratives</legend>
                     {% include '_field_snippet.html' with field=form.siren_code %}
                     {% include '_field_snippet.html' with field=form.siret_code %}
                     {% include '_field_snippet.html' with field=form.ape_code %}
@@ -73,7 +85,10 @@
     {% compress js %}
         <script src="{% static 'select2/dist/js/select2.js' %}"></script>
         <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+        <script src="{% static 'js/accounts/toggle_intercommunality_type_field.js' %}"></script>
+        <script src="{% static 'js/accounts/pre_fill_organization_name.js' %}"></script>
         <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
         <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
+        <script src="{% static 'js/organizations/toggle_administrative_data.js' %}"></script>
     {% endcompress %}
 {% endblock extra_js %}

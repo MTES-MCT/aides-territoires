@@ -1,13 +1,17 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import password_validation
+
 from core.forms.baseform import AidesTerrBaseForm
 from core.forms.fields import AutocompleteModelChoiceField
-
-from model_utils import Choices
+from core.forms.widgets import SelectWidgetWithDisabledEmptyOption
 
 from accounts.models import User
 from accounts.utils import check_current_password
+from organizations.constants import (
+    INTERCOMMUNALITY_TYPES,
+    ORGANIZATION_TYPES_SINGULAR_GROUPED,
+)
 from projects.models import Project
 from geofr.models import Perimeter
 from dsfr.forms import DsfrBaseForm
@@ -16,23 +20,13 @@ from dsfr.forms import DsfrBaseForm
 class RegisterForm(UserCreationForm, AidesTerrBaseForm):
     """Form used to create new user accounts."""
 
-    ORGANIZATION_TYPE_CHOICES = Choices(
-        ("farmer", "Agriculteur"),
-        ("association", "Association"),
-        ("special", "Collectivité d’outre-mer à statuts particuliers"),
-        ("commune", "Commune"),
-        ("department", "Département"),
-        ("private_sector", "Entreprise privée"),
-        ("public_cies", "Entreprise publique locale (Sem, Spl, SemOp)"),
-        ("epci", "Intercommunalité / Pays"),
-        (
-            "public_org",
-            "Établissement public (école, bibliothèque…) / Service de l’État",
-        ),
-        ("private_person", "Particulier"),
-        ("region", "Région"),
-        ("researcher", "Recherche"),
-    )
+    ORGANIZATION_TYPES = [
+        ("", "Sélectionnez une valeur")
+    ] + ORGANIZATION_TYPES_SINGULAR_GROUPED
+
+    INTERCOMMUNALITY_TYPES_WITH_EMPTY = [
+        ("", "Sélectionnez une valeur")
+    ] + INTERCOMMUNALITY_TYPES
 
     first_name = forms.CharField(label="Votre prénom", required=True)
     last_name = forms.CharField(label="Votre nom", required=True)
@@ -55,12 +49,32 @@ class RegisterForm(UserCreationForm, AidesTerrBaseForm):
     )
     is_contributor = forms.BooleanField(label="Publier des aides", required=False)
     is_beneficiary = forms.BooleanField(label="Trouver des aides", required=False)
-    organization_name = forms.CharField(label="Nom de votre structure", required=True)
-    organization_type = forms.ChoiceField(
-        label="Vous êtes un/une", required=True, choices=ORGANIZATION_TYPE_CHOICES
+    organization_name = forms.CharField(
+        label="Nom de votre structure",
+        required=True,
+        help_text="""En fonction des informations saisies précédemment,
+        nous pouvons parfois pré-remplir ce champ automatiquement.
+        Vous pouvez cependant corriger le nom proposé si besoin.""",
     )
+    organization_type = forms.ChoiceField(
+        label="Type de votre structure",
+        required=True,
+        choices=ORGANIZATION_TYPES,
+        widget=SelectWidgetWithDisabledEmptyOption,
+    )
+    intercommunality_type = forms.ChoiceField(
+        label="Type d’intercommunalité",
+        required=False,
+        choices=INTERCOMMUNALITY_TYPES_WITH_EMPTY,
+        widget=SelectWidgetWithDisabledEmptyOption,
+    )
+
     perimeter = AutocompleteModelChoiceField(
-        label="Votre territoire", queryset=Perimeter.objects.all(), required=True
+        label="Votre territoire",
+        queryset=Perimeter.objects.all(),
+        required=True,
+        help_text="""Tous les périmètres géographiques sont disponibles :
+        CA, CU, CC, pays, parc, etc. Contactez-nous si vous ne trouvez pas vôtre.""",
     )
 
     acquisition_channel = forms.ChoiceField(
@@ -104,6 +118,10 @@ class RegisterForm(UserCreationForm, AidesTerrBaseForm):
         )
         self.fields["password1"].widget.attrs.update({"autocomplete": "new-password"})
         self.fields["password2"].widget.attrs.update({"autocomplete": "new-password"})
+
+        for visible in self.visible_fields():
+            if type(visible.field.widget) == SelectWidgetWithDisabledEmptyOption:
+                visible.field.widget.attrs["class"] = "fr-select"
 
         if len(self.errors):
             self.set_autofocus_on_first_error()

@@ -66,6 +66,6 @@ $(document).ready(function () {
         initialForm.perimeter = perimeter_id;
 
         let perimeter_name = $(this).find('option:selected').text();
-        $("#id_organization_name").val("Commune de " + perimeter_name.split(' (')[0]);
+        $("#id_organization_name").val("Mairie de " + perimeter_name.split(' (')[0]);
     });
 });

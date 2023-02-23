@@ -139,3 +139,17 @@ class MultipleChoiceFilterWidget(forms.widgets.CheckboxSelectMultiple):
     """
 
     template_name = "forms/widgets/multiple_input.html"
+
+
+class SelectWidgetWithDisabledEmptyOption(forms.Select):
+    """
+    Subclass of Django's select widget that allows a
+    disabled hidden empty option
+    """
+
+    def create_option(self, *args, **kwargs):
+        option_dict = super().create_option(*args, **kwargs)
+        if option_dict["value"] == "":
+            option_dict["attrs"]["disabled"] = "disabled"
+            option_dict["attrs"]["hidden"] = "hidden"
+        return option_dict

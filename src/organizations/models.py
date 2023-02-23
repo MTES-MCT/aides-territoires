@@ -4,18 +4,21 @@ from django.utils import timezone
 
 from core.fields import ChoiceArrayField
 from model_utils import Choices
-from aids.constants import AUDIENCES_ALL
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeters
+from organizations.constants import (
+    INTERCOMMUNALITY_TYPES,
+    ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES,
+)
 
 
 class Organization(models.Model):
-
-    ORGANIZATION_TYPE_CHOICES = Choices(*AUDIENCES_ALL)
+    ORGANIZATION_TYPE_CHOICES = ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES
+    INTERCOMMUNALITY_TYPES_CHOICES = Choices(*INTERCOMMUNALITY_TYPES)
 
     name = models.CharField("Nom", max_length=256, db_index=True)
     slug = models.SlugField(
-        "Fragment d'URL", help_text="Laisser vide pour autoremplir.", blank=True
+        "Fragment d’URL", help_text="Laisser vide pour autoremplir.", blank=True
     )
     organization_type = ChoiceArrayField(
         verbose_name="Type de structure",
@@ -34,16 +37,16 @@ class Organization(models.Model):
     ape_code = models.CharField("Code APE", max_length=5, null=True, blank=True)
 
     inhabitants_number = models.PositiveIntegerField(
-        "Nombre d'habitants", null=True, blank=True
+        "Nombre d’habitants", null=True, blank=True
     )
     voters_number = models.PositiveIntegerField(
         "Nombre de votants", null=True, blank=True
     )
     corporates_number = models.PositiveIntegerField(
-        "Nombre d'entreprises", null=True, blank=True
+        "Nombre d’entreprises", null=True, blank=True
     )
     associations_number = models.PositiveIntegerField(
-        "Nombre d'associations", null=True, blank=True
+        "Nombre d’associations", null=True, blank=True
     )
 
     municipal_roads = models.PositiveIntegerField(
@@ -71,10 +74,10 @@ class Organization(models.Model):
     )
 
     kindergarten_number = models.PositiveIntegerField(
-        "Nombre d'écoles maternelles", null=True, blank=True
+        "Nombre d’écoles maternelles", null=True, blank=True
     )
     primary_school_number = models.PositiveIntegerField(
-        "Nombre d'écoles primaires", null=True, blank=True
+        "Nombre d’écoles primaires", null=True, blank=True
     )
     middle_school_number = models.PositiveIntegerField(
         "Nombre de collèges", null=True, blank=True
@@ -83,7 +86,7 @@ class Organization(models.Model):
         "Nombre de lycées", null=True, blank=True
     )
     university_number = models.PositiveIntegerField(
-        "Nombre d'universités", null=True, blank=True
+        "Nombre d’universités", null=True, blank=True
     )
 
     gymnasium_number = models.PositiveIntegerField(
@@ -120,7 +123,7 @@ class Organization(models.Model):
         default=False,
     )
     imported_date = models.DateTimeField(
-        "Date de l'import",
+        "Date de l’import",
         help_text="Date à laquelle cette organisation a été importée",
         null=True,
         blank=True,
@@ -151,6 +154,14 @@ class Organization(models.Model):
         null=True,
         blank=True,
         related_name="organization_department",
+    )
+
+    intercommunality_type = models.CharField(
+        verbose_name="Type d’intercommunalité",
+        max_length=5,
+        choices=INTERCOMMUNALITY_TYPES_CHOICES,
+        null=True,
+        blank=True,
     )
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)

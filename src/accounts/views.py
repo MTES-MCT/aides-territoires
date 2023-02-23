@@ -72,12 +72,14 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
         )
         organization_perimeter = Perimeter.objects.get(id=organization_perimeter_id)
         organization_type = self.request.POST.get("organization_type", None)
+        intercommunality_type = self.request.POST.get("intercommunality_type", None)
 
         user = form.save(commit=False)
         organization = Organization.objects.create(
             name=organization_name,
             organization_type=[organization_type],
             perimeter=organization_perimeter,
+            intercommunality_type=intercommunality_type,
         )
         user.beneficiary_organization = organization
         user.save()

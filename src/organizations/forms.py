@@ -2,10 +2,14 @@ from django import forms
 from core.forms.baseform import AidesTerrBaseForm
 
 from core.forms.fields import AutocompleteModelChoiceField
+from core.forms.widgets import SelectWidgetWithDisabledEmptyOption
 
 from geofr.models import Perimeter
 from organizations.models import Organization
-from organizations.constants import ORGANIZATION_TYPE_CHOICES_WITH_DEFAULT
+from organizations.constants import (
+    INTERCOMMUNALITY_TYPES,
+    ORGANIZATION_TYPES_SINGULAR_GROUPED,
+)
 from projects.models import Project
 
 
@@ -14,20 +18,52 @@ class OrganizationTypeWidget(forms.SelectMultiple):
 
     allow_multiple_selected = False
 
+    def create_option(self, *args, **kwargs):
+        option_dict = super().create_option(*args, **kwargs)
+        if option_dict["value"] == "":
+            option_dict["attrs"]["disabled"] = "disabled"
+            option_dict["attrs"]["hidden"] = "hidden"
+        return option_dict
+
 
 class OrganizationCreateForm(forms.ModelForm, AidesTerrBaseForm):
     """allow user to create organization."""
 
-    name = forms.CharField(label="Nom de votre structure", required=True)
+    ORGANIZATION_TYPES = [
+        ("", "Sélectionnez une valeur")
+    ] + ORGANIZATION_TYPES_SINGULAR_GROUPED
+
+    INTERCOMMUNALITY_TYPES_WITH_EMPTY = [
+        ("", "Sélectionnez une valeur")
+    ] + INTERCOMMUNALITY_TYPES
+
+    name = forms.CharField(
+        label="Nom de votre structure",
+        required=True,
+        help_text="""En fonction des informations saisies précédemment,
+        nous pouvons parfois pré-remplir ce champ automatiquement.
+        Vous pouvez cependant corriger le nom proposé si besoin.""",
+    )
     organization_type = forms.MultipleChoiceField(
-        label="Vous êtes un/une",
-        required=False,
-        choices=ORGANIZATION_TYPE_CHOICES_WITH_DEFAULT,
+        label="Type de votre structure",
+        required=True,
+        choices=ORGANIZATION_TYPES,
         widget=OrganizationTypeWidget,
+    )
+    intercommunality_type = forms.ChoiceField(
+        label="Type d’intercommunalité",
+        required=False,
+        choices=INTERCOMMUNALITY_TYPES_WITH_EMPTY,
+        widget=SelectWidgetWithDisabledEmptyOption,
     )
 
     perimeter = AutocompleteModelChoiceField(
-        label="Votre territoire", queryset=Perimeter.objects.all(), required=True
+        label="Votre territoire",
+        queryset=Perimeter.objects.all(),
+        required=True,
+        help_text="""Ce champ sera utilisé par défaut pour trouver des aides.
+                Tous les périmètres géographiques sont disponibles :
+        CA, CU, CC, pays, parc, etc. Contactez-nous si vous ne trouvez pas vôtre.""",
     )
 
     class Meta:
@@ -37,21 +73,44 @@ class OrganizationCreateForm(forms.ModelForm, AidesTerrBaseForm):
     def __init__(self, *args, **kwargs):
         super(OrganizationCreateForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
-            if type(visible.field.widget) == OrganizationTypeWidget:
+            if type(visible.field.widget) in (
+                OrganizationTypeWidget,
+                SelectWidgetWithDisabledEmptyOption,
+            ):
                 visible.field.widget.attrs["class"] = "fr-select"
 
 
 class OrganizationUpdateForm(forms.ModelForm, AidesTerrBaseForm):
     """allow user to update organization's data."""
 
-    name = forms.CharField(label="Nom de la structure", required=True)
-    organization_type = forms.MultipleChoiceField(
-        label="Type de structure",
+    ORGANIZATION_TYPES = [
+        ("", "Sélectionnez une valeur")
+    ] + ORGANIZATION_TYPES_SINGULAR_GROUPED
+
+    INTERCOMMUNALITY_TYPES_WITH_EMPTY = [
+        ("", "Sélectionnez une valeur")
+    ] + INTERCOMMUNALITY_TYPES
+
+    name = forms.CharField(
+        label="Nom de votre structure",
         required=True,
-        choices=ORGANIZATION_TYPE_CHOICES_WITH_DEFAULT,
-        widget=OrganizationTypeWidget,
-        help_text="Ce champ sera utilisé par défaut pour trouver des aides",
+        help_text="""En fonction des informations saisies précédemment,
+        nous pouvons parfois pré-remplir ce champ automatiquement.
+        Vous pouvez cependant corriger le nom proposé si besoin.""",
     )
+    organization_type = forms.MultipleChoiceField(
+        label="Type de votre structure",
+        required=True,
+        choices=ORGANIZATION_TYPES,
+        widget=OrganizationTypeWidget,
+    )
+    intercommunality_type = forms.ChoiceField(
+        label="Type d’intercommunalité",
+        required=False,
+        choices=INTERCOMMUNALITY_TYPES_WITH_EMPTY,
+        widget=SelectWidgetWithDisabledEmptyOption,
+    )
+
     address = forms.CharField(label="Adresse postale", required=True)
     city_name = forms.CharField(label="Ville", required=True)
     zip_code = forms.CharField(label="Code postal", required=True)
@@ -68,7 +127,9 @@ class OrganizationUpdateForm(forms.ModelForm, AidesTerrBaseForm):
         label="Votre territoire",
         queryset=Perimeter.objects.all(),
         required=True,
-        help_text="Ce champ sera utilisé par défaut pour trouver des aides",
+        help_text="""Ce champ sera utilisé par défaut pour trouver des aides.
+                Tous les périmètres géographiques sont disponibles :
+        CA, CU, CC, pays, parc, etc. Contactez-nous si vous ne trouvez pas vôtre.""",
     )
 
     class Meta:
@@ -88,7 +149,10 @@ class OrganizationUpdateForm(forms.ModelForm, AidesTerrBaseForm):
     def __init__(self, *args, **kwargs):
         super(OrganizationUpdateForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
-            if type(visible.field.widget) == OrganizationTypeWidget:
+            if type(visible.field.widget) in (
+                OrganizationTypeWidget,
+                SelectWidgetWithDisabledEmptyOption,
+            ):
                 visible.field.widget.attrs["class"] = "fr-select"
 
 

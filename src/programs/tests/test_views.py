@@ -1,6 +1,7 @@
 import pytest
 
 from django.urls import reverse
+from keywords.models import SynonymList
 
 from programs.factories import ProgramFactory
 from keywords.factories import SynonymListFactory
@@ -57,7 +58,7 @@ def test_user_can_filter_aids_displayed_in_program_detail_page(client, perimeter
     third_aid.save()
 
     SynonymListFactory(
-        name="Spirou",
+        name="spirou",
         keywords_list="Champignac-en-Cambrousse",
     )
 
@@ -79,9 +80,11 @@ def test_user_can_filter_aids_displayed_in_program_detail_page(client, perimeter
 
     res = client.get(
         program_detail_url,
-        data={"perimeter": perimeters["montpellier"].pk, "text": "1-synonyms-"},
+        data={"perimeter": perimeters["montpellier"].pk, "text": "1-synonyms-spirou"},
     )
     assert res.status_code == 200
+    print(res.content.decode())
+    print(SynonymList.objects.all().values("name", "id", "slug"))
     assert "1 aide liée au programme" in res.content.decode()
     assert first_aid.name not in res.content.decode()
     assert second_aid.name in res.content.decode()
