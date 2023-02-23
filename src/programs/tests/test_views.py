@@ -1,7 +1,6 @@
 import pytest
 
 from django.urls import reverse
-from keywords.models import SynonymList
 
 from aids.factories import AidFactory
 from keywords.factories import SynonymListFactory
