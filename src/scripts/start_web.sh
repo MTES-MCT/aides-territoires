@@ -9,5 +9,5 @@ echo "Using Django settings module: $DJANGO_SETTINGS_MODULE"
 python manage.py compilemessages
 python manage.py collectstatic --noinput
 python manage.py compress --force
-gunicorn core.wsgi_scalingo --timeout 90 --log-file -
+gunicorn core.wsgi_scalingo --log-file -
 echo "Completed start web script"
