@@ -1,11 +1,11 @@
 import pytest
 
 from django.urls import reverse
-from keywords.models import SynonymList
 
-from programs.factories import ProgramFactory
-from keywords.factories import SynonymListFactory
 from aids.factories import AidFactory
+from keywords.factories import SynonymListFactory
+from keywords.models import SynonymList
+from programs.factories import ProgramFactory
 
 pytestmark = pytest.mark.django_db
 
@@ -83,6 +83,8 @@ def test_user_can_filter_aids_displayed_in_program_detail_page(client, perimeter
         data={"perimeter": perimeters["montpellier"].pk, "text": "1-synonyms-spirou"},
     )
     assert res.status_code == 200
+    print(second_aid.__dict__)
+    print(third_aid.__dict__)
     print(res.content.decode())
     print(SynonymList.objects.all().values("name", "id", "slug"))
     assert "1 aide liée au programme" in res.content.decode()
