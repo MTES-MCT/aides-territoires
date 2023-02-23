@@ -83,8 +83,6 @@ def test_user_can_filter_aids_displayed_in_program_detail_page(client, perimeter
         data={"perimeter": perimeters["montpellier"].pk, "text": "1-synonyms-spirou"},
     )
     assert res.status_code == 200
-    print(res.content.decode())
-    print(SynonymList.objects.all().values("name", "id", "slug"))
     print(second_aid.__dict__)
     print(third_aid.__dict__)
     print(res.content.decode())
