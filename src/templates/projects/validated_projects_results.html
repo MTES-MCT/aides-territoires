@@ -134,14 +134,8 @@
         <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
         <script src="{% static 'js/url_parameters.js' %}"></script>
         <script src="{% static 'js/projects/search_project_form_advanced.js' %}"></script>
-        <script src="{% static 'js/geofr/department_filter.js' %}"></script>
-        <script src="{% static 'js/geofr/map_projects.js' %}"></script>
     {% endcompress %}
     <script nonce="{{ request.csp_nonce }}">
-        let departments_data = JSON.parse("{{ departments_json|escapejs }}");
-        $(document).ready(function () {
-            department_filter('/');
-        });
 
         $(document).ready( function () {
             $('#validated_projects_table').DataTable({

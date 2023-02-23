@@ -345,13 +345,6 @@ class ValidatedProjectResultsView(SearchMixin, FormMixin, ListView):
         if self.request.GET.get("department_search") == "true":
             context["department_search"] = True
 
-        # Map section
-        departments_list = Perimeter.objects.departments(
-            values=["id", "name", "code", "projects_count"]
-        )
-        context["departments"] = departments_list
-        context["departments_json"] = json.dumps(departments_list)
-
         return context
 
 
