@@ -30,10 +30,14 @@ def create_validated_project(row, logger=None):
     project_name = row["projet"]
     organization_name = row["beneficiaire"]
 
+    department_code = row["departement"]
+    if len(department_code) == 1:
+        department_code = f"0{department_code}"
+
     perimeter = Perimeter.objects.filter(
         name__iexact=organization_name,
         scale=1,
-        departments__contains=[row["departement"]],
+        departments__contains=[department_code],
     ).first()
 
     budget = clean_numeric_input(row["cout_total_ht"], logger)
@@ -48,7 +52,7 @@ def create_validated_project(row, logger=None):
         try:
             aid = Aid.objects.filter(
                 name__icontains=row["appelation"],
-                perimeter__code=row["departement"],
+                perimeter__code=department_code,
             )
 
             organization = Organization.objects.filter(
