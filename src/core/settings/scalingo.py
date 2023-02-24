@@ -38,7 +38,7 @@ sentry_sdk.init(
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
     # We recommend adjusting this value in production,
-    traces_sample_rate=1.0,
+    traces_sample_rate=env.float("SENTRY_TRACES_SAMPLE_RATE", 1.0),
 )
 
 COMPRESS_OFFLINE = env.bool("COMPRESS_OFFLINE", default=True)
