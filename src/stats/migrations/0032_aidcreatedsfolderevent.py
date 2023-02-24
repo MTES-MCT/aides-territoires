@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ("organizations", "0009_organization_imported_date_organization_is_imported"),
         ("aids", "0175_aid_ds_id_aid_ds_mapping_aid_ds_schema_exists"),
-        ("stats", "0030_alter_aidoriginurlclickevent_options"),
+        ("stats", "0031_aidviewevent_organization_aidviewevent_user"),
     ]
 
     operations = [
