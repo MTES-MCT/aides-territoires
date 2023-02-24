@@ -62,9 +62,6 @@ msgstr "Date de création"
 msgid "Date updated"
 msgstr "Date de mise à jour"
 
-msgid "Tags"
-msgstr "Mots clés"
-
 msgid "Secret token"
 msgstr "Clé secrète"
 
@@ -305,9 +302,6 @@ msgstr "Lien associé au logo"
 
 msgid "The url for the partner's logo link"
 msgstr "L'url vers laquelle renvoie un clic sur le logo partenaire"
-
-msgid "Tag"
-msgstr "Mot clé"
 
 msgid "Drafts"
 msgstr "Brouillons"
