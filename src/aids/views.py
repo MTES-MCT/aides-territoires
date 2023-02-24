@@ -597,7 +597,10 @@ class AidDetailView(DetailView):
                             ]
             else:
                 context["prepopulate_application_url"] = False
-                context["ds_application_url"] = False
+                context["ds_application_url"] = True
+        else:
+            context["prepopulate_application_url"] = False
+            context["ds_application_url"] = False
 
         if self.request.user.is_authenticated:
             context["aid_match_project_form"] = AidMatchProjectForm(label_suffix="")
