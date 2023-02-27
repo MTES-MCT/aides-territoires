@@ -268,7 +268,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ordering = ["id"]
 
     def __str__(self):
-        return "{} ({})".format(self.full_name, self.email)
+        return f"{self.full_name} ({self.email})"
 
     @property
     def full_name(self):

@@ -129,6 +129,11 @@ jobs:
       run: |
         cp .env.example .env
 
+    - name: Check Django configuration
+      working-directory: ./src
+      run: |
+        make check
+
     - name: Build the project
       working-directory: ./src
       run: |

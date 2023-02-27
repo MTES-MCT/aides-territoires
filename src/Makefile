@@ -10,6 +10,9 @@ build:
 test:
 	pipenv run py.test -v -n 10
 
+check:
+	pipenv run python manage.py check
+
 coverage:
 	pipenv run coverage run --source='.' -m pytest $(PARAMS) && pipenv run coverage html
 
