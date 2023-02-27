@@ -12,7 +12,7 @@ from accounts.models import User
 pytestmark = pytest.mark.django_db
 
 
-def test_data_json_is_populate_with_aid_ds_mapping_field_data(client):
+def test_data_json_is_populated_with_aid_ds_mapping_field_data(client):
     """Check the json-object constructed to send data to Démarches-Simplifiées"""
 
     ds_mapping_json = {
