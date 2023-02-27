@@ -343,7 +343,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     ds_schema_exists = models.BooleanField(
         "Schéma existant",
         help_text=(
-            "Un schéma pour l'api de pré-remplissage"
+            "Un schéma pour l’api de pré-remplissage"
             "de Démarches-Simplifiées est-il renseigné ?"
         ),
         default=False,
