@@ -350,13 +350,13 @@ def test_synonym_search(client, perimeters):
     )
     url = reverse("search_view")
 
-    SynonymListFactory(
+    synonym_list = SynonymListFactory(
         name="Voie douce",
         keywords_list="voie douce, vélo, vélos, liaisons douces, bmx, piste cyclable",
     )
 
     # Searching with a synonym-list find the aids and exclude irrelevant results
-    res = client.get(url, data={"text": "1-synonyms-"})
+    res = client.get(url, data={"text": synonym_list.id_slug})
     assert res.context["paginator"].count == 3
 
 
