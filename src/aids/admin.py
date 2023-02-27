@@ -2,9 +2,11 @@ import re
 from functools import reduce
 from operator import and_
 
+from django.utils.html import format_html
 from django.db.models import Q
 from django.contrib import admin
 from django.http import HttpResponseForbidden
+from django.urls import reverse
 
 from import_export.admin import ImportMixin, ExportActionMixin
 from import_export.formats import base_formats
@@ -268,6 +270,7 @@ class BaseAidAdmin(
         "date_created",
         "date_updated",
         "date_published",
+        "get_projects",
     ]
     raw_id_fields = ["generic_aid"]
 
@@ -332,6 +335,7 @@ class BaseAidAdmin(
                     "project_examples",
                     "eligibility",
                     "keywords",
+                    "get_projects",
                 )
             },
         ),
@@ -451,6 +455,23 @@ class BaseAidAdmin(
                 pass
 
         return queryset, use_distinct
+
+    def get_projects(self, obj):
+        projects = obj.projects.all()
+        projects_list = format_html("<table><tbody>")
+        for project in projects:
+            url = reverse("admin:projects_project_change", args=(project.pk,))
+            projects_list += format_html(
+                "<tr> \
+                    <td><a href='{url}'>{project}</a></td> \
+                <tr>",
+                url=url,
+                project=project.name,
+            )
+        projects_list += format_html("</tbody></table>")
+        return projects_list
+
+    get_projects.short_description = "Projets rattachés à l’aide"
 
     def change_view(self, request, object_id, extra_context=None):
         """
