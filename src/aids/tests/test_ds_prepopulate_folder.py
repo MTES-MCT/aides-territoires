@@ -83,7 +83,6 @@ def test_data_json_is_populated_with_aid_ds_mapping_field_data(client):
         "champ_Q2hhbXAtMjkzNDM2NA==": "Maire",
     }
 
-    print(data_well_formated)
     assert (
         prepopulate_ds_folder(aid.ds_mapping, user, organization) == data_well_formated
     )
