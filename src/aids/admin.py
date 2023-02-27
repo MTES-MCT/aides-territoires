@@ -346,6 +346,16 @@ class BaseAidAdmin(
                 )
             },
         ),
+        (
+            "Uniquement pour les aides sur Démarches-Simplifiées",
+            {
+                "fields": (
+                    "ds_schema_exists",
+                    "ds_id",
+                    "ds_mapping",
+                )
+            },
+        ),
         ("Éligibilité", {"fields": ("eligibility_test",)}),
         (
             "Administration de l’aide",

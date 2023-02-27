@@ -93,6 +93,38 @@ class AidApplicationUrlClickEvent(models.Model):
         verbose_name_plural = "Événements aide candidater"
 
 
+class AidCreateDSFolderEvent(models.Model):
+    aid = models.ForeignKey("aids.Aid", verbose_name="Aide", on_delete=models.PROTECT)
+    organization = models.ForeignKey(
+        "organizations.Organization",
+        verbose_name="Structure",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    ds_folder_url = models.URLField(
+        "Url du dossier", max_length=500, blank=False, null=False
+    )
+    ds_folder_id = models.CharField(
+        "ID du dossier",
+        help_text="ID du dossier en base 64",
+        max_length=200,
+        blank=False,
+        null=False,
+    )
+    ds_folder_number = models.PositiveIntegerField(
+        "Numéro du dossier",
+        help_text="ID du dossier en tant qu'entier",
+        blank=False,
+        null=False,
+    )
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+    class Meta:
+        verbose_name = "Événement création dossier Démarches-Simplifiées"
+        verbose_name_plural = "Événements création dossier Démarches-Simplifiées"
+
+
 class AidSearchEvent(models.Model):
     targeted_audiences = ChoiceArrayField(
         verbose_name="Bénéficiaires de l’aide",

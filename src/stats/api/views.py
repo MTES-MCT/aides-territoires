@@ -4,6 +4,7 @@ from drf_spectacular.utils import extend_schema
 from core.utils import get_site_from_host
 from search.utils import clean_search_querystring
 from stats.models import (
+    AidCreateDSFolderEvent,
     AccountRegisterFromNextpagewarningClickEvent,
     AidContactClickEvent,
     AidOriginUrlClickEvent,
@@ -13,6 +14,7 @@ from stats.models import (
     PromotionClickEvent,
 )
 from stats.api.serializers import (
+    AidCreateDSFolderEventSerializer,
     AccountRegisterFromNextpagewarningClickEventSerializer,
     AidContactClickEventSerializer,
     AidOriginUrlClickEventSerializer,
@@ -21,6 +23,15 @@ from stats.api.serializers import (
     PromotionClickEventSerializer,
     PromotionDisplayEventSerializer,
 )
+
+
+@extend_schema(exclude=True)
+class AidCreateDSFolderEventViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    serializer_class = AidCreateDSFolderEventSerializer
+    queryset = AidCreateDSFolderEvent.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save()
 
 
 @extend_schema(exclude=True)

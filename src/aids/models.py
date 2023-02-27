@@ -340,6 +340,27 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     )
     origin_url = models.URLField("Plus d’informations", max_length=500, blank=True)
     application_url = models.URLField("Candidater à l’aide", max_length=500, blank=True)
+    ds_schema_exists = models.BooleanField(
+        "Schéma existant",
+        help_text=(
+            "Un schéma pour l’api de pré-remplissage"
+            "de Démarches-Simplifiées est-il renseigné ?"
+        ),
+        default=False,
+    )
+    ds_id = models.PositiveIntegerField(
+        "Identifiant de la démarche",
+        help_text="Identifiant de la démarche sur Démarches-Simplifiées",
+        null=True,
+        blank=True,
+    )
+    ds_mapping = models.JSONField(
+        "Mapping JSON de la démarche",
+        help_text="Mapping JSON pour pré-remplissage sur Démarches-Simplifiées",
+        editable=True,
+        null=True,
+        blank=True,
+    )
     has_broken_link = models.BooleanField(
         "Contient un lien cassé ?",
         default=False,

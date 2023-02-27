@@ -1,3 +1,5 @@
+import requests
+import json
 from datetime import timedelta
 
 from django.conf import settings
@@ -42,6 +44,7 @@ from aids.forms import (
 from projects.forms import ProjectExportForm
 from aids.models import Aid, AidProject, SuggestedAidProject
 from aids.mixins import AidEditMixin, AidCopyMixin
+from aids.utils import prepopulate_ds_folder
 from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
@@ -55,7 +58,6 @@ from search.utils import clean_search_form
 from stats.models import AidViewEvent
 from stats.utils import log_aidviewevent, log_aidsearchevent
 from core.utils import remove_accents
-
 
 from accounts.tasks import (
     send_new_suggested_aid_notification_email,
@@ -468,6 +470,17 @@ class AidDetailView(DetailView):
 
         return qs
 
+    def post_prepopulate_data(self, user, org):
+
+        data = prepopulate_ds_folder(self.object.ds_mapping, user, org)
+        ds_id = self.object.ds_id
+        headers = {
+            "Content-Type": "application/json",
+        }
+        post_url = f"https://www.demarches-simplifiees.fr/api/public/v1/demarches/{ds_id}/dossiers"
+        response = requests.request("POST", post_url, json=data, headers=headers)
+        return response
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -562,6 +575,32 @@ class AidDetailView(DetailView):
         context["keywords"] = sorted(categories_keywords_list)
 
         context["alert_form"] = AlertForm(label_suffix="")
+
+        if self.object.ds_schema_exists:
+            if self.request.user.is_authenticated:
+                user = self.request.user
+                if self.request.user.beneficiary_organization:
+                    org = self.request.user.beneficiary_organization
+                    org_type = org.organization_type
+
+                    if org_type == ["commune"] or org_type == ["epci"]:
+                        response = self.post_prepopulate_data(user, org)
+                        if response:
+                            context["prepopulate_application_url"] = json.loads(
+                                response.content
+                            )["dossier_url"]
+                            context["ds_folder_id"] = json.loads(response.content)[
+                                "dossier_id"
+                            ]
+                            context["ds_folder_number"] = json.loads(response.content)[
+                                "dossier_number"
+                            ]
+            else:
+                context["prepopulate_application_url"] = False
+                context["ds_application_url"] = True
+        else:
+            context["prepopulate_application_url"] = False
+            context["ds_application_url"] = False
 
         if self.request.user.is_authenticated:
             context["aid_match_project_form"] = AidMatchProjectForm(label_suffix="")
