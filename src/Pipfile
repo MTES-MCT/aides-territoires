@@ -34,7 +34,6 @@ qrcode = "*"
 redis = "*"
 requests = "*"
 scrapy = "*"
-sentry-sdk = "*"
 unipath = "*"
 xlrd = "*"
 zipp = "*"
@@ -50,6 +49,7 @@ python-stdnum = "*"
 drf-spectacular = {extras = ["sidecar"], version = "*"}
 django-csp = "*"
 django-resized = "*"
+sentry-sdk = {extras = ["django"], version = "*"}
 
 [dev-packages]
 django-debug-toolbar = "*"
