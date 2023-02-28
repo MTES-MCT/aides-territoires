@@ -9,7 +9,7 @@ from geofr.constants import OVERSEAS_PREFIX, DEPARTMENT_TO_REGION
 from geofr.models import Perimeter, PerimeterImport
 from accounts.models import User
 
-MAX_PERIMETERS_TO_ATTACH = 7000
+MAX_PERIMETERS_TO_ATTACH = 500
 
 
 def department_from_zipcode(zipcode):
