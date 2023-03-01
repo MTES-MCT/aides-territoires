@@ -67,7 +67,7 @@ def contributor():
 def superuser():
     """Generates a valid and active superuser."""
 
-    user = UserFactory(email=ADMIN_EMAIL)
+    user = UserFactory(email=ADMIN_EMAIL, first_name="Super", last_name="User")
     user.is_superuser = True
     user.save()
     return user

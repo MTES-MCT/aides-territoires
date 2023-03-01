@@ -259,11 +259,7 @@ class TokenLoginView(AnonymousRequiredMixin, MessageMixin, TemplateView):
             token = kwargs["token"]
             if default_token_generator.check_token(user, token):
                 is_first_login = user.last_login is None
-                login(
-                    self.request,
-                    user,
-                    backend="django.contrib.auth.backends.ModelBackend",
-                )
+                login(self.request, user)
                 UserLastConnexion.objects.create(user=self.request.user)
 
                 if is_first_login:

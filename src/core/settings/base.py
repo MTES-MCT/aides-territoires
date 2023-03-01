@@ -56,6 +56,8 @@ THIRD_PARTY_APPS = [
     "django_otp.plugins.otp_totp",
     "widget_tweaks",
     "dsfr",
+    "captcha",
+    "defender",
 ]
 
 LOCAL_APPS = [
@@ -102,9 +104,9 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "defender.middleware.FailedLoginMiddleware",
     "django_otp.middleware.OTPMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "axes.middleware.AxesMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -133,10 +135,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = [
-    "axes.backends.AxesStandaloneBackend",
-    "django.contrib.auth.backends.ModelBackend",
-]
+
+# Login attempts limitation
+DEFENDER_LOGIN_FAILURE_LIMIT = 5
+DEFENDER_LOCKOUT_TEMPLATE = "401.html"
 
 # Models
 

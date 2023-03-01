@@ -49,7 +49,7 @@ drf-spectacular = {extras = ["sidecar"], version = "*"}
 django-csp = "*"
 django-resized = "*"
 sentry-sdk = {extras = ["django"], version = "*"}
-django-axes = "*"
+django-defender = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
