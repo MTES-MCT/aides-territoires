@@ -6,8 +6,6 @@ from django.urls import reverse
 from home.forms import ContactForm
 from home.tasks import send_contact_form_email
 
-from captcha.conf import settings as captcha_settings
-
 
 class ContactFormTestCase(TestCase):
 
@@ -24,21 +22,15 @@ class ContactFormTestCase(TestCase):
         main avec le cœur de notre belle agglomération, contient à tout jamais dans
         le vide de ses flancs la plénitude du génie champignacien.
         """,
-        "captcha_0": "8e10ebf60c5f23fd6e6a9959853730cd69062a15",
-        "captcha_1": "PASSED",
     }
 
-    # @override_settings(CAPTCHA_TEST_MODE=True) does not work,
-    # cf. https://github.com/mbi/django-simple-captcha/issues/84
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        captcha_settings.CAPTCHA_TEST_MODE = True
 
     @classmethod
     def tearDownClass(cls):
         super().tearDownClass()
-        captcha_settings.CAPTCHA_TEST_MODE = False
 
     def test_contact_form_valid(self):
         form = ContactForm(data=self.sample_data)

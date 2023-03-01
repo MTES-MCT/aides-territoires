@@ -76,7 +76,6 @@ urlpatterns = [
     path("aides/", include("aids.urls")),
     path("partenaires/", include("backers.urls")),
     path("blog/", include("blog.urls")),
-    path("captcha/", include("captcha.urls")),
     path("cartographie/", include("geofr.urls")),
     path("programmes/", include("programs.urls")),
     path("stats/", include("stats.urls")),

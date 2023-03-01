@@ -56,7 +56,6 @@ THIRD_PARTY_APPS = [
     "django_otp.plugins.otp_totp",
     "widget_tweaks",
     "dsfr",
-    "captcha",
 ]
 
 LOCAL_APPS = [
@@ -339,10 +338,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_URLS_REGEX = r"^/api/.*$"
 
 # Content Security Policy
-CSP_DEFAULT_SRC = (
-    "'self'",
-    "https://*.scw.cloud",
-)  # 'self' needed for the captcha audio alternative
+CSP_DEFAULT_SRC = ("https://*.scw.cloud",)
 
 CSP_CONNECT_SRC = (
     "'self'",
