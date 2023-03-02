@@ -38,7 +38,7 @@ class ContactFormTestCase(TestCase):
         main avec le cœur de notre belle agglomération, contient à tout jamais dans
         le vide de ses flancs la plénitude du génie champignacien.
         """,
-        "id":"140314043890128",
+        "id": "140314043890128",
     }
 
     @classmethod
