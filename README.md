@@ -82,7 +82,8 @@ Le produit est développé en Django (Python).
 Il est structuré comme un projet Django classique, découpé en applications.
 
 La base de données utilisée est PostgreSQL.
-Redis nous sert aussi à accélérer les requêtes (caching), il sert aussi de broker pour les tâches de fond (Celery).
+Redis nous sert aussi à accélérer les requêtes (caching), il sert aussi de broker pour les tâches de fond (Celery),
+et pour compter les tentatives infructueuses de connexion (Defender).
 
 Certaines données de projet sont accessible depuis une API. L'API est en lecture seule.
 
