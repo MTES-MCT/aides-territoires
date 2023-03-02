@@ -69,7 +69,6 @@ sitemaps = {
 }
 
 urlpatterns = [
-    path("admin/defender/", include("defender.urls")),
     path("admin/", admin.site.urls),
     path("", include("home.urls")),
     path("comptes/", include("accounts.urls")),

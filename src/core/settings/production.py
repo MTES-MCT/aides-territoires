@@ -18,15 +18,25 @@ SECRET_KEY = env("SECRET_KEY")
 
 DATABASES = {"default": env.db()}
 
+CACHE_BACKEND = env(
+    "CACHE_BACKEND", default="django.core.cache.backends.locmem.LocMemCache"
+)
+CACHE_LOCATION = env("CACHE_LOCATION", default="")
 cache_config = {
     "default": {
-        "BACKEND": env(
-            "CACHE_BACKEND", default="django.core.cache.backends.locmem.LocMemCache"
-        ),
-        "LOCATION": env("CACHE_LOCATION", default=""),
+        "BACKEND": CACHE_BACKEND,
+        "LOCATION": CACHE_LOCATION,
     }
 }
 CACHES.update(cache_config)
+
+# Defender
+# Used to limit login attempts
+# Only activated if the Redis cache is set
+if "redis" in CACHE_BACKEND:
+    DEFENDER_REDIS_URL = CACHE_LOCATION
+    INSTALLED_APPS += ["defender"]  # noqa
+    MIDDLEWARE += ["defender.middleware.FailedLoginMiddleware"]  # noqa
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
@@ -141,9 +151,6 @@ CAPTCHA_NOISE_FUNCTIONS = env(
         "captcha.helpers.noise_dots",
     ),
 )
-
-# Defender
-DEFENDER_REDIS_URL = env("DEFENDER_REDIS_URL", default="redis://localhost:6379/0")
 
 ADEME_AGIR_API_USERNAME = env("ADEME_AGIR_API_USERNAME", default="")
 ADEME_AGIR_API_PASSWORD = env("ADEME_AGIR_API_PASSWORD", default="")

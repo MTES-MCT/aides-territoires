@@ -57,7 +57,6 @@ THIRD_PARTY_APPS = [
     "widget_tweaks",
     "dsfr",
     "captcha",
-    "defender",
 ]
 
 LOCAL_APPS = [
@@ -104,7 +103,6 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "defender.middleware.FailedLoginMiddleware",
     "django_otp.middleware.OTPMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
 ]
