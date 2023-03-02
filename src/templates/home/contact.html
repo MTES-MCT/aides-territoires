@@ -42,12 +42,6 @@
                     </header>
 
                     <div class="content fr-mb-5w">
-                        {% if form.captcha.errors %}
-                            <div role="alert" class="fr-alert fr-alert--error fr-alert--sm fr-mb-2w fr-mt-5w">
-                                <p>Le texte de vérification (« captcha ») est erroné, merci de réessayer.</p>
-                            </div>
-                        {% endif %}
-
                         <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w fr-mt-5w">
                             <p>
                                 <strong>
@@ -84,11 +78,6 @@
                             {% include '_field_snippet.html' with field=form.message %}
                         </fieldset>
 
-                        <fieldset>
-                            <div class="fr-card fr-col-12 fr-col-lg-8 fr-p-1w">
-                                {% include '_field_snippet.html' with field=form.captcha %}
-                            </div>
-                        </fieldset>
                     </div>
 
                     <div class="fr-alert fr-alert--info fr-alert--sm fr-my-2w">

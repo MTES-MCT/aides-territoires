@@ -187,14 +187,3 @@ ADEME_AGIR_API_PASSWORD = env("ADEME_AGIR_API_PASSWORD", default="")
 
 # Admin
 ADMIN_OTP_ENABLED = env.bool("ADMIN_OTP_ENABLED", False)
-
-# Captcha
-CAPTCHA_FLITE_PATH = env("CAPTCHA_FLITE_PATH", default=None)
-CAPTCHA_LENGTH = env("CAPTCHA_LENGTH", default=6)
-CAPTCHA_NOISE_FUNCTIONS = env(
-    "CAPTCHA_NOISE_FUNCTIONS",
-    default=(
-        "captcha.helpers.noise_arcs",
-        "captcha.helpers.noise_dots",
-    ),
-)

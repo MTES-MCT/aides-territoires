@@ -1,11 +1,6 @@
 from django import forms
-from captcha.fields import CaptchaField, CaptchaTextInput
 
 from core.forms.baseform import AidesTerrBaseForm
-
-
-class CustomCaptchaTextInput(CaptchaTextInput):
-    template_name = "captcha/captcha_field.html"
 
 
 class ContactForm(AidesTerrBaseForm):
@@ -64,13 +59,6 @@ class ContactForm(AidesTerrBaseForm):
 
     message = forms.CharField(
         label="Votre question ou message", widget=forms.Textarea, required=True
-    )
-
-    captcha = CaptchaField(
-        label="Merci de taper les lettres ci-dessous",
-        help_text="Cela nous aide à lutter contre le spam",
-        error_messages={"invalid": "Le texte entré ne correspond pas à l’image"},
-        widget=CustomCaptchaTextInput,
     )
 
     def __init__(self, *args, **kwargs):
