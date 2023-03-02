@@ -3,6 +3,7 @@ from django.utils import timezone
 
 from core.fields import ChoiceArrayField
 from aids.models import Aid
+from home.forms import ContactForm
 
 
 class AccountRegisterFromNextpagewarningClickEvent(models.Model):
@@ -269,3 +270,18 @@ class PromotionClickEvent(models.Model):
     class Meta:
         verbose_name = "Événement click promotion"
         verbose_name_plural = "Événements click promotion"
+
+
+class ContactFormSendEvent(models.Model):
+    subject = models.CharField(
+        "Sujet de l'email",
+        max_length=256,
+        choices=ContactForm.SUBJECT_CHOICES,
+        null=False,
+        blank=False,
+    )
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+    class Meta:
+        verbose_name = "Événement envoi du formulaire de contact"
+        verbose_name_plural = "Événements envoi du formulaire de contact"

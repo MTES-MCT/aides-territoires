@@ -12,6 +12,7 @@ from stats.models import (
     AidEligibilityTestEvent,
     PromotionClickEvent,
     PromotionDisplayEvent,
+    ContactFormSendEvent,
     Event,
 )
 
@@ -189,6 +190,22 @@ class PromotionClickEventAdmin(admin.ModelAdmin):
         return False
 
 
+class ContactFormSendEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+
+    list_display = ["id", "subject", "date_created"]
+    list_filter = ["subject"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 class EventAdmin(admin.ModelAdmin):
     """The model is set to (almost) readonly"""
 
@@ -215,4 +232,5 @@ admin.site.register(AidSearchEvent, AidSearchEventAdmin)
 admin.site.register(AidEligibilityTestEvent, AidEligibilityTestEventAdmin)
 admin.site.register(PromotionDisplayEvent, PromotionDisplayEventAdmin)
 admin.site.register(PromotionClickEvent, PromotionClickEventAdmin)
+admin.site.register(ContactFormSendEvent, ContactFormSendEventAdmin)
 admin.site.register(Event, EventAdmin)

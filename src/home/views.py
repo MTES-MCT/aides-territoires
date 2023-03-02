@@ -17,6 +17,7 @@ from organizations.models import Organization
 from programs.models import Program
 from projects.models import Project
 from projects.forms import ProjectSearchForm
+from stats.utils import log_contactformsendevent
 
 
 class HomeView(FormView):
@@ -122,6 +123,9 @@ class ContactView(SuccessMessageMixin, FormView):
         # Only send the message if the honeypot field is empty
         if form_dict["website"] == "":
             send_contact_form_email.delay(form_dict)
+            log_contactformsendevent(
+                subject=form_dict["subject"],
+            )
         # track_goal(self.request.session, settings.GOAL_CONTACT_ID)
         return response
 

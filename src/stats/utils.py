@@ -12,7 +12,7 @@ from search.utils import (
     get_querystring_backers,
     get_querystring_programs,
 )
-from stats.models import AidViewEvent, AidSearchEvent, Event
+from stats.models import AidViewEvent, AidSearchEvent, Event, ContactFormSendEvent
 from aids.models import Aid
 from accounts.models import User
 from organizations.models import Organization
@@ -121,3 +121,8 @@ def log_event(category, event, meta="", source="", value=None):
     Event.objects.create(
         category=category, event=event, meta=meta, source=source, value=value
     )
+
+
+@app.task
+def log_contactformsendevent(subject):
+    ContactFormSendEvent.objects.create(subject=subject)
