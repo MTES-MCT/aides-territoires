@@ -141,16 +141,5 @@ AID_LIST_API_CACHE_TIMEOUT = env.int("AID_LIST_API_CACHE_TIMEOUT", 0)
 ENABLE_AID_DETAIL_API_CACHE = env.bool("ENABLE_AID_DETAIL_API_CACHE", False)
 AID_DETAIL_API_CACHE_TIMEOUT = env.int("AID_DETAIL_API_CACHE_TIMEOUT", 0)
 
-# Captcha
-CAPTCHA_FLITE_PATH = env("CAPTCHA_FLITE_PATH", default=None)
-CAPTCHA_LENGTH = env("CAPTCHA_LENGTH", default=6)
-CAPTCHA_NOISE_FUNCTIONS = env(
-    "CAPTCHA_NOISE_FUNCTIONS",
-    default=(
-        "captcha.helpers.noise_arcs",
-        "captcha.helpers.noise_dots",
-    ),
-)
-
 ADEME_AGIR_API_USERNAME = env("ADEME_AGIR_API_USERNAME", default="")
 ADEME_AGIR_API_PASSWORD = env("ADEME_AGIR_API_PASSWORD", default="")
