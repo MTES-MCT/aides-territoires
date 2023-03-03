@@ -18,7 +18,7 @@
                                                 <ul id="id_projects">
                                                     {% for project in projects %}
                                                         <li class="fr-list__none">
-                                                            {% if project in aid.projects.all %}
+                                                            {% if project in aid_projects %}
                                                             <input checked disabled type="checkbox" name="projects" value="{{ project.id }}" id="{{ project.id }}" />
                                                             {% else %}
                                                             <input type="checkbox" name="projects" value="{{ project.id }}" id="{{ project.id }}" />
