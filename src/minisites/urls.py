@@ -1,10 +1,12 @@
 from rest_framework import routers
 from django.urls import path, include
 from django.conf import settings
-from django.utils.translation import gettext_lazy as _
 from django.conf.urls.static import static
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import View
-from django.views.generic.base import TemplateView
+from django.views.generic.base import RedirectView, TemplateView
+
 
 from minisites.views import (
     SiteAccessibility,
@@ -44,6 +46,10 @@ urlpatterns = [
     # form is also the home page.
     path("", SiteHome.as_view(), name="home"),
     path("", SiteHome.as_view(), name="search_view"),
+    path(
+        "favicon.ico",
+        RedirectView.as_view(url=staticfiles_storage.url("favicons/favicon.ico")),
+    ),
     path(
         "robots.txt",
         TemplateView.as_view(
