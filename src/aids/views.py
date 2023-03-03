@@ -484,6 +484,8 @@ class AidDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        user = self.request.user
+
         current_search = self.request.session.get(settings.SEARCH_COOKIE_NAME, "")
         if "targeted_audiences=&" in current_search:
             current_search = current_search.removeprefix("targeted_audiences=&")
@@ -577,10 +579,9 @@ class AidDetailView(DetailView):
         context["alert_form"] = AlertForm(label_suffix="")
 
         if self.object.ds_schema_exists:
-            if self.request.user.is_authenticated:
-                user = self.request.user
-                if self.request.user.beneficiary_organization:
-                    org = self.request.user.beneficiary_organization
+            if user.is_authenticated:
+                if user.beneficiary_organization:
+                    org = user.beneficiary_organization
                     org_type = org.organization_type
 
                     if org_type == ["commune"] or org_type == ["epci"]:
@@ -602,22 +603,22 @@ class AidDetailView(DetailView):
             context["prepopulate_application_url"] = False
             context["ds_application_url"] = False
 
-        if self.request.user.is_authenticated:
+        if user.is_authenticated:
             context["aid_match_project_form"] = AidMatchProjectForm(label_suffix="")
             context["suggest_aid_form"] = SuggestAidMatchProjectForm
             context["aid_detail_page"] = True
-            if self.request.user.beneficiary_organization:
+            if user.beneficiary_organization:
                 context["projects"] = Project.objects.filter(
-                    organizations=self.request.user.beneficiary_organization.pk
+                    organizations=user.beneficiary_organization.pk
                 ).order_by("name")
                 context["favorite_projects"] = Project.objects.filter(
-                    organization_favorite=self.request.user.beneficiary_organization,
+                    organization_favorite=user.beneficiary_organization,
                     is_public=True,
                     status=Project.STATUS.published,
                 ).order_by("name")
+                context["aid_projects"] = self.object.projects.all()
 
-        if self.request.user.is_authenticated:
-            search_preferences = self.request.user.get_search_preferences()
+            search_preferences = user.get_search_preferences()
             context["user_targeted_audiences"] = search_preferences[
                 "targeted_audiences"
             ]

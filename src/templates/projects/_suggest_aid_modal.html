@@ -31,7 +31,7 @@
                                             </legend>
                                             <div class="fr-fieldset__content">
                                                 {% for project in favorite_projects %}
-                                                {% if project in aid.suggested_projects.all or project in aid.projects.all %}
+                                                {% if project in aid.suggested_projects.all or project in aid_projects %}
                                                 <div class="fr-checkbox-group">
                                                     <input checked disabled type="checkbox" id="{{ project.pk }}" name="project" value="{{ project.pk }}">
                                                     <label class="fr-label" for="{{ project.pk }}">{{ project.name }}
