@@ -63,7 +63,7 @@ class BaseImportCommand(BaseCommand):
                 categories,
                 programs,
                 keywords,
-            ) in aids_and_related_objects:  # noqa
+            ) in aids_and_related_objects:
                 try:
                     with transaction.atomic():
                         aid.set_search_vector_unaccented(
@@ -147,6 +147,7 @@ class BaseImportCommand(BaseCommand):
                                 - aid.submission_deadline,
                                 - aid.start_date,
                                 - aid.name_initial,
+                            and if the import_data_source is not Pays de la Loire
                             we try an automatic update of these fields.
                             We also update the field import_raw_object_temp_calendar
                             """
@@ -155,7 +156,8 @@ class BaseImportCommand(BaseCommand):
                             import_raw_object_calendar != aid.import_raw_object_calendar
                             and import_raw_object_temp_calendar
                             != aid.import_raw_object_calendar
-                        ):  # noqa
+                            and aid.import_data_source.pk != 2
+                        ):
                             try:
                                 Aid.objects.filter(
                                     import_uniqueid=aid.import_uniqueid
