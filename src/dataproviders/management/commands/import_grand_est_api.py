@@ -90,7 +90,7 @@ class Command(BaseImportCommand):
         if options["data-file"]:
             data_file = os.path.abspath(options["data-file"])
             data = json.load(open(data_file))
-            self.stdout.write("Total number of aids: {}".format(len(data)))
+            self.stdout.write(f"Total number of aids: {len(data)}")
             for line in data:
                 yield line
         else:
@@ -101,7 +101,7 @@ class Command(BaseImportCommand):
                 auth=(settings.GRAND_EST_API_USERNAME, settings.GRAND_EST_API_PASSWORD),
             )
             data = req.json()
-            self.stdout.write("Total number of aids: {}".format(len(data)))
+            self.stdout.write(f"Total number of aids: {len(data)}")
             for line in data:
                 yield line
 
