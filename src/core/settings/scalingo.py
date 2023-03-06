@@ -75,15 +75,25 @@ LOCALE_PATHS = [
     Path(DJANGO_ROOT, "locales"),
 ]
 
+CACHE_BACKEND = env(
+    "CACHE_BACKEND", default="django.core.cache.backends.locmem.LocMemCache"
+)
+CACHE_LOCATION = env("CACHE_LOCATION", default="")
 cache_config = {
     "default": {
-        "BACKEND": env(
-            "CACHE_BACKEND", default="django.core.cache.backends.locmem.LocMemCache"
-        ),
-        "LOCATION": env("CACHE_LOCATION", default=""),
+        "BACKEND": CACHE_BACKEND,
+        "LOCATION": CACHE_LOCATION,
     }
 }
 CACHES.update(cache_config)
+
+# Defender
+# Used to limit login attempts
+# Only activated if the Redis cache is set
+if "redis" in CACHE_BACKEND:
+    DEFENDER_REDIS_URL = CACHE_LOCATION
+    INSTALLED_APPS += ["defender"]  # noqa
+    MIDDLEWARE += ["defender.middleware.FailedLoginMiddleware"]  # noqa
 
 CELERY_BROKER_URL = env("CELERY_BROKER_URL", default="memory://")
 

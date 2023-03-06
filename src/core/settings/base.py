@@ -132,6 +132,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+# Login attempts limitation
+DEFENDER_LOGIN_FAILURE_LIMIT = 5
+DEFENDER_STORE_ACCESS_ATTEMPTS = False
+DEFENDER_LOCKOUT_TEMPLATE = "401.html"
+
+
 # Models
 
 AUTH_USER_MODEL = "accounts.User"

@@ -1,0 +1,28 @@
+{% extends "_base.html" %}
+{% load humanize %}
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-pb-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-md-9">
+
+            <h1>Trop de tentatives de connexion</h1>
+
+            <div role="alert" class="fr-alert fr-alert--error fr-alert--sm fr-mb-2w fr-mt-5w">
+                <h2 class="fr-alert__title">
+                    Vous avez dépassé le nombre de connexions autorisées.
+                </h2>
+                <p>
+                    Nous vous invitons à retenter dans {{ cooloff_time_minutes|apnumber }} minutes.
+                </p>
+
+                <p>Si malgré cela vous ne parvenez toujours pas à vous connecter, vous pouvez <a
+                    href="mailto:aides-territoires@beta.gouv.fr">
+                    nous contacter</a>.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

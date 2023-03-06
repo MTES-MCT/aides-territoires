@@ -101,7 +101,7 @@ performances et ralentir le travail. Pour améliorer les performances, deux
 possibilités :
 
  * Installer [la version native de Sassc](https://github.com/sass/sassc) et pas
-   la version en pure js (sous ubuntu: `sudo apt-get install sassc`);
+   la version en pure js (sous Ubuntu: `sudo apt-get install sassc`);
  * Désactiver en local la compression par requête dans le fichier `.env.local`.
 
 ```
@@ -117,10 +117,19 @@ Il faudra alors manuellement lancer la compression en cas de besoin.
 Nous utilisons Redis en production :
 
 - Comme backend de cache pour Django
+- Comme backend pour Django-Defender
 - Comme broker pour Celery
 
 En locale et pour les Review Apps, il n'y a généralement pas besoin
 d'utiliser Redis.
+
+Il est cependant possible de le faire, avec la commande
+`sudo apt-get install redis-server` sous Ubuntu)
+
+Il faut alors également ajouter les valeurs suivantes dans le `.env.local` :
+
+    CACHE_BACKEND="django_redis.cache.RedisCache"
+    CACHE_LOCATION="redis://localhost:6379/0"
 
 ## Traduction : À propos des fichiers `.po` et `.mo`
 

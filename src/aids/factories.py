@@ -13,16 +13,16 @@ class AidFactory(DjangoModelFactory):
     class Meta:
         model = Aid
 
-    name = factory.Faker("company")
+    name = factory.Faker("company", locale="fr_FR")
     author = factory.SubFactory(UserFactory)
-    description = factory.Faker("text")
-    eligibility = factory.Faker("text")
+    description = factory.Faker("text", locale="fr_FR")
+    eligibility = factory.Faker("text", locale="fr_FR")
     mobilization_steps = FuzzyMultipleChoice(Aid.STEPS)
     origin_url = factory.Faker("url")
     targeted_audiences = FuzzyMultipleChoice(Aid.AUDIENCES)
     aid_types = FuzzyMultipleChoice(Aid.TYPES)
     destinations = FuzzyMultipleChoice(Aid.DESTINATIONS)
-    contact = factory.Faker("name")
+    contact = factory.Faker("name", locale="fr_FR")
     recurrence = "oneoff"
     status = "published"
 
