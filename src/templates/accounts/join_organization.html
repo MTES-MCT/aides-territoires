@@ -61,35 +61,37 @@
                     </div>
 
                     {% if collaborators %}
-                    <div id="form-group-collaborators" class="fr-checkbox-group">
-                        <p class="fr-mb-1w fr-mt-4w">
-                            <strong>
-                                Cochez les collaborateurs que vous souhaitez inviter à vous suivre vers l’organisation « {{ organization_name }} » ?
-                            </strong>
-                        </p>
-                        <ul id="id_collaborators" class=" fr-pl-0">
+                        <fieldset class="fr-fieldset" id="id_collaborators" aria-labelledby="id_collaborators-legend">
+                            <legend class="fr-fieldset__legend--regular fr-fieldset__legend" id="id_collaborators-legend">
+                                <strong>Cochez les collaborateurs que vous souhaitez inviter à vous suivre vers l’organisation « {{ organization_name }} » :</strong>
+                            </legend>
                             {% for collaborator in collaborators %}
-                            <li class="fr-list__none">
-                                <input type="checkbox" name="collaborators" value="{{ collaborator.id }}" id="{{ collaborator.id }}">
-                                <label for="{{ collaborator.id }}" class="fr-label">{{ collaborator.first_name }} {{ collaborator.last_name }}</label>
-                            </li>
+                                <div class="fr-fieldset__element">
+                                    <div class="fr-checkbox-group">
+                                        <input type="checkbox" name="collaborators" value="{{ collaborator.id }}" id="{{ collaborator.id }}">
+                                        <label for="{{ collaborator.id }}" class="fr-label">{{ collaborator.first_name }} {{ collaborator.last_name }}</label>
+                                    </div>
+                                </div>
                             {% endfor %}
-                        </ul>
+                        </fieldset>
                     {% endif %}
 
                     {% if projects %}
-                    <div id="form-group-projects" class="fr-checkbox-group">
-                        <p class="fr-mb-1w fr-mt-4w"><strong>Cochez les projets que vous souhaitez dupliquer dans l’organisation « {{ organization_name }} » :</strong></p>
-                        <ul id="id_projects" class=" fr-pl-0">
+                        <fieldset class="fr-fieldset" id="id_collaborators" aria-labelledby="id_collaborators-legend">
+                            <legend class="fr-fieldset__legend--regular fr-fieldset__legend" id="id_collaborators-legend">
+                                <strong>Cochez les projets que vous souhaitez dupliquer dans l’organisation « {{ organization_name }} » :</strong>
+                            </legend>
                             {% for project in projects %}
-                            <li class="fr-list__none">
-                                <input type="checkbox" name="projects" value="{{ project.id }}" id="{{ project.id }}">
-                                <label for="{{ project.id }}" class="fr-label">{{ project.name }}</label>
-                            </li>
+                                <div class="fr-fieldset__element">
+                                    <div class="fr-checkbox-group">
+                                        <input type="checkbox" name="projects" value="{{ project.id }}" id="{{ project.id }}">
+                                        <label for="{{ project.id }}" class="fr-label">{{ project.name }}</label>
+                                        </div>
+                                </div>
                             {% endfor %}
-                        </ul>
+                        </fieldset>
                     {% endif %}
-
+    
                     <div class="fr-mt-5w">
                         <button type="submit" name="no-join" class="fr-btn fr-btn--secondary">Refuser l’invitation</button>
                         <button type="submit" name="yes-join" class="fr-btn">Accepter l’invitation</button>
