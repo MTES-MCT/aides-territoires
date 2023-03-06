@@ -1,100 +1,165 @@
-from datetime import datetime
+import json
+import os
+import requests
 
+from django.utils import timezone
+
+from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
-from dataproviders.management.commands.base import CrawlerImportCommand
-from dataproviders.scrapers.occitanie import OccitanieSpider
-from geofr.models import Perimeter
-from backers.models import Backer
+from dataproviders.utils import (
+    content_prettify,
+    mapping_categories,
+)
+from dataproviders.management.commands.base import BaseImportCommand
 
 
-OPENDATA_URL = "https://data.laregion.fr/explore/dataset/aides-et-appels-a-projets-de-la-region-occitanie/information/"  # noqa
+DATA_SOURCE = DataSource.objects.prefetch_related("backer").get(pk=11)
 
-ELIGIBILITY_TXT = """Consultez la page de l'aide pour obtenir des détails."""
+CATEGORIES_MAPPING_CSV_PATH = (
+    os.path.dirname(os.path.realpath(__file__))
+    + "/../../data/occitanie_categories_mapping.csv"
+)
+SOURCE_COLUMN_NAME = "Thématique Occitanie"
+AT_COLUMN_NAMES = [
+    "Thématique AT 1",
+    "Thématique AT 2",
+    "Thématique AT 3",
+]
+CATEGORIES_DICT = mapping_categories(
+    CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES
+)
 
-IGNORE_OLDER_THAN = 365
 
-OCCITANIE_PERIMETER_CODE = "76"
-OCCITANIE_FINANCER_ID = 91  # "Conseil régional d'Occitanie"
+class Command(BaseImportCommand):
+    """
+    Import data from the Occitanie API.
 
+    Usage:
+    python manage.py import_occitanie
+    """
 
-class Command(CrawlerImportCommand):
-    """Import data from the Occitanie data feed."""
+    def add_arguments(self, parser):
+        parser.add_argument("data-file", nargs="?", type=str)
 
-    SPIDER_CLASS = OccitanieSpider
+    def handle(self, *args, **options):
+        DATA_SOURCE.date_last_access = timezone.now()
+        DATA_SOURCE.save()
+        super().handle(*args, **options)
 
-    def populate_cache(self, *args, **options):
-        self.occitanie_perimeter = (
-            Perimeter.objects.filter(scale=Perimeter.SCALES.region)
-            .filter(code=OCCITANIE_PERIMETER_CODE)
-            .get()
-        )
-        self.occitanie_financer = Backer.objects.get(id=OCCITANIE_FINANCER_ID)
+    def fetch_data(self, **options):
+        if options["data-file"]:
+            data_file = os.path.abspath(options["data-file"])
+            data = json.load(open(data_file))
+            self.stdout.write("Total number of aids: {}".format(len(data["records"])))
+            for line in data["records"]:
+                yield line
+        else:
+            headers = {
+                "accept": "application/json",
+                "content-type": "application/json",
+            }
+            req = requests.get(DATA_SOURCE.import_api_url, headers=headers)
+            data = req.json()
+            self.stdout.write("Total number of aids: {}".format(len(data["records"])))
+            for line in data["records"]:
+                yield line
 
     def line_should_be_processed(self, line):
-        """Ignore data older than 1 year.
+        return True
 
-        Since the data file contains all aids that ever existed on the
-        platform, and there is no way to filter it with *active* aids,
-        we are forced to rely on a dummy euristic to not import more than 750
-        new entries, and ignore all data that was last updated more than one
-        year age.
+    def extract_import_data_source(self, line):
+        return DATA_SOURCE
 
-        There is also a "Type" field which only values (AFAIK) can be:
-         - Aides
-         - Appels à projets
-         - Budgets participatifs
-        …or empty
-
-        So we filter out lines with an empty `type` field.
-
-        """
-
-        line_type = line["type"]
-        date_updated = line["date_updated"]
-        now = datetime.now()
-        delta = now - date_updated
-        return line_type is not None and delta.days < IGNORE_OLDER_THAN
+    def extract_import_data_mention(self, line):
+        return "Ces données sont mises à disposition par la Région Occitanie."
 
     def extract_import_uniqueid(self, line):
-        unique_id = "OCCITANIE_{}".format(line["uniqueid"])
+        unique_id = "OCCITANIE__{}".format(line["recordid"])
         return unique_id
 
     def extract_import_data_url(self, line):
-        return OPENDATA_URL
+        return DATA_SOURCE.import_data_url
 
     def extract_import_share_licence(self, line):
-        return IMPORT_LICENCES.openlicence20
+        return DATA_SOURCE.import_licence or IMPORT_LICENCES.unknown
+
+    def extract_import_raw_object_calendar(self, line):
+        import_raw_object_calendar = {}
+        return import_raw_object_calendar
+
+    def extract_import_raw_object(self, line):
+        import_raw_object = dict(line)
+        return import_raw_object
+
+    def extract_author_id(self, line):
+        return DATA_SOURCE.aid_author_id
+
+    def extract_financers(self, line):
+        return [DATA_SOURCE.backer]
 
     def extract_name(self, line):
-        title = line["title"]
+        title = line["fields"]["titre"]
+        str_to_find = '<span class="titre_surligne">Appels à projets</span>'
+        str_to_find_span_1 = '<span class="titre_surligne">'
+        str_to_find_span_2 = "</span>"
+        if str_to_find in title:
+            title = str(title.partition(str_to_find)[2])
+        elif str_to_find_span_1 in title:
+            title = title.replace(str_to_find_span_1, "")
+            title = title.replace(str_to_find_span_2, "")
+        title = title[:180]
+        return title
+
+    def extract_name_initial(self, line):
+        title = line["fields"]["titre"]
+        str_to_find = '<span class="titre_surligne">Appels à projets</span>'
+        str_to_find_span_1 = '<span class="titre_surligne">'
+        str_to_find_span_2 = "</span>"
+        if str_to_find in title:
+            title = str(title.partition(str_to_find)[2])
+        elif str_to_find_span_1 in title:
+            title = title.replace(str_to_find_span_1, "")
+            title = title.replace(str_to_find_span_2, "")
+        title = title[:180]
         return title
 
     def extract_description(self, line):
-        description = line["description"]
+        description = ""
+        description += content_prettify(line["fields"].get("chapo", ""))
+        description += content_prettify(line["fields"].get("introduction", ""))
         return description
 
     def extract_origin_url(self, line):
-        details_url = line["url"]
-        return details_url
-
-    def extract_eligibility(self, line):
-        return ELIGIBILITY_TXT
-
-    def extract_perimeter(self, line):
-        return self.occitanie_perimeter
-
-    def extract_financers(self, line):
-        return [self.occitanie_financer]
-
-    # def extract_tags(self, line):
-    #     thematique = line['thematique']
-    #     tags = thematique.split(', ') if thematique else None
-    #     return tags
+        return line["fields"]["url"]
 
     def extract_is_call_for_project(self, line):
-        type = line["type"]
-        if type:
-            is_call_for_project = type == "Appels à projets"
+        if line["fields"].get("type", "") == "Appels à projets":
+            return True
         else:
-            is_call_for_project = super().extract_is_call_for_project(line)
-        return is_call_for_project
+            return False
+
+    def extract_perimeter(self, line):
+        return DATA_SOURCE.perimeter
+
+    def extract_categories(self, line):
+        """
+        Exemple of string to process: "Culture, Environnement - Climat, Citoyenneté et démocratie"
+        Split the string, loop on the values and match to our Categories
+        """
+        categories = line["fields"].get("thematiques", "").split(",")
+        title = line["fields"]["titre"][:180]
+        aid_categories = []
+        if categories != [""]:
+            for category in categories:
+                if category in CATEGORIES_DICT:
+                    aid_categories.extend(CATEGORIES_DICT.get(category, []))
+                else:
+                    print(f"{title} - {category}")
+        else:
+            print(f"{title} - {categories}")
+        return aid_categories
+
+    def extract_contact(self, line):
+        contact = """Pour contacter la Région Occitanie ou candidater à l'offre, veuillez cliquer
+         sur le bouton 'Plus d'informations' ou sur le bouton 'Candidater à l'aide'."""
+        return contact
