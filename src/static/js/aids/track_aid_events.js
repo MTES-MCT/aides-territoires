@@ -30,7 +30,7 @@
         });
     };
 
-    exports.applicationUrlCTA = function(ApplicationUrlBtn, aid_slug, prepopulate_application_url=None, organization=None, ds_folder_url=None, ds_folder_id=None, ds_folder_number=None) {
+    exports.applicationUrlCTA = function(ApplicationUrlBtn, aid_slug) {
 
         ApplicationUrlBtn.click(function() {
 
@@ -54,10 +54,11 @@
 
             // if application_url is a link to a prepopulate Démarches-Simplifiées folder
             // create a AidCreateDSFolderEvent
-            if(PREPOPULATE_APPLICATION_URL) {
+            if (PREPOPULATE_APPLICATION_URL) {
                 let statsData2 = JSON.stringify({
                     aid: AID_ID,
                     organization:ORGANIZATION,
+                    user:USER,
                     ds_folder_url:DS_FOLDER_URL,
                     ds_folder_id:DS_FOLDER_ID,
                     ds_folder_number:DS_FOLDER_NUMBER,
@@ -95,7 +96,7 @@ $(document).ready(function () {
 
     // Track clicks on "application_url" & "origin_url" buttons
     originUrlCTA(OriginUrlBtn, AID_SLUG);
-    applicationUrlCTA(ApplicationUrlBtn, AID_SLUG, PREPOPULATE_APPLICATION_URL, ORGANIZATION, DS_FOLDER_URL, DS_FOLDER_ID, DS_FOLDER_NUMBER);
+    applicationUrlCTA(ApplicationUrlBtn, AID_SLUG);
 
     // Track clicks on outlinks
     let links = dataDiv.find('a');
