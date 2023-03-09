@@ -13,6 +13,7 @@ from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import content_prettify, mapping_categories
 from dataproviders.management.commands.base import BaseImportCommand
 from aids.models import Aid
+from programs.models import Program
 
 
 ADMIN_ID = 1
@@ -120,8 +121,22 @@ class Command(BaseImportCommand):
     def extract_import_share_licence(self, line):
         return DATA_SOURCE.import_licence or IMPORT_LICENCES.unknown
 
+    def extract_import_raw_object_calendar(self, line):
+        import_raw_object_calendar = {}
+        if line.get("pro_fin", None) != None:
+            import_raw_object_calendar["pro_fin"] = line["pro_fin"]
+        if line.get("post_date", None) != None:
+            import_raw_object_calendar["post_date"] = line["post_date"]
+        return import_raw_object_calendar
+
     def extract_import_raw_object(self, line):
-        return line
+        import_raw_object = dict(line)
+        if line.get("pro_fin", None) != None:
+            import_raw_object.pop("pro_fin")
+        if line.get("post_date", None) != None:
+            import_raw_object.pop("post_date")
+
+        return import_raw_object
 
     def extract_author_id(self, line):
         return DATA_SOURCE.aid_author_id or ADMIN_ID
@@ -158,6 +173,26 @@ class Command(BaseImportCommand):
                 )
                 # self.stdout.write(self.style.ERROR(f'{audience_name}'))
         return aid_audiences
+
+    def extract_programs(self, line):
+        """
+        Source format: list of ints
+        Get the objects, loop on the values and match to our AUDIENCES
+        Exemple of string to process:
+        "FEDER - Fonds européen de développement régional"
+        They use AT's program names, minus the EU flag emoji (🇪🇺)
+        some of our programs names have
+        """
+        programs = line.get("gui_programme_aides", [])
+        aid_programs = []
+        if programs != [""]:
+            for program in programs:
+                at_program = Program.objects.filter(name__contains=program).first()
+
+                if at_program:
+                    aid_programs.append(at_program)
+
+        return aid_programs
 
     def extract_categories(self, line):
         """
