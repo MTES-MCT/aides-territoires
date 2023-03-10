@@ -6,14 +6,11 @@ import requests
 from datetime import datetime
 
 from django.utils import timezone
-from django.utils.text import slugify
 
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import content_prettify, mapping_categories
 from dataproviders.management.commands.base import BaseImportCommand
-from geofr.models import Perimeter
-from backers.models import Backer
 from aids.models import Aid
 
 
@@ -162,16 +159,14 @@ class Command(BaseImportCommand):
             import_raw_object_calendar["date_de_debut"] = line["date_de_debut"]
         if line.get("date_de_fin", None) != None:
             import_raw_object_calendar["date_de_fin"] = line["date_de_fin"]
-
         return import_raw_object_calendar
 
     def extract_import_raw_object(self, line):
         if line.get("temporalite", None) != None:
             line.pop("temporalite")
-        if line.get("date_de_debut", None) == "Temporaire":
+        if line.get("date_de_debut", None) != None:
             line.pop("date_de_debut")
-            line.pop("date_de_fin")
-        if line.get("date_de_fin", None) == "Temporaire":
+        if line.get("date_de_fin", None) != None:
             line.pop("date_de_fin")
         return line
 
@@ -246,18 +241,31 @@ class Command(BaseImportCommand):
         if line.get("temporalite", None):
             recurrence = RECURRENCE_DICT.get(line["temporalite"], None)
             return recurrence
-        return None
+        else:
+            return ""
 
     def extract_start_date(self, line):
         if line.get("date_de_debut", None):
-            start_date = datetime.strptime(line["date_de_debut"], "%d/%m/%Y")
+            try:
+                start_date = datetime.strptime(line["date_de_debut"], "%d/%m/%Y")
+            except Exception:
+                try:
+                    start_date = datetime.strptime(line["date_de_debut"], "%Y-%m-%d")
+                except Exception:
+                    start_date = None
             return start_date
 
     def extract_submission_deadline(self, line):
         if line.get("date_de_fin", None):
-            submission_deadline = datetime.strptime(
-                line["date_de_fin"], "%d/%m/%Y"
-            ).date()
+            try:
+                submission_deadline = datetime.strptime(line["date_de_fin"], "%d/%m/%Y")
+            except Exception:
+                try:
+                    submission_deadline = datetime.strptime(
+                        line["date_de_fin"], "%Y-%d-%m"
+                    )
+                except Exception:
+                    submission_deadline = None
             return submission_deadline
 
     # def extract_subvention_comment(self, line):
