@@ -111,17 +111,7 @@ class Command(BaseImportCommand):
         return title
 
     def extract_name_initial(self, line):
-        title = line["fields"]["titre"]
-        str_to_find = '<span class="titre_surligne">Appels à projets</span>'
-        str_to_find_span_1 = '<span class="titre_surligne">'
-        str_to_find_span_2 = "</span>"
-        if str_to_find in title:
-            title = str(title.partition(str_to_find)[2])
-        elif str_to_find_span_1 in title:
-            title = title.replace(str_to_find_span_1, "")
-            title = title.replace(str_to_find_span_2, "")
-        title = title[:180]
-        return title
+        return self.extract_name(line)
 
     def extract_description(self, line):
         description = ""
