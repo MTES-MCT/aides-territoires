@@ -41,7 +41,7 @@
                     <h1>{{ backer.name }}</h1>
                 </div>
                 <div class="fr-col-12 fr-col-md-3">
-                    <img src="{{ backer.logo.url }}" alt="logo du porteur {{ backer.name }}">
+                    <img src="{{ backer.logo.url }}" alt="logo du porteur {{ backer.name }}" class="fr-responsive-img">
                 </div>
             </div>
             {% else %}
@@ -49,23 +49,24 @@
             {% endif %}
         </div> 
 
-        <div class="fr-grid-row fr-grid-row-md--gutters at--space-between fr-mb-5w">
+        <div class="fr-grid-row fr-grid-row--gutters at--space-between">
+            {% if backer.perimeter %}
+            <div class="fr-col-12 at-background-alt-grey fr-pt-5w fr-px-5w">
+                <h2 class="fr-mt-1w">Zone géographique couverte</h2>
+                <p class="fr-mb-0">{{ backer.perimeter }}</p>
+            </div>
+            {% endif %}
             {% if backer.description %}
-                <div class="fr-col-md-8 at-background-alt-grey fr-px-5w"">
+                <div class="fr-col-12 at-background-alt-grey fr-mb-5w fr-p-5w">
                     <h2 class="fr-mt-1w">Présentation générale</h2>
                     {{ backer.description|safe }}
                 </div>
             {% endif %}
-            {% if backer.perimeter %}
-                <div class="fr-col-md-3 at-background-alt-grey fr-px-5w">
-                    <h2 class="fr-mt-1w">Zone géographique couverte</h2>
-                    <p>{{ backer.perimeter }}</p>
-                </div>
-            {% endif %}
         </div>
+
         <div class="fr-grid-row fr-grid-row--gutters at--space-between">
             {% if aids %}
-                <div class="fr-col-md-8 at-background-alt-grey">
+                <div class="fr-col-12 fr-col-md-8 at-background-alt-grey">
                     <h2 class="fr-mt-1w">Aides</h2>
                     <div>
                         {% include "../aids/_aid_result_as_list.html" with aids=aids%}
@@ -73,7 +74,7 @@
                     </div>
                 </div>
 
-                <div class="fr-col-md-3 at-background-alt-grey fr-px-5w">
+                <div class="fr-col-12 fr-col-md-3 at-background-alt-grey fr-px-5w">
                     <div>
                         <h2 class="fr-mt-1w">Thématiques</h2>
                         {% regroup categories by theme as theme_list %}
