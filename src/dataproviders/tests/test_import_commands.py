@@ -48,6 +48,9 @@ class ImportStub(BaseImportCommand):
     def extract_description(self, line):
         return line.description
 
+    def extract_destinations(self, line):
+        return line.destinations
+
     def extract_eligibility(self, line):
         return line.eligibility
 
@@ -144,9 +147,7 @@ def test_import_aids_from_ile_de_france(perimeters):
 
 
 def test_import_aids_from_welcom_europe(perimeters):
-    DataSourceFactory(
-        name="WelcomEurope", perimeter=perimeters["france"], id=7
-    )
+    DataSourceFactory(name="WelcomEurope", perimeter=perimeters["france"], id=7)
 
     aids = Aid.objects.all()
     assert aids.count() == 0

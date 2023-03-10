@@ -73,10 +73,19 @@ class Command(BaseImportCommand):
     """
     Import data from the Grand Est API.
     219 aids as of May 2021
+    265 aids as of March 2023
 
     Usage:
     python manage.py import_grand_est_api
     python manage.py import_grand_est_api grand-est.json
+
+    Note:
+    If your access to the json file is only accessible through an IPv4
+    connection, there is a shell script to force this:
+
+    sh scripts/dataproviders/grand_est_download_json.sh
+    python manage.py import_grand_est_api /tmp/aides-regionales.json
+
     """
 
     def add_arguments(self, parser):
@@ -155,6 +164,21 @@ class Command(BaseImportCommand):
         description = content_prettify(line.get("post_content", ""))
         # description = desc_1 + desc_2
         return description
+
+    def extract_destinations(self, line):
+        """
+        Source format: list of strings
+        These strings match our values from Aid.DESTINATIONS, so we just have
+        to revert the dict to get the key
+        """
+        DESTINATIONS_DICT = {v: k for k, v in dict(Aid.DESTINATIONS).items()}
+        aid_destinations = []
+
+        destinations = line.get("gui_actions_concernees", [])
+        for destination in destinations:
+            aid_destinations.append(DESTINATIONS_DICT[destination])
+
+        return aid_destinations
 
     def extract_targeted_audiences(self, line):
         """
