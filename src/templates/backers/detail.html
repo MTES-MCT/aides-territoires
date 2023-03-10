@@ -33,66 +33,80 @@
 
 {% block content %}
 <article id="backer" class="fr-container fr-mb-5w fr-pb-5w">
-    <div class="fr-grid-row fr-grid-row--center">
-        <section id="backer-content" class="fr-col-md-10">
-
-            <div id="backer-title">
-                {% if backer.logo %}
-                <div class="fr-grid-row fr-grid-row--middle">
-                    <div class="fr-col-12 fr-col-md-9">
-                        <h1>{{ backer.name }}</h1>
-                    </div>
-                    <div class="fr-col-12 fr-col-md-3">
-                        <img src="{{ backer.logo.url }}" class="fr-responsive-img" alt="logo du porteur {{ backer.name }}">
-                    </div>
-                </div>
-                {% else %}
+    <section id="backer-content" class="fr-col-md-12">
+        <div id="backer-title" class="fr-mb-5w">
+            {% if backer.logo %}
+            <div class="fr-grid-row fr-grid-row--gutters  at--space-between">
+                <div class="fr-col-12 fr-col-md-8">
                     <h1>{{ backer.name }}</h1>
-                {% endif %}
-            </div> 
-    
-            {% if backer.description %}
-                <div>
-                    <h2>Présentation générale</h2>
-                    {{ backer.description|safe }}
                 </div>
-            {% endif %}   
-    
-            {% if aids %}
-            <div>
-                <h2>Thématiques associées</h2>
-                {% regroup categories by theme as theme_list %}
-                <ul class="backer-categories">
-                    {% for theme in theme_list %}
-                        <li class="theme">
-                            <strong>
-                            {{ theme.grouper }}
-                            </strong>
-                            <ul>
-                            {% for category in theme.list %}
-                                <li class="category">{{ category.name }}</li>
-                            {% endfor %}
-                            </ul>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            
-            {% if programs %}
-            <div>
-                <h2>Programmes associés</h2>
-                <div id="program-logo" class="fr-grid-row fr-grid-row--middle">
-                {% for program in programs %}
-                    <a href="{% url 'program_detail' program.slug %}" class="fr-col fr-col-md-3" title="{{ program.name }}">
-                        <img src="{{ program.logo.url }}" alt="" class="fr-responsive-img">
-                    </a>
-                {% endfor %}
+                <div class="fr-col-12 fr-col-md-3">
+                    <img src="{{ backer.logo.url }}" alt="logo du porteur {{ backer.name }}" class="fr-responsive-img">
                 </div>
             </div>
+            {% else %}
+                <h1>{{ backer.name }}</h1>
             {% endif %}
-                
-        </section>    
-    </div>
+        </div> 
+
+        <div class="fr-grid-row fr-grid-row--gutters at--space-between">
+            {% if backer.perimeter %}
+            <div class="fr-col-12 at-background-alt-grey fr-pt-5w fr-px-5w">
+                <h2 class="fr-mt-1w">Zone géographique couverte</h2>
+                <p class="fr-mb-0">{{ backer.perimeter }}</p>
+            </div>
+            {% endif %}
+            {% if backer.description %}
+                <div class="fr-col-12 at-background-alt-grey fr-mb-5w fr-p-5w">
+                    <h2 class="fr-mt-1w">Présentation générale</h2>
+                    {{ backer.description|safe }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="fr-grid-row fr-grid-row--gutters at--space-between">
+            {% if aids %}
+                <div class="fr-col-12 fr-col-md-8 at-background-alt-grey">
+                    <h2 class="fr-mt-1w">Aides</h2>
+                    <div>
+                        {% include "../aids/_aid_result_as_list.html" with aids=aids%}
+                        {% include '_pagination.html' %}
+                    </div>
+                </div>
+
+                <div class="fr-col-12 fr-col-md-3 at-background-alt-grey fr-px-5w">
+                    <div>
+                        <h2 class="fr-mt-1w">Thématiques</h2>
+                        {% regroup categories by theme as theme_list %}
+                        <div class="backer-categories">
+                            {% for theme in theme_list %}
+                                <div class="theme fr-mt-1w">
+                                    <p>
+                                        <strong>{{ theme.grouper }}</strong>
+                                    </p>
+                                    <div class="fr-tags-group">
+                                    {% for category in theme.list %}
+                                        <p class="fr-tag">{{ category.name }}</p>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% if programs %}
+                        <div>
+                            <h2>Programmes</h2>
+                            <div class="fr-tags-group">
+                                {% for program in programs %}
+                                    <p class="fr-tag">{{ program.name|safe }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </section>    
 </article>
 {% endblock %}
 
