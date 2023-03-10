@@ -103,6 +103,13 @@ class AidCreateDSFolderEvent(models.Model):
         null=True,
         blank=True,
     )
+    user = models.ForeignKey(
+        "accounts.User",
+        verbose_name="Utilisateur",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
     ds_folder_url = models.URLField(
         "Url du dossier", max_length=500, blank=False, null=False
     )
