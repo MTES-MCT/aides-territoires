@@ -18,11 +18,11 @@
     {% for faq_category in faq_categories_list %}
     <div class="fr-accordion">
         <h3 class="fr-accordion__title fr-grid-row">
-            <button type="button" class="fr-accordion__btn fr-col-md-12" aria-expanded="false" aria-controls="{{ faq_category.grouper }}">
+            <button type="button" class="fr-accordion__btn fr-col-md-12 at-background-alt-green" aria-expanded="false" aria-controls="{{ faq_category.grouper|slugify }}">
                 {{ faq_category.grouper }}
             </button>
         </h3>
-        <div id="{{ faq_category.grouper }}" class="fr-collapse">
+        <div id="{{ faq_category.grouper|slugify }}" class="fr-collapse">
             <div class="fr-accordions-group">
                 {% for faq_question_answer in faq_category.list %}
                 <div class="fr-accordion">
