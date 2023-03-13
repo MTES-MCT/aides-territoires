@@ -18,7 +18,7 @@
     {% for faq_category in faq_categories_list %}
     <div class="fr-accordion">
         <h3 class="fr-accordion__title fr-grid-row">
-            <button type="button" class="fr-accordion__btn fr-col-md-12 at-background-alt-green" aria-expanded="false" aria-controls="{{ faq_category.grouper|slugify }}">
+            <button type="button" class="fr-accordion__btn fr-col-md-12 fr-background-alt" aria-expanded="false" aria-controls="{{ faq_category.grouper|slugify }}">
                 {{ faq_category.grouper }}
             </button>
         </h3>
