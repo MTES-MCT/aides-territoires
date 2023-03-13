@@ -73,7 +73,7 @@
         function on(event, selector, callback) {
           $chart.addEventListener(event, function (e) {
             if (!selector || hasClass(e.target, selector))
-            callback(e);
+              callback(e);
           });
         }
 
@@ -85,7 +85,7 @@
           var seriesName = (isPieChart) ? $point.parentNode.getAttribute('ct:meta') || $point.parentNode.getAttribute('ct:series-name') : '';
           var meta = $point.getAttribute('ct:meta') || seriesName || '';
           var hasMeta = !!meta;
-          var value = $point.getAttribute('ct:value');
+          var value = $point.getAttribute('ct:value').replace(/[^a-zA-Z0-9 ]/g, "");
 
           if (options.transformTooltipTextFnc && typeof options.transformTooltipTextFnc === 'function') {
             value = options.transformTooltipTextFnc(value);
@@ -131,7 +131,7 @@
             }
           }
 
-          if(tooltipText) {
+          if (tooltipText) {
             $toolTip.innerHTML = tooltipText;
             setPosition(event);
             show($toolTip);
@@ -148,7 +148,7 @@
 
         on('mousemove', null, function (event) {
           if (false === options.anchorToPoint)
-          setPosition(event);
+            setPosition(event);
         });
 
         function setPosition(event) {
@@ -160,8 +160,8 @@
 
           if (!options.appendToBody) {
             var box = $chart.getBoundingClientRect();
-            var left = event.pageX - box.left - window.pageXOffset ;
-            var top = event.pageY - box.top - window.pageYOffset ;
+            var left = event.pageX - box.left - window.pageXOffset;
+            var top = event.pageY - box.top - window.pageYOffset;
 
             if (true === options.anchorToPoint && event.target.x2 && event.target.y2) {
               anchorX = parseInt(event.target.x2.baseVal.value);
@@ -179,7 +179,7 @@
     };
 
     function show(element) {
-      if(!hasClass(element, 'tooltip-show')) {
+      if (!hasClass(element, 'tooltip-show')) {
         element.className = element.className + ' tooltip-show';
       }
     }
@@ -204,7 +204,7 @@
       return element.innerText || element.textContent;
     }
 
-  } (window, document, Chartist));
+  }(window, document, Chartist));
 
   return Chartist.plugins.tooltip;
 
