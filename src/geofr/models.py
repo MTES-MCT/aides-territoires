@@ -10,6 +10,7 @@ from django.contrib.postgres.indexes import GinIndex
 from model_utils import Choices
 
 from core.utils import remove_accents
+from geofr.services.validators import validate_siren
 
 
 class PerimeterQuerySet(models.QuerySet):
@@ -128,6 +129,23 @@ class Perimeter(models.Model):
         help_text="Usage interne uniquement, non pertinent pour les périmètres Ad-hoc.",
     )
 
+    insee = models.CharField(
+        "code Insee",
+        max_length=5,
+        help_text="Identifiant officiel défini dans le Code officiel géographique",
+        blank=True,
+        null=True,
+    )
+
+    siren = models.CharField(
+        "numéro Siren",
+        max_length=9,
+        help_text="Identifiant officiel défini dans la base SIREN",
+        validators=[validate_siren],
+        blank=True,
+        null=True,
+    )
+
     contained_in = models.ManyToManyField(
         "geofr.Perimeter",
         verbose_name="Contenu dans",
@@ -175,7 +193,7 @@ class Perimeter(models.Model):
 
     population = models.PositiveIntegerField(
         verbose_name="population", null=True, blank=True
-    )  # Sourced from Banatic
+    )
 
     # Location, stored as floats to avoid using GeoDjango
     # and its many dependencies

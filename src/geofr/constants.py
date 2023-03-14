@@ -22,7 +22,21 @@ REGIONS = (
 REGIONS_WITH_CODES = ((code, "{} – {}".format(code, name)) for code, name in REGIONS)
 
 
-OVERSEAS_REGIONS = ("01", "02", "03", "04", "06")
+OVERSEAS_REGIONS = (
+    "01",
+    "02",
+    "03",
+    "04",
+    "06",
+    "975",
+    "977",
+    "978",
+    "984",
+    "986",
+    "987",
+    "988",
+    "989",
+)
 
 DEPARTMENTS = (
     ("01", "Ain"),
