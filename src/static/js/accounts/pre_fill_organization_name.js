@@ -60,11 +60,23 @@
 })(this);
 
 $(document).ready(function () {
+    /* Only call the preFillOrganizationName() function if
+     - the name field is empty
+     - one of the fields used to determine it is changed
+    */
     let organizationForm = $('#register-form, #create-organization-form, #update-organization-form');
+    let organizationNameField = $("#id_name");
 
-    preFillOrganizationName(organizationForm);
-
-    organizationForm.on('change', function () {
+    if (organizationNameField == "") {
         preFillOrganizationName(organizationForm);
+    }
+
+    organizationForm.find(":input").on('change', function () {
+        let fieldID = $(this).attr('id');
+
+        if (["id_organization_type", "id_perimeter", "id_intercommunality_type"].includes(fieldID)) {
+            preFillOrganizationName(organizationForm);
+        }
+
     });
 });
