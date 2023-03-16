@@ -752,3 +752,10 @@ def test_user_deletion_form_can_only_reattribute_aids_to_org_members(
     aid_to_transfer.refresh_from_db()
 
     assert res.status_code == 404
+
+
+def test_anonymous_cannot_subscribe_to_newsletter(client):
+    subscribe_newsletter_url = reverse("subscribe_newsletter")
+    res = client.get(subscribe_newsletter_url)
+    assert res.status_code == 302
+    assert res.url == "/comptes/inscription/?next=/comptes/inscription-newsletter/"

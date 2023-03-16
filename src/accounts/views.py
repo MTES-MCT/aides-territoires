@@ -334,7 +334,7 @@ class UserApiTokenView(ContributorAndProfileCompleteRequiredMixin, TemplateView)
     template_name = "accounts/user_api_token.html"
 
 
-class SubscribeNewsletter(View):
+class SubscribeNewsletter(ContributorAndProfileCompleteRequiredMixin, View):
     def get(self, request):
         """
         Here we want to allow user to subscribe to the newsletter.
