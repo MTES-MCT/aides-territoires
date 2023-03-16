@@ -3,7 +3,7 @@ import requests
 from django.utils import timezone
 from django.db import transaction
 
-from geofr.constants import OVERSEAS_REGIONS
+from geofr.constants import OVERSEAS_REGIONS, OVERSEAS_COLLECTIVITIES
 from geofr.models import Perimeter, PerimeterData
 
 
@@ -86,41 +86,47 @@ def populate_regions() -> dict:
     nb_updated = 0
 
     for entry in data:
+        insee_code = entry["code"]
+        if insee_code not in OVERSEAS_COLLECTIVITIES:
 
-        # Create or update the region perimeters
-        region, created = Perimeter.objects.update_or_create(
-            scale=Perimeter.SCALES.region,
-            code=entry["code"],
-            defaults={
-                "name": entry["nom"],
-                "is_overseas": (entry["code"] in OVERSEAS_REGIONS),
-                "insee": entry["code"],
-            },
-        )
-        if created:
-            nb_created += 1
-        else:
-            nb_updated += 1
+            # Create or update the region perimeters
+            region, created = Perimeter.objects.update_or_create(
+                scale=Perimeter.SCALES.region,
+                code=insee_code,
+                defaults={
+                    "name": entry["nom"],
+                    "is_overseas": (insee_code in OVERSEAS_REGIONS),
+                    "insee": insee_code,
+                },
+            )
+            if created:
+                nb_created += 1
+            else:
+                nb_updated += 1
 
-        perimeter_links.append(
-            PerimeterContainedIn(from_perimeter_id=region.id, to_perimeter_id=europe.id)
-        )
-        perimeter_links.append(
-            PerimeterContainedIn(from_perimeter_id=region.id, to_perimeter_id=france.id)
-        )
+            perimeter_links.append(
+                PerimeterContainedIn(
+                    from_perimeter_id=region.id, to_perimeter_id=europe.id
+                )
+            )
+            perimeter_links.append(
+                PerimeterContainedIn(
+                    from_perimeter_id=region.id, to_perimeter_id=france.id
+                )
+            )
 
-        # Add metadata
-        _tl_item, _tl_created = PerimeterData.objects.update_or_create(
-            perimeter=region,
-            prop="type_liaison",
-            defaults={"value": entry["typeLiaison"]},
-        )
+            # Add metadata
+            _tl_item, _tl_created = PerimeterData.objects.update_or_create(
+                perimeter=region,
+                prop="type_liaison",
+                defaults={"value": entry["typeLiaison"]},
+            )
 
-        _cl_item, _cl_created = PerimeterData.objects.update_or_create(
-            perimeter=region,
-            prop="chef_lieu",
-            defaults={"value": entry["chefLieu"]},
-        )
+            _cl_item, _cl_created = PerimeterData.objects.update_or_create(
+                perimeter=region,
+                prop="chef_lieu",
+                defaults={"value": entry["chefLieu"]},
+            )
 
     # Create the links between the regions and France / Europe
     PerimeterContainedIn.objects.bulk_create(perimeter_links, ignore_conflicts=True)
@@ -149,51 +155,53 @@ def populate_departments() -> dict:
     nb_updated = 0
 
     for entry in data:
-        department, created = Perimeter.objects.update_or_create(
-            scale=Perimeter.SCALES.department,
-            code=entry["code"],
-            defaults={
-                "name": entry["nom"],
-                "regions": [entry["region"]],
-                "is_overseas": (entry["region"] in OVERSEAS_REGIONS),
-                "insee": entry["code"],
-            },
-        )
-        if created:
-            nb_created += 1
-        else:
-            nb_updated += 1
+        insee_code = entry["code"]
+        if insee_code not in OVERSEAS_COLLECTIVITIES:
+            department, created = Perimeter.objects.update_or_create(
+                scale=Perimeter.SCALES.department,
+                code=insee_code,
+                defaults={
+                    "name": entry["nom"],
+                    "regions": [entry["region"]],
+                    "is_overseas": (entry["region"] in OVERSEAS_REGIONS),
+                    "insee": insee_code,
+                },
+            )
+            if created:
+                nb_created += 1
+            else:
+                nb_updated += 1
 
-        perimeter_links.append(
-            PerimeterContainedIn(
-                from_perimeter_id=department.id, to_perimeter_id=europe.id
-            )
-        )
-        perimeter_links.append(
-            PerimeterContainedIn(
-                from_perimeter_id=department.id, to_perimeter_id=france.id
-            )
-        )
-        for region_code in department.regions:
             perimeter_links.append(
                 PerimeterContainedIn(
-                    from_perimeter_id=department.id,
-                    to_perimeter_id=regions[region_code],
+                    from_perimeter_id=department.id, to_perimeter_id=europe.id
                 )
             )
+            perimeter_links.append(
+                PerimeterContainedIn(
+                    from_perimeter_id=department.id, to_perimeter_id=france.id
+                )
+            )
+            for region_code in department.regions:
+                perimeter_links.append(
+                    PerimeterContainedIn(
+                        from_perimeter_id=department.id,
+                        to_perimeter_id=regions[region_code],
+                    )
+                )
 
-        # Add metadata
-        _tl_item, _tl_created = PerimeterData.objects.update_or_create(
-            perimeter=department,
-            prop="type_liaison",
-            defaults={"value": entry["typeLiaison"]},
-        )
+            # Add metadata
+            _tl_item, _tl_created = PerimeterData.objects.update_or_create(
+                perimeter=department,
+                prop="type_liaison",
+                defaults={"value": entry["typeLiaison"]},
+            )
 
-        _cl_item, _cl_created = PerimeterData.objects.update_or_create(
-            perimeter=department,
-            prop="chef_lieu",
-            defaults={"value": entry["chefLieu"]},
-        )
+            _cl_item, _cl_created = PerimeterData.objects.update_or_create(
+                perimeter=department,
+                prop="chef_lieu",
+                defaults={"value": entry["chefLieu"]},
+            )
 
     # Create the links between the regions and France / Europe
     PerimeterContainedIn.objects.bulk_create(perimeter_links, ignore_conflicts=True)

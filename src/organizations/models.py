@@ -9,6 +9,7 @@ from geofr.utils import get_all_related_perimeters
 from organizations.constants import (
     INTERCOMMUNALITY_TYPES,
     ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES,
+    POPULATION_STRATAS,
 )
 
 
@@ -198,6 +199,14 @@ class Organization(models.Model):
         blank=True,
     )
 
+    population_strata = models.CharField(
+        verbose_name="Strate démographique",
+        max_length=15,
+        choices=POPULATION_STRATAS,
+        null=True,
+        blank=True,
+    )
+
     date_created = models.DateTimeField("Date de création", default=timezone.now)
     date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
 
@@ -243,7 +252,47 @@ class Organization(models.Model):
             self.perimeter_region = region
             self.perimeter_department = department
 
+    def set_population(self):
+        """Set the population value for municipalities if it is missing"""
+        """Also set the strata value"""
+        if self.perimeter and self.perimeter.scale == Perimeter.SCALES.commune:
+            if not self.inhabitants_number:
+                self.inhabitants_number = self.perimeter.population
+
+            if self.inhabitants_number is not None:
+                if self.inhabitants_number < 500:
+                    self.population_strata = "500-"
+                elif self.inhabitants_number < 1000:
+                    self.population_strata = "500_599"
+                elif self.inhabitants_number < 2000:
+                    self.population_strata = "1000_1999"
+                elif self.inhabitants_number < 3500:
+                    self.population_strata = "2000_3499"
+                elif self.inhabitants_number < 5000:
+                    self.population_strata = "3500_4999"
+                elif self.inhabitants_number < 7500:
+                    self.population_strata = "5000_7499"
+                elif self.inhabitants_number < 10000:
+                    self.population_strata = "7500_9999"
+                elif self.inhabitants_number < 15000:
+                    self.population_strata = "10000_14999"
+                elif self.inhabitants_number < 20000:
+                    self.population_strata = "15000_19999"
+                elif self.inhabitants_number < 35000:
+                    self.population_strata = "20000_34999"
+                elif self.inhabitants_number < 50000:
+                    self.population_strata = "35000_49999"
+                elif self.inhabitants_number < 75000:
+                    self.population_strata = "50000_74999"
+                elif self.inhabitants_number < 100000:
+                    self.population_strata = "75000_99999"
+                elif self.inhabitants_number < 200000:
+                    self.population_strata = "100000_199999"
+                else:
+                    self.population_strata = "200000+"
+
     def save(self, *args, **kwargs):
         self.set_slug()
         self.set_perimeters()
+        self.set_population()
         return super().save(*args, **kwargs)

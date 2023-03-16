@@ -22,12 +22,9 @@ REGIONS = (
 REGIONS_WITH_CODES = ((code, "{} – {}".format(code, name)) for code, name in REGIONS)
 
 
-OVERSEAS_REGIONS = (
-    "01",
-    "02",
-    "03",
-    "04",
-    "06",
+OVERSEAS_REGIONS = ("01", "02", "03", "04", "06")
+
+OVERSEAS_COLLECTIVITIES = (
     "975",
     "977",
     "978",
