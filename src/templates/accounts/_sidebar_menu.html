@@ -63,6 +63,11 @@
                             <li class="fr-sidemenu__item {% if structure_info %}fr-sidemenu__item--active{% endif %}">
                                 <a class="fr-sidemenu__link" href="{% url 'organization_update_view' user.beneficiary_organization.pk %}" target="_self" {% if structure_info %}aria-current="page"{% endif %} rel="noopener">Informations</a>
                             </li>
+                                {% if user.beneficiary_organization.organization_type.0 in '["commune", "epci", "department", "region"]' %}
+                                <li class="fr-sidemenu__item {% if data_info %}fr-sidemenu__item--active{% endif %}">
+                                    <a class="fr-sidemenu__link" href="{% url 'organization_data_view' user.beneficiary_organization.pk %}" target="_self" {% if data_info %}aria-current="page"{% endif %} rel="noopener">Données clés</a>
+                                </li>
+                                {% endif %}
                             {% endif %}
                             <li class="fr-sidemenu__item {% if structure_collab %}fr-sidemenu__item--active{% endif %}">
                                 <a class="fr-sidemenu__link" href="{% url 'collaborators' %}" target="_self" {% if structure_collab %}aria-current="page"{% endif %} rel="noopener">Collaborateurs</a>
