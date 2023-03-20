@@ -45,6 +45,9 @@ class Organization(models.Model):
     corporates_number = models.PositiveIntegerField(
         "Nombre d’entreprises", null=True, blank=True
     )
+    shops_number = models.PositiveIntegerField(
+        "Nombre de commerces", null=True, blank=True
+    )
     associations_number = models.PositiveIntegerField(
         "Nombre d’associations", null=True, blank=True
     )
@@ -59,7 +62,9 @@ class Organization(models.Model):
     lamppost_number = models.PositiveIntegerField(
         "Nombre de lampadaires", null=True, blank=True
     )
-
+    bridge_number = models.PositiveIntegerField(
+        "Nombre de ponts", null=True, blank=True
+    )
     library_number = models.PositiveIntegerField(
         "Nombre de bibliothèques", null=True, blank=True
     )
@@ -69,15 +74,23 @@ class Organization(models.Model):
     theater_number = models.PositiveIntegerField(
         "Nombre de théâtres", null=True, blank=True
     )
+    cinema_number = models.PositiveIntegerField(
+        "Nombre de cinéma", null=True, blank=True
+    )
     museum_number = models.PositiveIntegerField(
         "Nombre de musées", null=True, blank=True
     )
-
+    nursery_number = models.PositiveIntegerField(
+        "Nombre de crèches", null=True, blank=True
+    )
     kindergarten_number = models.PositiveIntegerField(
         "Nombre d’écoles maternelles", null=True, blank=True
     )
     primary_school_number = models.PositiveIntegerField(
         "Nombre d’écoles primaires", null=True, blank=True
+    )
+    rec_center_number = models.PositiveIntegerField(
+        "Nombre de centres de loisirs", null=True, blank=True
     )
     middle_school_number = models.PositiveIntegerField(
         "Nombre de collèges", null=True, blank=True
@@ -88,22 +101,35 @@ class Organization(models.Model):
     university_number = models.PositiveIntegerField(
         "Nombre d’universités", null=True, blank=True
     )
-
-    gymnasium_number = models.PositiveIntegerField(
-        "Nombre de gymnases et salles de sport", null=True, blank=True
+    tennis_court_number = models.PositiveIntegerField(
+        "Nombre de court de tennis", null=True, blank=True
     )
-    sports_ground_number = models.PositiveIntegerField(
-        "Nombre de stades et structures extérieures", null=True, blank=True
+    football_field_number = models.PositiveIntegerField(
+        "Nombre de terrains de football", null=True, blank=True
+    )
+    running_track_number = models.PositiveIntegerField(
+        "Nombre de pistes d'athlétisme", null=True, blank=True
+    )
+    other_outside_structure_number = models.PositiveIntegerField(
+        "Nombre de structures extérieures autres", null=True, blank=True
+    )
+    covered_sporting_complex_number = models.PositiveIntegerField(
+        "Nombre de complexes sportifs couverts", null=True, blank=True
     )
     swimming_pool_number = models.PositiveIntegerField(
         "Nombre de piscines", null=True, blank=True
     )
-
     place_of_worship_number = models.PositiveIntegerField(
         "Nombre de lieux de cultes", null=True, blank=True
     )
     cemetery_number = models.PositiveIntegerField(
         "Nombre de cimetières", null=True, blank=True
+    )
+    protected_monument_number = models.PositiveIntegerField(
+        "Nombre de monuments classés", null=True, blank=True
+    )
+    forest_number = models.PositiveIntegerField(
+        "Nombre de forêts", null=True, blank=True
     )
 
     beneficiaries = models.ManyToManyField(
