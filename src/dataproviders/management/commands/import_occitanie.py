@@ -74,7 +74,7 @@ class Command(BaseImportCommand):
         return "Ces données sont mises à disposition par la Région Occitanie."
 
     def extract_import_uniqueid(self, line):
-        unique_id = "OCCITANIE__{}".format(line["recordid"])
+        unique_id = "OCCITANIE_{}".format(line["recordid"])
         return unique_id
 
     def extract_import_data_url(self, line):
