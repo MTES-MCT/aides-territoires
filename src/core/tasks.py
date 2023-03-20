@@ -81,3 +81,10 @@ def find_broken_links():
     """Check the reliability of aid associated links"""
     logger.info("Starting find_broken_links task")
     management.call_command("find_broken_links", verbosity=1)
+
+
+@app.task
+def populate_inhabitants_number():
+    """Populate the Organization's inhabitants_number field when organization is a commune."""
+    logger.info("Starting populate_inhabitants_number task")
+    management.call_command("populate_inhabitants_number", verbosity=1)
