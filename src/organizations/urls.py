@@ -3,6 +3,7 @@ from django.urls import path
 from organizations.views import (
     OrganizationCreateView,
     OrganizationUpdateView,
+    OrganizationDataView,
     AddProjectToFavoriteView,
     RemoveProjectFromFavoriteView,
 )
@@ -15,6 +16,11 @@ urlpatterns = [
         "<int:pk>/mise-a-jour/",
         OrganizationUpdateView.as_view(),
         name="organization_update_view",
+    ),
+    path(
+        "<int:pk>/mise-a-jour-des-donnees/",
+        OrganizationDataView.as_view(),
+        name="organization_data_view",
     ),
     path(
         "<int:pk>/ajout-aux-projets-favoris/",
