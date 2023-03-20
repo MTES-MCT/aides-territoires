@@ -326,6 +326,7 @@ class OrganizationDataForm(forms.ModelForm, AidesTerrBaseForm):
             "inhabitants_number",
             "voters_number",
             "corporates_number",
+            "shops_number",
             "associations_number",
             "municipal_roads",
             "departmental_roads",
