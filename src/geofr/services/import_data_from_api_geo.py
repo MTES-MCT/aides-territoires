@@ -74,6 +74,12 @@ def get_extra_data_for_department(code: str) -> tuple:
 
 def import_commune_extra_data(commune_entry: dict) -> bool:
     insee = commune_entry["code"]
+
+    # 2023 specific: Les Trois Lacs changed insee code, and the API is not
+    # yet up to date
+    if insee == "27058":
+        insee = "27676"
+
     commune = Perimeter.objects.filter(
         code=insee, scale=Perimeter.SCALES.commune, is_obsolete=False
     ).first()

@@ -210,10 +210,7 @@ def populate_departments() -> dict:
 
 
 @transaction.atomic
-def populate_overseas() -> dict:
-    # Is it still necessary?
-    # It seems to be covered by the populate_communes method below
-
+def populate_overseas() -> None:
     france = Perimeter.objects.get(scale=Perimeter.SCALES.country, code="FRA")
     europe = Perimeter.objects.get(scale=Perimeter.SCALES.continent, code="EU")
 
@@ -272,44 +269,8 @@ def populate_overseas() -> dict:
             )
         )
 
-    # Import the "collectivités d'Outre-Mer"
-    response = requests.get(get_data_path("communes"))
-    data = response.json()
-
-    coms = filter(lambda entry: "collectiviteOutremer" in entry, data)
-    nb_created = 0
-    nb_updated = 0
-
-    for entry in coms:
-
-        com, created = Perimeter.objects.update_or_create(
-            scale=Perimeter.SCALES.adhoc,
-            code=entry["collectiviteOutremer"]["code"],
-            defaults={
-                "name": entry["collectiviteOutremer"]["nom"],
-                "is_overseas": True,
-            },
-        )
-
-        if created:
-            nb_created += 1
-        else:
-            nb_updated += 1
-
-        perimeter_links.append(
-            PerimeterContainedIn(from_perimeter_id=com.id, to_perimeter_id=overseas.id)
-        )
-        perimeter_links.append(
-            PerimeterContainedIn(from_perimeter_id=com.id, to_perimeter_id=france.id)
-        )
-        perimeter_links.append(
-            PerimeterContainedIn(from_perimeter_id=com.id, to_perimeter_id=europe.id)
-        )
-
     # Create the links between the perimeters
     PerimeterContainedIn.objects.bulk_create(perimeter_links, ignore_conflicts=True)
-
-    return {"created": nb_created, "updated": nb_updated}
 
 
 @transaction.atomic()
@@ -437,7 +398,6 @@ def populate_communes() -> dict:
                 )
             )
 
-        # TODO this key doesn't exist anymore, see how to treat it
         if region in OVERSEAS_COLLECTIVITIES:
             code = region
             perimeter_links.append(
