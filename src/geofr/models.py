@@ -195,6 +195,13 @@ class Perimeter(models.Model):
         verbose_name="population", null=True, blank=True
     )
 
+    density_typology = models.CharField(
+        "typologie",
+        max_length=50,
+        blank=True,
+        help_text="définit le statut d'une commune rurale ou urbaine",
+    )
+
     # Location, stored as floats to avoid using GeoDjango
     # and its many dependencies
     latitude = models.FloatField(null=True, blank=True)
