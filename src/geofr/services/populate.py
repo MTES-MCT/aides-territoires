@@ -3,7 +3,7 @@ import requests
 from django.utils import timezone
 from django.db import transaction
 
-from geofr.constants import OVERSEAS_REGIONS, OVERSEAS_COLLECTIVITIES
+from geofr.constants import OVERSEAS_ALL, OVERSEAS_REGIONS, OVERSEAS_COLLECTIVITIES
 from geofr.models import Perimeter, PerimeterData
 
 
@@ -354,13 +354,20 @@ def populate_communes() -> dict:
         if entry["type"] != "commune-actuelle":
             continue
 
-        is_overseas = entry["region"] in OVERSEAS_REGIONS
-        data = {
-            "regions": [entry["region"]],
-            "departments": [entry["departement"]],
-            "zipcodes": entry.get("codesPostaux", []),
-            "is_overseas": is_overseas,
-        }
+        region = entry["region"]
+        is_overseas = region in OVERSEAS_ALL
+        if region in OVERSEAS_COLLECTIVITIES:
+            data = {
+                "zipcodes": entry.get("codesPostaux", []),
+                "is_overseas": is_overseas,
+            }
+        else:
+            data = {
+                "regions": [region],
+                "departments": [entry["departement"]],
+                "zipcodes": entry.get("codesPostaux", []),
+                "is_overseas": is_overseas,
+            }
 
         # Communes in COM don't have a Siren number in the source
         # Clipperton doesn't have a population value
@@ -431,8 +438,8 @@ def populate_communes() -> dict:
             )
 
         # TODO this key doesn't exist anymore, see how to treat it
-        if "collectiviteOutremer" in entry:
-            code = entry["collectiviteOutremer"]["code"]
+        if region in OVERSEAS_COLLECTIVITIES:
+            code = region
             perimeter_links.append(
                 PerimeterContainedIn(
                     from_perimeter_id=commune.id, to_perimeter_id=adhoc[code]

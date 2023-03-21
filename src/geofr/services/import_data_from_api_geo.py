@@ -81,7 +81,7 @@ def import_commune_extra_data(commune_entry: dict) -> bool:
     coordinates = commune_entry["centre"]["coordinates"]
 
     if commune:
-        commune.epci = commune_entry["codeEpci"]
+        commune.epci = commune_entry.get("codeEpci", "")
         commune.zipcodes = commune_entry["codesPostaux"]
         commune.longitude = coordinates[0]
         commune.latitude = coordinates[1]
