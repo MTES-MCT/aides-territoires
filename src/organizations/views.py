@@ -10,6 +10,7 @@ from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 from organizations.forms import (
     OrganizationCreateForm,
     OrganizationUpdateForm,
+    OrganizationDataForm,
     ProjectToFavoriteForm,
 )
 from accounts.models import User
@@ -102,6 +103,67 @@ class OrganizationUpdateView(ContributorAndProfileCompleteRequiredMixin, UpdateV
         msg = "Les informations de votre structure ont bien été mises à jour."
         messages.success(self.request, msg)
         success_url = reverse("organization_update_view", args=[self.object.pk])
+        return HttpResponseRedirect(success_url)
+
+    def get_queryset(self):
+        qs = Organization.objects.all()
+        self.queryset = qs
+        return super().get_queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["organization"] = self.object
+        return context
+
+
+class OrganizationDataView(ContributorAndProfileCompleteRequiredMixin, UpdateView):
+
+    template_name = "organizations/data.html"
+    form_class = OrganizationDataForm
+    context_object_name = "organization"
+
+    def get_object(self, queryset=None):
+        """
+        Require `self.queryset` and a `pk` argument in the URLconf.
+        Require also user in the organization object
+        """
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        user = self.request.user
+        if pk is not None:
+            queryset = queryset.filter(pk=pk)
+
+        if pk is None:
+            raise AttributeError(
+                "Generic detail view %s must be called with either an object "
+                "pk or a slug in the URLconf." % self.__class__.__name__
+            )
+
+        try:
+            obj = queryset.get()
+            if user not in obj.beneficiaries.all():
+                raise PermissionDenied()
+            if obj.organization_type[0] not in [
+                "commune",
+                "epci",
+                "department",
+                "region",
+            ]:
+                raise Http404()
+        except queryset.model.DoesNotExist:
+            raise Http404()
+        return obj
+
+    def form_valid(self, form):
+
+        organization = form.save(commit=False)
+        organization.save()
+
+        msg = "Les informations de votre structure ont bien été mises à jour."
+        messages.success(self.request, msg)
+        success_url = reverse("organization_data_view", args=[self.object.pk])
         return HttpResponseRedirect(success_url)
 
     def get_queryset(self):

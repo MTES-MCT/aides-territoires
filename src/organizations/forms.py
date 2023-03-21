@@ -156,6 +156,208 @@ class OrganizationUpdateForm(forms.ModelForm, AidesTerrBaseForm):
                 visible.field.widget.attrs["class"] = "fr-select"
 
 
+class OrganizationDataForm(forms.ModelForm, AidesTerrBaseForm):
+    """allow user to submit organization's infrastructure's data."""
+
+    inhabitants_number = forms.DecimalField(
+        label="Habitants",
+        required=False,
+        min_value=0,
+    )
+    voters_number = forms.DecimalField(
+        label="Votants",
+        required=False,
+        min_value=0,
+    )
+    corporates_number = forms.DecimalField(
+        label="Entreprise",
+        required=False,
+        min_value=0,
+    )
+    shops_number = forms.DecimalField(
+        label="Commerce",
+        required=False,
+        min_value=0,
+    )
+    associations_number = forms.DecimalField(
+        label="Association",
+        required=False,
+        min_value=0,
+    )
+    municipal_roads = forms.DecimalField(
+        label="Routes communales (kms)",
+        required=False,
+        min_value=0,
+    )
+    departmental_roads = forms.DecimalField(
+        label="Routes départementales (kms)",
+        required=False,
+        min_value=0,
+    )
+    tram_roads = forms.DecimalField(
+        label="Tramway (kms)",
+        required=False,
+        min_value=0,
+    )
+    lamppost_number = forms.DecimalField(
+        label="Lampadaires",
+        required=False,
+        min_value=0,
+    )
+    bridge_number = forms.DecimalField(
+        label="Ponts",
+        required=False,
+        min_value=0,
+    )
+    library_number = forms.DecimalField(
+        label="Bibliothèque",
+        required=False,
+        min_value=0,
+    )
+    medialibrary_number = forms.DecimalField(
+        label="Médiathèque",
+        required=False,
+        min_value=0,
+    )
+    theater_number = forms.DecimalField(
+        label="Théâtre",
+        required=False,
+        min_value=0,
+    )
+    cinema_number = forms.DecimalField(
+        label="Cinéma",
+        required=False,
+        min_value=0,
+    )
+    museum_number = forms.DecimalField(
+        label="Musée",
+        required=False,
+        min_value=0,
+    )
+    nursery_number = forms.DecimalField(
+        label="Crèche",
+        required=False,
+        min_value=0,
+    )
+    kindergarten_number = forms.DecimalField(
+        label="École maternelle",
+        required=False,
+        min_value=0,
+    )
+    primary_school_number = forms.DecimalField(
+        label="École élémentaire",
+        required=False,
+        min_value=0,
+    )
+    rec_center_number = forms.DecimalField(
+        label="Centre de loisirs",
+        required=False,
+        min_value=0,
+    )
+    middle_school_number = forms.DecimalField(
+        label="Collège",
+        required=False,
+        min_value=0,
+    )
+    high_school_number = forms.DecimalField(
+        label="Lycée",
+        required=False,
+        min_value=0,
+    )
+    university_number = forms.DecimalField(
+        label="Université",
+        required=False,
+        min_value=0,
+    )
+    tennis_court_number = forms.DecimalField(
+        label="Court de tennis",
+        required=False,
+        min_value=0,
+    )
+    football_field_number = forms.DecimalField(
+        label="Terrain de football",
+        required=False,
+        min_value=0,
+    )
+    running_track_number = forms.DecimalField(
+        label="Piste d'athlétisme",
+        required=False,
+        min_value=0,
+    )
+    other_outside_structure_number = forms.DecimalField(
+        label="Structure extérieure autre",
+        required=False,
+        min_value=0,
+    )
+    covered_sporting_complex_number = forms.DecimalField(
+        label="Complexe sportif couvert",
+        required=False,
+        min_value=0,
+    )
+    swimming_pool_number = forms.DecimalField(
+        label="Piscine",
+        required=False,
+        min_value=0,
+    )
+    place_of_worship_number = forms.DecimalField(
+        label="Lieux de cultes",
+        required=False,
+        min_value=0,
+    )
+    cemetery_number = forms.DecimalField(
+        label="Cimetière",
+        required=False,
+        min_value=0,
+    )
+    protected_monument_number = forms.DecimalField(
+        label="Monument classé",
+        required=False,
+        min_value=0,
+    )
+    forest_number = forms.DecimalField(
+        label="Forêt (en hectares)",
+        required=False,
+        min_value=0,
+    )
+
+    class Meta:
+        model = Organization
+        fields = [
+            "inhabitants_number",
+            "voters_number",
+            "corporates_number",
+            "shops_number",
+            "associations_number",
+            "municipal_roads",
+            "departmental_roads",
+            "tram_roads",
+            "lamppost_number",
+            "bridge_number",
+            "library_number",
+            "medialibrary_number",
+            "theater_number",
+            "cinema_number",
+            "museum_number",
+            "nursery_number",
+            "kindergarten_number",
+            "primary_school_number",
+            "rec_center_number",
+            "middle_school_number",
+            "high_school_number",
+            "university_number",
+            "tennis_court_number",
+            "football_field_number",
+            "running_track_number",
+            "other_outside_structure_number",
+            "covered_sporting_complex_number",
+            "swimming_pool_number",
+            "place_of_worship_number",
+            "cemetery_number",
+            "protected_monument_number",
+            "forest_number",
+        ]
+
+
 class ProjectToFavoriteForm(forms.ModelForm, AidesTerrBaseForm):
     """form to allow user to add/remove a public project to/from its favorite-projects-list."""
 
