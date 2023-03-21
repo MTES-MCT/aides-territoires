@@ -195,20 +195,3 @@
     </div>
 </div>
 {% endblock content %}
-
-{% block extra_css %}
-{% compress css %}
-{% endcompress %}
-{% endblock extra_css %}
-
-{% block extra_js %}
-    {% compress js %}
-        <script src="{% static 'select2/dist/js/select2.js' %}"></script>
-        <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
-        <script src="{% static 'js/accounts/toggle_intercommunality_type_field.js' %}"></script>
-        <script src="{% static 'js/accounts/pre_fill_organization_name.js' %}"></script>
-        <script src="{% static 'js/aids/perimeter_autocomplete.js' %}"></script>
-        <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
-        <script src="{% static 'js/organizations/toggle_administrative_data.js' %}"></script>
-    {% endcompress %}
-{% endblock extra_js %}

@@ -115,10 +115,10 @@ class OrganizationUpdateForm(forms.ModelForm, AidesTerrBaseForm):
     city_name = forms.CharField(label="Ville", required=True)
     zip_code = forms.CharField(label="Code postal", required=True)
 
-    siret_code = forms.DecimalField(
+    siret_code = forms.IntegerField(
         label="Code SIRET", help_text="constitué de 14 chiffres", required=False
     )
-    siren_code = forms.DecimalField(
+    siren_code = forms.IntegerField(
         label="Code SIREN", help_text="constitué de 9 chiffres", required=False
     )
     ape_code = forms.CharField(label="Code APE", required=False)
