@@ -16,6 +16,7 @@ from aids.views import (
     SuggestAidMatchProjectView,
     SuggestedAidUnmatchProjectView,
     AidProjectStatusView,
+    AidExportView,
 )
 
 urlpatterns = [
@@ -77,4 +78,5 @@ urlpatterns = [
         AidProjectStatusView.as_view(),
         name="aidproject_status_view",
     ),
+    path("exporter/<int:pk>/", AidExportView.as_view(), name="aids_export_view"),
 ]
