@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from import_export import fields, resources
 from import_export.widgets import ManyToManyWidget
 
-from projects.models import Project
+from projects.models import Project, ValidatedProject
 from organizations.models import Organization
 
 
@@ -53,3 +53,29 @@ class ProjectResource(resources.ModelResource):
                     return _("Yes") if value_raw else _("No")
 
         return field.export(obj)
+
+
+class ValidatedProjectResource(resources.ModelResource):
+    def dehydrate_organization(self, obj):
+        if obj.organization:
+            return obj.organization.name
+        else:
+            return ""
+
+    class Meta:
+        model = ValidatedProject
+        import_id_fields = ("import_uniqueid",)
+        fields = (
+            "project_name",
+            "description",
+            "aid_name",
+            "project_linked",
+            "aid_linked",
+            "organization",
+            "financer_linked",
+            "financer_name",
+            "budget",
+            "amount_obtained",
+            "date_obtained",
+            "date_created",
+        )
