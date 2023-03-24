@@ -132,6 +132,7 @@ class PromotionPostAdmin(admin.ModelAdmin):
                     "slug",
                     "short_text",
                     "button_title",
+                    "external_link",
                     "button_link",
                     "image",
                     "image_alt_text",
@@ -142,6 +143,7 @@ class PromotionPostAdmin(admin.ModelAdmin):
             "Filtres conditionnant l'affichage",
             {
                 "fields": (
+                    "targeted_audiences",
                     "backers",
                     "programs",
                     "perimeter",

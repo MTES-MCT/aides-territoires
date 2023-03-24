@@ -186,6 +186,17 @@ class SearchView(SearchMixin, FormMixin, ListView):
         else:
             promotions = promotions.filter(perimeter__isnull=True)
 
+        searched_targeted_audiences = self.form.cleaned_data.get(
+            "targeted_audiences", None
+        )
+        if searched_targeted_audiences:
+            promotions = promotions.filter(
+                Q(targeted_audiences__overlap=searched_targeted_audiences)
+                | Q(targeted_audiences__isnull=True)
+            )
+        else:
+            promotions = promotions.filter(targeted_audiences__isnull=True)
+
         promotions = promotions.distinct()
 
         return promotions

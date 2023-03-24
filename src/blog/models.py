@@ -9,6 +9,9 @@ from django.urls import reverse
 from model_utils import Choices
 from django_xworkflows import models as xwf_models
 
+from core.fields import ChoiceArrayField
+from aids.models import Aid
+
 
 def logo_upload_to(instance, filename):
     """Rename uploaded files with the object's slug."""
@@ -235,8 +238,15 @@ class PromotionPost(xwf_models.WorkflowEnabled, models.Model):
     )
 
     button_link = models.URLField("Lien du bouton", blank=False)
+    external_link = models.BooleanField("Lien externe ?", default=False)
     button_title = models.CharField("Titre du bouton", max_length=120)
 
+    targeted_audiences = ChoiceArrayField(
+        verbose_name="Bénéficiaires",
+        null=True,
+        blank=True,
+        base_field=models.CharField(max_length=32, choices=Aid.AUDIENCES),
+    )
     perimeter = models.ForeignKey(
         "geofr.Perimeter",
         verbose_name="Périmètre",
