@@ -25,25 +25,29 @@
             {# Aids table #}
             <h3 id="aids-table">Sommaire</h3>
             <table aria-describedby="aids-table" repeat="1">
-                <tr>
-                    <th>Titre de l’aide</th>
-                    <th>Nature</th>
-                    <th>Récurrence et date d’échéance</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Titre de l’aide</th>
+                        <th>Nature</th>
+                        <th>Récurrence et date d’échéance</th>    
+                    </tr>
+                </thead>
 
                 {% for aid in aid_set %}
-                    <tr>
-                        <td>
-                            <a href="#anchor-aid-{{ aid.id }}">{{ aid.name }}</a>
-                        </td>
-                        <td>{% choices_display aid 'aid_types' %}</td>
-                        <td>
-                            {{ aid.get_recurrence_display }}
-                            {% if aid.submission_deadline %}
-                                <br />Échéance : {{ aid.submission_deadline }}
-                            {% endif %}
-                        </td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href="#anchor-aid-{{ aid.id }}">{{ aid.name }}</a>
+                            </td>
+                            <td style="width:150px">{% choices_display aid 'aid_types' %}</td>
+                            <td>
+                                {{ aid.get_recurrence_display }}
+                                {% if aid.submission_deadline %}
+                                    <br />Échéance : {{ aid.submission_deadline }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
                 {% endfor %}
             </table>
 
