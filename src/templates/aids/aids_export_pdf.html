@@ -5,7 +5,9 @@
 
 {% block logo_partner %}
 <img src="{% static 'img/logo_AT_courbes.png' %}" style="width:150px" alt="Aides-territoires" />
+{% if organization.backer.has_logo %}
 <img src="{{ organization.backer.logo.url }}" style="width:150px" alt="logo de la structure {{organization}}" />
+{% endif %}
 {% endblock logo_partner %}
 
 {% block intro %}{% endblock intro %}
