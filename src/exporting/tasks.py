@@ -9,6 +9,8 @@ from aids.resources import AidResource, AidProjectResource
 from accounts.models import User
 from accounts.resources import UserResource
 from exporting.models import DataExport
+from projects.models import ValidatedProject
+from projects.resources import ValidatedProjectResource
 
 
 def export_aids(aids_id_list, author_id, file_format):
@@ -67,6 +69,35 @@ def export_aidprojects_as_csv(aidprojects_id_list, author_id):
 @app.task
 def export_aidprojects_as_xlsx(aidprojects_id_list, author_id):
     export_aidprojects(aidprojects_id_list, author_id, file_format="xlsx")
+
+
+def export_validated_projects(validated_projects_id_list, author_id, file_format):
+    queryset = ValidatedProject.objects.filter(id__in=validated_projects_id_list)
+    exported_data = ValidatedProjectResource().export(queryset)
+    if file_format == "csv":
+        file_content = ContentFile(exported_data.csv.encode())
+    if file_format == "xlsx":
+        file_content = ContentFile(exported_data.xlsx)
+    file_name = "export-projets-subventionnes-"
+    file_name += dateformat.format(timezone.now(), "Y-m-d_H-i-s")
+    file_name += f".{file_format}"
+    file_object = files.File(file_content, name=file_name)
+    DataExport.objects.create(
+        author_id=author_id,
+        exported_file=file_object,
+    )
+    file_object.close()
+    file_content.close()
+
+
+@app.task
+def export_validated_projects_as_csv(validated_projects_id_list, author_id):
+    export_validated_projects(validated_projects_id_list, author_id, file_format="csv")
+
+
+@app.task
+def export_validated_projects_as_xlsx(validated_projects_id_list, author_id):
+    export_validated_projects(validated_projects_id_list, author_id, file_format="xlsx")
 
 
 def export_users(users_id_list, author_id, file_format):
