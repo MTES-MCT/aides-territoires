@@ -253,8 +253,10 @@ class Organization(models.Model):
             self.perimeter_department = department
 
     def set_population(self):
-        """Set the population value for municipalities if it is missing"""
-        """Also set the strata value"""
+        """
+        Set the population value for municipalities if it is missing
+        Also set the strata value
+        """
         if self.perimeter and self.perimeter.scale == Perimeter.SCALES.commune:
             if not self.inhabitants_number:
                 self.inhabitants_number = self.perimeter.population
@@ -291,8 +293,26 @@ class Organization(models.Model):
                 else:
                     self.population_strata = "200000+"
 
+    def set_extra_data(self) -> None:
+        """
+        Set extra data gathered from the perimeter to
+        the organization
+        """
+        collectivity_scales = (
+            Perimeter.SCALES.commune,
+            Perimeter.SCALES.epci,
+            Perimeter.SCALES.department,
+            Perimeter.SCALES.region,
+        )
+
+        if self.perimeter and self.perimeter.scale in collectivity_scales:
+            siren = self.perimeter.siren
+            if siren and not self.siren:
+                self.siren = siren
+
     def save(self, *args, **kwargs):
         self.set_slug()
         self.set_perimeters()
         self.set_population()
+        self.set_extra_data()
         return super().save(*args, **kwargs)
