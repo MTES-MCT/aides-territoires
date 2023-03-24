@@ -1285,10 +1285,10 @@ class AidProjectStatusView(ContributorAndProfileCompleteRequiredMixin, UpdateVie
 class AidExportView(ContributorAndProfileCompleteRequiredMixin, View):
     """Export all organization's aids."""
 
-    context_object_name = "aid"
+    http_method_names = ["post"]
 
     def post(self, request, *args, **kwargs):
-        file_format = request.POST["format"]
+        file_format = self.request.POST["format"]
         org = self.request.user.beneficiary_organization.pk
 
         if file_format in EXPORT_FORMAT_KEYS:
@@ -1302,13 +1302,12 @@ class AidExportView(ContributorAndProfileCompleteRequiredMixin, View):
                         "Content-Disposition": f'attachment; filename="{filename}"'
                     },
                 )
-        # If something went wrong, redirect to the project page with an error
+        # If something went wrong, redirect to the aid draft list page with an error
         messages.error(
-            request,
+            self.request,
             f"""
             Impossible de générer votre export. Si le problème persiste, merci de
             <a href="{reverse('contact')}"/>nous contacter</a>.
             """,
         )
-        url = reverse("aid_draft_list_view")
-        return HttpResponseRedirect(url)
+        return HttpResponseRedirect(reverse("aid_draft_list_view"))

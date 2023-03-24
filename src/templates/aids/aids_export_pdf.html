@@ -1,7 +1,15 @@
 {% extends "_base_pdf.html" %}
-{% load i18n aids compress humanize %}
+{% load i18n aids static compress humanize %}
 
-{% block extratitle %}{{ user.beneficiary_organization }}{% endblock extratitle %}
+{% block extratitle %}{{ organization }}{% endblock extratitle %}
+
+{% block logo_partner %}
+<img src="{% static 'img/logo_AT_courbes.png' %}" style="width:150px" alt="Aides-territoires" />
+<img src="{{ organization.backer.logo.url }}" style="width:150px" alt="logo de la structure {{organization}}" />
+{% endblock logo_partner %}
+
+{% block intro %}{% endblock intro %}
+
 
 {% block content %}
 <div class="fr-container fr-mb-5w fr-mt-0">
@@ -10,15 +18,15 @@
         <div class="fr-col-12 fr-col-md-9">
             <div class="fr-grid-row">
               <div class="fr-col-12 fr-col-md-9">
-                  <h1 class="fr-h3">Liste des aides au {{ today|date }} pour {{ user.beneficiary_organization }}</h1>
+                  <h1 class="fr-h3">Les aides portées par la structure « {{ organization }} » au {{ today|date }}.</h1>
               </div>
             </div>
 
             {# Aids table #}
+            <h3 id="aids-table">Sommaire</h3>
             <table aria-describedby="aids-table" repeat="1">
                 <tr>
                     <th>Titre de l’aide</th>
-                    <th>Porteur</th>
                     <th>Nature</th>
                     <th>Récurrence et date d’échéance</th>
                 </tr>
@@ -27,11 +35,6 @@
                     <tr>
                         <td>
                             <a href="#anchor-aid-{{ aid.id }}">{{ aid.name }}</a>
-                        </td>
-                        <td>
-                            {% for financer in aid.financers.all %}
-                                {{ financer.name }}
-                            {% endfor %}
                         </td>
                         <td>{% choices_display aid 'aid_types' %}</td>
                         <td>
@@ -43,6 +46,8 @@
                     </tr>
                 {% endfor %}
             </table>
+
+            <p>Aides-territoires est un service public numérique qui facilite la recherche d’aides, financieères et d’ingeénierie, et la réalisation des projets des collectivités territoriales en regroupant les dispositifs auxquels elles peuvent prétendre sur un portail unique. L’ensemble des aides citées ont été publiées sur la plateforme Aides-territoires qui a édité ce fichier.</p>
             <pdf:nextpage />
 
             {# Aid detail #}

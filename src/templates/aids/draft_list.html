@@ -114,7 +114,7 @@
             class="fr-btn fr-icon-download-line fr-btn--icon-left fr-mb-5w"
             id="export-aids-btn"
             data-fr-opened="false"
-            aria-controls="export-aids-modal-{{ request.user.pk }}"
+            aria-controls="export-aids-modal-{{ request.user }}"
             {% if user.beneficiary_organization is None %}disabled="disabled"{% endif %}
             >
             Exporter toutes les aides de votre structure
@@ -125,5 +125,5 @@
 {% endblock content %}
 
 {% block modals %}
-    {% include 'aids/_export_aids_modal.html' with user=request.user.pk %}
+    {% include 'aids/_export_aids_modal.html' with user=request.user %}
 {% endblock modals %}

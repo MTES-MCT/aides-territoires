@@ -22,6 +22,7 @@ from aids.views import (
 urlpatterns = [
     # Resultats & Plus de critères
     path("", SearchView.as_view(), name="search_view"),
+    path("exporter-les-aides/", AidExportView.as_view(), name="aids_export_view"),
     path("recherche/", AdvancedSearchView.as_view(), name="advanced_search_view"),
     path("resultats/", ResultsView.as_view(), name="results_view"),
     path(
@@ -78,5 +79,4 @@ urlpatterns = [
         AidProjectStatusView.as_view(),
         name="aidproject_status_view",
     ),
-    path("exporter/<int:pk>/", AidExportView.as_view(), name="aids_export_view"),
 ]
