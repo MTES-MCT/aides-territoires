@@ -8,6 +8,11 @@ from import_export.admin import ImportExportActionModelAdmin
 from import_export.formats import base_formats
 
 from core.forms import RichTextField
+from exporting.tasks import (
+    export_validated_projects_as_csv,
+    export_validated_projects_as_xlsx,
+)
+from exporting.utils import get_admin_export_message
 from projects.models import Project, ValidatedProject
 from projects.resources import ProjectResource
 from projects.admin_views import ImportValidatedProjects
@@ -146,6 +151,7 @@ class ValidatedProjectAdmin(admin.ModelAdmin):
         "organization",
     ]
     search_fields = ["project_name"]
+    actions = ["export_csv", "export_xlsx"]
 
     def get_urls(self):
         urls = super().get_urls()
@@ -175,6 +181,27 @@ class ValidatedProjectAdmin(admin.ModelAdmin):
         return ImportValidatedProjects.as_view(extra_context=context)(
             request, object_id=object_id
         )
+
+    def show_export_message(self, request):
+        self.message_user(request, get_admin_export_message())
+
+    def export_csv(self, request, queryset):
+        aids_id_list = list(queryset.values_list("id", flat=True))
+        export_validated_projects_as_csv.delay(aids_id_list, request.user.id)
+        self.show_export_message(request)
+
+    export_csv.short_description = (
+        "Exporter les projets subventionnés sélectionnés en CSV en tâche de fond"
+    )
+
+    def export_xlsx(self, request, queryset):
+        aids_id_list = list(queryset.values_list("id", flat=True))
+        export_validated_projects_as_xlsx.delay(aids_id_list, request.user.id)
+        self.show_export_message(request)
+
+    export_xlsx.short_description = (
+        "Exporter les projets subventionnés sélectionnés en XLSX en tâche de fond"
+    )
 
     class Media:
         css = {

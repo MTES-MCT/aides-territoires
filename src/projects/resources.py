@@ -1,9 +1,10 @@
 from django.utils.translation import gettext_lazy as _
 
 from import_export import fields, resources
-from import_export.widgets import ManyToManyWidget
+from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
 
-from projects.models import Project
+
+from projects.models import Project, ValidatedProject
 from organizations.models import Organization
 
 
@@ -53,3 +54,36 @@ class ProjectResource(resources.ModelResource):
                     return _("Yes") if value_raw else _("No")
 
         return field.export(obj)
+
+
+class ValidatedProjectResource(resources.ModelResource):
+    organization_name = fields.Field(
+        column_name="organization_name",
+        attribute="organization",
+        widget=ForeignKeyWidget(Organization, field="name"),
+    )
+
+    organization_insee = fields.Field(
+        column_name="organization_insee",
+        attribute="organization",
+        widget=ForeignKeyWidget(Organization, field="perimeter__code"),
+    )
+
+    class Meta:
+        model = ValidatedProject
+        import_id_fields = ("import_uniqueid",)
+        fields = (
+            "project_name",
+            "project_linked",
+            "description",
+            "aid_name",
+            "aid_linked",
+            "organization_name",
+            "organization_insee",
+            "financer_linked",
+            "financer_name",
+            "budget",
+            "amount_obtained",
+            "date_obtained",
+            "date_created",
+        )

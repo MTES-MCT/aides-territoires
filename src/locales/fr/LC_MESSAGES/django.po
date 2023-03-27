@@ -170,18 +170,6 @@ msgstr "Sous-thématique"
 msgid "Eligibility tests"
 msgstr "Tests d'éligibilité"
 
-msgid "data export"
-msgstr "export de données"
-
-msgid "The person who has trigger the export"
-msgstr "La personne qui a déclanché l'export"
-
-msgid "exported file"
-msgstr "fichier exporté"
-
-msgid "Data export"
-msgstr "Export de données"
-
 msgid "<path:object_id>/upload/"
 msgstr "<path:object_id>/upload/"
 
