@@ -22,6 +22,7 @@ from django.views.generic import (
     FormView,
     RedirectView,
 )
+from django.views import View
 from django.views.generic.edit import FormMixin
 from django.urls import reverse
 from django.core.paginator import Paginator
@@ -41,16 +42,18 @@ from aids.forms import (
     SuggestAidMatchProjectForm,
     AidProjectStatusForm,
 )
-from projects.forms import ProjectExportForm
 from aids.models import Aid, AidProject, SuggestedAidProject
 from aids.mixins import AidEditMixin, AidCopyMixin
 from aids.utils import prepopulate_ds_folder
+from projects.constants import EXPORT_FORMAT_KEYS
+from aids.services.export import export_aids
 from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
 from organizations.constants import ORGANIZATION_TYPES_SINGULAR_ALL
 from programs.models import Program
 from projects.models import Project
+from projects.forms import ProjectExportForm
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeters
 from blog.models import PromotionPost
@@ -746,6 +749,7 @@ class AidDraftListView(
         context["hits_total"] = events_total_count
         context["hits_last_30_days"] = events_last_30_days_count
         context["hits_per_aid"] = dict(events_total_count_per_aid)
+        context["form"] = ProjectExportForm
 
         return context
 
@@ -1287,3 +1291,34 @@ class AidProjectStatusView(ContributorAndProfileCompleteRequiredMixin, UpdateVie
                 form=ProjectExportForm,
             ),
         )
+
+
+class AidExportView(ContributorAndProfileCompleteRequiredMixin, View):
+    """Export all organization's aids."""
+
+    http_method_names = ["post"]
+
+    def post(self, request, *args, **kwargs):
+        file_format = self.request.POST["format"]
+        org = self.request.user.beneficiary_organization.pk
+
+        if file_format in EXPORT_FORMAT_KEYS:
+            response_data = export_aids(org, file_format)
+            if "error" not in response_data:
+                filename = response_data["filename"]
+                return HttpResponse(
+                    response_data["content"],
+                    content_type=response_data["content_type"],
+                    headers={
+                        "Content-Disposition": f'attachment; filename="{filename}"'
+                    },
+                )
+        # If something went wrong, redirect to the aid draft list page with an error
+        messages.error(
+            self.request,
+            f"""
+            Impossible de générer votre export. Si le problème persiste, merci de
+            <a href="{reverse('contact')}"/>nous contacter</a>.
+            """,
+        )
+        return HttpResponseRedirect(reverse("aid_draft_list_view"))

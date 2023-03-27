@@ -136,6 +136,14 @@ class Organization(models.Model):
         "accounts.User", verbose_name="Bénéficiaires", blank=True
     )
 
+    backer = models.ForeignKey(
+        "backers.Backer",
+        verbose_name="Porteur d'aides",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
     favorite_projects = models.ManyToManyField(
         "projects.Project",
         verbose_name="Projets favoris",

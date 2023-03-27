@@ -1,0 +1,30 @@
+<dialog aria-labelledby="fr-modal-title-export-aids" role="dialog" id="export-aids-modal-{{ request.user }}" class="fr-modal">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="export-aids-modal-{{ request.user }}">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h1 id="fr-modal-title-export-aids" class="fr-modal__title"><span class="fr-icon-arrow-right-line fr-icon--lg"></span>Exporter les aides</h1>
+
+                        <p>Les champs marqués d’un astérisque (*) sont obligatoires.</p>
+
+                        <form action="{% url 'aids_export_view' %}" method="post">
+                            <div class="content">
+                                {% csrf_token %}
+                                {% include '_radio_snippet.html' with field=form.format %}
+                                <footer>
+                                    <button class="btn-block fr-btn fr-mt-2w" type="submit">
+                                        Exporter toutes les aides de votre structure
+                                    </button>
+                                </footer>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>

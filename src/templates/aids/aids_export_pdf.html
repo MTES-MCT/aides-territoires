@@ -1,0 +1,146 @@
+{% extends "_base_pdf.html" %}
+{% load i18n aids static compress humanize %}
+
+{% block title_style %}
+h1 {
+    padding: 1em 1em 0 1em;
+    text-align: center;
+}
+h2, h3, h4 {
+    background-color: #f5f5fe;
+    padding: 1em 1em 0 1em;
+}
+{% endblock title_style%}
+
+{% block extratitle %}{{ organization }}{% endblock extratitle %}
+
+{% block logo_partner %}
+<img src="{% static 'img/logo_AT_courbes.png' %}" style="width:150px" alt="Aides-territoires" />
+{% if organization.backer.has_logo %}
+<img src="{{ organization.backer.logo.url }}" style="width:150px" alt="logo de la structure {{organization}}" />
+{% endif %}
+{% endblock logo_partner %}
+
+{% block intro %}{% endblock intro %}
+
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        <div class="fr-col-12 fr-col-md-9">
+            <div class="fr-grid-row">
+              <div class="fr-col-12 fr-col-md-9">
+                  <h1 class="fr-h3">Les aides portées par la structure « {{ organization }} »</h1>
+              </div>
+            </div>
+
+            {# Aids table #}
+            <h3 id="aids-table">Sommaire</h3>
+            <table aria-describedby="aids-table" repeat="1">
+                <thead>
+                    <tr>
+                        <th>Titre de l’aide</th>
+                        <th>Nature</th>
+                        <th>Récurrence et date d’échéance</th>    
+                    </tr>
+                </thead>
+
+                {% for aid in aid_set %}
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href="#anchor-aid-{{ aid.id }}">{{ aid.name }}</a>
+                            </td>
+                            <td style="width:150px">{% choices_display aid 'aid_types' %}</td>
+                            <td>
+                                {{ aid.get_recurrence_display }}
+                                {% if aid.submission_deadline %}
+                                    <br />Échéance : {{ aid.submission_deadline }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+
+            <p>Aides-territoires est un service public numérique qui facilite la recherche d’aides, financieères et d’ingeénierie, et la réalisation des projets des collectivités territoriales en regroupant les dispositifs auxquels elles peuvent prétendre sur un portail unique. L’ensemble des aides citées ont été publiées sur la plateforme Aides-territoires qui a édité ce fichier.</p>
+            <pdf:nextpage />
+
+            {# Aid detail #}
+            <h2 id="aids-table">Détail des fiches aides sélectionnées</h2>
+            {% for aid in aid_set %}
+                {# name is an obsolete attribute for web but it is the correct one for PDFs #}
+                <a name="anchor-aid-{{ aid.id }}"></a>
+                <h3>{{ aid.name }}</h3>
+                <p>{{ aid.description|safe }}</p>
+
+            {% if aid.is_local and aid.local_characteristics %}
+                <h4>Spécificités locales</h4>
+
+                {{ aid.local_characteristics|safe }}
+
+            {% endif %}
+
+            {% if aid.targeted_audiences %}
+                <h4>Bénéficiaires de l’aide</h4>
+                <p>{% choices_display aid 'targeted_audiences' %}</p>
+            {% endif %}
+
+            <h4>Zone géographique couverte par l’aide</h4>
+            <p>{{ aid.perimeter }}</p>
+
+                <h4>Critères d’éligibilité</h4>
+
+                {% if aid.mobilization_steps %}
+                <h5>État d’avancement du projet pour bénéficier du dispositif</h5>
+                <p>{% choices_display aid 'mobilization_steps' %}</p>
+                {% endif %}
+
+                {% if aid.destinations %}
+                <h5>Types de dépenses / actions couvertes</h5>
+                <p>{% choices_display aid 'destinations' %}</p>
+                {% endif %}
+
+                {% if aid.project_examples %}
+                <h5>Exemples de projets réalisables</h5>
+                {{ aid.project_examples|safe }}
+                {% endif %}
+
+                {% if aid.eligibility %}
+                <h5>Autres critères d’éligibilité</h5>
+                {{ aid.eligibility|safe }}
+                {% endif %}
+
+                <h4>Porteurs d’aides</h4>
+                <ul>
+                {% for financer in aid.financers.all %}
+                    <li>{{ financer.name }}</li>
+                {% endfor %}
+                </ul>
+
+                <h4>Calendrier</h4>
+                <ul>
+                    <li><strong>Récurrence:</strong> {{ aid.get_recurrence_display }}</li>
+                    {% if aid.start_date %}
+                        <li><strong>Ouverture:</strong> {{ aid.start_date|date }}</li>                
+                    {% endif %}
+                    {% if aid.submission_deadline %}
+                        <li><strong>Clôture:</strong> {{ aid.submission_deadline|date }}</li>
+                    {% endif %}
+                </ul>
+                <strong>Voir le descriptif complet sur Aides-territoires :</strong>
+                <a href="{{ hostname }}{{ aid.get_absolute_url }}" class="at-pdf-link">
+                    {{ hostname }}{{ aid.get_absolute_url }}
+                </a>
+                <pdf:nextpage />
+            {% endfor %}
+
+            <p>
+                Export valable en date du <strong>{{ today|date }}</strong>.
+            </p>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -15,12 +15,12 @@
             }
 
             @frame content_frame {          /* Content Frame */
-                left: 50pt; width: 512pt; top: 130pt; height: 582pt;
+                left: 50pt; width: 512pt; top: 130pt; height: 592pt;
             }
 
             @frame footer_frame {           /* Static Footer Frame */
                 -pdf-frame-content: footer_content;
-                left: 50pt; width: 512pt; top: 712pt; height: 40pt;
+                left: 50pt; width: 512pt; top: 722pt; height: 30pt;
             }
         }
 
@@ -29,10 +29,12 @@
             font-size: 12px;
         }
 
+        {% block title_style %}
         h1, h2, h3, h4 {
             background-color: #f5f5fe;
             padding: 1em 1em 0 1em;
         }
+        {% endblock title_style %}
 
         #footer_content {
             border-top: 1px solid #666;
@@ -51,11 +53,16 @@
             margin-left: 2em;
         }
 
+        .at-mb-5 {
+            margin-bottom: 5rem;
+        }
+
+
         .at-pdf-footer__logo { height: 50px;}
 
         td, th {
             border: 1px solid #000;
-            padding: 1em;
+            padding: 0.5em;
         }
         </style>
     </head>
@@ -69,8 +76,10 @@
                             <div class="at-pdf-header__brand fr-enlarge-link">
                                 <div class="at-pdf-header__brand-top">
                                     <div class="at-pdf-header__operator">
+                                        {% block logo_partner %}
                                         <img src="{% static 'img/logo_gouv.svg' %}" style="width:150px" alt="Gouvernement" />
                                         <img src="{% static 'img/logo_AT_courbes.svg' %}" style="width:150px" alt="Aides-territoires" />
+                                        {% endblock logo_partner %}
                                     </div>
                                 </div>
                             </div>
