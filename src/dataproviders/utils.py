@@ -2,6 +2,7 @@ import csv
 from html import unescape
 from unicodedata import normalize
 from urllib.parse import urljoin
+import emoji
 
 from bs4 import BeautifulSoup as bs
 
@@ -44,6 +45,7 @@ ALLOWED_ATTRS = [
     "frameborder",
     "allowfullscreen",  # to display iframe
     "target",
+    "aria-hidden",
     "rel",  # for links opening in a new tab
     "controls",  # for the video tag
     "poster",  # for the video tag
@@ -75,6 +77,7 @@ def content_prettify(
     allowed_attrs = ALLOWED_ATTRS + more_allowed_attrs
 
     unescaped = unescape(raw_text or "")
+
     unquoted = (
         unescaped.replace("“", '"')
         .replace("”", '"')
@@ -142,7 +145,9 @@ def content_prettify(
 
     prettified = soup.prettify()
 
-    return prettified
+    emojified = mark_emojis(prettified)
+
+    return emojified
 
 
 def mapping_audiences(audiences_mapping_csv_path, source_column_name, at_column_names):
@@ -234,3 +239,13 @@ def mapping_categories_label(
                     source_column_label
                 ]
     return categories_label_dict
+
+
+def add_emoji_span(emoji: str, data_dict: dict) -> str:
+    """Wraps an emoji in a span with the aria-hidden attr"""
+    return f'<span aria-hidden="true">{emoji}</span>'
+
+
+def mark_emojis(text_string: str) -> str:
+    """Parse a string to add a span to emojis"""
+    return emoji.replace_emoji(text_string, add_emoji_span)
