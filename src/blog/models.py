@@ -3,11 +3,13 @@ from os.path import splitext
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
-from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
 from model_utils import Choices
 from django_xworkflows import models as xwf_models
+
+from core.fields import ChoiceArrayField
+from aids.models import Aid
 
 
 def logo_upload_to(instance, filename):
@@ -98,23 +100,24 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
 
     # SEO
     meta_title = models.CharField(
-        _("Meta title"),
+        "Titre (balise meta)",
         max_length=180,
         blank=True,
         default="",
-        help_text=_(
-            "This will be displayed in SERPs. "
-            "Keep it under 60 characters. "
-            "Leave empty and we will reuse the post's title."
+        help_text=(
+            "Le titre qui sera affiché dans les SERPs. "
+            "Il est recommandé de le garder < 60 caractères. "
+            "Laissez vide pour réutiliser le titre de l'article."
         ),
     )
     meta_description = models.TextField(
-        _("Meta description"),
+        "Description (balise meta)",
         blank=True,
         default="",
         max_length=256,
-        help_text=_(
-            "This will be displayed in SERPs. " "Keep it under 120 characters."
+        help_text=(
+            "La description qui sera affiché dans les SERPs. "
+            "Il est recommandé de le garder < 120 caractères. "
         ),
     )
 
@@ -235,8 +238,15 @@ class PromotionPost(xwf_models.WorkflowEnabled, models.Model):
     )
 
     button_link = models.URLField("Lien du bouton", blank=False)
+    external_link = models.BooleanField("Lien externe ?", default=False)
     button_title = models.CharField("Titre du bouton", max_length=120)
 
+    targeted_audiences = ChoiceArrayField(
+        verbose_name="Bénéficiaires",
+        null=True,
+        blank=True,
+        base_field=models.CharField(max_length=32, choices=Aid.AUDIENCES),
+    )
     perimeter = models.ForeignKey(
         "geofr.Perimeter",
         verbose_name="Périmètre",
