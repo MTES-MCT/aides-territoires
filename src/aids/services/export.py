@@ -40,7 +40,7 @@ def fetch_resources(uri: str, rel) -> str:
 def export_aids(organization, file_format: str) -> dict:
     organization = Organization.objects.get(pk=organization)
     users = organization.beneficiaries.values_list("pk", flat=True)
-    aids_qs = Aid.objects.filter(author__in=users)
+    aids_qs = Aid.objects.live().filter(author__in=users)
 
     exported_aids = AidResourcePublic().export(aids_qs)
 
