@@ -15,12 +15,12 @@
             }
 
             @frame content_frame {          /* Content Frame */
-                left: 50pt; width: 512pt; top: 130pt; height: 582pt;
+                left: 50pt; width: 512pt; top: 130pt; height: 592pt;
             }
 
             @frame footer_frame {           /* Static Footer Frame */
                 -pdf-frame-content: footer_content;
-                left: 50pt; width: 512pt; top: 712pt; height: 40pt;
+                left: 50pt; width: 512pt; top: 722pt; height: 30pt;
             }
         }
 
@@ -29,10 +29,12 @@
             font-size: 12px;
         }
 
+        {% block title_style %}
         h1, h2, h3, h4 {
             background-color: #f5f5fe;
             padding: 1em 1em 0 1em;
         }
+        {% endblock title_style %}
 
         #footer_content {
             border-top: 1px solid #666;
@@ -60,7 +62,7 @@
 
         td, th {
             border: 1px solid #000;
-            padding: 1em;
+            padding: 0.5em;
         }
         </style>
     </head>

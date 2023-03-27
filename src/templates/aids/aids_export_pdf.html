@@ -1,6 +1,17 @@
 {% extends "_base_pdf.html" %}
 {% load i18n aids static compress humanize %}
 
+{% block title_style %}
+h1 {
+    padding: 1em 1em 0 1em;
+    text-align: center;
+}
+h2, h3, h4 {
+    background-color: #f5f5fe;
+    padding: 1em 1em 0 1em;
+}
+{% endblock title_style%}
+
 {% block extratitle %}{{ organization }}{% endblock extratitle %}
 
 {% block logo_partner %}
@@ -20,7 +31,7 @@
         <div class="fr-col-12 fr-col-md-9">
             <div class="fr-grid-row">
               <div class="fr-col-12 fr-col-md-9">
-                  <h1 class="fr-h3">Les aides portées par la structure « {{ organization }} » au {{ today|date }}.</h1>
+                  <h1 class="fr-h3">Les aides portées par la structure « {{ organization }} »</h1>
               </div>
             </div>
 
