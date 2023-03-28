@@ -6,6 +6,7 @@
 
 echo "Entering start web script"
 echo "Using Django settings module: $DJANGO_SETTINGS_MODULE"
+bin/start-pgbouncer
 python manage.py compilemessages
 python manage.py collectstatic --noinput
 python manage.py compress --force
