@@ -1,4 +1,4 @@
-web: bash scripts/start_web.sh
+web: bin/start-pgbouncer bash scripts/start_web.sh
 postdeploy: bash scripts/post_deploy.sh
 events: bash scripts/start_celery_events.sh
 beat: bash scripts/start_celery_beat.sh
