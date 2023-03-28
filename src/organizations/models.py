@@ -109,7 +109,7 @@ class Organization(models.Model):
         "Nombre de terrains de football", null=True, blank=True
     )
     running_track_number = models.PositiveIntegerField(
-        "Nombre de pistes d'athlétisme", null=True, blank=True
+        "Nombre de pistes d’athlétisme", null=True, blank=True
     )
     other_outside_structure_number = models.PositiveIntegerField(
         "Nombre de structures extérieures autres", null=True, blank=True
@@ -139,7 +139,7 @@ class Organization(models.Model):
 
     backer = models.ForeignKey(
         "backers.Backer",
-        verbose_name="Porteur d'aides",
+        verbose_name="Porteur d’aides",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -255,43 +255,46 @@ class Organization(models.Model):
     def set_population(self):
         """
         Set the population value for municipalities if it is missing
-        Also set the strata value
         """
         if self.perimeter and self.perimeter.scale == Perimeter.SCALES.commune:
             if not self.inhabitants_number:
                 self.inhabitants_number = self.perimeter.population
 
-            if self.inhabitants_number is not None:
-                if self.inhabitants_number < 500:
-                    self.population_strata = "500-"
-                elif self.inhabitants_number < 1000:
-                    self.population_strata = "500_599"
-                elif self.inhabitants_number < 2000:
-                    self.population_strata = "1000_1999"
-                elif self.inhabitants_number < 3500:
-                    self.population_strata = "2000_3499"
-                elif self.inhabitants_number < 5000:
-                    self.population_strata = "3500_4999"
-                elif self.inhabitants_number < 7500:
-                    self.population_strata = "5000_7499"
-                elif self.inhabitants_number < 10000:
-                    self.population_strata = "7500_9999"
-                elif self.inhabitants_number < 15000:
-                    self.population_strata = "10000_14999"
-                elif self.inhabitants_number < 20000:
-                    self.population_strata = "15000_19999"
-                elif self.inhabitants_number < 35000:
-                    self.population_strata = "20000_34999"
-                elif self.inhabitants_number < 50000:
-                    self.population_strata = "35000_49999"
-                elif self.inhabitants_number < 75000:
-                    self.population_strata = "50000_74999"
-                elif self.inhabitants_number < 100000:
-                    self.population_strata = "75000_99999"
-                elif self.inhabitants_number < 200000:
-                    self.population_strata = "100000_199999"
-                else:
-                    self.population_strata = "200000+"
+    def set_population_strata(self):
+        """
+        Set the population strata value for municipalities
+        """
+        if self.inhabitants_number is not None:
+            if self.inhabitants_number < 500:
+                self.population_strata = "500-"
+            elif self.inhabitants_number < 1000:
+                self.population_strata = "500_599"
+            elif self.inhabitants_number < 2000:
+                self.population_strata = "1000_1999"
+            elif self.inhabitants_number < 3500:
+                self.population_strata = "2000_3499"
+            elif self.inhabitants_number < 5000:
+                self.population_strata = "3500_4999"
+            elif self.inhabitants_number < 7500:
+                self.population_strata = "5000_7499"
+            elif self.inhabitants_number < 10000:
+                self.population_strata = "7500_9999"
+            elif self.inhabitants_number < 15000:
+                self.population_strata = "10000_14999"
+            elif self.inhabitants_number < 20000:
+                self.population_strata = "15000_19999"
+            elif self.inhabitants_number < 35000:
+                self.population_strata = "20000_34999"
+            elif self.inhabitants_number < 50000:
+                self.population_strata = "35000_49999"
+            elif self.inhabitants_number < 75000:
+                self.population_strata = "50000_74999"
+            elif self.inhabitants_number < 100000:
+                self.population_strata = "75000_99999"
+            elif self.inhabitants_number < 200000:
+                self.population_strata = "100000_199999"
+            else:
+                self.population_strata = "200000+"
 
     def set_extra_data(self) -> None:
         """
@@ -314,5 +317,6 @@ class Organization(models.Model):
         self.set_slug()
         self.set_perimeters()
         self.set_population()
+        self.set_population_strata()
         self.set_extra_data()
         return super().save(*args, **kwargs)
