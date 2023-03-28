@@ -6,10 +6,12 @@ https://www.sirene.fr/sirene/public/creation-fichier#activite-principale
 
 with the following parameters:
 - État administratif des établissements: Établissements actifs
-- Type d'établissement: L'établissement siège seulement
+- Type d’établissement: L’établissement siège seulement
 - Liste de siren/siret:
     - 84.11Z - Administration publique générale
     - 84.13Z - Administration publique (tutelle) des activités économiques
+
+We also get the postal address of the organization at the same time
 """
 import csv
 import requests

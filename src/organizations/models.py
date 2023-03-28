@@ -5,6 +5,7 @@ from django.utils import timezone
 from core.fields import ChoiceArrayField
 from model_utils import Choices
 from geofr.models import Perimeter
+from geofr.services.validators import validate_siren, validate_siret
 from geofr.utils import get_all_related_perimeters
 from organizations.constants import (
     INTERCOMMUNALITY_TYPES,
@@ -57,8 +58,31 @@ class Organization(models.Model):
     )
     zip_code = models.PositiveIntegerField("Code postal", null=True, blank=True)
 
-    siren_code = models.BigIntegerField("Code SIREN", null=True, blank=True)
-    siret_code = models.BigIntegerField("Code SIRET", null=True, blank=True)
+    insee_code = models.CharField(
+        "code Insee",
+        max_length=5,
+        help_text="Identifiant officiel défini dans le Code officiel géographique",
+        blank=True,
+        null=True,
+    )
+
+    siren_code = models.CharField(
+        "numéro Siren",
+        max_length=9,
+        help_text="Identifiant officiel à 9 chiffres défini dans la base SIREN",
+        validators=[validate_siren],
+        blank=True,
+        null=True,
+    )
+
+    siret_code = models.CharField(
+        "numéro Siret",
+        max_length=14,
+        help_text="Identifiant officiel à 14 chiffres défini dans la base SIREN",
+        validators=[validate_siret],
+        blank=True,
+        null=True,
+    )
     ape_code = models.CharField("Code APE", max_length=5, null=True, blank=True)
 
     inhabitants_number = models.PositiveIntegerField(
@@ -286,7 +310,10 @@ class Organization(models.Model):
 
     def set_population_strata(self):
         """
-        Set the population strata value for municipalities
+        Set the population strata value for municipalities.
+
+        Note: A match-case implementation would lower the cognitive complexity
+        but is not really actually more readable and has worse performance.
         """
         if self.inhabitants_number is not None:
             if self.inhabitants_number < 500:

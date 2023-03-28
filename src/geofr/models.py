@@ -140,7 +140,7 @@ class Perimeter(models.Model):
     siren = models.CharField(
         "numéro Siren",
         max_length=9,
-        help_text="Identifiant officiel défini dans la base SIREN",
+        help_text="Identifiant officiel à 9 chiffres défini dans la base SIREN",
         validators=[validate_siren],
         blank=True,
         null=True,
@@ -149,7 +149,7 @@ class Perimeter(models.Model):
     siret = models.CharField(
         "numéro Siret",
         max_length=14,
-        help_text="Identifiant officiel défini dans la base SIREN",
+        help_text="Identifiant officiel à 14 chiffres défini dans la base SIREN",
         validators=[validate_siret],
         blank=True,
         null=True,
@@ -208,7 +208,7 @@ class Perimeter(models.Model):
         "typologie",
         max_length=50,
         blank=True,
-        help_text="définit le statut d'une commune rurale ou urbaine",
+        help_text="définit le statut d’une commune rurale ou urbaine",
     )
 
     # Location, stored as floats to avoid using GeoDjango

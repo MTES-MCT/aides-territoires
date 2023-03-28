@@ -28,3 +28,9 @@ css:
 fullcss:
 	sassc -I $(include) $(infile) $(outfile)
 	./node_modules/.bin/postcss --use autoprefixer -r $(outfile) --no-map
+
+populate_collectivities:
+	pipenv run python manage.py populate_all_collectivities
+	pipenv run python manage.py import_communes_extra_data
+	pipenv run python manage.py import_communes_typology_data
+	pipenv run python manage.py import_sirets
