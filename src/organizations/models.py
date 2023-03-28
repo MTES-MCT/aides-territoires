@@ -13,9 +13,33 @@ from organizations.constants import (
 )
 
 
+class OrganizationQuerySet(models.QuerySet):
+    def communes(self, values=None):
+        """
+        Returns a list of the communal organizations
+        """
+        communes = self.filter(perimeter__scale=Perimeter.SCALES.commune)
+        if values:
+            communes = communes.values(*values)
+
+        return communes.order_by("perimeter__insee")
+
+    def obsolete_perimeters(self, values=None):
+        """
+        Returns a list of the organizations linked to an obsolete perimeter
+        """
+        orgs = self.filter(perimeter__is_obsolete=True)
+        if values:
+            orgs = orgs.values(*values)
+
+        return orgs
+
+
 class Organization(models.Model):
     ORGANIZATION_TYPE_CHOICES = ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES
     INTERCOMMUNALITY_TYPES_CHOICES = Choices(*INTERCOMMUNALITY_TYPES)
+
+    objects = OrganizationQuerySet.as_manager()
 
     name = models.CharField("Nom", max_length=256, db_index=True)
     slug = models.SlugField(
