@@ -67,6 +67,7 @@ class OrganizationAdmin(ImportExportActionModelAdmin):
                     "address",
                     "city_name",
                     "zip_code",
+                    "insee_code",
                     "siren_code",
                     "siret_code",
                     "ape_code",

@@ -360,9 +360,40 @@ class Organization(models.Model):
         )
 
         if self.perimeter and self.perimeter.scale in collectivity_scales:
-            siren = self.perimeter.siren
-            if siren and not self.siren:
-                self.siren = siren
+            # Codes fields
+            insee_code = self.perimeter.insee
+            if insee_code and not self.insee_code:
+                self.insee_code = insee_code
+
+            siren_code = self.perimeter.siren
+            if siren_code and not self.siren_code:
+                self.siren_code = siren_code
+
+            siret_code = self.perimeter.siret
+            if siret_code and not self.siret_code:
+                self.siret_code = siret_code
+
+            ape_code = self.perimeter.get_perimeter_data_by_property("ape_code")
+            if ape_code and not self.ape_code:
+                # We store the APE code without the standard dot for some reason
+                self.ape_code = ape_code.replace(".", "")
+
+            # Address fields
+            address_street = self.perimeter.get_perimeter_data_by_property(
+                "address_street"
+            )
+            if address_street and not self.address:
+                self.address = address_street
+
+            city_name = self.perimeter.get_perimeter_data_by_property(
+                "address_city_name"
+            )
+            if city_name and not self.city_name:
+                self.city_name = city_name
+
+            zip_code = self.perimeter.get_perimeter_data_by_property("address_zipcode")
+            if zip_code and not self.zip_code:
+                self.zip_code = zip_code
 
     def save(self, *args, **kwargs):
         self.set_slug()

@@ -1,5 +1,5 @@
 """
-Get the SIRETs of public structures from an export file.
+Get data about public structures from an export file of the Sirene database.
 
 The file is generated through
 https://www.sirene.fr/sirene/public/creation-fichier#activite-principale
@@ -11,7 +11,10 @@ with the following parameters:
     - 84.11Z - Administration publique générale
     - 84.13Z - Administration publique (tutelle) des activités économiques
 
-We also get the postal address of the organization at the same time
+The extracted data is:
+- SIRET number of the headquarters
+- APE code
+- Postal address of the headquarters
 """
 import csv
 import requests
@@ -30,7 +33,7 @@ def get_source_file_url() -> str:
     return f"{cloud_root}/{bucket_name}/resources/{file_name}"
 
 
-def import_sirets() -> dict:
+def import_sirene_data() -> dict:
     file_url = get_source_file_url()
 
     siren_entries = {}
@@ -92,4 +95,11 @@ def import_siret_for_perimeter(perimeter: Perimeter, entry: dict) -> None:
             perimeter=perimeter,
             prop="address_city_name",
             defaults={"value": entry["libelleCommuneEtablissement"]},
+        )
+
+    if entry["activitePrincipaleUniteLegale"]:
+        ape_item, ape_created = PerimeterData.objects.update_or_create(
+            perimeter=perimeter,
+            prop="ape_code",
+            defaults={"value": entry["activitePrincipaleUniteLegale"]},
         )

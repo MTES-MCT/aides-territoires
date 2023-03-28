@@ -296,6 +296,23 @@ class Perimeter(models.Model):
             latitude=self.latitude, longitude=self.longitude, radius=radius
         )
 
+    @property
+    def get_perimeter_data(self) -> QuerySet:
+        """Return a QuerySet with all PerimeterData for the current perimeter"""
+        return PerimeterData.objects.filter(perimeter=self)
+
+    def get_perimeter_data_by_property(self, property: str):
+        """
+        Return the value of a property for a perimeter if set,
+        or an empty string otherwise
+        """
+        datapoint = PerimeterData.objects.filter(perimeter=self, prop=property).first()
+
+        if datapoint is not None:
+            return datapoint.value
+        else:
+            return ""
+
 
 class PerimeterImport(models.Model):
     """
