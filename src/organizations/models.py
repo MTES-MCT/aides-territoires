@@ -9,6 +9,7 @@ from geofr.services.validators import validate_siren, validate_siret
 from geofr.utils import get_all_related_perimeters
 from organizations.constants import (
     INTERCOMMUNALITY_TYPES,
+    ORGANIZATION_TYPES_COLLECTIVITIES_SINGULAR,
     ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES,
     POPULATION_STRATAS,
 )
@@ -359,7 +360,13 @@ class Organization(models.Model):
             Perimeter.SCALES.region,
         )
 
-        if self.perimeter and self.perimeter.scale in collectivity_scales:
+        collectivity_types = [x[0] for x in ORGANIZATION_TYPES_COLLECTIVITIES_SINGULAR]
+
+        if (
+            self.organization_type[0] in collectivity_types
+            and self.perimeter
+            and self.perimeter.scale in collectivity_scales
+        ):
             # Codes fields
             insee_code = self.perimeter.insee
             if insee_code and not self.insee_code:
@@ -394,6 +401,12 @@ class Organization(models.Model):
             zip_code = self.perimeter.get_perimeter_data_by_property("address_zipcode")
             if zip_code and not self.zip_code:
                 self.zip_code = zip_code
+
+            intercommunality_type = self.perimeter.get_perimeter_data_by_property(
+                "type_epci"
+            )
+            if intercommunality_type and not self.intercommunality_type:
+                self.intercommunality_type = intercommunality_type
 
     def save(self, *args, **kwargs):
         self.set_slug()
