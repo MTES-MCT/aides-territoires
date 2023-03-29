@@ -363,7 +363,8 @@ class Organization(models.Model):
         collectivity_types = [x[0] for x in ORGANIZATION_TYPES_COLLECTIVITIES_SINGULAR]
 
         if (
-            self.organization_type[0] in collectivity_types
+            self.organization_type
+            and self.organization_type[0] in collectivity_types
             and self.perimeter
             and self.perimeter.scale in collectivity_scales
         ):
