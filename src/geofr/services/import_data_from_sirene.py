@@ -22,6 +22,7 @@ import io
 from contextlib import closing
 
 from django.conf import settings
+from django.db import transaction
 
 from geofr.models import Perimeter, PerimeterData
 
@@ -33,6 +34,7 @@ def get_source_file_url() -> str:
     return f"{cloud_root}/{bucket_name}/resources/{file_name}"
 
 
+@transaction.atomic
 def import_sirene_data() -> dict:
     file_url = get_source_file_url()
 
@@ -58,6 +60,10 @@ def import_sirene_data() -> dict:
             entry = siren_entries[perimeter.siren]
             import_siret_for_perimeter(perimeter, entry)
             counter += 1
+
+            if counter % 1000 == 0:
+                print(f"{counter} rows treated")
+
         else:
             missing_entries.append(f"{perimeter} - {perimeter.siren}")
 
