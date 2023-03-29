@@ -19,12 +19,15 @@ The extracted data is:
 import csv
 import requests
 import io
+import logging
 from contextlib import closing
 
 from django.conf import settings
 from django.db import transaction
 
 from geofr.models import Perimeter, PerimeterData
+
+logger = logging.getLogger("console_log")
 
 
 def get_source_file_url() -> str:
@@ -62,8 +65,7 @@ def import_sirene_data() -> dict:
             counter += 1
 
             if counter % 1000 == 0:
-                print(f"{counter} rows treated")
-
+                logger.info(f"{counter} rows treated")
         else:
             missing_entries.append(f"{perimeter} - {perimeter.siren}")
 
