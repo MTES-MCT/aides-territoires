@@ -33,7 +33,7 @@ SECRET_KEY = env(
 
 DATABASES = {
     "default": env.db(
-        default="psql://aidesterritoires:aidesterritoires@localhost/aidesterritoires"
+        default="psql://aidesterritoires:aidesterritoires@localhost/aidesterritoires",
     )
 }
 

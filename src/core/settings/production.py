@@ -16,7 +16,7 @@ ENV_NAME = env("ENV_NAME")
 
 SECRET_KEY = env("SECRET_KEY")
 
-DATABASES = {"default": env.db()}
+DATABASES = {"default": env.db(engine="django_postgrespool2")}
 
 CACHE_BACKEND = env(
     "CACHE_BACKEND", default="django.core.cache.backends.locmem.LocMemCache"

@@ -24,7 +24,7 @@ DJANGO_ROOT = CORE_APP_DIR.parent
 
 SECRET_KEY = env("SECRET_KEY")
 
-DATABASES = {"default": dj_database_url.config()}
+DATABASES = {"default": dj_database_url.config(engine="django_postgrespool2")}
 
 DEBUG = env.bool("DEBUG", False)
 

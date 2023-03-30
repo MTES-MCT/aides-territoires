@@ -17,6 +17,13 @@ PUBLIC_ROOT = PROJECT_ROOT.child("public")
 
 ALLOWED_HOSTS = []
 
+# additional options to pass to SQLAlchemy's pool creation for postgrespool2
+DATABASE_POOL_CLASS = "sqlalchemy.pool.QueuePool"
+DATABASE_POOL_ARGS = {
+    "max_overflow": 10,
+    "pool_size": 5,
+    "recycle": 300,
+}
 
 DJANGO_APPS = [
     "admin_tools",

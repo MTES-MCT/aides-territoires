@@ -50,6 +50,7 @@ django-csp = "*"
 django-resized = "*"
 sentry-sdk = {extras = ["django"], version = "*"}
 django-defender = "*"
+django-postgrespool2 = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
