@@ -53,7 +53,7 @@ def get_extra_data_for_department(code: str) -> tuple:
     """Import the coordinates for the communes of said department"""
     api_url = f"{ENDPOINT_URL}/departements/{code}/communes"
     payload = {
-        "fields": "nom,code,centre,codesPostaux,codeEpci",
+        "fields": "nom,code,centre,codesPostaux,codeEpci,surface",
         "format": "json",
         "geometry": "centre",
     }
@@ -91,6 +91,7 @@ def import_commune_extra_data(commune_entry: dict) -> bool:
         commune.zipcodes = commune_entry["codesPostaux"]
         commune.longitude = coordinates[0]
         commune.latitude = coordinates[1]
+        commune.surface = commune_entry.get("surface")
 
         commune.save()
         return True

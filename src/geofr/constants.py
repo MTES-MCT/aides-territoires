@@ -24,6 +24,9 @@ REGIONS_WITH_CODES = ((code, "{} – {}".format(code, name)) for code, name in R
 
 OVERSEAS_REGIONS = ("01", "02", "03", "04", "06")
 
+# Resp. 975 = Saint-Pierre-et-Miquelon, 977 = Saint-Barthélemy,
+# 978 = Saint-Martin, 984 = TAAF, 986 = Wallis et Futuna,
+# 987 = Polynésie française, 988 = Nouvelle-Calédonie, 989 = Clipperton
 OVERSEAS_COLLECTIVITIES = (
     "975",
     "977",

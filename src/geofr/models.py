@@ -204,6 +204,16 @@ class Perimeter(models.Model):
         verbose_name="population", null=True, blank=True
     )
 
+    surface = models.DecimalField(
+        verbose_name="superficie",
+        help_text="Superficie en hectares",
+        null=True,
+        blank=True,
+        max_digits=10,
+        decimal_places=2,
+    )
+    # Commune with the biggest area: Terre-Adélie with 33556724.35 ha
+
     density_typology = models.CharField(
         "typologie",
         max_length=50,
@@ -231,7 +241,6 @@ class Perimeter(models.Model):
     live_aids_count = models.PositiveSmallIntegerField(
         verbose_name="nombre d’aides live", null=True, blank=True
     )
-
     categories_count = models.PositiveSmallIntegerField(
         verbose_name="nombre de catégories", null=True, blank=True
     )

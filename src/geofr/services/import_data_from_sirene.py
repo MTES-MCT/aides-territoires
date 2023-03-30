@@ -22,24 +22,17 @@ import io
 import logging
 from contextlib import closing
 
-from django.conf import settings
 from django.db import transaction
 
+from core.utils import get_stored_file_url
 from geofr.models import Perimeter, PerimeterData
 
 logger = logging.getLogger("console_log")
 
 
-def get_source_file_url() -> str:
-    cloud_root = getattr(settings, "AWS_S3_ENDPOINT_URL", "")
-    bucket_name = getattr(settings, "AWS_STORAGE_BUCKET_NAME", "")
-    file_name = "siren-etablissements-publics.csv"
-    return f"{cloud_root}/{bucket_name}/resources/{file_name}"
-
-
 @transaction.atomic
 def import_sirene_data() -> dict:
-    file_url = get_source_file_url()
+    file_url = get_stored_file_url("siren-etablissements-publics.csv")
 
     siren_entries = {}
 
@@ -76,12 +69,12 @@ def import_siret_for_perimeter(perimeter: Perimeter, entry: dict) -> None:
     perimeter.siret = entry["siret"]
     perimeter.save()
 
-    address_parts = {
+    address_parts = [
         entry["numeroVoieEtablissement"],
         entry["indiceRepetitionEtablissement"],
         entry["typeVoieEtablissement"],
         entry["libelleVoieEtablissement"],
-    }
+    ]
     address_street = " ".join(filter(None, address_parts))
 
     if address_street:

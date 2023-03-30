@@ -41,6 +41,7 @@ class OrganizationAdmin(ImportExportActionModelAdmin):
         "date_updated",
         "get_projects",
         "population_strata",
+        "density_typology",
     ]
 
     fieldsets = [
@@ -63,6 +64,7 @@ class OrganizationAdmin(ImportExportActionModelAdmin):
             {
                 "fields": (
                     "perimeter",
+                    "density_typology",
                     "intercommunality_type",
                     "address",
                     "city_name",

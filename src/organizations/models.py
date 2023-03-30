@@ -5,7 +5,7 @@ from django.utils import timezone
 from core.fields import ChoiceArrayField
 from model_utils import Choices
 from geofr.models import Perimeter
-from geofr.services.validators import validate_siren, validate_siret
+from geofr.services.validators import validate_siren, validate_siret, validate_naf
 from geofr.utils import get_all_related_perimeters
 from organizations.constants import (
     INTERCOMMUNALITY_TYPES,
@@ -31,6 +31,16 @@ class OrganizationQuerySet(models.QuerySet):
         Returns a list of the organizations linked to an obsolete perimeter
         """
         orgs = self.filter(perimeter__is_obsolete=True)
+        if values:
+            orgs = orgs.values(*values)
+
+        return orgs
+
+    def current_perimeters(self, values=None):
+        """
+        Returns a list of the organizations linked to a current perimeter
+        """
+        orgs = self.filter(perimeter__is_obsolete=False)
         if values:
             orgs = orgs.values(*values)
 
@@ -84,7 +94,9 @@ class Organization(models.Model):
         blank=True,
         null=True,
     )
-    ape_code = models.CharField("Code APE", max_length=5, null=True, blank=True)
+    ape_code = models.CharField(
+        "Code APE", max_length=5, validators=[validate_naf], null=True, blank=True
+    )
 
     inhabitants_number = models.PositiveIntegerField(
         "Nombre d’habitants", null=True, blank=True
@@ -256,6 +268,13 @@ class Organization(models.Model):
         blank=True,
     )
 
+    density_typology = models.CharField(
+        "Typologie",
+        max_length=50,
+        blank=True,
+        help_text="définit le statut d’une commune rurale ou urbaine",
+    )
+
     date_created = models.DateTimeField("Date de création", default=timezone.now)
     date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
 
@@ -402,6 +421,10 @@ class Organization(models.Model):
             zip_code = self.perimeter.get_perimeter_data_by_property("address_zipcode")
             if zip_code and not self.zip_code:
                 self.zip_code = zip_code
+
+            density_typology = self.perimeter.density_typology
+            if density_typology and not self.density_typology:
+                self.density_typology = density_typology
 
             intercommunality_type = self.perimeter.get_perimeter_data_by_property(
                 "type_epci"

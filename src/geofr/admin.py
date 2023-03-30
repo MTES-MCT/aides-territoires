@@ -51,6 +51,66 @@ class PerimeterAdmin(admin.ModelAdmin):
         PerimeterDataInline,
     ]
 
+    fieldsets = [
+        (
+            "",
+            {
+                "fields": (
+                    "id",
+                    ("name", "unaccented_name"),
+                    "code",
+                    "scale",
+                    "manually_created",
+                    ("is_obsolete", "date_obsolete"),
+                    "is_visible_to_users",
+                    "date_created",
+                    "date_updated",
+                )
+            },
+        ),
+        (
+            "Identifiants",
+            {"fields": ("insee", "siren", "siret", "zipcodes")},
+        ),
+        (
+            "Situation",
+            {
+                "fields": (
+                    "continent",
+                    "country",
+                    "regions",
+                    "departments",
+                    "epci",
+                    "basin",
+                    "is_overseas",
+                    ("latitude", "longitude"),
+                )
+            },
+        ),
+        (
+            "Données",
+            {
+                "fields": (
+                    "population",
+                    "surface",
+                    "density_typology",
+                )
+            },
+        ),
+        (
+            "Compteurs",
+            {
+                "fields": (
+                    "backers_count",
+                    "programs_count",
+                    "projects_count",
+                    "live_aids_count",
+                    "categories_count",
+                )
+            },
+        ),
+    ]
+
     class Media:
         css = {"all": ("css/admin.css",)}
 

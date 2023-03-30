@@ -5,7 +5,11 @@ from django.db import transaction
 from django.db.models import Q
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
-from geofr.constants import OVERSEAS_PREFIX, DEPARTMENT_TO_REGION
+from geofr.constants import (
+    OVERSEAS_PREFIX,
+    DEPARTMENT_TO_REGION,
+    OVERSEAS_COLLECTIVITIES,
+)
 from geofr.models import Perimeter, PerimeterImport
 from accounts.models import User
 
@@ -47,10 +51,7 @@ def list_insee_codes_for_departments_and_coms() -> list:
     )
 
     # Add the COMs
-    # Resp. 975 = Saint-Pierre-et-Miquelon, 977 = Saint-Barthélemy,
-    # 978 = Saint-Martin, 984 = TAAF, 986 = Wallis et Futuna,
-    # 987 = Polynésie française, 988 = Nouvelle-Calédonie, 989 = Clipperton
-    codes += ["975", "977", "978", "984", "986", "987", "988", "989"]
+    codes += list(OVERSEAS_COLLECTIVITIES)
 
     return codes
 
