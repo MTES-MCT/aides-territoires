@@ -1,4 +1,9 @@
-from core.utils import get_site_from_host, is_subdomain, build_host_with_subdomain
+from core.utils import (
+    get_site_from_host,
+    get_stored_file_url,
+    is_subdomain,
+    build_host_with_subdomain,
+)
 
 
 def test_get_site_from_host():
@@ -79,3 +84,10 @@ def test_build_host_with_subdomain():
     ]
     for host in host_testset:
         assert build_host_with_subdomain(host[0], host[1]) == host[2]
+
+
+def test_get_stored_file_url():
+    assert (
+        get_stored_file_url("sample_table.csv")
+        == "https://cloud.example.org/test-bucket/resources/sample_table.csv"
+    )
