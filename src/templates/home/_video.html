@@ -1,6 +1,6 @@
 {% load settings %}
 <figure role="group" class="fr-content-media">
-    <video controls class="fr-responsive-vid" poster="{% cloud_file_url 'Aides-territoires-presentation.jpg' %}">
+    <video preload="none" controls class="fr-responsive-vid" poster="{% cloud_file_url 'Aides-territoires-presentation.jpg' %}">
         <source src="{% cloud_file_url 'Aides-territoires-presentation.mp4' %}" type="video/mp4">
         <source src="{% cloud_file_url 'Aides-territoires-presentation.webm' %}" type="video/webm">
         <p>
