@@ -47,6 +47,7 @@ ALLOWED_ATTRS = [
     "rel",  # for links opening in a new tab
     "controls",  # for the video tag
     "poster",  # for the video tag
+    "preload",  # for the video tag
     "type",  # for the source tag
 ]
 
