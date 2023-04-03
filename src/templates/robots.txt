@@ -1,3 +1,29 @@
-User-Agent: *
+# Allowed
+User-agent: Googlebot
 Disallow:
+
+User-agent: Googlebot-Image
+Disallow:
+
+User-agent: bingbot
+Disallow:
+
+User-agent: bingbot/2.0
+Disallow:
+
+User-agent: DuckDuckBot
+Disallow:
+
+# Slow down other bots
+User-agent: *
+Crawl-delay: 10
+
+# Disallowed
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+
 Sitemap: https://aides-territoires.beta.gouv.fr/sitemap.xml
