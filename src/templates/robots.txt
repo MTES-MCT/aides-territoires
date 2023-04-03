@@ -19,9 +19,6 @@ Crawl-delay: 10
 User-agent: SemrushBot
 Disallow: /
 
-User-agent: Qwantify
-Disallow: /
-
 User-agent: YandexBot
 Disallow: /
 
