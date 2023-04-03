@@ -68,7 +68,7 @@
                             <th scope="col" class="fr-text">Nom</th>
                             <th scope="col" class="fr-text">Nombre d’aides ajoutées</th>
                             <th scope="col" class="fr-text">Date création</th>
-                            <th scope="col" class="fr-text">État d'avancement</th>
+                            <th scope="col" class="fr-text">État d’avancement</th>
                             <th scope="col" class="fr-text">Créé par</th>
                             <th scope="col" class="fr-text">Projet public</th>
                             <th scope="col" class="fr-text">Action</th>
@@ -87,7 +87,7 @@
                                 {% if project.aid_set.all %}
                                     {{ project.aid_set.all.count }}
                                 {% else %}
-                                <span>Vous n'avez pas encore associé d'aides à ce projet.</span>
+                                <span>Vous n’avez pas encore associé d’aides à ce projet.</span>
                             {% endif %}
                             </td>
                             <td class="fr-text">{{ project.date_created|date:'d/m/y' }}</td>

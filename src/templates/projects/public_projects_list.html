@@ -49,8 +49,8 @@
 
             {% if not user.is_authenticated %}
             <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
-                <p class="fr-mt-2w"><strong>L'affichage complet de cette page est réservé aux utilisateurs connectés.</strong></p>
-                <p><a href="{% url 'login' %}?next={% url 'public_project_list_view'%}">Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin d'afficher toutes les informations relatives aux projets !</p>
+                <p class="fr-mt-2w"><strong>L’affichage complet de cette page est réservé aux utilisateurs connectés.</strong></p>
+                <p><a href="{% url 'login' %}?next={% url 'public_project_list_view'%}">Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin d’afficher toutes les informations relatives aux projets !</p>
             </div>
             {% endif %}
 

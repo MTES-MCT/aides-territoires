@@ -32,28 +32,28 @@
             <thead>
                 <tr>
                     <th scope="col">Type</th>
-                    <th scope="col">Nombre d'inscrits</th>
+                    <th scope="col">Nombre d’inscrits</th>
                     <th scope="col">%</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th>Porteurs de projets uniquement</th>
+                    <th scope="row">Porteurs de projets uniquement</th>
                     <td>{{ nb_beneficiaries_only }}</td>
                     <td>{% percent_display nb_beneficiaries_only nb_users %}</td>
                 </tr>
                 <tr>
-                    <th>Porteurs d'aides uniquement</th>
+                    <th scope="row">Porteurs d’aides uniquement</th>
                     <td>{{ nb_contributors_only }}</td>
                     <td>{% percent_display nb_contributors_only nb_users %}</td>
                 </tr>
                 <tr>
-                    <th>Porteurs de projets et d'aides</th>
+                    <th scope="row">Porteurs de projets et d’aides</th>
                     <td>{{ nb_beneficiaries_and_contributors }}</td>
                     <td>{% percent_display nb_beneficiaries_and_contributors nb_users %}</td>
                 </tr>
                 <tr>
-                    <th>TOTAL</th>
+                    <th scope="row">TOTAL</th>
                     <td>{{ nb_users }}</td>
                     <td>{% percent_display nb_users nb_users %}</td>
                 </tr>

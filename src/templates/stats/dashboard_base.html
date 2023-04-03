@@ -139,7 +139,7 @@
             role="tab"
             aria-selected="{% if consultation_selected %}true{% else %}false{% endif %}"
             aria-controls="consultation-panel"
-            >👥 Consultation</a>
+            ><span aria-hidden="true">👥 </span>Consultation</a>
         </li>
         <li role="presentation">
           <a
@@ -150,7 +150,7 @@
             role="tab"
             aria-selected="{% if acquisition_selected %}true{% else %}false{% endif %}"
             aria-controls="acquisition-panel"
-            >🎣 Acquisition</a>
+            ><span aria-hidden="true">🎣 </span>Acquisition</a>
         </li>
         <li role="presentation">
           <a
@@ -161,7 +161,7 @@
             role="tab"
             aria-selected="{% if engagement_selected %}true{% else %}false{% endif %}"
             aria-controls="engagement-panel"
-            >🏅 Engagement</a>
+            ><span aria-hidden="true">🏅 </span>Engagement</a>
         </li>
         <li role="presentation">
           <a
@@ -172,7 +172,7 @@
             role="tab"
             aria-selected="{% if porteurs_selected %}true{% else %}false{% endif %}"
             aria-controls="cote-porteurs-panel"
-            >💪 Côté porteurs</a>
+            ><span aria-hidden="true">💪 </span>Côté porteurs</a>
         </li>
       </ul>
       {% block panels %}{% endblock panels %}
