@@ -11,6 +11,9 @@ Disallow:
 User-agent: bingbot/2.0
 Disallow:
 
+User-agent: DuckDuckBot
+Disallow:
+
 # Slow down other bots
 User-agent: *
 Crawl-delay: 10
