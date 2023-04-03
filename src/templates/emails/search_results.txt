@@ -1,6 +1,6 @@
 Bonjour {{ user_name }},
 
-Voici l'adresse permettant de retrouver votre recherche :
+Voici l’adresse permettant de retrouver votre recherche :
 
 {{ full_url|safe }}
 
@@ -12,5 +12,5 @@ Voici les premières aides correspondantes :
     {{ scheme }}://{{ domain }}{{ aid.get_absolute_url }}
 {% endfor %}
 
-L'équipe d'Aides-territoires,
+L’équipe d’Aides-territoires,
 {{ scheme }}://{{ domain }}

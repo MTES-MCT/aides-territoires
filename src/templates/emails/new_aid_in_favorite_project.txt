@@ -1,9 +1,9 @@
 Bonjour {{ user_name }}, 
 
 {{ project_author_name }} a affilié une nouvelle aide, "{{ aid_name }}", à son projet {{ project_name }}.
- 
+
 Consultez-le dès maintenant ! {{ full_project_url }}
- 
+
 À très vite !
- 
-L'équipe d'Aides-territoires
+
+L’équipe d’Aides-territoires

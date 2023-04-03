@@ -3,6 +3,6 @@ Bonjour {{ former_collaborator }},
 {{ user_name }} a quitté votre structure {{ organization_name }} et n’a donc plus accès aux projets et aux aides de {{ organization_name }}.
 
 Cordialement,
-L'équipe d'Aides-territoires.
+L’équipe d’Aides-territoires.
 
 Nous restons joignables sur aides-territoires@beta.gouv.fr

@@ -5,7 +5,7 @@ Bonjour {{ project_author_name }},
 {{ suggester_user_name }} de "{{ suggester_organization_name }}" vous a suggéré l’aide suivante pour financer ou accompagner votre projet "{{ project_name }}" sur Aides-territoires : 
 
 Titre de l’aide : "{{ suggested_aid_name }}"
-Porteur de l'aide : "{{ suggested_aid_financer_name }}"
+Porteur de l’aide : "{{ suggested_aid_financer_name }}"
 {% if suggested_aid_recurrence_string %}
 Échéance : {{ suggested_aid_recurrence }}
 {% endif %}
@@ -21,4 +21,4 @@ Pour cela, rendez-vous sur votre compte: {{ full_account_url }}
 
 À très vite !
 
-L'équipe d'Aides-territoires
+L’équipe d’Aides-territoires
