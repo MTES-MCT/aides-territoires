@@ -5,16 +5,57 @@ from django.utils import timezone
 from core.fields import ChoiceArrayField
 from model_utils import Choices
 from geofr.models import Perimeter
+from geofr.services.validators import validate_siren, validate_siret, validate_naf
 from geofr.utils import get_all_related_perimeters
 from organizations.constants import (
     INTERCOMMUNALITY_TYPES,
+    ORGANIZATION_TYPES_COLLECTIVITIES_SINGULAR,
     ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES,
+    POPULATION_STRATAS,
 )
+
+
+class OrganizationQuerySet(models.QuerySet):
+    def communes(self, values=None):
+        """
+        Returns a list of the correct communal organizations, ie:
+        - Organization type is commune
+        - Perimeter is at commune scale too
+        """
+        communes = self.filter(
+            perimeter__scale=Perimeter.SCALES.commune, organization_type=["commune"]
+        )
+        if values:
+            communes = communes.values(*values)
+
+        return communes.order_by("perimeter__insee")
+
+    def obsolete_perimeters(self, values=None):
+        """
+        Returns a list of the organizations linked to an obsolete perimeter
+        """
+        orgs = self.filter(perimeter__is_obsolete=True)
+        if values:
+            orgs = orgs.values(*values)
+
+        return orgs
+
+    def current_perimeters(self, values=None):
+        """
+        Returns a list of the organizations linked to a current perimeter
+        """
+        orgs = self.filter(perimeter__is_obsolete=False)
+        if values:
+            orgs = orgs.values(*values)
+
+        return orgs
 
 
 class Organization(models.Model):
     ORGANIZATION_TYPE_CHOICES = ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES
     INTERCOMMUNALITY_TYPES_CHOICES = Choices(*INTERCOMMUNALITY_TYPES)
+
+    objects = OrganizationQuerySet.as_manager()
 
     name = models.CharField("Nom", max_length=256, db_index=True)
     slug = models.SlugField(
@@ -32,9 +73,34 @@ class Organization(models.Model):
     )
     zip_code = models.PositiveIntegerField("Code postal", null=True, blank=True)
 
-    siren_code = models.BigIntegerField("Code SIREN", null=True, blank=True)
-    siret_code = models.BigIntegerField("Code SIRET", null=True, blank=True)
-    ape_code = models.CharField("Code APE", max_length=5, null=True, blank=True)
+    insee_code = models.CharField(
+        "code Insee",
+        max_length=5,
+        help_text="Identifiant officiel défini dans le Code officiel géographique",
+        blank=True,
+        null=True,
+    )
+
+    siren_code = models.CharField(
+        "numéro Siren",
+        max_length=9,
+        help_text="Identifiant officiel à 9 chiffres défini dans la base SIREN",
+        validators=[validate_siren],
+        blank=True,
+        null=True,
+    )
+
+    siret_code = models.CharField(
+        "numéro Siret",
+        max_length=14,
+        help_text="Identifiant officiel à 14 chiffres défini dans la base SIREN",
+        validators=[validate_siret],
+        blank=True,
+        null=True,
+    )
+    ape_code = models.CharField(
+        "Code APE", max_length=5, validators=[validate_naf], null=True, blank=True
+    )
 
     inhabitants_number = models.PositiveIntegerField(
         "Nombre d’habitants", null=True, blank=True
@@ -108,7 +174,7 @@ class Organization(models.Model):
         "Nombre de terrains de football", null=True, blank=True
     )
     running_track_number = models.PositiveIntegerField(
-        "Nombre de pistes d'athlétisme", null=True, blank=True
+        "Nombre de pistes d’athlétisme", null=True, blank=True
     )
     other_outside_structure_number = models.PositiveIntegerField(
         "Nombre de structures extérieures autres", null=True, blank=True
@@ -138,7 +204,7 @@ class Organization(models.Model):
 
     backer = models.ForeignKey(
         "backers.Backer",
-        verbose_name="Porteur d'aides",
+        verbose_name="Porteur d’aides",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -198,6 +264,21 @@ class Organization(models.Model):
         blank=True,
     )
 
+    population_strata = models.CharField(
+        verbose_name="Strate démographique",
+        max_length=15,
+        choices=POPULATION_STRATAS,
+        null=True,
+        blank=True,
+    )
+
+    density_typology = models.CharField(
+        "Typologie",
+        max_length=50,
+        blank=True,
+        help_text="définit le statut d’une commune rurale ou urbaine",
+    )
+
     date_created = models.DateTimeField("Date de création", default=timezone.now)
     date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
 
@@ -243,7 +324,122 @@ class Organization(models.Model):
             self.perimeter_region = region
             self.perimeter_department = department
 
+    def set_population(self):
+        """
+        Set the population value for municipalities if it is missing
+        """
+        if self.perimeter and self.perimeter.scale == Perimeter.SCALES.commune:
+            if not self.inhabitants_number:
+                self.inhabitants_number = self.perimeter.population
+
+    def set_population_strata(self):
+        """
+        Set the population strata value for municipalities.
+
+        Note: A match-case implementation would lower the cognitive complexity
+        but is not really actually more readable and has worse performance.
+        """
+        if self.inhabitants_number is not None:
+            if self.inhabitants_number < 500:
+                self.population_strata = "500-"
+            elif self.inhabitants_number < 1000:
+                self.population_strata = "500_599"
+            elif self.inhabitants_number < 2000:
+                self.population_strata = "1000_1999"
+            elif self.inhabitants_number < 3500:
+                self.population_strata = "2000_3499"
+            elif self.inhabitants_number < 5000:
+                self.population_strata = "3500_4999"
+            elif self.inhabitants_number < 7500:
+                self.population_strata = "5000_7499"
+            elif self.inhabitants_number < 10000:
+                self.population_strata = "7500_9999"
+            elif self.inhabitants_number < 15000:
+                self.population_strata = "10000_14999"
+            elif self.inhabitants_number < 20000:
+                self.population_strata = "15000_19999"
+            elif self.inhabitants_number < 35000:
+                self.population_strata = "20000_34999"
+            elif self.inhabitants_number < 50000:
+                self.population_strata = "35000_49999"
+            elif self.inhabitants_number < 75000:
+                self.population_strata = "50000_74999"
+            elif self.inhabitants_number < 100000:
+                self.population_strata = "75000_99999"
+            elif self.inhabitants_number < 200000:
+                self.population_strata = "100000_199999"
+            else:
+                self.population_strata = "200000+"
+
+    def set_extra_data(self) -> None:
+        """
+        Set extra data gathered from the perimeter to
+        the organization
+        """
+        collectivity_scales = (
+            Perimeter.SCALES.commune,
+            Perimeter.SCALES.epci,
+            Perimeter.SCALES.department,
+            Perimeter.SCALES.region,
+        )
+
+        collectivity_types = [x[0] for x in ORGANIZATION_TYPES_COLLECTIVITIES_SINGULAR]
+
+        if (
+            self.organization_type
+            and self.organization_type[0] in collectivity_types
+            and self.perimeter
+            and self.perimeter.scale in collectivity_scales
+        ):
+            # Codes fields
+            insee_code = self.perimeter.insee
+            if insee_code and not self.insee_code:
+                self.insee_code = insee_code
+
+            siren_code = self.perimeter.siren
+            if siren_code and not self.siren_code:
+                self.siren_code = siren_code
+
+            siret_code = self.perimeter.siret
+            if siret_code and not self.siret_code:
+                self.siret_code = siret_code
+
+            ape_code = self.perimeter.get_perimeter_data_by_property("ape_code")
+            if ape_code and not self.ape_code:
+                # We store the APE code without the standard dot for some reason
+                self.ape_code = ape_code.replace(".", "")
+
+            # Address fields
+            address_street = self.perimeter.get_perimeter_data_by_property(
+                "address_street"
+            )
+            if address_street and not self.address:
+                self.address = address_street
+
+            city_name = self.perimeter.get_perimeter_data_by_property(
+                "address_city_name"
+            )
+            if city_name and not self.city_name:
+                self.city_name = city_name
+
+            zip_code = self.perimeter.get_perimeter_data_by_property("address_zipcode")
+            if zip_code and not self.zip_code:
+                self.zip_code = zip_code
+
+            density_typology = self.perimeter.density_typology
+            if density_typology and not self.density_typology:
+                self.density_typology = density_typology
+
+            intercommunality_type = self.perimeter.get_perimeter_data_by_property(
+                "type_epci"
+            )
+            if intercommunality_type and not self.intercommunality_type:
+                self.intercommunality_type = intercommunality_type
+
     def save(self, *args, **kwargs):
         self.set_slug()
         self.set_perimeters()
+        self.set_population()
+        self.set_population_strata()
+        self.set_extra_data()
         return super().save(*args, **kwargs)

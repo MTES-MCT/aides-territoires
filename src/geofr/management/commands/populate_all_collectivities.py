@@ -41,14 +41,6 @@ class Command(BaseCommand):
             )
         )
 
-        self.stdout.write(self.style.NOTICE("Importing overseas..."))
-        result = populate_overseas()
-        self.stdout.write(
-            self.style.SUCCESS(
-                f"{result['created']} created, {result['updated']} updated."
-            )
-        )
-
         self.stdout.write(self.style.NOTICE("Importing communes..."))
         result = populate_communes()
         self.stdout.write(
@@ -64,3 +56,7 @@ class Command(BaseCommand):
                 f"{result['created']} created, {result['updated']} updated."
             )
         )
+
+        self.stdout.write(self.style.NOTICE("Importing overseas..."))
+        populate_overseas()
+        self.stdout.write(self.style.NOTICE("Done..."))

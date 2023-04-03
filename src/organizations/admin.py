@@ -36,7 +36,13 @@ class OrganizationAdmin(ImportExportActionModelAdmin):
     list_filter = [OrganizationTypeListFilter, "is_imported"]
     autocomplete_fields = ["beneficiaries", "backer", "perimeter", "favorite_projects"]
     prepopulated_fields = {"slug": ("name",)}
-    readonly_fields = ["date_created", "date_updated", "get_projects"]
+    readonly_fields = [
+        "date_created",
+        "date_updated",
+        "get_projects",
+        "population_strata",
+        "density_typology",
+    ]
 
     fieldsets = [
         (
@@ -58,10 +64,12 @@ class OrganizationAdmin(ImportExportActionModelAdmin):
             {
                 "fields": (
                     "perimeter",
+                    "density_typology",
                     "intercommunality_type",
                     "address",
                     "city_name",
                     "zip_code",
+                    "insee_code",
                     "siren_code",
                     "siret_code",
                     "ape_code",
@@ -72,7 +80,7 @@ class OrganizationAdmin(ImportExportActionModelAdmin):
             "Chiffres clés",
             {
                 "fields": (
-                    "inhabitants_number",
+                    ("inhabitants_number", "population_strata"),
                     "voters_number",
                     "corporates_number",
                     "shops_number",

@@ -152,6 +152,16 @@ def build_host_with_subdomain(host, subdomain):
     return host
 
 
+def get_stored_file_url(file_name: str, folder: str = "resources") -> str:
+    """
+    Returns the URL of a file on our storage bucket
+    """
+    cloud_root = getattr(settings, "AWS_S3_ENDPOINT_URL", "")
+    bucket_name = getattr(settings, "AWS_STORAGE_BUCKET_NAME", "")
+
+    return f"{cloud_root}/{bucket_name}/{folder}/{file_name}"
+
+
 class RedirectAidDetailView(RedirectView):
     """
     We are using this view as a temporary fix.

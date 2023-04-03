@@ -10,6 +10,7 @@ from django.contrib.postgres.indexes import GinIndex
 from model_utils import Choices
 
 from core.utils import remove_accents
+from geofr.services.validators import validate_siren, validate_siret
 
 
 class PerimeterQuerySet(models.QuerySet):
@@ -128,6 +129,32 @@ class Perimeter(models.Model):
         help_text="Usage interne uniquement, non pertinent pour les périmètres Ad-hoc.",
     )
 
+    insee = models.CharField(
+        "code Insee",
+        max_length=5,
+        help_text="Identifiant officiel défini dans le Code officiel géographique",
+        blank=True,
+        null=True,
+    )
+
+    siren = models.CharField(
+        "numéro Siren",
+        max_length=9,
+        help_text="Identifiant officiel à 9 chiffres défini dans la base SIREN",
+        validators=[validate_siren],
+        blank=True,
+        null=True,
+    )
+
+    siret = models.CharField(
+        "numéro Siret",
+        max_length=14,
+        help_text="Identifiant officiel à 14 chiffres défini dans la base SIREN",
+        validators=[validate_siret],
+        blank=True,
+        null=True,
+    )
+
     contained_in = models.ManyToManyField(
         "geofr.Perimeter",
         verbose_name="Contenu dans",
@@ -175,7 +202,24 @@ class Perimeter(models.Model):
 
     population = models.PositiveIntegerField(
         verbose_name="population", null=True, blank=True
-    )  # Sourced from Banatic
+    )
+
+    surface = models.DecimalField(
+        verbose_name="superficie",
+        help_text="Superficie en hectares",
+        null=True,
+        blank=True,
+        max_digits=10,
+        decimal_places=2,
+    )
+    # Commune with the biggest area: Terre-Adélie with 33556724.35 ha
+
+    density_typology = models.CharField(
+        "typologie",
+        max_length=50,
+        blank=True,
+        help_text="définit le statut d’une commune rurale ou urbaine",
+    )
 
     # Location, stored as floats to avoid using GeoDjango
     # and its many dependencies
@@ -197,7 +241,6 @@ class Perimeter(models.Model):
     live_aids_count = models.PositiveSmallIntegerField(
         verbose_name="nombre d’aides live", null=True, blank=True
     )
-
     categories_count = models.PositiveSmallIntegerField(
         verbose_name="nombre de catégories", null=True, blank=True
     )
@@ -261,6 +304,23 @@ class Perimeter(models.Model):
         return Perimeter.objects.communes_by_distance(
             latitude=self.latitude, longitude=self.longitude, radius=radius
         )
+
+    @property
+    def get_perimeter_data(self) -> QuerySet:
+        """Return a QuerySet with all PerimeterData for the current perimeter"""
+        return PerimeterData.objects.filter(perimeter=self)
+
+    def get_perimeter_data_by_property(self, property: str):
+        """
+        Return the value of a property for a perimeter if set,
+        or an empty string otherwise
+        """
+        datapoint = PerimeterData.objects.filter(perimeter=self, prop=property).first()
+
+        if datapoint is not None:
+            return datapoint.value
+        else:
+            return ""
 
 
 class PerimeterImport(models.Model):

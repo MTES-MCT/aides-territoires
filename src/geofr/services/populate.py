@@ -1,11 +1,10 @@
-import json
-import urllib.request
+import requests
 
 from django.utils import timezone
 from django.db import transaction
 
-from geofr.models import Perimeter
-from geofr.constants import OVERSEAS_REGIONS
+from geofr.constants import OVERSEAS_ALL, OVERSEAS_REGIONS, OVERSEAS_COLLECTIVITIES
+from geofr.models import Perimeter, PerimeterData
 
 
 """
@@ -40,7 +39,7 @@ def get_data_path(fragment: str) -> str:
 
 
 @transaction.atomic
-def populate_countries() -> None:
+def populate_countries() -> dict:
 
     nb_created = 0
     nb_updated = 0
@@ -81,20 +80,23 @@ def populate_regions() -> dict:
     PerimeterContainedIn = Perimeter.contained_in.through
     perimeter_links = []
 
-    with urllib.request.urlopen(get_data_path("regions")) as url:
-        data = json.loads(url.read().decode())
-        nb_created = 0
-        nb_updated = 0
+    response = requests.get(get_data_path("regions"))
+    data = response.json()
+    nb_created = 0
+    nb_updated = 0
 
-        for entry in data:
+    for entry in data:
+        insee_code = entry["code"]
+        if insee_code not in OVERSEAS_COLLECTIVITIES:
 
             # Create or update the region perimeters
             region, created = Perimeter.objects.update_or_create(
                 scale=Perimeter.SCALES.region,
-                code=entry["code"],
+                code=insee_code,
                 defaults={
                     "name": entry["nom"],
-                    "is_overseas": (entry["code"] in OVERSEAS_REGIONS),
+                    "is_overseas": (insee_code in OVERSEAS_REGIONS),
+                    "insee": insee_code,
                 },
             )
             if created:
@@ -113,10 +115,23 @@ def populate_regions() -> dict:
                 )
             )
 
-        # Create the links between the regions and France / Europe
-        PerimeterContainedIn.objects.bulk_create(perimeter_links, ignore_conflicts=True)
+            # Add metadata
+            _tl_item, _tl_created = PerimeterData.objects.update_or_create(
+                perimeter=region,
+                prop="type_liaison",
+                defaults={"value": entry["typeLiaison"]},
+            )
 
-        return {"created": nb_created, "updated": nb_updated}
+            _cl_item, _cl_created = PerimeterData.objects.update_or_create(
+                perimeter=region,
+                prop="chef_lieu",
+                defaults={"value": entry["chefLieu"]},
+            )
+
+    # Create the links between the regions and France / Europe
+    PerimeterContainedIn.objects.bulk_create(perimeter_links, ignore_conflicts=True)
+
+    return {"created": nb_created, "updated": nb_updated}
 
 
 @transaction.atomic()
@@ -133,19 +148,23 @@ def populate_departments() -> dict:
     PerimeterContainedIn = Perimeter.contained_in.through
     perimeter_links = []
 
-    with urllib.request.urlopen(get_data_path("departements")) as url:
-        data = json.loads(url.read().decode())
-        nb_created = 0
-        nb_updated = 0
+    response = requests.get(get_data_path("departements"))
+    data = response.json()
 
-        for entry in data:
+    nb_created = 0
+    nb_updated = 0
+
+    for entry in data:
+        insee_code = entry["code"]
+        if insee_code not in OVERSEAS_COLLECTIVITIES:
             department, created = Perimeter.objects.update_or_create(
                 scale=Perimeter.SCALES.department,
-                code=entry["code"],
+                code=insee_code,
                 defaults={
                     "name": entry["nom"],
                     "regions": [entry["region"]],
                     "is_overseas": (entry["region"] in OVERSEAS_REGIONS),
+                    "insee": insee_code,
                 },
             )
             if created:
@@ -171,15 +190,27 @@ def populate_departments() -> dict:
                     )
                 )
 
-        # Create the links between the regions and France / Europe
-        PerimeterContainedIn.objects.bulk_create(perimeter_links, ignore_conflicts=True)
+            # Add metadata
+            _tl_item, _tl_created = PerimeterData.objects.update_or_create(
+                perimeter=department,
+                prop="type_liaison",
+                defaults={"value": entry["typeLiaison"]},
+            )
 
-        return {"created": nb_created, "updated": nb_updated}
+            _cl_item, _cl_created = PerimeterData.objects.update_or_create(
+                perimeter=department,
+                prop="chef_lieu",
+                defaults={"value": entry["chefLieu"]},
+            )
+
+    # Create the links between the regions and France / Europe
+    PerimeterContainedIn.objects.bulk_create(perimeter_links, ignore_conflicts=True)
+
+    return {"created": nb_created, "updated": nb_updated}
 
 
 @transaction.atomic
-def populate_overseas() -> dict:
-
+def populate_overseas() -> None:
     france = Perimeter.objects.get(scale=Perimeter.SCALES.country, code="FRA")
     europe = Perimeter.objects.get(scale=Perimeter.SCALES.continent, code="EU")
 
@@ -238,49 +269,8 @@ def populate_overseas() -> dict:
             )
         )
 
-    # Import the "collectivités d'Outre-Mer"
-    with urllib.request.urlopen(get_data_path("communes")) as url:
-        data = json.loads(url.read().decode())
-        coms = filter(lambda entry: "collectiviteOutremer" in entry, data)
-        nb_created = 0
-        nb_updated = 0
-
-        for entry in coms:
-
-            com, created = Perimeter.objects.update_or_create(
-                scale=Perimeter.SCALES.adhoc,
-                code=entry["collectiviteOutremer"]["code"],
-                defaults={
-                    "name": entry["collectiviteOutremer"]["nom"],
-                    "is_overseas": True,
-                },
-            )
-
-            if created:
-                nb_created += 1
-            else:
-                nb_updated += 1
-
-            perimeter_links.append(
-                PerimeterContainedIn(
-                    from_perimeter_id=com.id, to_perimeter_id=overseas.id
-                )
-            )
-            perimeter_links.append(
-                PerimeterContainedIn(
-                    from_perimeter_id=com.id, to_perimeter_id=france.id
-                )
-            )
-            perimeter_links.append(
-                PerimeterContainedIn(
-                    from_perimeter_id=com.id, to_perimeter_id=europe.id
-                )
-            )
-
-        # Create the links between the perimeters
-        PerimeterContainedIn.objects.bulk_create(perimeter_links, ignore_conflicts=True)
-
-        return {"created": nb_created, "updated": nb_updated}
+    # Create the links between the perimeters
+    PerimeterContainedIn.objects.bulk_create(perimeter_links, ignore_conflicts=True)
 
 
 @transaction.atomic()
@@ -309,105 +299,122 @@ def populate_communes() -> dict:
     PerimeterContainedIn = Perimeter.contained_in.through
     perimeter_links = []
 
-    with urllib.request.urlopen(get_data_path("communes")) as url:
-        data = json.loads(url.read().decode())
-        nb_created = 0
-        nb_updated = 0
+    response = requests.get(get_data_path("communes"))
+    data = response.json()
 
-        for entry in data:
+    nb_created = 0
+    nb_updated = 0
 
-            # There are several types of entries in the file:
-            #  - communes
-            #  - communes déléguées
-            #  - arrondissements municipaux
-            # At this stage, we only handle communes
-            if entry["type"] != "commune-actuelle":
-                continue
+    for entry in data:
 
-            # In the files, actual communes can be of two types:
-            # 1. Communes that belong in a region / department
-            # 2. Communes from "collectivités d'Outre-mer"
+        # There are several types of entries in the file:
+        #  - communes
+        #  - communes déléguées
+        #  - arrondissements municipaux
+        # At this stage, we only handle actual communes
+        if entry["type"] != "commune-actuelle":
+            continue
 
-            if "region" in entry:
-                data = {
-                    "regions": [entry["region"]],
-                    "departments": [entry["departement"]],
-                    "zipcodes": entry["codesPostaux"],
-                    "is_overseas": (entry["region"] in OVERSEAS_REGIONS),
-                }
-            else:
-                data = {"zipcodes": entry.get("codesPostaux", []), "is_overseas": True}
+        region = entry["region"]
+        is_overseas = region in OVERSEAS_ALL
+        if region in OVERSEAS_COLLECTIVITIES:
+            data = {
+                "zipcodes": entry.get("codesPostaux", []),
+                "is_overseas": is_overseas,
+            }
+        else:
+            data = {
+                "regions": [region],
+                "departments": [entry["departement"]],
+                "zipcodes": entry.get("codesPostaux", []),
+                "is_overseas": is_overseas,
+            }
 
-            defaults = {"name": entry["nom"]}
-            defaults.update(data)
+        # Communes in COM don't have a Siren number in the source
+        # Clipperton doesn't have a population value
+        defaults = {
+            "name": entry["nom"],
+            "population": entry.get("population"),
+            "insee": entry["code"],
+            "siren": entry.get("siren", ""),
+        }
+        defaults.update(data)
 
-            # Create or update the commune perimeter
-            commune, created = Perimeter.objects.update_or_create(
-                scale=Perimeter.SCALES.commune, code=entry["code"], defaults=defaults
+        # Create or update the commune perimeter
+        commune, created = Perimeter.objects.update_or_create(
+            scale=Perimeter.SCALES.commune, code=entry["code"], defaults=defaults
+        )
+        if created:
+            nb_created += 1
+        else:
+            nb_updated += 1
+
+        # Add metadata
+        if "typeLiaison" in entry:
+            _tl_item, _tl_created = PerimeterData.objects.update_or_create(
+                perimeter=commune,
+                prop="type_liaison",
+                defaults={"value": entry["typeLiaison"]},
             )
-            if created:
-                nb_created += 1
-            else:
-                nb_updated += 1
 
-            # Link perimeter to france, europe, regions, departements,
-            # "collectivités d'outre-mer", mainland / overseas, etc.
-            perimeter_links.append(
-                PerimeterContainedIn(
-                    from_perimeter_id=commune.id, to_perimeter_id=europe.id
-                )
+        # Link perimeter to france, europe, regions, departements,
+        # "collectivités d'outre-mer", mainland / overseas, etc.
+        perimeter_links.append(
+            PerimeterContainedIn(
+                from_perimeter_id=commune.id, to_perimeter_id=europe.id
             )
-            perimeter_links.append(
-                PerimeterContainedIn(
-                    from_perimeter_id=commune.id, to_perimeter_id=france.id
-                )
+        )
+        perimeter_links.append(
+            PerimeterContainedIn(
+                from_perimeter_id=commune.id, to_perimeter_id=france.id
             )
-
-            for region_code in commune.regions:
-                perimeter_links.append(
-                    PerimeterContainedIn(
-                        from_perimeter_id=commune.id,
-                        to_perimeter_id=regions[region_code],
-                    )
-                )
-            for department_code in commune.departments:
-                perimeter_links.append(
-                    PerimeterContainedIn(
-                        from_perimeter_id=commune.id,
-                        to_perimeter_id=departments[department_code],
-                    )
-                )
-
-            if commune.is_overseas:
-                perimeter_links.append(
-                    PerimeterContainedIn(
-                        from_perimeter_id=commune.id, to_perimeter_id=overseas.id
-                    )
-                )
-            else:
-                perimeter_links.append(
-                    PerimeterContainedIn(
-                        from_perimeter_id=commune.id, to_perimeter_id=mainland.id
-                    )
-                )
-
-            if "collectiviteOutremer" in entry:
-                code = entry["collectiviteOutremer"]["code"]
-                perimeter_links.append(
-                    PerimeterContainedIn(
-                        from_perimeter_id=commune.id, to_perimeter_id=adhoc[code]
-                    )
-                )
-
-        # Create the links between the perimeters
-        PerimeterContainedIn.objects.bulk_create(perimeter_links, ignore_conflicts=True)
-
-        nb_obsolete = Perimeter.objects.filter(date_updated__lt=start_time).count()
-        Perimeter.objects.filter(date_updated__lt=start_time).filter(scale=1).update(
-            is_obsolete=True, date_obsolete=start_time
         )
 
-        return {"created": nb_created, "updated": nb_updated, "obsolete": nb_obsolete}
+        for region_code in commune.regions:
+            perimeter_links.append(
+                PerimeterContainedIn(
+                    from_perimeter_id=commune.id,
+                    to_perimeter_id=regions[region_code],
+                )
+            )
+        for department_code in commune.departments:
+            perimeter_links.append(
+                PerimeterContainedIn(
+                    from_perimeter_id=commune.id,
+                    to_perimeter_id=departments[department_code],
+                )
+            )
+
+        if commune.is_overseas:
+            perimeter_links.append(
+                PerimeterContainedIn(
+                    from_perimeter_id=commune.id, to_perimeter_id=overseas.id
+                )
+            )
+        else:
+            perimeter_links.append(
+                PerimeterContainedIn(
+                    from_perimeter_id=commune.id, to_perimeter_id=mainland.id
+                )
+            )
+
+        if region in OVERSEAS_COLLECTIVITIES:
+            code = region
+            perimeter_links.append(
+                PerimeterContainedIn(
+                    from_perimeter_id=commune.id, to_perimeter_id=adhoc[code]
+                )
+            )
+
+    # Create the links between the perimeters
+    PerimeterContainedIn.objects.bulk_create(perimeter_links, ignore_conflicts=True)
+
+    nb_obsolete = Perimeter.objects.filter(date_updated__lt=start_time).count()
+    Perimeter.objects.filter(date_updated__lt=start_time).filter(scale=1).update(
+        is_obsolete=True, date_obsolete=start_time
+    )
+
+    return {"created": nb_created, "updated": nb_updated, "obsolete": nb_obsolete}
 
 
 @transaction.atomic()
@@ -432,97 +439,109 @@ def populate_epcis() -> dict:
     PerimeterContainedIn = Perimeter.contained_in.through
     perimeter_links = []
 
-    with urllib.request.urlopen(get_data_path("epci")) as url:
-        data = json.loads(url.read().decode())
-        nb_created = 0
-        nb_updated = 0
+    response = requests.get(get_data_path("epci"))
+    data = response.json()
 
-        for entry in data:
-            member_codes = [m["code"] for m in entry["membres"]]
-            members = Perimeter.objects.filter(code__in=member_codes)
-            member_depts = []
-            member_regions = []
-            for member in members:
-                member_depts += member.departments
-                member_regions += member.regions
+    nb_created = 0
+    nb_updated = 0
 
-            epci_name = entry["nom"]
-            epci_code = entry["code"]
-            is_overseas = members[0].is_overseas
+    for entry in data:
+        member_codes = [m["code"] for m in entry["membres"]]
+        members = Perimeter.objects.filter(code__in=member_codes)
+        member_depts = []
+        member_regions = []
+        for member in members:
+            member_depts += member.departments
+            member_regions += member.regions
 
-            epci, created = Perimeter.objects.update_or_create(
-                scale=Perimeter.SCALES.epci,
-                code=epci_code,
-                defaults={
-                    "name": epci_name,
-                    "departments": list(set(member_depts)),
-                    "regions": list(set(member_regions)),
-                    "is_overseas": is_overseas,
-                },
-            )
-            if created:
-                nb_created += 1
-            else:
-                nb_updated += 1
+        epci_name = entry["nom"]
+        epci_code = entry["code"]
+        is_overseas = members[0].is_overseas
 
-            # Link perimeter to france, europe, regions, departements,
-            # "collectivités d'outre-mer", mainland / overseas, etc.
-            perimeter_links.append(
-                PerimeterContainedIn(
-                    from_perimeter_id=epci.id, to_perimeter_id=europe.id
-                )
-            )
-            perimeter_links.append(
-                PerimeterContainedIn(
-                    from_perimeter_id=epci.id, to_perimeter_id=france.id
-                )
-            )
+        epci, created = Perimeter.objects.update_or_create(
+            scale=Perimeter.SCALES.epci,
+            code=epci_code,
+            defaults={
+                "name": epci_name,
+                "departments": list(set(member_depts)),
+                "regions": list(set(member_regions)),
+                "is_overseas": is_overseas,
+                "siren": epci_code,
+                "population": entry["populationTotale"],
+            },
+        )
+        if created:
+            nb_created += 1
+        else:
+            nb_updated += 1
 
-            for region_code in epci.regions:
-                perimeter_links.append(
-                    PerimeterContainedIn(
-                        from_perimeter_id=epci.id, to_perimeter_id=regions[region_code]
-                    )
-                )
-            for department_code in epci.departments:
-                perimeter_links.append(
-                    PerimeterContainedIn(
-                        from_perimeter_id=epci.id,
-                        to_perimeter_id=departments[department_code],
-                    )
-                )
-
-            if epci.is_overseas:
-                perimeter_links.append(
-                    PerimeterContainedIn(
-                        from_perimeter_id=epci.id, to_perimeter_id=overseas.id
-                    )
-                )
-            else:
-                perimeter_links.append(
-                    PerimeterContainedIn(
-                        from_perimeter_id=epci.id, to_perimeter_id=mainland.id
-                    )
-                )
-
-            # Link epci members to the epci
-            for member in members:
-                perimeter_links.append(
-                    PerimeterContainedIn(
-                        from_perimeter_id=member.id, to_perimeter_id=epci.id
-                    )
-                )
-
-        # Create the links between the perimeters
-        PerimeterContainedIn.objects.bulk_create(perimeter_links, ignore_conflicts=True)
-
-        nb_obsolete = Perimeter.objects.filter(date_updated__lt=start_time).count()
-        Perimeter.objects.filter(date_updated__lt=start_time).filter(scale=5).update(
-            is_obsolete=True, date_obsolete=start_time
+        # Link perimeter to france, europe, regions, departements,
+        # "collectivités d'outre-mer", mainland / overseas, etc.
+        perimeter_links.append(
+            PerimeterContainedIn(from_perimeter_id=epci.id, to_perimeter_id=europe.id)
+        )
+        perimeter_links.append(
+            PerimeterContainedIn(from_perimeter_id=epci.id, to_perimeter_id=france.id)
         )
 
-        return {
-            "created": nb_created,
-            "updated": nb_updated,
-            "nb_obsolete": nb_obsolete,
-        }
+        for region_code in epci.regions:
+            perimeter_links.append(
+                PerimeterContainedIn(
+                    from_perimeter_id=epci.id, to_perimeter_id=regions[region_code]
+                )
+            )
+        for department_code in epci.departments:
+            perimeter_links.append(
+                PerimeterContainedIn(
+                    from_perimeter_id=epci.id,
+                    to_perimeter_id=departments[department_code],
+                )
+            )
+
+        if epci.is_overseas:
+            perimeter_links.append(
+                PerimeterContainedIn(
+                    from_perimeter_id=epci.id, to_perimeter_id=overseas.id
+                )
+            )
+        else:
+            perimeter_links.append(
+                PerimeterContainedIn(
+                    from_perimeter_id=epci.id, to_perimeter_id=mainland.id
+                )
+            )
+
+        # Link epci members to the epci
+        for member in members:
+            perimeter_links.append(
+                PerimeterContainedIn(
+                    from_perimeter_id=member.id, to_perimeter_id=epci.id
+                )
+            )
+
+        # Add metadata
+        _type_item, _type_created = PerimeterData.objects.update_or_create(
+            perimeter=epci,
+            prop="type_epci",
+            defaults={"value": entry["type"]},
+        )
+
+        _mf_item, _mf_created = PerimeterData.objects.update_or_create(
+            perimeter=epci,
+            prop="mode_financement",
+            defaults={"value": entry["modeFinancement"]},
+        )
+
+    # Create the links between the perimeters
+    PerimeterContainedIn.objects.bulk_create(perimeter_links, ignore_conflicts=True)
+
+    nb_obsolete = Perimeter.objects.filter(date_updated__lt=start_time).count()
+    Perimeter.objects.filter(date_updated__lt=start_time).filter(scale=5).update(
+        is_obsolete=True, date_obsolete=start_time
+    )
+
+    return {
+        "created": nb_created,
+        "updated": nb_updated,
+        "nb_obsolete": nb_obsolete,
+    }
