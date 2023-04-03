@@ -18,9 +18,13 @@ from organizations.constants import (
 class OrganizationQuerySet(models.QuerySet):
     def communes(self, values=None):
         """
-        Returns a list of the communal organizations
+        Returns a list of the correct communal organizations, ie:
+        - Organization type is commune
+        - Perimeter is at commune scale too
         """
-        communes = self.filter(perimeter__scale=Perimeter.SCALES.commune)
+        communes = self.filter(
+            perimeter__scale=Perimeter.SCALES.commune, organization_type=["commune"]
+        )
         if values:
             communes = communes.values(*values)
 
