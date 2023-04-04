@@ -38,7 +38,9 @@ if settings.ENABLE_OTHER_DETAIL_API_CACHE:
     cache_detail_page = method_decorator(cache_page(timeout))
 
 
-class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+class PerimeterViewSet(
+    mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet
+):
     serializer_class = PerimeterSerializer
     pagination_class = ApiPagination
 
@@ -91,8 +93,13 @@ class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         return super().list(request, args, kwargs)
 
     @cache_detail_page
-    def retrieve(self, request, slug):
-        return super().retrieve(request, slug)
+    def retrieve(self, request, id=None, *args, **kwargs):
+        if kwargs["pk"] is not None:
+            pk = int(kwargs["pk"].partition("-")[0])
+            request.parser_context["kwargs"]["pk"] = pk
+            return super().retrieve(request, id, args, kwargs)
+        else:
+            return super().retrieve(request, id, args, kwargs)
 
 
 class PerimeterDataViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):

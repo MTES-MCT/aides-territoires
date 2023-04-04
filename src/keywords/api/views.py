@@ -26,11 +26,6 @@ if settings.ENABLE_OTHER_LIST_API_CACHE:
     timeout = settings.OTHER_LIST_API_CACHE_TIMEOUT
     cache_list_page = method_decorator(cache_page(timeout))
 
-cache_detail_page = noop_decorator
-if settings.ENABLE_OTHER_DETAIL_API_CACHE:
-    timeout = settings.OTHER_DETAIL_API_CACHE_TIMEOUT
-    cache_detail_page = method_decorator(cache_page(timeout))
-
 
 class SynonymListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = SynonymListSerializer
