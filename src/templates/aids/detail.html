@@ -87,7 +87,12 @@
                     </h2>
                     {% for financer in financers %}
                     <p class="fr-mb-0 fr-ml-1w">
+                        <a href="{% url 'backer_detail_view' financer.pk financer.slug %}"
+                        title="{{ financer.name }} - Ouvrir dans une nouvelle fenêtre"
+                        target="_blank" rel="noopener"
+                        >
                         {{ financer }}
+                        </a>
                     </p>
                     {% endfor %}
                     {% if financers_with_logo %}
