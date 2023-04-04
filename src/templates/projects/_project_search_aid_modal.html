@@ -24,7 +24,7 @@
                                 </li>
                                 <li>
                                     {% if aid_results > 0 %}
-                                        <a href="{% url 'search_view' %}?text={{ text_encoded }}&perimeter={{ perimeter }}&targeted_audiences={{ audience }}" class="fr-btn">
+                                        <a href="{% url 'search_view' %}?text={{text}}&perimeter={{ perimeter }}&targeted_audiences={{ audience }}" class="fr-btn">
                                     {% else %}
                                         <a href="{% url 'search_view' %}?perimeter={{ perimeter }}&targeted_audiences={{ audience }}" class="fr-btn">
                                     {% endif %}

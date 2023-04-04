@@ -128,8 +128,11 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
             project_created = Project.objects.get(
                 pk=self.request.GET["project_created"]
             )
-            text = project_created.name.split(" ")
-            text_encoded = "+".join(text)
+            if project_created.project_types.all() is not None:
+                text = project_created.project_types.first().id_slug
+            else:
+                text = project_created.name.split(" ")
+                text = "+".join(text)
             if self.request.user.beneficiary_organization.perimeter:
                 perimeter = self.request.user.beneficiary_organization.perimeter.pk
             else:
@@ -139,7 +142,7 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
             aids = Aid.objects.live()
             form = AidSearchForm(
                 {
-                    "text": text_encoded,
+                    "text": text,
                     "targeted_audiences": audience_list,
                     "perimeter": perimeter,
                 }
@@ -149,7 +152,7 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
             context["aid_results"] = aid_results
             context["perimeter"] = perimeter
             context["audience"] = audience
-            context["text_encoded"] = text_encoded
+            context["text"] = text
         return context
 
 
