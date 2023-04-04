@@ -57,7 +57,7 @@ def test_command_output_format(mailoutbox):
 
     # Only the first three aids are in the mail
     assert "Schtroumpf 4" not in content
-    assert "encore d'autres aides disponibles !" in content
+    assert "encore d’autres aides disponibles !" in content
 
     # The "extra search" link should include these parameters
     assert "published_after=" in content

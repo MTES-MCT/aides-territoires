@@ -6,7 +6,7 @@ Pour ce faire, il vous suffit de cliquer sur le lien suivant :
 
 {{ full_login_url }}
 
-Si vous n'êtes pas à l'initiative de cette demande, vous n'avez rien à faire.
+Si vous n’êtes pas à l’initiative de cette demande, vous n’avez rien à faire.
 
 Cordialement,
-L'équipe d'Aides-territoires.
+L’équipe d’Aides-territoires.

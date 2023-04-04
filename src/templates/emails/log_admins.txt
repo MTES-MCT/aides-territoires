@@ -1,6 +1,6 @@
 Bonjour,
 
-Un événement requiert l'attention de l'équipe :
+Un événement requiert l’attention de l’équipe :
 
 {{ log_message }}
 

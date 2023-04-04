@@ -19,4 +19,4 @@ Si votre structure actuelle compte des collaborateurs, vous pourrez à votre tou
 Si vous ne souhaitez pas rejoindre la structure de {{ invitation_author }}, vous pouvez décliner son offre.
 
 À très vite !
-L'équipe d'Aides-territoires.
+L’équipe d’Aides-territoires.

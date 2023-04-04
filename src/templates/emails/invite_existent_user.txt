@@ -20,6 +20,6 @@ Si {{ current_organization_name }} compte d’autres collaborateurs susceptibles
 Si vous ne souhaitez pas rejoindre la structure de {{ invitation_author }}, vous pouvez décliner son offre.
 
 Cordialement,
-L'équipe d'Aides-territoires.
+L’équipe d’Aides-territoires.
 
 Nous restons joignables sur aides-territoires@beta.gouv.fr

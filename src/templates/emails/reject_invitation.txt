@@ -2,7 +2,7 @@ Bonjour {{ invitation_author }},
 
 {{ invited_name }} a décliné votre invitation et ne rejoint donc pas votre structure.
 
-Si vous pensez qu'il s'agit d'une erreur, nous vous invitons à contacter directement cette personne, avant de recommencer l'opération.
+Si vous pensez qu’il s’agit d’une erreur, nous vous invitons à contacter directement cette personne, avant de recommencer l’opération.
 
 Cordialement,
-L'équipe d'Aides-territoires.
+L’équipe d’Aides-territoires.

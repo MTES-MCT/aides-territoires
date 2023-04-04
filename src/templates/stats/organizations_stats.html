@@ -40,13 +40,13 @@
             <tbody>
                 {% for organization_type, count in all_organizations_types.items %}    
                 <tr>
-                    <th>{% Organization_type_choice_display organization_type %}</th>
+                    <th scope="row">{% Organization_type_choice_display organization_type %}</th>
                     <td>{{ count }}</td>
                     <td>{% percent_display count total_organizations %}</td>
                 </tr>
                 {% endfor %}
                 <tr>
-                    <th>TOTAL</th>
+                    <th scope="row">TOTAL</th>
                     <td>{{ total_organizations }}</td>
                     <td>{% percent_display total_organizations total_organizations %}</td>
                 </tr>

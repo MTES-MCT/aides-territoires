@@ -108,7 +108,7 @@
 
             {% else %}
             <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
-                <p><strong>L'affichage complet de cette page est réservé aux utilisateurs connectés.</strong></p>
+                <p><strong>L’affichage complet de cette page est réservé aux utilisateurs connectés.</strong></p>
                 <p><a href="{% url 'login' %}?next={% url 'public_project_detail_view' pk=project.pk slug=project.slug %}?open-modal=true">Connectez-vous</a> ou <a href="{% url 'register' %}">créez un compte</a> afin d'afficher les informations relatives à ce projet !</p>
             </div>
             {% endif %}

@@ -30,7 +30,7 @@
 
 {% if nb_aids > 3 %}
     <p>
-        Attention, il semble qu'il y ait encore d'autres aides disponibles ! <br />
+        Attention, il semble qu’il y ait encore d’autres aides disponibles ! <br />
         <a href="{{ alert_url|safe }}">
             Rendez-vous sur Aides-territoires pour les découvrir.
         </a>
@@ -38,13 +38,13 @@
 {% endif %}
 
 <p>
-<strong>N'hésitez pas à créer d'autres alertes pour être toujours bien informé.</strong><br/>
-Vous pouvez également transférer cet email à vos partenaires afin qu'ils
+<strong>N’hésitez pas à créer d’autres alertes pour être toujours bien informé.</strong><br/>
+Vous pouvez également transférer cet email à vos partenaires afin qu’ils
 prennent connaissance de ces aides.
 </p>
 
 <p>
-    🔕 Cette alerte ne correspond plus à vos besoins ? <br />
+    <span aria-hidden="true">🔕</span> Cette alerte ne correspond plus à vos besoins ? <br />
     <a href="{{ alert_delete_url|safe }}">
         Vous pouvez la supprimer.
     </a>
@@ -52,6 +52,6 @@ prennent connaissance de ces aides.
 
 <p>
     À très vite !<br />
-    L'équipe d'Aides-territoires.
+    L’équipe d’Aides-territoires.
 </p>
 {% endblock %}
