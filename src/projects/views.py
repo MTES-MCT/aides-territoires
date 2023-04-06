@@ -128,8 +128,11 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
             project_created = Project.objects.get(
                 pk=self.request.GET["project_created"]
             )
-            if project_created.project_types.all() is not None:
+            if project_created.project_types.all():
                 text = project_created.project_types.first().id_slug
+            elif project_created.project_types_suggestion:
+                text = project_created.project_types_suggestion.split(" ")
+                text = "+".join(text)
             else:
                 text = project_created.name.split(" ")
                 text = "+".join(text)
