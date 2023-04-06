@@ -377,7 +377,11 @@
             </a> -->
             <div class="fr-container at-centered">
                 <p>
-                  <a href="{% url 'search_view' %}" class="fr-btn fr-icon-search-line fr-btn--icon-left">Trouver des aides pour ce projet</a>
+                    {% if text and perimeter and audience %}
+                        <a href="{% url 'search_view' %}?text={{text}}&perimeter={{ perimeter }}&targeted_audiences={{ audience }}" class="fr-btn">Trouver des aides pour ce projet</a>
+                    {% else %}
+                        <a href="{% url 'search_view' %}" class="fr-btn fr-icon-search-line fr-btn--icon-left">Trouver des aides pour ce projet</a>
+                    {% endif %}
                 </p>
                 <button type="button" class="fr-btn fr-btn--secondary fr-icon-delete-line fr-btn--icon-left" id="delete-project-btn"  data-fr-opened="false" aria-controls="delete-project-modal-{{ project.pk }}">
                     Supprimer ce projet

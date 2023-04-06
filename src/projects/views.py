@@ -118,9 +118,11 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user
-        org_type = self.request.user.beneficiary_organization.organization_type[0]
+        org = self.request.user.beneficiary_organization
+        org_type = org.organization_type[0]
         if org_type == "commune" or org_type == "epci":
             context["org_is_commune_or_epci"] = True
+        context["audience"] = org_type
 
         # Here we add some data for the project_search_aid modal
         if "project_created" in self.request.GET:
@@ -142,17 +144,15 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
             else:
                 text = project_created.name.split(" ")
                 text = "+".join(text)
-            if self.request.user.beneficiary_organization.perimeter:
-                perimeter = self.request.user.beneficiary_organization.perimeter.pk
+            if org.perimeter:
+                perimeter = org.perimeter.pk
             else:
                 perimeter = ""
-            audience_list = self.request.user.beneficiary_organization.organization_type
-            audience = audience_list[0]
             aids = Aid.objects.live()
             form = AidSearchForm(
                 {
                     "text": text,
-                    "targeted_audiences": audience_list,
+                    "targeted_audiences": org_type,
                     "perimeter": perimeter,
                 }
             )
@@ -160,7 +160,6 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
             aid_results = qs.count()
             context["aid_results"] = aid_results
             context["perimeter"] = perimeter
-            context["audience"] = audience
             context["text"] = text
 
         return context
@@ -411,6 +410,32 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
         context["aid_project_status_form"] = AidProjectStatusForm
         context["project_update_form"] = ProjectUpdateForm(label_suffix="")
         context["form"] = ProjectExportForm
+
+        org = self.request.user.beneficiary_organization
+        org_type = org.organization_type[0]
+        context["audience"] = org_type
+
+        if self.object.project_types.all():
+            text = ""
+            for project_type in self.object.project_types.all():
+                text += project_type.keywords_list
+                text += ", "
+            text.replace(", ", ",")
+            text = text.split(", ")
+            text = ", ".join(text)
+        elif self.object.project_types_suggestion:
+            text = self.object.project_types_suggestion.split(" ")
+            text = "+".join(text)
+        else:
+            text = self.object.name.split(" ")
+            text = "+".join(text)
+        if org.perimeter:
+            perimeter = org.perimeter.pk
+        else:
+            perimeter = ""
+        context["perimeter"] = perimeter
+        context["text"] = text
+
         return context
 
 
