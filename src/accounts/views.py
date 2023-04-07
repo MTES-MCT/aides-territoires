@@ -104,6 +104,31 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
             </p>
             """,
         )
+        if self.request.POST.get("newsletter_subscription") == "on":
+            SIB_NEWSLETTER_ID = settings.SIB_NEWSLETTER_ID.split(", ")
+            SIB_NEWSLETTER_ID = [int(i) for i in SIB_NEWSLETTER_ID]
+
+            url = "https://api.sendinblue.com/v3/contacts/doubleOptinConfirmation"
+
+            redirection_url = (
+                "https://aides-territoires.beta.gouv.fr/inscription-newsletter-succes/"
+            )
+
+            payload = {
+                "attributes": {"DOUBLE_OPT_IN": "1"},
+                "includeListIds": SIB_NEWSLETTER_ID,
+                "email": user.email,
+                "templateId": settings.SIB_NEWSLETTER_CONFIRM_TEMPLATE_ID,
+                "redirectionUrl": redirection_url,
+            }
+
+            headers = {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "api-key": settings.SIB_API_KEY,
+            }
+
+            requests.request("POST", url, json=payload, headers=headers)
 
         response = super().form_valid(form)
         send_connection_email.delay(user.email)

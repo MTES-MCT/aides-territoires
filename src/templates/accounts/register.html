@@ -123,7 +123,7 @@
                                                 </fieldset>
                                             </div>
 
-                                            <div id="form-group-acquisition_channel" class="fr-input-group required ">
+                                            <div id="form-group-acquisition_channel" class="fr-input-group required fr-mb-1w">
                                                 <label for="id_acquisition_channel">Comment avez-vous connu Aides-territoires ?</label>
                                                 <select class="fr-select" name="acquisition_channel" id="id_acquisition_channel">
                                                     <option value="" hidden>Sélectionnez une option</option>
@@ -142,6 +142,10 @@
                                             {% include '_field_snippet.html' with field=form.acquisition_channel_comment %}
                                             </div>
                                         </fieldset>
+
+                                        <div class="fr-mb-5w">
+                                            {% include  '_checkbox_snippet.html' with field=form.newsletter_subscription %}
+                                        </div>
                                     </div>
                                     <div class="fr-col-12 fr-mb-3w">
                                         <div class="fr-alert fr-alert--info fr-alert--sm fr-my-2w">

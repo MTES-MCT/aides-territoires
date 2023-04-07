@@ -86,6 +86,10 @@ class RegisterForm(UserCreationForm, AidesTerrBaseForm):
         label="Précisez comment vous avez connu Aides-territoires", required=False
     )
 
+    newsletter_subscription = forms.BooleanField(
+        label="Je souhaite recevoir les actualités Aides-territoires", required=False
+    )
+
     class Meta:
         model = User
         fields = [
