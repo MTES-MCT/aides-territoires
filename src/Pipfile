@@ -51,6 +51,7 @@ django-resized = "*"
 sentry-sdk = {extras = ["django"], version = "*"}
 django-defender = "*"
 emoji = "*"
+wagtail = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"

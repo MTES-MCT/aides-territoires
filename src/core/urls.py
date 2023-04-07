@@ -13,6 +13,10 @@ from drf_spectacular.views import (
     SpectacularSwaggerSplitView,
 )
 
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail import urls as wagtail_urls
+from wagtail.documents import urls as wagtaildocs_urls
+
 from core.utils import RedirectAidDetailView
 from core.otp import OTPAdminSite
 from aids.sitemaps import AidSitemap
@@ -97,6 +101,10 @@ urlpatterns = [
     path("admin_tools/", include("admin_tools.urls")),
     path("projets/", include("projects.urls")),
     path("organizations/", include("organizations.urls")),
+    # Wagtail related routes
+    path("cms/", include(wagtailadmin_urls)),
+    path("documents/", include(wagtaildocs_urls)),
+    path("pages/", include(wagtail_urls)),
     # Api related routes
     path("api/", include(api_patterns)),
     # Static pages are at the url root.

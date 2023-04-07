@@ -37,6 +37,22 @@ DJANGO_APPS = [
     "django.contrib.humanize",
 ]
 
+WAGTAIL_APPS = [
+    "wagtail.contrib.forms",
+    "wagtail.contrib.redirects",
+    "wagtail.embeds",
+    "wagtail.sites",
+    "wagtail.users",
+    "wagtail.snippets",
+    "wagtail.documents",
+    "wagtail.images",
+    "wagtail.search",
+    "wagtail.admin",
+    "wagtail",
+    "modelcluster",
+    "taggit",
+]
+
 THIRD_PARTY_APPS = [
     "csp",
     "compressor",
@@ -87,7 +103,7 @@ LOCAL_APPS = [
     "notifications",
 ]
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = DJANGO_APPS + WAGTAIL_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
@@ -102,6 +118,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django_otp.middleware.OTPMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -500,3 +517,6 @@ DJANGORESIZED_DEFAULT_KEEP_META = False
 DJANGORESIZED_DEFAULT_FORCE_FORMAT = "PNG"
 DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {"PNG": ".png"}
 DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
+
+# Wagtail
+WAGTAIL_SITE_NAME = "Aides-Territoires CMS"
