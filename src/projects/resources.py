@@ -19,8 +19,43 @@ class ProjectResource(resources.ModelResource):
     class Meta:
         model = Project
         import_id_fields = ("slug",)
-        fields = ("name", "organizations", "description", "date_created")
+        fields = ("name", "organizations", "description", "date_created", "is_public")
         export_order = ("name", "organizations", "description")
+
+    perimeter = fields.Field(
+        column_name="Périmètre du porteur de projet",
+    )
+
+    perimeter_region = fields.Field(
+        column_name="Périmètre (Région)",
+    )
+
+    perimeter_department = fields.Field(
+        column_name="Périmètre (Département)",
+    )
+
+    def dehydrate_perimeter(self, obj):
+        if obj.organizations.all():
+            if obj.organizations.first().perimeter:
+                return obj.organizations.first().perimeter.name
+        else:
+            return ""
+
+    def dehydrate_perimeter_region(self, obj):
+        if obj.organizations.all():
+            if obj.organizations.first().perimeter:
+                if obj.organizations.first().perimeter.regions:
+                    return obj.organizations.first().perimeter.regions[0]
+        else:
+            return ""
+
+    def dehydrate_perimeter_department(self, obj):
+        if obj.organizations.all():
+            if obj.organizations.first().perimeter:
+                if obj.organizations.first().perimeter.departments:
+                    return obj.organizations.first().perimeter.departments[0]
+        else:
+            return ""
 
     def export_field(self, field, obj):
         """override export_field() to translate field values."""
