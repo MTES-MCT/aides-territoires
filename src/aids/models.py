@@ -776,6 +776,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         aid_types = self.aid_types or []
         return bool(set(aid_types) & set(TECHNICAL_AIDS_LIST))
 
+    def is_recurring(self):
+        return self.recurrence == self.RECURRENCES.recurring
+
     def is_ongoing(self):
         return self.recurrence == self.RECURRENCES.ongoing
 

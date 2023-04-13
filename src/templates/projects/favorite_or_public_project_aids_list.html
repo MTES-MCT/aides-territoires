@@ -28,6 +28,8 @@
                         <span>{{ aid.submission_deadline|date:'d/m/Y' }}</span>
                         {% if aid.is_ongoing %}
                             <p class="fr-badge fr-badge--info fr-badge--sm">Permanente</p>
+                        {% elif aid.is_recurring %}
+                            <p class="fr-badge fr-badge--info fr-badge--sm">Récurrente</p>
                         {% elif aid.has_approaching_deadline %}
                             <p class="fr-badge fr-badge--new fr-badge--sm">Échéance proche</p>                       
                         {% elif aid.has_expired %}
