@@ -49,7 +49,7 @@ def get_backers_count_by_department(
     else:
         backers = backers.filter(
             financed_aids__in=live_aids,
-            financed_aids__perimeter_id__in=related_perimeters,
+            perimeter_id__in=related_perimeters,
         )
 
     if aid_type == "financial_group":
