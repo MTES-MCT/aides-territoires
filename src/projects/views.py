@@ -120,6 +120,7 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
         context["user"] = self.request.user
         org = self.request.user.beneficiary_organization
         org_type = org.organization_type[0]
+        org_type_dict = [org_type]
         if org_type == "commune" or org_type == "epci":
             context["org_is_commune_or_epci"] = True
         context["audience"] = org_type
@@ -152,7 +153,7 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
             form = AidSearchForm(
                 {
                     "text": text,
-                    "targeted_audiences": org_type,
+                    "targeted_audiences": org_type_dict,
                     "perimeter": perimeter,
                 }
             )
