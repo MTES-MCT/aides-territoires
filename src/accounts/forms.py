@@ -87,7 +87,7 @@ class RegisterForm(UserCreationForm, AidesTerrBaseForm):
     )
 
     newsletter_subscription = forms.BooleanField(
-        label="Je souhaite recevoir les actualités Aides-territoires", required=False
+        label="Je souhaite recevoir la lettre d'information mensuelle", required=False
     )
 
     class Meta:
