@@ -131,7 +131,13 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
                 pk=self.request.GET["project_created"]
             )
             if project_created.project_types.all():
-                text = project_created.project_types.first().id_slug
+                text = ""
+                for project_type in project_created.project_types.all():
+                    text += project_type.keywords_list
+                    text += ", "
+                text.replace(", ", ",")
+                text = text.split(", ")
+                text = ", ".join(text)
             elif project_created.project_types_suggestion:
                 text = project_created.project_types_suggestion.split(" ")
                 text = "+".join(text)
@@ -410,7 +416,13 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
         context["audience"] = org_type
 
         if self.object.project_types.all():
-            text = self.object.project_types.first().id_slug
+            text = ""
+            for project_type in self.object.project_types.all():
+                text += project_type.keywords_list
+                text += ", "
+            text.replace(", ", ",")
+            text = text.split(", ")
+            text = ", ".join(text)
         elif self.object.project_types_suggestion:
             text = self.object.project_types_suggestion.split(" ")
             text = "+".join(text)
