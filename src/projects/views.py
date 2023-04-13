@@ -118,9 +118,12 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user
-        org_type = self.request.user.beneficiary_organization.organization_type[0]
+        org = self.request.user.beneficiary_organization
+        org_type = org.organization_type[0]
+        org_type_dict = [org_type]
         if org_type == "commune" or org_type == "epci":
             context["org_is_commune_or_epci"] = True
+        context["audience"] = org_type
 
         # Here we add some data for the project_search_aid modal
         if "project_created" in self.request.GET:
@@ -128,19 +131,29 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
             project_created = Project.objects.get(
                 pk=self.request.GET["project_created"]
             )
-            text = project_created.name.split(" ")
-            text_encoded = "+".join(text)
-            if self.request.user.beneficiary_organization.perimeter:
-                perimeter = self.request.user.beneficiary_organization.perimeter.pk
+            if project_created.project_types.all():
+                text = ""
+                for project_type in project_created.project_types.all():
+                    text += project_type.keywords_list
+                    text += ", "
+                text.replace(", ", ",")
+                text = text.split(", ")
+                text = ", ".join(text)
+            elif project_created.project_types_suggestion:
+                text = project_created.project_types_suggestion.split(" ")
+                text = "+".join(text)
+            else:
+                text = project_created.name.split(" ")
+                text = "+".join(text)
+            if org.perimeter:
+                perimeter = org.perimeter.pk
             else:
                 perimeter = ""
-            audience_list = self.request.user.beneficiary_organization.organization_type
-            audience = audience_list[0]
             aids = Aid.objects.live()
             form = AidSearchForm(
                 {
-                    "text": text_encoded,
-                    "targeted_audiences": audience_list,
+                    "text": text,
+                    "targeted_audiences": org_type_dict,
                     "perimeter": perimeter,
                 }
             )
@@ -148,8 +161,8 @@ class ProjectListView(ContributorAndProfileCompleteRequiredMixin, ListView):
             aid_results = qs.count()
             context["aid_results"] = aid_results
             context["perimeter"] = perimeter
-            context["audience"] = audience
-            context["text_encoded"] = text_encoded
+            context["text"] = text
+
         return context
 
 
@@ -398,6 +411,32 @@ class ProjectDetailView(ContributorAndProfileCompleteRequiredMixin, DetailView):
         context["aid_project_status_form"] = AidProjectStatusForm
         context["project_update_form"] = ProjectUpdateForm(label_suffix="")
         context["form"] = ProjectExportForm
+
+        org = self.request.user.beneficiary_organization
+        org_type = org.organization_type[0]
+        context["audience"] = org_type
+
+        if self.object.project_types.all():
+            text = ""
+            for project_type in self.object.project_types.all():
+                text += project_type.keywords_list
+                text += ", "
+            text.replace(", ", ",")
+            text = text.split(", ")
+            text = ", ".join(text)
+        elif self.object.project_types_suggestion:
+            text = self.object.project_types_suggestion.split(" ")
+            text = "+".join(text)
+        else:
+            text = self.object.name.split(" ")
+            text = "+".join(text)
+        if org.perimeter:
+            perimeter = org.perimeter.pk
+        else:
+            perimeter = ""
+        context["perimeter"] = perimeter
+        context["text"] = text
+
         return context
 
 
