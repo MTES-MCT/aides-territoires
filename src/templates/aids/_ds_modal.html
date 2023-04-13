@@ -10,24 +10,26 @@
                     <div class="fr-modal__content">
                         <div class="fr-ds">
                             {% if not search_page and not user.is_authenticated %}
-                            <h2 id="fr-modal-title-ds" class="fr-modal__title fr-mt-2w">
+                            <h2 id="fr-modal-title-ds" class="fr-modal__title fr-mt-1w">
                                 <span class="fr-icon-arrow-right-line fr-icon--lg"></span>Remplissage automatique
                             </h2>
                             <p>
-                                <strong>Nouveau ! </strong>
-                                Si vous avez un compte sur Aides-territoires, nous pourrons<strong> remplir automatiquement</strong> pour vous certains champs du dossier d’instruction afin de vous faciliter la saisie.
+                                Aides-territoires et Démarches simplifiées sont deux plateformes complémentaires mais différentes : vous devez avoir un compte sur chacune de ces plateformes.
+                            </p>
+                            <p>
+                                En ayant un compte sur Aides-territoires, nous pourrons<strong> remplir automatiquement</strong> pour vous <strong>certains champs du dossier d’instruction</strong> afin de vous faciliter la saisie.
                                 <a href="{% url 'login' %}?next={{ aid.get_absolute_url }}" title="Se connecter">
-                                Connectez-vous
+                                    <strong>Connectez-vous</strong>
                                 </a>
                                 ou
                                 <a href="{% url 'register' %}" target="_blank" rel="noopener" title="S’inscrire - ouvre une nouvelle fenêtre">
-                                créez un compte
+                                    <strong>créez un compte</strong>
                                 </a>
                                 afin de bénéficier de cette fonctionnalité si vous êtes une commune ou un EPCI.
                             </p>
                             <ul class="fr-btns-group fr-btns-group--inline-md fr-btns-group--icon-left fr-btns-group--right">
                                 <li>
-                                    <a class="fr-btn fr-btn--secondary" href="{{ aid.application_url }}" id="application_url_btn" target="_blank" rel="noopener" title="Accéder à la démarche - ouvre une nouvelle fenêtre">Accéder à la démarche</a>
+                                    <a class="fr-btn fr-btn--secondary" href="{{ aid.application_url }}" id="application_url_btn" target="_blank" rel="noopener" title="Déposer mon dossier - ouvre une nouvelle fenêtre">Déposer mon dossier</a>
                                 </li>
                                 <li>
                                     <a class="fr-btn fr-icon-account-line" href="{% url 'login' %}?next={{ aid.get_absolute_url }}"title="Se connecter">
