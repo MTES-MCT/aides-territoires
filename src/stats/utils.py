@@ -66,7 +66,14 @@ def log_aidviewevent(
 
 
 @app.task
-def log_aidsearchevent(querystring="", results_count=0, source="", request_ua=""):
+def log_aidsearchevent(
+    querystring="",
+    results_count=0,
+    source="",
+    request_ua="",
+    user_pk=None,
+    org_pk=None,
+):
     """
     Method to cleanup/populate the AidSearchEvents
     Run asynchronously to avoid slowing down requests.
@@ -98,14 +105,29 @@ def log_aidsearchevent(querystring="", results_count=0, source="", request_ua=""
         perimeter = get_querystring_perimeter(querystring)
         text = get_querystring_value_from_key(querystring, "text")
 
-        event = AidSearchEvent.objects.create(
-            querystring=querystring_cleaned,
-            source=source_cleaned,
-            results_count=results_count,
-            targeted_audiences=targeted_audiences,
-            perimeter=perimeter,
-            text=text,
-        )
+        if user_pk is not None and org_pk is not None:
+            user = User.objects.get(pk=user_pk)
+            org = Organization.objects.get(pk=org_pk)
+            event = AidSearchEvent.objects.create(
+                user=user,
+                organization=org,
+                querystring=querystring_cleaned,
+                source=source_cleaned,
+                results_count=results_count,
+                targeted_audiences=targeted_audiences,
+                perimeter=perimeter,
+                text=text,
+            )
+
+        else:
+            event = AidSearchEvent.objects.create(
+                querystring=querystring_cleaned,
+                source=source_cleaned,
+                results_count=results_count,
+                targeted_audiences=targeted_audiences,
+                perimeter=perimeter,
+                text=text,
+            )
 
         themes = get_querystring_themes(querystring)
         categories = get_querystring_categories(querystring)
