@@ -1,3 +1,6 @@
+from django.conf import settings
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.db.models import Q
 from django.contrib.postgres.search import TrigramSimilarity
 
@@ -17,7 +20,27 @@ from geofr.api.serializers import (
 MIN_SEARCH_LENGTH = 1
 
 
-class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+def noop_decorator(func):
+    """
+    We use this "noop" decorator in order to disable caching.
+    """
+    return func
+
+
+cache_list_page = noop_decorator
+if settings.ENABLE_OTHER_LIST_API_CACHE:
+    timeout = settings.OTHER_LIST_API_CACHE_TIMEOUT
+    cache_list_page = method_decorator(cache_page(timeout))
+
+cache_detail_page = noop_decorator
+if settings.ENABLE_OTHER_DETAIL_API_CACHE:
+    timeout = settings.OTHER_DETAIL_API_CACHE_TIMEOUT
+    cache_detail_page = method_decorator(cache_page(timeout))
+
+
+class PerimeterViewSet(
+    mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet
+):
     serializer_class = PerimeterSerializer
     pagination_class = ApiPagination
 
@@ -65,8 +88,18 @@ class PerimeterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         parameters=api_doc.perimeters_api_parameters,
         tags=[Perimeter._meta.verbose_name_plural],
     )
+    @cache_list_page
     def list(self, request, *args, **kwargs):
         return super().list(request, args, kwargs)
+
+    @cache_detail_page
+    def retrieve(self, request, id=None, *args, **kwargs):
+        if kwargs["pk"] is not None:
+            pk = int(kwargs["pk"].partition("-")[0])
+            request.parser_context["kwargs"]["pk"] = pk
+            return super().retrieve(request, id, args, kwargs)
+        else:
+            return super().retrieve(request, id, args, kwargs)
 
 
 class PerimeterDataViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
