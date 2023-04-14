@@ -134,6 +134,20 @@ class AidCreateDSFolderEvent(models.Model):
 
 
 class AidSearchEvent(models.Model):
+    user = models.ForeignKey(
+        "accounts.User",
+        verbose_name="Utilisateur",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    organization = models.ForeignKey(
+        "organizations.Organization",
+        verbose_name="Structure",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
     targeted_audiences = ChoiceArrayField(
         verbose_name="Bénéficiaires de l’aide",
         null=True,
