@@ -5,6 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 
 from accounts.factories import UserFactory, ContributorFactory
+from aids.factories import AidFactory
 from aids.resources import ADMIN_EMAIL
 from backers.factories import BackerFactory
 from geofr.models import Perimeter
@@ -324,3 +325,25 @@ def perimeters():
         "cote-dor": cote_dor,
     }
     return perimeters
+
+
+@pytest.fixture
+def aids(perimeters):
+    aids = [
+        AidFactory(perimeter=perimeters["europe"]),
+        *AidFactory.create_batch(2, perimeter=perimeters["france"]),
+        *AidFactory.create_batch(3, perimeter=perimeters["occitanie"]),
+        *AidFactory.create_batch(4, perimeter=perimeters["herault"]),
+        *AidFactory.create_batch(5, perimeter=perimeters["montpellier"]),
+        *AidFactory.create_batch(6, perimeter=perimeters["vic"]),
+        *AidFactory.create_batch(7, perimeter=perimeters["aveyron"]),
+        *AidFactory.create_batch(8, perimeter=perimeters["rodez"]),
+        *AidFactory.create_batch(9, perimeter=perimeters["normandie"]),
+        *AidFactory.create_batch(10, perimeter=perimeters["eure"]),
+        *AidFactory.create_batch(11, perimeter=perimeters["st-cyr"]),
+        *AidFactory.create_batch(12, perimeter=perimeters["adour-garonne"]),
+        *AidFactory.create_batch(13, perimeter=perimeters["rhone-mediterannee"]),
+        *AidFactory.create_batch(14, perimeter=perimeters["fort-de-france"]),
+        *AidFactory.create_batch(15, perimeter=perimeters["outre-mer"]),
+    ]
+    return aids

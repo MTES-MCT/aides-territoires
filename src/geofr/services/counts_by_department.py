@@ -107,7 +107,7 @@ def get_backers_count_by_department(
             )
             .order_by("-financial_aids")
         )
-    elif aid_type == "technical":
+    elif aid_type == "technical_group":
         backers = (
             backers.distinct()
             .annotate(
