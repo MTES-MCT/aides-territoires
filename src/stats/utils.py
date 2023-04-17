@@ -17,11 +17,13 @@ from search.utils import (
 from stats.models import (
     AidViewEvent,
     AidSearchEvent,
+    BackerViewEvent,
     Event,
     ContactFormSendEvent,
+    ProgramViewEvent,
+    PublicProjectSearchEvent,
     PublicProjectViewEvent,
     ValidatedProjectSearchEvent,
-    PublicProjectSearchEvent,
 )
 from aids.models import Aid
 from accounts.models import User
@@ -288,3 +290,71 @@ def log_publicprojectsearchevent(
 
         project_types = get_querystring_project_types(querystring)
         event.project_types.set(project_types)
+
+
+@app.task
+def log_programviewevent(
+    program_id,
+    user_pk=None,
+    org_pk=None,
+    source="",
+    request_ua="",
+    request_referer="",
+):
+    source_cleaned = get_site_from_host(source)
+
+    # There are some cases where we don't want to log the view event:
+    # - a crawler (bot)
+    # - a scraper (user script that parses & pulls data from our website)
+    is_crawler = crawler_detect.isCrawler(request_ua)
+    is_scraper = "sitemap.xml" in request_referer
+
+    if not any([is_crawler, is_scraper]):
+        if user_pk is not None and org_pk is not None:
+            user = User.objects.get(pk=user_pk)
+            org = Organization.objects.get(pk=org_pk)
+            ProgramViewEvent.objects.create(
+                program_id=program_id,
+                user=user,
+                organization=org,
+                source=source_cleaned,
+            )
+        else:
+            ProgramViewEvent.objects.create(
+                program_id=program_id,
+                source=source_cleaned,
+            )
+
+
+@app.task
+def log_backerviewevent(
+    backer_id,
+    user_pk=None,
+    org_pk=None,
+    source="",
+    request_ua="",
+    request_referer="",
+):
+    source_cleaned = get_site_from_host(source)
+
+    # There are some cases where we don't want to log the view event:
+    # - a crawler (bot)
+    # - a scraper (user script that parses & pulls data from our website)
+    is_crawler = crawler_detect.isCrawler(request_ua)
+    is_scraper = "sitemap.xml" in request_referer
+
+    if not any([is_crawler, is_scraper]):
+        if user_pk is not None and org_pk is not None:
+            user = User.objects.get(pk=user_pk)
+            org = Organization.objects.get(pk=org_pk)
+            BackerViewEvent.objects.create(
+                backer_id=backer_id,
+                user=user,
+                organization=org,
+                source=source_cleaned,
+            )
+        else:
+            BackerViewEvent.objects.create(
+                backer_id=backer_id,
+                source=source_cleaned,
+            )

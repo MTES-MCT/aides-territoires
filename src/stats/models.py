@@ -412,3 +412,63 @@ class PublicProjectSearchEvent(models.Model):
     class Meta:
         verbose_name = "Événement recherche projets publics"
         verbose_name_plural = "Événements recherche projets publics"
+
+
+class ProgramViewEvent(models.Model):
+    program = models.ForeignKey(
+        "programs.Program", verbose_name="Programme", on_delete=models.CASCADE
+    )
+
+    user = models.ForeignKey(
+        "accounts.User",
+        verbose_name="Utilisateur",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    organization = models.ForeignKey(
+        "organizations.Organization",
+        verbose_name="Structure",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    source = models.CharField("Source", max_length=256, default="")
+
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+    class Meta:
+        verbose_name = "Événement programme vu"
+        verbose_name_plural = "Événements programmes vus"
+
+
+class BackerViewEvent(models.Model):
+    backer = models.ForeignKey(
+        "backers.Backer", verbose_name="Porteur", on_delete=models.CASCADE
+    )
+
+    user = models.ForeignKey(
+        "accounts.User",
+        verbose_name="Utilisateur",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    organization = models.ForeignKey(
+        "organizations.Organization",
+        verbose_name="Structure",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    source = models.CharField("Source", max_length=256, default="")
+
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+    class Meta:
+        verbose_name = "Événement porteur vu"
+        verbose_name_plural = "Événements porteurs vus"

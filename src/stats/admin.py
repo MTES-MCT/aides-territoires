@@ -10,13 +10,15 @@ from stats.models import (
     AidOriginUrlClickEvent,
     AidApplicationUrlClickEvent,
     AidEligibilityTestEvent,
+    BackerViewEvent,
+    ContactFormSendEvent,
+    Event,
+    ProgramViewEvent,
     PromotionClickEvent,
     PromotionDisplayEvent,
     PublicProjectViewEvent,
-    ValidatedProjectSearchEvent,
     PublicProjectSearchEvent,
-    ContactFormSendEvent,
-    Event,
+    ValidatedProjectSearchEvent,
 )
 
 
@@ -161,6 +163,38 @@ class AidEligibilityTestEventAdmin(admin.ModelAdmin):
         return False
 
 
+class BackerViewEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+
+    list_display = ["id", "backer", "source", "date_created"]
+    list_filter = ["source"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+class ProgramViewEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+
+    list_display = ["id", "program", "source", "date_created"]
+    list_filter = ["source"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 class PromotionDisplayEventAdmin(admin.ModelAdmin):
     """The model is set to readonly"""
 
@@ -278,10 +312,12 @@ admin.site.register(AidOriginUrlClickEvent, AidOriginUrlClickEventAdmin)
 admin.site.register(AidApplicationUrlClickEvent, AidApplicationUrlClickEventAdmin)
 admin.site.register(AidSearchEvent, AidSearchEventAdmin)
 admin.site.register(AidEligibilityTestEvent, AidEligibilityTestEventAdmin)
+admin.site.register(BackerViewEvent, BackerViewEventAdmin)
+admin.site.register(ContactFormSendEvent, ContactFormSendEventAdmin)
+admin.site.register(Event, EventAdmin)
+admin.site.register(ProgramViewEvent, ProgramViewEventAdmin)
 admin.site.register(PromotionDisplayEvent, PromotionDisplayEventAdmin)
 admin.site.register(PromotionClickEvent, PromotionClickEventAdmin)
 admin.site.register(PublicProjectViewEvent, PublicProjectViewEventAdmin)
-admin.site.register(ValidatedProjectSearchEvent, ValidatedProjectSearchEventAdmin)
 admin.site.register(PublicProjectSearchEvent, PublicProjectSearchEventAdmin)
-admin.site.register(ContactFormSendEvent, ContactFormSendEventAdmin)
-admin.site.register(Event, EventAdmin)
+admin.site.register(ValidatedProjectSearchEvent, ValidatedProjectSearchEventAdmin)
