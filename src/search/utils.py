@@ -152,3 +152,18 @@ def get_querystring_programs(querystring):
     PROGRAMS_KEY = "programs"
     programs_list = get_querystring_value_list_from_key(querystring, PROGRAMS_KEY)
     return Program.objects.filter(slug__in=programs_list)
+
+
+def get_querystring_project_types(querystring):
+    """
+    Format ? 'id'
+    Returns a QuerySet
+    """
+    PROJECT_TYPES_KEY = "project_types"
+    project_types_list = get_querystring_value_list_from_key(
+        querystring, PROJECT_TYPES_KEY
+    )
+    project_types_list_id = [
+        extract_id_from_string(project_type) for project_type in project_types_list
+    ]
+    return SynonymList.objects.filter(id__in=project_types_list_id)

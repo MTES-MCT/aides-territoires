@@ -39,7 +39,11 @@ from aids.views import AidPaginator
 from aids.forms import AidSearchForm, SuggestAidMatchProjectForm, AidProjectStatusForm
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 from minisites.mixins import SearchMixin
-from stats.utils import log_publicprojectviewevent, log_validatedprojectsearchevent
+from stats.utils import (
+    log_publicprojectviewevent,
+    log_validatedprojectsearchevent,
+    log_publicprojectsearchevent,
+)
 
 
 class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
@@ -221,6 +225,38 @@ class PublicProjectListView(SearchMixin, FormMixin, ListView):
 
         filter_form = self.form
         results = filter_form.filter_queryset(qs).distinct()
+        request_ua = self.request.META.get("HTTP_USER_AGENT", "")
+
+        if (
+            self.request.user
+            and self.request.user.is_authenticated
+            and self.request.user.beneficiary_organization
+            and self.request.user.beneficiary_organization.organization_type[0]
+            in [
+                "commune",
+                "epci",
+                "department",
+                "region",
+                "special",
+                "public_cies",
+                "public_org",
+            ]
+        ):
+            user = self.request.user
+            org = user.beneficiary_organization
+            log_publicprojectsearchevent.delay(
+                user_pk=user.pk,
+                org_pk=org.pk,
+                querystring=self.request.GET.urlencode(),
+                results_count=results.count(),
+                request_ua=request_ua,
+            )
+        else:
+            log_publicprojectsearchevent.delay(
+                querystring=self.request.GET.urlencode(),
+                results_count=results.count(),
+                request_ua=request_ua,
+            )
 
         return results
 
