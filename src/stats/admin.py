@@ -176,9 +176,6 @@ class BackerViewEventAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         return False
 
-    def has_delete_permission(self, request, obj=None):
-        return False
-
 
 class PostViewEventAdmin(admin.ModelAdmin):
     """The model is set to readonly"""
@@ -189,9 +186,6 @@ class PostViewEventAdmin(admin.ModelAdmin):
         return False
 
     def has_change_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
         return False
 
 
@@ -205,9 +199,6 @@ class ProgramViewEventAdmin(admin.ModelAdmin):
         return False
 
     def has_change_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
         return False
 
 
@@ -283,9 +274,6 @@ class PublicProjectViewEventAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         return False
 
-    def has_delete_permission(self, request, obj=None):
-        return False
-
 
 class ValidatedProjectSearchEventAdmin(admin.ModelAdmin):
     """The model is set to readonly"""
@@ -298,9 +286,6 @@ class ValidatedProjectSearchEventAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         return False
 
-    def has_delete_permission(self, request, obj=None):
-        return False
-
 
 class PublicProjectSearchEventAdmin(admin.ModelAdmin):
     """The model is set to readonly"""
@@ -311,9 +296,6 @@ class PublicProjectSearchEventAdmin(admin.ModelAdmin):
         return False
 
     def has_change_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
         return False
 
 
