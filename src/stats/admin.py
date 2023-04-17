@@ -13,6 +13,7 @@ from stats.models import (
     BackerViewEvent,
     ContactFormSendEvent,
     Event,
+    PostViewEvent,
     ProgramViewEvent,
     PromotionClickEvent,
     PromotionDisplayEvent,
@@ -179,6 +180,21 @@ class BackerViewEventAdmin(admin.ModelAdmin):
         return False
 
 
+class PostViewEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+
+    list_display = ["id", "post", "date_created"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 class ProgramViewEventAdmin(admin.ModelAdmin):
     """The model is set to readonly"""
 
@@ -315,6 +331,7 @@ admin.site.register(AidEligibilityTestEvent, AidEligibilityTestEventAdmin)
 admin.site.register(BackerViewEvent, BackerViewEventAdmin)
 admin.site.register(ContactFormSendEvent, ContactFormSendEventAdmin)
 admin.site.register(Event, EventAdmin)
+admin.site.register(PostViewEvent, PostViewEventAdmin)
 admin.site.register(ProgramViewEvent, ProgramViewEventAdmin)
 admin.site.register(PromotionDisplayEvent, PromotionDisplayEventAdmin)
 admin.site.register(PromotionClickEvent, PromotionClickEventAdmin)

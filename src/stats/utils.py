@@ -20,6 +20,7 @@ from stats.models import (
     BackerViewEvent,
     Event,
     ContactFormSendEvent,
+    PostViewEvent,
     ProgramViewEvent,
     PublicProjectSearchEvent,
     PublicProjectViewEvent,
@@ -357,4 +358,34 @@ def log_backerviewevent(
             BackerViewEvent.objects.create(
                 backer_id=backer_id,
                 source=source_cleaned,
+            )
+
+
+@app.task
+def log_postviewevent(
+    post_id,
+    user_pk=None,
+    org_pk=None,
+    request_ua="",
+    request_referer="",
+):
+
+    # There are some cases where we don't want to log the view event:
+    # - a crawler (bot)
+    # - a scraper (user script that parses & pulls data from our website)
+    is_crawler = crawler_detect.isCrawler(request_ua)
+    is_scraper = "sitemap.xml" in request_referer
+
+    if not any([is_crawler, is_scraper]):
+        if user_pk is not None and org_pk is not None:
+            user = User.objects.get(pk=user_pk)
+            org = Organization.objects.get(pk=org_pk)
+            PostViewEvent.objects.create(
+                post_id=post_id,
+                user=user,
+                organization=org,
+            )
+        else:
+            PostViewEvent.objects.create(
+                post_id=post_id,
             )

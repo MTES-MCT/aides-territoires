@@ -472,3 +472,31 @@ class BackerViewEvent(models.Model):
     class Meta:
         verbose_name = "Événement porteur vu"
         verbose_name_plural = "Événements porteurs vus"
+
+
+class PostViewEvent(models.Model):
+    post = models.ForeignKey(
+        "blog.BlogPost", verbose_name="article de blog", on_delete=models.CASCADE
+    )
+
+    user = models.ForeignKey(
+        "accounts.User",
+        verbose_name="Utilisateur",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    organization = models.ForeignKey(
+        "organizations.Organization",
+        verbose_name="Structure",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+    class Meta:
+        verbose_name = "Événement article de blog vu"
+        verbose_name_plural = "Événements articles de blog vus"
