@@ -39,6 +39,7 @@ from aids.views import AidPaginator
 from aids.forms import AidSearchForm, SuggestAidMatchProjectForm, AidProjectStatusForm
 from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 from minisites.mixins import SearchMixin
+from stats.utils import log_publicprojectviewevent
 
 
 class ProjectCreateView(ContributorAndProfileCompleteRequiredMixin, CreateView):
@@ -474,6 +475,41 @@ class PublicProjectDetailView(DetailView):
                     raise PermissionDenied()
         except queryset.model.DoesNotExist:
             raise Http404()
+
+        request_ua = self.request.META.get("HTTP_USER_AGENT", "")
+        request_referer = self.request.META.get("HTTP_REFERER", "")
+
+        if (
+            self.request.user
+            and self.request.user.is_authenticated
+            and self.request.user.beneficiary_organization
+            and self.request.user.beneficiary_organization.organization_type[0]
+            in [
+                "commune",
+                "epci",
+                "department",
+                "region",
+                "special",
+                "public_cies",
+                "public_org",
+            ]
+        ):
+            user = self.request.user
+            org = user.beneficiary_organization
+            log_publicprojectviewevent.delay(
+                project_id=obj.pk,
+                user_pk=user.pk,
+                org_pk=org.pk,
+                request_ua=request_ua,
+                request_referer=request_referer,
+            )
+        else:
+            log_publicprojectviewevent.delay(
+                project_id=obj.pk,
+                request_ua=request_ua,
+                request_referer=request_referer,
+            )
+
         return obj
 
     def get_queryset(self):

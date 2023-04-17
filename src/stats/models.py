@@ -306,3 +306,31 @@ class ContactFormSendEvent(models.Model):
     class Meta:
         verbose_name = "Événement envoi du formulaire de contact"
         verbose_name_plural = "Événements envoi du formulaire de contact"
+
+
+class PublicProjectViewEvent(models.Model):
+    project = models.ForeignKey(
+        "projects.Project", verbose_name="Projet public", on_delete=models.CASCADE
+    )
+
+    user = models.ForeignKey(
+        "accounts.User",
+        verbose_name="Utilisateur",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    organization = models.ForeignKey(
+        "organizations.Organization",
+        verbose_name="Structure",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+    class Meta:
+        verbose_name = "Événement projet public vu"
+        verbose_name_plural = "Événements projet public vu"

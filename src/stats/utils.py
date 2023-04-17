@@ -12,7 +12,13 @@ from search.utils import (
     get_querystring_backers,
     get_querystring_programs,
 )
-from stats.models import AidViewEvent, AidSearchEvent, Event, ContactFormSendEvent
+from stats.models import (
+    AidViewEvent,
+    AidSearchEvent,
+    Event,
+    ContactFormSendEvent,
+    PublicProjectViewEvent,
+)
 from aids.models import Aid
 from accounts.models import User
 from organizations.models import Organization
@@ -148,3 +154,33 @@ def log_event(category, event, meta="", source="", value=None):
 @app.task
 def log_contactformsendevent(subject):
     ContactFormSendEvent.objects.create(subject=subject)
+
+
+@app.task
+def log_publicprojectviewevent(
+    project_id,
+    user_pk=None,
+    org_pk=None,
+    request_ua="",
+    request_referer="",
+):
+
+    # There are some cases where we don't want to log the view event:
+    # - a crawler (bot)
+    # - a scraper (user script that parses & pulls data from our website)
+    is_crawler = crawler_detect.isCrawler(request_ua)
+    is_scraper = "sitemap.xml" in request_referer
+
+    if not any([is_crawler, is_scraper]):
+        if user_pk is not None and org_pk is not None:
+            user = User.objects.get(pk=user_pk)
+            org = Organization.objects.get(pk=org_pk)
+            PublicProjectViewEvent.objects.create(
+                project_id=project_id,
+                user=user,
+                organization=org,
+            )
+        else:
+            PublicProjectViewEvent.objects.create(
+                project_id=project_id,
+            )
