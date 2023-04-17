@@ -103,14 +103,14 @@ def get_querystring_text(querystring):
 
     TEXT_KEY = "text"
     text = get_querystring_value_list_from_key(querystring, TEXT_KEY)
-    if text:
+    if text != []:
         try:
             synonymlist_id = extract_id_from_string(text[0])
             return SynonymList.objects.get(id=synonymlist_id).keywords_list
         except Exception:
             return text[0]
     else:
-        return None
+        return ""
 
 
 def get_querystring_themes(querystring):
