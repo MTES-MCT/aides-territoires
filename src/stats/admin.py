@@ -13,6 +13,7 @@ from stats.models import (
     PromotionClickEvent,
     PromotionDisplayEvent,
     PublicProjectViewEvent,
+    ValidatedProjectSearchEvent,
     ContactFormSendEvent,
     Event,
 )
@@ -235,6 +236,21 @@ class PublicProjectViewEventAdmin(admin.ModelAdmin):
         return False
 
 
+class ValidatedProjectSearchEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+
+    list_display = ["id", "date_created"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 admin.site.register(AidCreateDSFolderEvent, AidCreateDSFolderEventAdmin)
 admin.site.register(
     AccountRegisterFromNextpagewarningClickEvent,
@@ -249,5 +265,6 @@ admin.site.register(AidEligibilityTestEvent, AidEligibilityTestEventAdmin)
 admin.site.register(PromotionDisplayEvent, PromotionDisplayEventAdmin)
 admin.site.register(PromotionClickEvent, PromotionClickEventAdmin)
 admin.site.register(PublicProjectViewEvent, PublicProjectViewEventAdmin)
+admin.site.register(ValidatedProjectSearchEvent, ValidatedProjectSearchEventAdmin)
 admin.site.register(ContactFormSendEvent, ContactFormSendEventAdmin)
 admin.site.register(Event, EventAdmin)

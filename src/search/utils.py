@@ -4,6 +4,7 @@ from geofr.models import Perimeter
 from categories.models import Theme, Category
 from backers.models import Backer
 from programs.models import Program
+from keywords.models import SynonymList
 
 
 SEARCH_EXTRA_FIELDS = ["integration", "order_by", "action"]
@@ -81,21 +82,33 @@ def get_querystring_value_list_from_key(querystring, key):
     return value_list_cleaned
 
 
-def get_querystring_perimeter(querystring):
+def get_querystring_perimeter(querystring, key="perimeter"):
     """
     Format ? 'id-slug' (e.g. '71045-rhone')
     Returns None or 1 perimeter
     """
-    PERIMETER_KEY = "perimeter"
-    perimeter_list = get_querystring_value_list_from_key(
-        querystring, PERIMETER_KEY
-    )  # noqa
+    PERIMETER_KEY = key
+    perimeter_list = get_querystring_value_list_from_key(querystring, PERIMETER_KEY)
     if len(perimeter_list):
         try:
             perimeter_id = extract_id_from_string(perimeter_list[0])
             return Perimeter.objects.get(id=perimeter_id)
         except Exception:
             return None
+    else:
+        return None
+
+
+def get_querystring_text(querystring):
+
+    TEXT_KEY = "text"
+    text = get_querystring_value_list_from_key(querystring, TEXT_KEY)
+    if text:
+        try:
+            synonymlist_id = extract_id_from_string(text[0])
+            return SynonymList.objects.get(id=synonymlist_id).keywords_list
+        except Exception:
+            return text[0]
     else:
         return None
 

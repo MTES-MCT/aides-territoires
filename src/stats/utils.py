@@ -11,6 +11,7 @@ from search.utils import (
     get_querystring_categories,
     get_querystring_backers,
     get_querystring_programs,
+    get_querystring_text,
 )
 from stats.models import (
     AidViewEvent,
@@ -18,6 +19,7 @@ from stats.models import (
     Event,
     ContactFormSendEvent,
     PublicProjectViewEvent,
+    ValidatedProjectSearchEvent,
 )
 from aids.models import Aid
 from accounts.models import User
@@ -183,4 +185,55 @@ def log_publicprojectviewevent(
         else:
             PublicProjectViewEvent.objects.create(
                 project_id=project_id,
+            )
+
+
+@app.task
+def log_validatedprojectsearchevent(
+    querystring="",
+    results_count=0,
+    user_pk=None,
+    org_pk=None,
+    request_ua="",
+    request_referer="",
+):
+
+    """
+    Method to cleanup/populate the AidSearchEvents
+    Run asynchronously to avoid slowing down requests.
+    """
+    querystring_cleaned = clean_search_querystring(querystring)
+
+    # There are some cases where we don't want to log the search event:
+    # - a crawler
+    # - page is greater than 1 (the user has scrolled to see more results) or has a strange value
+    is_crawler = crawler_detect.isCrawler(request_ua)
+    is_internal_search = get_querystring_value_list_from_key(
+        querystring_cleaned, "internal"
+    )
+    next_page = get_querystring_value_from_key(querystring_cleaned, "page")
+    is_next_page_search = next_page and (not next_page.isdigit() or int(next_page) > 1)
+
+    if not any([is_crawler, is_internal_search, is_next_page_search]):
+        perimeter = get_querystring_perimeter(querystring, "project_perimeter")
+        text = get_querystring_text(querystring)
+
+        if user_pk is not None and org_pk is not None:
+            user = User.objects.get(pk=user_pk)
+            org = Organization.objects.get(pk=org_pk)
+            ValidatedProjectSearchEvent.objects.create(
+                user=user,
+                organization=org,
+                querystring=querystring_cleaned,
+                results_count=results_count,
+                perimeter=perimeter,
+                text=text,
+            )
+
+        else:
+            ValidatedProjectSearchEvent.objects.create(
+                querystring=querystring_cleaned,
+                results_count=results_count,
+                perimeter=perimeter,
+                text=text,
             )
