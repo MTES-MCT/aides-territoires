@@ -406,6 +406,7 @@ SERVER_EMAIL = "aides-territoires@beta.gouv.fr"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_WHITELIST = []
 SIB_API_KEY = ""
+SIB_CLIENT_KEY = ""
 SIB_NEWSLETTER_LIST_IDS = []
 SIB_NEWSLETTER_ID = "0"
 SIB_EXPORT_CONTACTS_LIST_ID = 0
