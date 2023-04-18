@@ -9,6 +9,8 @@ from import_export.formats import base_formats
 
 from core.forms import RichTextField
 from exporting.tasks import (
+    export_projects_as_csv,
+    export_projects_as_xlsx,
     export_validated_projects_as_csv,
     export_validated_projects_as_xlsx,
 )
@@ -62,6 +64,7 @@ class ProjectAdmin(ImportExportActionModelAdmin):
     search_fields = ["name"]
     readonly_fields = ["date_created", "nb_aids_associated", "display_related_aids"]
     autocomplete_fields = ["organizations", "author", "project_types"]
+    actions = ["export_csv", "export_xlsx"]
 
     def view_on_site(self, obj):
         url = reverse(
@@ -94,7 +97,28 @@ class ProjectAdmin(ImportExportActionModelAdmin):
     def nb_aids_associated(self, obj):
         return obj.aid_set.count()
 
-    nb_aids_associated.short_description = "Nombre d'aides associées"
+    nb_aids_associated.short_description = "Nombre d’aides associées"
+
+    def show_export_message(self, request):
+        self.message_user(request, get_admin_export_message())
+
+    def export_csv(self, request, queryset):
+        aids_id_list = list(queryset.values_list("id", flat=True))
+        export_projects_as_csv.delay(aids_id_list, request.user.id)
+        self.show_export_message(request)
+
+    export_csv.short_description = (
+        "Exporter les projets sélectionnés en CSV en tâche de fond"
+    )
+
+    def export_xlsx(self, request, queryset):
+        aids_id_list = list(queryset.values_list("id", flat=True))
+        export_projects_as_xlsx.delay(aids_id_list, request.user.id)
+        self.show_export_message(request)
+
+    export_xlsx.short_description = (
+        "Exporter les projets sélectionnés en XLSX en tâche de fond"
+    )
 
     class Media:
         css = {
