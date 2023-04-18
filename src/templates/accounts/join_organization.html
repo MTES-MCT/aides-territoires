@@ -41,7 +41,7 @@
                 {% if organization_name %}
                 <form method="post" novalidate>
                     {% csrf_token %}
-                    <div role="alert" class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
+                    <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-5w">
                         <p><strong>{{ invitation_author }} vous invite à rejoindre l’organisation « {{ organization_name }} ».</strong></p>
                         <p>
                             Si vous acceptez cette invitation, votre organisation de rattachement sera modifiée.
@@ -98,7 +98,7 @@
                     </div>
                 </form>
                 {% else %}
-                <div role="alert" class="fr-alert fr-alert--error fr-alert--sm fr-mb-5w">
+                <div class="fr-alert fr-alert--error fr-alert--sm fr-mb-5w">
                     <p><strong>Vous n’avez aucune invitation pour rejoindre une organisation.</strong></p>
                 </div>
                 {% endif %}

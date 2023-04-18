@@ -20,7 +20,7 @@
         {% if messages %}
             <div class="messages fr-container fr-my-5w">
                 {% for message in messages %}
-                    <div role="alert" class="fr-alert fr-alert--{{ message.tags|default:'info' }} fr-alert--sm">
+                    <div class="fr-alert fr-alert--{{ message.tags|default:'info' }} fr-alert--sm">
                         <p>{{ message|safe }}</p>
                     </div>
                 {% endfor %}
