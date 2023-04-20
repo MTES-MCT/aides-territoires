@@ -145,6 +145,7 @@ def get_backers_count_by_department(
                 "name",
                 "id",
                 "slug",
+                "perimeter__name",
                 "financial_aids",
                 "grant_count",
                 "loan_count",
@@ -194,6 +195,7 @@ def get_backers_count_by_department(
                 "name",
                 "id",
                 "slug",
+                "perimeter__name",
                 "technical_aids",
                 "technical_count",
                 "financial_count",
@@ -226,7 +228,13 @@ def get_backers_count_by_department(
                 )
             )
             .values(
-                "name", "id", "slug", "total_aids", "technical_aids", "financial_aids"
+                "name",
+                "id",
+                "slug",
+                "perimeter__name",
+                "total_aids",
+                "technical_aids",
+                "financial_aids",
             )
             .order_by("-total_aids")
         )

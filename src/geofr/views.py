@@ -42,13 +42,11 @@ class DepartmentView(TemplateView):
 
         target_audience = self.request.GET.get("target_audience")
         aid_type = self.request.GET.get("aid_type")
-        perimeter_scale = self.request.GET.get("perimeter_scale")
 
         backers_list = get_backers_count_by_department(
             current_dept["id"],
             target_audience=target_audience,
             aid_type=aid_type,
-            perimeter_scale=perimeter_scale,
         )
         programs_list = get_programs_count_by_department(
             current_dept["id"], target_audience=target_audience, aid_type=aid_type
@@ -67,7 +65,6 @@ class DepartmentView(TemplateView):
         context["programs_list"] = programs_list
         context["captions"] = captions
         context["aid_type"] = aid_type
-        context["perimeter_scale"] = perimeter_scale
 
         return context
 
