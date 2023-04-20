@@ -42,10 +42,13 @@ def get_backers_count_by_department(
     related_perimeters = get_all_related_perimeters(dep_id, values=["id"])
     live_aids = Aid.objects.live()
 
-    backers = Backer.objects.prefetch_related("financed_aids")
+    backers = Backer.objects.prefetch_related("financed_aids").select_related(
+        "perimeter"
+    )
 
     if target_audience:
         backers = backers.filter(
+            perimeter_id__in=related_perimeters,
             financed_aids__in=live_aids,
             financed_aids__perimeter_id__in=related_perimeters,
             financed_aids__targeted_audiences__overlap=[target_audience],
@@ -53,13 +56,13 @@ def get_backers_count_by_department(
     else:
         backers = backers.filter(
             financed_aids__in=live_aids,
+            financed_aids__perimeter_id__in=related_perimeters,
             perimeter_id__in=related_perimeters,
         )
 
     if perimeter_scale == "local_group":
         backers = backers.filter(
-            financed_aids__in=live_aids,
-            financed_aids__perimeter_id__in=related_perimeters,
+            perimeter_id__in=related_perimeters,
             perimeter__scale__in=[
                 Perimeter.SCALES.commune,
                 Perimeter.SCALES.epci,
@@ -67,11 +70,12 @@ def get_backers_count_by_department(
                 Perimeter.SCALES.region,
                 Perimeter.SCALES.adhoc,
             ],
+            financed_aids__in=live_aids,
+            financed_aids__perimeter_id__in=related_perimeters,
         )
     elif perimeter_scale == "national_group":
         backers = backers.filter(
-            financed_aids__in=live_aids,
-            financed_aids__perimeter_id__in=related_perimeters,
+            perimeter_id__in=related_perimeters,
             perimeter__scale__in=[
                 Perimeter.SCALES.basin,
                 Perimeter.SCALES.overseas,
@@ -79,9 +83,12 @@ def get_backers_count_by_department(
                 Perimeter.SCALES.country,
                 Perimeter.SCALES.continent,
             ],
+            financed_aids__in=live_aids,
+            financed_aids__perimeter_id__in=related_perimeters,
         )
     else:
         backers = backers.filter(
+            perimeter_id__in=related_perimeters,
             financed_aids__in=live_aids,
             financed_aids__perimeter_id__in=related_perimeters,
         )
@@ -93,39 +100,45 @@ def get_backers_count_by_department(
                 financial_aids=Count(
                     "financed_aids",
                     filter=(Q(financed_aids__aid_types__overlap=FINANCIAL_AIDS_LIST)),
+                    distinct=True,
                 )
             )
             .filter(financial_aids__gte=1)
             .annotate(
                 grant_count=Count(
                     "financed_aids",
-                    filter=(Q(financed_aids__aid_types__contains=["grant"])),
+                    filter=(Q(financed_aids__aid_types__overlap=["grant"])),
+                    distinct=True,
                 )
             )
             .annotate(
                 loan_count=Count(
                     "financed_aids",
-                    filter=(Q(financed_aids__aid_types__contains=["loan"])),
+                    filter=(Q(financed_aids__aid_types__overlap=["loan"])),
+                    distinct=True,
                 )
             )
             .annotate(
                 recoverable_advance_count=Count(
                     "financed_aids",
                     filter=(
-                        Q(financed_aids__aid_types__contains=["recoverable_advance"])
+                        Q(financed_aids__aid_types__overlap=["recoverable_advance"])
                     ),
+                    distinct=True,
                 )
             )
             .annotate(
                 cee_count=Count(
                     "financed_aids",
-                    filter=(Q(financed_aids__aid_types__contains=["cee"])),
+                    filter=(Q(financed_aids__aid_types__overlap=["cee"])),
+                    distinct=True,
                 )
             )
             .annotate(
                 other_count=Count(
                     "financed_aids",
-                    filter=(Q(financed_aids__aid_types__contains=["other"])),
+                    filter=(Q(financed_aids__aid_types__overlap=["other"])),
+                    distinct=True,
                 )
             )
             .values(
@@ -148,6 +161,7 @@ def get_backers_count_by_department(
                 technical_aids=Count(
                     "financed_aids",
                     filter=(Q(financed_aids__aid_types__overlap=TECHNICAL_AIDS_LIST)),
+                    distinct=True,
                 )
             )
             .filter(technical_aids__gte=1)
@@ -155,24 +169,25 @@ def get_backers_count_by_department(
                 technical_count=Count(
                     "financed_aids",
                     filter=(
-                        Q(financed_aids__aid_types__contains=["technical_engineering"])
+                        Q(financed_aids__aid_types__overlap=["technical_engineering"])
                     ),
+                    distinct=True,
                 )
             )
             .annotate(
                 financial_count=Count(
                     "financed_aids",
                     filter=(
-                        Q(financed_aids__aid_types__contains=["financial_engineering"])
+                        Q(financed_aids__aid_types__overlap=["financial_engineering"])
                     ),
+                    distinct=True,
                 )
             )
             .annotate(
                 legal_count=Count(
                     "financed_aids",
-                    filter=(
-                        Q(financed_aids__aid_types__contains=["legal_engineering"])
-                    ),
+                    filter=(Q(financed_aids__aid_types__overlap=["legal_engineering"])),
+                    distinct=True,
                 )
             )
             .values(
@@ -190,17 +205,24 @@ def get_backers_count_by_department(
     else:
         backers = (
             backers.distinct()
-            .annotate(total_aids=Count("financed_aids"))
+            .annotate(
+                total_aids=Count(
+                    "financed_aids",
+                    distinct=True,
+                )
+            )
             .annotate(
                 technical_aids=Count(
                     "financed_aids",
                     filter=(Q(financed_aids__aid_types__overlap=TECHNICAL_AIDS_LIST)),
+                    distinct=True,
                 )
             )
             .annotate(
                 financial_aids=Count(
                     "financed_aids",
                     filter=(Q(financed_aids__aid_types__overlap=FINANCIAL_AIDS_LIST)),
+                    distinct=True,
                 )
             )
             .values(
@@ -247,31 +269,31 @@ def get_programs_count_by_department(
             .annotate(
                 grant_count=Count(
                     "aids",
-                    filter=(Q(aids__aid_types__contains=["grant"])),
+                    filter=(Q(aids__aid_types__overlap=["grant"])),
                 )
             )
             .annotate(
                 loan_count=Count(
                     "aids",
-                    filter=(Q(aids__aid_types__contains=["loan"])),
+                    filter=(Q(aids__aid_types__overlap=["loan"])),
                 )
             )
             .annotate(
                 recoverable_advance_count=Count(
                     "aids",
-                    filter=(Q(aids__aid_types__contains=["recoverable_advance"])),
+                    filter=(Q(aids__aid_types__overlap=["recoverable_advance"])),
                 )
             )
             .annotate(
                 cee_count=Count(
                     "aids",
-                    filter=(Q(aids__aid_types__contains=["cee"])),
+                    filter=(Q(aids__aid_types__overlap=["cee"])),
                 )
             )
             .annotate(
                 other_count=Count(
                     "aids",
-                    filter=(Q(aids__aid_types__contains=["other"])),
+                    filter=(Q(aids__aid_types__overlap=["other"])),
                 )
             )
             .values(
@@ -299,19 +321,19 @@ def get_programs_count_by_department(
             .annotate(
                 technical_count=Count(
                     "aids",
-                    filter=(Q(aids__aid_types__contains=["technical_engineering"])),
+                    filter=(Q(aids__aid_types__overlap=["technical_engineering"])),
                 )
             )
             .annotate(
                 financial_count=Count(
                     "aids",
-                    filter=(Q(aids__aid_types__contains=["financial_engineering"])),
+                    filter=(Q(aids__aid_types__overlap=["financial_engineering"])),
                 )
             )
             .annotate(
                 legal_count=Count(
                     "aids",
-                    filter=(Q(aids__aid_types__contains=["legal_engineering"])),
+                    filter=(Q(aids__aid_types__overlap=["legal_engineering"])),
                 )
             )
             .values(
@@ -354,7 +376,12 @@ def get_live_aids_total_by_department(dep_id: str) -> int:
     For a given department, returns the number of live aids
     """
     related_perimeters = get_all_related_perimeters(dep_id, values=["id"])
-    return Aid.objects.live().filter(perimeter_id__in=related_perimeters).count()
+    return (
+        Aid.objects.live()
+        .filter(perimeter_id__in=related_perimeters)
+        .distinct()
+        .count()
+    )
 
 
 def get_categories_total_by_department(dep_id: str) -> int:

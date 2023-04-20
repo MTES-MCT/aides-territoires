@@ -35,8 +35,8 @@ def test_map_view_is_complete(client, perimeters, aids):
 
 
 def test_department_view_is_complete(client, perimeters, aids):
-    BackerFactory(financed_aids=[aids[0], aids[1]])
-    BackerFactory(financed_aids=[aids[2], aids[3]])
+    BackerFactory(financed_aids=[aids[0], aids[1]], perimeter=perimeters["herault"])
+    BackerFactory(financed_aids=[aids[2], aids[3]], perimeter=perimeters["herault"])
 
     program_1 = ProgramFactory()
     aids[0].programs.set([program_1])
@@ -60,11 +60,14 @@ def test_department_view_is_complete(client, perimeters, aids):
 
 
 def test_department_view_has_detailed_data_for_engineering_aids(client, perimeters):
-    herault = perimeters["herault"]
-    aid_1 = AidFactory(aid_types=["technical_engineering"], perimeter=herault)
-    aid_2 = AidFactory(aid_types=["financial_engineering"], perimeter=herault)
-    aid_3 = AidFactory(aid_types=["financial_engineering"], perimeter=herault)
-    BackerFactory(name="Porteur 1", financed_aids=[aid_1, aid_2, aid_3])
+
+    normandie = perimeters["normandie"]
+    aid_1 = AidFactory(aid_types=["technical_engineering"], perimeter=normandie)
+    aid_2 = AidFactory(aid_types=["financial_engineering"], perimeter=normandie)
+    aid_3 = AidFactory(aid_types=["financial_engineering"], perimeter=normandie)
+    BackerFactory(
+        name="Porteur 1", financed_aids=[aid_1, aid_2, aid_3], perimeter=normandie
+    )
 
     program_1 = ProgramFactory()
     aid_1.programs.set([program_1])
@@ -74,12 +77,14 @@ def test_department_view_has_detailed_data_for_engineering_aids(client, perimete
     # force launching the task first
     management.call_command("count_by_department")
 
-    herault = perimeters["herault"]
+    normandie = perimeters["normandie"]
     url = reverse(
-        "department_view", kwargs={"code": herault.code, "slug": slugify(herault.name)}
+        "department_view",
+        kwargs={"code": normandie.code, "slug": slugify(normandie.name)},
     )
     res = client.get(f"{url}?aid_type=technical_group")
 
+    print(res.content.decode())
     assert res.status_code == 200
 
     soup = BeautifulSoup(res.content.decode(), "html.parser")
