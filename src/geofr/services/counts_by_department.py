@@ -1,6 +1,7 @@
 from django.db.models import Count
 from aids.constants import FINANCIAL_AIDS_LIST, TECHNICAL_AIDS_LIST
 from aids.models import Aid
+from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeters
 
 from django.db.models.query import QuerySet
@@ -30,7 +31,10 @@ def get_projects_count_by_department(
 
 
 def get_backers_count_by_department(
-    dep_id: str, target_audience: str = None, aid_type: str = None
+    dep_id: str,
+    target_audience: str = None,
+    aid_type: str = None,
+    perimeter_scale: str = None,
 ) -> QuerySet:
     """
     For a given department, returns a list of backers with  the number of associated live aids
@@ -50,6 +54,36 @@ def get_backers_count_by_department(
         backers = backers.filter(
             financed_aids__in=live_aids,
             perimeter_id__in=related_perimeters,
+        )
+
+    if perimeter_scale == "local_group":
+        backers = backers.filter(
+            financed_aids__in=live_aids,
+            financed_aids__perimeter_id__in=related_perimeters,
+            perimeter__scale__in=[
+                Perimeter.SCALES.commune,
+                Perimeter.SCALES.epci,
+                Perimeter.SCALES.department,
+                Perimeter.SCALES.region,
+                Perimeter.SCALES.adhoc,
+            ],
+        )
+    elif perimeter_scale == "national_group":
+        backers = backers.filter(
+            financed_aids__in=live_aids,
+            financed_aids__perimeter_id__in=related_perimeters,
+            perimeter__scale__in=[
+                Perimeter.SCALES.basin,
+                Perimeter.SCALES.overseas,
+                Perimeter.SCALES.mainland,
+                Perimeter.SCALES.country,
+                Perimeter.SCALES.continent,
+            ],
+        )
+    else:
+        backers = backers.filter(
+            financed_aids__in=live_aids,
+            financed_aids__perimeter_id__in=related_perimeters,
         )
 
     if aid_type == "financial_group":
