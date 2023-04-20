@@ -348,6 +348,7 @@ CSP_DEFAULT_SRC = ("https://*.scw.cloud",)
 CSP_CONNECT_SRC = (
     "'self'",
     "https://stats.data.gouv.fr",
+    "https://in-automate.sendinblue.com/",
 )
 CSP_IMG_SRC = (
     "'self'",
