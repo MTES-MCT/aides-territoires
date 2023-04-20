@@ -8,6 +8,7 @@ from pages.models import FaqQuestionAnswer, Tab
 from aids.views import SearchView
 from backers.models import Backer
 from aids.views import AidPaginator
+from stats.utils import log_programviewevent
 
 
 class ProgramList(ListView):
@@ -60,6 +61,43 @@ class ProgramDetail(SearchView):
 
         filter_form = self.form
         results = filter_form.filter_queryset(qs)
+
+        host = self.request.get_host()
+        request_ua = self.request.META.get("HTTP_USER_AGENT", "")
+        request_referer = self.request.META.get("HTTP_REFERER", "")
+
+        if (
+            self.request.user
+            and self.request.user.is_authenticated
+            and self.request.user.beneficiary_organization
+            and self.request.user.beneficiary_organization.organization_type[0]
+            in [
+                "commune",
+                "epci",
+                "department",
+                "region",
+                "special",
+                "public_cies",
+                "public_org",
+            ]
+        ):
+            user = self.request.user
+            org = user.beneficiary_organization
+            log_programviewevent.delay(
+                program_id=self.program.pk,
+                user_pk=user.pk,
+                org_pk=org.pk,
+                source=host,
+                request_ua=request_ua,
+                request_referer=request_referer,
+            )
+        else:
+            log_programviewevent.delay(
+                program_id=self.program.pk,
+                source=host,
+                request_ua=request_ua,
+                request_referer=request_referer,
+            )
 
         return results
 

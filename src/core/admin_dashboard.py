@@ -119,11 +119,46 @@ class CustomIndexDashboard(Dashboard):
             )
         )
         self.children.append(
-            modules.ModelList(
-                "Statistiques",
+            modules.Group(
+                title="Statistiques",
+                display="tabs",
                 deletable=False,
                 draggable=False,
-                models=("stats.*",),
+                children=[
+                    modules.ModelList(
+                        "Aides",
+                        models=(
+                            "stats.models.AidViewEvent",
+                            "stats.models.AidContactClickEvent",
+                            "stats.models.AidOriginUrlClickEvent",
+                            "stats.models.AidApplicationUrlClickEvent",
+                            "stats.models.AidCreateDSFolderEvent",
+                            "stats.models.AidSearchEvent",
+                            "stats.models.AidEligibilityTestEvent",
+                        ),
+                    ),
+                    modules.ModelList(
+                        "Projets",
+                        models=(
+                            "stats.models.PublicProjectSearchEvent",
+                            "stats.models.ValidatedProjectSearchEvent",
+                            "stats.models.PublicProjectViewEvent",
+                        ),
+                    ),
+                    modules.ModelList(
+                        "Autres",
+                        models=(
+                            "stats.models.ProgramViewEvent",
+                            "stats.models.BackerViewEvent",
+                            "stats.models.PostViewEvent",
+                            "stats.models.AccountRegisterFromNextpagewarningClickEvent",
+                            "stats.models.Event",
+                            "stats.models.PromotionDisplayEvent",
+                            "stats.models.PromotionClickEvent",
+                            "stats.models.ContactFormSendEvent",
+                        ),
+                    ),
+                ],
             )
         )
         self.children.append(

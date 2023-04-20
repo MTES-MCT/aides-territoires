@@ -1,6 +1,7 @@
 from django.views.generic import ListView, DetailView
 
 from blog.models import BlogPost, BlogPostCategory
+from stats.utils import log_postviewevent
 
 
 class BlogPostList(ListView):
@@ -61,3 +62,43 @@ class BlogPostDetail(DetailView):
             .exclude(id=self.object.id)
         )
         return context
+
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+
+        if self.object.status == "published":
+            request_ua = self.request.META.get("HTTP_USER_AGENT", "")
+            request_referer = self.request.META.get("HTTP_REFERER", "")
+
+            if (
+                self.request.user
+                and self.request.user.is_authenticated
+                and self.request.user.beneficiary_organization
+                and self.request.user.beneficiary_organization.organization_type[0]
+                in [
+                    "commune",
+                    "epci",
+                    "department",
+                    "region",
+                    "special",
+                    "public_cies",
+                    "public_org",
+                ]
+            ):
+                user = self.request.user
+                org = user.beneficiary_organization
+                log_postviewevent.delay(
+                    post_id=self.object.pk,
+                    user_pk=user.pk,
+                    org_pk=org.pk,
+                    request_ua=request_ua,
+                    request_referer=request_referer,
+                )
+            else:
+                log_postviewevent.delay(
+                    post_id=self.object.pk,
+                    request_ua=request_ua,
+                    request_referer=request_referer,
+                )
+
+            return response

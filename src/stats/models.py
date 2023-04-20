@@ -134,6 +134,20 @@ class AidCreateDSFolderEvent(models.Model):
 
 
 class AidSearchEvent(models.Model):
+    user = models.ForeignKey(
+        "accounts.User",
+        verbose_name="Utilisateur",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    organization = models.ForeignKey(
+        "organizations.Organization",
+        verbose_name="Structure",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
     targeted_audiences = ChoiceArrayField(
         verbose_name="Bénéficiaires de l’aide",
         null=True,
@@ -292,3 +306,197 @@ class ContactFormSendEvent(models.Model):
     class Meta:
         verbose_name = "Événement envoi du formulaire de contact"
         verbose_name_plural = "Événements envoi du formulaire de contact"
+
+
+class PublicProjectViewEvent(models.Model):
+    project = models.ForeignKey(
+        "projects.Project", verbose_name="Projet public", on_delete=models.CASCADE
+    )
+
+    user = models.ForeignKey(
+        "accounts.User",
+        verbose_name="Utilisateur",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    organization = models.ForeignKey(
+        "organizations.Organization",
+        verbose_name="Structure",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+    class Meta:
+        verbose_name = "Événement projet public vu"
+        verbose_name_plural = "Événements projet public vu"
+
+
+class ValidatedProjectSearchEvent(models.Model):
+    perimeter = models.ForeignKey(
+        "geofr.Perimeter",
+        verbose_name="Périmètre",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+    text = models.CharField(
+        "Recherche textuelle", max_length=256, blank=True, default=""
+    )
+
+    querystring = models.TextField("Querystring")
+    results_count = models.PositiveIntegerField("Nombre de résultats", default=0)
+
+    user = models.ForeignKey(
+        "accounts.User",
+        verbose_name="Utilisateur",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    organization = models.ForeignKey(
+        "organizations.Organization",
+        verbose_name="Structure",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+    class Meta:
+        verbose_name = "Événement recherche projets subventionnés"
+        verbose_name_plural = "Événements recherche projets subventionnés"
+
+
+class PublicProjectSearchEvent(models.Model):
+    perimeter = models.ForeignKey(
+        "geofr.Perimeter",
+        verbose_name="Périmètre",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+    project_types = models.ManyToManyField(
+        "keywords.SynonymList",
+        verbose_name="Types de projet",
+        related_name="public_project_search_events",
+        blank=True,
+    )
+    querystring = models.TextField("Querystring")
+    results_count = models.PositiveIntegerField("Nombre de résultats", default=0)
+
+    user = models.ForeignKey(
+        "accounts.User",
+        verbose_name="Utilisateur",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    organization = models.ForeignKey(
+        "organizations.Organization",
+        verbose_name="Structure",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+    class Meta:
+        verbose_name = "Événement recherche projets publics"
+        verbose_name_plural = "Événements recherche projets publics"
+
+
+class ProgramViewEvent(models.Model):
+    program = models.ForeignKey(
+        "programs.Program", verbose_name="Programme", on_delete=models.CASCADE
+    )
+
+    user = models.ForeignKey(
+        "accounts.User",
+        verbose_name="Utilisateur",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    organization = models.ForeignKey(
+        "organizations.Organization",
+        verbose_name="Structure",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    source = models.CharField("Source", max_length=256, default="")
+
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+    class Meta:
+        verbose_name = "Événement programme vu"
+        verbose_name_plural = "Événements programmes vus"
+
+
+class BackerViewEvent(models.Model):
+    backer = models.ForeignKey(
+        "backers.Backer", verbose_name="Porteur", on_delete=models.CASCADE
+    )
+
+    user = models.ForeignKey(
+        "accounts.User",
+        verbose_name="Utilisateur",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    organization = models.ForeignKey(
+        "organizations.Organization",
+        verbose_name="Structure",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    source = models.CharField("Source", max_length=256, default="")
+
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+    class Meta:
+        verbose_name = "Événement porteur vu"
+        verbose_name_plural = "Événements porteurs vus"
+
+
+class PostViewEvent(models.Model):
+    post = models.ForeignKey(
+        "blog.BlogPost", verbose_name="article de blog", on_delete=models.CASCADE
+    )
+
+    user = models.ForeignKey(
+        "accounts.User",
+        verbose_name="Utilisateur",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    organization = models.ForeignKey(
+        "organizations.Organization",
+        verbose_name="Structure",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+    class Meta:
+        verbose_name = "Événement article de blog vu"
+        verbose_name_plural = "Événements articles de blog vus"

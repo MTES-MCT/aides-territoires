@@ -10,10 +10,16 @@ from stats.models import (
     AidOriginUrlClickEvent,
     AidApplicationUrlClickEvent,
     AidEligibilityTestEvent,
-    PromotionClickEvent,
-    PromotionDisplayEvent,
+    BackerViewEvent,
     ContactFormSendEvent,
     Event,
+    PostViewEvent,
+    ProgramViewEvent,
+    PromotionClickEvent,
+    PromotionDisplayEvent,
+    PublicProjectViewEvent,
+    PublicProjectSearchEvent,
+    ValidatedProjectSearchEvent,
 )
 
 
@@ -158,6 +164,44 @@ class AidEligibilityTestEventAdmin(admin.ModelAdmin):
         return False
 
 
+class BackerViewEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+
+    list_display = ["id", "backer", "source", "date_created"]
+    list_filter = ["source"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
+class PostViewEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+
+    list_display = ["id", "post", "date_created"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
+class ProgramViewEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+
+    list_display = ["id", "program", "source", "date_created"]
+    list_filter = ["source"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
 class PromotionDisplayEventAdmin(admin.ModelAdmin):
     """The model is set to readonly"""
 
@@ -219,6 +263,42 @@ class EventAdmin(admin.ModelAdmin):
         return False
 
 
+class PublicProjectViewEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+
+    list_display = ["id", "project", "date_created"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
+class ValidatedProjectSearchEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+
+    list_display = ["id", "date_created"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
+class PublicProjectSearchEventAdmin(admin.ModelAdmin):
+    """The model is set to readonly"""
+
+    list_display = ["id", "date_created"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
 admin.site.register(AidCreateDSFolderEvent, AidCreateDSFolderEventAdmin)
 admin.site.register(
     AccountRegisterFromNextpagewarningClickEvent,
@@ -230,7 +310,13 @@ admin.site.register(AidOriginUrlClickEvent, AidOriginUrlClickEventAdmin)
 admin.site.register(AidApplicationUrlClickEvent, AidApplicationUrlClickEventAdmin)
 admin.site.register(AidSearchEvent, AidSearchEventAdmin)
 admin.site.register(AidEligibilityTestEvent, AidEligibilityTestEventAdmin)
-admin.site.register(PromotionDisplayEvent, PromotionDisplayEventAdmin)
-admin.site.register(PromotionClickEvent, PromotionClickEventAdmin)
+admin.site.register(BackerViewEvent, BackerViewEventAdmin)
 admin.site.register(ContactFormSendEvent, ContactFormSendEventAdmin)
 admin.site.register(Event, EventAdmin)
+admin.site.register(PostViewEvent, PostViewEventAdmin)
+admin.site.register(ProgramViewEvent, ProgramViewEventAdmin)
+admin.site.register(PromotionDisplayEvent, PromotionDisplayEventAdmin)
+admin.site.register(PromotionClickEvent, PromotionClickEventAdmin)
+admin.site.register(PublicProjectViewEvent, PublicProjectViewEventAdmin)
+admin.site.register(PublicProjectSearchEvent, PublicProjectSearchEventAdmin)
+admin.site.register(ValidatedProjectSearchEvent, ValidatedProjectSearchEventAdmin)
