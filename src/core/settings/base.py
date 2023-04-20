@@ -369,6 +369,7 @@ CSP_SCRIPT_SRC = (
     "'self'",
     "https://stats.data.gouv.fr",
     "https://aides-territoires-metabase.osc-fr1.scalingo.io",
+    "https://sibautomation.com",
 )
 
 CSP_FONT_SRC = ("'self'",)
