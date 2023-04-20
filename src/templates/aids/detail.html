@@ -390,7 +390,7 @@
                                 Candidater à l’aide
                             </button>
                             {% else %}
-                            <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l’aide - ouvre une nouvelle fenêtre"
+                            <a class="fr-btn at-application-url-btn" id="application-url-btn-left" target="_blank" rel="noopener" title="Lien pour candidater à l’aide - ouvre une nouvelle fenêtre"
                             {% if prepopulate_application_url and not search_page %}
                                 href="{{ prepopulate_application_url }}">
                             {% else %}
@@ -552,7 +552,7 @@
                                 Candidater à l’aide
                             </button>
                             {% else %}
-                            <a class="fr-btn" id="application_url_btn" target="_blank" rel="noopener" title="Lien pour candidater à l’aide - ouvre une nouvelle fenêtre"
+                            <a class="fr-btn at-application-url-btn" id="application-url-btn-bottom" target="_blank" rel="noopener" title="Lien pour candidater à l’aide - ouvre une nouvelle fenêtre"
                             {% if prepopulate_application_url and not search_page %}
                                 href="{{ prepopulate_application_url }}">
                             {% else %}
@@ -690,6 +690,16 @@
         AID_SLUG = '{{ aid.slug }}';
         AID_ELIGIBILITY_TEST_ID = parseInt('{{ aid.eligibility_test_id }}');
         CURRENT_SEARCH = '{{ current_search | safe }}';
+    </script>
+    <script nonce="{{ request.csp_nonce }}">
+        $(document).ready(function () {
+            var link = $("#aid").find(".at-application-url-btn");
+            var properties = {
+              'aid_id': '{{ aid.id }}',
+              'slug' : '{{ aid.slug }}'
+            }
+            sendinblue.trackLink(link, properties);
+        });
     </script>
     {% compress js %}
         <script src="{% static 'js/aids/track_aid_events.js' %}"></script>

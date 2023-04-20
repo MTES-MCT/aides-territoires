@@ -29,7 +29,7 @@
                             </p>
                             <ul class="fr-btns-group fr-btns-group--inline-md fr-btns-group--icon-left fr-btns-group--right">
                                 <li>
-                                    <a class="fr-btn fr-btn--secondary" href="{{ aid.application_url }}" id="application_url_btn" target="_blank" rel="noopener" title="Déposer mon dossier - ouvre une nouvelle fenêtre">Déposer mon dossier</a>
+                                    <a class="fr-btn fr-btn--secondary at-application-url-btn" href="{{ aid.application_url }}" id="application-url-btn-modal" target="_blank" rel="noopener" title="Déposer mon dossier - ouvre une nouvelle fenêtre">Déposer mon dossier</a>
                                 </li>
                                 <li>
                                     <a class="fr-btn fr-icon-account-line" href="{% url 'login' %}?next={{ aid.get_absolute_url }}"title="Se connecter">

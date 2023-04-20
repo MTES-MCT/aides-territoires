@@ -5,9 +5,9 @@
      * Hide some piece of information until some button is clicked.
      * This is required to track user engagement.
      */
-    exports.originUrlCTA = function(OriginUrlBtn, aid_slug) {
+    exports.originUrlCTA = function (OriginUrlBtn, aid_slug) {
 
-        OriginUrlBtn.click(function() {
+        OriginUrlBtn.click(function () {
 
             // Send an event to our stats DB
             let statsData = JSON.stringify({
@@ -30,9 +30,9 @@
         });
     };
 
-    exports.applicationUrlCTA = function(ApplicationUrlBtn, aid_slug) {
+    exports.applicationUrlCTA = function (ApplicationUrlBtn, aid_slug) {
 
-        ApplicationUrlBtn.click(function() {
+        ApplicationUrlBtn.click(function () {
 
             // Send an event to our stats DB
             let statsData = JSON.stringify({
@@ -47,7 +47,7 @@
                 dataType: 'json',
                 data: statsData
             })
-                // Send an event to Matomo
+            // Send an event to Matomo
             if (_paq) {
                 _paq.push(['trackEvent', 'Fiche aide', 'Clic lien candidater', aid_slug]);
             }
@@ -57,11 +57,11 @@
             if (PREPOPULATE_APPLICATION_URL) {
                 let statsData2 = JSON.stringify({
                     aid: AID_ID,
-                    organization:ORGANIZATION,
-                    user:USER,
-                    ds_folder_url:DS_FOLDER_URL,
-                    ds_folder_id:DS_FOLDER_ID,
-                    ds_folder_number:DS_FOLDER_NUMBER,
+                    organization: ORGANIZATION,
+                    user: USER,
+                    ds_folder_url: DS_FOLDER_URL,
+                    ds_folder_id: DS_FOLDER_ID,
+                    ds_folder_number: DS_FOLDER_NUMBER,
                 });
                 $.ajax({
                     type: 'POST',
@@ -78,8 +78,8 @@
         });
     };
 
-    exports.trackOutclicks = function(links, aid_slug) {
-        links.click(function(evt) {
+    exports.trackOutclicks = function (links, aid_slug) {
+        links.click(function (evt) {
             // Send an event to Matomo
             if (_paq) {
                 _paq.push(['trackEvent', 'Fiche aide', 'Voir lien du porteur', aid_slug, this.href]);
@@ -92,7 +92,7 @@
 $(document).ready(function () {
     let dataDiv = $('div#contact');
     let OriginUrlBtn = $('a#origin_url_btn');
-    let ApplicationUrlBtn = $('a#application_url_btn');
+    let ApplicationUrlBtn = $("#aid").find(".at-application-url-btn");
 
     // Track clicks on "application_url" & "origin_url" buttons
     originUrlCTA(OriginUrlBtn, AID_SLUG);
