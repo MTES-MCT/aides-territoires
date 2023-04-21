@@ -691,24 +691,28 @@
         AID_ELIGIBILITY_TEST_ID = parseInt('{{ aid.eligibility_test_id }}');
         CURRENT_SEARCH = '{{ current_search | safe }}';
     </script>
-    <script nonce="{{ request.csp_nonce }}">
-        $(document).ready(function () {
-            let properties = {
-              'aid_id': '{{ aid.id }}',
-              'slug' : '{{ aid.slug }}'
-            }
 
-            let left_button = document.getElementById('application-url-btn-left');
-            sendinblue.trackLink(left_button, properties);
+    {% setting 'SIB_CLIENT_KEY' as sib_client_key %}
+    {% if sib_client_key %}
+        <script nonce="{{ request.csp_nonce }}">
+            $(document).ready(function () {
+                let properties = {
+                'aid_id': '{{ aid.id }}',
+                'slug' : '{{ aid.slug }}'
+                }
 
-            let bottom_button = document.getElementById('application-url-btn-bottom');
-            sendinblue.trackLink(bottom_button, properties);
+                let left_button = document.getElementById('application-url-btn-left');
+                sendinblue.trackLink(left_button, properties);
 
-            let modal_button = document.getElementById('application-url-btn-modal');
-            sendinblue.trackLink(modal_button, properties);
+                let bottom_button = document.getElementById('application-url-btn-bottom');
+                sendinblue.trackLink(bottom_button, properties);
 
-        });
-    </script>
+                let modal_button = document.getElementById('application-url-btn-modal');
+                sendinblue.trackLink(modal_button, properties);
+
+            });
+        </script>
+    {% endif %}
     {% compress js %}
         <script src="{% static 'js/aids/track_aid_events.js' %}"></script>
         <script src="{% static 'js/aids/favorite_project_checkbox_required.js' %}"></script>
