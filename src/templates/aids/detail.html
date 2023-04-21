@@ -693,12 +693,20 @@
     </script>
     <script nonce="{{ request.csp_nonce }}">
         $(document).ready(function () {
-            var link = $("#aid").find(".at-application-url-btn");
-            var properties = {
+            let properties = {
               'aid_id': '{{ aid.id }}',
               'slug' : '{{ aid.slug }}'
             }
-            sendinblue.trackLink(link, properties);
+
+            let left_button = document.getElementById('application-url-btn-left');
+            sendinblue.trackLink(left_button, properties);
+
+            let bottom_button = document.getElementById('application-url-btn-bottom');
+            sendinblue.trackLink(bottom_button, properties);
+
+            let modal_button = document.getElementById('application-url-btn-modal');
+            sendinblue.trackLink(modal_button, properties);
+
         });
     </script>
     {% compress js %}
