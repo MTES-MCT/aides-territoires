@@ -387,7 +387,6 @@ class AidEditForm(BaseAidForm):
             "in_france_relance",
             "recurrence",
             "start_date",
-            "predeposit_date",
             "submission_deadline",
             "perimeter",
             "perimeter_suggestion",
@@ -414,9 +413,6 @@ class AidEditForm(BaseAidForm):
             "targeted_audiences": MultipleChoiceFilterWidget,
             "aid_types": MultipleChoiceFilterWidget,
             "start_date": forms.TextInput(
-                attrs={"type": "date", "placeholder": "jj/mm/aaaa"}
-            ),
-            "predeposit_date": forms.TextInput(
                 attrs={"type": "date", "placeholder": "jj/mm/aaaa"}
             ),
             "submission_deadline": forms.TextInput(

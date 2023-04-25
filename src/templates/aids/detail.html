@@ -217,11 +217,6 @@
                         <strong>Calendrier :</strong> Clôture le {{aid.submission_deadline|date }}
                         {% endif %}
                     </h2>
-                    {% if aid.predeposit_date and not aid.is_ongoing %}
-                    <h2 class="fr-text--md fr-text--normal fr-mb-0 fr-ml-1w">
-                        <strong>Date de pré-dépôt :</strong> {{ aid.predeposit_date|date }}
-                    </h2>
-                    {% endif %}
                 </div>
             </div>
             {% endif %}

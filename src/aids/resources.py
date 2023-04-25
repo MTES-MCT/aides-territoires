@@ -279,7 +279,6 @@ class AidResourcePublic(AidResource):
             "aid_types",
             "destinations",
             "start_date",
-            "predeposit_date",
             "submission_deadline",
             "subvention_rate",
             "subvention_comment",
