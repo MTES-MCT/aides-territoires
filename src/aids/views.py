@@ -568,6 +568,14 @@ class AidDetailView(DetailView):
         context["financers_with_logo"] = (
             financers.exclude(logo__isnull=True).exclude(logo="").distinct()
         )
+        instructors_with_logo = [
+            i for i in instructors if i.logo is not None and i.logo != ""
+        ]
+        context.update(
+            {
+                "instructors_with_logo": instructors_with_logo,
+            }
+        )
 
         """
         Aid imported from Ademe-Agir API contains sometimes an adhoc perimeter
