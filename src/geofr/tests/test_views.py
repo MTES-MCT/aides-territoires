@@ -7,7 +7,6 @@ from django.utils.text import slugify
 from aids.factories import AidFactory
 
 from backers.factories import BackerFactory
-from programs.factories import ProgramFactory
 
 pytestmark = pytest.mark.django_db
 
@@ -15,12 +14,6 @@ pytestmark = pytest.mark.django_db
 def test_map_view_is_complete(client, perimeters, aids):
     BackerFactory(financed_aids=[aids[0], aids[1]])
     BackerFactory(financed_aids=[aids[2], aids[3]])
-
-    program_1 = ProgramFactory()
-    aids[0].programs.set([program_1])
-
-    program_2 = ProgramFactory()
-    aids[3].programs.set([program_2])
 
     management.call_command("count_by_department")
 
@@ -30,19 +23,12 @@ def test_map_view_is_complete(client, perimeters, aids):
     assert res.status_code == 200
 
     assert "map-svg" in res.content.decode()
-    assert "2 programmes" in res.content.decode()
     assert "2 porteurs" in res.content.decode()
 
 
 def test_department_view_is_complete(client, perimeters, aids):
     BackerFactory(financed_aids=[aids[0], aids[1]], perimeter=perimeters["herault"])
     BackerFactory(financed_aids=[aids[2], aids[3]], perimeter=perimeters["herault"])
-
-    program_1 = ProgramFactory()
-    aids[0].programs.set([program_1])
-
-    program_2 = ProgramFactory()
-    aids[3].programs.set([program_2])
 
     # force launching the task first
     management.call_command("count_by_department")
@@ -56,7 +42,6 @@ def test_department_view_is_complete(client, perimeters, aids):
     assert res.status_code == 200
 
     assert "Top 10 des 2 porteurs par nombre d’aides :" in res.content.decode()
-    assert "Top 10 des 2 programmes par nombre d’aides :" in res.content.decode()
 
 
 def test_department_view_has_detailed_data_for_engineering_aids(client, perimeters):
@@ -68,11 +53,6 @@ def test_department_view_has_detailed_data_for_engineering_aids(client, perimete
     BackerFactory(
         name="Porteur 1", financed_aids=[aid_1, aid_2, aid_3], perimeter=normandie
     )
-
-    program_1 = ProgramFactory()
-    aid_1.programs.set([program_1])
-    aid_2.programs.set([program_1])
-    aid_3.programs.set([program_1])
 
     # force launching the task first
     management.call_command("count_by_department")
