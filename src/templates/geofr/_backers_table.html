@@ -121,7 +121,9 @@
                         <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
                     </td>
                     {% if perimeter_scale_filter %}
-                    <td>{{ entry.perimeter__name }}</td>
+                        <td data-sort="{{ entry.perimeter__scale }}">
+                            {{ entry.perimeter__name }}
+                        </td>
                     {% endif %}
                     <td>
                         <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&targeted_audiences={{ target_audience }}">{{ entry.total_aids }}</a>

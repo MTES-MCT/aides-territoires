@@ -18,7 +18,7 @@ class MapView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         departments_list = Perimeter.objects.departments(
-            values=["id", "name", "code", "backers_count", "programs_count"]
+            values=["id", "name", "code", "backers_count"]
         )
 
         context["departments"] = departments_list
@@ -48,13 +48,9 @@ class DepartmentView(TemplateView):
             target_audience=target_audience,
             aid_type=aid_type,
         )
-        programs_list = get_programs_count_by_department(
-            current_dept["id"], target_audience=target_audience, aid_type=aid_type
-        )
 
         captions = {
             "backers": f"Top 10 des {backers_list.count()} porteurs par nombre d’aides :",
-            "programs": f"Top 10 des {programs_list.count()} programmes par nombre d’aides :",
         }
 
         context["departments"] = departments_list
@@ -62,7 +58,6 @@ class DepartmentView(TemplateView):
         context["current_dept"] = current_dept
         context["target_audience"] = target_audience
         context["backers_list"] = backers_list
-        context["programs_list"] = programs_list
         context["captions"] = captions
         context["aid_type"] = aid_type
 
