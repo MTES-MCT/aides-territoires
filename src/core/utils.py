@@ -167,6 +167,9 @@ def download_file_to_tmp(distant_file_name: str, local_file_name: str) -> str:
     """
     Download a file from the bucket and store it in /tmp
     Useful for a big CSV file.
+
+    Restricted to files already on the bucket in order to limit
+    the risks associated to downloading a file to the /tmp folder
     """
     file_url = get_stored_file_url(distant_file_name)
     local_folder = "tmp"
