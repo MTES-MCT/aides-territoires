@@ -49,24 +49,16 @@
             href="{% url 'department_backers_view' current_dept.code current_dept.name|slugify %}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}">
             Voir la liste complète des {{ backers_list.count }} porteurs d’aides
         </a>
+        <span id="map-back-button">
+            <a 
+                class="fr-tag"
+                href="#">
+                Retour
+            </a>
+        </span>
     </div>
 </article>
 
-<article id="programs-by-departement" class="fr-container fr-mb-5w">
-    <div class="fr-table at-table--fullwidth">
-        <div class="fr-table at-table--fullwidth">
-            {% include "geofr/_programs_table.html" with entries_list=programs_list|slice:":10" caption=captions.programs %}
-        </div>
-    </div>
-    <div class="at-centered">
-        <a 
-            class="fr-tag"
-            href="{% url 'department_programs_view' current_dept.code current_dept.name|slugify %}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}">
-            Voir la liste complète des {{ programs_list.count }} programmes
-        </a>
-    </div>
-
-</article>
 {% endblock content %}
 
 {% block extra_js %}

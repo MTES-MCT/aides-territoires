@@ -26,7 +26,7 @@ $('#france-map .land').hover(function(e) {
 
     let titleText = "";
     if ("code" in data) {
-        titleText = `${data.name} : ${data.backers_count} porteurs et ${data.programs_count} programmes`;
+        titleText = `${data.name} : ${data.backers_count} porteurs`;
     } else {
         titleText = "Impossible de trouver les données pour ce département.";
     }
