@@ -69,6 +69,8 @@ def get_backers_count_by_department(
                 Perimeter.SCALES.department,
                 Perimeter.SCALES.region,
                 Perimeter.SCALES.adhoc,
+                Perimeter.SCALES.basin,
+                Perimeter.SCALES.overseas,
             ],
             financed_aids__in=live_aids,
             financed_aids__perimeter_id__in=related_perimeters,
@@ -77,8 +79,6 @@ def get_backers_count_by_department(
         backers = backers.filter(
             perimeter_id__in=related_perimeters,
             perimeter__scale__in=[
-                Perimeter.SCALES.basin,
-                Perimeter.SCALES.overseas,
                 Perimeter.SCALES.mainland,
                 Perimeter.SCALES.country,
                 Perimeter.SCALES.continent,
