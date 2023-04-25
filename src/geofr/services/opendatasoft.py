@@ -40,23 +40,26 @@ class OpenDataSoftAPI:
         """
 
         response = requests.get(endpoint, params=payload)
+        try:
+            retries = self.max_retries
+            if response.status_code != 200:
+                while retries:
+                    logging.warning(f"An error happened, retrying (retries: {retries})")
+                    logging.debug("Parameters used:")
+                    logging.debug(f"endpoint: {endpoint}")
+                    logging.debug(f"payload: {payload}")
+                    logging.debug(f"response: {response.text}")
+                    time.sleep(5)
+                    response = requests.get(endpoint, params=payload)
+                    if response.status_code == 200:
+                        break
+                    else:
+                        retries -= 1
 
-        retries = self.max_retries
-        if response.status_code != 200:
-            while retries:
-                logging.warning(f"An error happened, retrying (retries: {retries})")
-                logging.debug("Parameters used:")
-                logging.debug(f"endpoint: {endpoint}")
-                logging.debug(f"payload: {payload}")
-                logging.debug(f"response: {response.text}")
-                time.sleep(5)
-                response = requests.get(endpoint, params=payload)
-                if response.status_code == 200:
-                    break
-                else:
-                    retries -= 1
-
-        return response.json()
+            return response.json()
+        except KeyError:
+            print("An exception occurred while calling the API")
+            print(response.__dict__)
 
     def api_call_loop(self, endpoint: str, payload: dict, results_key: str) -> list:
         """
