@@ -99,7 +99,7 @@ def aid_types_choices_display_list(obj, field):
                     )
             elif obj.subvention_comment:
                 formated_string += format_html(
-                    "<strong>{}</strong><br />", value, obj.subvention_comment
+                    "<strong>{}</strong> ({})<br />", value, obj.subvention_comment
                 )
             else:
                 formated_string += format_html("<strong>{}</strong><br />", value)
