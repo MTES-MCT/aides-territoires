@@ -74,10 +74,6 @@ def import_ofgl_accounting_data_from_file(year: int):
         reader = csv.DictReader(csv_file, delimiter=";")
 
         for row in reader:
-            print("========= row ========")
-            print(row)
-            print("=======================")
-
             created = import_record_data(row, year, field_names)
 
             insee = row["Code Insee 2021 Commune"]
