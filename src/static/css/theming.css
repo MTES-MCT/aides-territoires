@@ -158,3 +158,9 @@ div.module>table>tbody a:visited {
 .trumbowyg-editor ul {
     padding-left: 2rem !important;
 }
+
+/* Specific fields styling */
+
+.field-formatted_main_budget_amount {
+    text-align: right;
+}
