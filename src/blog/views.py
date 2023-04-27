@@ -101,4 +101,4 @@ class BlogPostDetail(DetailView):
                     request_referer=request_referer,
                 )
 
-            return response
+        return response
