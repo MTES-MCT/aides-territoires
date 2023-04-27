@@ -1,11 +1,24 @@
 from django import forms
 from django.contrib import admin
+from django.contrib.postgres.fields import ArrayField
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
-from geofr.models import Perimeter, PerimeterImport, PerimeterData
+from admin_auto_filters.filters import AutocompleteFilter
 from geofr.admin_views import PerimeterUpload, PerimeterCombine
-from django.contrib.postgres.fields import ArrayField
+from geofr.models import FinancialData, Perimeter, PerimeterImport, PerimeterData
+from geofr.utils import get_all_related_perimeters
+
+
+class PerimeterAutocompleteFilter(AutocompleteFilter):
+    field_name = "perimeter"
+    title = "périmètre"
+
+    def queryset(self, request, queryset):
+        value = self.value()
+        if value is not None:
+            perimeter_ids = get_all_related_perimeters(value, values=["id"])
+            return queryset.filter(perimeter__in=perimeter_ids)
 
 
 class PerimeterDataInline(admin.TabularInline):
@@ -282,5 +295,34 @@ class PerimeterImportAdmin(admin.ModelAdmin):
     perimeters_count.help_text = "Nombre de périmètres à attacher"
 
 
+class FinancialDataAdmin(admin.ModelAdmin):
+    """Admin module for financial data."""
+
+    list_display = [
+        "short_perimeter_name",
+        "year",
+        "aggregate",
+        "formatted_main_budget_amount",
+    ]
+    list_filter = [PerimeterAutocompleteFilter, "year", "aggregate"]
+
+    def formatted_main_budget_amount(self, obj):
+        return f"{obj.main_budget_amount:,.2f} €".replace(",", " ").replace(".", ",")
+
+    formatted_main_budget_amount.short_description = "montant budget principal"
+    formatted_main_budget_amount.admin_order_field = "main_budget_amount"
+
+    def short_perimeter_name(self, obj):
+        perimeter_name = str(obj.perimeter)
+
+        if len(perimeter_name) >= 100:
+            perimeter_name = f"{perimeter_name[:98]}[...]{perimeter_name[-1]}"
+        return perimeter_name
+
+    short_perimeter_name.short_description = "commune"
+    short_perimeter_name.admin_order_field = "perimeter__insee"
+
+
 admin.site.register(Perimeter, PerimeterAdmin)
 admin.site.register(PerimeterImport, PerimeterImportAdmin)
+admin.site.register(FinancialData, FinancialDataAdmin)

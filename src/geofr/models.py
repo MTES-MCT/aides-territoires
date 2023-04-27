@@ -394,3 +394,48 @@ class PerimeterData(models.Model):
         verbose_name = "donnée de périmètre"
         verbose_name_plural = "données de périmètre"
         unique_together = (("perimeter", "prop"),)
+
+
+class FinancialData(models.Model):
+    """
+    Allows to import the financial data for communes, from the
+    "Comptes consolidés des communes 2014-20xx" dataset found at
+    https://data.ofgl.fr/explore/dataset/ofgl-base-communes-consolidee/
+    """
+
+    perimeter = models.ForeignKey(
+        "geofr.Perimeter",
+        verbose_name="périmètre",
+        on_delete=models.CASCADE,
+        help_text="Périmètre pour lequel les données sont importées",
+    )
+
+    year = models.PositiveSmallIntegerField("Exercice")
+
+    aggregate = models.CharField("Agrégat", max_length=256)
+
+    insee_code = models.CharField("code Insee", max_length=5)
+
+    population_strata = models.PositiveSmallIntegerField("Strate population")
+
+    main_budget_amount = models.DecimalField(
+        "Montant budget principal",
+        help_text="Valeur de l’agrégat pour le budget principal",
+        max_digits=12,
+        decimal_places=2,
+    )
+
+    display_order = models.PositiveSmallIntegerField(
+        "Ordre d’affichage",
+        null=True,
+        blank=True,
+        help_text="Variable interne OFGL pour data visualisation",
+    )
+
+    def __str__(self):
+        return f"{self.year} — {self.perimeter.name} – {self.aggregate}"
+
+    class Meta:
+        verbose_name = "donnée financière"
+        verbose_name_plural = "données financières"
+        unique_together = (("perimeter", "year", "aggregate"),)

@@ -1,3 +1,4 @@
+import requests
 import unicodedata
 import operator
 
@@ -160,6 +161,26 @@ def get_stored_file_url(file_name: str, folder: str = "resources") -> str:
     bucket_name = getattr(settings, "AWS_STORAGE_BUCKET_NAME", "")
 
     return f"{cloud_root}/{bucket_name}/{folder}/{file_name}"
+
+
+def download_file_to_tmp(distant_file_name: str, local_file_name: str) -> str:
+    """
+    Download a file from the bucket and store it in /tmp
+    Useful for a big CSV file.
+
+    Restricted to files already on the bucket in order to limit
+    the risks associated to downloading a file to the /tmp folder
+    """
+    file_url = get_stored_file_url(distant_file_name)
+    local_folder = "tmp"
+    local_path = f"/{local_folder}/{local_file_name}"
+
+    response = requests.get(file_url)
+
+    with open(local_path, "wb") as f:
+        f.write(response.content)
+
+    return local_path
 
 
 class RedirectAidDetailView(RedirectView):
