@@ -26,7 +26,7 @@ $('#france-map .land').hover(function(e) {
 
     let titleText = "";
     if ("code" in data) {
-        titleText = `${data.name} : ${data.backers_count} porteurs et ${data.programs_count} programmes`;
+        titleText = `${data.name} : ${data.backers_count} porteurs`;
     } else {
         titleText = "Impossible de trouver les données pour ce département.";
     }
@@ -50,7 +50,7 @@ $('#france-map .land').click(function() {
     let selected_path = $( this );
     let data = get_department_data(selected_path);
     if ("code" in data) {
-        let new_url = window.location.origin + "/cartographie/" + data.code + '-' + data.slug + '/';
+        let new_url = window.location.origin + "/cartographie/" + data.code + '-' + data.slug + '/porteurs/';
         window.location = new_url; 
     }
 });

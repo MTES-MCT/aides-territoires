@@ -12,7 +12,11 @@ function department_filter(return_page) {
     $("#select-department").change(function () {
         let department = $(this).val();
         if (department.match(SANE_ID_REGEX)) {
-            let new_url = window.location.origin + "/cartographie/" + department + return_page;
+            if ($("#backers-by-departement").length) {
+                var new_url = window.location.origin + "/cartographie/" + department + return_page;
+            } else {
+                var new_url = window.location.origin + "/cartographie/" + department + "/porteurs" + return_page;
+            }
             window.location.href = new_url + window.location.search;
         } else {
             console.log("Invalid department id");
@@ -38,9 +42,15 @@ function department_filter(return_page) {
             console.log("Invalid aid type id");
         }
     });
-};
 
-$('#map-back-button a').on('click', function (e) {
-    e.preventDefault();
-    window.history.back();
-});
+    /* use the perimeter_scale filter */
+    $("#select-perimeter-scale").change(function () {
+        let perimeter_scale = $(this).val();
+        if (perimeter_scale.match(SANE_ID_REGEX)) {
+            set_param_value("perimeter_scale", perimeter_scale);
+        } else {
+            console.log("Invalid perimeter scale");
+        }
+    });
+
+};

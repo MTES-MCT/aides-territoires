@@ -28,12 +28,12 @@
             </select>
         </div>
 
-        <div class="fr-col-12 fr-col-md-2 fr-input-group at-button-right" id="map-back-button">
-            <a 
-                class="fr-tag"
-                href="#">
-                Retour
-            </a>
+        <div class="fr-select-group fr-col-12 fr-col-md-3">
+            <select class="fr-select" id="select-perimeter-scale" name="perimeter-scale" title="Échelle des porteurs - en sélectionnant un élément, la page se rechargera">
+                <option value="">Tous les porteurs</option>
+                <option value="local_group" {% if perimeter_scale == "local_group" %}selected="selected"{% endif %}>Porteurs locaux uniquement</option>
+                <option value="national_group" {% if perimeter_scale == "national_group" %}selected="selected"{% endif %}>Porteurs Nationaux uniquement</option>
+            </select>
         </div>
     </form>
 </div>
