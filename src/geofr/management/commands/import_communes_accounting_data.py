@@ -45,4 +45,4 @@ class Command(BaseCommand):
         end_time = datetime.now()
 
         logger.info(f"Population imported for {result['nb_communes']} communes.")
-        logger.info(f"Import made in {end_time - start_time} seconds.")
+        logger.info(f"Import made in {end_time - start_time}.")
