@@ -431,7 +431,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         blank=True,
     )
     subvention_comment = models.CharField(
-        "Taux de subvention (commentaire optionnel)", max_length=100, blank=True
+        "Taux de subvention (commentaire optionnel)", max_length=255, blank=True
     )
     recoverable_advance_amount = models.PositiveIntegerField(
         "Montant de l'avance récupérable", null=True, blank=True
