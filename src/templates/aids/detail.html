@@ -130,6 +130,18 @@
                         </a>
                     </p>
                     {% endfor %}
+                    {% if instructors_with_logo %}
+                    <div id="logos-instructors" class="fr-mt-2w">
+                        {% for instructor_with_logo in instructors_with_logo %}
+                        <a href="{% url 'backer_detail_view' instructor_with_logo.pk instructor_with_logo.slug %}"
+                        class="fr-col-10 at-link__nodecorator"
+                        title="{{ instructor_with_logo.name }} - Ouvrir dans une nouvelle fenêtre"
+                        >
+                            <img src="{{ instructor_with_logo.logo.url }}" class="fr-responsive-img" alt="" />
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                 </div>
             </div>
             {% endif %}
