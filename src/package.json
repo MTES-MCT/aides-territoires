@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "autoprefixer": "^9.6.1",
+    "autoprefixer": "^10.4.14",
     "chart.js": "^2.9.4",
     "chartist": "^0.11.4",
     "chartist-plugin-fill-donut": "git+https://git@github.com/Ash-Crow/chartist-plugin-fill-donut.git",
@@ -20,7 +20,7 @@
     "jquery": "^3.5.1",
     "jquery-resizable-dom": "^0.35.0",
     "leaflet": "^1.8.0",
-    "postcss-cli": "^10.0.0",
+    "postcss-cli": "^10.1.0",
     "select2": "^4.0.13",
     "stimulus": "^3.1.0",
     "trumbowyg": "^2.25.2"
