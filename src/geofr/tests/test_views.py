@@ -35,13 +35,14 @@ def test_department_view_is_complete(client, perimeters, aids):
 
     herault = perimeters["herault"]
     url = reverse(
-        "department_view", kwargs={"code": herault.code, "slug": slugify(herault.name)}
+        "department_backers_view",
+        kwargs={"code": herault.code, "slug": slugify(herault.name)},
     )
     res = client.get(url)
 
     assert res.status_code == 200
 
-    assert "Top 10 des 2 porteurs par nombre d’aides :" in res.content.decode()
+    assert "Hérault : 2 porteurs " in res.content.decode()
 
 
 def test_department_view_has_detailed_data_for_engineering_aids(client, perimeters):
@@ -59,7 +60,7 @@ def test_department_view_has_detailed_data_for_engineering_aids(client, perimete
 
     normandie = perimeters["normandie"]
     url = reverse(
-        "department_view",
+        "department_backers_view",
         kwargs={"code": normandie.code, "slug": slugify(normandie.name)},
     )
     res = client.get(f"{url}?aid_type=technical_group")
