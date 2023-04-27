@@ -7,7 +7,7 @@ name = "pypi"
 beautifulsoup4 = "*"
 celery = "*"
 crawlerdetect = "*"
-django = ">4.1.8"
+django = "~=4.1.8"
 django-activity-stream = "*"
 django-admin-autocomplete-filter = {editable = true, ref = "pre_release", git = "https://github.com/farhan0581/django-admin-autocomplete-filter.git"}
 django-admin-sortable2 = "*"
