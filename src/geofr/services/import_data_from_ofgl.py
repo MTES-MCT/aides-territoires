@@ -57,7 +57,7 @@ def import_ofgl_accounting_data_from_file(year: int):
 
     nb_created = 0
     nb_updated = 0
-    communes = []
+    aggregates = []
 
     field_names = {
         "insee": f"Code Insee {year} Commune",
@@ -74,18 +74,14 @@ def import_ofgl_accounting_data_from_file(year: int):
         reader = csv.DictReader(csv_file, delimiter=";")
 
         for row in reader:
+            insee = row["Code Insee 2021 Commune"]
+            aggregate = row["Agrégat"]
+            logger.debug(f"Parsing row {insee} — {aggregate}")
             created = import_record_data(row, year, field_names)
 
-            insee = row["Code Insee 2021 Commune"]
-            if insee not in communes:
-                communes.append(insee)
-
-            if len(communes) % 1000 == 0:
-                logger.info(
-                    f"""{len(communes)} communes treated
-                            ({nb_created} rows created,
-                            {nb_updated} rows updated)"""
-                )
+            if aggregate not in aggregates:
+                aggregates.append(aggregate)
+                logger.info(f"Parsing aggregate {aggregate}")
 
             if created:
                 nb_created += 1
