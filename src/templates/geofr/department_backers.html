@@ -35,11 +35,7 @@
                         <a class="fr-breadcrumb__link" href="{% url 'map_view' %}">Cartographie</a>
                     </li>
                     <li>
-                        <a class="fr-breadcrumb__link"
-                           href="{% url 'department_view' current_dept.code current_dept.name|slugify %}">{{ current_dept.code }} - {{ current_dept.name }}</a>
-                    </li>
-                    <li>
-                        <a class="fr-breadcrumb__link" aria-current="page">Porteurs d’aides</a>
+                        <a class="fr-breadcrumb__link" aria-current="page">{{ current_dept.code }} - {{ current_dept.name }}</a>
                     </li>
                 </ol>
             </div>
@@ -48,15 +44,15 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-    {% include "geofr/_department_orgtype_selector.html" with perimeter_scale_filter=True %}
+    {% include "geofr/_department_orgtype_selector.html" %}
     <article id="backers-by-departement" class="fr-container fr-mb-5w fr-pb-5w">
         <div class="fr-table at-table--fullwidth">
-            {% include "geofr/_backers_table.html" with entries_list=backers_list caption=caption perimeter_scale_filter=True %}
+            {% include "geofr/_backers_table.html" with entries_list=backers_list caption=caption %}
         </div>
-        <div class="at-centered" id="map-back-button">
+        <div class="at-centered">
             <a 
                 class="fr-tag"
-                href="#">
+                href="{% url 'map_view' %}">
                 Retour
             </a>
         </div>

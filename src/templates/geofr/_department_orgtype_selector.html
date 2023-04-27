@@ -28,7 +28,6 @@
             </select>
         </div>
 
-        {% if perimeter_scale_filter %}
         <div class="fr-select-group fr-col-12 fr-col-md-3">
             <select class="fr-select" id="select-perimeter-scale" name="perimeter-scale" title="Échelle des porteurs - en sélectionnant un élément, la page se rechargera">
                 <option value="">Tous les porteurs</option>
@@ -36,6 +35,5 @@
                 <option value="national_group" {% if perimeter_scale == "national_group" %}selected="selected"{% endif %}>Porteurs Nationaux uniquement</option>
             </select>
         </div>
-        {% endif %}
     </form>
 </div>

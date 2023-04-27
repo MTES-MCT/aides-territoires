@@ -4,9 +4,7 @@
         <thead>
             <tr>
                 <th scope="col">Porteur</th>
-                {% if perimeter_scale_filter %}
                 <th scope="col">Périmètre du porteur</th>
-                {% endif %}
                 <th scope="col">Total des aides financières</th>
                 <th scope="col">Subvention</th>
                 <th scope="col">Prêt</th>
@@ -21,9 +19,7 @@
                     <td>
                         <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
                     </td>
-                    {% if perimeter_scale_filter %}
                     <td>{{ entry.perimeter__name}}</td>
-                    {% endif %}
                     <td>
                         <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=grant&aid_type=loan&aid_type=recoverable_advance&aid_type=cee&aid_type=other{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
                             {{ entry.financial_aids }}
@@ -61,9 +57,7 @@
         <thead>
             <tr>
                 <th scope="col">Porteur</th>
-                {% if perimeter_scale_filter %}
                 <th scope="col">Périmètre du porteur</th>
-                {% endif %}
                 <th scope="col">Total des aides en ingénierie</th>
                 <th scope="col">Ingénierie technique</th>
                 <th scope="col">Ingénierie financière</th>
@@ -76,9 +70,7 @@
                     <td>
                         <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
                     </td>
-                    {% if perimeter_scale_filter %}
                     <td>{{ entry.perimeter__name }}</td>
-                    {% endif %}
                     <td>
                         <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=technical_engineering&aid_type=financial_engineering&aid_type=legal_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
                             {{ entry.technical_aids }}
@@ -106,9 +98,7 @@
         <thead>
             <tr>
                 <th scope="col">Porteur</th>
-                {% if perimeter_scale_filter %}
                 <th scope="col">Périmètre du porteur</th>
-                {% endif %}
                 <th scope="col">Total des aides</th>
                 <th scope="col">Aides financières</th>
                 <th scope="col">Aides en ingénierie</th>
@@ -120,11 +110,9 @@
                     <td>
                         <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
                     </td>
-                    {% if perimeter_scale_filter %}
                         <td data-sort="{{ entry.perimeter__scale }}">
                             {{ entry.perimeter__name }}
                         </td>
-                    {% endif %}
                     <td>
                         <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&targeted_audiences={{ target_audience }}">{{ entry.total_aids }}</a>
                     </td>

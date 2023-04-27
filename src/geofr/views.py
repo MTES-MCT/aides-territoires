@@ -28,41 +28,6 @@ class MapView(TemplateView):
         return context
 
 
-class DepartmentView(TemplateView):
-    template_name = "geofr/department.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        departments_list = Perimeter.objects.departments(values=["id", "name", "code"])
-        current_dept = [
-            dep for dep in departments_list if dep["code"] == kwargs["code"]
-        ][0]
-
-        target_audience = self.request.GET.get("target_audience")
-        aid_type = self.request.GET.get("aid_type")
-
-        backers_list = get_backers_count_by_department(
-            current_dept["id"],
-            target_audience=target_audience,
-            aid_type=aid_type,
-        )
-
-        captions = {
-            "backers": f"Top 10 des {backers_list.count()} porteurs par nombre d’aides :",
-        }
-
-        context["departments"] = departments_list
-        context["organization_types"] = ORGANIZATION_TYPE_CHOICES
-        context["current_dept"] = current_dept
-        context["target_audience"] = target_audience
-        context["backers_list"] = backers_list
-        context["captions"] = captions
-        context["aid_type"] = aid_type
-
-        return context
-
-
 class DepartmentBackersView(TemplateView):
     template_name = "geofr/department_backers.html"
 
