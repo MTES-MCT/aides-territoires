@@ -21,7 +21,7 @@ def import_ofgl_accounting_data(
 ) -> dict:
     nb_created = 0
     nb_updated = 0
-    nb_communes = 0
+    row_counter = 0
 
     if csv_import:
         # If the data is imported from a file, there should only be a single year
@@ -29,7 +29,7 @@ def import_ofgl_accounting_data(
         result = import_ofgl_accounting_data_from_file(year, skip_dl)
         nb_created += result["nb_created_rows"]
         nb_updated += result["nb_updated_rows"]
-        nb_communes += result["nb_communes"]
+        row_counter += result["row_counter"]
 
     else:
         for year in years:
@@ -37,10 +37,10 @@ def import_ofgl_accounting_data(
 
             nb_created += result["nb_created_rows"]
             nb_updated += result["nb_updated_rows"]
-            nb_communes += result["nb_communes"]
+            row_counter += result["row_counter"]
 
     return {
-        "nb_communes": nb_communes,
+        "row_counter": row_counter,
         "nb_created_rows": nb_created,
         "nb_updated_rows": nb_updated,
     }
