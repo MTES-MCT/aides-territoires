@@ -39,6 +39,8 @@ def json_compare(old_json: JSONField, new_json: JSONField):
         entries = ddiff["values_changed"]
         result_html += format_entries(entries, "added-entries", format_value=True)
 
+    result_html = result_html.replace("{", "(")
+    result_html = result_html.replace("}", ")")
     return format_html(result_html + "</div>")
 
 
