@@ -33,80 +33,80 @@
 
             {% block fields %}
             <fieldset>
-                    <legend><span id="aid-presentation"></span>1 - Présentation de l’aide</legend>
-                    {% include '_field_snippet_aid_form.html' with field=form.name %}
-                    {% include '_field_snippet_aid_form.html' with field=form.name_initial %}
+                    <legend class="fr-h2"><span id="aid-presentation"></span>1 - Présentation de l’aide</legend>
+                    {% include '_field_snippet.html' with field=form.name %}
+                    {% include '_field_snippet.html' with field=form.name_initial %}
                     {% include '_checkbox_snippet.html' with field=form.in_france_relance.as_hidden %}
-                    {% include '_field_snippet_aid_form.html' with field=form.programs %}
-                    {% include '_field_snippet_aid_form.html' with field=form.financers %}
-                    {% include '_field_snippet_aid_form.html' with field=form.financer_suggestion %}
+                    {% include '_field_snippet.html' with field=form.programs %}
+                    {% include '_field_snippet.html' with field=form.financers %}
+                    {% include '_field_snippet.html' with field=form.financer_suggestion %}
                     <div id="instructor-fields-accordion" class="fr-accordion fr-mb-5w">
                         <h3 class="fr-accordion__title fr-grid-row">
                             <button type="button" class="fr-accordion__btn fr-col-md-8 fr-col-offset-md-4" aria-expanded="false" aria-controls="instructor-fields">Ajouter un instructeur s'il est différent du porteur</button>
                         </h3>
                         <div id="instructor-fields" class="fr-collapse">
-                            {% include '_field_snippet_aid_form.html' with field=form.instructors %}
-                            {% include '_field_snippet_aid_form.html' with field=form.instructor_suggestion %}
+                            {% include '_field_snippet.html' with field=form.instructors %}
+                            {% include '_field_snippet.html' with field=form.instructor_suggestion %}
                         </div>
                     </div>
-                    {% include '_checkbox_snippet_aid_form_multiple.html' with field=form.targeted_audiences %}
-                    {% include '_checkbox_snippet_aid_form_multiple.html' with field=form.aid_types %}
+                    {% include '_checkbox_snippet_multiple.html' with field=form.targeted_audiences %}
+                    {% include '_checkbox_snippet_multiple.html' with field=form.aid_types %}
                     <div id="subvention-fields">
                         <div id="subvention-fields-collapse" class="fr-collapse">
-                        {% include '_field_snippet_aid_form.html' with field=form.subvention_rate %}
-                        {% include '_field_snippet_aid_form.html' with field=form.subvention_comment %}    
+                        {% include '_field_snippet.html' with field=form.subvention_rate %}
+                        {% include '_field_snippet.html' with field=form.subvention_comment %}    
                         </div>
                     </div>
                     <div id="loan-fields">
                         <div id="loan-fields-collapse" class="fr-collapse">
-                        {% include '_field_snippet_aid_form.html' with field=form.loan_amount %}
+                        {% include '_field_snippet.html' with field=form.loan_amount %}
                         </div>
                     </div>
                     <div id="recoverable-advance-fields">
                         <div id="recoverable-advance-fields-collapse" class="fr-collapse">
-                        {% include '_field_snippet_aid_form.html' with field=form.recoverable_advance_amount %}
+                        {% include '_field_snippet.html' with field=form.recoverable_advance_amount %}
                         </div>
                     </div>
                     <div id="other-financial-aid-fields">
                         <div id="other-financial-aid-fields-collapse" class="fr-collapse">
-                        {% include '_field_snippet_aid_form.html' with field=form.other_financial_aid_comment %}
+                        {% include '_field_snippet.html' with field=form.other_financial_aid_comment %}
                         </div>
                     </div>
-                    {% include '_checkbox_snippet_aid_form.html' with field=form.is_charged %}
-                    {% include '_checkbox_snippet_aid_form.html' with field=form.is_call_for_project %}
+                    {% include '_checkbox_snippet.html' with field=form.is_charged %}
+                    {% include '_checkbox_snippet.html' with field=form.is_call_for_project %}
             </fieldset>
 
             <fieldset>
-                <legend><span id="aid-description"></span>2 - Description de l’aide</legend>
-                {% include '_field_snippet_aid_form.html' with field=form.description %}
+                <legend class="fr-h2"><span id="aid-description"></span>2 - Description de l’aide</legend>
+                {% include '_field_snippet.html' with field=form.description %}
                 {% if aid.is_local %}
-                    {% include '_field_snippet_aid_form.html' with field=form.local_characteristics %}
+                    {% include '_field_snippet.html' with field=form.local_characteristics %}
                 {% endif %}
-                {% include '_field_snippet_aid_form.html' with field=form.project_examples %}
-                {% include '_field_snippet_aid_form.html' with field=form.categories %}
-                {% include '_field_snippet_aid_form.html' with field=form.recurrence %}
+                {% include '_field_snippet.html' with field=form.project_examples %}
+                {% include '_field_snippet.html' with field=form.categories %}
+                {% include '_field_snippet.html' with field=form.recurrence %}
                 <div id="calendar-fields">
                     <div id="calendar-fields-collapse" class="fr-collapse">
-                        {% include '_calendar_snippet_aid_form.html' with field=form.start_date %}
-                        {% include '_calendar_snippet_aid_form.html' with field=form.submission_deadline %}
+                        {% include '_calendar_snippet.html' with field=form.start_date %}
+                        {% include '_calendar_snippet.html' with field=form.submission_deadline %}
                     </div>  
                 </div>
             </fieldset>
 
             <fieldset>
-                <legend><span id="aid-eligibility"></span>3 - Critères d’éligibilité de l’aide</legend>
-                {% include '_field_snippet_aid_form.html' with field=form.eligibility %}  
+                <legend class="fr-h2"><span id="aid-eligibility"></span>3 - Critères d’éligibilité de l’aide</legend>
+                {% include '_field_snippet.html' with field=form.eligibility %}  
                 {% include '_checkbox_snippet_aid_form_multiple.html' with field=form.mobilization_steps %}
                 {% include '_checkbox_snippet_aid_form_multiple.html' with field=form.destinations %}
-                {% include '_field_snippet_aid_form.html' with field=form.perimeter %}
-                {% include '_field_snippet_aid_form.html' with field=form.perimeter_suggestion %}    
+                {% include '_field_snippet.html' with field=form.perimeter %}
+                {% include '_field_snippet.html' with field=form.perimeter_suggestion %}    
             </fieldset>
 
             <fieldset>
-                <legend><span id="aid-contact"></span>4 - Contact et démarches</legend>
-                {% include '_field_snippet_aid_form.html' with field=form.origin_url %}
-                {% include '_field_snippet_aid_form.html' with field=form.application_url %}
-                {% include '_field_snippet_aid_form.html' with field=form.contact %}    
+                <legend class="fr-h2"><span id="aid-contact"></span>4 - Contact et démarches</legend>
+                {% include '_field_snippet.html' with field=form.origin_url %}
+                {% include '_field_snippet.html' with field=form.application_url %}
+                {% include '_field_snippet.html' with field=form.contact %}    
             </fieldset>
 
             {% endblock fields %}
