@@ -436,7 +436,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     recoverable_advance_amount = models.PositiveIntegerField(
         "Montant de l'avance récupérable", null=True, blank=True
     )
-    loan_amount = models.PositiveIntegerField("Montant du prêt", null=True, blank=True)
+    loan_amount = models.PositiveIntegerField(
+        "Montant du prêt maximum", null=True, blank=True
+    )
     other_financial_aid_comment = models.CharField(
         "Autre aide financière (commentaire optionnel)", max_length=100, blank=True
     )
