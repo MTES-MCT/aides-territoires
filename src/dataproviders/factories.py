@@ -8,7 +8,7 @@ from backers.factories import BackerFactory
 
 
 class DataSourceFactory(DjangoModelFactory):
-    """Factory for projects."""
+    """Factory for datasource object."""
 
     class Meta:
         model = DataSource
