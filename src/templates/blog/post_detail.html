@@ -27,6 +27,14 @@
 
 {% block content %}
 <article id="post" class="fr-container fr-mb-5w">
+
+    {% if not post.is_published %}
+    <div class="fr-alert fr-alert--warning at-clear fr-mt-2w fr-mb-5w">
+        <p class="fr-alert__title">Attention ! Cet article n’est actuellement pas affiché sur le site.</p>
+        <p>Vous pouvez le prévisualiser parce que vous êtes administrateur.</p>
+    </div>
+    {% endif %}
+
     <div class="fr-grid-row fr-grid-row--center">
         <div class="fr-col-12 fr-col-md-10">
             <section id="post-content" class="fr-pb-5w">
