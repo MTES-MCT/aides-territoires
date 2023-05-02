@@ -18,6 +18,9 @@ from geofr.services.opendatasoft import OpenDataSoftAPI
 
 logger = logging.getLogger("console_log")
 
+LATEST_DATA_YEAR = "2021"
+# The latest data year on the dataset, used to name the CSV columns
+
 
 def import_ofgl_accounting_data(
     years: list = [2020, 2021], csv_import: bool = False, skip_dl: bool = False
@@ -69,9 +72,9 @@ def import_ofgl_accounting_data_from_file(year: int, skip_dl: bool):
     aggregates = []
 
     field_names = {
-        "insee": f"Code Insee {year} Commune",
+        "insee": f"Code Insee {LATEST_DATA_YEAR} Commune",
         "agregat": "Agrégat",
-        "tranche_population": f"Strate population {year}",
+        "tranche_population": f"Strate population {LATEST_DATA_YEAR}",
         "ordre_affichage": "ordre_affichage",
         "montant_bp": "Montant BP",
         "touristique": "Commune touristique",
@@ -84,8 +87,8 @@ def import_ofgl_accounting_data_from_file(year: int, skip_dl: bool):
 
         row_counter = 0
         for row in reader:
-            insee = row[f"Code Insee {year} Commune"]
-            name = row[f"Nom {year} Commune"]
+            insee = row[f"Code Insee {LATEST_DATA_YEAR} Commune"]
+            name = row[f"Nom {LATEST_DATA_YEAR} Commune"]
             aggregate = row["Agrégat"]
 
             if aggregate not in aggregates:
