@@ -79,29 +79,30 @@
     </div>
 {% endblock before_section %}
 
-{% block form_sidebar %}
-    <div id="nav-form" class="list-group list-group-horizontal">
-        <a href="#aid-presentation" class=" at-link__nodecorator list-group-item list-group-item-action active" aria-current="true">
-            <span class="counter">1</span>
-            Présentation
+{% block form_stepper %}
+<ul id="nav-form" class="fr-btns-group fr-btns-group--inline">
+    <li>
+        <a href="#aid-presentation" class="fr-btn" aria-current="true">
+            1 – Présentation
         </a>
-        <span class="separator fr-icon-arrow-right-s-line" aria-hidden="true"></span>
-        <a href="#aid-description" class=" at-link__nodecorator list-group-item list-group-item-action">
-            <span class="counter">2</span>
-            Description
+    </li>
+    <li>
+        <a href="#aid-description" class="fr-btn fr-btn--secondary">
+            2 – Description
         </a>
-        <span class="separator fr-icon-arrow-right-s-line" aria-hidden="true"></span>
-        <a href="#aid-eligibility" class="at-link__nodecorator list-group-item list-group-item-action">
-            <span class="counter">3</span>
-            Critères d’éligibilité
+    </li>
+    <li>
+        <a href="#aid-eligibility" class="fr-btn fr-btn--secondary" aria-current="true">
+            3 – Critères d’éligibilité
         </a>
-        <span class="separator fr-icon-arrow-right-s-line" aria-hidden="true"></span>
-        <a href="#aid-contact" class="at-link__nodecorator list-group-item list-group-item-action">
-            <span class="counter">4</span>
-            Contact et démarches
+    </li>
+    <li>
+        <a href="#aid-contact" class="fr-btn fr-btn--secondary">
+            4 – Contact et démarches
         </a>
-    </div>
-{% endblock form_sidebar %}
+    </li>
+</ul>
+{% endblock form_stepper %}
 
 {% block form_actions %}
 <div class="form-actions fr-grid-row fr-grid-row--gutters fr-my-5w fr-py-5w fr-background-main">

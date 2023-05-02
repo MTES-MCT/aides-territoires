@@ -160,7 +160,7 @@ section#aid-edit {
   margin: 0 !important;
   padding: 0 !important;
 
-  div.form-sidebar {
+  .at-form-stepper {
     display: block;
     position: sticky;
     top: 0;
@@ -170,6 +170,15 @@ section#aid-edit {
     @media screen and (max-width: 1000px) {
       display: none;
     }
+  }
+
+  .at-anchor--offset {
+    position: relative;
+  }
+
+  .at-anchor--offset span {
+    position: absolute;
+    top: -4rem;
   }
 
   & #nav-form {
@@ -185,45 +194,6 @@ section#aid-edit {
       --underline-img: none;
     }
 
-    & a.active {
-      color: var(--text-active-blue-france) !important;
-    }
-
-    .list-group-item {
-      background-color: inherit;
-      border: none;
-      text-align: center;
-
-      span.counter {
-        display: inline-block;
-        width: 1.5rem;
-        height: 1.5rem;
-        text-align: center;
-        vertical-align: baseline;
-        border: 2px solid var(--border-active-blue-france);
-        background-color: var(--background-active-blue-france);
-        color: var(--text-inverted-blue-france);
-        border-radius: 50%;
-        font-size: 0.85rem;
-        line-height: 1.5;
-        margin-right: 0.2rem;
-      }
-    }
-  }
-
-  .separator::before {
-    color: var(--border-active-blue-france) !important;
-    font-size: 2.8rem;
-  }
-
-  .list-group-item.active {
-    background-color: inherit;
-
-    span.counter {
-      border: 2px solid var(--border-active-blue-france) !important;
-      background-color: var(--background-open-blue-france) !important;
-      color: var(--text-active-blue-france) !important;
-    }
   }
 
   .trumbowyg-box {
@@ -237,6 +207,16 @@ section#aid-edit {
 
   .trumbowyg-fullscreen {
     z-index: 9999 !important;
+  }
+
+  .fr-label,
+  .fr-form-group .fr-fieldset__legend {
+    font-weight: bold !important;
+  }
+
+  .fr-checkbox-group .fr-label,
+  .fr-hint-text {
+    font-weight: normal !important;
   }
 }
 

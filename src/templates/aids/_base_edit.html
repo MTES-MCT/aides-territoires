@@ -6,12 +6,14 @@
 {% block content %}
 <div class="article fr-container fr-my-5w" id="base-edit">
 
+    {% block page_title %}{% endblock page_title %}
+
     {% block before_section %}{% endblock before_section %}
     <section id="aid-edit" class="fr-container">
         <p>Les champs marqués d’un astérisque (*) sont obligatoires.</p>
 
-        <div class="form-sidebar fr-col-md-12 fr-mt-4w fr-py-2w">
-            {% block form_sidebar %}{% endblock form_sidebar %}
+        <div class="at-form-stepper fr-col-md-12 fr-mt-4w fr-py-2w">
+            {% block form_stepper %}{% endblock form_stepper %}
         </div>
 
         <form id="aid-edit-form" method="post" class="main-form" novalidate>
@@ -33,7 +35,10 @@
 
             {% block fields %}
             <fieldset>
-                    <legend class="fr-h2"><span id="aid-presentation"></span>1 - Présentation de l’aide</legend>
+                    <legend class="fr-h2 fr-pt-6w at-anchor--offset">
+                        <span id="aid-presentation" class="at-stepper--section-title"></span>
+                        1 – Présentation de l’aide
+                    </legend>
                     {% include '_field_snippet.html' with field=form.name %}
                     {% include '_field_snippet.html' with field=form.name_initial %}
                     {% include '_checkbox_snippet.html' with field=form.in_france_relance.as_hidden %}
@@ -41,9 +46,9 @@
                     {% include '_field_snippet.html' with field=form.financers %}
                     {% include '_field_snippet.html' with field=form.financer_suggestion %}
                     <div id="instructor-fields-accordion" class="fr-accordion fr-mb-5w">
-                        <h3 class="fr-accordion__title fr-grid-row">
-                            <button type="button" class="fr-accordion__btn fr-col-md-8 fr-col-offset-md-4" aria-expanded="false" aria-controls="instructor-fields">Ajouter un instructeur s'il est différent du porteur</button>
-                        </h3>
+                        <h2 class="fr-accordion__title">
+                            <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="instructor-fields">Ajouter un instructeur s'il est différent du porteur</button>
+                        </h2>
                         <div id="instructor-fields" class="fr-collapse">
                             {% include '_field_snippet.html' with field=form.instructors %}
                             {% include '_field_snippet.html' with field=form.instructor_suggestion %}
@@ -68,7 +73,7 @@
                         </div>
                     </div>
                     <div id="other-financial-aid-fields">
-                        <div id="other-financial-aid-fields-collapse" class="fr-collapse">
+                        <div id="other-financial-aid-fields-collapse" class="fr-collapse fr-mb-3w">
                         {% include '_field_snippet.html' with field=form.other_financial_aid_comment %}
                         </div>
                     </div>
@@ -77,7 +82,10 @@
             </fieldset>
 
             <fieldset>
-                <legend class="fr-h2"><span id="aid-description"></span>2 - Description de l’aide</legend>
+                <legend class="fr-h2 fr-pt-6w at-anchor--offset">
+                    <span id="aid-description" class="at-stepper--section-title"></span>
+                    2 – Description de l’aide
+                </legend>
                 {% include '_field_snippet.html' with field=form.description %}
                 {% if aid.is_local %}
                     {% include '_field_snippet.html' with field=form.local_characteristics %}
@@ -94,16 +102,22 @@
             </fieldset>
 
             <fieldset>
-                <legend class="fr-h2"><span id="aid-eligibility"></span>3 - Critères d’éligibilité de l’aide</legend>
+                <legend class="fr-h2 fr-pt-6w at-anchor--offset">
+                    <span id="aid-eligibility" class="at-stepper--section-title"></span>
+                    3 – Critères d’éligibilité de l’aide
+                </legend>
                 {% include '_field_snippet.html' with field=form.eligibility %}  
-                {% include '_checkbox_snippet_aid_form_multiple.html' with field=form.mobilization_steps %}
-                {% include '_checkbox_snippet_aid_form_multiple.html' with field=form.destinations %}
+                {% include '_checkbox_snippet_multiple.html' with field=form.mobilization_steps %}
+                {% include '_checkbox_snippet_multiple.html' with field=form.destinations %}
                 {% include '_field_snippet.html' with field=form.perimeter %}
                 {% include '_field_snippet.html' with field=form.perimeter_suggestion %}    
             </fieldset>
 
             <fieldset>
-                <legend class="fr-h2"><span id="aid-contact"></span>4 - Contact et démarches</legend>
+                <legend class="fr-h2 fr-pt-6w at-anchor--offset">
+                    <span id="aid-contact" class="at-stepper--section-title"></span>
+                    4 – Contact et démarches
+                </legend>
                 {% include '_field_snippet.html' with field=form.origin_url %}
                 {% include '_field_snippet.html' with field=form.application_url %}
                 {% include '_field_snippet.html' with field=form.contact %}    
@@ -146,5 +160,6 @@
         <script src="{% static 'js/aids/enable_softmaxlength.js' %}"></script>
         <script src="{% static 'js/enable_rich_text_editor_simple.js' %}"></script>
         <script src="{% static 'js/aids/duplicate_buster.js' %}"></script>
+        <script src="{% static 'js/aids/stepper.js' %}"></script>
     {% endcompress %}
 {% endblock extra_js %}
