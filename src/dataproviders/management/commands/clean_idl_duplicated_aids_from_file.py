@@ -59,9 +59,6 @@ class Command(BaseCommand):
                     reference = f"IDF_{row[1]['reference']}"
                     for aid in imported_aids:
                         if aid.import_uniqueid == reference:
-                            logger.info(
-                                f"aid with pk {aid.pk} and reference = {reference}"
-                            )
                             try:
                                 aid.import_uniqueid = reference_administrative
                                 aid.save()
@@ -69,7 +66,7 @@ class Command(BaseCommand):
                                 logger.info(f"aid with pk {aid.pk} updated")
                             except Exception as e:
                                 logger.info(
-                                    f"{e} : aid {aid.pk} and reference={reference} not updated"
+                                    f"{e} : aid {aid.pk} and import_uniqueid={aid.import_uniqueid} not updated"
                                 )
 
-                        logger.info(f"{aids_updated} aids reference updated from file")
+                logger.info(f"{aids_updated} aids reference updated from file")
