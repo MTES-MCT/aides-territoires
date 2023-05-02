@@ -149,3 +149,6 @@ jobs:
       run: |
         make test
 
+except:
+  variables:
+    - $CI_COMMIT_MESSAGE =~ /notest/ 
