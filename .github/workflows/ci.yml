@@ -151,4 +151,4 @@ jobs:
 
 except:
   variables:
-    - $CI_COMMIT_MESSAGE =~ /notest/ 
+    - $CI_COMMIT_MESSAGE =~ /notest/
