@@ -24,6 +24,11 @@ class Command(BaseCommand):
             action="store_true",
             help="Import import from a CSV file instead of the API",
         )
+        parser.add_argument(
+            "--skipdl",
+            action="store_true",
+            help="Skip the download of the file and use the one already stored",
+        )
 
     def handle(self, *args, **options):
         start_time = datetime.now()
@@ -36,13 +41,16 @@ class Command(BaseCommand):
 
         years = options["years"]
         csv_import = options["csv"]
+        skip_dl = options["skipdl"]
 
         if years:
-            result = import_ofgl_accounting_data(years=years, csv_import=csv_import)
+            result = import_ofgl_accounting_data(
+                years=years, csv_import=csv_import, skip_dl=skip_dl
+            )
         else:
-            result = import_ofgl_accounting_data
+            result = import_ofgl_accounting_data()
 
         end_time = datetime.now()
 
-        logger.info(f"Population imported for {result['nb_communes']} communes.")
+        logger.info(f"{result['row_counter']} rows imported.")
         logger.info(f"Import made in {end_time - start_time}.")

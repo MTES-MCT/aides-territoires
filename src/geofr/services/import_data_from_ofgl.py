@@ -2,6 +2,9 @@
 Get data from the OFGL database at https://data.ofgl.fr
 
 This is an implementation of OpenDataSoft.
+
+Dataset currently imported:
+- Comptes consolidés des communes 2014-2021 (ofgl-base-communes-consolidee)
 """
 
 import csv
@@ -15,21 +18,24 @@ from geofr.services.opendatasoft import OpenDataSoftAPI
 
 logger = logging.getLogger("console_log")
 
+LATEST_DATA_YEAR = "2021"
+# The latest data year on the dataset, used to name the CSV columns
+
 
 def import_ofgl_accounting_data(
-    years: list = [2020, 2021], csv_import: bool = False
+    years: list = [2020, 2021], csv_import: bool = False, skip_dl: bool = False
 ) -> dict:
     nb_created = 0
     nb_updated = 0
-    nb_communes = 0
+    row_counter = 0
 
     if csv_import:
         # If the data is imported from a file, there should only be a single year
         year = years[0]
-        result = import_ofgl_accounting_data_from_file(year)
+        result = import_ofgl_accounting_data_from_file(year, skip_dl)
         nb_created += result["nb_created_rows"]
         nb_updated += result["nb_updated_rows"]
-        nb_communes += result["nb_communes"]
+        row_counter += result["row_counter"]
 
     else:
         for year in years:
@@ -37,21 +43,27 @@ def import_ofgl_accounting_data(
 
             nb_created += result["nb_created_rows"]
             nb_updated += result["nb_updated_rows"]
-            nb_communes += result["nb_communes"]
+            row_counter += result["row_counter"]
 
     return {
-        "nb_communes": nb_communes,
+        "row_counter": row_counter,
         "nb_created_rows": nb_created,
         "nb_updated_rows": nb_updated,
     }
 
 
-def import_ofgl_accounting_data_from_file(year: int):
-    logger.info("Importing data from the distant CSV file")
+def import_ofgl_accounting_data_from_file(year: int, skip_dl: bool):
+    logger.info("Importing data from the CSV file")
 
     distant_file_name = f"ofgl-base-communes-consolidee-{year}.csv"
     local_file_name = "accounting_data.csv"
-    csv_path = download_file_to_tmp(distant_file_name, local_file_name)
+    if not skip_dl:
+        logger.info("Downloading the CSV file")
+        csv_path = download_file_to_tmp(distant_file_name, local_file_name)
+    else:
+        logger.info("Using the CSV file already in memory")
+        local_folder = "tmp"
+        csv_path = f"/{local_folder}/{local_file_name}"
 
     logger.debug("File downloaded")
 
@@ -60,9 +72,9 @@ def import_ofgl_accounting_data_from_file(year: int):
     aggregates = []
 
     field_names = {
-        "insee": f"Code Insee {year} Commune",
+        "insee": f"Code Insee {LATEST_DATA_YEAR} Commune",
         "agregat": "Agrégat",
-        "tranche_population": f"Strate population {year}",
+        "tranche_population": f"Strate population {LATEST_DATA_YEAR}",
         "ordre_affichage": "ordre_affichage",
         "montant_bp": "Montant BP",
         "touristique": "Commune touristique",
@@ -73,15 +85,19 @@ def import_ofgl_accounting_data_from_file(year: int):
     with open(csv_path) as csv_file:
         reader = csv.DictReader(csv_file, delimiter=";")
 
+        row_counter = 0
         for row in reader:
-            insee = row["Code Insee 2021 Commune"]
+            insee = row[f"Code Insee {LATEST_DATA_YEAR} Commune"]
+            name = row[f"Nom {LATEST_DATA_YEAR} Commune"]
             aggregate = row["Agrégat"]
-            logger.debug(f"Parsing row {insee} — {aggregate}")
-            created = import_record_data(row, year, field_names)
 
             if aggregate not in aggregates:
                 aggregates.append(aggregate)
                 logger.info(f"Parsing aggregate {aggregate}")
+
+            row_counter += 1
+            logger.debug(f"Parsing row {row_counter} — {aggregate} — {insee} ({name})")
+            created = import_record_data(row, year, field_names)
 
             if created:
                 nb_created += 1
@@ -89,7 +105,7 @@ def import_ofgl_accounting_data_from_file(year: int):
                 nb_updated += 1
 
     return {
-        "nb_communes": 0,
+        "row_counter": row_counter,
         "nb_created_rows": nb_created,
         "nb_updated_rows": nb_updated,
     }
@@ -123,7 +139,7 @@ def import_ofgl_accounting_data_for_year(year: int) -> dict:
             )
 
     return {
-        "nb_communes": commune_counter,
+        "row_counter": nb_created + nb_updated,
         "nb_created_rows": nb_created,
         "nb_updated_rows": nb_updated,
     }
@@ -193,10 +209,8 @@ def import_record_data(data: dict, year: int, field_names: dict = {}):
         ],
     }
 
-    if "ordre_affichage" in data:
-        other_fields["display_order"] = data[
-            get_field_name(field_names=field_names, field="tranche_population")
-        ]
+    if "ordre_affichage" in data and data["ordre_affichage"]:
+        other_fields["display_order"] = int(float(data["ordre_affichage"]))
 
     # Create or update the entry
     entry, created = FinancialData.objects.update_or_create(
