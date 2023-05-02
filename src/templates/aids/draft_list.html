@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load aids compress %}
+{% load aids compress static %}
 
 {% block extratitle %}Mon portefeuille d’aides{% endblock extratitle %}
 
@@ -45,6 +45,7 @@
             </div>
         
             <div class="fr-mt-5w">
+                Nombre d'aides publiées en cours : <span class="counter fr-tag">{{ aids_live_count }}</span><br />
                 Nombre de vues total des aides depuis la première publication : <span class="counter fr-tag">{{ hits_total }}</span><br />
                 Nombre de vues total des aides sur les 30 derniers jours : <span class="counter fr-tag">{{ hits_last_30_days }}</span>
             </div>
@@ -59,7 +60,7 @@
             </form>
 
             <div class="fr-table">
-                <table class="data-table">
+                <table class="sortable-table data-table">
                     <caption class="fr-sr-only">
                         La liste de vos aides publiées
                         <br />
@@ -67,11 +68,11 @@
                     </caption>
                     <thead>
                         <tr>
-                            <th scope="col" class="aid-name-column" title="Trier par Nom de l’aide">{% sortable_header "Nom de l’aide" 'name' %}</th>
-                            <th scope="col" title="Trier par Périmètre">{% sortable_header "Périmètre" 'perimeter__name' %}</th>
-                            <th scope="col" title="Trier par Créée le">{% sortable_header "Créée le" 'date_created' %}</th>
-                            <th scope="col" title="Trier par Modifiée le">{% sortable_header "Modifiée le" 'date_updated' %}</th>
-                            <th scope="col" title="Trier par Echéance">{% sortable_header "Échéance" 'submission_deadline' %}</th>
+                            <th scope="col" class="aid-name-column" title="Trier par Nom de l’aide">Nom de l’aide</th>
+                            <th scope="col" title="Trier par Périmètre">Périmètre</th>
+                            <th scope="col" title="Trier par Créée le">Créée le</th>
+                            <th scope="col" title="Trier par Modifiée le">Modifiée le</th>
+                            <th scope="col" title="Trier par Echéance">Échéance</th>
                             <th scope="col">Visibilité sur le site</th>
                             <th scope="col">Vues</th>
                         </tr>
@@ -88,9 +89,9 @@
                                 {% endif %}
                             </td>
                             <td>{{ aid.perimeter }}</td>
-                            <td>{{ aid.date_created|date:'d/m/Y' }}</td>
-                            <td>{{ aid.date_updated|date:'d/m/Y' }}</td>
-                            <td class="nowrap-cell">
+                            <td data-sort="{{ aid.date_created|date:'Y-m-d' }}">{{ aid.date_created|date:'d/m/Y' }}</td>
+                            <td data-sort="{{ aid.date_updated|date:'Y-m-d' }}">{{ aid.date_updated|date:'d/m/Y' }}</td>
+                            <td class="nowrap-cell" data-sort="{{ aid.submission_deadline|date:'Y-m-d' }}">
                                 <span>{{ aid.submission_deadline|date:'d/m/Y' }}</span>
                                 {% if aid.is_ongoing %}
                                     <p class="fr-badge fr-badge--info fr-badge--sm">Permanente</p>
@@ -127,3 +128,24 @@
 {% block modals %}
     {% include 'aids/_export_aids_modal.html' with user=request.user %}
 {% endblock modals %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'datatables.net-dt/css/jquery.dataTables.min.css' %}" type="text/css" />
+{% endblock extra_css %}
+
+{% block extra_js %}
+    {% compress js %}
+        <script src="{% static 'datatables.net/js/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'js/plugins/datatables_i18n.js' %}"></script>
+    {% endcompress %}
+        <script nonce="{{ request.csp_nonce }}">
+            $(document).ready(function () {
+                $('.sortable-table').DataTable({
+                    paging: false,
+                    info: false,
+                    "order": [[ 3, 'desc' ]],
+                    "language": datatables_fr_strings
+                });
+            });
+        </script>
+{% endblock extra_js %}
