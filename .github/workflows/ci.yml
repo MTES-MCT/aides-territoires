@@ -12,6 +12,7 @@ env:
 
 jobs:
   build:
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -148,7 +149,3 @@ jobs:
       working-directory: ./src
       run: |
         make test
-
-except:
-  variables:
-    - $CI_COMMIT_MESSAGE =~ /notest/
