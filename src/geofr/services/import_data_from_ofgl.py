@@ -2,6 +2,9 @@
 Get data from the OFGL database at https://data.ofgl.fr
 
 This is an implementation of OpenDataSoft.
+
+Dataset currently imported:
+- Comptes consolidés des communes 2014-2021 (ofgl-base-communes-consolidee)
 """
 
 import csv
