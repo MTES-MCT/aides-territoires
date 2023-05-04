@@ -265,7 +265,12 @@ class Command(BaseImportCommand):
                         line["date_de_fin"], "%Y-%d-%m"
                     )
                 except Exception:
-                    submission_deadline = None
+                    try:
+                        submission_deadline = datetime.strptime(
+                            line["date_de_fin"], "%Y-%m-%d"
+                        )
+                    except Exception:
+                        submission_deadline = None
             return submission_deadline
 
     # def extract_subvention_comment(self, line):
@@ -335,3 +340,6 @@ class Command(BaseImportCommand):
                     metadata[elem], line[elem]
                 )
         return content
+
+    def extract_mobilization_steps(self, line):
+        return [Aid.STEPS.op, Aid.STEPS.preop, Aid.STEPS.postop]
