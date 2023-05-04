@@ -6,18 +6,23 @@
             <ul class="fr-btns-group fr-btns-group--inline">
                 <li>
                     <button class="fr-btn fr-mr-0" title="Afficher les résultats en cartes" id="btn-results-card">
-                        <span class="ri-function-line"></span> Affichage en cartes
+                        <span class="ri-function-line"></span>
                     </button>
                 </li>
                 <li>
-                    <button class="fr-btn fr-btn--secondary" title="Afficher les résultats en liste" id="btn-results-list">
+                    <button class="fr-btn fr-btn--secondary fr-mr-0" title="Afficher les résultats en liste" id="btn-results-list">
                         <span class="ri-list-check"></span>
                     </button>
                 </li>
                 <li>
+                    <p class="fr-btn fr-btn--tertiary-no-outline fr-ml-0" id="display-type">
+                        Affichage en cartes
+                    </p>
+                </li>
+                <li>
                     <div class="fr-select-group">
                         <select class="fr-select at-live-change"
-                        title="Choisissez un ordre de tri - La sélection recharge la page"
+                        title="Choisissez un ordre de tri – La sélection recharge la page"
                         id="order-by"
                         name="order-by">
                             {% for option in form.order_by %}

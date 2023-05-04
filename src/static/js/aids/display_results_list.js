@@ -7,11 +7,9 @@ $(document).ready(function () {
         $('#btn-results-list').removeClass('fr-btn--secondary')
         $('#aids-as-list').removeClass('at-display__none')
         $('#aids-as-card').addClass('at-display__none')
-        $('#btn-results-list').html('<span class="ri-list-check"></span> Affichage en liste')
-        $('#btn-results-card').html('<span class="ri-function-line"></span>')
         $('#btn-results-list').attr("aria-pressed", true)
         $('#btn-results-card').removeAttr("aria-pressed")
-
+        $('#display-type').text("Affichage en liste")
     };
 
     let displayAsCard = function () {
@@ -19,10 +17,9 @@ $(document).ready(function () {
         $('#btn-results-list').addClass('fr-btn--secondary')
         $('#aids-as-list').addClass('at-display__none')
         $('#aids-as-card').removeClass('at-display__none')
-        $('#btn-results-list').html('<span class="ri-list-check"></span>')
-        $('#btn-results-card').html('<span class="ri-function-line"></span> Affichage en cartes')
         $('#btn-results-list').removeAttr("aria-pressed")
         $('#btn-results-card').attr("aria-pressed", true)
+        $('#display-type').text("Affichage en cartes")
     };
 
     if (display_mode == 'list') {
