@@ -730,15 +730,6 @@ class AidDraftListView(
     template_name = "aids/draft_list.html"
     context_object_name = "aids"
     paginate_by = 50
-    sortable_columns = [
-        "name",
-        "perimeter__name",
-        "date_created",
-        "date_updated",
-        "submission_deadline",
-        "status",
-    ]
-    default_ordering = "-date_updated"
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -764,18 +755,12 @@ class AidDraftListView(
 
         return qs
 
-    def get_ordering(self):
-        order = self.request.GET.get("order", "")
-        order_field = order.lstrip("-")
-        if order_field not in self.sortable_columns:
-            order = self.default_ordering
-        return order
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["filter_form"] = DraftListAidFilterForm(self.request.GET)
-        context["ordering"] = self.get_ordering()
-        aid_ids = context["aids"].values_list("id", flat=True)
+        user = self.request.user.pk
+        aids = Aid.objects.filter(author=user)
+        aid_ids = aids.values_list("id", flat=True)
 
         events = AidViewEvent.objects.filter(aid_id__in=aid_ids)
 
@@ -792,6 +777,9 @@ class AidDraftListView(
             .order_by("aid_id")
         )
 
+        aids_live_count = aids.live().count()
+
+        context["aids_live_count"] = aids_live_count
         context["hits_total"] = events_total_count
         context["hits_last_30_days"] = events_last_30_days_count
         context["hits_per_aid"] = dict(events_total_count_per_aid)
