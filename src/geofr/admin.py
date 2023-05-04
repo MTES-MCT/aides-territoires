@@ -2,7 +2,6 @@ from django import forms
 from django.contrib import admin
 from django.contrib.postgres.fields import ArrayField
 from django.urls import path
-from django.utils.translation import gettext_lazy as _
 
 from admin_auto_filters.filters import AutocompleteFilter
 from geofr.admin_views import PerimeterUpload, PerimeterCombine
@@ -183,12 +182,12 @@ class PerimeterAdmin(admin.ModelAdmin):
         urls = super().get_urls()
         my_urls = [
             path(
-                _("<path:object_id>/upload/"),
+                "<path:object_id>/upload/",
                 self.admin_site.admin_view(self.perimeter_upload_view),
                 name="geofr_perimeter_upload",
             ),
             path(
-                _("<path:object_id>/combine/"),
+                "<path:object_id>/combiner/",
                 self.admin_site.admin_view(self.perimeter_combine_view),
                 name="geofr_perimeter_combine",
             ),
@@ -204,7 +203,7 @@ class PerimeterAdmin(admin.ModelAdmin):
 
         context = {
             **self.admin_site.each_context(request),
-            "title": _("Perimeter upload"),
+            "title": "Upload de périmètre",
             "opts": opts,
             "app_label": app_label,
             "original": obj,
@@ -222,7 +221,7 @@ class PerimeterAdmin(admin.ModelAdmin):
 
         context = {
             **self.admin_site.each_context(request),
-            "title": _("Perimeter combine"),
+            "title": "Combinaison de périmètre",
             "opts": opts,
             "app_label": app_label,
             "original": obj,

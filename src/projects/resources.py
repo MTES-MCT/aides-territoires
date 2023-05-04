@@ -1,5 +1,3 @@
-from django.utils.translation import gettext_lazy as _
-
 from import_export import fields, resources
 from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
 
@@ -86,7 +84,7 @@ class ProjectResource(resources.ModelResource):
             elif field_model.get_internal_type() == "BooleanField":
                 value_raw = field.get_value(obj)
                 if value_raw is not None:
-                    return _("Yes") if value_raw else _("No")
+                    return "Oui" if value_raw else "Non"
 
         return field.export(obj)
 

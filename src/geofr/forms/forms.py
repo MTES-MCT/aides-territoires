@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 from django.contrib import admin
 from django.contrib.admin.widgets import AutocompleteSelectMultiple
 from django.utils.safestring import mark_safe
-from django.utils.translation import gettext_lazy as _
 
 # from core.forms import AutocompleteSelectMultiple
 from geofr.models import Perimeter
@@ -22,7 +21,7 @@ class PerimeterUploadForm(forms.Form):
     )
 
     perimeter_type = forms.ChoiceField(
-        label=_("Perimeter type"), required=True, choices=PERIMETER_TYPE_CHOICES
+        label="Type de périmètre", required=True, choices=PERIMETER_TYPE_CHOICES
     )
     city_code_list = forms.FileField(
         label="Liste de communes (codes insee)", required=False
@@ -75,8 +74,8 @@ class PerimeterUploadForm(forms.Form):
             missing_city_codes = list(set(city_codes) - set(perimeters))
             if len(missing_city_codes):
                 raise ValidationError(
-                    mark_safe(
-                        _("List of missing city codes:")
+                    mark_safe(  # nosec B308 B703
+                        "Liste des codes Insee communaux manquants :"
                         + "<br />"
                         + "<br />".join(missing_city_codes)
                     )
@@ -102,7 +101,7 @@ class PerimeterUploadForm(forms.Form):
             missing_epci_names = list(set(epci_names) - set(perimeters))
             if len(missing_epci_names):
                 raise ValidationError(
-                    mark_safe(
+                    mark_safe(  # nosec B308 B703
                         "Liste des noms des EPCIs manquants :<br />"
                         + "<br />".join(missing_epci_names)
                     )
@@ -129,7 +128,7 @@ class PerimeterUploadForm(forms.Form):
             missing_epci_codes = list(set(epci_codes) - set(perimeters))
             if len(missing_epci_codes):
                 raise ValidationError(
-                    mark_safe(
+                    mark_safe(  # nosec B308 B703
                         "Liste des codes des EPCIs manquants :<br />"
                         + "<br />".join(missing_epci_codes)
                     )
@@ -140,21 +139,19 @@ class PerimeterUploadForm(forms.Form):
 
 class PerimeterCombineForm(forms.Form):
     add_perimeters = forms.ModelMultipleChoiceField(
-        label=_("Perimeters to add"),
+        label="Périmètres à additionner",
         queryset=Perimeter.objects.all(),
         widget=AutocompleteSelectMultiple(
             Perimeter._meta.get_field("contained_in"), admin.AdminSite()
         ),
-        help_text=_("Select a list of perimeters to combines"),
+        help_text="Sélectionnez une liste de périmètres à combiner",
     )
     rm_perimeters = forms.ModelMultipleChoiceField(
-        label=_("Perimeters to substract"),
+        label="Périmètres à soustraire",
         required=False,
         queryset=Perimeter.objects.all(),
         widget=AutocompleteSelectMultiple(
             Perimeter._meta.get_field("contained_in"), admin.AdminSite()
         ),
-        help_text=_(
-            "Those perimeters will be substracted from the " "combined perimeters"
-        ),
+        help_text="Ces périmètres seront enlevés du périmètre combiné.",
     )

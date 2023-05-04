@@ -3,7 +3,6 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.utils.translation import gettext_lazy as _
 from django.views.generic import View
 from django.views.generic.base import RedirectView, TemplateView
 
@@ -68,7 +67,7 @@ urlpatterns = [
                 # token validation email. However, when the user clicks this link,
                 # they will be sent to the regular site
                 path(
-                    _("<slug:token>/validate/"),
+                    "<slug:token>/validation/",
                     View.as_view(),
                     name="alert_validate_view",
                 ),
@@ -76,10 +75,10 @@ urlpatterns = [
         ),
     ),
     path("stats/", SiteStats.as_view(), name="stats_view"),
-    path(_("programs/<slug:slug>/"), SiteProgram.as_view(), name="program_detail"),
-    path(_("backers/<int:pk>/"), SiteBackers.as_view(), name="backer_detail_view"),
+    path("programmes/<slug:slug>/", SiteProgram.as_view(), name="program_detail"),
+    path("partenaires/<int:pk>/", SiteBackers.as_view(), name="backer_detail_view"),
     path(
-        _("backers/<int:pk>-<str>/"), SiteBackers.as_view(), name="backer_detail_view"
+        "partenaires/<int:pk>-<str>/", SiteBackers.as_view(), name="backer_detail_view"
     ),
     path("mentions-légales/", SiteLegalMentions.as_view(), name="legal_mentions"),
     path(
