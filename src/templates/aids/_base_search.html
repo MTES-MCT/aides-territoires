@@ -111,7 +111,8 @@
 
 {% block extra_css %}
     {% compress css %}
-        <style>
+    <link href="{% static 'slim-select/dist/slimselect.css' %}" rel="stylesheet"></link>
+    <style>
             .search-form-extra-action {
                 display: block;
             }
@@ -123,6 +124,7 @@
     {% compress js %}
         <script src="{% static 'select2/dist/js/select2.js' %}"></script>
         <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+        <script src="{% static 'slim-select/dist/slimselect.min.js' %}"></script>
         <script src="{% static 'js/select2_custom.js' %}"></script>
         <script src="{% static 'js/aids/aid_types_autocomplete.js' %}"></script>
         <script src="{% static 'js/aids/backers_autocomplete.js' %}"></script>

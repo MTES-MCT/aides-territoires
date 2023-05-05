@@ -1,35 +1,42 @@
-$(document).ready(function () {
-    $('select#id_backers').select2({
-        placeholder: "Tous les porteurs d’aide",
-        minimumInputLength: 3,
-        language: {
-            inputTooShort: function () { return "Saisissez quelques caractères pour des suggestions."; },
-        },
-        ajax: {
-            url: '/api/backers/',
-            dataType: 'json',
-            delay: 100,
-            data: function (params) {
-                let query = {
-                    q: params.term,
-                    has_published_financed_aids: true,
-                    page: params.page || 1
+let backersAutocomplete = new SlimSelect({
+    select: '#id_backers',
+    settings: {
+        placeholderText: 'Tous les porteurs d’aide',
+        searchPlaceholder: 'Rechercher',
+        searchingText: 'Recherche…',
+        maxValuesShown: 1,
+        maxValuesMessage: '{number} valeurs choisies',
+        allowDeselect: true
+    },
+    events: {
+        search: (search, currentData) => {
+            return new Promise((resolve, reject) => {
+                if (search.length < 3) {
+                    return reject('Tapez au moins 3 caractères')
                 }
-                return query;
-            },
-            processResults: function (data, params) {
-                params.page = params.page || 1;
+                console.log(search)
 
-                return {
-                    results: data.results,
-                    pagination: {
-                        more: data.next != null
-                    }
-                };
-            }
-        },
-        theme: "select2-dsfr",
-        dropdownAutoWidth: true,
-        width: "auto",
-    })
-});
+                let queryPath = '/api/backers/?has_published_financed_aids: true&q=' + search
+
+                fetch(queryPath, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }).then((response) => response.json()).then((data) => {
+                    // Take the data and create an array of options
+                    // excluding any that are already selected in currentData
+                    const options = data.results
+                        .map((entry) => {
+                            return {
+                                text: entry.text,
+                                value: entry.id
+                            }
+                        })
+                    console.log(options)
+                    resolve(options)
+                })
+            })
+        }
+    }
+})
