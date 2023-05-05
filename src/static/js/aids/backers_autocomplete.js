@@ -23,7 +23,7 @@ let backersAutocomplete = new SlimSelect({
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                }).then((response) => response.json()).then((data) => {
+                }).then((response) => response.json(), error => { }).then((data) => {
                     // Take the data and create an array of options
                     // excluding any that are already selected in currentData
                     const options = data.results
