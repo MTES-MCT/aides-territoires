@@ -1,6 +1,6 @@
 import requests
 import json
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from django.conf import settings
 from django.contrib import messages
@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.postgres.search import SearchQuery, SearchHeadline
 from django.db.models import Q, Count, Prefetch
-from django.http import HttpResponse, HttpResponseRedirect, QueryDict
+from django.http import HttpResponse, HttpResponseRedirect, QueryDict, Http404
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.functional import cached_property
@@ -58,8 +58,9 @@ from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeters
 from blog.models import PromotionPost
 from search.utils import clean_search_form
-from stats.models import AidViewEvent
+from stats.models import AidViewEvent, AidApplicationUrlClickEvent
 from stats.utils import log_aidviewevent, log_aidsearchevent
+from stats.forms import StatSearchForm
 from core.utils import remove_accents
 
 from accounts.tasks import (
@@ -1356,3 +1357,116 @@ class AidExportView(ContributorAndProfileCompleteRequiredMixin, View):
             """,
         )
         return HttpResponseRedirect(reverse("aid_draft_list_view"))
+
+
+class AidDetailStatsView(
+    ContributorAndProfileCompleteRequiredMixin, DetailView, FormMixin
+):
+    """Display an aid detail stats."""
+
+    template_name = "aids/detail_stats.html"
+    context_object_name = "aid"
+    form_class = StatSearchForm
+
+    def get_queryset(self):
+        queryset = Aid.objects.all()
+        return queryset
+
+    def get_object(self, queryset=None):
+        """
+        Require `self.queryset` and `slug` argument in the URLconf.
+        """
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        slug = self.kwargs.get(self.slug_url_kwarg)
+        user = self.request.user
+        if slug is not None:
+            queryset = queryset.filter(slug=slug)
+        else:
+            raise Http404()
+
+        try:
+            obj = queryset.get()
+            if user != obj.author and not user.is_superuser:
+                raise PermissionDenied()
+        except queryset.model.DoesNotExist:
+            raise Http404()
+        return obj
+
+    def get_period(self):
+
+        period = timezone.now().strftime("%Y-%m-%d")
+
+        if self.request.GET:
+            form = StatSearchForm(self.request.GET)
+            if form.is_valid():
+                start_date = form.cleaned_data["start_date"]
+                if form.cleaned_data["end_date"]:
+                    end_date = form.cleaned_data["end_date"]
+                else:
+                    end_date = start_date
+
+                start_date = start_date.strftime("%Y-%m-%d")
+                end_date = end_date.strftime("%Y-%m-%d")
+                period = start_date.split() + end_date.split()
+
+        return period
+
+    def get_context_dates(self, context, **kwargs):
+        if self.request.GET:
+            form = StatSearchForm(self.request.GET)
+            if form.errors:
+                if form.errors["start_date"]:
+                    context["start_date_error"] = form.errors["start_date"]
+
+        period = self.get_period()
+        if type(period) is not str:
+            start_date = period[0]
+            end_date = period[1]
+        else:
+            start_date = period
+            end_date = start_date
+
+        start_date_range = datetime.strptime(start_date, "%Y-%m-%d")
+        start_date_range = timezone.make_aware(start_date_range)
+        end_date_range = datetime.strptime(end_date, "%Y-%m-%d") + timedelta(days=1)
+        end_date_range = timezone.make_aware(end_date_range)
+        context["start_date"] = start_date
+        context["end_date"] = end_date
+        context["start_date_range"] = start_date_range
+        context["end_date_range"] = end_date_range
+        return context
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = self.get_context_dates(context, **kwargs)
+        start_date_range = context["start_date_range"]
+        end_date_range = context["end_date_range"]
+
+        view_events = AidViewEvent.objects.filter(
+            aid=self.object.id, date_created__range=[start_date_range, end_date_range]
+        )
+        view_events_count = view_events.count()
+
+        application_url_click_events = AidApplicationUrlClickEvent.objects.filter(
+            aid=self.object.id, date_created__range=[start_date_range, end_date_range]
+        )
+        application_url_click_events_count = application_url_click_events.count()
+
+        projects_linked = self.object.aidproject_set.filter(
+            date_created__range=[start_date_range, end_date_range]
+        )
+        private_projects_linked = projects_linked.filter(project__is_public=False)
+        private_projects_linked_count = private_projects_linked.count()
+        public_projects_linked = projects_linked.filter(project__is_public=True)
+        public_projects_linked_count = public_projects_linked.count()
+
+        context["view_events"] = view_events_count
+        context[
+            "application_url_click_events_count"
+        ] = application_url_click_events_count
+        context["private_projects_linked_count"] = private_projects_linked_count
+        context["public_projects_linked_count"] = public_projects_linked_count
+
+        return context

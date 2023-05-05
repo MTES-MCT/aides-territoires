@@ -74,7 +74,7 @@
                             <th scope="col" title="Trier par Modifiée le">Modifiée le</th>
                             <th scope="col" title="Trier par Echéance">Échéance</th>
                             <th scope="col">Visibilité sur le site</th>
-                            <th scope="col">Vues</th>
+                            <th scope="col">Statistiques</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -102,7 +102,7 @@
                                 {% endif %}
                             </td>
                             <td class="nowrap-cell"><a href="{{ aid.get_absolute_url }}">{{ aid.get_status_display }}</a></td>
-                            <td>{% get hits_per_aid aid.id 0 %}</td>
+                            <td><a href="{% url 'aid_detail_stats_view' aid.slug %}">{% get hits_per_aid aid.id 0 %}</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
