@@ -1,0 +1,163 @@
+{% extends "_base.html" %}
+{% load static aids compress humanize settings form_utils %}
+
+{% block extratitle %}Statistiques de l’aide « {{ aid.name }} »{% endblock extratitle %}
+
+{% block extra_head %}
+<meta property="og:title" content="Statistiques de l’aide « {{ aid.name }} »" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="Trouvez les aides pertinentes pour financer et accompagner les projets de votre territoire" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+<meta property="og:site_name" content="Aides-territoires" />
+<meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
+<meta property="og:image:alt" content="Logo : Aides-territoires" />
+{% endblock extra_head %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'aid_draft_list_view' %}">Mon portefeuille d’aides</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Statistiques de l’aide « {{ aid.name }} »</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<article id="aid-stats" class="fr-container fr-mb-2w">
+
+    <section class="aid-content fr-grid-row fr-mt-5w">
+
+        <div class="aid-details fr-col-12 fr-pb-3w fr-px-3w">
+
+            <h1 class="fr-mb-5w">
+               Statistiques de l’aide « {{ aid.name }} »
+            </h1>
+
+            <div class="at-background-alt-green fr-px-1w fr-py-3w">
+                <p class="fr-mb-1w"><strong>Date de création : le {{ aid.date_created|date:"d F Y"}}</strong></p>
+                <p class="fr-mb-0"><strong>Date de modification : le {{ aid.date_updated|date:"d F Y"}}</strong></p>
+            </div>
+
+            <div id="statistiques" class="fr-mt-5w fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-mb-5w">
+                <h2 class="fr-col-3 fr-mt-0 fr-mb-0 fr-h4">Choix de la période :</h2>
+                  <div class="fr-col-9">
+                    <form method="get" action="." class="fr-grid-row fr-grid-row--start">
+
+                        <div class="fr-input-group fr-mb-0 fr-col-4" id="form-group-start_date">
+                            <label class="fr-label" for="id_start_date"></label>
+                            <input class="fr-input fr-mt-0" aria-describedby="start_date-messages" name="start_date" {% if request.GET.start_date %} value="{{ request.GET.start_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_start_date" class="fr-input fr-mt-0" type="date">
+                            <span class="fr-hint-text">Date de début</span>
+                        </div>
+
+                        <div class="fr-input-group fr-mb-0 fr-col-4" id="form-group-end_date">
+                            <label class="fr-label" for="id_end_date"></label>
+                            <input class="fr-input fr-mt-0" aria-describedby="end_date-messages" name="end_date" {% if request.GET.end_date %} value="{{ request.GET.end_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_end_date" class="fr-input fr-mt-0" type="date">
+                            <span class="fr-hint-text">Date de début</span>
+                            <div class="fr-messages-group" id="start_date-messages" aria-live="assertive"></div>
+                        </div>
+                                
+                        <div class="fr-col-4">
+                            <button type="submit" class="fr-btn">Envoyer</button>
+                        </div>
+                      
+                      {% if start_date_error %}
+                      <span class="error field-error">
+                        ↑
+                        {{ start_date_error.0 }}
+                        ↑
+                      </span>
+                      {% endif %}
+                    </form>
+                </div>
+              </div>
+
+            <div  class="fr-grid-row fr-grid-row--gutters fr-mt-1w fr-mb-5w">
+                <div class="fr-col-12 fr-col-md-6">
+                  <div class="fr-tile">
+                    <div class="fr-tile__body">
+                      <p class="fr-tile__title fr-h6">
+                        Vues de l’aide
+                      </p>
+                    </div>
+                    <div class="fr-tile__img overflow--initial" role="presentation">
+                      <p class="fr-text--lg"><strong>{{ view_events }}</strong></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="fr-col-12 fr-col-md-6">
+                  <div class="fr-tile">
+                    <div class="fr-tile__body">
+                      <p class="fr-tile__title fr-h6">
+                        Clics sur Candidater
+                      </p>
+                    </div>
+                    <div class="fr-tile__img overflow--initial" role="presentation">
+                      <p class="fr-text--lg"><strong>{{ application_url_click_events_count }}</strong></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="fr-col-12 fr-col-md-6">
+                  <div class="fr-tile">
+                    <div class="fr-tile__body">
+                      <p class="fr-tile__title fr-h6">
+                        Ajout dans des projets privés
+                      </p>
+                    </div>
+                    <div class="fr-tile__img overflow--initial" role="presentation">
+                      <p class="fr-text--lg"><strong>{{ private_projects_linked_count }}</strong></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="fr-col-12 fr-col-md-6">
+                    <div class="fr-tile">
+                      <div class="fr-tile__body">
+                        <p class="fr-tile__title fr-h6">
+                          Ajout dans des projets publics
+                        </p>
+                      </div>
+                      <div class="fr-tile__img overflow--initial" role="presentation">
+                        <p class="fr-text--lg"><strong>{{ public_projects_linked_count }}</strong></p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="at-centered">
+                <a 
+                    class="fr-tag fr-icon-arrow-left-line fr-tag--icon-left"
+                    href="{% url 'aid_draft_list_view' %}">
+                    Retour au portefeuille
+                </a>
+            </div>
+
+            <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w fr-mt-5w">
+                <p class="fr-mt-2w fr-mb-1w">
+                    <strong>
+                        Précautions d’usage sur ces données
+                    </strong> 
+                </p>
+                <p>
+                    Selon la période choisie, des données peuvent ne pas avoir été enregistrées car la fonctionnalité n’existait pas encore.</a>
+                </p>
+            </div>
+
+        </div>
+    </section>
+</article>
+
+{% endblock content %}

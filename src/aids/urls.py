@@ -5,6 +5,7 @@ from aids.views import (
     AdvancedSearchView,
     ResultsView,
     ResultsReceiveView,
+    AidDetailStatsView,
     AidDetailView,
     AidCreateView,
     AidDraftListView,
@@ -48,6 +49,11 @@ urlpatterns = [
         "dupliquer/<slug:slug>/",
         GenericToLocalAidView.as_view(),
         name="aid_generic_to_local_view",
+    ),
+    path(
+        "statistiques/<slug:slug>/",
+        AidDetailStatsView.as_view(),
+        name="aid_detail_stats_view",
     ),
     # Aid détails
     path(
