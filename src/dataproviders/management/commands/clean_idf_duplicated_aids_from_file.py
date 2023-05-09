@@ -66,7 +66,7 @@ class Command(BaseCommand):
                                 logger.info(f"aid with pk {aid.pk} updated")
                             except Exception as e:
                                 logger.info(
-                                    f"{e} : aid {aid.pk} and import_uniqueid={aid.import_uniqueid} not updated"
+                                    f"{e} : aid {aid.pk} and import_uniqueid={aid.import_uniqueid} not updated"  # noqa
                                 )
 
                 logger.info(f"{aids_updated} aids reference updated from file")

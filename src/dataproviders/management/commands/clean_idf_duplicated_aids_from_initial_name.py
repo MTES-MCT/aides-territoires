@@ -46,7 +46,7 @@ class Command(BaseCommand):
 
         import_data_source = 4
 
-        # Select only published aids with a wrong import_uniqueid 
+        # Select only published aids with a wrong import_uniqueid
         aids_published = Aid.objects.filter(
             import_data_source=import_data_source,
             status=AidWorkflow.states.published.name,
