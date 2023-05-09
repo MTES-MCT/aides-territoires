@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib import admin
-from django.utils.translation import gettext_lazy as _
 from django.utils.html import format_html
 from django.urls import reverse, path
 
@@ -21,7 +20,7 @@ from projects.admin_views import ImportValidatedProjects
 
 
 class ProjectForm(forms.ModelForm):
-    description = RichTextField(label=_("Description"), required=False)
+    description = RichTextField(label="Description", required=False)
 
     class Meta:
         model = Project

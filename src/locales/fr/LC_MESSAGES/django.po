@@ -23,17 +23,8 @@ msgstr "Auteur"
 msgid "Eligibility test"
 msgstr "Test d'éligibilité"
 
-msgid "Yes"
-msgstr "Oui"
-
-msgid "No"
-msgstr "Non"
-
 msgid "Backers"
 msgstr "Porteurs d'aides"
-
-msgid "Exported data will be available "
-msgstr "Les données exportées seront disponibles "
 
 msgid "Categories"
 msgstr "Sous-thématiques"
@@ -88,15 +79,6 @@ msgstr "Alerte"
 
 msgid "Alerts"
 msgstr "Alertes"
-
-msgid "create/"
-msgstr "créer/"
-
-msgid "validate/"
-msgstr "validation/"
-
-msgid "delete/"
-msgstr "supprimer/"
 
 msgid "Logo image"
 msgstr "Logo du porteur"
@@ -169,43 +151,6 @@ msgstr "Sous-thématique"
 
 msgid "Eligibility tests"
 msgstr "Tests d'éligibilité"
-
-msgid "<path:object_id>/upload/"
-msgstr "<path:object_id>/upload/"
-
-msgid "<path:object_id>/combine/"
-msgstr "<path:object_id>/combiner/"
-
-msgid "Perimeter upload"
-msgstr "Upload de périmètre"
-
-msgid "Perimeter combine"
-msgstr "Combinaison de périmètre"
-
-msgid "Perimeter type"
-msgstr "Type de périmètre"
-
-msgid "List of missing city codes:"
-msgstr "Liste des codes insee des communes manquants :"
-
-msgid "Perimeters to add"
-msgstr "Périmètres à additionner"
-
-msgid "Select a list of perimeters to combines"
-msgstr "Sélectionnez une liste de périmètres à combiner"
-
-msgid "Perimeters to substract"
-msgstr "Périmètres à soustraire"
-
-msgid "Those perimeters will be substracted from the combined perimeters"
-msgstr "Ces périmètres seront enlevés du périmètre combiné."
-
-# This must be the same translation than the "/validate/" url
-msgid "<slug:token>/validate/"
-msgstr "<slug:token>/validation/"
-
-msgid "programs/<slug:slug>/"
-msgstr "programmes/<slug:slug>/"
 
 msgid ""
 "This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
