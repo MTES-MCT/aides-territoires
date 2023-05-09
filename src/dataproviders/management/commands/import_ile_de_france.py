@@ -110,7 +110,7 @@ class Command(BaseImportCommand):
         return "Ces données sont mises à disposition par le Conseil Régional d'Île-de-France."
 
     def extract_import_uniqueid(self, line):
-        unique_id = "IDF_{}".format(line["reference"])
+        unique_id = "IDF_{}".format(line["referenceAdministrative"])
         return unique_id
 
     def extract_import_data_url(self, line):
