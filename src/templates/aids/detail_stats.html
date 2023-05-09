@@ -4,9 +4,9 @@
 {% block extratitle %}Statistiques de l’aide « {{ aid.name }} »{% endblock extratitle %}
 
 {% block extra_head %}
-<meta property="og:title" content="{{ aid.name }}" />
+<meta property="og:title" content="Statistiques de l’aide « {{ aid.name }} »" />
 <meta property="og:type" content="website" />
-<meta property="og:description" content="{% if financers %}{% for financer in financers %}{{ financer }}{% endfor %}{% endif %} - Trouvez les aides pertinentes pour financer et accompagner les projets de votre territoire" />
+<meta property="og:description" content="Trouvez les aides pertinentes pour financer et accompagner les projets de votre territoire" />
 <meta property="og:url" content="{{ request.build_absolute_uri }}" />
 <meta property="og:site_name" content="Aides-territoires" />
 <meta property="og:image" content="https://aides-territoires.beta.gouv.fr/static/img/logo_AT_og.png" />
