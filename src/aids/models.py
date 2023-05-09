@@ -338,8 +338,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         blank=True,
         base_field=models.CharField(max_length=32, choices=STEPS, default=STEPS.preop),
     )
-    origin_url = models.URLField("Plus d’informations", max_length=500, blank=True)
-    application_url = models.URLField("Candidater à l’aide", max_length=500, blank=True)
+    origin_url = models.URLField("Plus d’informations", max_length=700, blank=True)
+    application_url = models.URLField("Candidater à l’aide", max_length=700, blank=True)
     ds_schema_exists = models.BooleanField(
         "Schéma existant",
         help_text=(
