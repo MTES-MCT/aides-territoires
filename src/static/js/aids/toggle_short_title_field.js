@@ -7,18 +7,22 @@
      * related aids.
      *
      */
-    exports.toggleShortTitleField = function(form, div) {
+    exports.toggleShortTitleField = function (form, div) {
 
-        div.addClass('collapse');
+        div.addClass('at-display__none');
 
-        var checkbox = form.find('input[name=in_france_relance]');
-        var checked = checkbox.prop('checked');
-        var hasErrors = div.find('p.error').length > 0;
+        let checkbox = $("#id_in_france_relance");
+        let checked = checkbox.prop("value") === "True";
+        let hasErrors = div.find('p.error').length > 0;
+
+        console.log(checkbox, checked)
 
         if (checked || hasErrors) {
-            div.collapse('show');
+            div.removeClass('at-display__none');
+            console.log("here")
         } else {
-            div.collapse('hide');
+            div.addClass('at-display__none');
+            console.log("there")
         }
     };
 
@@ -26,13 +30,13 @@
 
 $(document).ready(function () {
 
-    // Only display the short title field whan "France Relance" is
+    // Only display the short title field when "France Relance" is
     // selected.
-    var aidEditForm = $('form.main-form');
-    var shortTitleDiv = $('div#form-group-short_title');
+    let aidEditForm = $('form.main-form');
+    let shortTitleDiv = $('div#form-group-short_title');
 
     toggleShortTitleField(aidEditForm, shortTitleDiv);
-    aidEditForm.on('change', function() {
+    aidEditForm.on('change', function () {
         toggleShortTitleField(aidEditForm, shortTitleDiv);
     });
 });
