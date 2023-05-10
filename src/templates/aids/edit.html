@@ -80,13 +80,13 @@
 {% endblock before_section %}
 
 {% block form_actions %}
-<div class="form-actions fr-grid-row fr-grid-row--gutters fr-my-5w fr-py-5w fr-background-main">
+<div class="form-actions fr-grid-row fr-grid-row--gutters fr-mt-2w fr-mb-6w fr-background-main">
     <div class="submit-buttons fr-col-md-8">
-        <button type="submit" value="save" name="_action" class="fr-btn fr-mb-2w">Enregistrer vos modifications</button>
-        <button class="fr-btn fr-mb-2w" type="submit" name="_action" value="save_as_new">Dupliquer cette aide</button>
+        <button type="submit" value="save" name="_action" class="fr-btn">Enregistrer vos modifications</button>
+        <button class="fr-btn" type="submit" name="_action" value="save_as_new">Dupliquer cette aide</button>
     </div>
     <div class="fr-col-md-4 fr-grid-row fr-grid-row--right">
-        <a href="{% url 'aid_draft_list_view' %}" class="fr-mb-2w">Retour à votre portefeuille d’aides</a>
+        <a href="{% url 'aid_draft_list_view' %}" class="fr-btn fr-btn--tertiary">Retour à votre portefeuille d’aides</a>
     </div>
 </div>
 {% endblock form_actions %}
