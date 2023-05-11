@@ -8,6 +8,7 @@ from datetime import datetime
 from django.conf import settings
 from django.utils import timezone
 
+from aids.constants import AID_TYPES_ALL
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import content_prettify, mapping_categories
@@ -179,6 +180,44 @@ class Command(BaseImportCommand):
             aid_destinations.append(DESTINATIONS_DICT[destination])
 
         return aid_destinations
+
+    def extract_aid_types(self, line):
+        """
+        Source format: list of dicts
+        Get the objects, loop on the values and match to our AID_TYPES
+        """
+        post_type = line.get("post_type")
+
+        if post_type == "ge_guide":
+            financial_aid_types_field = "gui_nature_aide_financieres"
+            technical_aid_types_field = "gui_nature_aide_ingenierie"
+        else:
+            financial_aid_types_field = "pro_nature_aide_financieres"
+            technical_aid_types_field = "pro_nature_aide_ingenierie"
+
+        aid_types = []
+
+        financial_aid_types = line.get(financial_aid_types_field, [])
+        for aid_type_label in financial_aid_types:
+            aid_type = [item for item in AID_TYPES_ALL if item[1] == aid_type_label]
+            if aid_type:
+                aid_types.extend(aid_type)
+            else:
+                self.stdout.write(
+                    self.style.ERROR(f"Aid type {aid_type_label} not mapped")
+                )
+
+        technical_aid_types = line.get(technical_aid_types_field, [])
+        for aid_type_label in technical_aid_types:
+            aid_type = [item for item in AID_TYPES_ALL if item[1] == aid_type_label]
+            if aid_type:
+                aid_types.extend(aid_type)
+            else:
+                self.stdout.write(
+                    self.style.ERROR(f"Aid type {aid_type_label} not mapped")
+                )
+
+        return aid_types
 
     def extract_targeted_audiences(self, line):
         """
