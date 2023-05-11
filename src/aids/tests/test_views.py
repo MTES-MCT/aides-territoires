@@ -158,3 +158,32 @@ def test_others_have_no_edit_button(client, contributor):
     res = client.get(url)
     assert res.status_code == 200
     assert "admin-edit-page" not in res.content.decode()
+
+
+def test_anonymous_user_can_not_see_aid_stats(client):
+    first_aid = AidFactory()
+    url = reverse("aid_detail_stats_view", args=[first_aid.slug])
+    res = client.get(url)
+    assert res.status_code == 302
+
+
+def test_only_aid_author_can_see_aid_stats(client, contributor):
+    client.force_login(contributor)
+
+    first_aid = AidFactory()
+    url = reverse("aid_detail_stats_view", args=[first_aid.slug])
+    res = client.get(url)
+    assert res.status_code == 403
+
+    second_aid = AidFactory(author=contributor)
+    url = reverse("aid_detail_stats_view", args=[second_aid.slug])
+    res = client.get(url)
+    assert res.status_code == 200
+
+
+def test_admin_user_can_also_see_aid_stats(client, superuser):
+    client.force_login(superuser)
+    aid = AidFactory()
+    url = reverse("aid_detail_stats_view", args=[aid.slug])
+    res = client.get(url)
+    assert res.status_code == 200
