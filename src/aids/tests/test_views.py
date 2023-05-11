@@ -5,7 +5,8 @@ import pytest
 from django.urls import reverse
 from django.utils import timezone
 
-from aids.factories import AidFactory
+from aids.factories import AidFactory, AidProjectFactory
+from projects.factories import ProjectFactory
 
 pytestmark = pytest.mark.django_db
 
@@ -187,3 +188,34 @@ def test_admin_user_can_also_see_aid_stats(client, superuser):
     url = reverse("aid_detail_stats_view", args=[aid.slug])
     res = client.get(url)
     assert res.status_code == 200
+
+
+@pytest.fixture
+def last_month():
+    today = timezone.now()
+    return today - timedelta(days=30)
+
+
+def test_aid_stats_displayed_are_linked_to_a_period(client, contributor, last_month):
+    client.force_login(contributor)
+
+    third_aid = AidFactory(author=contributor)
+    project = ProjectFactory()
+    project_2 = ProjectFactory()
+
+    AidProjectFactory(aid=third_aid, project=project, creator=contributor)
+    AidProjectFactory(
+        aid=third_aid, project=project_2, creator=contributor, date_created=last_month
+    )
+
+    url = reverse("aid_detail_stats_view", args=[third_aid.slug])
+    res = client.get(url)
+    assert res.status_code == 200
+    assert "<strong>1</strong>" in res.content.decode()
+
+    last_month_formated = last_month.strftime("%Y-%m-%d")
+
+    url = reverse("aid_detail_stats_view", args=[third_aid.slug])
+    res = client.get(f"{url}?start_date={last_month_formated}&end_date=2023-05-11")
+    assert res.status_code == 200
+    assert "<strong>2</strong>" in res.content.decode()
