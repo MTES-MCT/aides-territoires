@@ -225,7 +225,7 @@ class ProjectUpdateForm(forms.ModelForm, AidesTerrBaseForm):
         help_text="""Taille maximale : 2 Mio. Formats supportés : jpeg, jpg, png.
             Choisissez de préférence une image au format 1920x1080px.""",
         required=False,
-        widget=CustomClearableFileInput(attrs={"multiple": True}),
+        widget=CustomClearableFileInput(),
     )
 
     class Meta:
