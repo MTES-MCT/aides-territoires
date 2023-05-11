@@ -8,7 +8,7 @@ from datetime import datetime
 from django.conf import settings
 from django.utils import timezone
 
-from aids.constants import AID_TYPES_ALL
+from aids.constants import ALL_FINANCIAL_AIDS, TECHNICAL_AIDS
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import content_prettify, mapping_categories
@@ -189,9 +189,11 @@ class Command(BaseImportCommand):
         post_type = line.get("post_type")
 
         if post_type == "ge_guide":
+            # Aides régionales
             financial_aid_types_field = "gui_nature_aide_financieres"
             technical_aid_types_field = "gui_nature_aide_ingenierie"
         else:
+            # Appels à projets (AAP)
             financial_aid_types_field = "pro_nature_aide_financieres"
             technical_aid_types_field = "pro_nature_aide_ingenierie"
 
@@ -199,9 +201,11 @@ class Command(BaseImportCommand):
 
         financial_aid_types = line.get(financial_aid_types_field, [])
         for aid_type_label in financial_aid_types:
-            aid_type = [item for item in AID_TYPES_ALL if item[1] == aid_type_label]
+            aid_type = [
+                item[0] for item in ALL_FINANCIAL_AIDS if item[1] == aid_type_label
+            ][0]
             if aid_type:
-                aid_types.extend(aid_type)
+                aid_types.append(aid_type)
             else:
                 self.stdout.write(
                     self.style.ERROR(f"Aid type {aid_type_label} not mapped")
@@ -209,9 +213,11 @@ class Command(BaseImportCommand):
 
         technical_aid_types = line.get(technical_aid_types_field, [])
         for aid_type_label in technical_aid_types:
-            aid_type = [item for item in AID_TYPES_ALL if item[1] == aid_type_label]
+            aid_type = [
+                item[0] for item in TECHNICAL_AIDS if item[1] == aid_type_label
+            ][0]
             if aid_type:
-                aid_types.extend(aid_type)
+                aid_types.append(aid_type)
             else:
                 self.stdout.write(
                     self.style.ERROR(f"Aid type {aid_type_label} not mapped")
