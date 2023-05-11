@@ -16,8 +16,8 @@ from geofr.utils import (
 class PerimeterUploadForm(forms.Form):
     PERIMETER_TYPE_CHOICES = (
         ("city_code", "Liste de communes (codes insee)"),
-        ("epci_name", "Liste d'EPCIs (noms)"),
-        ("epci_code", "Liste d'EPCIs (codes)"),
+        ("epci_name", "Liste d’EPCIs (noms)"),
+        ("epci_code", "Liste d’EPCIs (codes)"),
     )
 
     perimeter_type = forms.ChoiceField(
@@ -26,8 +26,8 @@ class PerimeterUploadForm(forms.Form):
     city_code_list = forms.FileField(
         label="Liste de communes (codes insee)", required=False
     )
-    epci_name_list = forms.FileField(label="Liste d'EPCIs (noms)", required=False)
-    epci_code_list = forms.FileField(label="Liste d'EPCIs (codes)", required=False)
+    epci_name_list = forms.FileField(label="Liste d’EPCIs (noms)", required=False)
+    epci_code_list = forms.FileField(label="Liste d’EPCIs (codes)", required=False)
 
     def clean(self):
         cleaned_data = super().clean()

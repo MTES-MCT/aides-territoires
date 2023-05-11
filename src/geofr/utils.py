@@ -134,16 +134,16 @@ def extract_perimeters_from_file(perimeter_list_file: InMemoryUploadedFile) -> l
     # extract items
     for line in perimeter_list_file:
         try:
-            item = line.decode().strip().split(";")[0]
+            item = line.decode(encoding="utf-8-sig").strip().split(";")[0]
             clean_item = str(item.strip('"').strip("'"))
             if clean_item:  # ignore empty lines
                 item_list.append(clean_item)
         except (UnicodeDecodeError, ValueError) as e:
             msg = f"""
             Ce fichier semble invalide ; merci de vérifier son contenu. Si vous pensez
-            qu’il s'agit d’une erreur, contactez l’équipe de développement. Voici "
-            l’erreur d'origine : {e}"""
-            raise Exception(msg)
+            qu’il s’agit d’une erreur, contactez l’équipe de développement. Voici
+            l’erreur d’origine : {e}"""
+            raise ValueError(msg)
 
     # check for duplicates
     duplicates = [
@@ -151,7 +151,7 @@ def extract_perimeters_from_file(perimeter_list_file: InMemoryUploadedFile) -> l
     ]
     if len(duplicates):
         msg = f"Ce fichier est valide, mais comporte des doublons: {duplicates}"
-        raise Exception(msg)
+        raise ValueError(msg)
 
     return item_list
 
