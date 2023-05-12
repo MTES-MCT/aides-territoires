@@ -1485,10 +1485,6 @@ class AidDetailStatsExportView(ContributorAndProfileCompleteRequiredMixin, View)
             aid,
             self.request.GET.get("start_date"),
             self.request.GET.get("end_date"),
-            self.request.GET.get("view_events"),
-            self.request.GET.get("application_url_click_events_count"),
-            self.request.GET.get("private_projects_linked_count"),
-            self.request.GET.get("public_projects_linked_count"),
         )
 
         if "error" in response_data:
