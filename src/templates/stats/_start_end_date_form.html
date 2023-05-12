@@ -1,0 +1,30 @@
+<form method="get" action="{{ form_action }}" class="fr-grid-row fr-grid-row--gutters fr-grid-row--start">
+
+    <div id="form-group-start_date" class="fr-col fr-input-group fr-mb-0">
+      <div class="fr-input-wrap">
+        <label for="id_start_date" class="fr-label"></label>
+        <input type="date" name="start_date" {% if request.GET.start_date %} value="{{ request.GET.start_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_start_date" class="fr-input fr-mt-0" />
+        <span class="fr-hint-text">Date de début</span>
+      </div>
+    </div>
+
+    <div id="form-group-end_date" class="fr-col fr-input-group fr-mb-0">
+      <div class="fr-input-wrap">
+        <label for="id_end_date" class="fr-label"></label>
+        <input type="date" name="end_date" {% if request.GET.end_date %} value="{{ request.GET.end_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_end_date" class="fr-input fr-mt-0" />
+        <span class="fr-hint-text">Date de fin</span>
+      </div>
+    </div>
+  
+    <div class="fr-col">
+      <button type="submit" class="fr-btn">Envoyer</button>
+    </div>
+    
+    {% if start_date_error %}
+    <span class="error field-error">
+      ↑
+      {{ start_date_error.0 }}
+      ↑
+    </span>
+    {% endif %}
+  </form>
