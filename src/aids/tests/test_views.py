@@ -199,23 +199,33 @@ def last_month():
 def test_aid_stats_displayed_are_linked_to_a_period(client, contributor, last_month):
     client.force_login(contributor)
 
-    third_aid = AidFactory(author=contributor)
-    project = ProjectFactory()
-    project_2 = ProjectFactory()
+    aid = AidFactory(author=contributor)
+    first_project = ProjectFactory()
+    second_project = ProjectFactory()
 
-    AidProjectFactory(aid=third_aid, project=project, creator=contributor)
+    today = timezone.now()
+    today_formated = today.strftime("%Y-%m-%d")
+    last_month_formated = last_month.strftime("%Y-%m-%d")
+    print(today)
+    print(last_month)
+    print(today_formated)
+    print(last_month_formated)
+
     AidProjectFactory(
-        aid=third_aid, project=project_2, creator=contributor, date_created=last_month
+        aid=aid, project=first_project, creator=contributor, date_created=today
+    )
+    AidProjectFactory(
+        aid=aid, project=second_project, creator=contributor, date_created=last_month
     )
 
-    url = reverse("aid_detail_stats_view", args=[third_aid.slug])
+    url = reverse("aid_detail_stats_view", args=[aid.slug])
     res = client.get(url)
     assert res.status_code == 200
     assert "<strong>1</strong>" in res.content.decode()
 
-    last_month_formated = last_month.strftime("%Y-%m-%d")
-
-    url = reverse("aid_detail_stats_view", args=[third_aid.slug])
-    res = client.get(f"{url}?start_date={last_month_formated}&end_date=2023-05-11")
+    url = reverse("aid_detail_stats_view", args=[aid.slug])
+    res = client.get(
+        f"{url}?start_date={last_month_formated}&end_date={today_formated}"
+    )
     assert res.status_code == 200
     assert "<strong>2</strong>" in res.content.decode()
