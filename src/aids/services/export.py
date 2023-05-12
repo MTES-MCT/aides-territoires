@@ -134,9 +134,7 @@ def export_aid_stats(
     )
     response[
         "Content-Disposition"
-    ] = "attachment; filename=Aides-territoires-statistiques-{aid_name}.xlsx".format(
-        aid_name=aid_name
-    )
+    ] = "attachment; filename=Aides-territoires-statistiques.xlsx"
 
     workbook = Workbook()
 
