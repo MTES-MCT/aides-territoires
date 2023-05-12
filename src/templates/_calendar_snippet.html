@@ -1,4 +1,4 @@
-<div class="fr-input-group fr-mb-4w" {% if field.field.required %} required {% endif %}>
+<div class="fr-checkbox-group fr-mb-4w" {% if field.field.required %} required {% endif %}>
     <label for="{{ field.id_for_label }}">
         {{ field.label }}{% if field.field.required %} *{% endif %}
 
@@ -11,7 +11,7 @@
     <div class="{{ nest_field_class }}">
     {% endif %}
 
-    <div class="fr-input-wrap">
+    <div class="fr-input-wrap fr-icon-calendar-line">
         {{ field }}
     </div>
 
