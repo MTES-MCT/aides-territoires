@@ -74,7 +74,7 @@ class Command(BaseImportCommand):
     """
     Import data from the Grand Est API.
     219 aids as of May 2021
-    265 aids as of March 2023
+    258 aids as of May 2023
 
     Usage:
     python manage.py import_grand_est_api
