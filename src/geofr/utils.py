@@ -248,6 +248,7 @@ def attach_perimeters(adhoc, city_codes, logger=None):
     containing = []
     count = 0
     for perimeter in perimeters:
+        logger.debug(f"processing perimeter {perimeter}")
         containing.append(
             PerimeterContainedIn(
                 from_perimeter_id=perimeter.id, to_perimeter_id=adhoc.id
