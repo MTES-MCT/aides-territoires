@@ -70,10 +70,18 @@ class PerimeterViewSet(
             qs = qs.filter(is_obsolete=False)
 
         if len(q) >= MIN_SEARCH_LENGTH:
+            """
+            Lowering the similarity requirement from the standard 0.3 so that some missing
+            perimeters are shown for the following example searches:
+
+            - CCPL → CC du Pays de Limours (CCPL) (EPCI)
+            - Dinan → CA Dinan Agglomération (EPCI) )
+            """
             qs = (
                 qs.annotate(similarity=TrigramSimilarity("unaccented_name", q))
                 .filter(
                     Q(unaccented_name__trigram_similar=remove_accents(q))
+                    | Q(similarity__gt=0.2)
                     | Q(zipcodes__icontains=accented_q)
                 )
                 .order_by("-similarity", "-scale", "name")
