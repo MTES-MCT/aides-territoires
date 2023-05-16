@@ -59,13 +59,11 @@ class PerimeterViewSet(
 
         is_visible_to_users = self.request.query_params.get(
             "is_visible_to_users", "false"
-        )  # noqa
+        )
         if is_visible_to_users == "true":
             qs = qs.filter(is_visible_to_users=True)
 
-        is_non_obsolete = self.request.query_params.get(
-            "is_non_obsolete", "true"
-        )  # noqa
+        is_non_obsolete = self.request.query_params.get("is_non_obsolete", "true")
         if is_non_obsolete == "true":
             qs = qs.filter(is_obsolete=False)
 
@@ -137,7 +135,7 @@ class PerimeterScalesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         perimeter_scales = [
             {"id": id, "name": name, "weight": weight}
             for (weight, id, name) in Perimeter.SCALES_TUPLE
-        ]  # noqa
+        ]
         return perimeter_scales
 
     @extend_schema(
