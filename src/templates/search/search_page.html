@@ -5,20 +5,43 @@
 {% block meta_description %}{{ search_page.meta_description }}{% endblock %}
 
 {% block breadcrumbs %}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li><a href="{% url 'home' %}">Accueil</a></li>
-        <li><a href="">Recherches personnalisées</a></li>
-        <li class="active" aria-current="page">{{ search_page.title }}</li>
-    </ol>
-</nav>
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'page_view' 'portails/' %}">Portails</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">{{ search_page.title }}</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
 {% endblock %}
 
 {% block content %}
 <article class="fr-container fr-my-5w fr-background-main fr-py-5w fr-grid-row fr-grid-row--center">
 {% block before_title %}{% endblock %}
-    <div class="fr-col-md-10">
-        <h1>{{ search_page.title }}</h1>
+    <div class="fr-col-md-12">
+
+        <div id="searchpage-title">
+            <div class="fr-grid-row fr-grid-row--middle">
+                <div class="fr-col-12 fr-col-md-9">
+                    <h1>{{ search_page.title }}</h1>
+                </div>
+                {% if search_page.logo %}
+                <div class="fr-col-12 fr-col-md-3">
+                    <img src="{{ search_page.logo.url }}" class="fr-responsive-img" alt="{{ search_page.title }}">
+                </div>
+                {% endif %}
+            </div>
+        </div>
 
         {{ search_page.content|safe }}
         
