@@ -451,7 +451,9 @@ class AidDetailView(DetailView):
                     base_qs.annotate(
                         headline_name=SearchHeadline(
                             "name",
-                            SearchQuery(text, config="french_unaccent"),
+                            SearchQuery(
+                                text, config="french_unaccent", search_type="phrase"
+                            ),
                             config="french_unaccent",
                             start_sel="<mark>",
                             stop_sel="</mark>",
@@ -461,7 +463,9 @@ class AidDetailView(DetailView):
                     .annotate(
                         headline_name_initial=SearchHeadline(
                             "name_initial",
-                            SearchQuery(text, config="french_unaccent"),
+                            SearchQuery(
+                                text, config="french_unaccent", search_type="phrase"
+                            ),
                             config="french_unaccent",
                             start_sel="<mark>",
                             stop_sel="</mark>",
@@ -471,7 +475,9 @@ class AidDetailView(DetailView):
                     .annotate(
                         headline_description=SearchHeadline(
                             "description",
-                            SearchQuery(text, config="french_unaccent"),
+                            SearchQuery(
+                                text, config="french_unaccent", search_type="phrase"
+                            ),
                             config="french_unaccent",
                             start_sel="<mark>",
                             stop_sel="</mark>",
@@ -481,7 +487,9 @@ class AidDetailView(DetailView):
                     .annotate(
                         headline_project_examples=SearchHeadline(
                             "project_examples",
-                            SearchQuery(text, config="french_unaccent"),
+                            SearchQuery(
+                                text, config="french_unaccent", search_type="phrase"
+                            ),
                             config="french_unaccent",
                             start_sel="<mark>",
                             stop_sel="</mark>",
@@ -491,7 +499,9 @@ class AidDetailView(DetailView):
                     .annotate(
                         headline_eligibility=SearchHeadline(
                             "eligibility",
-                            SearchQuery(text, config="french_unaccent"),
+                            SearchQuery(
+                                text, config="french_unaccent", search_type="phrase"
+                            ),
                             config="french_unaccent",
                             start_sel="<mark>",
                             stop_sel="</mark>",

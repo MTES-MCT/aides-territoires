@@ -70,35 +70,14 @@ def parse_query(raw_query):
     query = None
 
     for term in all_terms:
-        if len(term.split(" ")) > 1:
-            list_sub_term = term.split(" ")
-            sub_query = None
-            for sub_term in list_sub_term:
-                next_operator = operator.and_
-                if sub_query is None:
-                    sub_query = SearchQuery(
-                        sub_term, config="french_unaccent", invert=invert
-                    )
-                else:
-                    sub_query = next_operator(
-                        sub_query,
-                        SearchQuery(sub_term, config="french_unaccent", invert=invert),
-                    )
-            if query is None:
-                query = sub_query
-            else:
-                next_operator = operator.or_
-                query = next_operator(query, sub_query)
+        if query is None:
+            query = SearchQuery(
+                term, config="french_unaccent", invert=invert, search_type="phrase"
+            )
         else:
-            if query is None:
-                query = SearchQuery(term, config="french_unaccent", invert=invert)
-            else:
-                query = next_operator(
-                    query, SearchQuery(term, config="french_unaccent", invert=invert)
-                )
-
-        next_operator = operator.or_
-        invert = False
+            query = next_operator(
+                query, SearchQuery(term, config="french_unaccent", invert=invert)
+            )
 
     return query
 
