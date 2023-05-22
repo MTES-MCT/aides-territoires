@@ -26,7 +26,7 @@
 {% endblock %}
 
 {% block content %}
-<article class="fr-container fr-my-5w fr-background-main fr-py-5w fr-grid-row fr-grid-row--center">
+<article class="fr-container fr-mb-5w fr-background-main fr-pb-5w fr-grid-row fr-grid-row--center">
 {% block before_title %}{% endblock %}
     <div class="fr-col-md-12">
 
@@ -43,29 +43,50 @@
             </div>
         </div>
 
-        {{ search_page.content|safe }}
-        
-        {% if search_page.more_content %}
-        <section class="fr-accordion">
-            <h3 class="fr-accordion__title">
-                <button id="more-content-reveal-button" class="fr-accordion__btn" aria-expanded="false" aria-controls="more-content">Voir plus de détails</button>
-            </h3>
-            <div id="more-content" class="fr-collapse">
-            {{ search_page.more_content|safe }}
+        {% if pages %}
+        <div class="fr-tabs">
+            <ul class="fr-tabs__list" role="tablist" aria-label="Onglets du portail">
+                <li role="presentation">
+                    <button id="tabpanel-home" class="fr-tabs__tab fr-icon-checkbox-line fr-tabs__tab--icon-left" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-home-panel">Présentation Générale</button>
+                </li>
+                {% if pages %}
+                    {% for page in pages %}
+                        <li role="presentation">
+                            <button id="tabpanel-{{page.title|slugify}}" class="fr-tabs__tab fr-icon-checkbox-line fr-tabs__tab--icon-left" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-{{page.title|slugify}}-panel">{{page.title}}</button>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+            <div id="tabpanel-home-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-home" tabindex="0">
+                <h2 class="fr-mt-0 fr-mb-2w">Présentation Générale</h2>
+                {{ search_page.content|safe }}
+                {% if search_page.more_content %}
+                <section class="fr-accordion fr-mb-5w">
+                    <h3 class="fr-accordion__title">
+                        <button id="more-content-reveal-button" class="fr-accordion__btn" aria-expanded="false" aria-controls="more-content">Voir plus de détails</button>
+                    </h3>
+                    <div id="more-content" class="fr-collapse">
+                    {{ search_page.more_content|safe }}
+                    </div>
+                </section>
+                {% endif %}
+                {{ block.super }}
             </div>
-        </section>
+            {% if pages %}
+                {% for page in pages %}
+                    <div id="tabpanel-{{page.title|slugify}}-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-{{page.title|slugify}}" tabindex="0">
+                        <h2 class="fr-mt-0 fr-mb-2w">{{page.title|slugify}}</h2>
+                        <div>
+                            {{ page.content|safe }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
         {% endif %}
     </div>
 </article>
-{% block sticky-btn %}{% endblock %}
-{{ block.super }}
 {% endblock %}
-
-{% comment %}
-Specialized search pages are often associated with *loads* of categories,
-so displaying them is not very helpful.
-{% endcomment %}
-{% block search-meta-categories %}{% endblock %}
 
 {% block extra_js %}
     {{ block.super }}
