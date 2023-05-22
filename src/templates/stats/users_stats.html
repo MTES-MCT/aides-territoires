@@ -61,33 +61,11 @@
         </table>
     </div>
 
-    <h4 class="fr-mt-0w">Comptes utilisateurs&nbsp;:</h4>
+    <h4 class="fr-mt-0w">Comptes utilisateurs :</h4>
 
     <div class="fr-col-12 fr-col-md-6 fr-mt-4w">
-        <form method="get" action="{% url 'users_stats' %}" class="fr-grid-row fr-grid-row--start">
-          <div id="form-group-start_date" class="fr-input-group fr-mb-0">
-            <div class="fr-input-wrap fr-icon-calendar-line">
-                <label for="id_start_date" class="fr-label"></label>
-                <input type="date" name="start_date" placeholder="jj/mm/aaaa" {% if request.GET.start_date %} value="{{ request.GET.start_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_start_date" class="fr-input fr-mt-0">
-                <span class="fr-hint-text">Date de début</span>
-            </div>
-          </div>
-          <div id="form-group-end_date" class="fr-input-group fr-mb-0">
-            <div class="fr-input-wrap fr-icon-calendar-line">
-                <label for="id_end_date" class="fr-label"></label>
-                <input type="date" name="end_date" placeholder="jj/mm/aaaa" {% if request.GET.end_date %} value="{{ request.GET.end_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_end_date" class="fr-input fr-mt-0">
-                <span class="fr-hint-text">Date de fin</span>
-            </div>
-          </div>
-          <div>
-                <button type="submit" class="fr-btn">Envoyer</button>
-          </div>
-          {% if start_date_error %}
-            <p id="text-input-error-start-date" class="fr-error-text">
-                {{ start_date_error.0 }}
-            </p>
-          {% endif %}
-        </form>
+        {% url 'users_stats' as action_url %}
+        {% include 'stats/_start_end_date_form.html' with action=action_url %}
     </div>
 
     <div class="fr-table fr-table--bordered fr-mt-5w">
