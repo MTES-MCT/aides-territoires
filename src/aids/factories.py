@@ -1,7 +1,7 @@
 import factory
 from factory.django import DjangoModelFactory
 
-from aids.models import Aid, SuggestedAidProject
+from aids.models import Aid, SuggestedAidProject, AidProject
 from core.services.factory_utils import FuzzyMultipleChoice
 from accounts.factories import UserFactory
 from projects.factories import ProjectFactory
@@ -43,6 +43,17 @@ class AidFactory(DjangoModelFactory):
         obj.set_search_vector_unaccented(financers=[])
         obj.save()
         return obj
+
+
+class AidProjectFactory(DjangoModelFactory):
+    """Factory for aidproject."""
+
+    class Meta:
+        model = AidProject
+
+    aid = factory.SubFactory(AidFactory)
+    project = factory.SubFactory(ProjectFactory)
+    creator = factory.SubFactory(UserFactory)
 
 
 class SuggestedAidProjectFactory(DjangoModelFactory):

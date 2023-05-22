@@ -18,6 +18,7 @@ from aids.views import (
     SuggestedAidUnmatchProjectView,
     AidProjectStatusView,
     AidExportView,
+    AidDetailStatsExportView,
 )
 
 urlpatterns = [
@@ -54,6 +55,11 @@ urlpatterns = [
         "statistiques/<slug:slug>/",
         AidDetailStatsView.as_view(),
         name="aid_detail_stats_view",
+    ),
+    path(
+        "exporter-les-stats/<slug:slug>/",
+        AidDetailStatsExportView.as_view(),
+        name="aid_detail_stats_export_view",
     ),
     # Aid détails
     path(

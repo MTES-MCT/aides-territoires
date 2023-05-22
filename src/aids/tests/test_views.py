@@ -5,7 +5,8 @@ import pytest
 from django.urls import reverse
 from django.utils import timezone
 
-from aids.factories import AidFactory
+from aids.factories import AidFactory, AidProjectFactory
+from projects.factories import ProjectFactory
 
 pytestmark = pytest.mark.django_db
 
@@ -158,3 +159,69 @@ def test_others_have_no_edit_button(client, contributor):
     res = client.get(url)
     assert res.status_code == 200
     assert "admin-edit-page" not in res.content.decode()
+
+
+def test_anonymous_user_can_not_see_aid_stats(client):
+    first_aid = AidFactory()
+    url = reverse("aid_detail_stats_view", args=[first_aid.slug])
+    res = client.get(url)
+    assert res.status_code == 302
+
+
+def test_only_aid_author_can_see_aid_stats(client, contributor):
+    client.force_login(contributor)
+
+    first_aid = AidFactory()
+    url = reverse("aid_detail_stats_view", args=[first_aid.slug])
+    res = client.get(url)
+    assert res.status_code == 403
+
+    second_aid = AidFactory(author=contributor)
+    url = reverse("aid_detail_stats_view", args=[second_aid.slug])
+    res = client.get(url)
+    assert res.status_code == 200
+
+
+def test_admin_user_can_also_see_aid_stats(client, superuser):
+    client.force_login(superuser)
+    aid = AidFactory()
+    url = reverse("aid_detail_stats_view", args=[aid.slug])
+    res = client.get(url)
+    assert res.status_code == 200
+
+
+@pytest.fixture
+def last_month():
+    today = timezone.now()
+    return today - timedelta(days=30)
+
+
+def test_aid_stats_displayed_are_linked_to_a_period(client, contributor, last_month):
+    client.force_login(contributor)
+
+    aid = AidFactory(author=contributor)
+    first_project = ProjectFactory()
+    second_project = ProjectFactory()
+
+    today = timezone.now()
+    today_formated = today.strftime("%Y-%m-%d")
+    last_month_formated = last_month.strftime("%Y-%m-%d")
+
+    AidProjectFactory(
+        aid=aid, project=first_project, creator=contributor, date_created=today
+    )
+    AidProjectFactory(
+        aid=aid, project=second_project, creator=contributor, date_created=last_month
+    )
+
+    url = reverse("aid_detail_stats_view", args=[aid.slug])
+    res = client.get(url)
+    assert res.status_code == 200
+    assert "<strong>1</strong>" in res.content.decode()
+
+    url = reverse("aid_detail_stats_view", args=[aid.slug])
+    res = client.get(
+        f"{url}?start_date={last_month_formated}&end_date={today_formated}"
+    )
+    assert res.status_code == 200
+    assert "<strong>2</strong>" in res.content.decode()

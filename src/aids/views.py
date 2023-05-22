@@ -46,7 +46,7 @@ from aids.models import Aid, AidProject, SuggestedAidProject
 from aids.mixins import AidEditMixin, AidCopyMixin
 from aids.utils import prepopulate_ds_folder
 from projects.constants import EXPORT_FORMAT_KEYS
-from aids.services.export import export_aids
+from aids.services.export import export_aids, export_aid_stats
 from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
@@ -1469,3 +1469,35 @@ class AidDetailStatsView(
         context["public_projects_linked_count"] = public_projects_linked_count
 
         return context
+
+
+class AidDetailStatsExportView(ContributorAndProfileCompleteRequiredMixin, View):
+    """Export stats of a specific aid."""
+
+    def get(self, request, *args, **kwargs):
+
+        aid = Aid.objects.get(slug=self.kwargs["slug"])
+        user = self.request.user
+        if user != aid.author and not user.is_superuser:
+            raise PermissionDenied()
+
+        response_data = export_aid_stats(
+            aid,
+            self.request.GET.get("start_date"),
+            self.request.GET.get("end_date"),
+        )
+
+        if "error" in response_data:
+            # If something went wrong, redirect to the aid detail stats page with an error
+            messages.error(
+                self.request,
+                f"""
+                Impossible de générer votre export. Si le problème persiste, merci de
+                <a href="{reverse('contact')}"/>nous contacter</a>.
+                """,
+            )
+            return HttpResponseRedirect(
+                reverse("aid_detail_stats_view", args=[self.kwargs["slug"]])
+            )
+        else:
+            return response_data

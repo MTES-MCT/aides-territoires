@@ -67,9 +67,15 @@ def contributor():
 @pytest.fixture
 def superuser():
     """Generates a valid and active superuser."""
+    sample_org = OrganizationFactory(
+        organization_type=["private_person"],
+        perimeter=Perimeter.objects.first(),
+    )
+    sample_org.save()
 
     user = UserFactory(email=ADMIN_EMAIL, first_name="Super", last_name="User")
     user.is_superuser = True
+    user.beneficiary_organization = sample_org
     user.save()
     return user
 
