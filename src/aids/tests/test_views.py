@@ -206,10 +206,6 @@ def test_aid_stats_displayed_are_linked_to_a_period(client, contributor, last_mo
     today = timezone.now()
     today_formated = today.strftime("%Y-%m-%d")
     last_month_formated = last_month.strftime("%Y-%m-%d")
-    print(today)
-    print(last_month)
-    print(today_formated)
-    print(last_month_formated)
 
     AidProjectFactory(
         aid=aid, project=first_project, creator=contributor, date_created=today
