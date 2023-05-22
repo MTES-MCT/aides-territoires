@@ -77,6 +77,10 @@ class SearchPage(models.Model):
             "MUST be lowercase for minisites."
         ),
     )
+    subdomain_enabled = models.BooleanField(
+        "Afficher depuis un sous-domaine ?",
+        default=True,
+    )
     content = models.TextField(
         _("Page content"),
         help_text=_("Full description of the page. Will be displayed above results."),

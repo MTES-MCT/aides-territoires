@@ -63,6 +63,7 @@ SUPERUSER_FIELDSETS_SEARCH_PAGE.insert(
                 "administrator",
                 "short_title",
                 "slug",
+                "subdomain_enabled",
                 "search_querystring",
                 "tab_title",
                 "contact_link",
@@ -140,7 +141,7 @@ class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
     list_display = ["slug", "title", "meta_description", "nb_pages", "date_created"]
     filter_vertical = ["available_categories"]
     search_fields = ["title"]
-    list_filter = [AdministratorFilter]
+    list_filter = [AdministratorFilter, "subdomain_enabled"]
 
     form = SearchPageAdminForm
     prepopulated_fields = {"slug": ("title",)}

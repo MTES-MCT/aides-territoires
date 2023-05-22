@@ -60,7 +60,7 @@ class MinisiteMixin:
             # e.g https://www.aides-territoires.beta.gouv.fr
             return HttpResponseRedirect(self.get_ghost_redirection_url())
 
-        if settings.ENABLE_MINISITES_REDIRECTION:
+        if settings.ENABLE_MINISITES_REDIRECTION and self.search_page.subdomain_enabled:
             canonical_url = self.get_canonical_url(subdomain=self.search_page.slug)
             redirect_url = self.get_redirection_url(canonical_url)
             if redirect_url:
