@@ -1,8 +1,9 @@
 {% load i18n aids %}
 
 {% if aids %}
-<div class="fr-table {% if not backer_page %}at-display__none{% endif %}" id="aid_in_list">
-    <table title="Liste des aides">
+<div class="fr-table {% if not backer_page %}at-display__none{% endif %}" id="aids-as-list">
+    <table>
+        <caption class="fr-sr-only">Liste des aides</caption>
         <thead>
             <tr>
                 <th scope="col">Nom</th>

@@ -2,22 +2,27 @@
 
 {% if aids %}
     <div class="fr-grid-row">
-        <div class="fr-col-xs-12 fr-col-md-6">
+        <div class="fr-col-xs-12 fr-col-md-8">
             <ul class="fr-btns-group fr-btns-group--inline">
                 <li>
-                    <button class="fr-btn fr-mr-0" title="Afficher les résultats en carte" id="btn-results-card">
+                    <button class="fr-btn fr-mr-0" title="Afficher les résultats en cartes" id="btn-results-card">
                         <span class="ri-function-line"></span>
                     </button>
                 </li>
                 <li>
-                    <button class="fr-btn fr-btn--secondary" title="Afficher les résultats en liste" id="btn-results-list">
+                    <button class="fr-btn fr-btn--secondary fr-mr-0" title="Afficher les résultats en liste" id="btn-results-list">
                         <span class="ri-list-check"></span>
                     </button>
                 </li>
                 <li>
+                    <p class="fr-btn fr-btn--tertiary-no-outline fr-ml-0" id="display-type">
+                        Affichage en cartes
+                    </p>
+                </li>
+                <li>
                     <div class="fr-select-group">
                         <select class="fr-select at-live-change"
-                        title="Choisissez un ordre de tri - La sélection recharge la page"
+                        title="Choisissez un ordre de tri – La sélection recharge la page"
                         id="order-by"
                         name="order-by">
                             {% for option in form.order_by %}
@@ -28,7 +33,7 @@
                 </li>
             </ul>
         </div>
-        <div class="fr-col-xs-12 fr-col-md-6">
+        <div class="fr-col-xs-12 fr-col-md-4">
             <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--right">
                 <li>
                     <button class="fr-btn js" id="save-alert-results-block-btn"  data-fr-opened="false" aria-controls="alert-search-modal">
@@ -44,7 +49,7 @@
             {% include 'aids/_promotions.html' %}
         {% endif %}
         {% include 'aids/_aid_result_as_list.html' %}
-        <div class="fr-grid-row" id="aid_in_card">
+        <div class="fr-grid-row" id="aids-as-card">
         {% for aid in aids %}
             <div class="fr-col-xs-12 fr-col-md-4 fr-p-3w">
                 {% include 'aids/_aid_result.html' with aid=aid %}
