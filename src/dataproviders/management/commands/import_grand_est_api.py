@@ -8,11 +8,13 @@ from datetime import datetime
 from django.conf import settings
 from django.utils import timezone
 
+from aids.constants import ALL_FINANCIAL_AIDS, TECHNICAL_AIDS
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import content_prettify, mapping_categories
 from dataproviders.management.commands.base import BaseImportCommand
 from aids.models import Aid
+from programs.models import Program
 
 
 ADMIN_ID = 1
@@ -72,10 +74,19 @@ class Command(BaseImportCommand):
     """
     Import data from the Grand Est API.
     219 aids as of May 2021
+    258 aids as of May 2023
 
     Usage:
     python manage.py import_grand_est_api
     python manage.py import_grand_est_api grand-est.json
+
+    Note:
+    If your access to the json file is only accessible through an IPv4
+    connection, there is a shell script to force this:
+
+    sh scripts/dataproviders/grand_est_download_json.sh
+    python manage.py import_grand_est_api /tmp/aides-regionales.json
+
     """
 
     def add_arguments(self, parser):
@@ -90,7 +101,7 @@ class Command(BaseImportCommand):
         if options["data-file"]:
             data_file = os.path.abspath(options["data-file"])
             data = json.load(open(data_file))
-            self.stdout.write("Total number of aids: {}".format(len(data)))
+            self.stdout.write(f"Total number of aids: {len(data)}")
             for line in data:
                 yield line
         else:
@@ -101,7 +112,7 @@ class Command(BaseImportCommand):
                 auth=(settings.GRAND_EST_API_USERNAME, settings.GRAND_EST_API_PASSWORD),
             )
             data = req.json()
-            self.stdout.write("Total number of aids: {}".format(len(data)))
+            self.stdout.write(f"Total number of aids: {len(data)}")
             for line in data:
                 yield line
 
@@ -120,8 +131,22 @@ class Command(BaseImportCommand):
     def extract_import_share_licence(self, line):
         return DATA_SOURCE.import_licence or IMPORT_LICENCES.unknown
 
+    def extract_import_raw_object_calendar(self, line):
+        import_raw_object_calendar = {}
+        if line.get("pro_fin", None) != None:
+            import_raw_object_calendar["pro_fin"] = line["pro_fin"]
+        if line.get("post_date", None) != None:
+            import_raw_object_calendar["post_date"] = line["post_date"]
+        return import_raw_object_calendar
+
     def extract_import_raw_object(self, line):
-        return line
+        import_raw_object = dict(line)
+        if line.get("pro_fin", None) != None:
+            import_raw_object.pop("pro_fin")
+        if line.get("post_date", None) != None:
+            import_raw_object.pop("post_date")
+
+        return import_raw_object
 
     def extract_author_id(self, line):
         return DATA_SOURCE.aid_author_id or ADMIN_ID
@@ -141,6 +166,65 @@ class Command(BaseImportCommand):
         # description = desc_1 + desc_2
         return description
 
+    def extract_destinations(self, line):
+        """
+        Source format: list of strings
+        These strings match our values from Aid.DESTINATIONS, so we just have
+        to revert the dict to get the key
+        """
+        DESTINATIONS_DICT = {v: k for k, v in dict(Aid.DESTINATIONS).items()}
+        aid_destinations = []
+
+        destinations = line.get("gui_actions_concernees", [])
+        for destination in destinations:
+            aid_destinations.append(DESTINATIONS_DICT[destination])
+
+        return aid_destinations
+
+    def extract_aid_types(self, line):
+        """
+        Source format: list of dicts
+        Get the objects, loop on the values and match to our AID_TYPES
+        """
+        post_type = line.get("post_type")
+
+        if post_type == "ge_guide":
+            # Aides régionales
+            financial_aid_types_field = "gui_nature_aide_financieres"
+            technical_aid_types_field = "gui_nature_aide_ingenierie"
+        else:
+            # Appels à projets (AAP)
+            financial_aid_types_field = "pro_nature_aide_financieres"
+            technical_aid_types_field = "pro_nature_aide_ingenierie"
+
+        aid_types = []
+
+        financial_aid_types = line.get(financial_aid_types_field, [])
+        for aid_type_label in financial_aid_types:
+            aid_type = [
+                item[0] for item in ALL_FINANCIAL_AIDS if item[1] == aid_type_label
+            ][0]
+            if aid_type:
+                aid_types.append(aid_type)
+            else:
+                self.stdout.write(
+                    self.style.ERROR(f"Aid type {aid_type_label} not mapped")
+                )
+
+        technical_aid_types = line.get(technical_aid_types_field, [])
+        for aid_type_label in technical_aid_types:
+            aid_type = [
+                item[0] for item in TECHNICAL_AIDS if item[1] == aid_type_label
+            ][0]
+            if aid_type:
+                aid_types.append(aid_type)
+            else:
+                self.stdout.write(
+                    self.style.ERROR(f"Aid type {aid_type_label} not mapped")
+                )
+
+        return aid_types
+
     def extract_targeted_audiences(self, line):
         """
         Source format: list of dicts
@@ -158,6 +242,26 @@ class Command(BaseImportCommand):
                 )
                 # self.stdout.write(self.style.ERROR(f'{audience_name}'))
         return aid_audiences
+
+    def extract_programs(self, line):
+        """
+        Source format: list of ints
+        Get the objects, loop on the values and match to our AUDIENCES
+        Exemple of string to process:
+        "FEDER - Fonds européen de développement régional"
+        They use AT's program names, minus the EU flag emoji (🇪🇺)
+        some of our programs names have
+        """
+        programs = line.get("gui_programme_aides", [])
+        aid_programs = []
+        if programs != [""]:
+            for program in programs:
+                at_program = Program.objects.filter(name__contains=program).first()
+
+                if at_program:
+                    aid_programs.append(at_program)
+
+        return aid_programs
 
     def extract_categories(self, line):
         """
