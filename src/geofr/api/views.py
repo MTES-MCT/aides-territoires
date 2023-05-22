@@ -59,21 +59,27 @@ class PerimeterViewSet(
 
         is_visible_to_users = self.request.query_params.get(
             "is_visible_to_users", "false"
-        )  # noqa
+        )
         if is_visible_to_users == "true":
             qs = qs.filter(is_visible_to_users=True)
 
-        is_non_obsolete = self.request.query_params.get(
-            "is_non_obsolete", "true"
-        )  # noqa
+        is_non_obsolete = self.request.query_params.get("is_non_obsolete", "true")
         if is_non_obsolete == "true":
             qs = qs.filter(is_obsolete=False)
 
         if len(q) >= MIN_SEARCH_LENGTH:
+            """
+            Lowering the similarity requirement from the standard 0.3 so that some missing
+            perimeters are shown for the following example searches:
+
+            - CCPL → CC du Pays de Limours (CCPL) (EPCI)
+            - Dinan → CA Dinan Agglomération (EPCI) )
+            """
             qs = (
                 qs.annotate(similarity=TrigramSimilarity("unaccented_name", q))
                 .filter(
                     Q(unaccented_name__trigram_similar=remove_accents(q))
+                    | Q(similarity__gt=0.2)
                     | Q(zipcodes__icontains=accented_q)
                 )
                 .order_by("-similarity", "-scale", "name")
@@ -129,7 +135,7 @@ class PerimeterScalesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         perimeter_scales = [
             {"id": id, "name": name, "weight": weight}
             for (weight, id, name) in Perimeter.SCALES_TUPLE
-        ]  # noqa
+        ]
         return perimeter_scales
 
     @extend_schema(
