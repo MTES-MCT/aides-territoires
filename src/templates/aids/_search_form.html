@@ -1,4 +1,4 @@
-<form id="search-form" method="get" action="{% url 'search_view' %}" autocomplete='off'>
+<form id="search-form" method="get" {% if search_page %} action="{% url 'search_minisite_view' search_page.slug %}" {% else %} action="{% url 'search_view' %}" {% endif %} autocomplete='off'>
 
     {{ form.integration }}
 
