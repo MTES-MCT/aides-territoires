@@ -206,6 +206,12 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
 
         host = self.request.get_host()
         request_ua = self.request.META.get("HTTP_USER_AGENT", "")
+
+        # handle case search_page is not displayed in a subdomain
+        if "/portails/" in self.request.path:
+            path = self.request.path.partition("/portails/")[2]
+            host = path.partition("/")[0]
+
         log_aidsearchevent.delay(
             querystring=self.request.GET.urlencode(),
             results_count=qs.count(),
