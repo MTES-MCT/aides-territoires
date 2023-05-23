@@ -82,6 +82,9 @@
                             <li class="fr-sidemenu__item {% if contrib_profile %}fr-sidemenu__item--active{% endif %}">
                                 <a class="fr-sidemenu__link" href="{% url 'contributor_profile' %}" target="_self" {% if contrib_profile %}aria-current="page"{% endif %} rel="noopener">Mon profil</a>
                             </li>
+                            <li class="fr-sidemenu__item {% if backers_blacklist %}fr-sidemenu__item--active{% endif %}">
+                                <a class="fr-sidemenu__link" href="{% url 'backers_blacklist' %}" target="_self" {% if backers_blacklist %}aria-current="page"{% endif %} rel="noopener">Porteurs d’aide masqués</a>
+                            </li>
                             <li class="fr-sidemenu__item {% if history_login %}fr-sidemenu__item--active{% endif %}">
                                 <a class="fr-sidemenu__link" href="{% url 'history_login' %}" target="_self" {% if history_login %}aria-current="page"{% endif %} rel="noopener">Mon journal de connexion</a>
                             </li>

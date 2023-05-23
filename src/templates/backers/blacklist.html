@@ -1,0 +1,70 @@
+{% extends "_base.html" %}
+{% load i18n compress mailing_list %}
+
+{% block extratitle %}Mes notifications{% endblock extratitle %}
+
+{% block extraclasses %}light{% endblock extraclasses %}
+
+{% block sectionid %}user-account{% endblock sectionid %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil
+            d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'user_dashboard' %}">Mon compte</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Porteurs d’aides masqués</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="fr-container fr-mb-5w fr-mt-0">
+    <div class="fr-grid-row">
+
+        {% include 'accounts/_sidebar_menu.html' with backers_blacklist=True %}
+
+        <div class="fr-col-12 fr-col-md-9">
+            <div class="fr-grid-row fr-grid-row--middle">    
+                <h1 class="fr-h3 fr-col-12 fr-col-md-9">Porteurs d’aides masqués</h1>
+            </div>
+
+            <div class="fr-alert fr-alert--info fr-alert--sm">
+                <p>
+                    Cette page liste les porteurs d’aide correpondant aux paramètres de votre organisation
+                    (périmètre, type)
+                </p>
+                <p>
+                    Vous pouvez les masquer individuellement dans les résultats de recherche.
+                </p>
+            </div>
+
+            {% for backer in page_obj %}
+                <div class="fr-toggle fr-toggle--label-left">
+                    <input type="checkbox" class="fr-toggle__input" id="toggle-hide-{{ backer.id }}" aria-describedby="toggle-hide-{{ backer.id }}-hint-text">
+                    <label class="fr-toggle__label" for="toggle-hide-{{ backer.id }}" data-fr-checked-label="Masqué" data-fr-unchecked-label="Affiché">
+                        {{ backer.name }} ({{ backer.nb_instructed_aids }} aides)
+                    </label>
+                    <p class="fr-hint-text" id="toggle-hide-{{ backer.id }}-hint-text"><a href="{{ backer.get_absolute_url }}" class="href">Voir la page du porteur</a></p>
+                    
+                </div>
+            {% endfor %}
+            
+
+            {% include '_pagination.html' %}
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,11 +1,13 @@
 from django.views.generic import ListView
 from django.http import Http404
+from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 
-from backers.models import Backer
 from aids.models import Aid
-from programs.models import Program
-from categories.models import Category
 from aids.views import AidPaginator
+from backers.models import Backer
+from categories.models import Category
+from geofr.utils import get_all_related_perimeters
+from programs.models import Program
 from stats.utils import log_backerviewevent
 
 
@@ -99,4 +101,42 @@ class BackerDetailView(ListView):
         context["categories"] = categories
         context["backer_page"] = True
 
+        return context
+
+
+class BackersBlacklistView(ContributorAndProfileCompleteRequiredMixin, ListView):
+    template_name = "backers/blacklist.html"
+    paginate_by = 20
+
+    def get_queryset(self):
+
+        user = self.request.user
+        user_org = user.beneficiary_organization
+        perimeter = user_org.perimeter
+        target_audience = user_org.organization_type[0]
+
+        related_perimeters = get_all_related_perimeters(perimeter.id, values=["id"])
+        live_aids = Aid.objects.live()
+
+        qs = (
+            Backer.objects.prefetch_related("financed_aids")
+            .select_related("perimeter")
+            .filter(
+                perimeter_id__in=related_perimeters,
+                financed_aids__in=live_aids,
+                financed_aids__perimeter_id__in=related_perimeters,
+                financed_aids__targeted_audiences__overlap=[target_audience],
+            )
+            .distinct()
+            .order_by(("name"))
+        )
+
+        qs = qs.annotate_aids_count(
+            Backer.financed_aids, "nb_financed_aids"
+        ).annotate_aids_count(Backer.instructed_aids, "nb_instructed_aids")
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context["backers"] = self.object_list
         return context

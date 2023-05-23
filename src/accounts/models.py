@@ -244,6 +244,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text="Comment l’utilisateur a-t-il connu Aides-territoires (champ libre)?",
     )
 
+    masked_backers = models.ManyToManyField(
+        "backers.Backer",
+        verbose_name="Porteurs d’aide masqués",
+        blank=True,
+    )
+
     # Notification settings
     notification_counter = models.PositiveIntegerField(
         "Nombre de notifications reçues", default=0
