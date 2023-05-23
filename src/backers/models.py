@@ -161,13 +161,11 @@ class BackerQuerySet(models.QuerySet):
         See this bug:
         https://code.djangoproject.com/ticket/10060#comment:67
         """
-        raw_sql = """
+        raw_sql = f"""
             SELECT COUNT(*)
-            FROM {model} as model
+            FROM {related_fields.through._meta.db_table} as model
             WHERE model.backer_id = backers_backer.id
-        """.format(
-            model=related_fields.through._meta.db_table
-        )
+        """  # nosec B608, B611
         annotation = {annotation_name: RawSQL(raw_sql, [])}
         return self.annotate(**annotation)
 
@@ -179,7 +177,7 @@ class Backer(models.Model):
 
     name = models.CharField("Nom", max_length=256, db_index=True)
     slug = models.SlugField(
-        "Fragment d’URL", help_text="Laissez vide pour autoremplir", blank=True
+        "Fragment d’URL", help_text="Laisser vide pour autoremplir.", blank=True
     )
     description = models.TextField(
         "Description complète du porteur d’aides", default="", blank=True
@@ -209,7 +207,7 @@ class Backer(models.Model):
 
     is_corporate = models.BooleanField("Porteur d’aides privé ?", default=False)
     is_spotlighted = models.BooleanField(
-        "Le porteur est-il mis en avant ?",
+        "Le porteur est-il mis en avant ?",
         default=False,
         help_text="Si le porteur est mis en avant, son logo apparaît sur la page d’accueil",
     )
@@ -244,8 +242,8 @@ class Backer(models.Model):
     date_created = models.DateTimeField("Date de création", default=timezone.now)
 
     class Meta:
-        verbose_name = "Porteur"
-        verbose_name_plural = "Porteurs"
+        verbose_name = "Porteur d’aides"
+        verbose_name_plural = "Porteurs d’aides"
 
     def __str__(self):
         return self.name
