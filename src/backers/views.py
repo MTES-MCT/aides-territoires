@@ -1,7 +1,12 @@
+import json
+from django.db.models import Exists, OuterRef
+from django.http import Http404, JsonResponse
+from django.shortcuts import get_object_or_404
+from django.views import View
 from django.views.generic import ListView
-from django.http import Http404
-from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 
+from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
+from accounts.models import User
 from aids.models import Aid
 from aids.views import AidPaginator
 from backers.models import Backer
@@ -127,6 +132,13 @@ class BackersBlacklistView(ContributorAndProfileCompleteRequiredMixin, ListView)
                 financed_aids__perimeter_id__in=related_perimeters,
                 financed_aids__targeted_audiences__overlap=[target_audience],
             )
+            .annotate(
+                is_masked=Exists(
+                    User.masked_backers.through.objects.filter(
+                        backer_id=OuterRef("pk"), user_id=user.pk
+                    )
+                )
+            )
             .distinct()
             .order_by(("name"))
         )
@@ -140,3 +152,17 @@ class BackersBlacklistView(ContributorAndProfileCompleteRequiredMixin, ListView)
         context = super().get_context_data()
         context["backers"] = self.object_list
         return context
+
+
+class ToggleBackerMaskView(ContributorAndProfileCompleteRequiredMixin, View):
+    def post(self, request, pk):
+        """
+        Method called from the front-end through an Ajax post
+        """
+        user = request.user
+        backer = get_object_or_404(Backer, pk=pk)
+        is_masked = json.loads(request.POST.get("masked", "false"))
+        user.toggle_masked_backer(backer=backer, is_masked=is_masked)
+        print(is_masked, type(is_masked))
+
+        return JsonResponse({"status": "success"})

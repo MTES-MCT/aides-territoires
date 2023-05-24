@@ -9,6 +9,7 @@ from django.contrib.auth.models import (
 from django.utils import timezone
 
 from model_utils import Choices
+from backers.models import Backer
 
 from notifications.constants import NOTIFICATION_SETTINGS_FREQUENCIES_LIST
 from notifications.models import Notification
@@ -357,6 +358,15 @@ class User(AbstractBaseUser, PermissionsMixin):
                 preferences_string += f'&perimeter={preferences["perimeter"]}'
         preferences["base_search_string"] = preferences_string
         return preferences
+
+    def toggle_masked_backer(self, backer: Backer, is_masked: bool):
+        """
+        Toggles the masking status of a backer.
+        """
+        if is_masked:
+            self.masked_backers.add(backer)
+        else:
+            self.masked_backers.remove(backer)
 
 
 class UserLastConnexion(models.Model):

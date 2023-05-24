@@ -1,5 +1,5 @@
 from django.urls import path
-from backers.views import BackerDetailView, BackersBlacklistView
+from backers.views import BackerDetailView, BackersBlacklistView, ToggleBackerMaskView
 
 
 urlpatterns = [
@@ -9,5 +9,10 @@ urlpatterns = [
         "masquer/",
         BackersBlacklistView.as_view(),
         name="backers_blacklist",
+    ),
+    path(
+        "masquer/<int:pk>/",
+        ToggleBackerMaskView.as_view(),
+        name="toggle_backer_mask",
     ),
 ]
