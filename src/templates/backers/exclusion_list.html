@@ -33,7 +33,7 @@
 <div class="fr-container fr-mb-5w fr-mt-0">
     <div class="fr-grid-row">
 
-        {% include 'accounts/_sidebar_menu.html' with backers_blacklist=True %}
+        {% include 'accounts/_sidebar_menu.html' with backers_exclusion_list=True %}
 
         <div class="fr-col-12 fr-col-md-9">
             <div class="fr-grid-row fr-grid-row--middle">    
@@ -50,14 +50,22 @@
                 <p>
                     Vous pouvez les masquer individuellement dans les résultats de recherche.
                 </p>
+
+                <p id="nb-excluded-backers">
+                    {% if nb_excluded %}
+                        {{ nb_excluded }} porteur{{ nb_excluded|pluralize }} masqué{{ nb_excluded|pluralize }}.
+                    {% else %}
+                        Tous les porteurs sont affichés.
+                    {% endif %}
+                </p>
             </div>
 
             <div id="at-backer-toggles">
                 {% for backer in page_obj %}
                     <div class="fr-toggle">
-                        <input type="checkbox" class="fr-toggle__input" id="toggle-mask-{{ backer.id }}" aria-describedby="toggle-mask-{{ backer.id }}-hint-text" data-at-backer-id="{{ backer.id }}"{% if backer.is_masked %}checked{% endif %}>
+                        <input type="checkbox" class="fr-toggle__input" id="toggle-mask-{{ backer.id }}" aria-describedby="toggle-mask-{{ backer.id }}-hint-text" data-at-backer-id="{{ backer.id }}"{% if backer.is_excluded %}checked{% endif %}>
                         <label class="fr-toggle__label" for="toggle-mask-{{ backer.id }}" data-fr-checked-label="Masqué" data-fr-unchecked-label="Affiché">
-                            {{ backer.name }} ({{ backer.nb_instructed_aids }} aides)
+                            {{ backer.name }} ({{ backer.nb_financed_aids }} aide{{ backer.nb_financed_aids|pluralize }})
                         </label>
                         <p class="fr-hint-text" id="toggle-mask-{{ backer.id }}-hint-text"><a href="{{ backer.get_absolute_url }}" class="href">
                             Voir la page du porteur</a>
@@ -75,27 +83,9 @@
 
 {% block extra_js %}
     <script type="text/javascript" nonce="{{ request.csp_nonce }}">
-        (function (exports) {
-            // Update the masked status of a backer for the current user
-            exports.toggleMaskedBacker = function () {
-                let backerId = $(this).attr('data-at-backer-id');
-                let isChecked = $(this).prop('checked');
-                console.log(backerId, isChecked);
-                $.post(
-                    '/partenaires/masquer/' + backerId + '/',
-                    {
-                        'masked': isChecked ? 1 : 0,
-                        'csrfmiddlewaretoken': '{{ csrf_token }}'
-                    },
-                    function (data) {
-                        console.log(data.response);
-                    },
-                );
-            };
-        })(this);
-        $(document).ready(function () {
-            const backerToggles = $('#at-backer-toggles .fr-toggle__input');
-            backerToggles.on('click', toggleMaskedBacker);
-        });
+        var csrf_token = '{{ csrf_token }}';
     </script>
+    {% compress js %}
+        <script src="/static/js/backers/toggle_excluded_backers.js"></script>
+    {% endcompress %}
 {% endblock %}

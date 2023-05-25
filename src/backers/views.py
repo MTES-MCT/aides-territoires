@@ -109,8 +109,8 @@ class BackerDetailView(ListView):
         return context
 
 
-class BackersBlacklistView(ContributorAndProfileCompleteRequiredMixin, ListView):
-    template_name = "backers/blacklist.html"
+class BackersExclusionListView(ContributorAndProfileCompleteRequiredMixin, ListView):
+    template_name = "backers/exclusion_list.html"
     paginate_by = 20
 
     def get_queryset(self):
@@ -133,8 +133,8 @@ class BackersBlacklistView(ContributorAndProfileCompleteRequiredMixin, ListView)
                 financed_aids__targeted_audiences__overlap=[target_audience],
             )
             .annotate(
-                is_masked=Exists(
-                    User.masked_backers.through.objects.filter(
+                is_excluded=Exists(
+                    User.excluded_backers.through.objects.filter(
                         backer_id=OuterRef("pk"), user_id=user.pk
                     )
                 )
@@ -143,26 +143,29 @@ class BackersBlacklistView(ContributorAndProfileCompleteRequiredMixin, ListView)
             .order_by(("name"))
         )
 
-        qs = qs.annotate_aids_count(
-            Backer.financed_aids, "nb_financed_aids"
-        ).annotate_aids_count(Backer.instructed_aids, "nb_instructed_aids")
+        qs = qs.annotate_aids_count(Backer.financed_aids, "nb_financed_aids")
         return qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
+
+        user = self.request.user
+        context["nb_excluded"] = user.excluded_backers.count()
+
         context["backers"] = self.object_list
         return context
 
 
-class ToggleBackerMaskView(ContributorAndProfileCompleteRequiredMixin, View):
+class ToggleBackerExcludeView(ContributorAndProfileCompleteRequiredMixin, View):
     def post(self, request, pk):
         """
         Method called from the front-end through an Ajax post
         """
         user = request.user
         backer = get_object_or_404(Backer, pk=pk)
-        is_masked = json.loads(request.POST.get("masked", "false"))
-        user.toggle_masked_backer(backer=backer, is_masked=is_masked)
-        print(is_masked, type(is_masked))
+        is_excluded = json.loads(request.POST.get("excluded", "false"))
+        user.toggle_excluded_backer(backer=backer, is_excluded=is_excluded)
 
-        return JsonResponse({"status": "success"})
+        nb_excluded = user.excluded_backers.count()
+
+        return JsonResponse({"status": "success", "nb_excluded": nb_excluded})

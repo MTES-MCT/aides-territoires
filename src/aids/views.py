@@ -161,6 +161,14 @@ class SearchView(SearchMixin, FormMixin, ListView):
                 request_ua=request_ua,
             )
 
+        if self.request.user and self.request.user.is_authenticated:
+            user = self.request.user
+            excluded_backers = user.excluded_backers.values_list("id", flat=True)
+
+            ordered_results = ordered_results.exclude(
+                financers__id__in=excluded_backers
+            ).exclude(instructors__id__in=excluded_backers)
+
         return ordered_results
 
     def get_programs(self):

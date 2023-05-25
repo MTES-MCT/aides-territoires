@@ -245,7 +245,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text="Comment l’utilisateur a-t-il connu Aides-territoires (champ libre)?",
     )
 
-    masked_backers = models.ManyToManyField(
+    excluded_backers = models.ManyToManyField(
         "backers.Backer",
         verbose_name="Porteurs d’aide masqués",
         blank=True,
@@ -359,14 +359,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         preferences["base_search_string"] = preferences_string
         return preferences
 
-    def toggle_masked_backer(self, backer: Backer, is_masked: bool):
+    def toggle_excluded_backer(self, backer: Backer, is_excluded: bool):
         """
-        Toggles the masking status of a backer.
+        Toggles the exclusion status of a backer.
         """
-        if is_masked:
-            self.masked_backers.add(backer)
+        if is_excluded:
+            self.excluded_backers.add(backer)
         else:
-            self.masked_backers.remove(backer)
+            self.excluded_backers.remove(backer)
 
 
 class UserLastConnexion(models.Model):
