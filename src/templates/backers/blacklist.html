@@ -42,8 +42,10 @@
 
             <div class="fr-alert fr-alert--info fr-alert--sm">
                 <p>
-                    Cette page liste les porteurs d’aide correpondant aux paramètres de votre organisation
-                    (périmètre, type)
+                    Cette page liste les porteurs d’aide correpondant aux
+                    <a href="{% url 'organization_update_view' user.beneficiary_organization.pk %}">
+                        paramètres de votre structure.
+                    </a>
                 </p>
                 <p>
                     Vous pouvez les masquer individuellement dans les résultats de recherche.
