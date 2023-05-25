@@ -1,5 +1,5 @@
 {% extends 'aids/_base_search.html' %}
-{% load compress %}
+{% load compress static %}
 
 {% block extratitle %}{{ search_page.meta_title|default:search_page.title }}{% endblock %}
 {% block meta_description %}{{ search_page.meta_description }}{% endblock %}
@@ -91,7 +91,8 @@
 {% block extra_js %}
     {{ block.super }}
     {% compress js %}
-        <script src="/static/js/links_on_images.js"></script>
-        <script src="/static/js/responsive_iframe.js"></script>
+        <script src="{% static 'js/links_on_images.js' %}"></script>
+        <script src="{% static 'js/responsive_iframe.js' %}"></script>
+        <script src="{% static 'js/alerts/alert_form.js' %}"></script>
     {% endcompress %}
 {% endblock %}
