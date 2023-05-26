@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             model_name="user",
             name="excluded_backers",
             field=models.ManyToManyField(
-                blank=True, to="backers.backer", verbose_name="Porteurs d’aide masqués"
+                blank=True, to="backers.backer", verbose_name="Porteurs d’aides masqués"
             ),
         ),
     ]

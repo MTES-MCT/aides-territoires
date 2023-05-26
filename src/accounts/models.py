@@ -247,7 +247,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     excluded_backers = models.ManyToManyField(
         "backers.Backer",
-        verbose_name="Porteurs d’aide masqués",
+        verbose_name="Porteurs d’aides masqués",
         blank=True,
     )
 
