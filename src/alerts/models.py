@@ -9,6 +9,7 @@ from model_utils import Choices
 
 from aids.models import Aid
 from search.utils import clean_search_querystring
+from search.models import SearchPage
 
 
 class Alert(models.Model):
@@ -60,11 +61,15 @@ class Alert(models.Model):
         published_after = self.latest_alert_date.strftime("%Y-%m-%d")
         querydict["published_after"] = published_after
         querydict["action"] = "alert"
-        absolute_url = "{}?{}".format(
-            reverse("search_view"), querydict.urlencode()
-        )  # noqa
+        absolute_url = "{}?{}".format(reverse("search_view"), querydict.urlencode())
         if in_minisite:
-            return absolute_url.replace("/aides/", "/")
+            if not SearchPage.objects.get(slug=self.source).subdomain_enabled:
+                absolute_url = "{}?{}".format(
+                    reverse("search_minisite_view", args=[self.source]),
+                    querydict.urlencode(),
+                )
+            else:
+                return absolute_url.replace("/aides/", "/")
         return absolute_url
 
     def get_new_aids(self):

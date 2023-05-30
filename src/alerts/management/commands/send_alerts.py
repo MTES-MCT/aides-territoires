@@ -16,6 +16,7 @@ from django.utils import timezone
 
 from core.utils import is_subdomain, build_host_with_subdomain
 from alerts.models import Alert
+from search.models import SearchPage
 from stats.utils import log_event
 from emails.utils import send_email
 
@@ -81,8 +82,16 @@ class Command(BaseCommand):
 
         site = Site.objects.get_current()
         domain = site.domain
-        domain_with_subdomain = build_host_with_subdomain(site.domain, alert.source)
         in_minisite = is_subdomain(alert.source)
+        if (
+            alert.source != "aides-territoires"
+            and not SearchPage.objects.get(slug=alert.source).subdomain_enabled
+        ):
+            domain_with_subdomain = build_host_with_subdomain(
+                site.domain, "aides-territoires"
+            )
+        else:
+            domain_with_subdomain = build_host_with_subdomain(site.domain, alert.source)
 
         # alert_url is different if on a minisite or not
         alert_url = alert.get_absolute_url(in_minisite=in_minisite)

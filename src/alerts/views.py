@@ -57,6 +57,11 @@ class AlertCreate(MessageMixin, CreateView):
         redirect_url = reverse("search_view")
         if source == "aides-territoires":
             redirect_url += f"?{querystring}"
+        elif (
+            source != "aides-territoires"
+            and not SearchPage.objects.get(slug=source).subdomain_enabled
+        ):
+            redirect_url = reverse("search_minisite_view", args=[source])
         return HttpResponseRedirect(redirect_url)
 
 
