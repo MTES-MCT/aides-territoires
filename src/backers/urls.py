@@ -17,6 +17,6 @@ urlpatterns = [
     path(
         "masquer/<int:pk>/",
         ToggleBackerExcludeView.as_view(),
-        name="toggle_backer_mask",
+        name="toggle_backer_exclude_view",
     ),
 ]
