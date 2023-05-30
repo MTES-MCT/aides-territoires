@@ -15,6 +15,13 @@ IMAGE_PATH = os.path.join(os.getcwd(), "upload/tests/data/test-image.png")
 
 User = get_user_model()
 
+TEST_STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
 
 def upload_image(client):
     url = reverse("upload_image")
@@ -36,7 +43,7 @@ def test_anonymous_cannot_post_to_upload_view(client):
     assert response.status_code == 302
 
 
-@override_settings(DEFAULT_FILE_STORAGE="django.core.files.storage.FileSystemStorage")
+@override_settings(STORAGES=TEST_STORAGES)
 def test_superuser_can_upload_an_image(client, superuser):
     client.force_login(superuser)
     count_before = UploadImage.objects.count()
@@ -45,7 +52,7 @@ def test_superuser_can_upload_an_image(client, superuser):
     assert count_after == count_before + 1
 
 
-@override_settings(DEFAULT_FILE_STORAGE="django.core.files.storage.FileSystemStorage")
+@override_settings(STORAGES=TEST_STORAGES)
 def test_anonymous_cannot_upload_an_image(client):
     client.logout()
     count_before = UploadImage.objects.count()
@@ -54,7 +61,7 @@ def test_anonymous_cannot_upload_an_image(client):
     assert count_after == count_before
 
 
-@override_settings(DEFAULT_FILE_STORAGE="django.core.files.storage.FileSystemStorage")
+@override_settings(STORAGES=TEST_STORAGES)
 def test_search_page_admin_can_upload_an_image(client, user):
     SearchPageFactory(title="Test PP", administrator=user)
     client.force_login(user)
@@ -64,7 +71,7 @@ def test_search_page_admin_can_upload_an_image(client, user):
     assert count_after == count_before + 1
 
 
-@override_settings(DEFAULT_FILE_STORAGE="django.core.files.storage.FileSystemStorage")
+@override_settings(STORAGES=TEST_STORAGES)
 def test_upload_with_empty_data_fail_gracefully(client, superuser):
     client.force_login(superuser)
     url = reverse("upload_image")

@@ -59,14 +59,6 @@ COMPRESS_PRECOMPILERS = (
     ),
 )
 
-STATIC_ROOT = "staticfiles"
-
-STATICFILES_DIRS = [
-    Path(DJANGO_ROOT, "static"),
-    Path(DJANGO_ROOT, "node_modules"),
-]
-
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 TEMPLATES = TEMPLATES.copy()
 TEMPLATES[0]["DIRS"] = [Path(DJANGO_ROOT, "templates")]
@@ -162,7 +154,24 @@ ALERT_EMAIL_FEEDBACK_FORM_URL = env("ALERT_EMAIL_FEEDBACK_FORM_URL", default="")
 ALERT_DELETE_FEEDBACK_FORM_URL = env("ALERT_DELETE_FEEDBACK_FORM_URL", default="")
 
 # File storage settings
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+STATIC_ROOT = "staticfiles"
+
+STATICFILES_DIRS = [
+    Path(DJANGO_ROOT, "static"),
+    Path(DJANGO_ROOT, "node_modules"),
+]
+
+
 AWS_S3_ENDPOINT_URL = env("AWS_S3_ENDPOINT_URL")
 AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")

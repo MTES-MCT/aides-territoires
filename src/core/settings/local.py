@@ -145,9 +145,17 @@ SCALINGO_API_TOKEN = env("SCALINGO_API_TOKEN", default="")
 ADMIN_OTP_ENABLED = env.bool("ADMIN_OTP_ENABLED", False)
 
 # File storage settings
-DEFAULT_FILE_STORAGE = env(
-    "DEFAULT_FILE_STORAGE", default="django.core.files.storage.FileSystemStorage"
-)
+STORAGES = {
+    "default": {
+        "BACKEND": env(
+            "DEFAULT_FILE_STORAGE",
+            default="django.core.files.storage.FileSystemStorage",
+        ),
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 AWS_S3_ENDPOINT_URL = env("AWS_S3_ENDPOINT_URL", default="")
 AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID", default="")
 AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY", default="")
