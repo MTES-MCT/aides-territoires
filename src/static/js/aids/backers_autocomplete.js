@@ -4,6 +4,7 @@ let backersAutocomplete = new SlimSelect({
         placeholderText: 'Tous les porteurs d’aide',
         searchPlaceholder: 'Rechercher',
         searchingText: 'Recherche…',
+        searchText: 'Tapez quelques caractères',
         maxValuesShown: 1,
         maxValuesMessage: '{number} valeurs choisies',
         allowDeselect: true
@@ -11,32 +12,28 @@ let backersAutocomplete = new SlimSelect({
     events: {
         search: (search, currentData) => {
             return new Promise((resolve, reject) => {
-                if (search.length < 3) {
-                    return reject('Tapez au moins 3 caractères')
+                if (search.length < 2) {
+                    return reject('Tapez au moins 2 caractères')
                 }
-                console.log(search)
 
-                let queryPath = '/api/backers/?has_published_financed_aids: true&q=' + search
-
-                fetch(queryPath, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }).then((response) => response.json(), error => { }).then((data) => {
-                    // Take the data and create an array of options
-                    // excluding any that are already selected in currentData
-                    const options = data.results
-                        .map((entry) => {
-                            return {
-                                text: entry.text,
-                                value: entry.id
-                            }
-                        })
-                    console.log(options)
-                    resolve(options)
-                })
+                let apiUrl = '/api/backers/?has_published_financed_aids=true&q=' + search
+                fetch(apiUrl)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const options = data.results
+                            .map((entry) => {
+                                return {
+                                    text: entry.text,
+                                    value: entry.id
+                                }
+                            })
+                        console.log(options);
+                        resolve(options)
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    })
             })
         }
-    }
+    },
 })
