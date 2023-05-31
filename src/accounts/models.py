@@ -359,7 +359,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         preferences["base_search_string"] = preferences_string
         return preferences
 
-    def toggle_excluded_backer(self, backer: Backer, is_excluded: bool):
+    def toggle_excluded_backer(self, backer: Backer, is_excluded: bool) -> None:
         """
         Toggles the exclusion status of a backer.
         """

@@ -37,7 +37,7 @@
 
                 {% if user.is_authenticated %}
                     <div class="fr-tags-group">
-                        <a href="{% url 'backers_exclusion_list' %}" class="fr-tag fr-icon-eye-fill fr-tag--icon-left" target="_self">
+                        <a href="{% url 'backers_exclusion_list' %}?backlink=1" class="fr-tag fr-icon-eye-fill fr-tag--icon-left" target="_self">
                             {{ user.excluded_backers.count }} porteur{{ user.excluded_backers.count|pluralize }} d’aides masqué{{ user.excluded_backers.count|pluralize }}
                         </a>
                     </div>

@@ -1,11 +1,11 @@
 {% extends "_base.html" %}
 {% load i18n compress mailing_list %}
 
-{% block extratitle %}Mes notifications{% endblock extratitle %}
+{% block extratitle %}Porteurs d’aides masqués{% endblock extratitle %}
 
 {% block extraclasses %}light{% endblock extraclasses %}
 
-{% block sectionid %}user-account{% endblock sectionid %}
+{% block sectionid %}excluded-backers{% endblock sectionid %}
 
 {% block breadcrumbs %}
 <div class="fr-container">
@@ -59,6 +59,14 @@
                     {% endif %}
                 </p>
             </div>
+
+            {% if request.GET.backlink == "1" %}
+                <div class="fr-my-2w">
+                    <ul class="fr-btns-group">
+                        <a class="fr-btn" href="{% url 'search_view' %}?{{ current_search }}">Retourner aux résultats de la recherche</a>
+                    </ul>
+                </div>
+            {% endif %}
 
             <div id="at-backer-toggles">
                 {% for backer in page_obj %}

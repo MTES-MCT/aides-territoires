@@ -1,5 +1,7 @@
 import json
+
 from django.db.models import Exists, OuterRef
+from django.conf import settings
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views import View
@@ -114,7 +116,6 @@ class BackersExclusionListView(ContributorAndProfileCompleteRequiredMixin, ListV
     paginate_by = 20
 
     def get_queryset(self):
-
         user = self.request.user
         user_org = user.beneficiary_organization
         perimeter = user_org.perimeter
@@ -139,18 +140,26 @@ class BackersExclusionListView(ContributorAndProfileCompleteRequiredMixin, ListV
                     )
                 )
             )
-            .distinct()
-            .order_by(("name"))
         )
 
-        qs = qs.annotate_aids_count(Backer.financed_aids, "nb_financed_aids")
-        return qs
+        # Combining with already-excluded backers in case some already blocked
+        # backer is no more on the normal list
+        excluded_backers = user.excluded_backers.all()
+
+        qs = qs | excluded_backers
+        qs = qs.distinct().annotate_aids_count(Backer.financed_aids, "nb_financed_aids")
+
+        return qs.order_by(("name"))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
 
         user = self.request.user
         context["nb_excluded"] = user.excluded_backers.count()
+
+        context["current_search"] = self.request.session.get(
+            settings.SEARCH_COOKIE_NAME, ""
+        )
 
         context["backers"] = self.object_list
         return context
