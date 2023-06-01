@@ -1,0 +1,53 @@
+{% extends 'aids/_base_search.html' %}
+{% load compress %}
+
+{% block extratitle %}{{ search_page.meta_title|default:search_page.title }}{% endblock %}
+{% block meta_description %}{{ search_page.meta_description }}{% endblock %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{% url 'home' %}">Accueil</a></li>
+        <li><a href="">Recherches personnalisées</a></li>
+        <li class="active" aria-current="page">{{ search_page.title }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<article class="fr-container fr-my-5w fr-background-main fr-py-5w fr-grid-row fr-grid-row--center">
+{% block before_title %}{% endblock %}
+    <div class="fr-col-md-10">
+        <h1>{{ search_page.title }}</h1>
+
+        {{ search_page.content|safe }}
+        
+        {% if search_page.more_content %}
+        <section class="fr-accordion">
+            <h3 class="fr-accordion__title">
+                <button id="more-content-reveal-button" class="fr-accordion__btn" aria-expanded="false" aria-controls="more-content">Voir plus de détails</button>
+            </h3>
+            <div id="more-content" class="fr-collapse">
+            {{ search_page.more_content|safe }}
+            </div>
+        </section>
+        {% endif %}
+    </div>
+</article>
+{% block sticky-btn %}{% endblock %}
+{{ block.super }}
+{% endblock %}
+
+{% comment %}
+Specialized search pages are often associated with *loads* of categories,
+so displaying them is not very helpful.
+{% endcomment %}
+{% block search-meta-categories %}{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% compress js %}
+        <script src="/static/js/links_on_images.js"></script>
+        <script src="/static/js/responsive_iframe.js"></script>
+    {% endcompress %}
+{% endblock %}
