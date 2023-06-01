@@ -18,7 +18,6 @@ var trumbowygConfig = {
         ['removeformat'],
         ['fullscreen']
     ],
-    autogrow: true,
     minimalLinks: true,
     removeformatPasted: true,
     svgPath: '/static/trumbowyg/dist/ui/icons.svg',
