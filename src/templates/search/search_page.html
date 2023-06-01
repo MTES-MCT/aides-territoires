@@ -25,6 +25,10 @@
 </div>
 {% endblock %}
 
+{% block search-form %}
+     {% include 'search/_search_form.html' %}
+{% endblock search-form %}
+
 {% block content %}
 <article class="fr-container fr-mb-5w fr-background-main fr-pb-5w fr-grid-row fr-grid-row--center">
 {% block before_title %}{% endblock %}
