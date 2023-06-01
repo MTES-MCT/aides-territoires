@@ -29,13 +29,21 @@
      {% include 'search/_search_form.html' %}
 {% endblock search-form %}
 
+{% block result-count %}
+<h3>
+    {% with paginator.count as nb_aids %}
+        <span class="result-count">{{ nb_aids }} résultat{% if nb_aids > 1 %}s{% endif %}</span>
+    {% endwith %}
+</h3>
+{% endblock result-count %}
+
 {% block content %}
 <article class="fr-container fr-mb-5w fr-background-main fr-pb-5w fr-grid-row fr-grid-row--center">
 {% block before_title %}{% endblock %}
     <div class="fr-col-md-12">
 
         <div id="searchpage-title">
-            <div class="fr-grid-row fr-grid-row--middle">
+            <div class="fr-grid-row fr-grid-row--middle fr-mb-5w">
                 <div class="fr-col-12 fr-col-md-9">
                     <h1>{{ search_page.title }}</h1>
                 </div>
@@ -47,7 +55,6 @@
             </div>
         </div>
 
-        {% if pages %}
         <div class="fr-tabs">
             <ul class="fr-tabs__list" role="tablist" aria-label="Onglets du portail">
                 <li role="presentation">
@@ -87,7 +94,6 @@
                 {% endfor %}
             {% endif %}
         </div>
-        {% endif %}
     </div>
 </article>
 {% endblock %}
