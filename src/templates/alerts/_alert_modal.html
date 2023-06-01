@@ -7,7 +7,7 @@
                         <button class="fr-btn fr-btn--close" title="Fermer la fenêtre modale" aria-controls="alert-search-modal">Fermer</button>
                     </div>
                     <div class="fr-modal__content">
-                        {% if not search_page and not user.is_authenticated %}
+                        {% if not search_page.subdomain_enabled and not user.is_authenticated %}
                             <h2 id="fr-modal-title-alert-search" class="fr-modal__title">
                                 <span class="fr-icon-arrow-right-line fr-icon--lg"></span>Connectez-vous pour être notifié des nouvelles aides correspondant
                                 à votre recherche, et gérer les paramètres de vos alertes
