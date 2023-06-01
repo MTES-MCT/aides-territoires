@@ -140,6 +140,19 @@ div#how img {
   max-height: 4rem;
 }
 
+
+// Trumbowyg customizations
+.fr-input-group .trumbowyg-box .trumbowyg-editor {
+  min-height: 16rem;
+}
+
+.trumbowyg-editor[contenteditable=true]:empty::before {
+  content: attr(placeholder);
+  color: var(--text-mention-grey);
+  font-style: italic;
+}
+
+
 // Aid create or edit
 
 section#aid-edit {

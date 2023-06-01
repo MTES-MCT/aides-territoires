@@ -28,3 +28,6 @@ css:
 fullcss:
 	sassc -I $(include) $(infile) $(outfile)
 	./node_modules/.bin/postcss --use autoprefixer -r $(outfile) --no-map
+
+compress:
+	pipenv run python manage.py compress --force
