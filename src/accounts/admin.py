@@ -51,15 +51,17 @@ class DepartmentFilter(admin.SimpleListFilter):
         value = self.value()
 
         if value:
-            is_dept = queryset.filter(
+            # Concatenating the users whose perimeter is the searched department
+            # or a petimeter inside it (commune, EPCI)
+            perimeter_is_dept = queryset.filter(
                 beneficiary_organization__perimeter__scale=Perimeter.SCALES.department,
                 beneficiary_organization__perimeter__code=value,
             )
-            in_dept = queryset.filter(
+            perimeter_in_dept = queryset.filter(
                 beneficiary_organization__perimeter__departments__contains=[value]
             )
 
-            return in_dept | is_dept
+            return perimeter_in_dept | perimeter_is_dept
         return queryset
 
 
