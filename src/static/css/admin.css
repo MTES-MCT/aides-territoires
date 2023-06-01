@@ -152,3 +152,8 @@ del {
     margin-left: 3rem;
     line-height: 1.6rem;
 }
+
+/* Trumbowyg customizations */
+.trumbowyg-editor {
+    min-height: 16rem !important;
+}
