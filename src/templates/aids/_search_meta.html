@@ -124,6 +124,15 @@
     {% endif %}
     {% endblock search-meta-is-charged %}
 
+    {% block search-meta-european-aid %}
+    {% if current_search_dict.european_aid %}
+    <div class="fr-tags-group">
+        <p title="aides européennes ?" class="fr-tag fr-icon-arrow-right-line fr-tag--icon-left">
+            {% form_choice_display current_search_dict 'european_aid' %}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock search-meta-european-aid %}
 
     {% block search-meta-text %}
     {% if current_search_dict.text %}

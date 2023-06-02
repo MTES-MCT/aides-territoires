@@ -9,6 +9,7 @@ from django.utils.html import format_html
 from django.conf import settings
 
 from aids.models import Aid
+from aids.forms import BaseAidSearchForm
 from projects.models import Project
 from aids.constants import AID_TYPES_ALL
 from organizations.constants import ORGANIZATION_TYPE_CHOICES_COMMUNES_OR_EPCI
@@ -183,6 +184,8 @@ def form_choice_display(obj, field):
         choices_dict = dict(Project.CONTRACT_LINK)
     elif field == "is_charged":
         choices_dict = dict(Aid.IS_CHARGED)
+    elif field == "european_aid":
+        choices_dict = dict(BaseAidSearchForm.EUROPEAN_AIDS)
 
     key = obj.get(field)
 
