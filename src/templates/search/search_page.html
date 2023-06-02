@@ -86,7 +86,7 @@
             {% if pages %}
                 {% for page in pages %}
                     <div id="tabpanel-{{page.title|slugify}}-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-{{page.title|slugify}}" tabindex="0">
-                        <h2 class="fr-mt-0 fr-mb-2w">{{page.title|slugify}}</h2>
+                        <h2 class="fr-mt-0 fr-mb-2w">{{ page.title }}</h2>
                         <div>
                             {{ page.content|safe }}
                         </div>
