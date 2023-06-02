@@ -62,19 +62,18 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
 
     title = models.CharField("Titre", max_length=256, db_index=True)
     slug = models.SlugField(
-        "Fragment d'URL", help_text="Laisser vide pour autoremplir.", blank=True
+        "Fragment d’URL", help_text="Laisser vide pour autoremplir.", blank=True
     )
     short_text = models.TextField(
-        "Texte d'introduction",
+        "Texte d’introduction",
         help_text="Introduction concise (inférieure à 256 caractères).",
         max_length=256,
-        null=True,
         blank=True,
     )
     text = models.TextField("Contenu", blank=False)
     logo = models.FileField(
         "Illustration",
-        help_text="Évitez les fichiers trop lourds. Préférez les fichiers svg.",
+        help_text="Évitez les fichiers trop lourds. Préférez les fichiers SVG.",
         upload_to=logo_upload_to,
         null=True,
         blank=True,
@@ -89,7 +88,7 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
 
     category = models.ForeignKey(
         "BlogPostCategory",
-        verbose_name="Catégorie de l'article de blog",
+        verbose_name="Catégorie de l’article de blog",
         on_delete=models.PROTECT,
         related_name="categories",
         null=True,
@@ -107,7 +106,7 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
         help_text=(
             "Le titre qui sera affiché dans les SERPs. "
             "Il est recommandé de le garder < 60 caractères. "
-            "Laissez vide pour réutiliser le titre de l'article."
+            "Laissez vide pour réutiliser le titre de l’article."
         ),
     )
     meta_description = models.TextField(
@@ -163,7 +162,7 @@ class BlogPostCategory(models.Model):
 
     name = models.CharField("Nom", max_length=256, db_index=True)
     slug = models.SlugField(
-        "Fragment d'URL", help_text="Laisser vide pour autoremplir.", unique=True
+        "Fragment d’URL", help_text="Laisser vide pour autoremplir.", unique=True
     )
     description = models.TextField("Description", blank=False)
 
@@ -213,12 +212,11 @@ class PromotionPost(xwf_models.WorkflowEnabled, models.Model):
 
     title = models.CharField("Titre", max_length=256, db_index=True)
     slug = models.SlugField(
-        "Fragment d'URL", help_text="Laisser vide pour autoremplir.", blank=True
+        "Fragment d’URL", help_text="Laisser vide pour autoremplir.", blank=True
     )
     short_text = models.TextField(
-        "Texte d'introduction",
+        "Texte d’introduction",
         help_text="Introduction concise (inférieure à 256 caractères).",
-        null=True,
         blank=True,
     )
 
@@ -231,9 +229,8 @@ class PromotionPost(xwf_models.WorkflowEnabled, models.Model):
     )
 
     image_alt_text = models.CharField(
-        "texte alternatif pour l'image",
+        "texte alternatif pour l’image",
         max_length=120,
-        null=True,
         blank=True,
     )
 
@@ -268,7 +265,7 @@ class PromotionPost(xwf_models.WorkflowEnabled, models.Model):
     )
     backers = models.ManyToManyField(
         "backers.Backer",
-        verbose_name="Porteurs d'aides",
+        verbose_name="Porteurs d’aides",
         related_name="promotionsPost",
         blank=True,
     )
