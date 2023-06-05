@@ -17,6 +17,7 @@ from aids.models import Aid
 from accounts.models import User, UserLastConnexion
 from exporting.tasks import export_users_as_csv, export_users_as_xlsx
 from exporting.utils import get_admin_export_message
+from geofr.models import Perimeter
 
 
 class AuthorFilter(InputFilter):
@@ -35,6 +36,33 @@ class AuthorFilter(InputFilter):
                 )
             ).filter(Q(author_name__icontains=value))
             return qs
+
+
+class DepartmentFilter(admin.SimpleListFilter):
+    """Custom admin filter to get users by department."""
+
+    parameter_name = "by_department"
+    title = "Département"
+
+    def lookups(self, request, model_admin):
+        return [(d.code, d.name) for d in Perimeter.objects.departments()]
+
+    def queryset(self, request, queryset):
+        value = self.value()
+
+        if value:
+            # Concatenating the users whose perimeter is the searched department
+            # or a petimeter inside it (commune, EPCI)
+            perimeter_is_dept = queryset.filter(
+                beneficiary_organization__perimeter__scale=Perimeter.SCALES.department,
+                beneficiary_organization__perimeter__code=value,
+            )
+            perimeter_in_dept = queryset.filter(
+                beneficiary_organization__perimeter__departments__contains=[value]
+            )
+
+            return perimeter_in_dept | perimeter_is_dept
+        return queryset
 
 
 class SearchPageAdministratorFilter(admin.SimpleListFilter):
@@ -131,6 +159,7 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
         "is_certified",
         "ml_consent",
         "groups",
+        DepartmentFilter,
     ]
 
     autocomplete_fields = [
