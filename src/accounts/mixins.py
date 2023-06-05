@@ -124,7 +124,7 @@ class ContributorAndProfileCompleteRequiredMixin(UserPassesTestMixin):
             and user.is_contributor_or_staff_or_beneficiary
             and user.bound_to_organization
             and user.profile_complete
-        )  # noqa
+        )
 
     def get_register_url(self):
         user = self.request.user

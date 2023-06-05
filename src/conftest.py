@@ -61,6 +61,8 @@ def contributor():
     user = ContributorFactory()
     user.beneficiary_organization = sample_org
     user.save()
+
+    sample_org.beneficiaries.add(user)
     return user
 
 
