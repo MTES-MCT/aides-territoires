@@ -166,69 +166,14 @@ msgid "Full description of the page. Will be displayed above results."
 msgstr ""
 "Description complète de la page. Sera affichée au dessus des résultats."
 
-msgid "The main displayed title."
-msgstr "Le titre principal."
-
 msgid "A shorter, more concise title."
 msgstr "Un titre plus concis, pour affichage spécifique"
-
-msgid ""
-"This part is used in the url. DON't change this for existing pages. MUST be "
-"lowercase for minisites."
-msgstr ""
-"Cette partie est utilisée dans l'url. NE PAS CHANGER pour une page "
-"existante. DOIT être en minuscule pour les sites partenaires."
-
-msgid "Additional page content"
-msgstr "Contenu additionnel"
-
-msgid "Hidden content, revealed with a `See more` button"
-msgstr "Contenu révélé au clic sur le bouton « Voir plus »."
-
-msgid "The search paramaters url"
-msgstr "Les paramètres de recherche en format url"
-
-msgid "Highlighted aids"
-msgstr "Aides à mettre en avant"
-
-msgid "Excluded aids"
-msgstr "Aides à exclure"
 
 msgid "Meta image"
 msgstr "Image (meta)"
 
 msgid "Make sure the file is at least 1024px long."
 msgstr "Vérifiez que l'image a une largeur minimale de 1024px"
-
-msgid "Color 1"
-msgstr "Couleur 1"
-
-msgid "Main background color"
-msgstr "Couleur du fond principal"
-
-msgid "Color 2"
-msgstr "Couleur 2"
-
-msgid "Search form background color"
-msgstr "Couleur du formulaire de recherche"
-
-msgid "Color 3"
-msgstr "Couleur 3"
-
-msgid "Buttons and title borders color"
-msgstr "Couleur des boutons et bordures de titres"
-
-msgid "Color 4"
-msgstr "Couleur 4"
-
-msgid "Link colors"
-msgstr "Couleur des liens"
-
-msgid "Color 5"
-msgstr "Couleur 5"
-
-msgid "Footer background color"
-msgstr "Couleur de fond du pied de page"
 
 msgid "Logo link"
 msgstr "Lien associé au logo"

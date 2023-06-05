@@ -7,7 +7,6 @@ from django.db.models import Count, Case, When, IntegerField
 from django.http import QueryDict
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
 
 from aids.constants import AUDIENCES_GROUPED
 from aids.models import Aid
@@ -59,36 +58,32 @@ class SearchPage(models.Model):
 
     objects = SearchPageQuerySet.as_manager()
 
-    title = models.CharField(
-        _("Title"), max_length=180, help_text=_("The main displayed title.")
-    )
+    title = models.CharField("Titre", max_length=180, help_text="Le titre principal.")
     short_title = models.CharField(
-        _("Short title"),
+        "Titre court",
         max_length=180,
         blank=True,
         default="",
-        help_text=_("A shorter, more concise title."),
+        help_text="Un titre plus concis, pour affichage spécifique",
     )
     slug = models.SlugField(
-        _("Slug"),
-        help_text=_(
-            "This part is used in the url. "
-            "DON't change this for existing pages. "
-            "MUST be lowercase for minisites."
-        ),
+        "Fragment d’URL",
+        help_text="Cette partie est utilisée dans l'url. \
+             NE PAS CHANGER pour une page. \
+            DOIT être en minuscule pour les sites partenaires.",
     )
     subdomain_enabled = models.BooleanField(
         "Afficher depuis un sous-domaine ?",
         default=True,
     )
     content = models.TextField(
-        _("Page content"),
-        help_text=_("Full description of the page. Will be displayed above results."),
+        "Contenu de la page",
+        help_text="Description complète de la page. Sera affichée au dessus des résultats.",
     )
     more_content = models.TextField(
-        _("Additional page content"),
+        "Contenu additionnel",
         blank=True,
-        help_text=_("Hidden content, revealed with a `See more` button"),
+        help_text="Contenu révélé au clic sur le bouton « Voir plus ».",
     )
     tab_title = models.CharField(
         "Titre de l'onglet principal", blank=True, default="Accueil", max_length=180
@@ -103,7 +98,7 @@ class SearchPage(models.Model):
     )
 
     search_querystring = models.TextField(
-        _("Querystring"), help_text=_("The search paramaters url")
+        "Querystring", help_text="Les paramètres de recherche en format url"
     )
 
     administrator = models.ForeignKey(
@@ -117,7 +112,7 @@ class SearchPage(models.Model):
 
     highlighted_aids = models.ManyToManyField(
         "aids.Aid",
-        verbose_name=_("Highlighted aids"),
+        verbose_name="Aides à mettre en avant",
         related_name="highlighted_in_search_pages",
         help_text="Il est possible de mettre jusqu'à 9 aides en avant. \
              Les aides mises en avant s'affichent en haut des résultats du portail, \
@@ -126,72 +121,73 @@ class SearchPage(models.Model):
     )
     excluded_aids = models.ManyToManyField(
         "aids.Aid",
-        verbose_name=_("Excluded aids"),
+        verbose_name="Aides à exclure",
         related_name="excluded_from_search_pages",
         blank=True,
     )
 
     # SEO
     meta_title = models.CharField(
-        _("Meta title"),
+        "Meta titre",
         max_length=180,
         blank=True,
         default="",
-        help_text=_(
-            "This will be displayed in SERPs. "
-            "Keep it under 60 characters. "
-            "Leave empty and we will reuse the page title."
-        ),
+        help_text="Le titre qui sera affiché dans les SERPs.\
+            Il est recommandé de le garder < \
+            60 caractères. Laissez vide pour réutiliser le titre de la page.",
     )
     meta_description = models.TextField(
-        _("Meta description"),
+        "Meta description",
         blank=True,
         default="",
         max_length=256,
-        help_text=_("This will be displayed in SERPs. Keep it under 120 characters."),
+        help_text="Sera affichée dans les SERPs. À garder < 120 caractères.",
     )
     meta_image = models.FileField(
-        _("Meta image"),
+        "Meta image",
         null=True,
         blank=True,
         upload_to=meta_upload_to,
-        help_text=_("Make sure the file is at least 1024px long."),
+        help_text="Vérifiez que l'image a une largeur minimale de 1024px",
     )
 
     # custom_colors
     color_1 = models.CharField(
-        _("Color 1"), max_length=10, blank=True, help_text=_("Main background color")
+        "Couleur 1", max_length=10, blank=True, help_text="Couleur du fond principal"
     )
     color_2 = models.CharField(
-        _("Color 2"),
+        "Couleur 2",
         max_length=10,
         blank=True,
-        help_text=_("Search form background color"),
+        help_text="Couleur du formulaire de recherche",
     )
     color_3 = models.CharField(
-        _("Color 3"),
+        "Couleur 3",
         max_length=10,
         blank=True,
-        help_text=_("Buttons and title borders color"),
+        help_text="Couleur des boutons et bordures de titres",
     )
     color_4 = models.CharField(
-        _("Color 4"), max_length=10, blank=True, help_text=_("Link colors")
+        "Couleur 4", max_length=10, blank=True, help_text="Couleur des liens"
     )
     color_5 = models.CharField(
-        _("Color 5"), max_length=10, blank=True, help_text=_("Footer background color")
+        "Couleur 5",
+        max_length=10,
+        blank=True,
+        help_text="Couleur de fond du pied de page",
     )
     logo = models.FileField(
-        _("Logo image"),
+        "Logo",
         null=True,
         blank=True,
         upload_to=logo_upload_to,
-        help_text=_("Make sure the file is not too heavy. Prefer svg files."),
+        help_text="Évitez les fichiers trop lourds. Préférez les fichiers svg.",
     )
     logo_link = models.URLField(
-        _("Logo link"),
+        "Lien du logo",
         null=True,
         blank=True,
-        help_text=_("The url for the partner's logo link"),
+        help_text="L'url vers laquelle renvoie un clic sur le logo partenaire",
     )
 
     # Search form customization fields
@@ -200,7 +196,7 @@ class SearchPage(models.Model):
     )
     available_categories = models.ManyToManyField(
         "categories.Category",
-        verbose_name=_("Categories"),
+        verbose_name="Sous-thématiques",
         related_name="search_pages",
         blank=True,
     )
@@ -209,7 +205,7 @@ class SearchPage(models.Model):
         "Montrer le champ « structure » ?", default=True
     )
     available_audiences = ChoiceArrayField(
-        verbose_name=_("Targeted audiences"),
+        verbose_name="Bénéficiaires de l'aide",
         null=True,
         blank=True,
         base_field=models.CharField(max_length=32, choices=AUDIENCES_GROUPED),
@@ -231,8 +227,8 @@ class SearchPage(models.Model):
         "Montrer le champ « nature de l'aide » ?", default=False
     )
 
-    date_created = models.DateTimeField(_("Date created"), default=timezone.now)
-    date_updated = models.DateTimeField(_("Date updated"), auto_now=True)
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+    date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
 
     class Meta:
         verbose_name = "page personnalisée"
