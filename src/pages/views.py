@@ -1,5 +1,7 @@
 from django.views.generic import DetailView
+from django.urls import reverse
 from django.http import Http404, HttpResponsePermanentRedirect
+
 from pages.models import Page
 
 
@@ -9,7 +11,10 @@ class PageView(DetailView):
 
     def get(self, request, *args, **kwargs):
         url = self.kwargs.get("url")
-        if not url.endswith("/"):
+        if url == "europe/":
+            redirect_url = reverse("search_page", args=["europe"])
+            return HttpResponsePermanentRedirect(redirect_url)
+        elif not url.endswith("/"):
             return HttpResponsePermanentRedirect(url + "/")
         return super().get(request, *args, **kwargs)
 
