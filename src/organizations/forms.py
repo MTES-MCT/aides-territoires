@@ -144,6 +144,7 @@ class OrganizationUpdateForm(forms.ModelForm, AidesTerrBaseForm):
             "siret_code",
             "ape_code",
             "perimeter",
+            "intercommunality_type",
         ]
 
     def __init__(self, *args, **kwargs):
