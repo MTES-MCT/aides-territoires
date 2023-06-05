@@ -1,6 +1,8 @@
 import pytest
 
 from django.urls import reverse
+from geofr.factories import PerimeterFactory
+from geofr.models import Perimeter
 
 from organizations.models import Organization
 
@@ -10,6 +12,9 @@ pytestmark = pytest.mark.django_db
 def test_organization_update_view_updates_the_org(client, contributor):
 
     user_org = contributor.beneficiary_organization
+    org_perimeter = PerimeterFactory(
+        scale=Perimeter.SCALES.adhoc, is_visible_to_users=True
+    )
 
     client.force_login(contributor)
 
@@ -20,7 +25,7 @@ def test_organization_update_view_updates_the_org(client, contributor):
         {
             "organization_type": "epci",
             "intercommunality_type": "SM",
-            "perimeter": user_org.id,
+            "perimeter": org_perimeter.id,
             "name": "Syndicat mixte du Pays des Champis",
             "address": "1 place de l’Hôtel de Ville",
             "city_name": "Champignac-en-Cambrousse",
