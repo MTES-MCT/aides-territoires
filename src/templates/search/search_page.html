@@ -58,12 +58,12 @@
         <div class="fr-tabs">
             <ul class="fr-tabs__list" role="tablist" aria-label="Onglets du portail">
                 <li role="presentation">
-                    <button id="tabpanel-home" class="fr-tabs__tab fr-icon-checkbox-line fr-tabs__tab--icon-left" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-home-panel">Présentation Générale</button>
+                    <button id="tabpanel-home" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-home-panel">Présentation Générale</button>
                 </li>
                 {% if pages %}
                     {% for page in pages %}
                         <li role="presentation">
-                            <button id="tabpanel-{{page.title|slugify}}" class="fr-tabs__tab fr-icon-checkbox-line fr-tabs__tab--icon-left" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-{{page.title|slugify}}-panel">{{page.title}}</button>
+                            <button id="tabpanel-{{page.title|slugify}}" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-{{page.title|slugify}}-panel">{{page.title}}</button>
                         </li>
                     {% endfor %}
                 {% endif %}
