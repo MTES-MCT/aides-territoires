@@ -54,7 +54,7 @@
 
 $(document).ready(function () {
     // hide "custom" perimeters in the user part of the website
-    let RESTRICT_TO_VISIBLE_PERIMETERS = $('#perimeter').length || $('#project_perimeter').length || $('#search-form').length || $('#advanced-search-form').length || $('#register-page').length || $('#register-commune-page').length;
+    let RESTRICT_TO_VISIBLE_PERIMETERS = $('#perimeter').length || $('#project_perimeter').length || $('#search-form').length || $('#advanced-search-form').length || $('#register-page').length || $('#register-commune-page').length || $('#update-organization-form');
     let RESTRICT_TO_NON_OBSOLETE_PERIMETERS = $('#perimeter').length || $('#search-form').length || $('#advanced-search-form').length || $('#register-page').length || $('#register-commune-page').length;
 
     // Filter on scale on certain forms
