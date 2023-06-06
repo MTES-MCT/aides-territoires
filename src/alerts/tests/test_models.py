@@ -5,6 +5,7 @@ from django.utils import timezone
 
 from aids.factories import AidFactory
 from alerts.factories import AlertFactory
+from search.factories import SearchPageFactory
 
 pytestmark = pytest.mark.django_db
 
@@ -74,7 +75,8 @@ def test_get_absolute_url():
     assert alert_absolute_url.startswith("/aides/")
 
 
-def test_get_absolute_url_in_minisite():
-    alert = AlertFactory(querystring="text=test")
+def test_get_absolute_url_in_minisite_with_subdomain_enabled():
+    search_page = SearchPageFactory(slug="martinique", subdomain_enabled=True)
+    alert = AlertFactory(querystring="text=test", source=search_page.slug)
     alert_absolute_url = alert.get_absolute_url(in_minisite=True)
     assert not alert_absolute_url.startswith("/aides/")

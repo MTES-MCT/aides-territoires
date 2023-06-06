@@ -63,7 +63,7 @@ class Alert(models.Model):
         querydict["action"] = "alert"
         absolute_url = "{}?{}".format(reverse("search_view"), querydict.urlencode())
         if in_minisite:
-            if not SearchPage.objects.get(slug=self.source).subdomain_enabled:
+            if SearchPage.objects.get(slug=self.source).subdomain_enabled is not True:
                 absolute_url = "{}?{}".format(
                     reverse("search_minisite_view", args=[self.source]),
                     querydict.urlencode(),
