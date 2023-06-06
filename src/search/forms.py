@@ -32,6 +32,7 @@ class SearchPageAdminForm(forms.ModelForm):
     more_content = RichTextField(
         label="Contenu additionnel",
         help_text="Contenu caché, révélé au clic sur le bouton « Voir plus ».",
+        required=False,
     )
     available_categories = CategoryMultipleChoiceField(
         label="Sous-thématiques",

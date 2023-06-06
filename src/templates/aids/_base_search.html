@@ -26,11 +26,14 @@
                 {% if current_search_dict.programs.0.slug == "fonds-vert" %}
                     {% include "aids/_warning_fonds_vert.html" %}
                 {% endif %}
+
+                {% block result-count %}
                 <h1>
                     {% with paginator.count as nb_aids %}
                         <span class="result-count">{{ nb_aids }} résultat{% if nb_aids > 1 %}s{% endif %}</span>
                     {% endwith %}
                 </h1>
+                {% endblock result-count %}
 
                 {% if request.GET.published_after %}
                     <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w">
@@ -47,7 +50,9 @@
                         <div class="fr-card">
                             <div class="fr-card__body">
                                 <div class="fr-card__content">
-                                    {% include "aids/_search_form.html" %}
+                                    {% block search-form %}
+                                        {% include "aids/_search_form.html" %}
+                                    {% endblock search-form %}
                                     <section class="fr-accordion">
                                         <h3 class="fr-accordion__title">
                                             <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-help-search">

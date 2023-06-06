@@ -83,7 +83,7 @@ urlpatterns = [
     path("alertes/", include("alerts.urls")),
     path("notifications/", include("notifications.urls")),
     path("data/", include("data.urls")),
-    path("recherche/", include("search.urls")),
+    path("portails/", include("search.urls")),
     path("upload/", include("upload.urls")),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap_xml"),
     path(

@@ -15,6 +15,7 @@ from accounts.mixins import ContributorAndProfileCompleteRequiredMixin
 from alerts.tasks import send_alert_confirmation_email
 from alerts.forms import AlertForm, DeleteAlertForm
 from alerts.models import Alert
+from search.models import SearchPage
 
 
 class AlertCreate(MessageMixin, CreateView):
@@ -40,6 +41,11 @@ class AlertCreate(MessageMixin, CreateView):
         redirect_url = reverse("search_view")
         if alert.source == "aides-territoires":
             redirect_url += f"?{alert.querystring}"
+        elif (
+            alert.source != "aides-territoires"
+            and SearchPage.objects.get(slug=alert.source).subdomain_enabled is not True
+        ):
+            redirect_url = reverse("search_minisite_view", args=[alert.source])
         return HttpResponseRedirect(redirect_url)
 
     def form_invalid(self, form):
@@ -51,6 +57,11 @@ class AlertCreate(MessageMixin, CreateView):
         redirect_url = reverse("search_view")
         if source == "aides-territoires":
             redirect_url += f"?{querystring}"
+        elif (
+            source != "aides-territoires"
+            and not SearchPage.objects.get(slug=source).subdomain_enabled
+        ):
+            redirect_url = reverse("search_minisite_view", args=[source])
         return HttpResponseRedirect(redirect_url)
 
 

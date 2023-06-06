@@ -504,6 +504,13 @@ class BaseAidSearchForm(AidesTerrBaseForm):
         "theme__name", "name"
     )
 
+    EUROPEAN_AIDS = Choices(
+        ("all", "Aides européennes ou non"),
+        ("european", "Aides européennes"),
+        ("sectorial", "Aides européennes sectorielles"),
+        ("organizational", "Aides européennes structurelles"),
+    )
+
     text = AutocompleteSynonymChoiceField(
         label="Mot-clés", queryset=SynonymList.objects.all(), required=False
     )
@@ -594,6 +601,12 @@ class BaseAidSearchForm(AidesTerrBaseForm):
     )
     origin_url = forms.URLField(label="URL d’origine", required=False)
 
+    european_aid = forms.ChoiceField(
+        label="Aides européennes ?",
+        required=False,
+        choices=EUROPEAN_AIDS,
+    )
+
     # This field is not related to the search, but is submitted
     # in views embedded through an iframe.
     integration = forms.CharField(required=False, widget=forms.HiddenInput)
@@ -666,6 +679,14 @@ class BaseAidSearchForm(AidesTerrBaseForm):
         recurrence = self.cleaned_data.get("recurrence", None)
         if recurrence:
             qs = qs.filter(recurrence=recurrence)
+
+        european_aid = self.cleaned_data.get("european_aid", "all")
+        if european_aid == "all" or european_aid == "":
+            qs = qs
+        elif european_aid == "european" or european_aid == "":
+            qs = qs.filter(european_aid__in=["sectorial", "organizational"])
+        else:
+            qs = qs.filter(european_aid=european_aid)
 
         call_for_projects_only = self.cleaned_data.get("call_for_projects_only", False)
         if call_for_projects_only:

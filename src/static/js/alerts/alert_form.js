@@ -40,10 +40,17 @@
 
     exports.appendSourceToForm = function (event) {
         var source = 'aides-territoires';
+        var pathname = window.location.pathname;
 
         // if in search page, use SEARCH_PAGE_SLUG instead
         if (typeof SEARCH_PAGE_SLUG !== "undefined") {
             source = SEARCH_PAGE_SLUG;
+        }
+        // if in search page without subdomain enabled,
+        // use the search_page slug in the path instead
+        else if (pathname.includes('/portails/')) {
+            source = pathname.split("/");
+            source = source[2]
         }
 
         var input = $('<input />');

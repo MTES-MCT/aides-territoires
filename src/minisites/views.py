@@ -60,7 +60,7 @@ class MinisiteMixin:
             # e.g https://www.aides-territoires.beta.gouv.fr
             return HttpResponseRedirect(self.get_ghost_redirection_url())
 
-        if settings.ENABLE_MINISITES_REDIRECTION:
+        if settings.ENABLE_MINISITES_REDIRECTION and self.search_page.subdomain_enabled:
             canonical_url = self.get_canonical_url(subdomain=self.search_page.slug)
             redirect_url = self.get_redirection_url(canonical_url)
             if redirect_url:
@@ -152,20 +152,32 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
     def get_context_data(self, **kwargs):
 
         pages = Page.objects.filter(minisite=self.search_page)
-        return super().get_context_data(pages=pages, **kwargs)
+        form = self.form
+        return super().get_context_data(pages=pages, form=form, **kwargs)
 
     def combine_with_form_search(self, qs):
         """When the search form is used on a minisite,
         we want to combine the base querystring with the form data.
+
+        If the base querystring defines a parameter,
+        and if there is no search_parameter in conflict with it,
+        then we will force that minisite_parameter to be used.
+
+        We do not want to force minisite_parameter to be used when
+        search_parameter is in conflict with it because it will disallow user
+        to filter more precisely
+
+        With the current solution for example,
+        if the minisite_parameter is Nouvelle Aquitaine perimeter,
+        then we want user to be able to filter and only see results for Bordeaux perimeter.
         """
         data = self.search_page.get_base_querystring_data()
-        minisite_perimeter = data.get("perimeter")
-        search_perimeter = self.form.data.get("perimeter")
-        if minisite_perimeter and not search_perimeter:
-            # If the base querystring defines a perimeter, then
-            # we will force that perimeter to be used.
-            self.form.data["perimeter"] = minisite_perimeter
-            self.form.full_clean()
+        for parameter in data:
+            minisite_parameter = data.get(parameter)
+            search_parameter = self.form.data.get(parameter)
+            if minisite_parameter and not search_parameter:
+                self.form.data[parameter] = minisite_parameter
+                self.form.full_clean()
         qs = self.form.filter_queryset(qs, apply_generic_aid_filter=True)
         return qs
 
@@ -186,7 +198,6 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
 
         # Combine from filtering with the base queryset
         qs = self.combine_with_form_search(qs)
-
         data = self.form.cleaned_data
 
         categories = data.get("categories", [])
@@ -206,6 +217,12 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
 
         host = self.request.get_host()
         request_ua = self.request.META.get("HTTP_USER_AGENT", "")
+
+        # handle case search_page is not displayed in a subdomain
+        if "/portails/" in self.request.path:
+            path = self.request.path.partition("/portails/")[2]
+            host = path.partition("/")[0]
+
         log_aidsearchevent.delay(
             querystring=self.request.GET.urlencode(),
             results_count=qs.count(),
