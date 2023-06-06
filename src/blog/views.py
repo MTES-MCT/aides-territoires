@@ -55,12 +55,15 @@ class BlogPostDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context["related_articles"] = (
+        related_posts_qs = (
             BlogPost.objects.select_related("category")
             .filter(status="published")
             .filter(category=self.object.category)
             .exclude(id=self.object.id)
+            .order_by("-date_published")
         )
+
+        context["related_articles"] = related_posts_qs[:5]
         return context
 
     def get(self, request, *args, **kwargs):
