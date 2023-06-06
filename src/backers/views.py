@@ -2,8 +2,9 @@ import json
 
 from django.db.models import Exists, OuterRef
 from django.conf import settings
+from django.contrib import messages
 from django.http import Http404, JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.views import View
 from django.views.generic import ListView
 
@@ -115,10 +116,25 @@ class BackersExclusionListView(ContributorAndProfileCompleteRequiredMixin, ListV
     template_name = "backers/exclusion_list.html"
     paginate_by = 20
 
+    def render_to_response(self, context):
+        user = self.request.user
+        user_org = user.beneficiary_organization
+
+        if not user_org.perimeter:
+            msg = "Votre profil n’est pas complet, merci de renseigner le territoire de votre organisation."  # noqa
+            messages.error(self.request, msg)
+
+            return redirect("organization_update_view", pk=user_org.pk)
+        return super().render_to_response(context)
+
     def get_queryset(self):
         user = self.request.user
         user_org = user.beneficiary_organization
         perimeter = user_org.perimeter
+
+        if not perimeter:
+            # Returning an empty queryset and managing the issue in self.render_to_response()
+            return Backer.objects.none()
         target_audience = user_org.organization_type[0]
 
         related_perimeters = get_all_related_perimeters(perimeter.id, values=["id"])
