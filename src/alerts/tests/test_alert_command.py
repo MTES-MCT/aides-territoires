@@ -44,7 +44,11 @@ def test_command_with_unvalidated_address(mailoutbox):
 
 
 def test_command_output_format(mailoutbox):
-    AlertFactory(title="Gloubiboukmark", querystring="text=Schtroumpf")
+    AlertFactory(
+        title="Gloubiboukmark",
+        querystring="text=Schtroumpf",
+        source="aides-territoires",
+    )
     AidFactory.create(name="Schtroumpf 1")
     AidFactory.create(name="Schtroumpf 2")
     AidFactory.create(name="Schtroumpf 3")
