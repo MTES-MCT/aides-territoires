@@ -4,6 +4,7 @@ from django.core.management import call_command
 
 from aids.factories import AidFactory
 from alerts.factories import AlertFactory
+from search.factories import SearchPageFactory
 
 pytestmark = pytest.mark.django_db
 
@@ -27,7 +28,8 @@ def test_command_with_an_alert_but_no_matching_aids(mailoutbox):
 
 
 def test_command_with_matching_aids(mailoutbox):
-    alert = AlertFactory(querystring="text=Schtroumpf")
+    search_page = SearchPageFactory(slug="martinique")
+    alert = AlertFactory(querystring="text=Schtroumpf", source=search_page.slug)
     AidFactory.create_batch(5, name="Schtroumpf")
     call_command("send_alerts")
     assert len(mailoutbox) == 1

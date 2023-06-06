@@ -85,7 +85,7 @@ class Command(BaseCommand):
         in_minisite = is_subdomain(alert.source)
         if (
             alert.source != "aides-territoires"
-            and not SearchPage.objects.get(slug=alert.source).subdomain_enabled
+            and SearchPage.objects.get(slug=alert.source).subdomain_enabled is not True
         ):
             domain_with_subdomain = build_host_with_subdomain(
                 site.domain, "aides-territoires"
