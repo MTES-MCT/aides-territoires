@@ -10,8 +10,6 @@
 
     {% block before_section %}{% endblock before_section %}
     <section id="aid-edit" class="fr-container">
-        <p>Les champs marqués d’un astérisque (*) sont obligatoires.</p>
-
         <div class="at-form-stepper fr-col-md-12 fr-mt-4w fr-py-2w">
             {% block form_stepper %}
                 <ul id="nav-form" class="fr-btns-group fr-btns-group--inline">
@@ -20,14 +18,29 @@
                             1 – Présentation
                         </a>
                     </li>
+                    <li role="presentation">
+                        <a class="fr-btn fr-btn--tertiary-no-outline fr-text--lg at-cursor--pointer">
+                            ＞
+                        </a>
+                    </li>
                     <li>
                         <a href="#aid-description" class="fr-btn fr-btn--secondary">
                             2 – Description
                         </a>
                     </li>
+                    <li role="presentation">
+                        <a class="fr-btn fr-btn--tertiary-no-outline fr-text--lg at-cursor--pointer">
+                            ＞
+                        </a>
+                    </li>
                     <li>
-                        <a href="#aid-eligibility" class="fr-btn fr-btn--secondary" aria-current="true">
+                        <a href="#aid-eligibility" class="fr-btn fr-btn--secondary">
                             3 – Critères d’éligibilité
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a class="fr-btn fr-btn--tertiary-no-outline fr-text--lg at-cursor--pointer">
+                            ＞
                         </a>
                     </li>
                     <li>
@@ -53,12 +66,14 @@
             </div>
             {% endif %}
 
+            <p class="fr-mt-4w">Les champs marqués d’un astérisque (*) sont obligatoires.</p>
+
             {% for field in form.hidden_fields %}
                 {{ field }}
             {% endfor %}
 
             {% block fields %}
-            <fieldset>
+            <fieldset class="at-fields-section">
                     <legend class="fr-h2 fr-pt-6w at-anchor--offset">
                         <span id="aid-presentation" class="at-stepper--section-title"></span>
                         1 – Présentation de l’aide
@@ -105,7 +120,7 @@
                     {% include '_checkbox_snippet.html' with field=form.is_call_for_project %}
             </fieldset>
 
-            <fieldset>
+            <fieldset class="at-fields-section">
                 <legend class="fr-h2 fr-pt-6w at-anchor--offset">
                     <span id="aid-description" class="at-stepper--section-title"></span>
                     2 – Description de l’aide
@@ -125,7 +140,7 @@
                 </div>
             </fieldset>
 
-            <fieldset>
+            <fieldset class="at-fields-section">
                 <legend class="fr-h2 fr-pt-6w at-anchor--offset">
                     <span id="aid-eligibility" class="at-stepper--section-title"></span>
                     3 – Critères d’éligibilité de l’aide
@@ -137,7 +152,7 @@
                 {% include '_field_snippet.html' with field=form.perimeter_suggestion %}    
             </fieldset>
 
-            <fieldset>
+            <fieldset class="at-fields-section">
                 <legend class="fr-h2 fr-pt-6w at-anchor--offset">
                     <span id="aid-contact" class="at-stepper--section-title"></span>
                     4 – Contact et démarches

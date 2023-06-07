@@ -20,17 +20,27 @@
 
 $(document).ready(function () {
     // Update the stepper when clicking on one of the buttons
-    let stepperButtons = $('#nav-form a');
+    let stepperButtons = $('#nav-form a:not(.fr-btn--tertiary-no-outline)');
 
     stepperButtons.on("click", function () {
         let clickedButtonTarget = $(this).attr("href")
         toggleActiveStepperButton(stepperButtons, clickedButtonTarget)
     });
 
-    let $sectionTitles = $('.at-stepper--section-title');
+    let $sections = $('.at-fields-section')
 
     $(window).on("scroll", function () {
-        let topSectionID = "#" + $sectionTitles.filter((i, el) => $(el).offset().top > ($(window).scrollTop() - 300)).first().prop('id')
-        toggleActiveStepperButton(stepperButtons, topSectionID)
+        let currentPosition = $(this).scrollTop();
+        $sections.each(function () {
+            let sectionTop = $(this).offset().top - 100; // offsetting a bit to account for the sticky stepper
+            let sectionBottom = sectionTop + $(this).outerHeight();
+            let sectionTitle = $(this).find('.at-stepper--section-title');
+
+            if (currentPosition >= sectionTop && currentPosition < sectionBottom) {
+                let topSectionID = "#" + $(sectionTitle).attr('id');
+                toggleActiveStepperButton(stepperButtons, topSectionID)
+                return false; // Exit the loop once the current section is found
+            }
+        });
     })
 });
