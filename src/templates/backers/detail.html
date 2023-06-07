@@ -39,6 +39,7 @@
             <div class="fr-grid-row fr-grid-row--gutters  at--space-between">
                 <div class="fr-col-12 fr-col-md-8">
                     <h1>{{ backer.name }}</h1>
+                    {% include "backers/_detail_exclusion_block.html" %}
                 </div>
                 <div class="fr-col-12 fr-col-md-3">
                     <img src="{{ backer.logo.url }}" alt="" class="fr-responsive-img">
@@ -46,6 +47,7 @@
             </div>
             {% else %}
                 <h1>{{ backer.name }}</h1>
+                {% include "backers/_detail_exclusion_block.html" %}
             {% endif %}
         </div> 
 
@@ -111,7 +113,11 @@
 {% endblock %}
 
 {% block extra_js %}
+    <script type="text/javascript" nonce="{{ request.csp_nonce }}">
+        var csrf_token = '{{ csrf_token }}';
+    </script>
     {% compress js %}
+        <script src="/static/js/backers/toggle_excluded_backers.js"></script>
         <script src="/static/js/links_on_images.js"></script>
         <script src="/static/js/responsive_iframe.js"></script>
     {% endcompress %}

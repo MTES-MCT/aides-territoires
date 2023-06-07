@@ -1,0 +1,16 @@
+{% if user.is_authenticated %}
+    <div class="fr-toggle" id="at-backer-toggles">
+        <input type="checkbox" class="fr-toggle__input" id="toggle-mask-{{ backer.id }}" data-at-backer-id="{{ backer.id }}"{% if backer_is_excluded %}checked{% endif %}>
+        <label class="fr-toggle__label" for="toggle-mask-{{ backer.id }}" data-fr-checked-label="Masqué" data-fr-unchecked-label="Affiché">
+            Masquer ce porteur dans les résultats de recherche ?
+        </label>
+    </div>
+{% else %}
+    <div class="fr-toggle" id="at-backer-toggles">
+        <input type="checkbox" disabled class="fr-toggle__input" id="toggle-mask-{{ backer.id }}" data-at-backer-id="{{ backer.id }}" aria-describedby="toggle-{{ backer.id }}-hint-text">
+        <label class="fr-toggle__label" for="toggle-mask-{{ backer.id }}" data-fr-checked-label="Masqué" data-fr-unchecked-label="Affiché">
+            Masquer ce porteur dans les résultats de recherche ?
+        </label>
+        <p class="fr-hint-text" id="toggle-{{ backer.id }}-hint-text">Vous devez vous connecter pour pouvoir utiliser cette fonctionnalité.</p>
+    </div>
+{% endif %}

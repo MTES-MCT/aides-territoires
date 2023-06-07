@@ -109,6 +109,11 @@ class BackerDetailView(ListView):
         context["categories"] = categories
         context["backer_page"] = True
 
+        if self.request.user and self.request.user.is_authenticated:
+            user = self.request.user
+            is_excluded = user.excluded_backers.filter(id=backer.id).count()
+            context["backer_is_excluded"] = is_excluded
+
         return context
 
 

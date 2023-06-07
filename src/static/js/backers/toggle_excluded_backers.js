@@ -3,7 +3,7 @@
     exports.toggleExcludeBacker = function () {
         let backerId = $(this).attr('data-at-backer-id');
         let isChecked = $(this).prop('checked');
-        console.log(backerId, isChecked);
+
         $.post(
             '/partenaires/masquer/' + backerId + '/',
             {

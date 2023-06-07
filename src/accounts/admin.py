@@ -213,7 +213,7 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
             },
         ),
         (
-            "Fusion d'organisation",
+            "Fusion d’organisation",
             {
                 "fields": (
                     "proposed_organization",
@@ -245,6 +245,7 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
                     "ml_consent",
                     "acquisition_channel",
                     "acquisition_channel_comment",
+                    "excluded_backers",
                     "last_login",
                     "date_created",
                     "date_updated",
@@ -280,7 +281,7 @@ class UserAdmin(BaseUserAdmin, ImportExportActionModelAdmin):
     def nb_aids(self, user):
         return user.aid_count
 
-    nb_aids.short_description = "Nombre d'aides"
+    nb_aids.short_description = "Nombre d’aides"
     nb_aids.admin_order_field = "aid_count"
 
     def administrator_of_search_pages_list(self, user):
