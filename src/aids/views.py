@@ -46,7 +46,7 @@ from aids.models import Aid, AidProject, SuggestedAidProject
 from aids.mixins import AidEditMixin, AidCopyMixin
 from aids.utils import prepopulate_ds_folder
 from projects.constants import EXPORT_FORMAT_KEYS
-from aids.services.export import export_aids, export_aid_stats
+from aids.services.export import export_aids, export_aid_stats, export_aid_detail_pdf
 from alerts.forms import AlertForm
 from categories.models import Category
 from minisites.mixins import SearchMixin, NarrowedFiltersMixin
@@ -1357,6 +1357,37 @@ class AidExportView(ContributorAndProfileCompleteRequiredMixin, View):
             """,
         )
         return HttpResponseRedirect(reverse("aid_draft_list_view"))
+
+
+class AidDetailExportPdfView(ContributorAndProfileCompleteRequiredMixin, View):
+    """Export an aid in pdf format."""
+
+    def get(self, request, *args, **kwargs):
+
+        aid = Aid.objects.get(slug=self.kwargs["slug"])
+        user = self.request.user
+        organization = user.beneficiary_organization
+        if user != aid.author and not user.is_superuser:
+            raise PermissionDenied()
+
+        response_data = export_aid_detail_pdf(aid, user, organization)
+        if "error" not in response_data:
+            filename = response_data["filename"]
+            return HttpResponse(
+                response_data["content"],
+                content_type=response_data["content_type"],
+                headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+            )
+        else:
+            # If something went wrong, redirect to the aid draft list page with an error
+            messages.error(
+                self.request,
+                f"""
+                Impossible de générer votre export. Si le problème persiste, merci de
+                <a href="{reverse('contact')}"/>nous contacter</a>.
+                """,
+            )
+            return HttpResponseRedirect(reverse("aid_draft_list_view"))
 
 
 class AidDetailStatsView(
