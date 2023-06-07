@@ -1,7 +1,7 @@
 <div id="form-group-{{ field.name }}" class="fr-input-group{% if field.errors %} fr-input-group--error{% endif %}{% if field.field.required %} required{% endif %} {% if required == 'true' %}required{% endif %}">
 
     <label for="{{ field.id_for_label }}" class="fr-label">
-        {{ field.label }}{% if field.field.required %} *{% endif %}
+        <span class="at-field-label">{{ field.label }}</span>{% if field.field.required %} *{% endif %}
 
         {% if field.help_text %}
             <span class="fr-hint-text">{{ field.help_text|safe }}</span>

@@ -1,8 +1,8 @@
-<div class="fr-form-group" {% if field.field.required %} required {% endif %}>
+<div id="form-group-{{ field.name }}" class="fr-form-group" {% if field.field.required %} required {% endif %}>
     <fieldset class="fr-fieldset">
         {% if field.label %}
             <legend class="fr-fieldset__legend fr-text--regular"{% if field.id_for_label %} id="label-{{ field.id_for_label }}"{% endif %}>
-                {{ field.label }}{% if field.field.required %} *{% endif %}
+                <span class="at-field-label">{{ field.label }}</span>{% if field.field.required %} *{% endif %}
 
                 {% if field.help_text %}
                     <span class="fr-hint-text">{{ field.help_text }}</span>
