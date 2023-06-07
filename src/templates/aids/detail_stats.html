@@ -65,7 +65,7 @@
                   <div class="fr-input-group fr-mb-0 fr-col-4" id="form-group-end_date">
                       <label class="fr-label" for="id_end_date"></label>
                       <input class="fr-input fr-mt-0" aria-describedby="end_date-messages" name="end_date" {% if request.GET.end_date %} value="{{ request.GET.end_date }}" {% else %} value="{% now 'Y-m-d' %}" {% endif %} required="" id="id_end_date" class="fr-input fr-mt-0" type="date">
-                      <span class="fr-hint-text">Date de début</span>
+                      <span class="fr-hint-text">Date de fin</span>
                       <div class="fr-messages-group" id="start_date-messages" aria-live="assertive"></div>
                   </div>
 
@@ -84,7 +84,7 @@
           </div>
       </div>
 
-      <div  class="fr-grid-row fr-grid-row--gutters fr-mt-1w fr-mb-5w">
+      <div  class="fr-grid-row fr-grid-row--gutters fr-grid-row--center fr-mt-1w fr-mb-5w">
         <div class="fr-col-12 fr-col-md-6">
           <div class="fr-tile">
             <div class="fr-tile__body">
@@ -109,6 +109,19 @@
             </div>
           </div>
         </div>
+        <div class="fr-col-12 fr-col-md-6">
+          <div class="fr-tile">
+            <div class="fr-tile__body">
+              <p class="fr-tile__title fr-h6">
+                Clics sur Plus d'informations
+              </p>
+            </div>
+            <div class="fr-tile__img overflow--initial" role="presentation">
+              <p class="fr-text--lg"><strong>{{ origin_url_click_events_count }}</strong></p>
+            </div>
+          </div>
+        </div>
+
         <div class="fr-col-12 fr-col-md-6">
           <div class="fr-tile">
             <div class="fr-tile__body">
