@@ -105,7 +105,11 @@
               </p>
             </div>
             <div class="fr-tile__img overflow--initial" role="presentation">
+              {% if application_url_click_events_count %}
               <p class="fr-text--lg"><strong>{{ application_url_click_events_count }}</strong></p>
+              {% else %}
+              <p class="fr-text--lg"><strong>/</strong></p>
+              {% endif %}
             </div>
           </div>
         </div>

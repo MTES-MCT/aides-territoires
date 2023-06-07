@@ -170,12 +170,16 @@ def export_aid_stats(
         .annotate(view_count=Count("date_created", distinct=True))
     )
 
-    aidapplicationurlclickevent_qs = (
-        AidApplicationUrlClickEvent.objects.filter(aid=aid.id)
-        .extra({"date_created": "date(date_created)"})
-        .values("date_created")
-        .annotate(click_count=Count("date_created", distinct=True))
-    )
+    application_url_exists = Aid.objects.get(id=aid.id).application_url
+    if application_url_exists:
+        aidapplicationurlclickevent_qs = (
+            AidApplicationUrlClickEvent.objects.filter(aid=aid.id)
+            .extra({"date_created": "date(date_created)"})
+            .values("date_created")
+            .annotate(click_count=Count("date_created", distinct=True))
+        )
+    else:
+        aidapplicationurlclickevent_qs = False
 
     aidoriginurlclickevent_qs = (
         AidOriginUrlClickEvent.objects.filter(aid=aid.id)
@@ -211,11 +215,15 @@ def export_aid_stats(
                 viewevent = x["view_count"]
         row.append(viewevent)
 
-        aidapplicationurlclickevent = 0
-        for x in aidapplicationurlclickevent_qs:
-            if datetime.strftime(x["date_created"], "%Y-%m-%d") == day:
-                aidapplicationurlclickevent = x["click_count"]
-        row.append(aidapplicationurlclickevent)
+        if aidapplicationurlclickevent_qs is not False:
+            aidapplicationurlclickevent = 0
+            for x in aidapplicationurlclickevent_qs:
+                if datetime.strftime(x["date_created"], "%Y-%m-%d") == day:
+                    aidapplicationurlclickevent = x["click_count"]
+            row.append(aidapplicationurlclickevent)
+        else:
+            aidapplicationurlclickevent = "/"
+            row.append(aidapplicationurlclickevent)
 
         aidoriginurlclickevent = 0
         for x in aidoriginurlclickevent_qs:
