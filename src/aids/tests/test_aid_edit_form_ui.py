@@ -21,6 +21,7 @@ def test_duplicate_buster(client, live_server, browser, contributor):
         recurrence="ongoing",
         author=contributor,
         origin_url="https://example.com/schtroumpf/",
+        description="Sans description",
     )
 
     aid = AidFactory(
@@ -29,6 +30,7 @@ def test_duplicate_buster(client, live_server, browser, contributor):
         recurrence="ongoing",
         author=contributor,
         origin_url="https://example.com/schtroumpf/",
+        description="Sans description",
     )
 
     edit_url = reverse("aid_edit_view", args=[aid.slug])
