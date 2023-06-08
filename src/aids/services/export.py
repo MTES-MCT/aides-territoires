@@ -151,7 +151,7 @@ def export_aid_stats(
         "Date",
         "Nombre de vues",
         "Nombre de clics sur Candidater",
-        "Nombre de clics sur Plus d'informations",
+        "Nombre de clics sur Plus d’informations",
         "Nombre de projets privés liés",
         "Nombre de projets publics liés",
     ]
