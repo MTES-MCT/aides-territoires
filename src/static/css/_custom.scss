@@ -228,16 +228,16 @@ section#aid-edit {
   max-height: none;
 }
 
-section#aid-edit #form-group-aid_types>fieldset>legend .at-field-label::after,
-section#aid-edit #form-group-categories .at-field-label::after,
-section#aid-edit #form-group-contact .at-field-label::after,
-section#aid-edit #form-group-description>label::after,
-section#aid-edit #form-group-financers .at-field-label::after,
-section#aid-edit #form-group-mobilization_steps .at-field-label::after,
-section#aid-edit #form-group-origin_url>label::after,
-section#aid-edit #form-group-perimeter .at-field-label::after,
-section#aid-edit #form-group-recurrence .at-field-label::after,
-section#aid-edit #form-group-targeted_audiences>fieldset>legend::after,
+.at-aid-create #aid-edit #form-group-aid_types>fieldset>legend .at-field-label::after,
+.at-aid-create #aid-edit #form-group-categories .at-field-label::after,
+.at-aid-create #aid-edit #form-group-contact .at-field-label::after,
+.at-aid-create #aid-edit #form-group-description>label::after,
+.at-aid-create #aid-edit #form-group-financers .at-field-label::after,
+.at-aid-create #aid-edit #form-group-mobilization_steps .at-field-label::after,
+.at-aid-create #aid-edit #form-group-origin_url>label::after,
+.at-aid-create #aid-edit #form-group-perimeter .at-field-label::after,
+.at-aid-create #aid-edit #form-group-recurrence .at-field-label::after,
+.at-aid-create #aid-edit #form-group-targeted_audiences>fieldset>legend::after,
 .at-required--label label::after {
   content: '*';
   margin-left: 0.2rem;
