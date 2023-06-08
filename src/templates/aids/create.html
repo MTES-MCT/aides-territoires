@@ -3,6 +3,9 @@
 
 {% block breadcrumbs %}{% endblock breadcrumbs %}
 
+{% block extra-class %}at-aid-create{% endblock extra-class %}
+
+
 {% block page_title %}
     <h1>Publier une aide</h1>
 {% endblock page_title %}
@@ -16,29 +19,6 @@
 </div>
 {% endblock before_section %}
 
-{% block form_sidebar %}
-<div id="nav-form" class="list-group list-group-horizontal">
-    <a href="#aid-presentation" class="at-link__nodecorator list-group-item list-group-item-action active" aria-current="true">
-        <span class="counter">1</span>
-        Présentation
-    </a>
-    <span class="separator fr-icon-arrow-right-s-line" aria-hidden="true"></span>
-    <a href="#aid-description" class="at-link__nodecorator list-group-item list-group-item-action">
-        <span class="counter">2</span>
-        Description
-    </a>
-    <span class="separator fr-icon-arrow-right-s-line" aria-hidden="true"></span>
-    <a href="#aid-eligibility" class="at-link__nodecorator list-group-item list-group-item-action">
-        <span class="counter">3</span>
-        Critères d’éligibilité
-    </a>
-    <span class="separator fr-icon-arrow-right-s-line" aria-hidden="true"></span>
-    <a href="#aid-contact" class="at-link__nodecorator list-group-item list-group-item-action">
-        <span class="counter">4</span>
-        Contact et démarches
-    </a>
-</div>
-{% endblock form_sidebar %}
 
 {% block form_actions %}
 <div class="fr-background-main fr-pt-2w">

@@ -1,6 +1,6 @@
 <div class="fr-input-group fr-mb-4w" {% if field.field.required %} required {% endif %}>
     <label for="{{ field.id_for_label }}">
-        {{ field.label }}{% if field.field.required %} *{% endif %}
+        <span class="at-field-label{% if field.field.required %} at-required--label{% endif %}">{{ field.label }}</span>
 
         {% if field.help_text %}
             <span class="fr-hint-text">{{ field.help_text|safe }}</span>

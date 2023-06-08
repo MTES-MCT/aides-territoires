@@ -12,7 +12,7 @@
 
     {% if field.label %}
         <label for="{{ field.id_for_label }}">
-            {{ field.label }}{% if field.field.required %} *{% endif %}
+            <span class="at-field-label{% if field.field.required %} at-required--label{% endif %}">{{ field.label }}</span>
 
             {% if field.help_text %}
                 <span class="fr-hint-text">{{ field.help_text }}</span>

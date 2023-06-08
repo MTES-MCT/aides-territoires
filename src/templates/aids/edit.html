@@ -79,38 +79,14 @@
     </div>
 {% endblock before_section %}
 
-{% block form_sidebar %}
-    <div id="nav-form" class="list-group list-group-horizontal">
-        <a href="#aid-presentation" class=" at-link__nodecorator list-group-item list-group-item-action active" aria-current="true">
-            <span class="counter">1</span>
-            Présentation
-        </a>
-        <span class="separator fr-icon-arrow-right-s-line" aria-hidden="true"></span>
-        <a href="#aid-description" class=" at-link__nodecorator list-group-item list-group-item-action">
-            <span class="counter">2</span>
-            Description
-        </a>
-        <span class="separator fr-icon-arrow-right-s-line" aria-hidden="true"></span>
-        <a href="#aid-eligibility" class="at-link__nodecorator list-group-item list-group-item-action">
-            <span class="counter">3</span>
-            Critères d’éligibilité
-        </a>
-        <span class="separator fr-icon-arrow-right-s-line" aria-hidden="true"></span>
-        <a href="#aid-contact" class="at-link__nodecorator list-group-item list-group-item-action">
-            <span class="counter">4</span>
-            Contact et démarches
-        </a>
-    </div>
-{% endblock form_sidebar %}
-
 {% block form_actions %}
-<div class="form-actions fr-grid-row fr-grid-row--gutters fr-my-5w fr-py-5w fr-background-main">
+<div class="form-actions fr-grid-row fr-grid-row--gutters fr-mt-2w fr-mb-6w fr-background-main">
     <div class="submit-buttons fr-col-md-8">
-        <button type="submit" value="save" name="_action" class="fr-btn fr-mb-2w">Enregistrer vos modifications</button>
-        <button class="fr-btn fr-mb-2w" type="submit" name="_action" value="save_as_new">Dupliquer cette aide</button>
+        <button type="submit" value="save" name="_action" class="fr-btn">Enregistrer vos modifications</button>
+        <button class="fr-btn" type="submit" name="_action" value="save_as_new">Dupliquer cette aide</button>
     </div>
     <div class="fr-col-md-4 fr-grid-row fr-grid-row--right">
-        <a href="{% url 'aid_draft_list_view' %}" class="fr-mb-2w">Retour à votre portefeuille d’aides</a>
+        <a href="{% url 'aid_draft_list_view' %}" class="fr-btn fr-btn--tertiary">Retour à votre portefeuille d’aides</a>
     </div>
 </div>
 {% endblock form_actions %}
