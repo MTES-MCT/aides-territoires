@@ -15,7 +15,11 @@ from django.db.models import Count
 from aids.resources import AidResourcePublic
 from aids.models import Aid, AidProject
 from organizations.models import Organization
-from stats.models import AidApplicationUrlClickEvent, AidViewEvent
+from stats.models import (
+    AidApplicationUrlClickEvent,
+    AidOriginUrlClickEvent,
+    AidViewEvent,
+)
 
 
 def fetch_resources(uri: str, rel) -> str:
@@ -187,6 +191,7 @@ def export_aid_stats(
         "Date",
         "Nombre de vues",
         "Nombre de clics sur Candidater",
+        "Nombre de clics sur Plus d’informations",
         "Nombre de projets privés liés",
         "Nombre de projets publics liés",
     ]
@@ -207,6 +212,13 @@ def export_aid_stats(
 
     aidapplicationurlclickevent_qs = (
         AidApplicationUrlClickEvent.objects.filter(aid=aid.id)
+        .extra({"date_created": "date(date_created)"})
+        .values("date_created")
+        .annotate(click_count=Count("date_created", distinct=True))
+    )
+
+    aidoriginurlclickevent_qs = (
+        AidOriginUrlClickEvent.objects.filter(aid=aid.id)
         .extra({"date_created": "date(date_created)"})
         .values("date_created")
         .annotate(click_count=Count("date_created", distinct=True))
@@ -244,6 +256,12 @@ def export_aid_stats(
             if datetime.strftime(x["date_created"], "%Y-%m-%d") == day:
                 aidapplicationurlclickevent = x["click_count"]
         row.append(aidapplicationurlclickevent)
+
+        aidoriginurlclickevent = 0
+        for x in aidoriginurlclickevent_qs:
+            if datetime.strftime(x["date_created"], "%Y-%m-%d") == day:
+                aidoriginurlclickevent = x["click_count"]
+        row.append(aidoriginurlclickevent)
 
         private_projects_linked = 0
         for x in private_projects_linked_qs:

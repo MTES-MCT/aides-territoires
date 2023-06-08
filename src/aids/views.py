@@ -58,7 +58,11 @@ from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeters
 from blog.models import PromotionPost
 from search.utils import clean_search_form
-from stats.models import AidViewEvent, AidApplicationUrlClickEvent
+from stats.models import (
+    AidViewEvent,
+    AidApplicationUrlClickEvent,
+    AidOriginUrlClickEvent,
+)
 from stats.utils import log_aidviewevent, log_aidsearchevent
 from stats.forms import StatSearchForm
 from core.utils import remove_accents
@@ -1479,10 +1483,19 @@ class AidDetailStatsView(
         )
         view_events_count = view_events.count()
 
-        application_url_click_events = AidApplicationUrlClickEvent.objects.filter(
+        application_url_exists = Aid.objects.get(id=self.object.id).application_url
+
+        if application_url_exists:
+            application_url_click_events = AidApplicationUrlClickEvent.objects.filter(
+                aid=self.object.id,
+                date_created__range=[start_date_range, end_date_range],
+            )
+            application_url_click_events_count = application_url_click_events.count()
+
+        origin_url_click_events = AidOriginUrlClickEvent.objects.filter(
             aid=self.object.id, date_created__range=[start_date_range, end_date_range]
         )
-        application_url_click_events_count = application_url_click_events.count()
+        origin_url_click_events_count = origin_url_click_events.count()
 
         projects_linked = self.object.aidproject_set.filter(
             date_created__range=[start_date_range, end_date_range]
@@ -1493,9 +1506,12 @@ class AidDetailStatsView(
         public_projects_linked_count = public_projects_linked.count()
 
         context["view_events"] = view_events_count
-        context[
-            "application_url_click_events_count"
-        ] = application_url_click_events_count
+
+        if application_url_exists:
+            context[
+                "application_url_click_events_count"
+            ] = application_url_click_events_count
+        context["origin_url_click_events_count"] = origin_url_click_events_count
         context["private_projects_linked_count"] = private_projects_linked_count
         context["public_projects_linked_count"] = public_projects_linked_count
 
