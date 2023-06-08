@@ -19,6 +19,7 @@ from aids.views import (
     AidProjectStatusView,
     AidExportView,
     AidDetailStatsExportView,
+    AidDetailExportPdfView,
 )
 
 urlpatterns = [
@@ -55,6 +56,11 @@ urlpatterns = [
         "statistiques/<slug:slug>/",
         AidDetailStatsView.as_view(),
         name="aid_detail_stats_view",
+    ),
+    path(
+        "exporter-aide-en-pdf/<slug:slug>/",
+        AidDetailExportPdfView.as_view(),
+        name="aid_detail_pdf_export_view",
     ),
     path(
         "exporter-les-stats/<slug:slug>/",

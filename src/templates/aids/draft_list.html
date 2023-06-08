@@ -75,6 +75,7 @@
                             <th scope="col" title="Trier par Echéance">Échéance</th>
                             <th scope="col">Visibilité sur le site</th>
                             <th scope="col">Statistiques</th>
+                            <th scope="col">Export PDF</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,6 +104,9 @@
                             </td>
                             <td class="nowrap-cell"><a href="{{ aid.get_absolute_url }}">{{ aid.get_status_display }}</a></td>
                             <td><a href="{% url 'aid_detail_stats_view' aid.slug %}?start_date={{aid.date_created|date:'Y-m-d'}}&end_date=2023-05-12">{% get hits_per_aid aid.id 0 %}</a></td>
+                            <td>
+                                <a href="{% url 'aid_detail_pdf_export_view' aid.slug %}" title="Télécharger la fiche détail de l’aide en PDF" class="fr-btn fr-icon-download-line fr-btn--tertiary fr-btn--tertiary-no-outline at-box-shadow--none"><span class="fr-sr-only">Télécharger la fiche détail de l’aide en PDF</span></a>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>

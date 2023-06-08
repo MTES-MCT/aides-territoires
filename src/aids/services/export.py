@@ -103,6 +103,46 @@ def export_aids(organization, file_format: str) -> dict:
     return response
 
 
+def export_aid_detail_pdf(aid, user, organization):
+
+    today = date.today()
+    today_formated = today.strftime("%Y-%m-%d")
+
+    filename = get_valid_filename(
+        f"Aides-territoires - {today_formated } - {aid.name}.pdf"
+    )
+
+    template = get_template("aids/aid_export_pdf.html")
+
+    current_site = Site.objects.get_current()
+    html = template.render(
+        {
+            "today": today,
+            "aid": aid,
+            "organization": organization,
+            "hostname": f"https://{current_site.domain}",
+        }
+    )
+
+    result = BytesIO()
+    pdf = pisa.CreatePDF(
+        BytesIO(html.encode("utf-8")), dest=result, link_callback=fetch_resources
+    )
+
+    if not pdf.err:
+        response = {
+            "content": result.getvalue(),
+            "content_type": "application/pdf",
+            "filename": filename,
+        }
+    else:
+        response = {"error": "PDF generation error", "error_detail": pdf.err}
+
+    result.close()
+
+    return response
+
+
 def date_range_list(start_date, end_date):
     # Return list of datetime.date objects (inclusive) between start_date and end_date (inclusive).
     date_list = []

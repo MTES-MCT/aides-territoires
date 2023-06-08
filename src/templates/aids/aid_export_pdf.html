@@ -12,7 +12,21 @@ h2, h3, h4 {
 }
 {% endblock title_style%}
 
-{% block extratitle %}{{ organization }}{% endblock extratitle %}
+{% block footer_style %}
+#footer_content div {
+    color: #666;
+    font-style: italic;
+}
+
+#footer_content div p {
+    border-top: 1px solid #666;
+    margin: 0;
+    padding-top: 1em;
+}
+
+{% endblock footer_style %}
+
+{% block extratitle %}{{ aid.name }}{% endblock extratitle %}
 
 {% block logo_partner %}
 <img src="{% static 'img/logo_AT_courbes.png' %}" style="width:150px" alt="Aides-territoires" />
@@ -23,57 +37,20 @@ h2, h3, h4 {
 
 {% block intro %}{% endblock intro %}
 
-
 {% block content %}
 <div class="fr-container fr-mb-5w fr-mt-0">
     <div class="fr-grid-row">
 
         <div class="fr-col-12 fr-col-md-9">
             <div class="fr-grid-row">
-              <div class="fr-col-12 fr-col-md-9">
-                  <h1 class="fr-h3">Les aides portées par la structure « {{ organization }} »</h1>
-              </div>
+                <div class="fr-col-12 fr-col-md-9">
+                    {# name is an obsolete attribute for web but it is the correct one for PDFs #}
+                    <a name="anchor-aid-{{ aid.id }}"></a>
+                    <h1 class="fr-h3">Présentation de l'aide « {{ aid.name }} »</h1>
+                </div>
             </div>
 
-            {# Aids table #}
-            <h3 id="aids-table">Sommaire</h3>
-            <table aria-describedby="aids-table" repeat="1">
-                <thead>
-                    <tr>
-                        <th>Titre de l’aide</th>
-                        <th>Nature</th>
-                        <th>Récurrence et date d’échéance</th>    
-                    </tr>
-                </thead>
-
-                {% for aid in aid_set %}
-                    <tbody>
-                        <tr>
-                            <td>
-                                <a href="#anchor-aid-{{ aid.id }}">{{ aid.name }}</a>
-                            </td>
-                            <td style="width:150px">{% choices_display aid 'aid_types' %}</td>
-                            <td>
-                                {{ aid.get_recurrence_display }}
-                                {% if aid.submission_deadline %}
-                                    <br />Échéance : {{ aid.submission_deadline }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    </tbody>
-                {% endfor %}
-            </table>
-
-            <p>Aides-territoires est un service public numérique qui facilite la recherche d’aides, financières et d’ingénierie, et la réalisation des projets des collectivités territoriales en regroupant les dispositifs auxquels elles peuvent prétendre sur un portail unique. L’ensemble des aides citées ont été publiées sur la plateforme Aides-territoires qui a édité ce fichier.</p>
-            <pdf:nextpage />
-
-            {# Aid detail #}
-            <h2 id="aids-table">Détail des fiches aides sélectionnées</h2>
-            {% for aid in aid_set %}
-                {# name is an obsolete attribute for web but it is the correct one for PDFs #}
-                <a name="anchor-aid-{{ aid.id }}"></a>
-                <h3>{{ aid.name }}</h3>
-                <p>{{ aid.description|safe }}</p>
+            <p>{{ aid.description|safe }}</p>
 
             {% if aid.is_local and aid.local_characteristics %}
                 <h4>Spécificités locales</h4>
@@ -134,7 +111,6 @@ h2, h3, h4 {
                     {{ hostname }}{{ aid.get_absolute_url }}
                 </a>
                 <pdf:nextpage />
-            {% endfor %}
 
             <p>
                 Export valable en date du <strong>{{ today|date }}</strong>.
@@ -145,3 +121,7 @@ h2, h3, h4 {
     </div>
 </div>
 {% endblock content %}
+
+{% block footer-sup %}
+<div>L'aide citée a été publiée sur la plateforme Aides-territoires depuis laquelle ce fichier a été édité.</div>
+{% endblock footer-sup %}

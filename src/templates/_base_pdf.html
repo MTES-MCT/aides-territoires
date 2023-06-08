@@ -15,12 +15,12 @@
             }
 
             @frame content_frame {          /* Content Frame */
-                left: 50pt; width: 512pt; top: 130pt; height: 592pt;
+                left: 50pt; width: 512pt; top: 130pt; height: 612pt;
             }
 
             @frame footer_frame {           /* Static Footer Frame */
                 -pdf-frame-content: footer_content;
-                left: 50pt; width: 512pt; top: 722pt; height: 30pt;
+                left: 50pt; width: 512pt; top: 762pt; height: 60pt;
             }
         }
 
@@ -36,12 +36,14 @@
         }
         {% endblock title_style %}
 
+        {% block footer_style %}
         #footer_content {
             border-top: 1px solid #666;
             padding-top: 1em;
             color: #666;
             font-style: italic;
         }
+        {% endblock footer_style %}
 
         .at-pdf-link {
             text-align: center;
@@ -91,7 +93,12 @@
         {% endblock header %}
 
         <div id="footer_content">
-            {% block footer %}<p>Page <pdf:pagenumber /> </p>{% endblock footer %}
+            {% block footer %}
+                <div>
+                    <p>Page <pdf:pagenumber /> </p>
+                    {% block footer-sup %}{% endblock footer-sup %}
+                </div>
+            {% endblock footer %}
             {# If the pagenumber is at the end of the string, it will be printed twice #}
             {# A simple space is enough to solve this though #}
             {# cf. https://github.com/xhtml2pdf/xhtml2pdf/issues/106 #}
