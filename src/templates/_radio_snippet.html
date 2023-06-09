@@ -1,3 +1,4 @@
+{% load widget_tweaks %}
 <div id="form-group-{{ field.name }}" class="fr-form-group{% if field.field.required %} required{% endif %} {% if required == 'true' %}required{% endif %}">
     <fieldset class="fr-fieldset{% if field.errors %} fr-fieldset--error{% endif %}"{% if field.errors %} aria-labelledby="radio-error-legend radio-error-desc-error"{% endif %} role="group">
         <legend class="fr-fieldset__legend fr-text--regular">
@@ -12,7 +13,15 @@
             <div class="{{ nest_field_class }}">
             {% endif %}
 
-            <div class="fr-radio-group">{{ field }}</div>
+            <div class="fr-radio-group">
+                {% if field.errors %}
+                    {% with "text-input-error-"|add:field.name as error_message %}
+                        {% render_field field aria-describedby=error_message aria-invalid="true" %}
+                    {% endwith %}
+                {% else %}
+                    {{ field }}
+                {% endif %}
+            </div>
 
             {% if nest_field_class %}
             </div>

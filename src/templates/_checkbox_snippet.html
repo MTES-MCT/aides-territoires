@@ -1,10 +1,17 @@
+{% load widget_tweaks %}
 <div class="fr-checkbox-group" {% if field.field.required %} required {% endif %}>
 
     {% if nest_field_class %}
     <div class="{{ nest_field_class }}">
     {% endif %}
 
-    {{ field }}
+    {% if field.errors %}
+        {% with "text-input-error-"|add:field.name as error_message %}
+            {% render_field field aria-describedby=error_message aria-invalid="true" %}
+        {% endwith %}
+    {% else %}
+        {{ field }}
+    {% endif %}
 
     {% if nest_field_class %}
     </div>

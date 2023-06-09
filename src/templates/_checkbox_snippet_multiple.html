@@ -1,3 +1,4 @@
+{% load widget_tweaks %}
 <div id="form-group-{{ field.name }}" class="fr-form-group" {% if field.field.required %} required {% endif %}>
     <fieldset class="fr-fieldset {% if field.errors %} fr-fieldset--error{% endif %}">
         {% if field.label %}
@@ -16,7 +17,13 @@
             {% endif %}
 
             <div class="fr-checkbox-group">
-                {{ field }}
+                {% if field.errors %}
+                    {% with "text-input-error-"|add:field.name as error_message %}
+                        {% render_field field aria-describedby=error_message aria-invalid="true" %}
+                    {% endwith %}
+                {% else %}
+                    {{ field }}
+                {% endif %}
             </div>
 
             {% if nest_field_class %}

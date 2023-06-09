@@ -1,3 +1,4 @@
+{% load widget_tweaks %}
 <div id="form-group-{{ field.name }}" class="fr-select-group{% if field.field.required %} required{% endif %} {% if required == 'true' %}required{% endif %}">
 
     <label for="{{ field.id_for_label }}">
@@ -12,8 +13,13 @@
     <div class="{{ nest_field_class }}">
     {% endif %}
 
-    {{ field }}
-
+    {% if field.errors %}
+        {% with "text-input-error-"|add:field.name as error_message %}
+            {% render_field field aria-describedby=error_message aria-invalid="true" %}
+        {% endwith %}
+    {% else %}
+        {{ field }}
+    {% endif %}
 
     {% if nest_field_class %}
     </div>

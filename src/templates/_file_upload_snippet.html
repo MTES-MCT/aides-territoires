@@ -1,3 +1,4 @@
+{% load widget_tweaks %}
 <div id="form-group-{{ field.name }}" class="fr-upload-group fr-input-group{% if field.errors %} fr-input-group--error{% endif %}{% if field.field.required %} required{% endif %} {% if required == 'true' %}required{% endif %}">
 
     <label for="{{ field.id_for_label }}" class="fr-label">
@@ -8,7 +9,13 @@
         {% endif %}
     </label>
 
-    {{ field }}
+    {% if field.errors %}
+        {% with "text-input-error-"|add:field.name as error_message %}
+            {% render_field field aria-describedby=error_message aria-invalid="true" %}
+        {% endwith %}
+    {% else %}
+        {{ field }}
+    {% endif %}
     
     {% if field.errors %}
     <p id="text-input-error-{{ field.name }}" class="fr-error-text">
