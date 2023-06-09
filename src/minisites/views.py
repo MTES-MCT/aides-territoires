@@ -11,7 +11,6 @@ from django.utils import timezone
 from django.views.generic import TemplateView, DetailView
 from django.views.generic.base import RedirectView
 
-
 from minisites.mixins import NarrowedFiltersMixin
 from search.models import SearchPage
 from backers.models import Backer
@@ -25,7 +24,7 @@ from alerts.views import AlertCreate
 from stats.models import AidViewEvent, AidSearchEvent
 from pages.models import Page
 from stats.utils import log_aidsearchevent
-from core.utils import get_site_from_host
+from core.utils import get_base_url, get_site_from_host
 
 
 class MinisiteMixin:
@@ -65,6 +64,16 @@ class MinisiteMixin:
             redirect_url = self.get_redirection_url(canonical_url)
             if redirect_url:
                 return redirect(redirect_url)
+        elif (
+            not self.search_page.subdomain_enabled
+            and self.request.get_host() != Site.objects.get_current().domain
+        ):
+            # In case someone tries to access from a previously used subdomain
+            # that has been deactivated
+            slug = self.search_page.slug
+            url = f"{get_base_url()}/portails/{slug}/"
+
+            return HttpResponseRedirect(url)
 
         return super().get(request, *args, **kwargs)
 
