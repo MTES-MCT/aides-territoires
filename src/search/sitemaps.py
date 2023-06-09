@@ -7,7 +7,7 @@ class SearchSitemap(Sitemap):
     def items(self):
         """Return the list of all live aids."""
 
-        return SearchPage.objects.all()
+        return SearchPage.objects.filter(subdomain_enabled=True)
 
     def get_urls(self, page=1, site=None, protocol=None):
         """Return the list of url dicts.
