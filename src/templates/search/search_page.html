@@ -69,7 +69,7 @@
                 {% endif %}
             </ul>
             <div id="tabpanel-home-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-home" tabindex="0">
-                <h2 class="fr-mt-0 fr-mb-2w">Présentation Générale</h2>
+                <h2 class="fr-mt-0 fr-mb-2w">Présentation</h2>
                 {{ search_page.content|safe }}
                 {% if search_page.more_content %}
                 <section class="fr-accordion fr-mb-5w">
@@ -86,7 +86,6 @@
             {% if pages %}
                 {% for page in pages %}
                     <div id="tabpanel-{{page.title|slugify}}-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-{{page.title|slugify}}" tabindex="0">
-                        <h2 class="fr-mt-0 fr-mb-2w">{{ page.title }}</h2>
                         <div>
                             {{ page.content|safe }}
                         </div>
