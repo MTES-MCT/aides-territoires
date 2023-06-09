@@ -58,7 +58,7 @@
         <div class="fr-tabs">
             <ul class="fr-tabs__list" role="tablist" aria-label="Onglets du portail">
                 <li role="presentation">
-                    <button id="tabpanel-home" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-home-panel">Présentation Générale</button>
+                    <button id="tabpanel-home" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-home-panel">Présentation</button>
                 </li>
                 {% if pages %}
                     {% for page in pages %}
@@ -69,7 +69,6 @@
                 {% endif %}
             </ul>
             <div id="tabpanel-home-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-home" tabindex="0">
-                <h2 class="fr-mt-0 fr-mb-2w">Présentation</h2>
                 {{ search_page.content|safe }}
                 {% if search_page.more_content %}
                 <section class="fr-accordion fr-mb-5w">
