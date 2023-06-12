@@ -222,7 +222,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
     DESTINATIONS = Choices(
         ("supply", "Dépenses de fonctionnement"),
-        ("investment", "Dépenses d'investissement"),
+        ("investment", "Dépenses d’investissement"),
     )
 
     RECURRENCES = Choices(
@@ -243,12 +243,12 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     amendments = AmendmentManager()
 
     slug = models.SlugField(
-        "Fragment d'URL", help_text="Laisser vide pour autoremplir.", blank=True
+        "Fragment d’URL", help_text="Laisser vide pour autoremplir.", blank=True
     )
     name = models.CharField(
         "Nom",
         max_length=180,
-        help_text="Le titre doit commencer par un verbe à l’infinitif pour que l'objectif de l'aide soit explicite vis-à-vis de ses bénéficiaires.",  # noqa
+        help_text="Le titre doit commencer par un verbe à l’infinitif pour que l’objectif de l’aide soit explicite vis-à-vis de ses bénéficiaires.",  # noqa
         null=False,
         blank=False,
     )
@@ -287,7 +287,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     )
     financers = models.ManyToManyField(
         "backers.Backer",
-        verbose_name="Porteurs d'aides",
+        verbose_name="Porteurs d’aides",
         through=AidFinancer,
         related_name="financed_aids",
     )
@@ -305,7 +305,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         "Instructeurs suggérés", max_length=256, blank=True
     )
     description = models.TextField(
-        "Description complète de l'aide et de ses objectifs", blank=False
+        "Description complète de l’aide et de ses objectifs", blank=False
     )
     project_examples = models.TextField(
         "Exemples de projets réalisables", default="", blank=True
@@ -325,7 +325,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         "geofr.Perimeter",
         verbose_name="Périmètre",
         on_delete=models.PROTECT,
-        help_text="Sur quel périmètre l'aide est-elle diffusée ?",
+        help_text="Sur quel périmètre l’aide est-elle diffusée ?",
         null=True,
         blank=True,
     )
@@ -333,7 +333,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         "Périmètre suggéré", max_length=256, null=True, blank=True
     )
     mobilization_steps = ChoiceArrayField(
-        verbose_name="État d'avancement du projet pour bénéficier du dispositif",
+        verbose_name="État d’avancement du projet pour bénéficier du dispositif",
         null=True,
         blank=True,
         base_field=models.CharField(max_length=32, choices=STEPS, default=STEPS.preop),
@@ -366,23 +366,23 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         default=False,
     )
     targeted_audiences = ChoiceArrayField(
-        verbose_name="Bénéficiaires de l'aide",
+        verbose_name="Bénéficiaires de l’aide",
         null=True,
         blank=True,
         base_field=models.CharField(max_length=32, choices=AUDIENCES),
     )
     aid_types = ChoiceArrayField(
-        verbose_name="Types d'aide",
+        verbose_name="Types d’aide",
         null=True,
         blank=True,
         base_field=models.CharField(max_length=32, choices=TYPES),
-        help_text="Précisez le ou les types de l'aide.",
+        help_text="Précisez le ou les types de l’aide.",
     )
     is_charged = models.BooleanField(
         "Aide Payante",
         help_text=(
             "Ne pas cocher pour les aides sous adhésion et ajouter la mention \
-        '*sous adhésion' dans les critères d’éligibilité."
+        « *sous adhésion » dans les critères d’éligibilité."
         ),
         default=False,
     )
@@ -407,8 +407,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         base_field=models.CharField(max_length=32, choices=DESTINATIONS),
     )
     start_date = models.DateField(
-        "Date d'ouverture",
-        help_text="À quelle date l'aide est-elle ouverte aux candidatures ?",
+        "Date d’ouverture",
+        help_text="À quelle date l’aide est-elle ouverte aux candidatures ?",
         null=True,
         blank=True,
     )
@@ -434,7 +434,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         "Taux de subvention (commentaire optionnel)", max_length=255, blank=True
     )
     recoverable_advance_amount = models.PositiveIntegerField(
-        "Montant de l'avance récupérable", null=True, blank=True
+        "Montant de l’avance récupérable", null=True, blank=True
     )
     loan_amount = models.PositiveIntegerField(
         "Montant du prêt maximum", null=True, blank=True
@@ -448,13 +448,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     contact_detail = models.CharField("Contact (détail)", max_length=256, blank=True)
     recurrence = models.CharField(
         "Récurrence",
-        help_text="L'aide est-elle ponctuelle, permanente, ou récurrente ?",
+        help_text="L’aide est-elle ponctuelle, permanente, ou récurrente ?",
         max_length=16,
         choices=RECURRENCES,
         blank=True,
     )
     is_call_for_project = models.BooleanField(
-        "Appel à projet / Manifestation d'intérêt", null=True
+        "Appel à projet / Manifestation d’intérêt", null=True
     )
     programs = models.ManyToManyField(
         "programs.Program", verbose_name="Programmes", related_name="aids", blank=True
@@ -464,7 +464,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     # Eligibility
     eligibility_test = models.ForeignKey(
         "eligibility.EligibilityTest",
-        verbose_name="Test d'éligibilité",
+        verbose_name="Test d’éligibilité",
         on_delete=models.PROTECT,
         related_name="aids",
         null=True,
@@ -493,13 +493,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         default=None,
         max_length=32,
         choices=EUROPEAN_AIDS,
-        help_text="Précisez si l'aide européenne est structurelle ou sectorielle",
+        help_text="Précisez si l’aide européenne est structurelle ou sectorielle",
     )
 
     # Disable send_publication_email's task
     author_notification = models.BooleanField(
-        "Envoyer un email à l'auteur de l'aide ?",
-        help_text="Un email doit-il être envoyé à l'auteur de cette aide \
+        "Envoyer un email à l’auteur de l’aide ?",
+        help_text="Un email doit-il être envoyé à l’auteur de cette aide \
         au moment de sa publication ?",
         default=True,
     )
@@ -517,14 +517,14 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     # because null values are not taken into account by postgresql when
     # enforcing the `unique` constraint, which is very handy for us.
     import_uniqueid = models.CharField(
-        "Identifiant d'import unique",
+        "Identifiant d’import unique",
         max_length=200,
         unique=True,
         null=True,
         blank=True,
     )
     import_data_url = models.URLField(
-        "URL d'origine de la donnée importée", null=True, blank=True
+        "URL d’origine de la donnée importée", null=True, blank=True
     )
     import_share_licence = models.CharField(
         "Sous quelle licence cette aide a-t-elle été partagée ?",
@@ -544,8 +544,8 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     import_updated = models.BooleanField(
         "En attente de revue des données importées mises à jour",
         help_text=(
-            "Cette aide est en attente d'une revue des mises à jour \
-        proposées par l'outil d'import"
+            "Cette aide est en attente d’une revue des mises à jour \
+        proposées par l’outil d’import"
         ),
         default=False,
     )
@@ -560,6 +560,15 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         "Donnée JSON brute temporaire du calendrier", editable=False, null=True
     )
 
+    contact_info_updated = models.BooleanField(
+        "En attente de revue des données de contact mises à jour",
+        help_text=(
+            "Cette aide est en attente d’une revue des données \
+                de contact"
+        ),
+        default=False,
+    )
+
     # This field is used to index searchable text content
     search_vector_unaccented = SearchVectorField("Search vector unaccented", null=True)
 
@@ -572,13 +581,13 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         "aids.Aid", verbose_name="Aide amendée", on_delete=models.CASCADE, null=True
     )
     amendment_author_name = models.CharField(
-        "Auteur de l'amendement", max_length=256, blank=True
+        "Auteur de l’amendement", max_length=256, blank=True
     )
     amendment_author_email = models.EmailField(
-        "E-mail de l'auteur de l'amendement", null=True, blank=True
+        "E-mail de l’auteur de l’amendement", null=True, blank=True
     )
     amendment_author_org = models.CharField(
-        "Structure de l'auteur de l'amendement", max_length=255, blank=True
+        "Structure de l’auteur de l’amendement", max_length=255, blank=True
     )
     amendment_comment = models.TextField("Commentaire", blank=True)
 
@@ -904,7 +913,7 @@ class AidProject(models.Model):
         default=False,
     )
     date_obtained = models.DateTimeField(
-        "Date de l'obtention",
+        "Date de l’obtention",
         help_text="Date à laquelle cette aide a été obtenue par le porteur du projet",
         null=True,
         blank=True,
@@ -916,7 +925,7 @@ class AidProject(models.Model):
         blank=True,
     )
     date_paid = models.DateTimeField(
-        "Date de la réception de l'aide",
+        "Date de la réception de l’aide",
         help_text="Date à laquelle cette aide a été reçue par le porteur du projet",
         null=True,
         blank=True,
@@ -951,7 +960,7 @@ class SuggestedAidProject(models.Model):
     )
     date_created = models.DateTimeField("Date de création", default=timezone.now)
     date_associated = models.DateTimeField(
-        "Date d'association",
+        "Date d’association",
         help_text="Date à laquelle cette aide a été acceptée par le porteur du projet",
         null=True,
         blank=True,

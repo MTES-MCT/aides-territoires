@@ -222,6 +222,7 @@ class BaseAidAdmin(
     list_filter = [
         "status",
         "import_updated",
+        "contact_info_updated",
         "has_broken_link",
         LiveAidListFilter,
         "is_charged",
@@ -347,6 +348,10 @@ class BaseAidAdmin(
                     "application_url",
                     "has_broken_link",
                     "contact",
+                    "contact_phone",
+                    "contact_email",
+                    "contact_detail",
+                    "contact_info_updated",
                 )
             },
         ),
