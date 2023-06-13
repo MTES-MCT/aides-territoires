@@ -30,7 +30,7 @@ def extract_aids_contact_info():
                 updated = True
 
         if not aid.contact_email:
-            email_regex = r"[a-z0-9\.\-+_]+@[a-z0-9\.\-+_]+\.[a-z]+"
+            email_regex = r"[A-Za-z0-9\.\-+_]+@[a-z0-9\.\-+_]+\.[a-z]+"
             email_addresses = re.findall(email_regex, aid.contact)
             if len(email_addresses):
                 aid.contact_email = email_addresses[0]
