@@ -109,7 +109,7 @@ def get_base_url():
         scheme = "http"
     else:
         scheme = "https"
-    base_url = "{scheme}://{domain}".format(scheme=scheme, domain=site.domain)
+    base_url = f"{scheme}://{site.domain}"
     return base_url
 
 
