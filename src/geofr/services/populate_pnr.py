@@ -131,8 +131,8 @@ def populate_pnr() -> None:
         pnr_name = f"{pnr_all[pnr_id]['name']} (Parc naturel régional)"
         logger.debug(f"Importing data for {pnr_code} ({pnr_name})")
 
-        # Create or update the SCoT perimeter
-        scot, created = Perimeter.objects.update_or_create(
+        # Create or update the PNR perimeter
+        pnr, created = Perimeter.objects.update_or_create(
             scale=Perimeter.SCALES.adhoc,
             code=pnr_code,
             defaults={"name": pnr_name, "is_obsolete": False, "date_obsolete": None},
@@ -143,7 +143,7 @@ def populate_pnr() -> None:
             nb_updated += 1
 
         codes = pnr_all[pnr_id]["communes"]
-        attach_perimeters(scot, codes)
+        attach_perimeters(pnr, codes)
 
     # Mark obsolete PNRs
     nb_obsolete = Perimeter.objects.filter(
