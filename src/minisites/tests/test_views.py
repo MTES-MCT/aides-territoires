@@ -4,7 +4,6 @@ from django.urls import reverse
 
 from alerts.models import Alert
 from accounts.models import User
-from django.contrib.sites.models import Site
 from aids.factories import AidFactory
 from categories.factories import CategoryFactory
 from minisites.factories import MinisiteFactory
