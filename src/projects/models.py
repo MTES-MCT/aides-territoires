@@ -34,11 +34,12 @@ class Project(models.Model):
     )
 
     CONTRACT_LINK = Choices(
-        ("CRTE", "CRTE"),
-        ("PVD", "Petites Villes de Demain"),
         ("ACV1", "Action Coeur de Ville 1"),
         ("ACV2", "Action Coeur de Ville 2"),
+        ("AMI", "AMI pour l’égalité entre les femmes et les hommes dans les territoires ruraux"),
+        ("CRTE", "CRTE"),
         ("PCAET", "PCAET"),
+        ("PVD", "Petites Villes de Demain"),
     )
 
     PROJECT_STEPS = Choices(
