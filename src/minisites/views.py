@@ -173,10 +173,18 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         """
         data = self.search_page.get_base_querystring_data()
         for parameter in data:
-            minisite_parameter = data.get(parameter)
+            minisite_parameter = data.getlist(parameter)
+            if len(minisite_parameter) <= 1:
+                minisite_parameter = data.get(parameter)
+                minisite_parameter_list = False
+            else:
+                minisite_parameter_list = True
             search_parameter = self.form.data.get(parameter)
             if minisite_parameter and not search_parameter:
-                self.form.data[parameter] = minisite_parameter
+                if minisite_parameter_list:
+                    self.form.data.setlist(parameter, minisite_parameter)
+                else:
+                    self.form.data[parameter] = minisite_parameter
                 self.form.full_clean()
         qs = self.form.filter_queryset(qs, apply_generic_aid_filter=True)
         return qs
