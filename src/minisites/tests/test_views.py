@@ -1,8 +1,10 @@
 import pytest
+from pytest_django.asserts import assertTemplateUsed
 from django.urls import reverse
 
 from alerts.models import Alert
 from accounts.models import User
+from django.contrib.sites.models import Site
 from aids.factories import AidFactory
 from categories.factories import CategoryFactory
 from minisites.factories import MinisiteFactory
@@ -13,7 +15,7 @@ pytestmark = [pytest.mark.django_db, pytest.mark.urls("minisites.urls")]
 
 
 def test_minisite_display(client, settings):
-    """Is the seach page slug correctly found from the host?"""
+    """Is the search page slug correctly found from the host?"""
 
     page = MinisiteFactory(title="Gloubiboulga page")
     page_url = reverse("home")
@@ -228,3 +230,30 @@ def test_minisite_page_access(client, settings):
     page.save()
     res = client.get(url, HTTP_HOST=page_host)
     assert res.status_code == 200
+
+
+def test_subdomain_url_redirect_to_reintegrated_page_if_with_subdomain_disabled(client, settings):
+    site = MinisiteFactory(subdomain_enabled=False)
+    page_host = "{}.aides-territoires".format(site.slug)
+    settings.ALLOWED_HOSTS = [page_host]
+
+    url = reverse("search_view")
+
+    # User is redirected to the main site with an url like "portails/{minisite.slug}/"
+    res = client.get(url, HTTP_HOST=page_host)
+    assert res.status_code == 302
+    assert res.url == f"https://example.com/portails/{site.slug}/"
+
+
+def test_subdomain_url_redirect_to_subdomain_page_if_subdomain_disabled(client, settings):
+    site = MinisiteFactory(subdomain_enabled=True)
+    page_host = "{}.aides-territoires".format(site.slug)
+    settings.ALLOWED_HOSTS = [page_host]
+
+    url = reverse("search_view")
+
+    # A subdomain url is used directly
+    res = client.get(url, HTTP_HOST=page_host)
+    assert res.status_code == 200
+    assert "Présentation" not in res.content.decode()
+    assertTemplateUsed(res, 'search/search_page_subdomain.html')
