@@ -105,7 +105,7 @@ EMAIL_WHITELIST = env.list("EMAIL_WHITELIST", [])
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-# Emails & Sendinblue api and settings
+# Emails & Brevo API and settings
 SIB_API_KEY = env("SIB_API_KEY")
 SIB_CLIENT_KEY = env.str("SIB_CLIENT_KEY", "")
 SIB_NEWSLETTER_LIST_IDS = env("SIB_NEWSLETTER_LIST_IDS")
