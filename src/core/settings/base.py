@@ -389,7 +389,7 @@ CSP_BASE_URI = ("'self'",)
 
 CSP_WORKER_SRC = ("blob:",)
 
-CSP_FORM_ACTION = ("'self'", "https://my.sendinblue.com")
+CSP_FORM_ACTION = ("'self'",)
 
 CSP_INCLUDE_NONCE_IN = ["script-src"]
 
