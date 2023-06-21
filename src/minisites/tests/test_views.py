@@ -1,5 +1,6 @@
 import pytest
-from pytest_django.asserts import assertTemplateUsed
+
+# from pytest_django.asserts import assertTemplateUsed
 from django.urls import reverse
 
 from alerts.models import Alert

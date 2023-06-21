@@ -24,7 +24,9 @@ from alerts.views import AlertCreate
 from stats.models import AidViewEvent, AidSearchEvent
 from pages.models import Page
 from stats.utils import log_aidsearchevent
-from core.utils import get_base_url, get_site_from_host
+from core.utils import get_site_from_host
+
+# from core.utils import get_base_url
 
 
 class MinisiteMixin:
