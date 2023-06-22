@@ -476,11 +476,11 @@ section#post-content img {
 }
 
 // Notifications
-#at-notification-icon {
+.at-notification-icon {
   margin-right: 1em;
 }
 
-#at-notification-icon.at-notification-icon-unread {
+.at-notification-icon-unread {
   --hover-tint: var(--hover);
   --hover: var(--background-action-high-red-marianne-hover);
   background-color: var(--background-action-low-red-marianne);
@@ -488,8 +488,8 @@ section#post-content img {
 }
 
 // Remove the margin if the notification is empty
-#at-notification-icon.at-notification-icon-no-unread::before {
-  margin-right: 0;
+.at-notification-icon-no-unread::before {
+  margin-right: 0 !important;
 }
 
 

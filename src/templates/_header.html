@@ -46,9 +46,8 @@
                             <li>
                                 {% with user.unread_notifications as user_unread_notifications %}
                                 <a
-                                    id="at-notification-icon"
                                     href="{% url 'notification_list_view' %}"
-                                    class="fr-tag fr-icon-notification-3-line fr-tag--icon-left {% if user_unread_notifications %}at-notification-icon-unread{% else %}at-notification-icon-no-unread{% endif %}"
+                                    class="at-notification-icon fr-tag fr-icon-notification-3-line fr-tag--icon-left {% if user_unread_notifications %}at-notification-icon-unread{% else %}at-notification-icon-no-unread{% endif %}"
                                     target="_self"
                                     title="{% if user_unread_notifications == 0 %}Voir la page des notifications{% elif user_unread_notifications == 1 %}Voir la notification non lue{% else %}Voir les {{ user_unread_notifications }} notifications non lues{% endif %}"
                                 >
