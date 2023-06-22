@@ -173,20 +173,13 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         then we want user to be able to filter and only see results for Bordeaux perimeter.
         """
         data = self.search_page.get_base_querystring_data()
-        for parameter in data:
-            minisite_parameter = data.getlist(parameter)
-            if len(minisite_parameter) <= 1:
-                minisite_parameter = data.get(parameter)
-                minisite_parameter_list = False
-            else:
-                minisite_parameter_list = True
-            search_parameter = self.form.data.get(parameter)
-            if minisite_parameter and not search_parameter:
-                if minisite_parameter_list:
-                    self.form.data.setlist(parameter, minisite_parameter)
-                else:
-                    self.form.data[parameter] = minisite_parameter
-                self.form.full_clean()
+        minisite_perimeter = data.get("perimeter")
+        search_perimeter = self.form.data.get("perimeter")
+        if minisite_perimeter and not search_perimeter:
+            # If the base querystring defines a perimeter, then
+            # we will force that perimeter to be used.
+            self.form.data["perimeter"] = minisite_perimeter
+            self.form.full_clean()
         qs = self.form.filter_queryset(qs, apply_generic_aid_filter=True)
         return qs
 
