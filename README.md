@@ -105,7 +105,7 @@ Les fichiers statiques (images, documents) sont chez [Scaleway](https://www.scal
 
 - [Github](https://github.com/) pour l'hébergement du code et l'intégration continue
 - [Sentry](https://sentry.io) pour le reporting des erreurs
-- [SendInBlue](https://fr.sendinblue.com/) pour l'envoi d'emails
+- [Brevo](https://www.brevo.com/fr/) pour l'envoi d'emails
 - [AlwaysData](https://www.alwaysdata.com/fr/) pour la gestion des DNS
 - [Metabase](https://www.metabase.com/) pour l'analyse et la visualisation des données
 - [Matomo](https://fr.matomo.org/) pour l'analyse du traffic web

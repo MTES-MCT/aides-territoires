@@ -176,7 +176,7 @@ Pour les environnements de Staging, il existe un mécanisme qui permet de n'envo
 Cette "Whitelist" est définie dans les `settings`.
 Pour connaître le fonctionnement historique de ce filtrage : https://github.com/MTES-MCT/aides-territoires/pull/399
 
-En local vous avez la possibilité de visualiser les emails dont le template n'est pas hébergé sur SendinBlue depuis le terminal. Pour ce faire la variable `EMAIL_BACKEND` doit être définie avec `django.core.mail.backends.console.EmailBackend` dans votre fichier `.env.local`
+En local vous avez la possibilité de visualiser les emails dont le template n'est pas hébergé sur Brevo depuis le terminal. Pour ce faire la variable `EMAIL_BACKEND` doit être définie avec `django.core.mail.backends.console.EmailBackend` dans votre fichier `.env.local`
 
 Alternativement, définir la variable `EMAIL_BACKEND` à `emails.backends.WhitelistEmailBackend` permet d’envoyer les emails aux adresses définies dans la liste blanche `EMAIL_WHITELIST`.
 
