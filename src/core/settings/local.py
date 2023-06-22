@@ -84,7 +84,7 @@ EMAIL_BACKEND = env(
 )
 EMAIL_WHITELIST = env.list("EMAIL_WHITELIST", [])
 
-# Sendinblue api and settings
+# Brevo API and settings
 SIB_API_KEY = env("SIB_API_KEY")
 SIB_CLIENT_KEY = env.str("SIB_CLIENT_KEY", "")
 SIB_NEWSLETTER_LIST_IDS = env("SIB_NEWSLETTER_LIST_IDS")

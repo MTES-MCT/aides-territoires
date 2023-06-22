@@ -29,7 +29,7 @@ class Command(BaseCommand):
             self.export_account(account)
 
     def export_account(self, user):
-        endpoint = "https://api.sendinblue.com/v3/contacts/"
+        endpoint = settings.SIB_ENDPOINT
         existing_aids = user.aids.existing()
         live_aids = existing_aids.live().order_by("date_published")
         latest_published = live_aids.last()

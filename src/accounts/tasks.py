@@ -72,7 +72,7 @@ def send_connection_email(
 def send_welcome_email(user_email):
     """Send a welcome email to the user.
 
-    This email is actually stored as a template in the SendinBlue's dashboard,
+    This email is actually stored as a template in the Brevo dashboard,
     and can be modified by the bizdev team.
 
     Hence we don't define any email body ourselves.

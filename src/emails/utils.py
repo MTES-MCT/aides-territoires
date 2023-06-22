@@ -44,7 +44,7 @@ def send_email_with_template(
 
     # Provide data for template replacements
     if data:
-        # Currently working with Sendinblue
+        # Currently working with Brevo
         message.merge_global_data = data
 
     message.send(fail_silently=fail_silently)

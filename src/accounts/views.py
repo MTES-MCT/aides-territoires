@@ -108,7 +108,7 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
             SIB_NEWSLETTER_ID = settings.SIB_NEWSLETTER_ID.split(", ")
             SIB_NEWSLETTER_ID = [int(i) for i in SIB_NEWSLETTER_ID]
 
-            url = "https://api.sendinblue.com/v3/contacts/doubleOptinConfirmation"
+            url = f"{settings.SIB_ENDPOINT}doubleOptinConfirmation"
 
             redirection_url = (
                 "https://aides-territoires.beta.gouv.fr/inscription-newsletter-succes/"
@@ -369,7 +369,7 @@ class SubscribeNewsletter(ContributorAndProfileCompleteRequiredMixin, View):
 
         user_email = self.request.user.email
 
-        url = "https://api.sendinblue.com/v3/contacts/doubleOptinConfirmation"
+        url = f"{settings.SIB_ENDPOINT}doubleOptinConfirmation"
 
         redirection_url = (
             "https://aides-territoires.beta.gouv.fr/inscription-newsletter-succes/"
@@ -417,7 +417,7 @@ class UnSubscribeNewsletter(View):
 
         user_email = self.request.user.email
 
-        url = "https://api.sendinblue.com/v3/contacts/" + user_email
+        url = f"{settings.SIB_ENDPOINT}{user_email}"
 
         payload = {"unlinkListIds": SIB_NEWSLETTER_LIST_IDS}
 

@@ -348,7 +348,7 @@ CSP_DEFAULT_SRC = ("https://*.scw.cloud",)
 CSP_CONNECT_SRC = (
     "'self'",
     "https://stats.data.gouv.fr",
-    "https://in-automate.sendinblue.com/",
+    "https://in-automate.brevo.com/",
 )
 CSP_IMG_SRC = (
     "'self'",
@@ -389,7 +389,7 @@ CSP_BASE_URI = ("'self'",)
 
 CSP_WORKER_SRC = ("blob:",)
 
-CSP_FORM_ACTION = ("'self'", "https://my.sendinblue.com")
+CSP_FORM_ACTION = ("'self'",)
 
 CSP_INCLUDE_NONCE_IN = ["script-src"]
 
@@ -399,7 +399,7 @@ CSP_EXCLUDE_URL_PREFIXES = ("/admin",)
 
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
-# Emails & Sendinblue api and settings
+# Emails & Brevo API and settings
 CONTACT_EMAIL = "nowhere@example.org"
 CONTACT_PHONE = "+33123456789"
 EMAIL_SUBJECT_PREFIX = "[Aides-territoires] "
@@ -407,6 +407,9 @@ DEFAULT_FROM_EMAIL = "Aides-territoires <aides-territoires@beta.gouv.fr>"
 SERVER_EMAIL = "aides-territoires@beta.gouv.fr"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_WHITELIST = []
+
+# For historical reasons, we will keep the "SIB_" prefix for Brevo-related settings
+SIB_ENDPOINT = "https://api.brevo.com/v3/contacts/"
 SIB_API_KEY = ""
 SIB_CLIENT_KEY = ""
 SIB_NEWSLETTER_LIST_IDS = []

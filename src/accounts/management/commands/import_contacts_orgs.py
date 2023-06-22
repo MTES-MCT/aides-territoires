@@ -43,8 +43,8 @@ class Command(BaseCommand):
                 User.objects.filter(email=email).update(ml_consent=not blacklisted)
 
     def fetch_contacts(self):
-        """Fetch *all* contacts using the Sendinblue api."""
-        endpoint = "https://api.sendinblue.com/v3/contacts/"
+        """Fetch *all* contacts using the Brevo API."""
+        endpoint = settings.SIB_ENDPOINT
 
         # First, let's count the number of results
         params = {"limit": "1", "offset": "0"}
