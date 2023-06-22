@@ -66,6 +66,16 @@ class MinisiteMixin:
             redirect_url = self.get_redirection_url(canonical_url)
             if redirect_url:
                 return redirect(redirect_url)
+        elif (
+                    not self.search_page.subdomain_enabled
+                    and self.request.get_host() != Site.objects.get_current().domain
+                ):
+                    # In case someone tries to access from a previously used subdomain
+                    # that has been deactivated
+                    slug = self.search_page.slug
+                    url = f"{get_base_url()}/portails/{slug}/"
+
+                    return HttpResponseRedirect(url)
 
         return super().get(request, *args, **kwargs)
 

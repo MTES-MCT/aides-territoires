@@ -232,28 +232,28 @@ def test_minisite_page_access(client, settings):
     assert res.status_code == 200
 
 
-# def test_subdomain_url_redirect_to_reintegrated_page_if_with_subdomain_disabled(client, settings):
-#     site = MinisiteFactory(subdomain_enabled=False)
-#     page_host = "{}.aides-territoires".format(site.slug)
-#     settings.ALLOWED_HOSTS = [page_host]
+def test_subdomain_url_redirect_to_reintegrated_page_if_with_subdomain_disabled(client, settings):
+    site = MinisiteFactory(subdomain_enabled=False)
+    page_host = "{}.aides-territoires".format(site.slug)
+    settings.ALLOWED_HOSTS = [page_host]
 
-#     url = reverse("search_view")
+    url = reverse("search_view")
 
-#     # User is redirected to the main site with an url like "portails/{minisite.slug}/"
-#     res = client.get(url, HTTP_HOST=page_host)
-#     assert res.status_code == 302
-#     assert res.url == f"https://example.com/portails/{site.slug}/"
+    # User is redirected to the main site with an url like "portails/{minisite.slug}/"
+    res = client.get(url, HTTP_HOST=page_host)
+    assert res.status_code == 302
+    assert res.url == f"https://example.com/portails/{site.slug}/"
 
 
-# def test_subdomain_url_redirect_to_subdomain_page_if_subdomain_disabled(client, settings):
-#     site = MinisiteFactory(subdomain_enabled=True)
-#     page_host = "{}.aides-territoires".format(site.slug)
-#     settings.ALLOWED_HOSTS = [page_host]
+def test_subdomain_url_redirect_to_subdomain_page_if_subdomain_disabled(client, settings):
+    site = MinisiteFactory(subdomain_enabled=True)
+    page_host = "{}.aides-territoires".format(site.slug)
+    settings.ALLOWED_HOSTS = [page_host]
 
-#     url = reverse("search_view")
+    url = reverse("search_view")
 
-#     # A subdomain url is used directly
-#     res = client.get(url, HTTP_HOST=page_host)
-#     assert res.status_code == 200
-#     assert "Présentation" not in res.content.decode()
-#     assertTemplateUsed(res, 'search/search_page_subdomain.html')
+    # A subdomain url is used directly
+    res = client.get(url, HTTP_HOST=page_host)
+    assert res.status_code == 200
+    assert "Présentation" not in res.content.decode()
+    assertTemplateUsed(res, 'search/search_page_subdomain.html')
