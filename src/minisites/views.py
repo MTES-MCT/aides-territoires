@@ -24,9 +24,7 @@ from alerts.views import AlertCreate
 from stats.models import AidViewEvent, AidSearchEvent
 from pages.models import Page
 from stats.utils import log_aidsearchevent
-from core.utils import get_site_from_host
-
-# from core.utils import get_base_url
+from core.utils import get_site_from_host, get_base_url
 
 
 class MinisiteMixin:
@@ -67,15 +65,15 @@ class MinisiteMixin:
             if redirect_url:
                 return redirect(redirect_url)
         elif (
-                    not self.search_page.subdomain_enabled
-                    and self.request.get_host() != Site.objects.get_current().domain
-                ):
-                    # In case someone tries to access from a previously used subdomain
-                    # that has been deactivated
-                    slug = self.search_page.slug
-                    url = f"{get_base_url()}/portails/{slug}/"
+            not self.search_page.subdomain_enabled
+            and self.request.get_host() != Site.objects.get_current().domain
+        ):
+            # In case someone tries to access from a previously used subdomain
+            # that has been deactivated
+            slug = self.search_page.slug
+            url = f"{get_base_url()}/portails/{slug}/"
 
-                    return HttpResponseRedirect(url)
+            return HttpResponseRedirect(url)
 
         return super().get(request, *args, **kwargs)
 
