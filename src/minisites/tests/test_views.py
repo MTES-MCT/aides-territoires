@@ -1,6 +1,6 @@
 import pytest
 
-# from pytest_django.asserts import assertTemplateUsed
+from pytest_django.asserts import assertTemplateUsed
 from django.urls import reverse
 
 from alerts.models import Alert
@@ -232,7 +232,9 @@ def test_minisite_page_access(client, settings):
     assert res.status_code == 200
 
 
-def test_subdomain_url_redirect_to_reintegrated_page_if_with_subdomain_disabled(client, settings):
+def test_subdomain_url_redirect_to_reintegrated_page_if_with_subdomain_disabled(
+    client, settings
+):
     site = MinisiteFactory(subdomain_enabled=False)
     page_host = "{}.aides-territoires".format(site.slug)
     settings.ALLOWED_HOSTS = [page_host]
@@ -245,7 +247,9 @@ def test_subdomain_url_redirect_to_reintegrated_page_if_with_subdomain_disabled(
     assert res.url == f"https://example.com/portails/{site.slug}/"
 
 
-def test_subdomain_url_redirect_to_subdomain_page_if_subdomain_disabled(client, settings):
+def test_subdomain_url_redirect_to_subdomain_page_if_subdomain_disabled(
+    client, settings
+):
     site = MinisiteFactory(subdomain_enabled=True)
     page_host = "{}.aides-territoires".format(site.slug)
     settings.ALLOWED_HOSTS = [page_host]
@@ -256,4 +260,4 @@ def test_subdomain_url_redirect_to_subdomain_page_if_subdomain_disabled(client, 
     res = client.get(url, HTTP_HOST=page_host)
     assert res.status_code == 200
     assert "Présentation" not in res.content.decode()
-    assertTemplateUsed(res, 'search/search_page_subdomain.html')
+    assertTemplateUsed(res, "search/search_page_subdomain.html")
