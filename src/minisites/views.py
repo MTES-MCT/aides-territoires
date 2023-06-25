@@ -3,7 +3,7 @@ from urllib.parse import urlparse
 
 from django.conf import settings
 from django.contrib.sites.models import Site
-from django.db.models import Count, Func, F, Value, CharField, Prefetch
+from django.db.models import Count, Func, F, Value, CharField
 from django.db.models.functions import TruncWeek
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import redirect
@@ -13,7 +13,6 @@ from django.views.generic.base import RedirectView
 
 from minisites.mixins import NarrowedFiltersMixin
 from search.models import SearchPage
-from backers.models import Backer
 from aids.models import Aid
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from backers.views import BackerDetailView
@@ -158,20 +157,28 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         return kwargs
 
     def get_queryset(self):
-        """Filter the queryset with search_page's base_querystring and filters choosen by the user."""
+        """Filter the queryset with search_page's base_querystring
+        and filters choosen by the user."""
 
         """
-        If user does not choose filters, we apply only filters from the search_page base_querystring
-        These filters are displayed in the front form (with get_context_data) and in the filters tags in front.
+        If user does not choose filters,
+        we apply only filters from the search_page base_querystring
+        These filters are displayed in the front form (with get_context_data)
+        and in the filters tags in front.
 
         Elif user choose filters, we apply the filters displayed in the front form(*).
-        (*) filters modified by the user and search_page base_querystring filters not modified by user in the front form
+        (*) filters modified by the user and
+        search_page base_querystring filters not modified by user
         """
         if not self.form.data:
             self.form = AidSearchForm(data=self.search_page.get_base_querystring_data())
-            qs = self.form.filter_queryset(self.search_page.get_base_queryset(), apply_generic_aid_filter=True)
+            qs = self.form.filter_queryset(
+                self.search_page.get_base_queryset(), apply_generic_aid_filter=True
+            )
         elif self.form.data:
-            qs = self.form.filter_queryset(self.search_page.get_base_queryset(), apply_generic_aid_filter=True)
+            qs = self.form.filter_queryset(
+                self.search_page.get_base_queryset(), apply_generic_aid_filter=True
+            )
 
         # if order_by filter exists in the base querystring we want to use it,
         # combine with hightlighted_aids order
