@@ -32,9 +32,10 @@ def get_projects_count_by_department(
 
 def get_backers_count_by_department(
     dep_id: str,
-    target_audience: str = None,
+    targeted_audiences: str = None,
     aid_type: str = None,
     perimeter_scale: str = None,
+    categories=None,
 ) -> QuerySet:
     """
     For a given department, returns a list of backers with  the number of associated live aids
@@ -46,12 +47,26 @@ def get_backers_count_by_department(
         "perimeter"
     )
 
-    if target_audience:
+    if targeted_audiences:
         backers = backers.filter(
             perimeter_id__in=related_perimeters,
             financed_aids__in=live_aids,
             financed_aids__perimeter_id__in=related_perimeters,
-            financed_aids__targeted_audiences__overlap=[target_audience],
+            financed_aids__targeted_audiences__overlap=[targeted_audiences],
+        )
+    else:
+        backers = backers.filter(
+            financed_aids__in=live_aids,
+            financed_aids__perimeter_id__in=related_perimeters,
+            perimeter_id__in=related_perimeters,
+        )
+
+    if categories:
+        backers = backers.filter(
+            perimeter_id__in=related_perimeters,
+            financed_aids__in=live_aids,
+            financed_aids__perimeter_id__in=related_perimeters,
+            financed_aids__categories__in=categories,
         )
     else:
         backers = backers.filter(

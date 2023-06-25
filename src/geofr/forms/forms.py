@@ -4,13 +4,22 @@ from django.contrib import admin
 from django.contrib.admin.widgets import AutocompleteSelectMultiple
 from django.utils.safestring import mark_safe
 
+from model_utils import Choices
+
 # from core.forms import AutocompleteSelectMultiple
+from core.forms.baseform import AidesTerrBaseForm
 from geofr.models import Perimeter
+from geofr.services.counts_by_department import (
+    get_backers_count_by_department,
+)
+from categories.models import Category
 from geofr.utils import (
     extract_perimeters_from_file,
     query_cities_from_list,
     query_epcis_from_list,
 )
+from categories.fields import CategoryMultipleChoiceField
+from organizations.constants import ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES
 
 
 class PerimeterUploadForm(forms.Form):
@@ -155,3 +164,70 @@ class PerimeterCombineForm(forms.Form):
         ),
         help_text="Ces périmètres seront enlevés du périmètre combiné.",
     )
+
+
+class BackerByDepartmentForm(AidesTerrBaseForm):
+
+    CATEGORIES_QS = Category.objects.select_related("theme").order_by(
+        "theme__name", "name"
+    )
+
+    AID_TYPES_GROUPED = Choices(
+        ("all_type", "Toutes les aides"),
+        ("financial_group", "Aides financières par type"),
+        ("technical_group", "Aides en ingénierie par type"),
+    )
+
+    PERIMETER_SCALE_TYPE = Choices(
+        ("all_perimeter_scale", "Tous les porteurs"),
+        ("local_group", "Porteurs locaux uniquement"),
+        ("national_group", "Porteurs nationaux uniquement"),
+    )
+
+    targeted_audiences = forms.ChoiceField(
+        label="Structure",
+        required=False,
+        choices=ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES,
+    )
+
+    aid_type = forms.ChoiceField(
+        label="Nature de l’aide",
+        choices=AID_TYPES_GROUPED,
+        required=False,
+    )
+
+    perimeter_scale = forms.ChoiceField(
+        label="Type de porteurs",
+        choices=PERIMETER_SCALE_TYPE,
+        required=False,
+    )
+
+    categories = CategoryMultipleChoiceField(
+        group_by_theme_and_id=True,
+        label="Thématiques",  # Not a mistake
+        queryset=CATEGORIES_QS,
+        to_field_name="id",
+        required=False,
+    )
+
+    def filter_queryset(self, department):
+        """Filter querysets depending of input data."""
+
+        # Populate cleaned_data
+        if not hasattr(self, "cleaned_data"):
+            self.full_clean()
+
+        targeted_audiences = self.cleaned_data.get("targeted_audiences", None)
+        categories = self.cleaned_data.get("categories", None)
+        perimeter_scale = self.cleaned_data.get("perimeter_scale", None)
+        aid_type = self.cleaned_data.get("aid_type", None)
+
+        qs = get_backers_count_by_department(
+            department,
+            targeted_audiences=targeted_audiences,
+            aid_type=aid_type,
+            perimeter_scale=perimeter_scale,
+            categories=categories,
+        )
+
+        return qs

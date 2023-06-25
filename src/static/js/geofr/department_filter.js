@@ -24,17 +24,17 @@ function department_filter(return_page) {
     });
 
     /* use the org filter */
-    $("#select-organization").change(function () {
+    $("#id_targeted_audiences").change(function () {
         let audience = $(this).val();
         if (audience.match(SANE_ID_REGEX)) {
-            set_param_value("target_audience", audience);
+            set_param_value("targeted_audiences", audience);
         } else {
-            console.log("Invalid target audience id");
+            console.log("Invalid targeted audiences id");
         }
     });
 
     /* use the aid_type filter */
-    $("#select-aid-type").change(function () {
+    $("#id_aid_type").change(function () {
         let aid_type = $(this).val();
         if (aid_type.match(SANE_ID_REGEX)) {
             set_param_value("aid_type", aid_type);
@@ -44,13 +44,20 @@ function department_filter(return_page) {
     });
 
     /* use the perimeter_scale filter */
-    $("#select-perimeter-scale").change(function () {
+    $("#id_perimeter_scale").change(function () {
         let perimeter_scale = $(this).val();
         if (perimeter_scale.match(SANE_ID_REGEX)) {
             set_param_value("perimeter_scale", perimeter_scale);
         } else {
             console.log("Invalid perimeter scale");
         }
+    });
+
+    /* use the perimeter_scale filter */
+    $("#id_categories").change(function () {
+        console.log($(this).val())
+        let categories = $(this).val();
+        set_param_value("categories", categories);
     });
 
 };

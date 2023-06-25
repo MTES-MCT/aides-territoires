@@ -1,13 +1,13 @@
 import json
 
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
+from django.views.generic.edit import FormMixin
 
-from backers.models import Backer
-from geofr.services.counts_by_department import (
-    get_backers_count_by_department,
-)
+from minisites.mixins import SearchMixin
+
+from geofr.forms.forms import BackerByDepartmentForm
 from geofr.models import Perimeter
-from organizations.constants import ORGANIZATION_TYPE_CHOICES
+from backers.models import Backer
 from programs.models import Program
 
 
@@ -28,27 +28,37 @@ class MapView(TemplateView):
         return context
 
 
-class DepartmentBackersView(TemplateView):
+class DepartmentBackersView(SearchMixin, FormMixin, ListView):
     template_name = "geofr/department_backers.html"
+    form_class = BackerByDepartmentForm
+    context_object_name = "backers"
+
+    def get(self, request, *args, **kwargs):
+        self.form = self.get_form()
+        self.form.full_clean()
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        """Return the list of results to display."""
+
+        filter_form = self.form
+        results = filter_form.filter_queryset(
+            self.request.resolver_match.kwargs["code"]
+        ).distinct()
+
+        return results
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         departments_list = Perimeter.objects.departments(values=["id", "name", "code"])
         current_dept = [
-            dep for dep in departments_list if dep["code"] == kwargs["code"]
+            dep
+            for dep in departments_list
+            if dep["code"] == self.request.resolver_match.kwargs["code"]
         ][0]
 
-        target_audience = self.request.GET.get("target_audience")
         aid_type = self.request.GET.get("aid_type")
-        perimeter_scale = self.request.GET.get("perimeter_scale")
-
-        backers_list = get_backers_count_by_department(
-            current_dept["id"],
-            target_audience=target_audience,
-            aid_type=aid_type,
-            perimeter_scale=perimeter_scale,
-        )
 
         if aid_type == "financial_group":
             caption_aid_type = " financières"
@@ -56,16 +66,11 @@ class DepartmentBackersView(TemplateView):
             caption_aid_type = " en ingénierie"
         else:
             caption_aid_type = ""
-        caption = f"{current_dept['name'] } : {backers_list.count()} "
+        caption = f"{current_dept['name'] } : {self.object_list.count()} "
         caption += f"porteurs d‘aides{caption_aid_type} présents"
 
         context["departments"] = departments_list
-        context["organization_types"] = ORGANIZATION_TYPE_CHOICES
         context["current_dept"] = current_dept
-        context["target_audience"] = target_audience
-        context["aid_type"] = aid_type
-        context["perimeter_scale"] = perimeter_scale
-        context["backers_list"] = backers_list
         context["caption"] = caption
 
         return context

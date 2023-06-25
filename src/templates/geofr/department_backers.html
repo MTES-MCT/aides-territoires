@@ -47,7 +47,7 @@
     {% include "geofr/_department_orgtype_selector.html" %}
     <article id="backers-by-departement" class="fr-container fr-mb-5w fr-pb-5w">
         <div class="fr-table at-table--fullwidth">
-            {% include "geofr/_backers_table.html" with entries_list=backers_list caption=caption %}
+            {% include "geofr/_backers_table.html" with entries_list=backers caption=caption %}
         </div>
         <div class="at-centered">
             <a 
@@ -65,6 +65,11 @@
 
 {% block extra_js %}
     {% compress js %}
+        <script src="{% static 'select2/dist/js/select2.js' %}"></script>
+        <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+        <script src="{% static 'js/select2_custom.js' %}"></script>
+        <script src="{% static 'js/aids/categories_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
         <script src="{% static 'datatables.net/js/jquery.dataTables.min.js' %}"></script>
         <script src="{% static 'js/plugins/datatables_i18n.js' %}"></script>
         <script src="{% static 'js/url_parameters.js' %}"></script>

@@ -1,5 +1,7 @@
+{% load i18n compress static %}
+
 <div class="fr-container">
-    <form id="department-search-form" class="fr-grid-row fr-grid-row--gutters" method="post">
+    <form id="department-perimeter-search-form" class="fr-grid-row fr-grid-row--gutters fr-mb-3w" method="post">
         <div class="fr-select-group fr-col-12 fr-col-md-3">
             <select class="fr-select at-live-change" id="select-department" name="department" title="Départements - en sélectionnant un élément, la page se rechargera">
                 {% for department in departments %}
@@ -9,31 +11,25 @@
                 {% endfor %}
             </select>
         </div>
-        <div class="fr-select-group fr-col-12 fr-col-md-3">
-            <select class="fr-select" id="select-organization" name="organization" title="Structures - en sélectionnant un élément, la page se rechargera">
-                <option value="">Toutes les structures</option>
-                {% for type in organization_types %}
-                    <option value="{{ type.0 }}" {% if type.0 == target_audience %}selected="selected"{% endif %}>
-                        {{ type.1 }}
-                    </option>
-                {% endfor %}
-            </select>
+    </form>
+
+    <form id="department-search-form" class="fr-grid-row fr-grid-row--gutters fr-mb-3w" method="get" autocomplete="off">
+
+        <div class="fr-col-12 fr-col-md-3">
+            {% include '_field_snippet.html' with field=form.targeted_audiences %}
         </div>
 
-        <div class="fr-select-group fr-col-12 fr-col-md-3">
-            <select class="fr-select" id="select-aid-type" name="aid-type" title="Nature de l’aide - en sélectionnant un élément, la page se rechargera">
-                <option value="">Toutes les aides</option>
-                <option value="financial_group" {% if aid_type == "financial_group" %}selected="selected"{% endif %}>Aides financières par type</option>
-                <option value="technical_group" {% if aid_type == "technical_group" %}selected="selected"{% endif %}>Aides en ingénierie par type</option>
-            </select>
+        <div class="fr-col-12 fr-col-md-3">
+            {% include '_field_snippet.html' with field=form.aid_type %}
         </div>
 
-        <div class="fr-select-group fr-col-12 fr-col-md-3">
-            <select class="fr-select" id="select-perimeter-scale" name="perimeter-scale" title="Échelle des porteurs - en sélectionnant un élément, la page se rechargera">
-                <option value="">Tous les porteurs</option>
-                <option value="local_group" {% if perimeter_scale == "local_group" %}selected="selected"{% endif %}>Porteurs locaux uniquement</option>
-                <option value="national_group" {% if perimeter_scale == "national_group" %}selected="selected"{% endif %}>Porteurs Nationaux uniquement</option>
-            </select>
+        <div class="fr-col-12 fr-col-md-3">
+            {% include '_field_snippet.html' with field=form.perimeter_scale %}
         </div>
+
+        <div class="fr-col-12 fr-col-md-3">
+            {% include '_field_snippet.html' with field=form.categories %}
+        </div>
+
     </form>
 </div>
