@@ -20,19 +20,95 @@ def logo_upload_to(instance, filename):
     return filename
 
 
+class BackerCategory(models.Model):
+    """Represents a category of backers."""
+
+    name = models.CharField("Nom", max_length=256, db_index=True)
+    slug = models.SlugField(
+        "Fragment d'url", help_text="Laissez vide pour autoremplir", blank=True
+    )
+
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+    class Meta:
+        verbose_name = "Catégorie de porteurs"
+        verbose_name_plural = "Catégories de porteurs"
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def id_slug(self):
+        return "{}-{}".format(self.id, self.slug)
+
+    def set_slug(self):
+        """Set the object's slug if it is missing."""
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+
+    def save(self, *args, **kwargs):
+        self.set_slug()
+        return super().save(*args, **kwargs)
+
+
+class BackerSubCategory(models.Model):
+    """Represents a subcategory of backers."""
+
+    name = models.CharField("Nom", max_length=256, db_index=True)
+    slug = models.SlugField(
+        "Fragment d'url", help_text="Laissez vide pour autoremplir", blank=True
+    )
+    category = models.ForeignKey(
+        "BackerCategory",
+        verbose_name="Catégorie de porteurs",
+        related_name="backer_subcategories",
+        on_delete=models.PROTECT,
+    )
+
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+
+    class Meta:
+        verbose_name = "Sous-Catégorie de porteurs"
+        verbose_name_plural = "Sous-Catégories de porteurs"
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def id_slug(self):
+        return "{}-{}".format(self.id, self.slug)
+
+    def set_slug(self):
+        """Set the object's slug if it is missing."""
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+
+    def save(self, *args, **kwargs):
+        self.set_slug()
+        return super().save(*args, **kwargs)
+
+
 class BackerGroup(models.Model):
     """Represents a group of backers."""
 
-    name = models.CharField(_("Name"), max_length=256, db_index=True)
+    name = models.CharField("Nom", max_length=256, db_index=True)
     slug = models.SlugField(
-        _("Slug"), help_text=_("Let it empty so it will be autopopulated."), blank=True
+        "Fragment d'url", help_text="Laissez vide pour autoremplir", blank=True
+    )
+    subcategory = models.ForeignKey(
+        "BackerSubCategory",
+        verbose_name="Sous-Catégorie de porteurs",
+        related_name="backer_group",
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT,
     )
 
-    date_created = models.DateTimeField(_("Date created"), default=timezone.now)
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
 
     class Meta:
-        verbose_name = _("Backer Group")
-        verbose_name_plural = _("Backer Groups")
+        verbose_name = "Groupe de porteurs"
+        verbose_name_plural = "Groupes de porteurs"
 
     def __str__(self):
         return self.name
@@ -100,26 +176,26 @@ class Backer(models.Model):
 
     objects = BackerQuerySet.as_manager()
 
-    name = models.CharField(_("Name"), max_length=256, db_index=True)
+    name = models.CharField("Nom", max_length=256, db_index=True)
     slug = models.SlugField(
-        _("Slug"), help_text=_("Let it empty so it will be autopopulated."), blank=True
+        "Fragment d'url", help_text="Laissez vide pour autoremplir", blank=True
     )
     description = models.TextField(
-        _("Full description of the backer"), default="", blank=True
+        "Description complète du porteur d'aides", default="", blank=True
     )
 
     logo = models.FileField(
-        _("Logo image"),
+        "Logo du porteur",
         null=True,
         blank=True,
         upload_to=logo_upload_to,
-        help_text=_("Make sure the file is not too heavy. Prefer svg files."),
+        help_text="Évitez les fichiers trop lourds. Préférez les fichiers svg.",
     )
     external_link = models.URLField(
-        _("External link"),
+        "Lien externe",
         null=True,
         blank=True,
-        help_text=_("The url for the backer's website"),
+        help_text="L'url externe vers laquelle renvoie un clic sur le logo du porteur",
     )
 
     perimeter = models.ForeignKey(
@@ -130,16 +206,16 @@ class Backer(models.Model):
         blank=True,
     )
 
-    is_corporate = models.BooleanField(_("Is a corporate backer?"), default=False)
+    is_corporate = models.BooleanField("Porteur d'aides privé ?", default=False)
     is_spotlighted = models.BooleanField(
-        _("Is a spotlighted backer?"),
+        "Le porteur est-il mis en avant ?",
         default=False,
-        help_text=_("If the backer is spotlighted, its logo appears in the HomePage"),
+        help_text="Si le porteur est mis en avant, son logo apparaît sur la page d'accueil",
     )
 
     group = models.ForeignKey(
         "BackerGroup",
-        verbose_name=_("Backer Group"),
+        verbose_name="Groupe de porteurs",
         related_name="backers",
         on_delete=models.SET_NULL,
         null=True,
@@ -148,29 +224,29 @@ class Backer(models.Model):
 
     # SEO
     meta_title = models.CharField(
-        _("Meta title"),
+        "Titre (balise meta)",
         max_length=180,
         blank=True,
         default="",
         help_text=_(
-            "This will be displayed in SERPs. "
-            "Keep it under 60 characters. "
-            "Leave empty and we will reuse the backer's name."
+            "Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
+            "60 caractères. "
+            "Laissez vide pour réutiliser le nom du porteur d'aides."
         ),
     )
     meta_description = models.TextField(
-        _("Meta description"),
+        "Description (balise meta)",
         blank=True,
         default="",
         max_length=256,
-        help_text=_("This will be displayed in SERPs. Keep it under 120 characters."),
+        help_text="Sera affichée dans les SERPs. À garder < 120 caractères.",
     )
 
-    date_created = models.DateTimeField(_("Date created"), default=timezone.now)
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
 
     class Meta:
-        verbose_name = _("Backer")
-        verbose_name_plural = _("Backers")
+        verbose_name = "Porteur"
+        verbose_name_plural = "Porteurs"
 
     def __str__(self):
         return self.name
