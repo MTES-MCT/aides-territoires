@@ -3,6 +3,7 @@
     {% if aid_type == "financial_group" %}
         <thead>
             <tr>
+                <th scope="col">Catégorie</th>
                 <th scope="col">Porteur</th>
                 <th scope="col">Périmètre du porteur</th>
                 <th scope="col">Total des aides financières</th>
@@ -16,6 +17,9 @@
         <tbody>
             {% for entry in entries_list %}
                 <tr>
+                    <td>
+                        {{ entry.group__subcategory__category__name }}
+                    </td>
                     <td>
                         <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
                     </td>
@@ -56,6 +60,7 @@
     {% elif aid_type == "technical_group" %}
         <thead>
             <tr>
+                <th scope="col">Catégorie</th>
                 <th scope="col">Porteur</th>
                 <th scope="col">Périmètre du porteur</th>
                 <th scope="col">Total des aides en ingénierie</th>
@@ -67,6 +72,9 @@
         <tbody>
             {% for entry in entries_list %}
                 <tr>
+                    <td>
+                        {{ entry.group__subcategory__category__name }}
+                    </td>
                     <td>
                         <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
                     </td>
@@ -97,6 +105,7 @@
     {% else %}
         <thead>
             <tr>
+                <th scope="col">Catégorie</th>
                 <th scope="col">Porteur</th>
                 <th scope="col">Périmètre du porteur</th>
                 <th scope="col">Total des aides</th>
@@ -107,6 +116,9 @@
         <tbody>
             {% for entry in entries_list %}
                 <tr>
+                    <td>
+                        {{ entry.group__subcategory__category__name }}
+                    </td>
                     <td>
                         <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
                     </td>
