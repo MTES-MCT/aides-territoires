@@ -43,7 +43,7 @@ class BackerGroupAdmin(admin.ModelAdmin):
 
 
 class BackerCategoryAdmin(admin.ModelAdmin):
-    list_display = ["name", "slug", "date_created"]
+    list_display = ["name", "slug", "order", "date_created"]
     search_fields = ["id", "name"]
     ordering = ["name"]
     prepopulated_fields = {"slug": ("name",)}

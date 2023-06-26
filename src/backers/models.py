@@ -27,12 +27,14 @@ class BackerCategory(models.Model):
     slug = models.SlugField(
         "Fragment d'url", help_text="Laissez vide pour autoremplir", blank=True
     )
+    order = models.PositiveIntegerField("Rang", blank=False, default=1)
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)
 
     class Meta:
         verbose_name = "Catégorie de porteurs"
         verbose_name_plural = "Catégories de porteurs"
+        ordering = ["order"]
 
     def __str__(self):
         return self.name
