@@ -86,5 +86,4 @@ def test_mark_emojis_doesnt_duplicate_span():
     """
 
     res = mark_emojis(text)
-    print(res)
     assert res.count("aria-hidden") == 2
