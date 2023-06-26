@@ -44,7 +44,7 @@ def get_backers_count_by_department(
     live_aids = Aid.objects.live()
 
     backers = Backer.objects.prefetch_related("financed_aids").select_related(
-        "perimeter", "group__subcategory__category"
+        "perimeter"
     )
 
     if target_audience:
@@ -63,13 +63,7 @@ def get_backers_count_by_department(
             perimeter_id__in=related_perimeters,
             financed_aids__in=live_aids,
             financed_aids__perimeter_id__in=related_perimeters,
-            backer_group__subcategory__category=backer_category,
-        )
-    else:
-        backers = backers.filter(
-            financed_aids__in=live_aids,
-            financed_aids__perimeter_id__in=related_perimeters,
-            perimeter_id__in=related_perimeters,
+            group__subcategory__category=backer_category,
         )
 
     if perimeter_scale == "local_group":

@@ -1,6 +1,6 @@
 <div class="fr-container">
     <form id="department-search-form" class="fr-grid-row fr-grid-row--gutters" method="post">
-        <div class="fr-select-group fr-col-12 fr-col-3">
+        <div class="fr-select-group fr-col-12 fr-col-md-3">
             <select class="fr-select at-live-change" id="select-department" name="department" title="Départements - en sélectionnant un élément, la page se rechargera">
                 {% for department in departments %}
                     <option value="{{ department.code }}-{{ department.slug }}" {% if department.code == current_dept.code %}selected="selected"{% endif %}>
@@ -9,7 +9,7 @@
                 {% endfor %}
             </select>
         </div>
-        <div class="fr-select-group fr-col-12 fr-col-3">
+        <div class="fr-select-group fr-col-12 fr-col-md-3">
             <select class="fr-select" id="select-organization" name="organization" title="Structures - en sélectionnant un élément, la page se rechargera">
                 <option value="">Toutes les structures</option>
                 {% for type in organization_types %}
@@ -20,7 +20,7 @@
             </select>
         </div>
 
-        <div class="fr-select-group fr-col-12 fr-col-3">
+        <div class="fr-select-group fr-col-12 fr-col-md-3">
             <select class="fr-select" id="select-aid-type" name="aid-type" title="Nature de l’aide - en sélectionnant un élément, la page se rechargera">
                 <option value="">Toutes les aides</option>
                 <option value="financial_group" {% if aid_type == "financial_group" %}selected="selected"{% endif %}>Aides financières par type</option>
@@ -28,7 +28,7 @@
             </select>
         </div>
 
-        <div class="fr-select-group fr-col-12 fr-col-3">
+        <div class="fr-select-group fr-col-12 fr-col-md-3">
             <select class="fr-select" id="select-perimeter-scale" name="perimeter-scale" title="Échelle des porteurs - en sélectionnant un élément, la page se rechargera">
                 <option value="">Tous les porteurs</option>
                 <option value="local_group" {% if perimeter_scale == "local_group" %}selected="selected"{% endif %}>Porteurs locaux uniquement</option>
