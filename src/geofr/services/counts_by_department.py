@@ -44,7 +44,7 @@ def get_backers_count_by_department(
     live_aids = Aid.objects.live()
 
     backers = Backer.objects.prefetch_related("financed_aids").select_related(
-        "perimeter", "backer_group__subcategory__category"
+        "perimeter", "group__subcategory__category"
     )
 
     if target_audience:
