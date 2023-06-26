@@ -65,6 +65,11 @@
 
 {% block extra_js %}
     {% compress js %}
+        <script src="{% static 'select2/dist/js/select2.js' %}"></script>
+        <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+        <script src="{% static 'js/select2_custom.js' %}"></script>
+        <script src="{% static 'js/aids/categories_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
         <script src="{% static 'datatables.net/js/jquery.dataTables.min.js' %}"></script>
         <script src="{% static 'js/plugins/datatables_i18n.js' %}"></script>
         <script src="{% static 'js/url_parameters.js' %}"></script>

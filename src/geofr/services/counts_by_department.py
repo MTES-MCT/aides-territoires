@@ -36,6 +36,7 @@ def get_backers_count_by_department(
     aid_type: str = None,
     perimeter_scale: str = None,
     backer_category: str = None,
+    aid_category: str = None,
 ) -> QuerySet:
     """
     For a given department, returns a list of backers with the number of associated live aids
@@ -64,6 +65,17 @@ def get_backers_count_by_department(
             financed_aids__in=live_aids,
             financed_aids__perimeter_id__in=related_perimeters,
             group__subcategory__category=backer_category,
+        )
+
+    if aid_category and aid_category != "":
+        aid_categories = aid_category.split(",")
+        aid_categories = [eval(i) for i in aid_categories]
+        print(aid_categories)
+        backers = backers.filter(
+            perimeter_id__in=related_perimeters,
+            financed_aids__in=live_aids,
+            financed_aids__perimeter_id__in=related_perimeters,
+            financed_aids__categories__in=aid_categories,
         )
 
     if perimeter_scale == "local_group":

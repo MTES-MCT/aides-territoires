@@ -4,7 +4,8 @@ from django.contrib import admin
 from django.contrib.admin.widgets import AutocompleteSelectMultiple
 from django.utils.safestring import mark_safe
 
-# from core.forms import AutocompleteSelectMultiple
+from categories.fields import CategoryMultipleChoiceField
+from categories.models import Category
 from geofr.models import Perimeter
 from geofr.utils import (
     extract_perimeters_from_file,
@@ -154,4 +155,19 @@ class PerimeterCombineForm(forms.Form):
             Perimeter._meta.get_field("contained_in"), admin.AdminSite()
         ),
         help_text="Ces périmètres seront enlevés du périmètre combiné.",
+    )
+
+
+class DepartmentBackersForm(forms.Form):
+
+    CATEGORIES_QS = Category.objects.select_related("theme").order_by(
+        "theme__name", "name"
+    )
+
+    categories = CategoryMultipleChoiceField(
+        group_by_theme_with_id=True,
+        label="Thématiques",  # Not a mistake
+        queryset=CATEGORIES_QS,
+        to_field_name="id",
+        required=False,
     )

@@ -7,8 +7,10 @@ from geofr.services.counts_by_department import (
     get_backers_count_by_department,
 )
 from geofr.models import Perimeter
+from geofr.forms.forms import DepartmentBackersForm
 from organizations.constants import ORGANIZATION_TYPE_CHOICES
 from programs.models import Program
+from categories.models import Category
 
 
 class MapView(TemplateView):
@@ -43,6 +45,7 @@ class DepartmentBackersView(TemplateView):
         aid_type = self.request.GET.get("aid_type")
         perimeter_scale = self.request.GET.get("perimeter_scale")
         backer_category = self.request.GET.get("backer_category")
+        aid_category = self.request.GET.get("aid_category")
 
         backers_list = get_backers_count_by_department(
             current_dept["id"],
@@ -50,9 +53,13 @@ class DepartmentBackersView(TemplateView):
             aid_type=aid_type,
             perimeter_scale=perimeter_scale,
             backer_category=backer_category,
+            aid_category=aid_category,
         )
 
         backer_categories = BackerCategory.objects.all()
+        aid_categories = Category.objects.select_related("theme").order_by(
+            "theme__name", "name"
+        )
 
         if aid_type == "financial_group":
             caption_aid_type = " financières"
@@ -63,6 +70,7 @@ class DepartmentBackersView(TemplateView):
         caption = f"{current_dept['name'] } : {backers_list.count()} "
         caption += f"porteurs d‘aides{caption_aid_type} présents"
 
+        context["form"] = DepartmentBackersForm
         context["departments"] = departments_list
         context["organization_types"] = ORGANIZATION_TYPE_CHOICES
         context["current_dept"] = current_dept
@@ -71,6 +79,8 @@ class DepartmentBackersView(TemplateView):
         context["perimeter_scale"] = perimeter_scale
         context["backer_categories"] = backer_categories
         context["backer_category"] = backer_category
+        context["aid_categories"] = aid_categories
+        context["aid_category"] = aid_category
         context["backers_list"] = backers_list
         context["caption"] = caption
 
