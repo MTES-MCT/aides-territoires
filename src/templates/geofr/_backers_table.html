@@ -23,7 +23,7 @@
                     <td>
                         <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
                     </td>
-                    <td>{{ entry.perimeter__name}}</td>
+                    <td data-sort="{{ entry.perimeter__scale }}">{{ entry.perimeter__name}}</td>
                     <td>
                         <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=grant&aid_type=loan&aid_type=recoverable_advance&aid_type=cee&aid_type=other{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
                             {{ entry.financial_aids }}
@@ -78,7 +78,7 @@
                     <td>
                         <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
                     </td>
-                    <td>{{ entry.perimeter__name }}</td>
+                    <td data-sort="{{ entry.perimeter__scale }}">{{ entry.perimeter__name }}</td>
                     <td>
                         <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=technical_engineering&aid_type=financial_engineering&aid_type=legal_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
                             {{ entry.technical_aids }}
@@ -122,9 +122,9 @@
                     <td>
                         <a href="{% url 'backer_detail_view' entry.id entry.slug %}">{{ entry.name }}</a>
                     </td>
-                        <td data-sort="{{ entry.perimeter__scale }}">
-                            {{ entry.perimeter__name }}
-                        </td>
+                    <td data-sort="{{ entry.perimeter__scale }}">
+                        {{ entry.perimeter__name }}
+                    </td>
                     <td>
                         <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&targeted_audiences={{ target_audience }}">{{ entry.total_aids }}</a>
                     </td>
