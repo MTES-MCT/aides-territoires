@@ -58,25 +58,18 @@
                         <p>Les champs marqués d’un astérisque (*) sont obligatoires.</p>
 
                         {% csrf_token %}
-                        <fieldset>
-                            {% dsfr_form_field form.first_name %}
-                            {% dsfr_form_field form.last_name %}
-                            {% dsfr_form_field form.email %}
-                            {% dsfr_form_field form.phone %}
-                            {% dsfr_form_field form.organization_and_role %}
-                        </fieldset>
+                        {% dsfr_form_field form.first_name %}
+                        {% dsfr_form_field form.last_name %}
+                        {% dsfr_form_field form.email %}
+                        {% dsfr_form_field form.phone %}
+                        {% dsfr_form_field form.organization_and_role %}
 
-                        <fieldset id="formset-website">
+                        <div id="formset-website">
                             {% dsfr_form_field form.website %}
-                        </fieldset>
+                        </div>
 
-                        <fieldset>
-                            {% dsfr_form_field form.subject %}
-                        </fieldset>
-
-                        <fieldset>
-                            {% include '_field_snippet.html' with field=form.message %}
-                        </fieldset>
+                        {% dsfr_form_field form.subject %}
+                        {% include '_field_snippet.html' with field=form.message %}
 
                     </div>
 
