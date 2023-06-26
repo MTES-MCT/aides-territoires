@@ -3,7 +3,6 @@ import csv
 import logging
 
 from django.db import transaction
-from django.utils import timezone
 
 from backers.models import BackerGroup, BackerCategory, BackerSubCategory
 
@@ -20,10 +19,9 @@ def create_backer_category() -> None:
     Create the backer's category if doesn't exists
     """
 
-    start_time = timezone.now()
-
     backer_category_all = []
     nb_created = 0
+    nb_updated = 0
 
     logger.debug("Parsing file and create backer_categories")
 
@@ -37,10 +35,10 @@ def create_backer_category() -> None:
             if created:
                 nb_created += 1
                 backer_category_all.append(backer_category)
+            else:
+                nb_updated += 1
 
-    end_time = timezone.now()
-    logger.info(f"Import made in {end_time - start_time}.")
-    logger.info(f"* {nb_created} entries created")
+    logger.info(f"{nb_created} categories created, {nb_updated} updated.")
 
 
 @transaction.atomic
@@ -49,10 +47,10 @@ def create_and_attached_backer_subcategory() -> None:
     Create the backer's subcategory if doesn't exists
     And attached the backer's subcategory to a backer's category
     """
-    start_time = timezone.now()
 
     backer_subcategory_all = []
     nb_created = 0
+    nb_updated = 0
 
     logger.debug("Parsing file and create backer_subcategories")
 
@@ -67,10 +65,10 @@ def create_and_attached_backer_subcategory() -> None:
             if created:
                 nb_created += 1
                 backer_subcategory_all.append(backer_subcategory)
+            else:
+                nb_updated += 1
 
-    end_time = timezone.now()
-    logger.info(f"Import made in {end_time - start_time}.")
-    logger.info(f"* {nb_created} entries created")
+    logger.info(f"{nb_created} subcategories created, {nb_updated} updated.")
 
 
 @transaction.atomic
@@ -78,7 +76,6 @@ def attached_backer_group_to_subcategory() -> None:
     """
     Aattached the backer's subcategory to a backer's group
     """
-    start_time = timezone.now()
     nb_updated = 0
 
     logger.debug("Get backer_group object and attached backer_subcategory")
@@ -102,6 +99,4 @@ def attached_backer_group_to_subcategory() -> None:
                 print(backer_group_name)
                 print(e)
 
-    end_time = timezone.now()
-    logger.info(f"Import made in {end_time - start_time}.")
-    logger.info(f"* {nb_updated} entries updated")
+    logger.info(f"{nb_updated} backer groups updated")
