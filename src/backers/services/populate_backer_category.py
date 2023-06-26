@@ -28,7 +28,7 @@ def create_backer_category() -> None:
     with open(BACKER_SUBCATEGORY_CSV_PATH) as csv_file:
         reader = csv.DictReader(csv_file, delimiter=",")
         for index, row in enumerate(reader):
-            backer_category = row["Catégorie"]
+            backer_category = row["Catégories"]
             backer_category, created = BackerCategory.objects.get_or_create(
                 name=backer_category,
             )
@@ -57,8 +57,8 @@ def create_and_attached_backer_subcategory() -> None:
     with open(BACKER_SUBCATEGORY_CSV_PATH) as csv_file:
         reader = csv.DictReader(csv_file, delimiter=",")
         for index, row in enumerate(reader):
-            backer_subcategory = row["Sous-catégorie"]
-            backer_category = BackerCategory.objects.get(name=row["Catégorie"])
+            backer_subcategory = row["Sous-catégories"]
+            backer_category = BackerCategory.objects.get(name=row["Catégories"])
             backer_subcategory, created = BackerSubCategory.objects.get_or_create(
                 name=backer_subcategory, category=backer_category
             )
@@ -83,7 +83,7 @@ def attached_backer_group_to_subcategory() -> None:
     with open(BACKER_SUBCATEGORY_CSV_PATH) as csv_file:
         reader = csv.DictReader(csv_file, delimiter=",")
         for index, row in enumerate(reader):
-            backer_subcategory_name = row["Sous-catégorie"]
+            backer_subcategory_name = row["Sous-catégories"]
             backer_subcategory = BackerSubCategory.objects.get(
                 name=backer_subcategory_name
             )
