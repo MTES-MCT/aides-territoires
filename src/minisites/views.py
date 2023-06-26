@@ -135,8 +135,7 @@ class MinisiteMixin:
 
         For now, just redirect to the main site's homepage.
         """
-        site = Site.objects.get_current()
-        url = "https://{domain}".format(domain=site.domain)
+        url = get_base_url()
         return url
 
 

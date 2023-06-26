@@ -15,13 +15,13 @@ class PageView(DetailView):
             redirect_url = reverse("search_page", args=["europe"])
             return HttpResponsePermanentRedirect(redirect_url)
         elif not url.endswith("/"):
-            return HttpResponsePermanentRedirect(url + "/")
+            return HttpResponsePermanentRedirect(f"{url}/")
         return super().get(request, *args, **kwargs)
 
     def get_object(self):
         url = self.kwargs.get("url")
         if not url.startswith("/"):
-            url = "/" + url
+            url = f"/{url}"
 
         try:
             page = Page.objects.get(url=url)
