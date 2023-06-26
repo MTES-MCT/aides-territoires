@@ -30,11 +30,11 @@
 {% endblock search-form %}
 
 {% block result-count %}
-<h3>
+<h2>
     {% with paginator.count as nb_aids %}
         <span class="result-count">{{ nb_aids }} résultat{% if nb_aids > 1 %}s{% endif %}</span>
     {% endwith %}
-</h3>
+</h2>
 {% endblock result-count %}
 
 {% block content %}
