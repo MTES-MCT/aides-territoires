@@ -252,7 +252,7 @@ def mark_emojis(text_string: str) -> str:
     marked_string = emoji.replace_emoji(text_string, add_emoji_span)
 
     # Subsequent saves of the page should not result in multiple imbricated spans
-    double_spans = r"<span aria-hidden=\"true\">\s+<span aria-hidden=\"true\">(?P<emoji>.*)</span>\s+</span>"  # noqa
+    double_spans = r"<span aria-hidden=\"true\">\s*<span aria-hidden=\"true\">(?P<emoji>.*)</span>\s*</span>"  # noqa
     return re.sub(
         double_spans, r'<span aria-hidden="true">\g<emoji></span>', marked_string
     )
