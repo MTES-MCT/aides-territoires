@@ -32,8 +32,20 @@
             <select class="fr-select" id="select-perimeter-scale" name="perimeter-scale" title="Échelle des porteurs - en sélectionnant un élément, la page se rechargera">
                 <option value="">Tous les porteurs</option>
                 <option value="local_group" {% if perimeter_scale == "local_group" %}selected="selected"{% endif %}>Porteurs locaux uniquement</option>
-                <option value="national_group" {% if perimeter_scale == "national_group" %}selected="selected"{% endif %}>Porteurs Nationaux uniquement</option>
+                <option value="national_group" {% if perimeter_scale == "national_group" %}selected="selected"{% endif %}>Porteurs nationaux uniquement</option>
             </select>
         </div>
+
+        <div class="fr-select-group fr-col-12 fr-col-md-3">
+            <select class="fr-select" id="select-backer-category" name="backer-category" title="Catégorie des porteurs - en sélectionnant un élément, la page se rechargera">
+                <option value="">Toutes les catégories</option>
+                {% for backer_category_item in backer_categories %}
+                <option value="{{ backer_category_item.id }}" {% if backer_category_item.id == backer_category|add:0 %}selected="selected"{% endif %}>
+                {{ backer_category_item.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
     </form>
 </div>

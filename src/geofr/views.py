@@ -2,7 +2,7 @@ import json
 
 from django.views.generic import TemplateView
 
-from backers.models import Backer
+from backers.models import Backer, BackerCategory
 from geofr.services.counts_by_department import (
     get_backers_count_by_department,
 )
@@ -42,13 +42,17 @@ class DepartmentBackersView(TemplateView):
         target_audience = self.request.GET.get("target_audience")
         aid_type = self.request.GET.get("aid_type")
         perimeter_scale = self.request.GET.get("perimeter_scale")
+        backer_category = self.request.GET.get("backer_category")
 
         backers_list = get_backers_count_by_department(
             current_dept["id"],
             target_audience=target_audience,
             aid_type=aid_type,
             perimeter_scale=perimeter_scale,
+            backer_category=backer_category,
         )
+
+        backer_categories = BackerCategory.objects.all()
 
         if aid_type == "financial_group":
             caption_aid_type = " financières"
@@ -65,6 +69,8 @@ class DepartmentBackersView(TemplateView):
         context["target_audience"] = target_audience
         context["aid_type"] = aid_type
         context["perimeter_scale"] = perimeter_scale
+        context["backer_categories"] = backer_categories
+        context["backer_category"] = backer_category
         context["backers_list"] = backers_list
         context["caption"] = caption
 

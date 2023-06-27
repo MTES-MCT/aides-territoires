@@ -13,7 +13,7 @@ from import_export.formats import base_formats
 from core.forms import RichTextField
 from core.constants import YES_NO_CHOICES
 from upload.settings import TRUMBOWYG_UPLOAD_ADMIN_JS
-from backers.models import BackerGroup, Backer
+from backers.models import BackerGroup, Backer, BackerCategory, BackerSubCategory
 from backers.resources import BackerResource
 from categories.models import Category
 from programs.models import Program
@@ -22,9 +22,13 @@ from programs.models import Program
 class BackerGroupAdmin(admin.ModelAdmin):
     list_display = ["name", "slug", "nb_backers", "date_created"]
     search_fields = ["id", "name"]
+    list_filter = [
+        "subcategory",
+    ]
     ordering = ["name"]
     prepopulated_fields = {"slug": ("name",)}
     readonly_fields = ["date_created"]
+    autocomplete_fields = ["subcategory"]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -36,6 +40,26 @@ class BackerGroupAdmin(admin.ModelAdmin):
 
     nb_backers.short_description = "Nombre de porteurs"
     nb_backers.admin_order_field = "backer_count"
+
+
+class BackerCategoryAdmin(admin.ModelAdmin):
+    list_display = ["name", "slug", "order", "date_created"]
+    search_fields = ["id", "name"]
+    ordering = ["name"]
+    prepopulated_fields = {"slug": ("name",)}
+    readonly_fields = ["date_created"]
+
+
+class BackerSubCategoryAdmin(admin.ModelAdmin):
+    list_display = ["name", "slug", "category", "date_created"]
+    search_fields = ["id", "name"]
+    list_filter = [
+        "category",
+    ]
+    ordering = ["name"]
+    prepopulated_fields = {"slug": ("name",)}
+    autocomplete_fields = ["category"]
+    readonly_fields = ["date_created"]
 
 
 class LogoFilter(admin.SimpleListFilter):
@@ -255,3 +279,5 @@ class BackerAdmin(ImportExportActionModelAdmin):
 
 admin.site.register(BackerGroup, BackerGroupAdmin)
 admin.site.register(Backer, BackerAdmin)
+admin.site.register(BackerSubCategory, BackerSubCategoryAdmin)
+admin.site.register(BackerCategory, BackerCategoryAdmin)

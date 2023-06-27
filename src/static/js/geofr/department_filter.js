@@ -53,4 +53,15 @@ function department_filter(return_page) {
         }
     });
 
+    /* use the perimeter_scale filter */
+    $("#select-backer-category").change(function () {
+        let backer_category = $(this).val();
+        if (backer_category.match(SANE_ID_REGEX)) {
+            set_param_value("backer_category", backer_category);
+        } else {
+            console.log("Invalid backer category");
+        }
+    });
+
+
 };

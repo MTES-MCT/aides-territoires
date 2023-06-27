@@ -80,58 +80,14 @@ msgstr "Alerte"
 msgid "Alerts"
 msgstr "Alertes"
 
-msgid "Logo image"
-msgstr "Logo du porteur"
-
 msgid "Description"
 msgstr "Description"
-
-msgid "Backer Group"
-msgstr "Groupe de porteurs"
-
-msgid "Backer Groups"
-msgstr "Groupes de porteurs"
-
-msgid "Full description of the backer"
-msgstr "Description complète du porteur d'aides"
-
-msgid "Make sure the file is not too heavy. Prefer svg files."
-msgstr "Évitez les fichiers trop lourds. Préférez les fichiers svg."
-
-msgid "External link"
-msgstr "Lien externe"
-
-msgid "The url for the backer's website"
-msgstr "L'url externe vers laquelle renvoie un clic sur le logo du porteur"
-
-msgid "Is a corporate backer?"
-msgstr "Porteur d'aides privé ?"
-
-msgid "Is a spotlighted backer?"
-msgstr "Le porteur est-il mis en avant ?"
-
-msgid "If the backer is spotlighted, its logo appears in the HomePage"
-msgstr ""
-"Si le porteur est mis en avant, son logo apparaît sur la page d'accueil"
 
 msgid "Meta title"
 msgstr "Titre (balise meta)"
 
-msgid ""
-"This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
-"and we will reuse the backer's name."
-msgstr ""
-"Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
-"60 caractères. Laissez vide pour réutiliser le nom du porteur d'aides."
-
 msgid "Meta description"
 msgstr "Description (balise meta)"
-
-msgid "This will be displayed in SERPs. Keep it under 120 characters."
-msgstr "Sera affichée dans les SERPs. À garder < 120 caractères."
-
-msgid "Backer"
-msgstr "Porteur d'aides"
 
 msgid ""
 "This will be displayed in SERPs. Keep it under 60 characters. Leave empty "
