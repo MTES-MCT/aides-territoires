@@ -2,7 +2,7 @@
 {% load static compress %}
 
 {% block extratitle %}
-    Liste des porteurs d’aides financières et en ingéniérie dans le département {{ current_dept.name }} ({{ current_dept.code }})
+    Liste des porteurs d’aides dans le département {{ current_dept.name }} ({{ current_dept.code }})
 {% endblock extratitle %}
 
 {% block meta_description %}
@@ -44,6 +44,11 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
+    <div class="fr-container fr-mb-5w">
+        <h1>
+            Liste des porteurs d’aides dans le département {{ current_dept.name }} ({{ current_dept.code }})
+        </h1>
+    </div>
     {% include "geofr/_department_orgtype_selector.html" %}
     <article id="backers-by-departement" class="fr-container fr-mb-5w fr-pb-5w">
         <div class="fr-table at-table--fullwidth">

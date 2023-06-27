@@ -19,8 +19,8 @@
         </div>
 
         <div class="fr-col-12 fr-col-md-3">
-            <div id="form-group-aid-type" class="fr-input-group ">
-                <label for="aid-type" class="fr-label">
+            <div id="form-group-organization" class="fr-input-group ">
+                <label for="organization" class="fr-label">
                     <span class="at-field-label">Public du porteur</span>
                 </label>
                 <div class="fr-select-group">
@@ -60,7 +60,7 @@
 
                 <div class="fr-select-group">
                     <select class="fr-select" id="select-perimeter-scale" name="perimeter-scale" title="Échelle d'intervention du porteur - en sélectionnant un élément, la page se rechargera">
-                        <option value="">Tous les porteurs</option>
+                        <option value="">Toutes les échelles</option>
                         <option value="local_group" {% if perimeter_scale == "local_group" %}selected="selected"{% endif %}>Porteurs locaux uniquement</option>
                         <option value="national_group" {% if perimeter_scale == "national_group" %}selected="selected"{% endif %}>Porteurs nationaux uniquement</option>
                     </select>
