@@ -69,8 +69,7 @@ def get_backers_count_by_department(
 
     if aid_category and aid_category != "":
         aid_categories = aid_category.split(",")
-        aid_categories = [eval(i) for i in aid_categories]
-        print(aid_categories)
+        aid_categories = [int(i) for i in aid_categories]
         backers = backers.filter(
             perimeter_id__in=related_perimeters,
             financed_aids__in=live_aids,
