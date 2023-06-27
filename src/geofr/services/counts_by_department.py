@@ -1,4 +1,5 @@
 from django.db.models import Count
+from django.contrib.postgres.aggregates import ArrayAgg
 from aids.constants import FINANCIAL_AIDS_LIST, TECHNICAL_AIDS_LIST
 from aids.models import Aid
 from geofr.models import Perimeter
@@ -140,6 +141,11 @@ def get_backers_count_by_department(
                     distinct=True,
                 )
             )
+            .annotate(
+                aids_categories=ArrayAgg(
+                    "financed_aids__categories__theme__name", distinct=True
+                )
+            )
             .values(
                 "name",
                 "id",
@@ -153,6 +159,7 @@ def get_backers_count_by_department(
                 "recoverable_advance_count",
                 "cee_count",
                 "other_count",
+                "aids_categories",
             )
             .order_by("-financial_aids")
         )
@@ -192,6 +199,11 @@ def get_backers_count_by_department(
                     distinct=True,
                 )
             )
+            .annotate(
+                aids_categories=ArrayAgg(
+                    "financed_aids__categories__theme__name", distinct=True
+                )
+            )
             .values(
                 "name",
                 "id",
@@ -203,6 +215,7 @@ def get_backers_count_by_department(
                 "technical_count",
                 "financial_count",
                 "legal_count",
+                "aids_categories",
             )
             .order_by("-technical_aids")
         )
@@ -230,6 +243,11 @@ def get_backers_count_by_department(
                     distinct=True,
                 )
             )
+            .annotate(
+                aids_categories=ArrayAgg(
+                    "financed_aids__categories__theme__name", distinct=True
+                )
+            )
             .values(
                 "name",
                 "id",
@@ -240,6 +258,7 @@ def get_backers_count_by_department(
                 "total_aids",
                 "technical_aids",
                 "financial_aids",
+                "aids_categories",
             )
             .order_by("-total_aids")
         )

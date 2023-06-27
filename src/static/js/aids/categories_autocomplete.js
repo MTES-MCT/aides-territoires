@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $("select#id_categories").select2({
-        placeholder: "Toutes les thématiques",
+        placeholder: "Toutes les sous-thématiques",
         theme: "select2-dsfr select2-dsfr-checkboxes",
         dropdownAutoWidth: true,
         width: "auto",
