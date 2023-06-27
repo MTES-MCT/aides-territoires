@@ -229,8 +229,8 @@ class Backer(models.Model):
         max_length=180,
         blank=True,
         default="",
-        help_text="""Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < 
-        60 caractères.
+        help_text="""Le titre qui sera affiché dans les SERPs.
+        Il est recommandé de le garder < 60 caractères.
         Laissez vide pour réutiliser le nom du porteur d’aides.""",
     )
     meta_description = models.TextField(
