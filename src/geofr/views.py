@@ -10,7 +10,6 @@ from geofr.models import Perimeter
 from geofr.forms.forms import DepartmentBackersForm
 from organizations.constants import ORGANIZATION_TYPE_CHOICES
 from programs.models import Program
-from categories.models import Category
 
 
 class MapView(TemplateView):
@@ -57,9 +56,6 @@ class DepartmentBackersView(TemplateView):
         )
 
         backer_categories = BackerCategory.objects.all()
-        aid_categories = Category.objects.select_related("theme").order_by(
-            "theme__name", "name"
-        )
 
         if aid_type == "financial_group":
             caption_aid_type = " financières"
@@ -79,7 +75,6 @@ class DepartmentBackersView(TemplateView):
         context["perimeter_scale"] = perimeter_scale
         context["backer_categories"] = backer_categories
         context["backer_category"] = backer_category
-        context["aid_categories"] = aid_categories
         context["aid_category"] = aid_category
         context["backers_list"] = backers_list
         context["caption"] = caption
