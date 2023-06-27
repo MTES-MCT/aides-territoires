@@ -641,8 +641,8 @@ class BaseAidSearchForm(AidesTerrBaseForm):
 
             instructors_qs = Backer.objects.order_by("aidinstructor__order", "name")
 
-            qs = (Aid.objects
-                .published()
+            qs = (
+                Aid.objects.published()
                 .open()
                 .select_related("perimeter", "author")
                 .prefetch_related(Prefetch("financers", queryset=financers_qs))

@@ -172,13 +172,10 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         """
         if not self.form.data:
             self.form = AidSearchForm(data=self.search_page.get_base_querystring_data())
-            qs = self.form.filter_queryset(
-                self.search_page.get_base_queryset(), apply_generic_aid_filter=True
-            )
-        elif self.form.data:
-            qs = self.form.filter_queryset(
-                self.search_page.get_base_queryset(), apply_generic_aid_filter=True
-            )
+
+        qs = self.form.filter_queryset(
+            self.search_page.get_base_queryset(), apply_generic_aid_filter=True
+        )
 
         # if order_by filter exists in the base querystring we want to use it,
         # combine with hightlighted_aids order
