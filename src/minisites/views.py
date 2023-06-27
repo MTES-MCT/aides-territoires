@@ -170,8 +170,15 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         (*) filters modified by the user and
         search_page base_querystring filters not modified by user
         """
+
         if not self.form.data:
             self.form = AidSearchForm(data=self.search_page.get_base_querystring_data())
+            if self.search_page.available_categories:
+                available_categories = self.get_available_categories()
+                self.form.fields["categories"].queryset = available_categories
+            if self.search_page.available_audiences:
+                available_audiences = self.get_available_audiences()
+                self.form.fields["targeted_audiences"].choices = available_audiences
 
         qs = self.form.filter_queryset(
             self.search_page.get_base_queryset(), apply_generic_aid_filter=True

@@ -58,10 +58,12 @@ class NarrowedFiltersMixin:
         the admin.
         """
         available_categories = self.get_available_categories()
-        form.fields["categories"].queryset = available_categories
+        if available_categories:
+            form.fields["categories"].queryset = available_categories
 
         available_audiences = self.get_available_audiences()
-        form.fields["targeted_audiences"].choices = available_audiences
+        if available_audiences:
+            form.fields["targeted_audiences"].choices = available_audiences
         return form
 
     def get_form(self, form_class=None):
