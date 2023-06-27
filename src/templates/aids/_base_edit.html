@@ -60,17 +60,7 @@
 
             {% include '_form_header.html' with form=form %}
 
-            {% if form.non_field_errors %}
-            <div class="fr-alert fr-alert--info fr-alert--sm">
-                {{ form.non_field_errors.0 }}
-            </div>
-            {% endif %}
-
             <p class="fr-mt-4w">Les champs marqués d’un astérisque (*) sont obligatoires.</p>
-
-            {% for field in form.hidden_fields %}
-                {{ field }}
-            {% endfor %}
 
             {% block fields %}
             <fieldset class="at-fields-section">

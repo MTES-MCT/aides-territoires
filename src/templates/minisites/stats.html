@@ -19,7 +19,7 @@
                     <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
                 </li>
                 <li>
-                    <a class="fr-breadcrumb__link" aria-current="page">Stats</a>
+                    <a class="fr-breadcrumb__link" aria-current="page">Statistiques publiques</a>
                 </li>
             </ol>
         </div>
@@ -29,14 +29,15 @@
 
 {% block content %}
 <section id="stats" class="fr-container">
+    <h1>Statistiques publiques</h1>
     <div class="fr-grid-row fr-grid-row--center fr-mb-5w">
 
         <div class="fr-card fr-card--no-arrow at-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
-                <h4 class="fr-card__title">
+                <h2 class="fr-card__title">
                     <p class="fr-mb-0 fr-h6">Aides disponibles</p>
                     <p class="fr-mb-0 fr-xs">Aides publiées et toujours ouvertes aux candidatures</p>
-                </h4>
+                </h2>
                 <p class="fr-card__desc fr-h1">{{ nb_live_aids|intcomma }}</p>
             </div>
         </div>
@@ -45,55 +46,55 @@
 
         <div class="fr-card fr-card--no-arrow at-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
-                <h4 class="fr-card__title">
+                <h2 class="fr-card__title">
                     <p class="fr-mb-0 fr-h6">Date de lancement de le page</p>
                     <p class="fr-mb-0 fr-xs"></p>
-                </h4>
+                </h2>
                 <p class="fr-card__desc fr-h1">{{ search_page.date_created|date:'d/m/Y' }}</p>
             </div>
         </div>
 
         <div class="fr-card fr-card--no-arrow at-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
-                <h4 class="fr-card__title">
+                <h2 class="fr-card__title">
                     <p class="fr-mb-0 fr-h6">Nombre de recherches pendant les 30 derniers jours</p>
-                </h4>
+                </h2>
                 <p class="fr-card__desc fr-h1">{{ search_count_last_30_days|intcomma }}</p>
             </div>
         </div>
 
         <div class="fr-card fr-card--no-arrow at-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
-                <h4 class="fr-card__title">
+                <h2 class="fr-card__title">
                     <p class="fr-mb-0 fr-h6">Nombre de recherches pendant les 7 derniers jours</p>
-                </h4>
+                </h2>
                 <p class="fr-card__desc fr-h1">{{ search_count_last_7_days|intcomma }}</p>
             </div>
         </div>
 
         <div class="fr-card fr-card--no-arrow at-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
-                <h4 class="fr-card__title">
+                <h2 class="fr-card__title">
                     <p class="fr-mb-0 fr-h6">Nombre d’aides vues pendant les 30 derniers jours</p>
-                </h4>
+                </h2>
                 <p class="fr-card__desc fr-h1">{{ aid_view_count_last_30_days|intcomma }}</p>
             </div>
         </div>
 
         <div class="fr-card fr-card--no-arrow at-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
-                <h4 class="fr-card__title">
+                <h2 class="fr-card__title">
                     <p class="fr-mb-0 fr-h6">Nombre d’aides vues pendant les 7 derniers jours</p>
-                </h4>
+                </h2>
                 <p class="fr-card__desc fr-h1">{{ aid_view_count_last_7_days|intcomma }}</p>
             </div>
         </div>
 
         <div class="fr-card fr-card--no-arrow at-centered fr-col-12 fr-col-md-10 fr-m-3w">
             <div class="fr-card__body">
-                <h4 class="fr-card__title">
+                <h2 class="fr-card__title">
                     <p class="fr-mb-0 fr-h6">Nombre d’aides vues par semaine</p>
-                </h4>
+                </h2>
                 <canvas id="chartAidsViewed" style="width: 80%;"></canvas>
             </div>
         </div>

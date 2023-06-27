@@ -3,13 +3,33 @@
 
 {% block extratitle %}Statistiques publiques{% endblock extratitle %}
 
+{% block breadcrumbs %}
+<div class="fr-container fr-background-main fr-py-1w">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Statistiques publiques</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
 {% block content %}
 <section id="stats" class="fr-container">
+    <h1>Statistiques publiques</h1>
+
     <div class="fr-grid-row fr-grid-row--center fr-mb-5w">
 
         <div class="fr-card fr-card--no-arrow at-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
-                <h4 class="fr-card__title">Aides disponibles</h4>
+                <h2 class="fr-card__title">Aides disponibles</h2>
                 <p class="fr-mb-0 fr-xs">Aides publiées et toujours ouvertes aux candidatures</p>
                 <p class="fr-card__desc fr-h1">{{ nb_live_aids|intcomma }}</p>
             </div>
@@ -17,7 +37,7 @@
 
         <div class="fr-card fr-card--no-arrow at-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
-                <h4 class="fr-card__title">Alertes envoyées</h4>
+                <h2 class="fr-card__title">Alertes envoyées</h2>
                 <p class="fr-mb-0 fr-xs">E-mails d’alertes « nouvelles aides »</p>
                 <p class="fr-card__desc fr-h1">{{ nb_sent_alerts|intcomma }}</p>
             </div>
@@ -25,7 +45,7 @@
 
         <div class="fr-card fr-card--no-arrow at-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
-                <h4 class="fr-card__title">Aides vues</h4>
+                <h2 class="fr-card__title">Aides vues</h2>
                 <p class="fr-mb-0 fr-xs">Aides vues sur les 7 derniers jours</p>
                 <p class="fr-card__desc fr-h1">{{ nb_viewed_aids|intcomma }}</p>
             </div>
@@ -33,7 +53,7 @@
 
         <div class="fr-card fr-card--no-arrow at-centered fr-col-12 fr-col-md-5 fr-m-3w">
             <div class="fr-card__body">
-                <h4 class="fr-card__title">Porteurs d’aides</h4>
+                <h2 class="fr-card__title">Porteurs d’aides</h2>
                 <p class="fr-mb-0 fr-xs">Organisations diffusant au moins une aide financière ou en ingénierie</p>
                 <p class="fr-card__desc fr-h1">{{ nb_backers|intcomma }}</p>
             </div>

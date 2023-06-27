@@ -1,6 +1,11 @@
 import pytest
 
-from dataproviders.utils import content_prettify, get_category_list_from_name
+from dataproviders.utils import (
+    add_emoji_span,
+    content_prettify,
+    get_category_list_from_name,
+    mark_emojis,
+)
 from categories.factories import ThemeFactory, CategoryFactory
 
 
@@ -67,3 +72,18 @@ def test_get_category_list_from_name():
 
     category_list = get_category_list_from_name("Theme 1")
     assert len(category_list) == 2
+
+
+def test_add_emoji_span():
+    assert add_emoji_span("💭", {}) == '<span aria-hidden="true">💭</span>'
+
+
+def test_mark_emojis_doesnt_duplicate_span():
+    text = """
+    <p>Ceci est un emoji <span aria-hidden="true">📡</span> déjà présent et donc avec la balise.
+    Celui-ci par contre 🔦 n’a pas encore la balise.
+    </p>
+    """
+
+    res = mark_emojis(text)
+    assert res.count("aria-hidden") == 2

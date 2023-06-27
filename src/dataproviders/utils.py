@@ -1,10 +1,10 @@
 import csv
+import emoji
 from html import unescape
+from bs4 import BeautifulSoup as bs
+import re
 from unicodedata import normalize
 from urllib.parse import urljoin
-import emoji
-
-from bs4 import BeautifulSoup as bs
 
 from aids.models import Aid
 from categories.models import Theme, Category
@@ -43,6 +43,7 @@ ALLOWED_ATTRS = [
     "class",
     "allow",
     "frameborder",
+    "title",
     "allowfullscreen",  # to display iframe
     "target",
     "aria-hidden",
@@ -248,4 +249,10 @@ def add_emoji_span(emoji: str, data_dict: dict) -> str:
 
 def mark_emojis(text_string: str) -> str:
     """Parse a string to add a span to emojis"""
-    return emoji.replace_emoji(text_string, add_emoji_span)
+    marked_string = emoji.replace_emoji(text_string, add_emoji_span)
+
+    # Subsequent saves of the page should not result in multiple imbricated spans
+    double_spans = r"<span aria-hidden=\"true\">\s*<span aria-hidden=\"true\">(?P<emoji>.*)</span>\s*</span>"  # noqa
+    return re.sub(
+        double_spans, r'<span aria-hidden="true">\g<emoji></span>', marked_string
+    )
