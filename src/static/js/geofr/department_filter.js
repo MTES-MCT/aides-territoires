@@ -53,7 +53,7 @@ function department_filter(return_page) {
         }
     });
 
-    /* use the perimeter_scale filter */
+    /* use the backer_category filter */
     $("#select-backer-category").change(function () {
         let backer_category = $(this).val();
         if (backer_category.match(SANE_ID_REGEX)) {
@@ -63,5 +63,9 @@ function department_filter(return_page) {
         }
     });
 
-
+    /* use the aid_category filter */
+    $("#id_categories").change(function () {
+        let aid_category = $(this).val();
+        set_param_value("aid_category", aid_category);
+    });
 };

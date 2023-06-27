@@ -12,3 +12,5 @@ aides.iml
 AT_svg/
 
 src/tests/tmp
+
+.DS_Store

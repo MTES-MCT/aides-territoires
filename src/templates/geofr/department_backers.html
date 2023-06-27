@@ -2,7 +2,7 @@
 {% load static compress %}
 
 {% block extratitle %}
-    Liste des porteurs d’aides financières et en ingéniérie dans le département {{ current_dept.name }} ({{ current_dept.code }})
+    Liste des porteurs d’aides dans le département {{ current_dept.name }} ({{ current_dept.code }})
 {% endblock extratitle %}
 
 {% block meta_description %}
@@ -44,6 +44,11 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
+    <div class="fr-container fr-mb-5w">
+        <h1>
+            Liste des porteurs d’aides dans le département {{ current_dept.name }} ({{ current_dept.code }})
+        </h1>
+    </div>
     {% include "geofr/_department_orgtype_selector.html" %}
     <article id="backers-by-departement" class="fr-container fr-mb-5w fr-pb-5w">
         <div class="fr-table at-table--fullwidth">
@@ -65,6 +70,11 @@
 
 {% block extra_js %}
     {% compress js %}
+        <script src="{% static 'select2/dist/js/select2.js' %}"></script>
+        <script src="{% static 'select2/dist/js/i18n/fr.js' %}"></script>
+        <script src="{% static 'js/select2_custom.js' %}"></script>
+        <script src="{% static 'js/aids/categories_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
         <script src="{% static 'datatables.net/js/jquery.dataTables.min.js' %}"></script>
         <script src="{% static 'js/plugins/datatables_i18n.js' %}"></script>
         <script src="{% static 'js/url_parameters.js' %}"></script>

@@ -1,50 +1,94 @@
 <div class="fr-container">
     <form id="department-search-form" class="fr-grid-row fr-grid-row--gutters" method="post">
-        <div class="fr-select-group fr-col-12 fr-col-md-3">
-            <select class="fr-select at-live-change" id="select-department" name="department" title="Départements - en sélectionnant un élément, la page se rechargera">
-                {% for department in departments %}
-                    <option value="{{ department.code }}-{{ department.slug }}" {% if department.code == current_dept.code %}selected="selected"{% endif %}>
-                        {{ department.code }} - {{ department.name }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="fr-select-group fr-col-12 fr-col-md-3">
-            <select class="fr-select" id="select-organization" name="organization" title="Structures - en sélectionnant un élément, la page se rechargera">
-                <option value="">Toutes les structures</option>
-                {% for type in organization_types %}
-                    <option value="{{ type.0 }}" {% if type.0 == target_audience %}selected="selected"{% endif %}>
-                        {{ type.1 }}
-                    </option>
-                {% endfor %}
-            </select>
+
+        <div class="fr-col-12 fr-col-md-3">
+            <div id="form-group-department" class="fr-input-group ">
+                <label for="department" class="fr-label">
+                    <span class="at-field-label">Zone de recherche</span>
+                </label>
+                <div class="fr-select-group">
+                    <select class="fr-select at-live-change" id="select-department" name="department" title="Zone de recherche - en sélectionnant un élément, la page se rechargera">
+                        {% for department in departments %}
+                            <option value="{{ department.code }}-{{ department.slug }}" {% if department.code == current_dept.code %}selected="selected"{% endif %}>
+                                {{ department.code }} - {{ department.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
         </div>
 
-        <div class="fr-select-group fr-col-12 fr-col-md-3">
-            <select class="fr-select" id="select-aid-type" name="aid-type" title="Nature de l’aide - en sélectionnant un élément, la page se rechargera">
-                <option value="">Toutes les aides</option>
-                <option value="financial_group" {% if aid_type == "financial_group" %}selected="selected"{% endif %}>Aides financières par type</option>
-                <option value="technical_group" {% if aid_type == "technical_group" %}selected="selected"{% endif %}>Aides en ingénierie par type</option>
-            </select>
+        <div class="fr-col-12 fr-col-md-3">
+            <div id="form-group-organization" class="fr-input-group ">
+                <label for="organization" class="fr-label">
+                    <span class="at-field-label">Public du porteur</span>
+                </label>
+                <div class="fr-select-group">
+                    <select class="fr-select" id="select-organization" name="organization" title="Public du porteur - en sélectionnant un élément, la page se rechargera">
+                        <option value="">Toutes les structures</option>
+                        {% for type in organization_types %}
+                            <option value="{{ type.0 }}" {% if type.0 == target_audience %}selected="selected"{% endif %}>
+                                {{ type.1 }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
         </div>
 
-        <div class="fr-select-group fr-col-12 fr-col-md-3">
-            <select class="fr-select" id="select-perimeter-scale" name="perimeter-scale" title="Échelle des porteurs - en sélectionnant un élément, la page se rechargera">
-                <option value="">Tous les porteurs</option>
-                <option value="local_group" {% if perimeter_scale == "local_group" %}selected="selected"{% endif %}>Porteurs locaux uniquement</option>
-                <option value="national_group" {% if perimeter_scale == "national_group" %}selected="selected"{% endif %}>Porteurs nationaux uniquement</option>
-            </select>
+        <div class="fr-col-12 fr-col-md-3">
+            <div id="form-group-aid-type" class="fr-input-group ">
+                <label for="aid-type" class="fr-label">
+                    <span class="at-field-label">Type d’aide du porteur</span>
+                </label>
+                <div class="fr-select-group">
+                    <select class="fr-select" id="select-aid-type" name="aid-type" title="Type d’aide du porteur - en sélectionnant un élément, la page se rechargera">
+                        <option value="">Toutes les aides</option>
+                        <option value="financial_group" {% if aid_type == "financial_group" %}selected="selected"{% endif %}>Aides financières par type</option>
+                        <option value="technical_group" {% if aid_type == "technical_group" %}selected="selected"{% endif %}>Aides en ingénierie par type</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
-        <div class="fr-select-group fr-col-12 fr-col-md-3">
-            <select class="fr-select" id="select-backer-category" name="backer-category" title="Catégorie des porteurs - en sélectionnant un élément, la page se rechargera">
-                <option value="">Toutes les catégories</option>
-                {% for backer_category_item in backer_categories %}
-                <option value="{{ backer_category_item.id }}" {% if backer_category_item.id == backer_category|add:0 %}selected="selected"{% endif %}>
-                {{ backer_category_item.name }}
-                </option>
-                {% endfor %}
-            </select>
+
+        <div class="fr-col-12 fr-col-md-3">
+            <div id="form-group-perimeter-scale" class="fr-input-group ">
+                <label for="perimeter-scale" class="fr-label">
+                    <span class="at-field-label">Échelle d'intervention du porteur</span>
+                </label>
+
+                <div class="fr-select-group">
+                    <select class="fr-select" id="select-perimeter-scale" name="perimeter-scale" title="Échelle d'intervention du porteur - en sélectionnant un élément, la page se rechargera">
+                        <option value="">Toutes les échelles</option>
+                        <option value="local_group" {% if perimeter_scale == "local_group" %}selected="selected"{% endif %}>Porteurs locaux uniquement</option>
+                        <option value="national_group" {% if perimeter_scale == "national_group" %}selected="selected"{% endif %}>Porteurs nationaux uniquement</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="fr-col-12 fr-col-md-3">
+            <div id="form-group-backer-category" class="fr-input-group ">
+                <label for="backer-category" class="fr-label">
+                    <span class="at-field-label">Catégorie du porteur</span>
+                </label>
+            
+                <div class="fr-select-group">
+                    <select class="fr-select" id="select-backer-category" name="backer-category" title="Catégorie des porteurs - en sélectionnant un élément, la page se rechargera">
+                        <option value="">Toutes les catégories</option>
+                        {% for backer_category_item in backer_categories %}
+                        <option value="{{ backer_category_item.id }}" {% if backer_category_item.id == backer_category|add:0 %}selected="selected"{% endif %}>
+                        {{ backer_category_item.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="fr-col-12 fr-col-md-3">
+            {% include '_field_snippet.html' with field=form.categories %}
         </div>
 
     </form>

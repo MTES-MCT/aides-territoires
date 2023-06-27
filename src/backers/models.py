@@ -5,7 +5,6 @@ from django.db.models import Q
 from django.db.models.expressions import RawSQL
 from django.utils import timezone
 from django.utils.text import slugify
-from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
 from aids.models import AidWorkflow
@@ -25,7 +24,7 @@ class BackerCategory(models.Model):
 
     name = models.CharField("Nom", max_length=256, db_index=True)
     slug = models.SlugField(
-        "Fragment d'url", help_text="Laissez vide pour autoremplir", blank=True
+        "Fragment d’URL", help_text="Laissez vide pour autoremplir", blank=True
     )
     order = models.PositiveIntegerField("Rang", blank=False, default=1)
 
@@ -95,7 +94,7 @@ class BackerGroup(models.Model):
 
     name = models.CharField("Nom", max_length=256, db_index=True)
     slug = models.SlugField(
-        "Fragment d'url", help_text="Laissez vide pour autoremplir", blank=True
+        "Fragment d’URL", help_text="Laissez vide pour autoremplir", blank=True
     )
     subcategory = models.ForeignKey(
         "BackerSubCategory",
@@ -180,10 +179,10 @@ class Backer(models.Model):
 
     name = models.CharField("Nom", max_length=256, db_index=True)
     slug = models.SlugField(
-        "Fragment d'url", help_text="Laissez vide pour autoremplir", blank=True
+        "Fragment d’URL", help_text="Laissez vide pour autoremplir", blank=True
     )
     description = models.TextField(
-        "Description complète du porteur d'aides", default="", blank=True
+        "Description complète du porteur d’aides", default="", blank=True
     )
 
     logo = models.FileField(
@@ -191,13 +190,13 @@ class Backer(models.Model):
         null=True,
         blank=True,
         upload_to=logo_upload_to,
-        help_text="Évitez les fichiers trop lourds. Préférez les fichiers svg.",
+        help_text="Évitez les fichiers trop lourds. Préférez les fichiers SVG.",
     )
     external_link = models.URLField(
         "Lien externe",
         null=True,
         blank=True,
-        help_text="L'url externe vers laquelle renvoie un clic sur le logo du porteur",
+        help_text="L’URL externe vers laquelle renvoie un clic sur le logo du porteur",
     )
 
     perimeter = models.ForeignKey(
@@ -208,11 +207,11 @@ class Backer(models.Model):
         blank=True,
     )
 
-    is_corporate = models.BooleanField("Porteur d'aides privé ?", default=False)
+    is_corporate = models.BooleanField("Porteur d’aides privé ?", default=False)
     is_spotlighted = models.BooleanField(
         "Le porteur est-il mis en avant ?",
         default=False,
-        help_text="Si le porteur est mis en avant, son logo apparaît sur la page d'accueil",
+        help_text="Si le porteur est mis en avant, son logo apparaît sur la page d’accueil",
     )
 
     group = models.ForeignKey(
@@ -230,11 +229,9 @@ class Backer(models.Model):
         max_length=180,
         blank=True,
         default="",
-        help_text=_(
-            "Le titre qui sera affiché dans les SERPs. Il est recommandé de le garder < "
-            "60 caractères. "
-            "Laissez vide pour réutiliser le nom du porteur d'aides."
-        ),
+        help_text="""Le titre qui sera affiché dans les SERPs.
+        Il est recommandé de le garder < 60 caractères.
+        Laissez vide pour réutiliser le nom du porteur d’aides.""",
     )
     meta_description = models.TextField(
         "Description (balise meta)",
