@@ -38,7 +38,7 @@ def get_backers_count_by_department(
     backer_category: str = None,
 ) -> QuerySet:
     """
-    For a given department, returns a list of backers with  the number of associated live aids
+    For a given department, returns a list of backers with the number of associated live aids
     """
     related_perimeters = get_all_related_perimeters(dep_id, values=["id"])
     live_aids = Aid.objects.live()
@@ -49,29 +49,17 @@ def get_backers_count_by_department(
 
     if target_audience:
         backers = backers.filter(
-            perimeter_id__in=related_perimeters,
-            financed_aids__in=live_aids,
-            financed_aids__perimeter_id__in=related_perimeters,
             financed_aids__targeted_audiences__overlap=[target_audience],
-        )
-    else:
-        backers = backers.filter(
-            financed_aids__in=live_aids,
-            financed_aids__perimeter_id__in=related_perimeters,
-            perimeter_id__in=related_perimeters,
         )
 
     if backer_category and backer_category != "":
         backers = backers.filter(
-            perimeter_id__in=related_perimeters,
-            financed_aids__in=live_aids,
             financed_aids__perimeter_id__in=related_perimeters,
             group__subcategory__category=backer_category,
         )
 
     if perimeter_scale == "local_group":
         backers = backers.filter(
-            perimeter_id__in=related_perimeters,
             perimeter__scale__in=[
                 Perimeter.SCALES.commune,
                 Perimeter.SCALES.epci,
@@ -81,26 +69,21 @@ def get_backers_count_by_department(
                 Perimeter.SCALES.basin,
                 Perimeter.SCALES.overseas,
             ],
-            financed_aids__in=live_aids,
-            financed_aids__perimeter_id__in=related_perimeters,
         )
     elif perimeter_scale == "national_group":
         backers = backers.filter(
-            perimeter_id__in=related_perimeters,
             perimeter__scale__in=[
                 Perimeter.SCALES.mainland,
                 Perimeter.SCALES.country,
                 Perimeter.SCALES.continent,
             ],
-            financed_aids__in=live_aids,
-            financed_aids__perimeter_id__in=related_perimeters,
         )
-    else:
-        backers = backers.filter(
-            perimeter_id__in=related_perimeters,
-            financed_aids__in=live_aids,
-            financed_aids__perimeter_id__in=related_perimeters,
-        )
+
+    backers = backers.filter(
+        perimeter_id__in=related_perimeters,
+        financed_aids__in=live_aids,
+        financed_aids__perimeter_id__in=related_perimeters,
+    )
 
     if aid_type == "financial_group":
         backers = (
