@@ -12,14 +12,4 @@ $(document).ready(function () {
         },
         dropdownAdapter: $.fn.select2.amd.require("DropdownWithSearchAdapter")
     })
-
-    let BACKERS_MAP = $('#department-search-form').length
-    let searchParams = new URLSearchParams(window.location.search)
-
-    if (BACKERS_MAP && searchParams.has('aid_category')) {
-        let categories = searchParams.get('aid_category').split(',')
-        $('#id_categories').val(categories)
-        $('#id_categories').trigger('change')
-    }
-
 });
