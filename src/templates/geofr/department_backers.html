@@ -89,6 +89,13 @@
                     "order": [[ 1, 'asc' ]],
                     "language": datatables_fr_strings
                 });
+
+                // Check the selected aid categories so that select2 is aware
+                let searchParams = new URLSearchParams(window.location.search)
+                if (searchParams.has('aid_category')) {
+                    let categories = searchParams.get('aid_category').split(',')
+                    $('#id_categories').val(categories).trigger('change.select2')
+                }
             });
         </script>
 {% endblock extra_js %}

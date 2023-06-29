@@ -12,10 +12,11 @@ function department_filter(return_page) {
     $("#select-department").change(function () {
         let department = $(this).val();
         if (department.match(SANE_ID_REGEX)) {
+            let new_url = ""
             if ($("#backers-by-departement").length) {
-                var new_url = window.location.origin + "/cartographie/" + department + return_page;
+                new_url = window.location.origin + "/cartographie/" + department + return_page;
             } else {
-                var new_url = window.location.origin + "/cartographie/" + department + "/porteurs" + return_page;
+                new_url = window.location.origin + "/cartographie/" + department + "/porteurs" + return_page;
             }
             window.location.href = new_url + window.location.search;
         } else {
