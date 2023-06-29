@@ -31,7 +31,7 @@
                         {% endfor %}
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=grant&aid_type=loan&aid_type=recoverable_advance&aid_type=cee&aid_type=other{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=grant&aid_type=loan&aid_type=recoverable_advance&aid_type=cee&aid_type=other{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.financial_aids }}
                         </a>
                     </td>
