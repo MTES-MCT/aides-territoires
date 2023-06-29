@@ -39,9 +39,8 @@ class AlertCreate(MessageMixin, CreateView):
             message = "Votre alerte a bien été créée !"
         self.messages.success(message)
         redirect_url = reverse("search_view")
-        if alert.source == "aides-territoires":
-            redirect_url += f"?{alert.querystring}"
-        elif (
+        redirect_url += f"?{alert.querystring}"
+        if (
             alert.source != "aides-territoires"
             and SearchPage.objects.get(slug=alert.source).subdomain_enabled is not True
         ):
