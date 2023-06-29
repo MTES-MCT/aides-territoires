@@ -74,11 +74,11 @@
         <div class="fr-col-12 fr-col-md-3">
             <div id="form-group-backer-category" class="fr-input-group ">
                 <label for="backer-category" class="fr-label fr-mb-1w">
-                    <span class="at-field-label">Type de porteur</span>
+                    <span class="at-field-label">Catégorie des porteurs</span>
                 </label>
             
                 <div class="fr-select-group">
-                    <select class="fr-select" id="select-backer-category" name="backer-category" title="Type de porteur - en sélectionnant un élément, la page se rechargera">
+                    <select class="fr-select" id="select-backer-category" name="backer-category" title="Catégorie des porteurs - en sélectionnant un élément, la page se rechargera">
                         <option value="">Toutes les catégories</option>
                         {% for backer_category_item in backer_categories %}
                         <option value="{{ backer_category_item.id }}" {% if backer_category_item.id == backer_category|add:0 %}selected="selected"{% endif %}>

@@ -1,3 +1,9 @@
+<div class="fr-alert fr-alert--info fr-alert--sm fr-mb-3w">
+    <p>
+        Vous êtes une collectivité et vous vous engagez dans un projet accompagné par l’Agence nationale de la cohésion des territoires : vous devez saisir le délégué territorial de l’Agence (Préfet de département ou Directeur Départemental des Territoires)
+    </p>
+</div>
+
 <table class="sortable-table at-table--xl">
     <caption>{{ caption }}</caption>
     {% if aid_type == "financial_group" %}
@@ -31,32 +37,32 @@
                         {% endfor %}
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=grant&aid_type=loan&aid_type=recoverable_advance&aid_type=cee&aid_type=other{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=grant&aid_type=loan&aid_type=recoverable_advance&aid_type=cee&aid_type=other{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.financial_aids }}
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=grant{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=grant{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.grant_count }}
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=loan{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=loan{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.loan_count }}
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=recoverable_advance{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=recoverable_advance{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.recoverable_advance_count }}
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=cee{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=cee{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.cee_count }}
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=other{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=other{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.other_count }}
                         </a>
                     </td>
@@ -92,22 +98,22 @@
                         {% endfor %}
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=technical_engineering&aid_type=financial_engineering&aid_type=legal_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=technical_engineering&aid_type=financial_engineering&aid_type=legal_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.technical_aids }}
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=technical_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=technical_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.technical_count }}
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=financial_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=financial_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.financial_count }}
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=legal_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=legal_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.legal_count }}
                         </a>
                     </td>
@@ -142,15 +148,15 @@
                         {% endfor %}
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&targeted_audiences={{ target_audience }}">{{ entry.total_aids }}</a>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&targeted_audiences={{ target_audience }}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">{{ entry.total_aids }}</a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=grant&aid_type=loan&aid_type=recoverable_advance&aid_type=cee&aid_type=other&targeted_audiences={{ target_audience }}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=grant&aid_type=loan&aid_type=recoverable_advance&aid_type=cee&aid_type=other&targeted_audiences={{ target_audience }}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.financial_aids }}
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=technical_engineering&aid_type=financial_engineering&aid_type=legal_engineering&targeted_audiences={{ target_audience }}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=technical_engineering&aid_type=financial_engineering&aid_type=legal_engineering&targeted_audiences={{ target_audience }}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.technical_aids }}
                         </a>
                     </td>

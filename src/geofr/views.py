@@ -46,6 +46,13 @@ class DepartmentBackersView(TemplateView):
         backer_category = self.request.GET.get("backer_category")
         aid_category = self.request.GET.get("aid_category")
 
+        aid_categories_url_fragment = ""
+        if aid_category:
+            aid_categories = aid_category.split(",")
+            aid_categories_url_fragment = "&".join(
+                [f"categories={i}" for i in aid_categories]
+            )
+
         backers_list = get_backers_count_by_department(
             current_dept["id"],
             target_audience=target_audience,
@@ -76,6 +83,7 @@ class DepartmentBackersView(TemplateView):
         context["backer_categories"] = backer_categories
         context["backer_category"] = backer_category
         context["aid_category"] = aid_category
+        context["aid_categories_url_fragment"] = aid_categories_url_fragment
         context["backers_list"] = backers_list
         context["caption"] = caption
 
