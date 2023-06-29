@@ -1,4 +1,14 @@
-<table class="sortable-table at-table--xl">
+<h2>
+    {{ caption }}
+</h2>
+
+<div class="fr-alert fr-alert--info fr-alert--sm fr-mt-3w fr-mb-1w">
+    <p>
+        Vous êtes une collectivité et vous vous engagez dans un projet accompagné par l’Agence nationale de la cohésion des territoires : vous devez saisir le délégué territorial de l’Agence (Préfet de département ou Directeur Départemental des Territoires)
+    </p>
+</div>
+
+<table class="sortable-table at-table--xl fr-table--no-caption" aria-label="{{ caption }}">
     <caption>{{ caption }}</caption>
     {% if aid_type == "financial_group" %}
         <thead>
