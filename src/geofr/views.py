@@ -46,6 +46,7 @@ class DepartmentBackersView(TemplateView):
         backer_category = self.request.GET.get("backer_category")
         aid_category = self.request.GET.get("aid_category")
 
+        aid_categories_url_fragment = ""
         if aid_category:
             aid_categories = aid_category.split(",")
             aid_categories_url_fragment = "&".join(
