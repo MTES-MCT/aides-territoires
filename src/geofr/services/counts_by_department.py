@@ -1,12 +1,14 @@
-from django.db.models import Count
+import operator
+from functools import reduce
+
+from django.db.models import Q, Count
+from django.db.models.query import QuerySet
 from django.contrib.postgres.aggregates import ArrayAgg
 from aids.constants import FINANCIAL_AIDS_LIST, TECHNICAL_AIDS_LIST
 from aids.models import Aid
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeters
 
-from django.db.models.query import QuerySet
-from django.db.models import Q
 from backers.models import Backer
 from programs.models import Program
 from categories.models import Category
@@ -49,25 +51,41 @@ def get_backers_count_by_department(
         "perimeter"
     )
 
+    q_filters = []
+
+    perimeter_id_in_filter = Q(perimeter_id__in=related_perimeters)
+    q_filters.append(perimeter_id_in_filter)
+
+    financed_aids__in_filter = Q(financed_aids__in=live_aids)
+    q_filters.append(financed_aids__in_filter)
+
+    financed_aids__perimeter_id__in_filter = Q(
+        financed_aids__perimeter_id__in=related_perimeters
+    )
+    q_filters.append(financed_aids__perimeter_id__in_filter)
+
     if target_audience:
-        backers = backers.filter(
+        target_audience_filter = Q(
             financed_aids__targeted_audiences__overlap=[target_audience],
         )
+        q_filters.append(target_audience_filter)
 
     if backer_category and backer_category != "":
-        backers = backers.filter(
+        backer_category_filter = Q(
             group__subcategory__category=backer_category,
         )
+        q_filters.append(backer_category_filter)
 
     if aid_category and aid_category != "":
         aid_categories = aid_category.split(",")
         aid_categories = [int(i) for i in aid_categories]
-        backers = backers.filter(
+        aid_categories_filter = Q(
             financed_aids__categories__in=aid_categories,
         )
+        q_filters.append(aid_categories_filter)
 
     if perimeter_scale == "local_group":
-        backers = backers.filter(
+        perimeter_scale_filter = Q(
             perimeter__scale__in=[
                 Perimeter.SCALES.commune,
                 Perimeter.SCALES.epci,
@@ -78,20 +96,19 @@ def get_backers_count_by_department(
                 Perimeter.SCALES.overseas,
             ],
         )
+        q_filters.append(perimeter_scale_filter)
     elif perimeter_scale == "national_group":
-        backers = backers.filter(
+        perimeter_scale_filter = Q(
             perimeter__scale__in=[
                 Perimeter.SCALES.mainland,
                 Perimeter.SCALES.country,
                 Perimeter.SCALES.continent,
             ],
         )
+        q_filters.append(perimeter_scale_filter)
 
-    backers = backers.filter(
-        perimeter_id__in=related_perimeters,
-        financed_aids__in=live_aids,
-        financed_aids__perimeter_id__in=related_perimeters,
-    )
+    if q_filters:
+        backers = backers.filter(reduce(operator.and_, q_filters))
 
     if aid_type == "financial_group":
         backers = (
