@@ -36,29 +36,6 @@ class CategoryChoiceIterator(forms.models.ModelChoiceIterator):
         yield (self.theme_label(group), subgroup)
 
 
-class CategoryWithIdChoiceIterator(forms.models.ModelChoiceIterator):
-    def theme_label(self, theme_name):
-        return theme_name.upper()
-
-    def category_label(self, category):
-        return category.name
-
-    def __iter__(self):
-        group = ""
-        subgroup = []
-        for category in self.queryset:
-            if not group:
-                group = category.theme.name
-
-            if group != category.theme.name:
-                yield (self.theme_label(group), subgroup)
-                group = category.theme.name
-                subgroup = [(category.id, self.category_label(category))]
-            else:
-                subgroup.append((category.id, self.category_label(category)))
-        yield (self.theme_label(group), subgroup)
-
-
 class CategoryMultipleChoiceField(forms.ModelMultipleChoiceField):
     """Custom field to select categories."""
 
@@ -70,8 +47,6 @@ class CategoryMultipleChoiceField(forms.ModelMultipleChoiceField):
         # We override the iterator to better group and display the categories
         if group_by_theme:
             self.iterator = CategoryChoiceIterator
-        if group_by_theme_with_id:
-            self.iterator = CategoryWithIdChoiceIterator
         super().__init__(queryset, **kwargs)
 
     def label_from_instance(self, obj):

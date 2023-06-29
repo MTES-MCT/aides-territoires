@@ -78,9 +78,8 @@ def get_backers_count_by_department(
 
     if aid_category and aid_category != "":
         aid_categories = aid_category.split(",")
-        aid_categories = [int(i) for i in aid_categories]
         aid_categories_filter = Q(
-            financed_aids__categories__in=aid_categories,
+            financed_aids__categories__slug__in=aid_categories,
         )
         q_filters.append(aid_categories_filter)
 

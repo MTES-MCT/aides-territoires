@@ -165,9 +165,9 @@ class DepartmentBackersForm(forms.Form):
     )
 
     categories = CategoryMultipleChoiceField(
-        group_by_theme_with_id=True,
+        group_by_theme=True,
         label="Thématiques",  # Not a mistake
         queryset=CATEGORIES_QS,
-        to_field_name="id",
+        to_field_name="slug",
         required=False,
     )
