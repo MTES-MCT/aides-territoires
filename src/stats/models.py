@@ -205,6 +205,7 @@ class AidSearchEvent(models.Model):
         return super().save(*args, **kwargs)
 
     def clean_fields(self):
+        self.text = self.text.replace("\x00", "")
         self.text = self.text[:256] if self.text else ""
         self.source = self.source[:256] if self.source else ""
 
@@ -372,6 +373,14 @@ class ValidatedProjectSearchEvent(models.Model):
     class Meta:
         verbose_name = "Événement recherche projets subventionnés"
         verbose_name_plural = "Événements recherche projets subventionnés"
+
+    def save(self, *args, **kwargs):
+        self.clean_fields()
+        return super().save(*args, **kwargs)
+
+    def clean_fields(self):
+        self.text = self.text.replace("\x00", "")
+        self.text = self.text[:256] if self.text else ""
 
 
 class PublicProjectSearchEvent(models.Model):

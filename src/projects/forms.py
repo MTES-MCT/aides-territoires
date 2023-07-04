@@ -417,6 +417,14 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
 
         return zipcode
 
+    def clean_text(self):
+        # Removing null character if present
+        text = self.cleaned_data["text"]
+
+        if text is not None:
+            text = text.replace("\x00", "")
+        return text
+
     def filter_queryset(self, qs=None):
         """Filter querysets depending of input data."""
 
