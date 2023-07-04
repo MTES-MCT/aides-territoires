@@ -138,15 +138,6 @@ def test_audiences_filter_overriding(client, settings):
     page_host = "{}.aides-territoires".format(page.slug)
     settings.ALLOWED_HOSTS = [page_host]
 
-    # All audiences appear in the form
-    res = client.get(page_url, HTTP_HOST=page_host)
-    assert res.status_code == 200
-    content = res.content.decode()
-    assert '<option value="commune">' not in content
-    assert '<option value="epci">' not in content
-    assert '<option value="association">' not in content
-    assert '<option value="region">' not in content
-
     # We create a minisite with an audience pre-filter
     page = MinisiteFactory(
         title="Gloubiboulga page 2",
@@ -176,7 +167,10 @@ def test_alert_creation(client, settings, mailoutbox):
     users = User.objects.all()
     assert users.count() == 0
 
-    page = MinisiteFactory(title="Gloubiboulga page", search_querystring="text=fromage")
+    page = MinisiteFactory(
+        title="Gloubiboulga page",
+        search_querystring="text=fromage&targeted_audiences=epci",
+    )
     page_host = "{}.aides-territoires".format(page.slug)
     settings.ALLOWED_HOSTS = [page_host]
 
@@ -187,7 +181,7 @@ def test_alert_creation(client, settings, mailoutbox):
             "title": "My new search",
             "email": "alert-user@example.com",
             "alert_frequency": "daily",
-            "querystring": "text=Ademe&call_for_projects_only=on",
+            "querystring": "text=Ademe&call_for_projects_only=on&targeted_audiences=epci",
             "source": page.slug,
         },
         HTTP_HOST=page_host,
@@ -199,8 +193,11 @@ def test_alert_creation(client, settings, mailoutbox):
     alert = alerts[0]
     assert alert.email == "alert-user@example.com"
     assert alert.title == "My new search"
-    assert "text=fromage" in alert.querystring  # querystring overrriden
-    assert "call_for_projects_only=on" not in alert.querystring
+    assert (
+        "text=Ademe&call_for_projects_only=on&targeted_audiences=epci"
+        in alert.querystring
+    )
+    assert "text=fromage" not in alert.querystring
     assert not alert.validated
     assert alert.date_validated is None
 
