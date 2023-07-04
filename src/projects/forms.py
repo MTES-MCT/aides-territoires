@@ -420,7 +420,6 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
     def clean_text(self):
         # Removing null character if present
         text = self.cleaned_data["text"]
-
         if text is not None:
             text = text.replace("\x00", "")
         return text
