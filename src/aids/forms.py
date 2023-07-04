@@ -17,7 +17,7 @@ from core.forms import (
     RichTextField,
 )
 from core.forms.baseform import AidesTerrBaseForm
-from core.utils import remove_accents, parse_query
+from core.utils import remove_accents, parse_query, remove_forbidden_chars
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeters
 from backers.models import Backer
@@ -623,6 +623,13 @@ class BaseAidSearchForm(AidesTerrBaseForm):
             raise forms.ValidationError(msg)
 
         return zipcode
+
+    def clean_text(self):
+        # Removing null character if present
+        text = self.cleaned_data["text"]
+        if text is not None:
+            text = remove_forbidden_chars(text)
+        return text
 
     def filter_queryset(self, qs=None, apply_generic_aid_filter=True):  # noqa
         """Filter querysets depending of input data."""
