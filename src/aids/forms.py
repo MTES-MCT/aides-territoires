@@ -627,8 +627,9 @@ class BaseAidSearchForm(AidesTerrBaseForm):
     def clean_text(self):
         # Removing null character if present
         text = self.cleaned_data["text"]
-        text_cleaned = text.replace("\x00", "")
-        return text_cleaned
+        if text is not None:
+            text = text.replace("\x00", "")
+        return text
 
     def filter_queryset(self, qs=None, apply_generic_aid_filter=True):  # noqa
         """Filter querysets depending of input data."""
