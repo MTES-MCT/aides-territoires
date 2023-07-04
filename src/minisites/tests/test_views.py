@@ -138,6 +138,15 @@ def test_audiences_filter_overriding(client, settings):
     page_host = "{}.aides-territoires".format(page.slug)
     settings.ALLOWED_HOSTS = [page_host]
 
+    # All audiences appear in the form
+    res = client.get(page_url, HTTP_HOST=page_host)
+    assert res.status_code == 200
+    content = res.content.decode()
+    assert '<option value="commune">' in content
+    assert '<option value="epci">' in content
+    assert '<option value="association">' in content
+    assert '<option value="region">' in content
+
     # We create a minisite with an audience pre-filter
     page = MinisiteFactory(
         title="Gloubiboulga page 2",
