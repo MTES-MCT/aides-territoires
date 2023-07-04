@@ -7,7 +7,7 @@ from django.db.models.functions import ACos, Cos, Radians, Sin, Round, Least
 
 from django.contrib.postgres.search import SearchRank
 from core.forms.baseform import AidesTerrBaseForm
-from core.utils import remove_accents, parse_query
+from core.utils import remove_accents, parse_query, remove_forbidden_chars
 
 from projects.constants import EXPORT_FORMAT_CHOICES
 from core.forms import (
@@ -421,7 +421,7 @@ class ValidatedProjectSearchForm(AidesTerrBaseForm):
         # Removing null character if present
         text = self.cleaned_data["text"]
         if text is not None:
-            text = text.replace("\x00", "")
+            text = remove_forbidden_chars(text)
         return text
 
     def filter_queryset(self, qs=None):

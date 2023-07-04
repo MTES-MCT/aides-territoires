@@ -3,6 +3,7 @@ from django.utils import timezone
 
 from core.fields import ChoiceArrayField
 from aids.models import Aid
+from core.utils import remove_forbidden_chars
 from home.forms import ContactForm
 
 
@@ -205,7 +206,7 @@ class AidSearchEvent(models.Model):
         return super().save(*args, **kwargs)
 
     def clean_fields(self):
-        self.text = self.text.replace("\x00", "")
+        self.text = remove_forbidden_chars(self.text) if self.text else ""
         self.text = self.text[:256] if self.text else ""
         self.source = self.source[:256] if self.source else ""
 
@@ -379,7 +380,7 @@ class ValidatedProjectSearchEvent(models.Model):
         return super().save(*args, **kwargs)
 
     def clean_fields(self):
-        self.text = self.text.replace("\x00", "")
+        self.text = remove_forbidden_chars(self.text) if self.text else ""
         self.text = self.text[:256] if self.text else ""
 
 

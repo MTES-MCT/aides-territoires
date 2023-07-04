@@ -38,6 +38,15 @@ def remove_accents(input_str):
     return "".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
 
+def remove_forbidden_chars(input_str):
+    """
+    Remove forbidden characters that can cause error 500
+    when present in free text searches
+    - For now, only the null character is managed
+    """
+    return input_str.replace("\x00", "")
+
+
 def parse_query(raw_query):
     """Process a raw query and returns a `SearchQuery`.
 
