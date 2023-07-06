@@ -3,7 +3,6 @@ from django.conf import settings
 
 from alerts.models import Alert
 from core.forms.baseform import AidesTerrBaseForm
-from search.models import SearchPage
 
 
 class AlertForm(forms.ModelForm, AidesTerrBaseForm):
@@ -66,20 +65,6 @@ class AlertForm(forms.ModelForm, AidesTerrBaseForm):
                 self.add_error("email", msg)
 
         return data
-
-    def save(self, commit=True):
-        """
-        If the alert comes from a SearchPage, override the querystring
-        with the SearchPage's querystring.
-        """
-        source = self.cleaned_data.get("source") or "aides-territoires"
-        if source != "aides-territoires":
-            try:
-                search_page = SearchPage.objects.get(slug=source)
-                self.instance.querystring = search_page.search_querystring
-            except SearchPage.DoesNotExist:
-                pass
-        return super().save(commit=commit)
 
 
 class DeleteAlertForm(AidesTerrBaseForm):

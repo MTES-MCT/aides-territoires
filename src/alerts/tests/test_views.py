@@ -153,7 +153,7 @@ def test_alert_from_search_page(client, mailoutbox):
             "title": "Test",
             "email": "alert-user@example.com",
             "alert_frequency": "daily",
-            "querystring": "",
+            "querystring": f"perimeter={perimeter_id}",
             "source": page.slug,
         },
     )

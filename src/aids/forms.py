@@ -1,7 +1,7 @@
 import re
 
 from django import forms
-from django.db.models import Q, F
+from django.db.models import Q, F, Prefetch
 from django.core.exceptions import ValidationError
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.postgres.search import SearchRank
@@ -636,7 +636,18 @@ class BaseAidSearchForm(AidesTerrBaseForm):
 
         # If no qs was passed, just start with all published aids
         if qs is None:
-            qs = Aid.objects.published().open()
+
+            financers_qs = Backer.objects.order_by("aidfinancer__order", "name")
+
+            instructors_qs = Backer.objects.order_by("aidinstructor__order", "name")
+
+            qs = (
+                Aid.objects.published()
+                .open()
+                .select_related("perimeter", "author")
+                .prefetch_related(Prefetch("financers", queryset=financers_qs))
+                .prefetch_related(Prefetch("instructors", queryset=instructors_qs))
+            )
 
         if not self.is_bound:
             return qs

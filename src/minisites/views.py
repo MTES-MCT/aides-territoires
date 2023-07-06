@@ -3,7 +3,7 @@ from urllib.parse import urlparse
 
 from django.conf import settings
 from django.contrib.sites.models import Site
-from django.db.models import Count, Func, F, Value, CharField, Prefetch
+from django.db.models import Count, Func, F, Value, CharField
 from django.db.models.functions import TruncWeek
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import redirect
@@ -13,18 +13,17 @@ from django.views.generic.base import RedirectView
 
 from minisites.mixins import NarrowedFiltersMixin
 from search.models import SearchPage
-from backers.models import Backer
 from aids.models import Aid
 from aids.views import SearchView, AdvancedSearchView, AidDetailView
 from backers.views import BackerDetailView
 from programs.views import ProgramDetail
 
-# from categories.models import Category
 from alerts.views import AlertCreate
 from stats.models import AidViewEvent, AidSearchEvent
 from pages.models import Page
 from stats.utils import log_aidsearchevent
 from core.utils import get_site_from_host, get_base_url
+from aids.forms import AidSearchForm
 
 
 class MinisiteMixin:
@@ -157,65 +156,33 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         kwargs["data"] = data
         return kwargs
 
-    def get_context_data(self, **kwargs):
-
-        pages = Page.objects.filter(minisite=self.search_page)
-        form = self.form
-        return super().get_context_data(pages=pages, form=form, **kwargs)
-
-    def combine_with_form_search(self, qs):
-        """When the search form is used on a minisite,
-        we want to combine the base querystring with the form data.
-
-        If the base querystring defines a parameter,
-        and if there is no search_parameter in conflict with it,
-        then we will force that minisite_parameter to be used.
-
-        We do not want to force minisite_parameter to be used when
-        search_parameter is in conflict with it because it will disallow user
-        to filter more precisely
-
-        With the current solution for example,
-        if the minisite_parameter is Nouvelle Aquitaine perimeter,
-        then we want user to be able to filter and only see results for Bordeaux perimeter.
-        """
-        data = self.search_page.get_base_querystring_data()
-        minisite_perimeter = data.get("perimeter")
-        search_perimeter = self.form.data.get("perimeter")
-        if minisite_perimeter and not search_perimeter:
-            # If the base querystring defines a perimeter, then
-            # we will force that perimeter to be used.
-            self.form.data["perimeter"] = minisite_perimeter
-            self.form.full_clean()
-        qs = self.form.filter_queryset(qs, apply_generic_aid_filter=True)
-        return qs
-
     def get_queryset(self):
-        """Filter the queryset on the categories and audiences filters."""
+        """Filter the queryset with search_page's base_querystring
+        and filters choosen by the user."""
 
-        financers_qs = Backer.objects.order_by("aidfinancer__order", "name")
+        """
+        If user does not choose filters,
+        we apply only filters from the search_page base_querystring
+        These filters are displayed in the front form (with get_context_data)
+        and in the filters tags in front.
 
-        instructors_qs = Backer.objects.order_by("aidinstructor__order", "name")
+        Elif user choose filters, we apply the filters displayed in the front form(*).
+        (*) filters modified by the user and
+        search_page base_querystring filters not modified by user
+        """
 
-        # Start from the base queryset and add-up more filtering
-        qs = (
-            self.search_page.get_base_queryset()
-            .select_related("perimeter", "author")
-            .prefetch_related(Prefetch("financers", queryset=financers_qs))
-            .prefetch_related(Prefetch("instructors", queryset=instructors_qs))
+        if not self.form.data:
+            self.form = AidSearchForm(data=self.search_page.get_base_querystring_data())
+            if self.search_page.available_categories:
+                available_categories = self.get_available_categories()
+                self.form.fields["categories"].queryset = available_categories
+            if self.search_page.available_audiences:
+                available_audiences = self.get_available_audiences()
+                self.form.fields["targeted_audiences"].choices = available_audiences
+
+        qs = self.form.filter_queryset(
+            self.search_page.get_base_queryset(), apply_generic_aid_filter=True
         )
-
-        # Combine from filtering with the base queryset
-        qs = self.combine_with_form_search(qs)
-        data = self.form.cleaned_data
-
-        categories = data.get("categories", [])
-        if categories:
-            qs = qs.filter(categories__in=categories)
-
-        targeted_audiences = data.get("targeted_audiences", [])
-        if targeted_audiences:
-            qs = qs.filter(targeted_audiences__overlap=targeted_audiences)
 
         # if order_by filter exists in the base querystring we want to use it,
         # combine with hightlighted_aids order
@@ -240,6 +207,16 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         )
 
         return qs
+
+    def get_context_data(self, **kwargs):
+
+        pages = Page.objects.filter(minisite=self.search_page)
+
+        # We need to add form to context data to populate all filters* in front form input(s)
+        # all filters = filters from the search_page's querystring and filters choosen by user
+        form = self.form
+
+        return super().get_context_data(pages=pages, form=form, **kwargs)
 
 
 class SiteSearch(MinisiteMixin, AdvancedSearchView):
