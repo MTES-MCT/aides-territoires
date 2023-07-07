@@ -56,7 +56,7 @@
                     </ul>
                 {% endif %}
 
-                {% if aid.subvention_rate %}
+                {% if aid.subvention_rate|length > 0 %}
                     <h3 class="fr-mb-1w fr-mt-3w fr-text--lg at-text--bold at-uppercase">
                         <span class="ri-percent-line ri-xl at-color--blue at-icon-align--sub fr-mr-1w"></span>
                         Taux de subvention
