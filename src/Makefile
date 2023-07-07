@@ -1,3 +1,22 @@
+# Loading environment variables
+ifneq (,$(wildcard ./.env.local))
+    include .env.local
+    export LOCAL_PATH, LOCAL_PATH_PP
+endif
+
+# Setting defaults for env variables
+ifdef LOCAL_PATH
+	local_path := $(LOCAL_PATH)
+else
+	local_path := aides-territoires.localhost:8000
+endif
+
+ifdef LOCAL_PATH_PP
+	local_path_pp := $(LOCAL_PATH_PP)
+else
+	local_path_pp := francemobilites.aides-territoires.localhost:8001
+endif
+
 init:
 	pipenv sync --dev
 	npm ci
@@ -31,3 +50,9 @@ fullcss:
 
 compress:
 	pipenv run python manage.py compress --force
+
+runserver:
+	pipenv run python manage.py runserver $(local_path)
+
+runserver_pp:
+	pipenv run python manage.py runserver $(local_path_pp) --settings minisites.settings.local
