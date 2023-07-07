@@ -21,10 +21,10 @@ Le serveur peut ensuite être démarré avec la commande :
 
 La version dev du minisite sera alors accessible à cette adresse :
 
-http://francemobilites.aides-territoires.localhost:8081/
+http://francemobilites.aides-territoires.localhost:8001/
 
 Note: cette commande est un alias pour 
-    python manage.py runserver francemobilites.aides-territoires.localhost:8081 --settings minisites.settings.local
+    python manage.py runserver francemobilites.aides-territoires.localhost:8001 --settings minisites.settings.local
 
 Il est possible de changer le chemin et le port en définissant la variable LOCAL_PATH_PP dans .env.local
 

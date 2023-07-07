@@ -8,13 +8,13 @@ endif
 ifdef LOCAL_PATH
 	local_path := $(LOCAL_PATH)
 else
-	local_path := aides-territoires.localhost:8080
+	local_path := aides-territoires.localhost:8000
 endif
 
 ifdef LOCAL_PATH_PP
 	local_path_pp := $(LOCAL_PATH_PP)
 else
-	local_path_pp := francemobilites.aides-territoires.localhost:8081
+	local_path_pp := francemobilites.aides-territoires.localhost:8001
 endif
 
 init:
