@@ -1,4 +1,4 @@
-<form id="search-form" method="get" {% if search_page %} action="{% url 'search_minisite_view' search_page.slug %}" {% else %} action="{% url 'search_view' %}" {% endif %} autocomplete='off'>
+<form id="search-form" method="get" {% if search_page and not search_page_with_subdomain %} action="{% url 'search_minisite_view' search_page.slug %}" {% else %} action="{% url 'search_view' %}" {% endif %} autocomplete='off'>
 
     {{ form.integration }}
 
@@ -76,7 +76,7 @@
                             {% include '_field_snippet.html' with field=form.european_aid  %}
                         </div>
                     </div>
-                    <div>
+                    <div class="fr-mt-2w">
                         {% include '_checkbox_snippet.html' with field=form.call_for_projects_only  %}
                     </div>
                 </div>

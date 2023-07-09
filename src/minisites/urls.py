@@ -11,7 +11,6 @@ from minisites.views import (
     SiteAccessibility,
     SiteHome,
     SitePrivacyPolicy,
-    SiteSearch,
     SiteAid,
     SiteAlert,
     SiteBackers,
@@ -53,8 +52,6 @@ urlpatterns = [
         "robots.txt",
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
     ),
-    # This is the full search form
-    path("recherche/", SiteSearch.as_view(), name="advanced_search_view"),
     # Minisite users must be able to create alerts
     path(
         "alertes/",

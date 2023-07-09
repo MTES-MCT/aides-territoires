@@ -14,9 +14,10 @@ from django.views.generic.base import RedirectView
 from minisites.mixins import NarrowedFiltersMixin
 from search.models import SearchPage
 from aids.models import Aid
-from aids.views import SearchView, AdvancedSearchView, AidDetailView
+from aids.views import SearchView, AidDetailView
 from backers.views import BackerDetailView
 from programs.views import ProgramDetail
+from categories.models import Category
 
 from alerts.views import AlertCreate
 from stats.models import AidViewEvent, AidSearchEvent
@@ -96,6 +97,8 @@ class MinisiteMixin:
         canonical_url = self.get_canonical_url(subdomain=self.search_page.slug)
         context = super().get_context_data(**kwargs)
         context["search_page"] = self.search_page
+        if self.search_page.subdomain_enabled is True:
+            context["search_page_with_subdomain"] = True
         context["site_url"] = self.request.build_absolute_uri("").rstrip("/")
         context["canonical_url"] = canonical_url
 
@@ -174,7 +177,10 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         if not self.form.data:
             self.form = AidSearchForm(data=self.search_page.get_base_querystring_data())
             if self.search_page.available_categories:
-                available_categories = self.get_available_categories()
+                if len(self.get_available_categories()) > 1:
+                    available_categories = self.get_available_categories()
+                else:
+                    available_categories = Category.objects.all()
                 self.form.fields["categories"].queryset = available_categories
             if self.search_page.available_audiences:
                 available_audiences = self.get_available_audiences()
@@ -217,12 +223,6 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         form = self.form
 
         return super().get_context_data(pages=pages, form=form, **kwargs)
-
-
-class SiteSearch(MinisiteMixin, AdvancedSearchView):
-    """The full search form."""
-
-    template_name = "minisites/advanced_search.html"
 
 
 class SiteAid(MinisiteMixin, AidDetailView):
