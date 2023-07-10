@@ -35,6 +35,7 @@ class BackerDetailView(ListView):
         qs = (
             Aid.objects.live()
             .filter(financers=self.backer.id)
+            .select_related("perimeter")
             .prefetch_related("financers")
         )
 

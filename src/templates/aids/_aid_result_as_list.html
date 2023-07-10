@@ -8,6 +8,7 @@
             <tr>
                 <th scope="col">Nom</th>
                 <th scope="col">Porteurs</th>
+                <th scope="col">Périmètre</th>
                 <th scope="col">Subvention</th>
                 <th scope="col">Prêt</th>
                 <th scope="col">Ingénierie</th>
@@ -32,6 +33,9 @@
                     {% endfor %}
                      </ul>
                 {% endif %}
+                </td>
+                <td>
+                    {{ aid.perimeter }}
                 </td>
                 <td>
                     {% if aid.is_grant %}
