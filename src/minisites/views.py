@@ -180,7 +180,9 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
                 if len(self.get_available_categories()) > 1:
                     available_categories = self.get_available_categories()
                 else:
-                    available_categories = Category.objects.all()
+                    available_categories = Category.objects.select_related(
+                        "theme"
+                    ).order_by("theme__name", "name")
                 self.form.fields["categories"].queryset = available_categories
             if self.search_page.available_audiences:
                 available_audiences = self.get_available_audiences()
