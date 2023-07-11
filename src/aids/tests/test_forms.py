@@ -35,7 +35,7 @@ def aids(user, backer):
         author=user,
         financers=[backer],
         submission_deadline="2018-01-01",
-        mobilization_steps=["preop"],
+        mobilization_steps=["preop_strategy"],
         aid_types=["grant", "loan"],
         targeted_audiences=["commune"],
     )
@@ -43,7 +43,7 @@ def aids(user, backer):
         author=user,
         financers=[backer],
         submission_deadline="2018-01-01",
-        mobilization_steps=["preop"],
+        mobilization_steps=["preop_strategy"],
         aid_types=["grant", "loan"],
         targeted_audiences=["department"],
     )
@@ -51,7 +51,7 @@ def aids(user, backer):
         author=user,
         financers=[backer],
         submission_deadline="2018-01-01",
-        mobilization_steps=["preop"],
+        mobilization_steps=["preop_strategy"],
         aid_types=["grant", "loan"],
         targeted_audiences=["region"],
     )
@@ -59,7 +59,7 @@ def aids(user, backer):
         author=user,
         financers=[backer],
         submission_deadline="2018-01-01",
-        mobilization_steps=["preop"],
+        mobilization_steps=["preop_strategy"],
         aid_types=["grant", "loan"],
         targeted_audiences=["epci"],
     )
@@ -67,7 +67,7 @@ def aids(user, backer):
         author=user,
         financers=[backer],
         submission_deadline="2018-05-01",
-        mobilization_steps=["preop"],
+        mobilization_steps=["preop_strategy"],
         aid_types=["grant", "loan"],
         targeted_audiences=["public_cies"],
     )
@@ -75,7 +75,7 @@ def aids(user, backer):
         author=user,
         financers=[backer],
         submission_deadline="2018-05-01",
-        mobilization_steps=["preop", "op"],
+        mobilization_steps=["preop_strategy", "op"],
         aid_types=["grant", "loan"],
         targeted_audiences=["association"],
     )
@@ -83,7 +83,7 @@ def aids(user, backer):
         author=user,
         financers=[backer],
         submission_deadline="2018-05-01",
-        mobilization_steps=["preop", "op"],
+        mobilization_steps=["preop_strategy", "op"],
         aid_types=["grant", "loan"],
         targeted_audiences=["private_person"],
     )
@@ -91,7 +91,7 @@ def aids(user, backer):
         author=user,
         financers=[backer],
         submission_deadline="2018-05-01",
-        mobilization_steps=["preop", "op"],
+        mobilization_steps=["preop_strategy", "op"],
         aid_types=["grant", "loan"],
         targeted_audiences=["researcher"],
     )
@@ -99,7 +99,7 @@ def aids(user, backer):
         author=user,
         financers=[backer],
         submission_deadline="2018-09-01",
-        mobilization_steps=["preop", "op", "postop"],
+        mobilization_steps=["preop_strategy", "op", "postop"],
         aid_types=["loan"],
         targeted_audiences=["private_sector"],
     )
@@ -140,11 +140,11 @@ def test_admin_form_default(aid_admin_form_class, aid_form_data):
 
 
 def test_search_form_filter_mobilization_step(aids):
-    form = AidSearchForm({"mobilization_step": ["preop"]})
+    form = AidSearchForm({"mobilization_step": ["preop_strategy"]})
     qs = form.filter_queryset(aids)
     assert qs.count() == 9
     for aid in qs:
-        assert "preop" in aid.mobilization_steps
+        assert "preop_strategy" in aid.mobilization_steps
 
     form = AidSearchForm({"mobilization_step": ["op"]})
     qs = form.filter_queryset(aids)
@@ -158,12 +158,15 @@ def test_search_form_filter_mobilization_step(aids):
     for aid in qs:
         assert "postop" in aid.mobilization_steps
 
-    form = AidSearchForm({"mobilization_step": ["preop", "postop"]})
+    form = AidSearchForm({"mobilization_step": ["preop_strategy", "postop"]})
     qs = form.filter_queryset(aids)
     assert qs.count() == 12
     for aid in qs:
         assert any(
-            ("preop" in aid.mobilization_steps, "postop" in aid.mobilization_steps)
+            (
+                "preop_strategy" in aid.mobilization_steps,
+                "postop" in aid.mobilization_steps,
+            )
         )
 
 

@@ -209,8 +209,10 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
 
     STEPS = Choices(
         ("preop", "Réflexion / conception"),
-        ("op", "Mise en œuvre / réalisation"),
-        ("postop", "Usage / valorisation"),
+        ("preop_strategy", "Émergence / stratégie"),
+        ("preop_conception", "Conception / faisabilité"),
+        ("op", "Exécution"),
+        ("postop", "Suivi / évaluation"),
     )
 
     EUROPEAN_AIDS = Choices(
@@ -336,7 +338,9 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         verbose_name="État d’avancement du projet pour bénéficier du dispositif",
         null=True,
         blank=True,
-        base_field=models.CharField(max_length=32, choices=STEPS, default=STEPS.preop),
+        base_field=models.CharField(
+            max_length=32, choices=STEPS, default=STEPS.preop_strategy
+        ),
     )
     origin_url = models.URLField("Plus d’informations", max_length=700, blank=True)
     application_url = models.URLField("Candidater à l’aide", max_length=700, blank=True)

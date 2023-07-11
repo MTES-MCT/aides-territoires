@@ -39,6 +39,13 @@ from aids.utils import filter_generic_aids
 
 IS_CALL_FOR_PROJECT = ((None, "----"), (True, "Oui"), (False, "Non"))
 
+STEPS_WITHOUT_PREOP = Choices(
+    ("preop_strategy", "Émergence / stratégie"),
+    ("preop_conception", "Conception / faisabilité"),
+    ("op", "Exécution"),
+    ("postop", "Suivi / évaluation"),
+)
+
 
 class BaseAidForm(forms.ModelForm, DsfrBaseForm):
     """Base for all aid edition forms (front, admin).
@@ -201,6 +208,8 @@ class AidAdminForm(BaseAidForm):
         super().__init__(*args, **kwargs)
         if "start_date" in self.fields:
             self.fields["start_date"].required = False
+        if "mobilization_steps" in self.fields:
+            self.fields["mobilization_steps"].choices = STEPS_WITHOUT_PREOP
 
     def clean(self):
         """Validation routine if status is published."""
@@ -416,7 +425,7 @@ class AidEditForm(BaseAidForm):
             "local_characteristics",
         ]
         widgets = {
-            "mobilization_steps": MultipleChoiceFilterWidget,
+            "mobilization_steps": MultipleChoiceFilterWidget(),
             "destinations": MultipleChoiceFilterWidget,
             "targeted_audiences": MultipleChoiceFilterWidget,
             "aid_types": MultipleChoiceFilterWidget,
@@ -445,6 +454,7 @@ class AidEditForm(BaseAidForm):
 
         if "mobilization_steps" in self.fields:
             self.fields["mobilization_steps"].required = True
+            self.fields["mobilization_steps"].choices = STEPS_WITHOUT_PREOP
 
         if "targeted_audiences" in self.fields:
             self.fields["targeted_audiences"].required = True
@@ -578,7 +588,7 @@ class BaseAidSearchForm(AidesTerrBaseForm):
     mobilization_step = forms.MultipleChoiceField(
         label="Avancement du projet",
         required=False,
-        choices=Aid.STEPS,
+        choices=STEPS_WITHOUT_PREOP,
     )
     destinations = forms.MultipleChoiceField(
         label="Actions concernées",

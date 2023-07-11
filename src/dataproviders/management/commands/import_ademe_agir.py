@@ -212,7 +212,12 @@ class Command(BaseImportCommand):
             return Aid.RECURRENCES.ongoing
 
     def extract_mobilization_steps(self, line):
-        return [Aid.STEPS.op, Aid.STEPS.preop, Aid.STEPS.postop]
+        return [
+            Aid.STEPS.op,
+            Aid.STEPS.preop_strategy,
+            Aid.STEPS.preop_conception,
+            Aid.STEPS.postop,
+        ]
 
     def extract_perimeter(self, line):  # NOSONAR
         couv_geo = line.get("couverture_geo", [])["code"]

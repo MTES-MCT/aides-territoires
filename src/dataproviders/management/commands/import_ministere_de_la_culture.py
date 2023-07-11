@@ -178,7 +178,12 @@ class Command(BaseImportCommand):
         return ""
 
     def extract_mobilization_steps(self, line):
-        return [Aid.STEPS.preop, Aid.STEPS.op, Aid.STEPS.postop]
+        return [
+            Aid.STEPS.preop_strategy,
+            Aid.STEPS.preop_conception,
+            Aid.STEPS.op,
+            Aid.STEPS.postop,
+        ]
 
     def extract_targeted_audiences(self, line):
         """
