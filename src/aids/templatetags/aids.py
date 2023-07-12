@@ -11,7 +11,7 @@ from django.conf import settings
 from aids.models import Aid
 from aids.forms import BaseAidSearchForm
 from projects.models import Project
-from aids.constants import AID_TYPES_ALL
+from aids.constants import AID_TYPES_ALL_FOR_FRONT_PURPOSES
 from organizations.constants import ORGANIZATION_TYPE_CHOICES_COMMUNES_OR_EPCI
 
 
@@ -156,7 +156,7 @@ def form_choices_display(obj, field):
     if field == "targeted_audiences":
         choices_dict = dict(Aid.AUDIENCES)
     elif field in ["aid_type", "aid_types", "financial_aids", "technical_aids"]:
-        choices_dict = dict(AID_TYPES_ALL)
+        choices_dict = dict(AID_TYPES_ALL_FOR_FRONT_PURPOSES)
     elif field in ["mobilization_step", "mobilization_steps"]:
         choices_dict = dict(Aid.STEPS)
     elif field == "destinations":

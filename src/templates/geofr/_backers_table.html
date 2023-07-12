@@ -68,12 +68,15 @@
             <tr>
                 <th scope="col">Catégorie</th>
                 <th scope="col">Porteur</th>
-                <th scope="col">Périmètre du porteur</th>
-                <th scope="col">Thématiques des aides</th>
+                <th scope="col">Périmètre du porteur</th>
+                <th scope="col">Thématiques des aides</th>
                 <th scope="col">Total des aides en ingénierie</th>
                 <th scope="col">Ingénierie technique</th>
+                <th scope="col">AMOA / MOD</th>
+                <th scope="col">MOE / MOE déléguée</th>
                 <th scope="col">Ingénierie financière</th>
                 <th scope="col">Ingénierie juridique / administrative</th>
+                <th scope="col">Formation / montée en compétence</th>
             </tr>
         </thead>
         <tbody>
@@ -92,13 +95,23 @@
                         {% endfor %}
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=technical_engineering&aid_type=financial_engineering&aid_type=legal_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=strategic_engineering&aid_type=diagnostic_engineering&aid_type=AMOA_engineering&aid_type=MOE_engineering&aid_type=financial_engineering&aid_type=administrative_engineering&aid_type=legal_and_regulatory_engineering&aid_type=formation_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.technical_aids }}
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=technical_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=strategic_engineering&aid_type=diagnostic_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.technical_count }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=AMOA_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
+                            {{ entry.AMOA_count }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=MOE_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
+                            {{ entry.MOE_count }}
                         </a>
                     </td>
                     <td>
@@ -107,8 +120,13 @@
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=legal_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=administrative_engineering&aid_type=legal_and_regulatory_engineering{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.legal_count }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=formation_engineering&{% if target_audience %}&targeted_audiences={{ target_audience }}{% endif %}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
+                            {{ entry.formation_count }}
                         </a>
                     </td>
                 </tr>
@@ -150,7 +168,7 @@
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=technical_engineering&aid_type=financial_engineering&aid_type=legal_engineering&targeted_audiences={{ target_audience }}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
+                        <a href="{% url 'search_view' %}?perimeter={{ current_dept.id }}&backers={{ entry.id }}&aid_type=strategic_engineering&aid_type=diagnostic_engineering&aid_type=AMOA_engineering&aid_type=MOE_engineering&aid_type=financial_engineering&aid_type=administrative_engineering&aid_type=legal_and_regulatory_engineering&aid_type=formation_engineering&targeted_audiences={{ target_audience }}{% if aid_categories_url_fragment %}&{{ aid_categories_url_fragment }}{% endif %}">
                             {{ entry.technical_aids }}
                         </a>
                     </td>
