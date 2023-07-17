@@ -326,6 +326,7 @@ class BaseAidAdmin(
                     "is_charged",
                     "programs",
                     "aid_types",
+                    "support_type",
                     "subvention_rate",
                     "subvention_comment",
                     "loan_amount",

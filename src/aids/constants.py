@@ -54,19 +54,19 @@ technical_engineering and legal_engineering are now divided in multiple choices
 TECHNICAL_AIDS = (
     ("technical_engineering", "Ingénierie technique"),
     ("strategic_engineering", "Ingénierie de planification et stratégie"),
-    ("diagnostique_engineering", "ingénierie d’études et diagnostics"),
+    ("diagnostic_engineering", "Ingénierie d’études et diagnostiques"),
     ("AMOA_engineering", "AMOA / MOD"),
     ("MOE_engineering", "MOE / MOE déléguée"),
     ("financial_engineering", "Ingénierie financière"),
     ("legal_engineering", "Ingénierie Juridique / administrative"),
     ("administrative_engineering", "Ingénierie administrative"),
     ("legal_and_regulatory_engineering", "Ingénierie juridique et réglementaire"),
-    ("formation_engineering", "formation/montée en compétence"),
+    ("formation_engineering", "Formation / montée en compétence"),
 )
 
 TECHNICAL_AIDS_FOR_FRONT_PURPOSE = (
     ("strategic_engineering", "Ingénierie de planification et stratégie"),
-    ("diagnostic_engineering", "Ingénierie d’études et diagnostics"),
+    ("diagnostic_engineering", "Ingénierie d’études et diagnostiques"),
     ("AMOA_engineering", "AMOA / MOD"),
     ("MOE_engineering", "MOE / MOE déléguée"),
     ("financial_engineering", "Ingénierie financière"),
@@ -77,7 +77,7 @@ TECHNICAL_AIDS_FOR_FRONT_PURPOSE = (
 
 TECHNICAL_ENGINEERING_AIDS = (
     ("strategic_engineering", "Ingénierie de planification et stratégie"),
-    ("diagnostique_engineering", "Ingénierie d’études et diagnostics"),
+    ("diagnostic_engineering", "Ingénierie d’études et diagnostiques"),
     ("AMOA_engineering", "AMOA / MOD"),
     ("MOE_engineering", "MOE / MOE déléguée"),
 )

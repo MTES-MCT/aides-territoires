@@ -215,6 +215,11 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         ("postop", "Suivi / évaluation"),
     )
 
+    SUPPORT_TYPES = Choices(
+        ("direct", "Direct"),
+        ("indirect", "Indirect"),
+    )
+
     EUROPEAN_AIDS = Choices(
         ("sectorial", "Sectorielle"),
         ("organizational", "Structurelle"),
@@ -381,6 +386,17 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
         blank=True,
         base_field=models.CharField(max_length=32, choices=TYPES),
         help_text="Précisez le ou les types de l’aide.",
+    )
+    support_type = ChoiceArrayField(
+        verbose_name="Type d’appui",
+        null=True,
+        blank=True,
+        base_field=models.CharField(max_length=32, choices=SUPPORT_TYPES),
+        help_text=(
+            "Précisez le type d'appui de l’aide: \
+        direct (en nature, prestation directe en temps / ETP) \
+        ou indirect (via un financement permettant de financer une prestation d’ingénierie)"
+        ),
     )
     is_charged = models.BooleanField(
         "Aide Payante",
