@@ -85,6 +85,11 @@
                     </div>
                     {% include '_checkbox_snippet_multiple.html' with field=form.targeted_audiences %}
                     {% include '_checkbox_snippet_multiple.html' with field=form.aid_types %}
+                    <div id="support-type">
+                        <div id="support-type-fields-collapse" class="fr-collapse">
+                            {% include '_checkbox_snippet_multiple.html' with field=form.support_type %}
+                        </div>
+                    </div>
                     <div id="subvention-fields">
                         <div id="subvention-fields-collapse" class="fr-collapse">
                         {% include '_field_snippet.html' with field=form.subvention_rate %}
@@ -106,7 +111,9 @@
                         {% include '_field_snippet.html' with field=form.other_financial_aid_comment %}
                         </div>
                     </div>
-                    {% include '_checkbox_snippet.html' with field=form.is_charged %}
+                    <div class="fr-mb-3w">
+                        {% include '_checkbox_snippet.html' with field=form.is_charged %}
+                    </div>
                     {% include '_checkbox_snippet.html' with field=form.is_call_for_project %}
             </fieldset>
 
@@ -184,6 +191,7 @@
         <script src="{% static 'js/aids/select2_dsfr.js' %}"></script>
         <script src="{% static 'js/aids/enable_page_exit_confirmation.js' %}"></script>
         <script src="{% static 'js/aids/toggle_financial_aids_related_fields.js' %}"></script>
+        <script src="{% static 'js/aids/toggle_engineering_aids_related_fields.js' %}"></script>
         <script src="{% static 'js/aids/toggle_calendar_related_fields.js' %}"></script>
         <script src="{% static 'js/aids/enable_softmaxlength.js' %}"></script>
         <script src="{% static 'js/enable_rich_text_editor_simple.js' %}"></script>
