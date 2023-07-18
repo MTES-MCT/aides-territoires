@@ -63,7 +63,7 @@ class OrganizationCreateForm(forms.ModelForm, AidesTerrBaseForm):
         required=True,
         help_text="""Ce champ sera utilisé par défaut pour trouver des aides.
                 Tous les périmètres géographiques sont disponibles :
-        CA, CU, CC, pays, parc, etc. Contactez-nous si vous ne trouvez pas vôtre.""",
+        CA, CU, CC, pays, parc, etc. Contactez-nous si vous ne trouvez pas le vôtre.""",
     )
 
     class Meta:
@@ -129,7 +129,7 @@ class OrganizationUpdateForm(forms.ModelForm, AidesTerrBaseForm):
         required=True,
         help_text="""Ce champ sera utilisé par défaut pour trouver des aides.
                 Tous les périmètres géographiques sont disponibles :
-        CA, CU, CC, pays, parc, etc. Contactez-nous si vous ne trouvez pas vôtre.""",
+        CA, CU, CC, pays, parc, etc. Contactez-nous si vous ne trouvez pas le vôtre.""",
     )
 
     class Meta:

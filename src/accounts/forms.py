@@ -74,7 +74,7 @@ class RegisterForm(UserCreationForm, AidesTerrBaseForm):
         queryset=Perimeter.objects.all(),
         required=True,
         help_text="""Tous les périmètres géographiques sont disponibles :
-        CA, CU, CC, pays, parc, etc. Contactez-nous si vous ne trouvez pas vôtre.""",
+        CA, CU, CC, pays, parc, etc. Contactez-nous si vous ne trouvez pas le vôtre.""",
     )
 
     acquisition_channel = forms.ChoiceField(
