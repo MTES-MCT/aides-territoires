@@ -261,6 +261,15 @@ class AidAdminForm(BaseAidForm):
                     ValidationError(msg, code="missing_mobilization_steps"),
                 )
 
+            if not data.get("destinations", None):
+                msg = (
+                    "Veuillez compléter le champ types de dépenses / actions couvertes"
+                )
+                self.add_error(
+                    "destinations",
+                    ValidationError(msg, code="missing_destinations"),
+                )
+
             if not data.get("perimeter", None):
                 msg = "Veuillez renseigner une zone géographique."
                 self.add_error(
@@ -438,6 +447,9 @@ class AidEditForm(BaseAidForm):
 
         if "mobilization_steps" in self.fields:
             self.fields["mobilization_steps"].required = True
+
+        if "destinations" in self.fields:
+            self.fields["destinations"].required = True
 
         if "targeted_audiences" in self.fields:
             self.fields["targeted_audiences"].required = True
