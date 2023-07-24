@@ -1,4 +1,5 @@
 .vscode
+pyrightconfig.json
 node_modules
 yarn-error.log
 
