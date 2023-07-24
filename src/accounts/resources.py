@@ -21,6 +21,8 @@ USER_EXPORT_FIELDS = (
     "nb_aids",
     "beneficiary_organization",
     "beneficiary_organization_id",
+    "org_type",
+    "org_intercom_type",
     "beneficiary_organization_projects_count",
     "beneficiary_organization_projects_have_aids",
     "contributor_organization",
@@ -78,6 +80,10 @@ class UserResource(resources.ModelResource):
         column_name="Type de structure",
     )
 
+    org_intercom_type = fields.Field(
+        column_name="Type d'intercommunalité de l'organisation",
+    )
+
     org_zipcode = fields.Field(
         column_name="Code postal de la structure",
     )
@@ -110,7 +116,19 @@ class UserResource(resources.ModelResource):
 
     def dehydrate_org_type(self, obj):
         if obj.beneficiary_organization:
-            return obj.beneficiary_organization.organization_type[0]
+            choices_dict = dict(Organization.ORGANIZATION_TYPE_CHOICES)
+            key = obj.beneficiary_organization.organization_type[0]
+            value = choices_dict.get(key, "")
+            return value
+        else:
+            return ""
+
+    def dehydrate_org_intercom_type(self, obj):
+        if obj.beneficiary_organization:
+            choices_dict = dict(Organization.INTERCOMMUNALITY_TYPES_CHOICES)
+            key = obj.beneficiary_organization.intercommunality_type
+            value = choices_dict.get(key, "")
+            return value
         else:
             return ""
 
