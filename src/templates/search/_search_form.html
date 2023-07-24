@@ -1,4 +1,4 @@
-<form id="search-form" method="get" {% if search_page %} action="{% url 'search_minisite_view' search_page.slug %}" {% else %} action="{% url 'search_view' %}" {% endif %} autocomplete='off'>
+<form id="search-form" method="get" {% if search_page and not search_page_with_subdomain %} action="{% url 'search_minisite_view' search_page.slug %}" {% else %} action="{% url 'search_view' %}" {% endif %} autocomplete='off'>
 
     {{ form.integration }}
 
@@ -9,7 +9,7 @@
     </div>
     {% endblock other_actions %}
 
-    <div class="form-container">
+    <div class="form-container fr-px-2w">
         <div class="form-body">
             {% block form-body %}
                 <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
@@ -124,7 +124,7 @@
                             {% include '_field_snippet.html' with field=form.european_aid  %}
                         </div>
                     </div>
-                    <div>
+                    <div class="fr-mt-2w">
                         {% include '_checkbox_snippet.html' with field=form.call_for_projects_only  %}
                     </div>
                 </div>
@@ -140,7 +140,7 @@
 
                     <ul class="fr-btns-group fr-btns-group--center fr-btns-group--inline">
                         <li>
-                            <a href="{% url 'search_minisite_view' search_page.slug %}" class="fr-btn fr-btn--tertiary-no-outline search-form-extra-action">
+                            <a {% if search_page and not search_page_with_subdomain %} href="{% url 'search_minisite_view' search_page.slug %}" {% else %} href="{% url 'search_view' %}" {% endif %} class="fr-btn fr-btn--tertiary-no-outline search-form-extra-action">
                                 <span class="fr-icon-arrow-go-back-line" aria-hidden="true"></span> Nouvelle recherche
                             </a>
                         </li>

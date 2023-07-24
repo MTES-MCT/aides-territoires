@@ -36,7 +36,6 @@ from backers.models import Backer
 from aids.forms import (
     AidEditForm,
     AidSearchForm,
-    AdvancedAidFilterForm,
     DraftListAidFilterForm,
     AidMatchProjectForm,
     SuggestAidMatchProjectForm,
@@ -49,7 +48,7 @@ from projects.constants import EXPORT_FORMAT_KEYS
 from aids.services.export import export_aids, export_aid_stats, export_aid_detail_pdf
 from alerts.forms import AlertForm
 from categories.models import Category
-from minisites.mixins import SearchMixin, NarrowedFiltersMixin
+from minisites.mixins import SearchMixin
 from organizations.constants import ORGANIZATION_TYPES_SINGULAR_ALL
 from programs.models import Program
 from projects.models import Project
@@ -315,20 +314,6 @@ class SearchView(SearchMixin, FormMixin, ListView):
             output_array.append(f"{len(current_search_dict)} autres critères")
 
         return " - ".join(output_array)
-
-
-class AdvancedSearchView(SearchMixin, NarrowedFiltersMixin, FormView):
-    """Only displays the search form, more suitable for mobile views."""
-
-    form_class = AdvancedAidFilterForm
-    template_name = "aids/advanced_search.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["current_search"] = self.request.session.get(
-            settings.SEARCH_COOKIE_NAME, ""
-        )
-        return context
 
 
 class ResultsView(SearchView):

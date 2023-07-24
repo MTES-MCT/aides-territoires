@@ -40,9 +40,10 @@
     {% include 'minisites/_css.html' %}
 {% endblock extra_css %}
 
-{% block search-engine %}
-     {% include 'minisites/_search_form.html' %}
-{% endblock search-engine %}
+
+{% block search-form %}
+     {% include 'search/_search_form.html' %}
+{% endblock search-form %}
 
 {% block content %}
 {{ block.super }}

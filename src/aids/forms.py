@@ -857,17 +857,6 @@ class AidSearchForm(BaseAidSearchForm):
     )
 
 
-class AdvancedAidFilterForm(BaseAidSearchForm):
-    """An "advanced" aid list filter form with more criterias."""
-
-    targeted_audiences = forms.MultipleChoiceField(
-        label="La structure pour laquelle vous recherchez des aides est…",
-        required=False,
-        choices=ORGANIZATION_TYPES_SINGULAR_ALL_CHOICES,
-        widget=forms.CheckboxSelectMultiple,
-    )
-
-
 class DraftListAidFilterForm(AidesTerrBaseForm):
     """allow the filtering of aids in the drafts list"""
 
