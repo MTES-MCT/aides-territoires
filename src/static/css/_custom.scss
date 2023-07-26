@@ -393,6 +393,10 @@ fieldset {
   margin-top: 0.5em;
 }
 
+#aid-list a:visited {
+  color: var(--text-action-high-purple-glycine);
+}
+
 #aid-list .deadline.fr-tag {
   display: block;
   float: right;
