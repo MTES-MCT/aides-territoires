@@ -110,7 +110,7 @@
                                             </div>
 
                                             <div class="fr-form-group">
-                                                <fieldset class="fr-fieldset fr-fieldset--inline">
+                                                <fieldset class="fr-fieldset{% if not form.is_beneficiary.errors and not form.is_contributor.errors %} fr-fieldset--inline{% endif %}">
                                                     <legend class="fr-fieldset__legend fr-text--regular" id='checkboxes-inline-legend'>
                                                         Vous souhaitez utiliser Aides-territoires pour :
                                                     </legend>

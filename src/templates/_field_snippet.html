@@ -1,5 +1,5 @@
-<div id="form-group-{{ field.name }}" class="fr-input-group{% if field.errors %} fr-input-group--error{% endif %}{% if field.field.required %} required{% endif %} {% if required == 'true' %}required{% endif %}">
-
+{% load widget_tweaks %}
+<div id="form-group-{{ field.name }}" class="fr-input-group{% if field.errors %} fr-input-group--error{% endif %}"{% if field.field.required %} required{% endif %} {% if required == 'true' %}required{% endif %}>
     <label for="{{ field.id_for_label }}" class="fr-label">
         <span class="at-field-label{% if field.field.required %} at-required--label{% endif %}">{{ field.label }}</span>
 
@@ -12,7 +12,14 @@
     <div class="{{ nest_field_class }}">
     {% endif %}
 
-    {{ field }}
+
+    {% if field.errors %}
+      {% with aria_describedby="aria-describedby:"|add:field.auto_id|add:"-desc-error" %}
+        {{ field|attr:"aria-invalid:true"|attr:aria_describedby }}
+      {% endwith %}
+    {% else %}
+      {{ field }}
+    {% endif %}
 
 
     {% if nest_field_class %}
@@ -20,7 +27,7 @@
     {% endif %}
 
     {% if field.errors %}
-    <p id="text-input-error-{{ field.name }}" class="fr-error-text">
+    <p id="{{ field.auto_id }}-desc-error" class="fr-error-text">
         {{ field.errors.0 }}
     </p>
     {% endif %}
