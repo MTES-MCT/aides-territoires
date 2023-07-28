@@ -402,6 +402,7 @@ class Aid(xwf_models.WorkflowEnabled, models.Model):
     local_characteristics = models.TextField("Spécificités locales", blank=True)
     destinations = ChoiceArrayField(
         verbose_name="Types de dépenses / actions couvertes",
+        help_text="Obligatoire pour les aides financières",
         null=True,
         blank=True,
         base_field=models.CharField(max_length=32, choices=DESTINATIONS),
