@@ -43,7 +43,7 @@ def test_search_page_display(client):
 def test_search_page_results(client):
     """Test that the saved search query is applied."""
 
-    AidFactory(name="Un repas sans fromage, c'est dommage")
+    AidFactory(name="Un repas sans fromage, c'est dommage", description="Description")
     AidFactory(name="Une soirée sans vin, ce n'est pas malin")
 
     page = SearchPageFactory(
@@ -63,7 +63,9 @@ def test_search_page_with_highlighted_aids_results(
     """Test that the highlighted_aids are moved up."""
 
     AidFactory(
-        name="Un repas sans fromage, c'est dommage", submission_deadline=next_week
+        name="Un repas sans fromage, c'est dommage",
+        description="Description",
+        submission_deadline=next_week,
     )
     AidFactory(name="Une soirée sans vin, ce n'est pas malin")
     aid_to_highlight_1 = AidFactory(
@@ -101,7 +103,7 @@ def test_search_page_with_highlighted_aids_results(
 def test_search_page_with_excluded_aids_results(client):
     """Test that the excluded_aids are filtered out."""
 
-    AidFactory(name="Un repas sans fromage, c'est dommage")
+    AidFactory(name="Un repas sans fromage, c'est dommage", description="Description")
     AidFactory(name="Une soirée sans vin, ce n'est pas malin")
     aid_to_exclude = AidFactory(name="Du fromage sans vin, ce n'est pas sain")
 
@@ -121,7 +123,7 @@ def test_search_page_with_excluded_aids_results(client):
 def test_search_query_overriding(client):
     """Test that manual filter add-up on top of initial filter."""
 
-    AidFactory(name="Un repas sans fromage, c'est dommage")
+    AidFactory(name="Un repas sans fromage, c'est dommage", description="Description")
     AidFactory(name="Du fromage sans vin, ce n'est pas sain")
     AidFactory(name="Une soirée sans vin, ce n'est pas malin")
 
