@@ -23,7 +23,6 @@ class Command(BaseCommand):
         site_path = options["site_path"]
 
         if site_path:
-            print(site_path)
             site = Site.objects.first()
             site.domain = site_path
             site.save()
