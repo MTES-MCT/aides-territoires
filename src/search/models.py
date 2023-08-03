@@ -51,7 +51,7 @@ class SearchPageQuerySet(models.QuerySet):
 class SearchPage(models.Model):
     """A single search result page with additional data.
 
-    A customized search page is a pre-filtered search page with it's own url,
+    A customized search page is a pre-filtered search page with its own URL,
     configurable titles, descriptions, etc. and built for navigation and
     seo purpose.
     """
@@ -68,10 +68,17 @@ class SearchPage(models.Model):
     )
     slug = models.SlugField(
         "Fragment d’URL",
-        help_text="Cette partie est utilisée dans l'url. \
-             NE PAS CHANGER pour une page. \
-            DOIT être en minuscule pour les sites partenaires.",
+        max_length=33,
+        help_text="""Cette partie est utilisée dans l’URL.
+             NE PAS CHANGER pour une page.
+            DOIT être en minuscule pour les sites partenaires.
+            Longueur max :33 caractères, mais si possible ne pas dépasser 23.""",
     )
+    # The full domain name can not be longer than 64 characters for LetsEncrypt to be
+    # able to generate a certificate.
+    # We have a rather lengthy domain name, which leaves us with 33 characters
+    # for the slug in production, and only 23 in staging.
+
     subdomain_enabled = models.BooleanField(
         "Afficher depuis un sous-domaine ?",
         default=True,
@@ -86,19 +93,19 @@ class SearchPage(models.Model):
         help_text="Contenu révélé au clic sur le bouton « Voir plus ».",
     )
     tab_title = models.CharField(
-        "Titre de l'onglet principal", blank=True, default="Accueil", max_length=180
+        "Titre de l’onglet principal", blank=True, default="Accueil", max_length=180
     )
     contact_link = models.CharField(
-        "Url du lien contact",
-        help_text="Url ou adresse email qui sera utilisé"
-        " pour le lien 'contact' dans le footer.",
+        "URL du lien contact",
+        help_text="""URL ou adresse email qui sera utilisé
+        pour le lien « contact » dans le footer.""",
         blank=False,
         default="https://aides-territoires.beta.gouv.fr/contact/",
         max_length=300,
     )
 
     search_querystring = models.TextField(
-        "Querystring", help_text="Les paramètres de recherche en format url"
+        "Querystring", help_text="Les paramètres de recherche en format URL"
     )
 
     administrator = models.ForeignKey(
@@ -114,8 +121,8 @@ class SearchPage(models.Model):
         "aids.Aid",
         verbose_name="Aides à mettre en avant",
         related_name="highlighted_in_search_pages",
-        help_text="Il est possible de mettre jusqu'à 9 aides en avant. \
-             Les aides mises en avant s'affichent en haut des résultats du portail, \
+        help_text="Il est possible de mettre jusqu’à 9 aides en avant. \
+             Les aides mises en avant s’affichent en haut des résultats du portail, \
              et n’ont pas de mise en forme particulière.",
         blank=True,
     )
@@ -148,7 +155,7 @@ class SearchPage(models.Model):
         null=True,
         blank=True,
         upload_to=meta_upload_to,
-        help_text="Vérifiez que l'image a une largeur minimale de 1024px",
+        help_text="Vérifiez que l’image a une largeur minimale de 1024px",
     )
 
     # custom_colors
@@ -187,7 +194,7 @@ class SearchPage(models.Model):
         "Lien du logo",
         null=True,
         blank=True,
-        help_text="L'url vers laquelle renvoie un clic sur le logo partenaire",
+        help_text="L’URL vers laquelle renvoie un clic sur le logo partenaire",
     )
 
     # Search form customization fields
@@ -205,7 +212,7 @@ class SearchPage(models.Model):
         "Montrer le champ « structure » ?", default=True
     )
     available_audiences = ChoiceArrayField(
-        verbose_name="Bénéficiaires de l'aide",
+        verbose_name="Bénéficiaires de l’aide",
         null=True,
         blank=True,
         base_field=models.CharField(max_length=32, choices=AUDIENCES_GROUPED),
@@ -224,7 +231,7 @@ class SearchPage(models.Model):
         "Montrer le champ « recherche textuelle » ?", default=False
     )
     show_aid_type_field = models.BooleanField(
-        "Montrer le champ « nature de l'aide » ?", default=False
+        "Montrer le champ « nature de l’aide » ?", default=False
     )
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)
