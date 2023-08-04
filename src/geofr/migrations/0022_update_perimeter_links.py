@@ -2,20 +2,20 @@
 
 from django.db import migrations, transaction
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
 from model_utils import Choices
 
 
 SCALES = Choices(
-    (1, "commune", _("Commune")),
-    (5, "epci", _("EPCI")),
-    (8, "basin", _("Drainage basin")),
-    (10, "department", _("Department")),
-    (15, "region", _("Region")),
-    (16, "overseas", _("Overseas")),
-    (17, "mainland", _("Mainland")),
-    (20, "country", _("Country")),
-    (25, "continent", _("Continent")),
+    (1, "commune", "Commune"),
+    (5, "epci", "EPCI"),
+    (8, "basin", "Bassin hydrographique"),
+    (10, "department", "Département"),
+    (15, "region", "Région"),
+    (16, "overseas", "Outre-mer"),
+    (17, "mainland", "Métropole"),
+    (18, "adhoc", "Ad-hoc"),
+    (20, "country", "Pays"),
+    (25, "continent", "Continent"),
 )
 
 
