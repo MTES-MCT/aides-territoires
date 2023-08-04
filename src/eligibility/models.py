@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
 
 from eligibility import constants
 
@@ -8,7 +7,7 @@ from eligibility import constants
 class EligibilityTest(models.Model):
     """Represents an elibility test."""
 
-    name = models.CharField(_("Name"), max_length=256)
+    name = models.CharField("Nom", max_length=256)
 
     introduction = models.TextField("Une introduction", blank=True)
     conclusion_success = models.TextField(
@@ -30,17 +29,17 @@ class EligibilityTest(models.Model):
     author = models.ForeignKey(
         "accounts.User",
         on_delete=models.PROTECT,
-        verbose_name=_("Author"),
+        verbose_name="Auteur",
         related_name="eligibility_tests",
         null=True,
     )
 
-    date_created = models.DateTimeField(_("Date created"), default=timezone.now)
-    date_updated = models.DateTimeField(_("Date updated"), auto_now=True)
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+    date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
 
     class Meta:
-        verbose_name = _("Eligibility test")
-        verbose_name_plural = _("Eligibility tests")
+        verbose_name = "Test d’éligibilité"
+        verbose_name_plural = "Tests d’éligibilité"
 
     def __str__(self):
         return self.name
@@ -51,18 +50,10 @@ class EligibilityQuestion(models.Model):
 
     text = models.TextField("La question")
 
-    # type = models.CharField(
-    #     'Le type de question',
-    #     max_length=50,
-    #     choices=constants.QUESTION_TYPE_CHOICES,
-    #     default=constants.QUESTION_TYPE_VF,
-    #     blank=False,
-    # )
-
-    answer_choice_a = models.CharField("Réponse a", max_length=256)
-    answer_choice_b = models.CharField("Réponse b", max_length=256)
-    answer_choice_c = models.CharField("Réponse c", max_length=256, blank=True)
-    answer_choice_d = models.CharField("Réponse d", max_length=256, blank=True)
+    answer_choice_a = models.CharField("Réponse A", max_length=256)
+    answer_choice_b = models.CharField("Réponse B", max_length=256)
+    answer_choice_c = models.CharField("Réponse C", max_length=256, blank=True)
+    answer_choice_d = models.CharField("Réponse D", max_length=256, blank=True)
     answer_correct = models.CharField(
         "La bonne réponse",
         max_length=50,
@@ -75,13 +66,13 @@ class EligibilityQuestion(models.Model):
     author = models.ForeignKey(
         "accounts.User",
         on_delete=models.PROTECT,
-        verbose_name=_("Author"),
+        verbose_name="Auteur",
         related_name="eligibility_questions",
         null=True,
     )
 
-    date_created = models.DateTimeField(_("Date created"), default=timezone.now)
-    date_updated = models.DateTimeField(_("Date updated"), auto_now=True)
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+    date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
 
     class Meta:
         verbose_name = "Question"
@@ -96,9 +87,7 @@ class EligibilityQuestion(models.Model):
 
 class EligibilityTestQuestion(models.Model):
     test = models.ForeignKey("EligibilityTest", on_delete=models.CASCADE)
-    question = models.ForeignKey(
-        "EligibilityQuestion", on_delete=models.CASCADE
-    )  # noqa
+    question = models.ForeignKey("EligibilityQuestion", on_delete=models.CASCADE)
     order = models.PositiveIntegerField(blank=True, default=0)
 
     class Meta:

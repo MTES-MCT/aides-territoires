@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
 from django.contrib.flatpages.models import FlatPage
 
 
@@ -32,38 +31,35 @@ class Page(FlatPage):
     objects = PageQueryset.as_manager()
 
     meta_title = models.CharField(
-        _("Meta title"),
+        "Titre (balise meta)",
         max_length=180,
         blank=True,
         default="",
-        help_text=_(
-            "This will be displayed in SERPs. "
-            "Keep it under 60 characters. "
-            "Leave empty and we will reuse the page title."
-        ),
+        help_text="""Le titre qui sera affiché dans les SERPs.
+        Il est recommandé de le garder < 60 caractères. Laissez vide pour
+        réutiliser le titre de la page.""",
     )
     meta_description = models.TextField(
-        _("Meta description"),
+        "Description (balise meta)",
         blank=True,
         default="",
         max_length=256,
-        help_text=_(
-            "This will be displayed in SERPs. " "Keep it under 120 characters."
-        ),
+        help_text="""Le titre qui sera affiché dans les SERPs.
+        Il est recommandé de le garder < 120 caractères.""",
     )
 
     minisite = models.ForeignKey(
         "search.SearchPage",
-        verbose_name=_("Minisite"),
+        verbose_name="Minisite",
         related_name="pages",
-        help_text=_("Optional, link this page to a minisite."),
+        help_text="Optionnel, lie cette page à un minisite.",
         on_delete=models.PROTECT,
         null=True,
         blank=True,
     )
 
-    date_created = models.DateTimeField(_("Date created"), default=timezone.now)
-    date_updated = models.DateTimeField(_("Date updated"), auto_now=True)
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+    date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
 
 
 class Tab(models.Model):
@@ -78,7 +74,7 @@ class Tab(models.Model):
         blank=False,
     )
 
-    content = models.TextField("Contenu de l'onglet", blank=False)
+    content = models.TextField("Contenu de l’onglet", blank=False)
 
     program = models.ForeignKey(
         "programs.Program",
@@ -90,8 +86,8 @@ class Tab(models.Model):
         blank=True,
     )
 
-    date_created = models.DateTimeField(_("Date created"), default=timezone.now)
-    date_updated = models.DateTimeField(_("Date updated"), auto_now=True)
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+    date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
 
 
 class FaqCategory(models.Model):

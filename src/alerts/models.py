@@ -2,7 +2,6 @@ import uuid
 
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
 from django.http import QueryDict
 from django.urls import reverse
 from model_utils import Choices
@@ -18,26 +17,24 @@ class Alert(models.Model):
     FREQUENCIES = Choices(("daily", "Quotidiennement"), ("weekly", "Hebdomadairement"))
 
     token = models.UUIDField(
-        _("Secret token"), primary_key=True, default=uuid.uuid4, editable=False
+        "Clé secrète", primary_key=True, default=uuid.uuid4, editable=False
     )
-    email = models.EmailField(_("Email"))
-    querystring = models.TextField(_("Querystring"))
-    title = models.CharField(_("Title"), max_length=250)
+    email = models.EmailField("Courriel")
+    querystring = models.TextField("Querystring")
+    title = models.CharField("Titre", max_length=250)
     alert_frequency = models.CharField(
         max_length=32, choices=FREQUENCIES, default=FREQUENCIES.daily
     )
     source = models.CharField("Source", max_length=256, blank=True, default="")
-    validated = models.BooleanField(_("Confirmed?"), default=False)
-    date_validated = models.DateTimeField(_("Date validated"), null=True)
-    latest_alert_date = models.DateTimeField(
-        _("Latest alert date"), default=timezone.now
-    )
-    date_created = models.DateTimeField(_("Date created"), default=timezone.now)
-    date_updated = models.DateTimeField(_("Date updated"), auto_now=True)
+    validated = models.BooleanField("Confirmée ?", default=False)
+    date_validated = models.DateTimeField("Date de validation", null=True)
+    latest_alert_date = models.DateTimeField("Dernière alerte", default=timezone.now)
+    date_created = models.DateTimeField("Date de création", default=timezone.now)
+    date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
 
     class Meta:
-        verbose_name = _("Alert")
-        verbose_name_plural = _("Alerts")
+        verbose_name = "Alerte"
+        verbose_name_plural = "Alertes"
         ordering = ["-date_created"]
 
     def __str__(self):
