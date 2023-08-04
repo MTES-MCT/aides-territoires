@@ -39,7 +39,7 @@ checkstyle:
 	pipenv run flake8 --config=.flake8
 
 makemessages:
-	pipenv run python manage.py makemessages --all --no-location --no-obsolete
+	pipenv run python manage.py makemessages --all --no-obsolete
 
 css:
 	sassc -I $(include) $(infile) $(outfile)
