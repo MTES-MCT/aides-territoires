@@ -135,7 +135,7 @@ class SearchPage(models.Model):
 
     # SEO
     meta_title = models.CharField(
-        "Meta titre",
+        "Titre (balise meta)",
         max_length=180,
         blank=True,
         default="",
@@ -144,14 +144,14 @@ class SearchPage(models.Model):
             60 caractères. Laissez vide pour réutiliser le titre de la page.",
     )
     meta_description = models.TextField(
-        "Meta description",
+        "Description (balise meta)",
         blank=True,
         default="",
         max_length=256,
         help_text="Sera affichée dans les SERPs. À garder < 120 caractères.",
     )
     meta_image = models.FileField(
-        "Meta image",
+        "Image (balise meta)",
         null=True,
         blank=True,
         upload_to=meta_upload_to,
