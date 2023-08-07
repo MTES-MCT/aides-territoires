@@ -246,7 +246,6 @@ class AidAdminForm(BaseAidForm):
                 if not set(aid_types).isdisjoint(FINANCIAL_AIDS_LIST) and not data.get(
                     "destinations", None
                 ):
-                    print(aid_types)
                     print(set(aid_types).isdisjoint(FINANCIAL_AIDS_LIST))
                     msg = "Veuillez compléter le champ types de dépenses / actions couvertes"
                     self.add_error(
