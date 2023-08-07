@@ -1,6 +1,6 @@
-<div id="form-group-{{ field.name }}" class="fr-form-group{% if field.field.required %} required{% endif %} {% if required == 'true' %}required{% endif %}">
-    <fieldset class="fr-fieldset{% if field.errors %} fr-fieldset--error{% endif %}"{% if field.errors %} aria-labelledby="radio-error-legend radio-error-desc-error"{% endif %} role="group">
-        <legend class="fr-fieldset__legend fr-text--regular">
+<div id="form-group-{{ field.auto_id }}" class="fr-form-group{% if field.field.required %} required{% endif %} {% if required == 'true' %}required{% endif %}">
+    <fieldset class="fr-fieldset{% if field.errors %} fr-fieldset--error{% endif %}"{% if field.errors %} aria-labelledby="{{ field.auto_id }}-legend {{ field.auto_id }}-messages"{% endif %} role="group">
+        <legend class="fr-fieldset__legend fr-text--regular" id="{{ field.auto_id }}-legend">
             <span class="at-field-label{% if field.field.required %} at-required--label{% endif %}">{{ field.label }}</span>
 
             {% if field.help_text %}
@@ -19,7 +19,7 @@
             {% endif %}
 
             {% if field.errors %}
-            <p id="text-input-error-{{ field.name }}" class="fr-error-text">
+            <p id="{{ field.auto_id }}-messages" class="fr-error-text">
                 {{ field.errors.0 }}
             </p>
             {% endif %}

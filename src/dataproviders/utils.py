@@ -29,6 +29,7 @@ ALLOWED_TAGS = [
     "a",
     "table",
     "caption",
+    "thead",
     "tbody",
     "tr",
     "td",
@@ -43,12 +44,9 @@ ALLOWED_ATTRS = [
     "href",
     "src",
     "alt",
-    "width",
-    "height",
     "style",
     "class",
     "allow",
-    "frameborder",
     "title",
     "scope",  # for tables
     "allowfullscreen",  # to display iframe
@@ -106,63 +104,101 @@ def content_prettify(
 
         # Remaining tags must be cleaned
         else:
-            if tag.name in allowed_tags:
-                attrs = list(tag.attrs.keys())
-                for attr in attrs:
-                    if attr not in allowed_attrs:
-                        tag.attrs.pop(attr)
-
-                # Remove tags with no content
-                if not tag.contents and tag.name not in [
-                    "br",
-                    "img",
-                    "iframe",
-                    "source",
-                ]:
-                    tag.decompose()
-
-                # Remove tags with empty strings (or newlines, etc.)
-                elif (
-                    tag.string
-                    and not tag.string.strip()
-                    and tag.name
-                    not in [
-                        "iframe",
-                        "source",
-                    ]
-                ):
-                    tag.decompose()
-
-                if tag.name == "table":
-                    wrapper_attrs = {"class": "fr-table at-table--fullwidth"}
-                    if tag.parent.attrs != wrapper_attrs:
-                        wrapper = soup.new_tag("div")
-                        wrapper.attrs = wrapper_attrs
-                        tag.wrap(wrapper)
-
-                # Replace relative urls with absolute ones
-                if tag.name == "a" and base_url:
-                    tag["href"] = urljoin(base_url, tag["href"])
-
-                # Add a warning for screenreaders on external links
-                if tag.name == "a":
-                    if "target" in tag.attrs and tag.attrs["target"] == "_blank":
-                        target_warning = soup.new_tag("span")
-                        target_warning.attrs = {"class": "fr-sr-only"}
-                        target_warning.string = "Ouvre une nouvelle fenêtre"
-                        if "Ouvre une nouvelle fenêtre" not in tag.text:
-                            tag.append(target_warning)
-
-            # Some tags are not allowed, but we do not want to remove
-            # their content.
-            else:
-                tag.unwrap()
+            clean_tag(tag, allowed_tags, allowed_attrs, base_url, soup)
 
     prettified = soup.prettify()
 
     emojified = mark_emojis(prettified)
 
     return emojified
+
+
+def clean_tag(tag, allowed_tags, allowed_attrs, base_url, soup):
+    if tag.name in allowed_tags:
+        clean_attrs(tag, allowed_attrs)
+
+        # Remove tags with no content
+        # or with empty strings (or newlines, etc.)
+        if (
+            not tag.contents
+            and tag.name
+            not in [
+                "br",
+                "img",
+                "iframe",
+                "source",
+            ]
+        ) or (
+            tag.string
+            and not tag.string.strip()
+            and tag.name
+            not in [
+                "iframe",
+                "source",
+            ]
+        ):
+            tag.decompose()
+
+        # Replace relative urls with absolute ones
+        if tag.name == "a":
+            clean_link_tag(tag, base_url, soup)
+
+        if tag.name == "iframe":
+            clean_iframe_tag(tag, soup)
+
+        if tag.name == "table":
+            clean_table_tag(tag, soup)
+    # Some tags are not allowed, but we do not want to remove
+    # their content.
+    else:
+        tag.unwrap()
+
+    return tag
+
+
+def clean_attrs(tag, allowed_attrs):
+    attrs = list(tag.attrs.keys())
+    for attr in attrs:
+        if attr not in allowed_attrs:
+            tag.attrs.pop(attr)
+
+
+def clean_iframe_tag(tag, soup):
+    """
+    Makes some transformations on iframes containing Youtube videos
+    """
+    if tag.attrs["src"].startswith("https://www.youtube.com/"):
+        tag.attrs["class"] = "at-youtube-video"
+
+        wrapper_attrs = {"class": "at-responsive-video"}
+        if tag.parent.attrs != wrapper_attrs:
+            wrapper = soup.new_tag("div")
+            wrapper.attrs = wrapper_attrs
+            tag.wrap(wrapper)
+
+
+def clean_table_tag(tag, soup):
+    """
+    Wraps tables in a div with the relevant classes
+    """
+    wrapper_attrs = {"class": "fr-table at-table--fullwidth"}
+    if tag.parent.attrs != wrapper_attrs:
+        wrapper = soup.new_tag("div")
+        wrapper.attrs = wrapper_attrs
+        tag.wrap(wrapper)
+
+
+def clean_link_tag(tag, base_url, soup):
+    if base_url:
+        tag["href"] = urljoin(base_url, tag["href"])
+
+    # Add a warning for screenreaders on external links
+    if "target" in tag.attrs and tag.attrs["target"] == "_blank":
+        target_warning = soup.new_tag("span")
+        target_warning.attrs = {"class": "fr-sr-only"}
+        target_warning.string = "Ouvre une nouvelle fenêtre"
+        if "Ouvre une nouvelle fenêtre" not in tag.text:
+            tag.append(target_warning)
 
 
 def mapping_audiences(audiences_mapping_csv_path, source_column_name, at_column_names):
