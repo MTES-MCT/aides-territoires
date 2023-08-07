@@ -54,7 +54,7 @@ def get_matomo_stats_from_page_title(
     data = res.json()
 
     # data should be an array
-    if type(data) == list:
+    if type(data) is list:
         if len(data):
             if result_key and (result_key in data[0]):
                 return data[0][result_key]
