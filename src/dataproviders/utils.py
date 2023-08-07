@@ -27,6 +27,12 @@ ALLOWED_TAGS = [
     "h6",
     "br",
     "a",
+    "table",
+    "caption",
+    "tbody",
+    "tr",
+    "td",
+    "th",
     "iframe",
     "figcaption",
     "figure",
@@ -44,6 +50,7 @@ ALLOWED_ATTRS = [
     "allow",
     "frameborder",
     "title",
+    "scope",  # for tables
     "allowfullscreen",  # to display iframe
     "target",
     "aria-hidden",
@@ -125,6 +132,13 @@ def content_prettify(
                     ]
                 ):
                     tag.decompose()
+
+                if tag.name == "table":
+                    wrapper_attrs = {"class": "fr-table at-table--fullwidth"}
+                    if tag.parent.attrs != wrapper_attrs:
+                        wrapper = soup.new_tag("div")
+                        wrapper.attrs = wrapper_attrs
+                        tag.wrap(wrapper)
 
                 # Replace relative urls with absolute ones
                 if tag.name == "a" and base_url:
