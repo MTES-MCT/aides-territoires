@@ -1,9 +1,13 @@
 import pytest
 from accounts.factories import UserFactory
-from accounts.templatetags.accounts import sib_email_id
+from accounts.templatetags.accounts import choices_display, sib_email_id
 from organizations.factories import OrganizationFactory
 
 pytestmark = pytest.mark.django_db
+
+
+def test_choices_display(contributor):
+    assert choices_display(contributor, "beneficiary_function") == "Autre"
 
 
 def test_sib_email_id():

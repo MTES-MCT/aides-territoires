@@ -172,6 +172,7 @@ def test_register_form_is_accessible_to_anonymous_user(client):
     assert res.status_code == 200
 
 
+@override_settings(SIB_ENDPOINT="http://localhost/")
 def test_register_form_expects_valid_data(client, perimeters):
     register_url = reverse("register")
     res = client.post(
@@ -189,6 +190,7 @@ def test_register_form_expects_valid_data(client, perimeters):
             "beneficiary_function": "other",
             "is_beneficiary": True,
             "is_contributor": False,
+            "newsletter_subscription": "on",
         },
     )
     assert res.status_code == 200
@@ -318,6 +320,58 @@ def test_register_form_converts_email_to_lowercase(client, perimeters):
 
     user = users[0]
     assert user.email == "olga@test.com"
+
+
+def test_register_commune(client, perimeters):
+    register_commune_url = reverse("register_commune")
+    user_email = "mairie@montpellier.fr"
+
+    res = client.post(
+        register_commune_url,
+        {
+            "beneficiary_function": "mayor",
+            "perimeter": perimeters["montpellier"].id,
+            "first_name": "Prénom",
+            "last_name": "Nom",
+            "email": user_email,
+            "organization_name": "Mairie de Montpellier",
+            "password1": "MdPBienSécurisé !",
+            "password2": "MdPBienSécurisé !",
+            "organization_type": "commune",
+            "acquisition_channel_comment": "",
+            "is_beneficiary": True,
+            "is_contributor": True,
+            "acquisition_channel": "animator",
+        },
+    )
+
+    assert res.status_code == 200
+
+    user = User.objects.filter(email=user_email).first()
+    assert user.beneficiary_organization.name == "Mairie de Montpellier"
+
+
+def test_complete_profile_form(client, contributor):
+    client.force_login(contributor)
+
+    complete_profile_url = reverse("complete_profile")
+    client.post(
+        complete_profile_url,
+        {
+            "first_name": "Olga",
+            "last_name": "Tau",
+            "beneficiary_role": "Pas de la tarte",
+            "beneficiary_function": "other",
+            "is_beneficiary": True,
+            "is_contributor": False,
+            "new_password": "Ce mot de passe est sécurisé !",
+            "new_password2": "Ce mot de passe est sécurisé !",
+        },
+    )
+
+    contributor.refresh_from_db()
+
+    assert contributor.beneficiary_role == "Pas de la tarte"
 
 
 def test_profile_form_updates_profile(client, contributor):
@@ -461,7 +515,7 @@ def test_profile_form_cant_update_non_matching_passwords(client, contributor):
     res = client.post(profile_url, data, follow=True)
     contributor.refresh_from_db()
 
-    assert check_password("DefaultPassword!", contributor.password)
+    assert check_password("DefaultPassword!", contributor.password)  # NOSONAR
     assert "Les mots de passe ne sont pas identiques" in res.content.decode()
 
 
@@ -488,7 +542,34 @@ def test_profile_form_can_update_password(client, contributor):
     client.post(profile_url, data, follow=True)
     contributor.refresh_from_db()
 
-    assert check_password(new_password, contributor.password)
+    assert check_password(new_password, contributor.password)  # NOSONAR
+    assert authenticate(username=contributor.email, password=new_password) is not None
+
+
+def test_password_form_requires_login(client):
+    password_reset_url = reverse("password_reset_confirm")
+    res = client.get(password_reset_url, follow=True)
+
+    assert "Créer votre compte" in res.content.decode()
+
+
+def test_password_form_can_update_password(client, contributor):
+    """The password reset form can be used to update the password"""
+
+    new_password = "A new unpredictable passw0rd!"
+
+    client.force_login(contributor)
+    password_reset_url = reverse("password_reset_confirm")
+
+    data = {
+        "new_password": new_password,
+        "new_password2": new_password,
+    }
+
+    client.post(password_reset_url, data, follow=True)
+    contributor.refresh_from_db()
+
+    assert check_password(new_password, contributor.password)  # NOSONAR
     assert authenticate(username=contributor.email, password=new_password) is not None
 
 
