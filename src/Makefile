@@ -51,6 +51,9 @@ fullcss:
 compress:
 	pipenv run python manage.py compress --force
 
+dev-set-local-domain:
+	pipenv run python manage.py dev_set_local_domain --site_path=$(local_path)
+
 runserver:
 	pipenv run python manage.py runserver $(local_path)
 
