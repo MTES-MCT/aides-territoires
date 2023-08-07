@@ -233,12 +233,24 @@ class AidAdminForm(BaseAidForm):
                     ValidationError(msg, code="missing_targeted_audiences"),
                 )
 
-            if not data.get("aid_types", None):
+            aid_types = data.get("aid_types", None)
+            if not aid_types:
                 msg = "Veuillez compléter le champ type d’aide"
                 self.add_error(
                     "aid_types",
                     ValidationError(msg, code="missing_aid_types"),
                 )
+            else:
+                # If one or more of the financial aid types is checked, make the
+                # destination mandatory.
+                if not set(aid_types).isdisjoint(FINANCIAL_AIDS_LIST) and not data.get(
+                    "destinations", None
+                ):
+                    msg = "Veuillez compléter le champ types de dépenses / actions couvertes"
+                    self.add_error(
+                        "destinations",
+                        ValidationError(msg, code="missing_destinations"),
+                    )
 
             if not data.get("description", None):
                 msg = "Veuillez compléter le champ description"
@@ -259,15 +271,6 @@ class AidAdminForm(BaseAidForm):
                 self.add_error(
                     "mobilization_steps",
                     ValidationError(msg, code="missing_mobilization_steps"),
-                )
-
-            if not data.get("destinations", None):
-                msg = (
-                    "Veuillez compléter le champ types de dépenses / actions couvertes"
-                )
-                self.add_error(
-                    "destinations",
-                    ValidationError(msg, code="missing_destinations"),
                 )
 
             if not data.get("perimeter", None):
