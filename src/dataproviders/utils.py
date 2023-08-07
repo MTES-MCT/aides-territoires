@@ -167,7 +167,7 @@ def clean_iframe_tag(tag, soup):
     """
     Makes some transformations on iframes containing Youtube videos
     """
-    if "youtube.com" in tag.attrs["src"]:
+    if tag.attrs["src"].startswith("https://www.youtube.com/"):
         tag.attrs["class"] = "at-youtube-video"
 
         wrapper_attrs = {"class": "at-responsive-video"}
