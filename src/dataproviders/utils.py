@@ -50,6 +50,7 @@ ALLOWED_ATTRS = [
     "allow",
     "frameborder",
     "title",
+    "scope",  # for tables
     "allowfullscreen",  # to display iframe
     "target",
     "aria-hidden",
