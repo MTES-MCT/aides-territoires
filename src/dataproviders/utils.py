@@ -29,6 +29,7 @@ ALLOWED_TAGS = [
     "a",
     "table",
     "caption",
+    "thead",
     "tbody",
     "tr",
     "td",
@@ -144,6 +145,9 @@ def clean_tag(tag, allowed_tags, allowed_attrs, base_url, soup):
 
         if tag.name == "iframe":
             clean_iframe_tag(tag, soup)
+
+        if tag.name == "table":
+            clean_table_tag(tag, soup)
     # Some tags are not allowed, but we do not want to remove
     # their content.
     else:
@@ -171,6 +175,17 @@ def clean_iframe_tag(tag, soup):
             wrapper = soup.new_tag("div")
             wrapper.attrs = wrapper_attrs
             tag.wrap(wrapper)
+
+
+def clean_table_tag(tag, soup):
+    """
+    Wraps tables in a div with the relevant classes
+    """
+    wrapper_attrs = {"class": "fr-table at-table--fullwidth"}
+    if tag.parent.attrs != wrapper_attrs:
+        wrapper = soup.new_tag("div")
+        wrapper.attrs = wrapper_attrs
+        tag.wrap(wrapper)
 
 
 def clean_link_tag(tag, base_url, soup):
