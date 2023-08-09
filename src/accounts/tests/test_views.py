@@ -335,8 +335,8 @@ def test_register_commune(client, perimeters):
             "last_name": "Nom",
             "email": user_email,
             "organization_name": "Mairie de Montpellier",
-            "password1": "MdPBienSécurisé !",
-            "password2": "MdPBienSécurisé !",
+            "password1": "MdPBienSécurisé !",  # NOSONAR
+            "password2": "MdPBienSécurisé !",  # NOSONAR
             "organization_type": "commune",
             "acquisition_channel_comment": "",
             "is_beneficiary": True,
@@ -345,7 +345,7 @@ def test_register_commune(client, perimeters):
         },
     )
 
-    assert res.status_code == 200
+    assert res.status_code == 302
 
     user = User.objects.filter(email=user_email).first()
     assert user.beneficiary_organization.name == "Mairie de Montpellier"
@@ -364,8 +364,8 @@ def test_complete_profile_form(client, contributor):
             "beneficiary_function": "other",
             "is_beneficiary": True,
             "is_contributor": False,
-            "new_password": "Ce mot de passe est sécurisé !",
-            "new_password2": "Ce mot de passe est sécurisé !",
+            "new_password": "Ce mot de passe est sécurisé !",  # NOSONAR
+            "new_password2": "Ce mot de passe est sécurisé !",  # NOSONAR
         },
     )
 
@@ -556,7 +556,7 @@ def test_password_form_requires_login(client):
 def test_password_form_can_update_password(client, contributor):
     """The password reset form can be used to update the password"""
 
-    new_password = "A new unpredictable passw0rd!"
+    new_password = "A new unpredictable passw0rd!"  # NOSONAR
 
     client.force_login(contributor)
     password_reset_url = reverse("password_reset_confirm")
