@@ -6,7 +6,7 @@ from django.utils.html import format_html
 from django.db.models import Q
 from django.contrib import admin
 from django.http import HttpResponseForbidden
-from django.urls import reverse
+from django.urls import reverse, path
 
 from import_export.admin import ImportMixin, ExportActionMixin
 from import_export.formats import base_formats
@@ -18,6 +18,7 @@ from aids.constants import AUDIENCES_ALL
 from core.services.json_compare import json_compare
 from accounts.admin import AuthorFilter
 from admin_lite.mixins import WithViewPermission
+from aids.admin_views import ExportRelatedProjects
 from aids.forms import AidAdminForm
 from aids.models import (
     Aid,
@@ -634,6 +635,36 @@ class BaseAidAdmin(
     export_admin_action.short_description = (
         "Exporter et télécharger les Aides sélectionnées"
     )
+
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            path(
+                "<path:object_id>/export_related_projects/",
+                self.admin_site.admin_view(self.aid_export_related_projects_view),
+                name="aids_export_related_projects",
+            ),
+        ]
+        return my_urls + urls
+
+    def aid_export_related_projects_view(self, request, object_id):
+        """Export the projects related to a specific aid."""
+
+        opts = self.model._meta
+        app_label = opts.app_label
+        obj = self.get_object(request, object_id)
+
+        context = {
+            **self.admin_site.each_context(request),
+            "title": "Export des projets liés",
+            "opts": opts,
+            "app_label": app_label,
+            "original": obj,
+        }
+
+        return ExportRelatedProjects.as_view(extra_context=context)(
+            request, object_id=object_id
+        )
 
     def save_model(self, request, obj, form, change):
         if obj.import_raw_object_temp:

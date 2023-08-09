@@ -283,3 +283,68 @@ def export_aid_stats(
     workbook.save(response)
 
     return response
+
+
+def export_related_projects(aid):
+
+    response = HttpResponse(
+        content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    )
+    response[
+        "Content-Disposition"
+    ] = "attachment; filename=Aides-territoires-projets.xlsx"
+
+    workbook = Workbook()
+
+    # Get active worksheet/tab
+    worksheet = workbook.active
+    worksheet.title = "Aides-territoires-projets-lies"
+
+    # Define the titles for columns
+    columns = [
+        "Nom du projet",
+        "Caractère public du projet",
+        "Porteur du projet",
+        "Périmètre du porteur",
+        "Type de porteur",
+    ]
+    row_num = 1
+
+    # Assign the titles for each cell of the header
+    for col_num, column_title in enumerate(columns, 1):
+        cell = worksheet.cell(row=row_num, column=col_num)
+        cell.value = column_title
+
+    for project in aid.projects.all():
+        row_num += 1
+        row = [
+            project.name,
+        ]
+
+        project_is_public = project.is_public
+        if project_is_public is not False:
+            project_is_public = "Oui"
+        else:
+            project_is_public = "Non"
+        row.append(project_is_public)
+
+        row.append(project.organization.name)
+
+        if project.organization.perimeter is not None:
+            row.append(project.organization.perimeter.name)
+        else:
+            row.append("périmètre non communiqué")
+
+        choices_dict = dict(Organization.ORGANIZATION_TYPE_CHOICES)
+        key = project.organization.organization_type[0]
+        organization_type_value = choices_dict.get(key, "")
+        row.append(organization_type_value)
+
+        # Assign the data for each cell of the row
+        for col_num, cell_value in enumerate(row, 1):
+            cell = worksheet.cell(row=row_num, column=col_num)
+            cell.value = cell_value
+
+    workbook.save(response)
+
+    return response

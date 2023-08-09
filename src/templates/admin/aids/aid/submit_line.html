@@ -1,0 +1,10 @@
+{% extends "admin/submit_line.html" %}
+
+{% block submit-row %}
+    {{ block.super }}
+    {% if show_delete_link %}
+    <a href="{% url 'admin:aids_export_related_projects' original.pk %}" class="submitlink">
+        Exporter les projets liés
+    </a>
+    {% endif %}
+{% endblock submit-row %}
