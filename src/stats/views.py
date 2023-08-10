@@ -229,7 +229,7 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
                     context["start_date_error"] = form.errors["start_date"]
 
         period = self.get_period()
-        if type(period) is not str:
+        if not isinstance(period, str):
             start_date = period[0]
             end_date = period[1]
         else:
@@ -1008,7 +1008,7 @@ class UsersStatsView(SuperUserRequiredMixin, FormMixin, ListView):
                     context["start_date_error"] = form.errors["start_date"]  # noqa
 
         period = self.get_period()
-        if type(period) is not str:
+        if not isinstance(period, str):
             start_date = period[0]
             end_date = period[1]
         else:
@@ -1307,7 +1307,7 @@ class ProjectsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
                     context["start_date_error"] = form.errors["start_date"]  # noqa
 
         period = self.get_period()
-        if type(period) is not str:
+        if not isinstance(period, str):
             start_date = period[0]
             end_date = period[1]
         else:
@@ -1367,7 +1367,7 @@ class OrganizationsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
                     context["start_date_error"] = form.errors["start_date"]  # noqa
 
         period = self.get_period()
-        if type(period) is not str:
+        if not isinstance(period, str):
             start_date = period[0]
             end_date = period[1]
         else:

@@ -15,7 +15,7 @@ def darken(hex, rate):
     rgb = [int(hex[x : x + 2], 16) / 255.0 for x in (1, 3, 5)]  # noqa E203
 
     # Apply rate to lightness value, make sure it stays within [0,1] boundaries
-    h, l, s = rgb_to_hls(*rgb)
+    h, l, s = rgb_to_hls(*rgb)  # noqa E741
     new_l = max(0, min(1, l * (1 - (rate / 100))))
 
     # Convert value back to hexadecimal
