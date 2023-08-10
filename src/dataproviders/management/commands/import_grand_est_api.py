@@ -177,6 +177,7 @@ class Command(BaseImportCommand):
 
         destinations = line.get("gui_actions_concernees", [])
         for destination in destinations:
+            destination = destination.replace("'", "’")
             aid_destinations.append(DESTINATIONS_DICT[destination])
 
         return aid_destinations
