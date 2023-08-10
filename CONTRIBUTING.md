@@ -156,7 +156,7 @@ déploiement. Il n'est donc pas inclus dans le code github.
 
 ## Linter de code / Code Style
 
-Nous utilisons `pep8`, `flake8` et `black`
+Nous utilisons `pep8`, `ruff` et `black`
 
 Pour vérifier son code, on peut intégrer le linter adapté à
 son IDE et aussi faire ceci :
