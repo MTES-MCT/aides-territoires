@@ -2,9 +2,7 @@
 
 {% block submit-row %}
     {{ block.super }}
-    {% if show_delete_link %}
-    <a href="{% url 'admin:aids_export_related_projects' original.pk %}" class="submitlink">
-        Exporter les projets liés
+    <a href="{% url 'admin:aid_export_related_projects' original.pk %}" class="submitlink">
+        Exporter les projets liés en tâche de fond
     </a>
-    {% endif %}
 {% endblock submit-row %}

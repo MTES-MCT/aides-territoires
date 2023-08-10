@@ -11,15 +11,19 @@ from django.template.loader import get_template
 from django.utils.text import get_valid_filename
 from django.utils import timezone
 from django.db.models import Count
+from django.core import files
+from django.core.files.base import ContentFile
 
 from aids.resources import AidResourcePublic
 from aids.models import Aid, AidProject
+from accounts.models import User
 from organizations.models import Organization
 from stats.models import (
     AidApplicationUrlClickEvent,
     AidOriginUrlClickEvent,
     AidViewEvent,
 )
+from exporting.models import DataExport
 
 
 def fetch_resources(uri: str, rel) -> str:
@@ -285,20 +289,17 @@ def export_aid_stats(
     return response
 
 
-def export_related_projects(aid):
+def export_related_projects(aid_id, user_id):
 
-    response = HttpResponse(
-        content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    )
-    response[
-        "Content-Disposition"
-    ] = "attachment; filename=Aides-territoires-projets.xlsx"
+    aid = Aid.objects.get(id=aid_id)
+    user = User.objects.get(id=user_id)
+    aid_name = aid.name
 
     workbook = Workbook()
 
     # Get active worksheet/tab
     worksheet = workbook.active
-    worksheet.title = "Aides-territoires-projets-lies"
+    worksheet.title = f"{aid_name}"
 
     # Define the titles for columns
     columns = [
@@ -345,6 +346,15 @@ def export_related_projects(aid):
             cell = worksheet.cell(row=row_num, column=col_num)
             cell.value = cell_value
 
-    workbook.save(response)
+    vworkbook = BytesIO()
+    workbook.save(vworkbook)
 
-    return response
+    content = vworkbook.getvalue()
+
+    content_file = ContentFile(content)
+    file_object = files.File(content_file, name="Aides-territoires-projets-lies.xlsx")
+    dataexport_object = DataExport.objects.create(
+        author_id=user.id,
+        exported_file=file_object,
+    )
+    return dataexport_object

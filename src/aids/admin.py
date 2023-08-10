@@ -5,7 +5,7 @@ from operator import and_
 from django.utils.html import format_html
 from django.db.models import Q
 from django.contrib import admin
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.urls import reverse, path
 
 from import_export.admin import ImportMixin, ExportActionMixin
@@ -18,7 +18,6 @@ from aids.constants import AUDIENCES_ALL
 from core.services.json_compare import json_compare
 from accounts.admin import AuthorFilter
 from admin_lite.mixins import WithViewPermission
-from aids.admin_views import ExportRelatedProjects
 from aids.forms import AidAdminForm
 from aids.models import (
     Aid,
@@ -36,6 +35,7 @@ from exporting.tasks import (
     export_aids_as_xlsx,
     export_aidprojects_as_csv,
     export_aidprojects_as_xlsx,
+    export_related_projects_as_xlsx,
 )
 from exporting.utils import get_admin_export_message
 from geofr.utils import get_all_related_perimeters
@@ -636,36 +636,6 @@ class BaseAidAdmin(
         "Exporter et télécharger les Aides sélectionnées"
     )
 
-    def get_urls(self):
-        urls = super().get_urls()
-        my_urls = [
-            path(
-                "<path:object_id>/export_related_projects/",
-                self.admin_site.admin_view(self.aid_export_related_projects_view),
-                name="aids_export_related_projects",
-            ),
-        ]
-        return my_urls + urls
-
-    def aid_export_related_projects_view(self, request, object_id):
-        """Export the projects related to a specific aid."""
-
-        opts = self.model._meta
-        app_label = opts.app_label
-        obj = self.get_object(request, object_id)
-
-        context = {
-            **self.admin_site.each_context(request),
-            "title": "Export des projets liés",
-            "opts": opts,
-            "app_label": app_label,
-            "original": obj,
-        }
-
-        return ExportRelatedProjects.as_view(extra_context=context)(
-            request, object_id=object_id
-        )
-
     def save_model(self, request, obj, form, change):
         if obj.import_raw_object_temp:
             obj.import_raw_object = obj.import_raw_object_temp
@@ -711,6 +681,28 @@ class AidAdmin(WithViewPermission, BaseAidAdmin):
 
     def delete_queryset(self, request, queryset):
         queryset.update(status="deleted")
+
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            path(
+                "<path:object_id>/export_related_projects/",
+                self.admin_site.admin_view(self.aid_export_related_projects_view),
+                name="aid_export_related_projects",
+            ),
+        ]
+        return my_urls + urls
+
+    def aid_export_related_projects_view(self, request, object_id):
+        """Export the projects related to a specific aid."""
+
+        user_id = request.user.id
+        aid_id = Aid.objects.get(pk=object_id).id
+        export_related_projects_as_xlsx.delay(aid_id, user_id)
+
+        self.show_export_message(request)
+        redirect_url = reverse("admin:aids_aid_change", args=[object_id])
+        return HttpResponseRedirect(redirect_url)
 
     def save_model(self, request, obj, form, change):
         # When cloning an existing aid, prefix it's title with "[Copie]"
