@@ -36,7 +36,7 @@ coverage:
 	pipenv run coverage run --source='.' -m pytest $(PARAMS) && pipenv run coverage html
 
 checkstyle:
-	pipenv run flake8 --config=.flake8
+	pipenv run ruff check .
 
 makemessages:
 	pipenv run python manage.py makemessages --all --no-obsolete
