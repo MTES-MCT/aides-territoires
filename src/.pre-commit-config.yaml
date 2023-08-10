@@ -11,13 +11,6 @@ repos:
   hooks:
     - id: ruff
       args: [ --fix, --exit-non-zero-on-fix ]
-- repo: https://github.com/PyCQA/flake8
-  rev: 3.9.2
-  hooks:
-    - id: flake8
-      args:
-        - "--max-line-length=100"
-        - "--max-complexity=18"
 - repo: https://github.com/PyCQA/bandit
   rev: 1.7.4
   hooks:
