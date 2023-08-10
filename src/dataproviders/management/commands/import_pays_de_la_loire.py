@@ -1,4 +1,3 @@
-# flake8: noqa
 import os
 import csv
 import json
@@ -18,7 +17,7 @@ ADMIN_ID = 1
 
 DATA_SOURCE = DataSource.objects.prefetch_related("perimeter", "backer").get(pk=2)
 
-OPENDATA_URL = "https://data.paysdelaloire.fr/explore/dataset/234400034_referentiel-aides-paysdelaloirefr/information/"
+OPENDATA_URL = "https://data.paysdelaloire.fr/explore/dataset/234400034_referentiel-aides-paysdelaloirefr/information/"  # noqa
 FEED_ROWS = 1000
 
 AUDIENCES_DICT = {}
@@ -153,20 +152,20 @@ class Command(BaseImportCommand):
 
     def extract_import_raw_object_calendar(self, line):
         import_raw_object_calendar = {}
-        if line.get("temporalite", None) != None:
+        if line.get("temporalite", None) is not None:
             import_raw_object_calendar["temporalite"] = line["temporalite"]
-        if line.get("date_de_debut", None) != None:
+        if line.get("date_de_debut", None) is not None:
             import_raw_object_calendar["date_de_debut"] = line["date_de_debut"]
-        if line.get("date_de_fin", None) != None:
+        if line.get("date_de_fin", None) is not None:
             import_raw_object_calendar["date_de_fin"] = line["date_de_fin"]
         return import_raw_object_calendar
 
     def extract_import_raw_object(self, line):
-        if line.get("temporalite", None) != None:
+        if line.get("temporalite", None) is not None:
             line.pop("temporalite")
-        if line.get("date_de_debut", None) != None:
+        if line.get("date_de_debut", None) is not None:
             line.pop("date_de_debut")
-        if line.get("date_de_fin", None) != None:
+        if line.get("date_de_fin", None) is not None:
             line.pop("date_de_fin")
         return line
 
@@ -273,17 +272,12 @@ class Command(BaseImportCommand):
                         submission_deadline = None
             return submission_deadline
 
-    # def extract_subvention_comment(self, line):
-    #     montant_min = line.get('montantintervmini', '-')
-    #     montant_max = line.get('montant_interv_max', '-')
-    #     subvention_comment = 'montantintervmini / montant_interv_max' + ' : ' + str(montant_min) + ' / ' + str(montant_max)
-    #     return subvention_comment
-
     def extract_categories(self, line):
         """
-        Exemple of string to process: "je decouvre les metiers;je choisis mon metier ou ma formation;je rebondis tout au long de la vie;je m'informe sur les metiers"  # noqa
+        Exemple of string to process:
+            "je decouvre les metiers;je choisis mon metier ou ma formation;je rebondis tout au long de la vie;je m'informe sur les metiers"
         Split the string, loop on the values and match to our Categories
-        """
+        """  # noqa
         categories = line.get("ss_thematique_libelle", "").split(";")
         thematiques = line.get("thematique_libelle", "").split(";")
         title = line["aide_nom"][:180]

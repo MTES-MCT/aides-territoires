@@ -1,4 +1,3 @@
-# flake8: noqa
 import os
 import csv
 import locale
@@ -11,8 +10,6 @@ from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.management.commands.base import CrawlerImportCommand
 from dataproviders.scrapers.nouvelle_aquitaine import NouvelleAquitaineSpider
-from geofr.models import Perimeter
-from backers.models import Backer
 from categories.models import Category
 from aids.models import Aid
 
@@ -79,7 +76,7 @@ XML_ITEM_EXAMPLE = """
     <source url="https://les-aides.nouvelle-aquitaine.fr/amenagement-du-territoire/developpement-dune-offre-locative-destination-des-jeunes-agriculteurs">Développement d'une offre locative à destination des jeunes agriculteurs</source>
     <category>Appel à projet, Collectivité territoriale, GIE - Groupement d'intérêt économique, Association, Établissement public, Entreprise, Logement</category>
 </item>
-"""
+"""  # noqa
 
 
 class Command(CrawlerImportCommand):
@@ -201,7 +198,8 @@ class Command(CrawlerImportCommand):
 
     def extract_targeted_audiences(self, line):
         """
-        Exemple of string to process: "Association;Collectivité territoriale;Entreprise;Établissement public"
+        Exemple of string to process:
+            "Association;Collectivité territoriale;Entreprise;Établissement public"
         Split the string, loop on the values and match to our Audiences
         """
         audiences = line.get("publics_concernes", "").split(";")

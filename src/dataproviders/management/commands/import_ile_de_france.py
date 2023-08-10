@@ -1,4 +1,3 @@
-# flake8: noqa
 import os
 import csv
 import json
@@ -6,16 +5,12 @@ import requests
 from datetime import datetime
 
 from django.utils import timezone
-from django.utils.text import slugify
 
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import content_prettify, mapping_categories
 from dataproviders.management.commands.base import BaseImportCommand
-from geofr.models import Perimeter
-from backers.models import Backer
 from aids.models import Aid
-from categories.models import Theme, Category
 from keywords.models import Keyword
 
 ADMIN_ID = 1
@@ -92,7 +87,7 @@ class Command(BaseImportCommand):
             headers = {
                 "accept": "application/json",
                 "content-type": "application/json",
-                "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:99.0) Gecko/20100101 Firefox/99.0",
+                "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:99.0) Gecko/20100101 Firefox/99.0",  # noqa
             }
             req = requests.get(DATA_SOURCE.import_api_url, headers=headers)
             data = req.json()
@@ -124,17 +119,17 @@ class Command(BaseImportCommand):
 
     def extract_import_raw_object_calendar(self, line):
         import_raw_object_calendar = {}
-        if line.get("dateFinCampagne", None) != None:
+        if line.get("dateFinCampagne", None) is not None:
             import_raw_object_calendar["dateFinCampagne"] = line["dateFinCampagne"]
-        if line.get("dateOuvertureCampagne", None) != None:
+        if line.get("dateOuvertureCampagne", None) is not None:
             import_raw_object_calendar["dateOuvertureCampagne"] = line[
                 "dateOuvertureCampagne"
             ]
-        if line.get("dateDebutFuturCampagne", None) != None:
+        if line.get("dateDebutFuturCampagne", None) is not None:
             import_raw_object_calendar["dateDebutFuturCampagne"] = line[
                 "dateDebutFuturCampagne"
             ]
-        if line.get("datePublicationSouhaitee", None) != None:
+        if line.get("datePublicationSouhaitee", None) is not None:
             import_raw_object_calendar["datePublicationSouhaitee"] = line[
                 "datePublicationSouhaitee"
             ]
@@ -142,13 +137,13 @@ class Command(BaseImportCommand):
 
     def extract_import_raw_object(self, line):
         import_raw_object = dict(line)
-        if line.get("dateFinCampagne", None) != None:
+        if line.get("dateFinCampagne", None) is not None:
             import_raw_object.pop("dateFinCampagne")
-        if line.get("dateOuvertureCampagne", None) != None:
+        if line.get("dateOuvertureCampagne", None) is not None:
             import_raw_object.pop("dateOuvertureCampagne")
-        if line.get("dateDebutFuturCampagne", None) != None:
+        if line.get("dateDebutFuturCampagne", None) is not None:
             import_raw_object.pop("dateDebutFuturCampagne")
-        if line.get("datePublicationSouhaitee", None) != None:
+        if line.get("datePublicationSouhaitee", None) is not None:
             import_raw_object.pop("datePublicationSouhaitee")
         return import_raw_object
 
@@ -301,6 +296,6 @@ class Command(BaseImportCommand):
                         keyword = Keyword.objects.create(name=category["title"])
                         keyword_list = []
                         keyword_list.append(keyword)
-                    except Exception:
+                    except Exception:  # nosec B110
                         pass
         return keywords

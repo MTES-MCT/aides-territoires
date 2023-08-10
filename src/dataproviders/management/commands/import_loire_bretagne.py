@@ -1,4 +1,3 @@
-# flake8: noqa
 import os
 from datetime import datetime
 import re
@@ -23,7 +22,7 @@ AUDIENCES_DICT = {
     "Particulier / Citoyen": Aid.AUDIENCES.private_person,
 }
 
-AIDES_URL = "https://aides-redevances.eau-loire-bretagne.fr/home/aides/lessentiel-des-aides/aides-mode-demploi.html"
+AIDES_URL = "https://aides-redevances.eau-loire-bretagne.fr/home/aides/lessentiel-des-aides/aides-mode-demploi.html"  # noqa
 
 LOIRE_BRETAGNE_PERIMETER_CODE = "04"
 LOIRE_BRETAGNE_FINANCER_ID = 74  # "Agence de l'Eau Loire-Bretagne"

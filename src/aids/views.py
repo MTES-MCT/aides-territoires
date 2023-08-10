@@ -1440,7 +1440,7 @@ class AidDetailStatsView(
                 context["start_date_error"] = form.errors["start_date"]
 
         period = self.get_period()
-        if type(period) is not str:
+        if not isinstance(period, str):
             start_date = period[0]
             end_date = period[1]
         else:

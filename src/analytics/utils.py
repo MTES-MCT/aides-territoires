@@ -28,7 +28,7 @@ def get_goal(session):
 @lru_cache()
 def get_matomo_stats_from_page_title(
     page_title, from_date_string, to_date_string=None, result_key="nb_hits"
-):  # noqa
+):
     """
     Get view stats of a Page Title from Matomo.
     from_date_string & to_date_string must have YYYY-MM-DD format.
@@ -37,7 +37,7 @@ def get_matomo_stats_from_page_title(
     Usage example:
     get_matomo_stats_from_page_title('Les aides du programme Petites villes de demain', '2018-01-01', to_date_string='2020-12-31')  # noqa
     get_matomo_stats_from_page_title("Les dispositifs d'aides sur l'Arc de l'Innovation", '2018-01-01', to_date_string='2020-12-31')  # returns an error dict when the pageName has an appostrophe... # noqa
-    """
+    """  # noqa
     if to_date_string is None:
         to_date_string = timezone.now().strftime("%Y-%m-%d")
 
@@ -66,7 +66,7 @@ def get_matomo_stats_from_page_title(
 @lru_cache()
 def get_matomo_stats(
     api_method, custom_segment="", from_date_string="2020-01-01", to_date_string=None
-):  # noqa
+):
     """
     Get stats of all Page Urls from Matomo.
     from_date_string & to_date_string must have YYYY-MM-DD format.
@@ -83,7 +83,7 @@ def get_matomo_stats(
 
     Usage example:
     get_matomo_stats_from_page_title('Actions.getPageUrls', from_date_string='2020-01-01', to_date_string='2020-12-31')  # noqa
-    """
+    """  # noqa
     if to_date_string is None:
         to_date_string = timezone.now().strftime("%Y-%m-%d")
 

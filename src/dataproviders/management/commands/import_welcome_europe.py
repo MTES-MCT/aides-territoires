@@ -1,4 +1,3 @@
-# flake8: noqa
 import os
 import csv
 import json
@@ -7,14 +6,11 @@ import requests
 from datetime import datetime
 
 from django.utils import timezone
-from django.utils.text import slugify
 
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import content_prettify, mapping_categories
 from dataproviders.management.commands.base import BaseImportCommand
-from geofr.models import Perimeter
-from backers.models import Backer
 from aids.models import Aid
 from keywords.models import Keyword
 
@@ -122,7 +118,7 @@ class Command(BaseImportCommand):
             headers = {
                 "accept": "application/json",
                 "content-type": "application/json",
-                "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:99.0) Gecko/20100101 Firefox/99.0",
+                "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:99.0) Gecko/20100101 Firefox/99.0",  # noqa
             }
             req = requests.get(DATA_SOURCE.import_api_url, headers=headers)
             data = req.json()
@@ -142,15 +138,15 @@ class Command(BaseImportCommand):
                     keyword = Keyword.objects.get(name=category)
                     keyword_list = []
                     keyword_list.append(keyword)
-                    keyword_pk = Keyword.objects.get(name=category).pk
+                    # keyword_pk = Keyword.objects.get(name=category).pk
                     keywords.extend(keyword_list)
-                except:
+                except:  # noqa NOSONAR
                     try:
                         keyword = Keyword.objects.create(name=category)
                         keyword_list = []
                         keyword_list.append(keyword)
-                        keyword_pk = Keyword.objects.get(name=category).pk
-                    except:
+                        # keyword_pk = Keyword.objects.get(name=category).pk
+                    except:  # noqa NOSONAR # nosec B110
                         pass
         return keywords
 
@@ -175,61 +171,61 @@ class Command(BaseImportCommand):
 
     def extract_import_raw_object_calendar(self, line):
         import_raw_object_calendar = {}
-        if line.get("deadline1", None) != None:
+        if line.get("deadline1", None) is not None:
             import_raw_object_calendar["deadline1"] = line["deadline1"]
-        if line.get("dates_statut", None) != None:
+        if line.get("dates_statut", None) is not None:
             import_raw_object_calendar["dates_statut"] = line["dates_statut"]
-        if line.get("dates_publication", None) != None:
+        if line.get("dates_publication", None) is not None:
             import_raw_object_calendar["dates_publication"] = line["dates_publication"]
-        if line.get("dates_open-1", None) != None:
+        if line.get("dates_open-1", None) is not None:
             import_raw_object_calendar["dates_open-1"] = line["dates_open-1"]
-        if line.get("dates_open-2", None) != None:
+        if line.get("dates_open-2", None) is not None:
             import_raw_object_calendar["dates_open-2"] = line["dates_open-2"]
-        if line.get("dates_open-3", None) != None:
+        if line.get("dates_open-3", None) is not None:
             import_raw_object_calendar["dates_open-3"] = line["dates_open-3"]
-        if line.get("dates_open-4", None) != None:
+        if line.get("dates_open-4", None) is not None:
             import_raw_object_calendar["dates_open-4"] = line["dates_open-4"]
-        if line.get("dates_open-5", None) != None:
+        if line.get("dates_open-5", None) is not None:
             import_raw_object_calendar["dates_open-5"] = line["dates_open-5"]
-        if line.get("dates_deadline1", None) != None:
+        if line.get("dates_deadline1", None) is not None:
             import_raw_object_calendar["dates_deadline1"] = line["dates_deadline1"]
-        if line.get("dates_deadline-2", None) != None:
+        if line.get("dates_deadline-2", None) is not None:
             import_raw_object_calendar["dates_deadline-2"] = line["dates_deadline-2"]
-        if line.get("dates_deadline-3", None) != None:
+        if line.get("dates_deadline-3", None) is not None:
             import_raw_object_calendar["dates_deadline-3"] = line["dates_deadline-3"]
-        if line.get("dates_deadline-4", None) != None:
+        if line.get("dates_deadline-4", None) is not None:
             import_raw_object_calendar["dates_deadline-4"] = line["dates_deadline-4"]
-        if line.get("dates", None) != None:
+        if line.get("dates", None) is not None:
             import_raw_object_calendar["dates"] = line["dates"]
         return import_raw_object_calendar
 
     def extract_import_raw_object(self, line):
         import_raw_object = dict(line)
-        if line.get("deadline1", None) != None:
+        if line.get("deadline1", None) is not None:
             import_raw_object.pop("deadline1")
-        if line.get("dates_statut", None) != None:
+        if line.get("dates_statut", None) is not None:
             import_raw_object.pop("dates_statut")
-        if line.get("dates_publication", None) != None:
+        if line.get("dates_publication", None) is not None:
             import_raw_object.pop("dates_publication")
-        if line.get("dates_open-1", None) != None:
+        if line.get("dates_open-1", None) is not None:
             import_raw_object.pop("dates_open-1")
-        if line.get("dates_open-2", None) != None:
+        if line.get("dates_open-2", None) is not None:
             import_raw_object.pop("dates_open-2")
-        if line.get("dates_open-3", None) != None:
+        if line.get("dates_open-3", None) is not None:
             import_raw_object.pop("dates_open-3")
-        if line.get("dates_open-4", None) != None:
+        if line.get("dates_open-4", None) is not None:
             import_raw_object.pop("dates_open-4")
-        if line.get("dates_open-5", None) != None:
+        if line.get("dates_open-5", None) is not None:
             import_raw_object.pop("dates_open-5")
-        if line.get("dates_deadline1", None) != None:
+        if line.get("dates_deadline1", None) is not None:
             import_raw_object.pop("dates_deadline1")
-        if line.get("dates_deadline-2", None) != None:
+        if line.get("dates_deadline-2", None) is not None:
             import_raw_object.pop("dates_deadline-2")
-        if line.get("dates_deadline-3", None) != None:
+        if line.get("dates_deadline-3", None) is not None:
             import_raw_object.pop("dates_deadline-3")
-        if line.get("dates_deadline-4", None) != None:
+        if line.get("dates_deadline-4", None) is not None:
             import_raw_object.pop("dates_deadline-4")
-        if line.get("dates", None) != None:
+        if line.get("dates", None) is not None:
             import_raw_object.pop("dates")
         return import_raw_object
 
@@ -299,9 +295,10 @@ class Command(BaseImportCommand):
 
     def extract_targeted_audiences(self, line):
         """
-        Exemple of string to process: "Centres de recherche,Autorités locales et régionales,Grandes entreprises,ONG de Développement,PME,Universités,Organisations Internationales,ONG,Association & ONG,Collectivité Territoriale & Entité Affiliée,Centre de recherche & université,Grande Entreprise (> 250 Salaries),Organisation UE & Internationale,Pme & Start-Up (< 249 Salaries)"
+        Exemple of string to process:
+            "Centres de recherche,Autorités locales et régionales,Grandes entreprises,ONG de Développement,PME,Universités,Organisations Internationales,ONG,Association & ONG,Collectivité Territoriale & Entité Affiliée,Centre de recherche & université,Grande Entreprise (> 250 Salaries),Organisation UE & Internationale,Pme & Start-Up (< 249 Salaries)"
         Split the string, loop on the values and match to our AUDIENCES
-        """
+        """  # noqa
         audiences = html.unescape(line.get("filtres_beneficiaries", "")).split(";")
         aid_audiences = []
         for audience in audiences:
@@ -372,9 +369,10 @@ class Command(BaseImportCommand):
 
     def extract_categories(self, line):
         """
-        Exemple of string to process: "je decouvre les metiers;je choisis mon metier ou ma formation;je rebondis tout au long de la vie;je m'informe sur les metiers"  # noqa
+        Exemple of string to process:
+            "je decouvre les metiers;je choisis mon metier ou ma formation;je rebondis tout au long de la vie;je m'informe sur les metiers"  # noqa
         Split the string, loop on the values and match to our Categories
-        """
+        """  # noqa
         categories = html.unescape(line.get("filtres_sectors", "")).split(";")
         title = line["post_title"][:180]
         aid_categories = []
@@ -390,11 +388,12 @@ class Command(BaseImportCommand):
 
     def extract_programs(self, line):
         """
-        Exemple of string to process: "JPI - (1.) INITIATIVE DE PROGRAMMATION CONJOINTE;JPI - (1.11.) INITIATIVE DE PROGRAMMATION CONJOINTE PARTENARIAT POUR LA RECHERCHE ET L&rsquo;INNOVATION DANS LA REGION MEDITERRANEENNE (JPI PRIMA)"  # noqa
+        Exemple of string to process:
+            "JPI - (1.) INITIATIVE DE PROGRAMMATION CONJOINTE;JPI - (1.11.) INITIATIVE DE PROGRAMMATION CONJOINTE PARTENARIAT POUR LA RECHERCHE ET L&rsquo;INNOVATION DANS LA REGION MEDITERRANEENNE (JPI PRIMA)"  # noqa
         Split the string, loop on the values and match to our Programs
-        """
+        """  # noqa
         programs = html.unescape(line.get("relations_programmes", "")).split(";")
-        title = line["post_title"][:180]
+        # title = line["post_title"][:180]
         aid_programs = []
         if programs != [""]:
             for program in programs:

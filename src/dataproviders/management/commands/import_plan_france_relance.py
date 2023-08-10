@@ -1,21 +1,15 @@
-# flake8: noqa
 import os
 import csv
 import json
 import requests
-from datetime import datetime
 
 from django.utils import timezone
-from django.utils.text import slugify
 
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import content_prettify, mapping_categories
 from dataproviders.management.commands.base import BaseImportCommand
-from geofr.models import Perimeter
-from backers.models import Backer
 from aids.models import Aid
-from categories.models import Theme, Category
 
 
 ADMIN_ID = 1
@@ -94,7 +88,7 @@ class Command(BaseImportCommand):
             for line in data:
                 yield line
         else:
-            headers = {"accept": "application/json", "content-type": "application/json"}
+            # headers = {"accept": "application/json", "content-type": "application/json"}
             req = requests.get(DATA_SOURCE.import_api_url)
             data = req.json()
             self.stdout.write("Total number of aids: {}".format(len(data)))

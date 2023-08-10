@@ -1,24 +1,18 @@
-# flake8: noqa
 import os
 import csv
 import json
 import locale
 import requests
-import re
 import math
 from datetime import datetime
 
 from django.utils import timezone
-from django.utils.text import slugify
 
 from dataproviders.models import DataSource
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import content_prettify, mapping_categories
 from dataproviders.management.commands.base import BaseImportCommand
-from geofr.models import Perimeter
-from backers.models import Backer
 from aids.models import Aid
-from categories.models import Theme, Category
 from keywords.models import Keyword
 
 ADMIN_ID = 1

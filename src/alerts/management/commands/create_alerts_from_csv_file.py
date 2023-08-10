@@ -41,7 +41,7 @@ class Command(BaseCommand):
     email
     test@email.com
     test2@email.com
-    """
+    """  # noqa
 
     def add_arguments(self, parser):
         parser.add_argument(

@@ -1,4 +1,3 @@
-# flake8: noqa
 import os
 import csv
 import json
@@ -47,7 +46,7 @@ with open(AUDIENCES_MAPPING_CSV_PATH) as csv_file:
                             if choice[1] == row[column]
                         )
                         AUDIENCES_DICT[row[SOURCE_COLUMN_NAME]].append(audience)
-                    except:
+                    except:  # noqa NOSONAR
                         print(row[column])
 
 CATEGORIES_MAPPING_CSV_PATH = (
@@ -133,17 +132,17 @@ class Command(BaseImportCommand):
 
     def extract_import_raw_object_calendar(self, line):
         import_raw_object_calendar = {}
-        if line.get("pro_fin", None) != None:
+        if line.get("pro_fin", None) is not None:
             import_raw_object_calendar["pro_fin"] = line["pro_fin"]
-        if line.get("post_date", None) != None:
+        if line.get("post_date", None) is not None:
             import_raw_object_calendar["post_date"] = line["post_date"]
         return import_raw_object_calendar
 
     def extract_import_raw_object(self, line):
         import_raw_object = dict(line)
-        if line.get("pro_fin", None) != None:
+        if line.get("pro_fin", None) is not None:
             import_raw_object.pop("pro_fin")
-        if line.get("post_date", None) != None:
+        if line.get("post_date", None) is not None:
             import_raw_object.pop("post_date")
 
         return import_raw_object
