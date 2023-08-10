@@ -34,7 +34,7 @@ check:
 
 coverage:
 	pipenv run coverage run --source='.' -m pytest $(app) && pipenv run coverage html
-# for a single app: call with `coverage app=aids coverage`
+# for a single app: call with `make app=aids coverage`
 
 checkstyle:
 	pipenv run ruff check .
