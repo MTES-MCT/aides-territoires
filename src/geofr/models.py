@@ -394,6 +394,7 @@ class PerimeterData(models.Model):
         verbose_name = "donnée de périmètre"
         verbose_name_plural = "données de périmètre"
         unique_together = (("perimeter", "prop"),)
+        ordering = ["-date_created"]
 
 
 class FinancialData(models.Model):

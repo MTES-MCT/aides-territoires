@@ -33,7 +33,8 @@ check:
 	pipenv run python manage.py check
 
 coverage:
-	pipenv run coverage run --source='.' -m pytest $(PARAMS) && pipenv run coverage html
+	pipenv run coverage run --source='.' -m pytest $(app) && pipenv run coverage html
+# for a single app: call with `make app=aids coverage`
 
 checkstyle:
 	pipenv run ruff check .

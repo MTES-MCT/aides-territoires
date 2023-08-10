@@ -31,7 +31,9 @@ def test_minisite_results(client, settings):
     """Test that the saved search query is applied."""
 
     AidFactory(name="Un repas sans fromage, c'est dommage", description="Description")
-    AidFactory(name="Une soirée sans vin, ce n'est pas malin")
+    AidFactory(
+        name="Une soirée sans vin, ce n'est pas malin", description="Description"
+    )
 
     page = MinisiteFactory(title="Gloubiboulga page", search_querystring="text=fromage")
     page_url = reverse("home")
@@ -49,7 +51,9 @@ def test_minisite_results_with_prefix_question_mark(client, settings):
     with a prefix question mark and that should be ok"""
 
     AidFactory(name="Un repas sans fromage, c'est dommage", description="Description")
-    AidFactory(name="Une soirée sans vin, ce n'est pas malin")
+    AidFactory(
+        name="Une soirée sans vin, ce n'est pas malin", description="Description"
+    )
 
     page = MinisiteFactory(
         title="Gloubiboulga page", search_querystring="?text=fromage"
@@ -68,8 +72,10 @@ def test_minisite_results_overriding(client, settings):
     """Test that manual filter add-up on top of initial filter."""
 
     AidFactory(name="Un repas sans fromage, c'est dommage", description="Description")
-    AidFactory(name="Du fromage sans vin, ce n'est pas sain")
-    AidFactory(name="Une soirée sans vin, ce n'est pas malin")
+    AidFactory(name="Du fromage sans vin, ce n'est pas sain", description="Description")
+    AidFactory(
+        name="Une soirée sans vin, ce n'est pas malin", description="Description"
+    )
 
     page = MinisiteFactory(title="Gloubiboulga page", search_querystring="text=fromage")
     page_url = reverse("home")
