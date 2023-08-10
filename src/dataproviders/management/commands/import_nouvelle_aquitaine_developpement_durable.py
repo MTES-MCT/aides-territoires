@@ -1,13 +1,11 @@
-# flake8: noqa
 import os
 from datetime import datetime
-from xml.etree import ElementTree
+from defusedxml import ElementTree
 
 from dataproviders.constants import IMPORT_LICENCES
 from dataproviders.utils import content_prettify
 from dataproviders.management.commands.base import BaseImportCommand
 from geofr.models import Perimeter
-from aids.models import Aid
 
 ADDNA = "Aides pour le Développement Durable en Nouvelle-Aquitaine"
 

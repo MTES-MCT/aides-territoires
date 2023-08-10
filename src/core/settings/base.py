@@ -1,4 +1,3 @@
-# flake8: noqa
 from unipath import Path
 
 from core.api import doc as api_doc
@@ -270,7 +269,7 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": api_doc.description,
     "TOS": "https://aides-territoires.beta.gouv.fr/mentions-l%C3%A9gales/",
     "CONTACT": {
-        "name": "Une question ? Vous pouvez nous contacter en cliquant ici (puis sélectionnez 'API' comme Sujet)",
+        "name": "Une question ? Vous pouvez nous contacter en cliquant ici (puis sélectionnez 'API' comme Sujet)",  # noqa
         "url": "https://aides-territoires.beta.gouv.fr/contact/",
     },
     "LICENSE": {"name": "« Licence Ouverte v2.0 » d’Etalab"},

@@ -1,4 +1,3 @@
-# flake8: noqa
 from django.core.management.base import BaseCommand
 
 from backers.models import Backer
@@ -12,7 +11,7 @@ SERVICES = [
     "Préfecture de région",
     "Direction régionale de l'Alimentation, de l'Agriculture et de la Forêt (DRAAF)",
     "Direction régionale des Affaires culturelles (DRAC)",
-    "Direction régionale des Entreprises, de la Concurrence, de la Consommation, du Travail et de l’Emploi (DIRECCTE)",
+    "Direction régionale des Entreprises, de la Concurrence, de la Consommation, du Travail et de l’Emploi (DIRECCTE)",  # noqa
     "Direction régionale de l’environnement, de l’aménagement et du logement (DREAL)",
     "Direction régionale des Finances publiques (DRFiP)",
     "Région académique",

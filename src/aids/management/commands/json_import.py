@@ -1,5 +1,3 @@
-# flake8: noqa
-
 import os
 import json
 from datetime import datetime

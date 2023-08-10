@@ -1,4 +1,3 @@
-# flake8: noqa
 import re
 import csv
 import logging
@@ -61,7 +60,7 @@ class Command(BaseCommand):
 
     TODO:
     - sort csv before export ?
-    """
+    """  # noqa
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -170,7 +169,7 @@ class Command(BaseCommand):
                         for index, item in enumerate(agg_dict_list):
                             if item["label"] == page["label"]:
                                 for key in item.keys():
-                                    if (type(item[key]) == int) and (key in page):
+                                    if isinstance(item[key], int) and (key in page):
                                         agg_dict_list[index][key] += int(page[key])
                     # add new label data
                     else:
@@ -191,7 +190,7 @@ class Command(BaseCommand):
         # write dict to csv
         if len(agg_dict_list):
             keys = agg_dict_list[0].keys()
-            filename = f"matomo_{slugify(options['api_method'])}_{options['start_date']}_{options['end_date']}.csv"
+            filename = f"matomo_{slugify(options['api_method'])}_{options['start_date']}_{options['end_date']}.csv"  # noqa
             with open(filename, "w", newline="") as output_file:
                 dict_writer = csv.DictWriter(
                     output_file, fieldnames=keys, extrasaction="ignore"

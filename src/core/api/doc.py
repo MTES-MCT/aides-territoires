@@ -1,8 +1,6 @@
-# flake8: noqa
-
 v16_changes = "**Périmètres** ajout du point d’entrée `perimeters/data`"
 
-v15_changes = "**Aides** : ajout des champs `name_initial`, `import_data_url`, `import_data_mention` et `import_share_licence`"
+v15_changes = "**Aides** : ajout des champs `name_initial`, `import_data_url`, `import_data_mention` et `import_share_licence`"  # noqa
 
 v14_changes = (
     "**Aides** : ajout du champ `is_call_for_project`<br />"
@@ -29,4 +27,4 @@ description = f"""
 |1.1           |**Aides** : ajout du champ `programs`|
 |1.0           |Première version de l'API 🎉<br /> Points d'entrée : **Aides** et **Porteurs d'aides**|
 
-"""
+"""  # noqa
