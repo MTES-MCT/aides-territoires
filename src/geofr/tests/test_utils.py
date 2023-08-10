@@ -4,8 +4,6 @@ from operator import itemgetter
 from geofr.models import Perimeter
 from geofr.utils import (
     attach_perimeters_check,
-    department_from_zipcode,
-    is_overseas,
     get_all_related_perimeters,
     attach_perimeters,
     attach_epci_perimeters,
@@ -15,20 +13,6 @@ from geofr.factories import PerimeterFactory
 
 
 pytestmark = pytest.mark.django_db
-
-
-def test_department_from_zipcode():
-    assert department_from_zipcode("34110") == "34"
-    assert department_from_zipcode("27370") == "27"
-    assert department_from_zipcode("97200") == "972"
-    assert department_from_zipcode("97414") == "974"
-
-
-def test_is_overseas():
-    assert not is_overseas("34110")
-    assert not is_overseas("27370")
-    assert is_overseas("97200")
-    assert is_overseas("97414")
 
 
 def test_list_insee_codes_for_departments_and_coms(perimeters) -> None:

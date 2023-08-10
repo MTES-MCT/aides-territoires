@@ -1,5 +1,3 @@
-import re
-
 from django import forms
 from django.db.models import Q, F, Prefetch
 from django.core.exceptions import ValidationError
@@ -211,7 +209,6 @@ class AidAdminForm(BaseAidForm):
 
         # If the aid is saved as draft, don't perform any data validation
         if data["status"].state == AidWorkflow.states.published:
-
             if not data.get("name", None):
                 msg = "Veuillez compléter le champ nom de l’aide"
                 self.add_error(
@@ -307,7 +304,6 @@ class AidAdminForm(BaseAidForm):
 
 
 class AidEditForm(BaseAidForm):
-
     programs = forms.ModelMultipleChoiceField(
         label="Programme d’aides", queryset=Program.objects.all(), required=False
     )
@@ -433,7 +429,6 @@ class AidEditForm(BaseAidForm):
         }
 
     def __init__(self, *args, **kwargs):
-
         # The form validation rule will change depending on the
         # new aid status.
         self.requested_status = kwargs.pop("requested_status", None)
@@ -631,14 +626,6 @@ class BaseAidSearchForm(AidesTerrBaseForm):
         label="Trier par", required=False, choices=ORDER_BY_CHOICES
     )
 
-    def clean_zipcode(self):
-        zipcode = self.cleaned_data["zipcode"]
-        if zipcode and re.match(r"\d{5}", zipcode) is None:
-            msg = "Ce code postal semble invalide."
-            raise forms.ValidationError(msg)
-
-        return zipcode
-
     def clean_text(self):
         # Removing null character if present
         text = self.cleaned_data["text"]
@@ -651,7 +638,6 @@ class BaseAidSearchForm(AidesTerrBaseForm):
 
         # If no qs was passed, just start with all published aids
         if qs is None:
-
             financers_qs = Backer.objects.order_by("aidfinancer__order", "name")
 
             instructors_qs = Backer.objects.order_by("aidinstructor__order", "name")
@@ -918,7 +904,6 @@ class AidProjectStatusForm(forms.ModelForm, AidesTerrBaseForm):
         fields = ["aid_requested", "aid_obtained", "aid_paid", "aid_denied"]
 
     def clean(self):
-
         data = super().clean()
         if data.get("aid_obtained") and data.get("aid_denied"):
             msg = "L’aide ne peut être à la fois « obtenue » et « rejetée »"
@@ -949,7 +934,6 @@ class SuggestAidMatchProjectForm(AidesTerrBaseForm):
     )
 
     def get_origin_page_from_post_data(self):
-
         origin_page = self.data.get("origin_page", None)
         return origin_page
 

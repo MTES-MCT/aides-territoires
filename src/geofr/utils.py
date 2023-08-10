@@ -6,37 +6,12 @@ from django.db.models import Q
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from geofr.constants import (
-    OVERSEAS_PREFIX,
-    DEPARTMENT_TO_REGION,
     OVERSEAS_COLLECTIVITIES,
 )
 from geofr.models import Perimeter, PerimeterImport
 from accounts.models import User
 
 MAX_PERIMETERS_TO_ATTACH = 500
-
-
-def department_from_zipcode(zipcode):
-    """Extracts the department code from the given (valid) zipcode."""
-
-    if zipcode.startswith(OVERSEAS_PREFIX):
-        prefix = zipcode[:3]
-    else:
-        prefix = zipcode[:2]
-    return prefix
-
-
-def region_from_zipcode(zipcode):
-    """Extracts the region code from the given zipcode."""
-
-    department = department_from_zipcode(zipcode)
-    return DEPARTMENT_TO_REGION[department]
-
-
-def is_overseas(zipcode):
-    """Tell if the given zipcode is overseas or mainland."""
-
-    return zipcode.startswith(OVERSEAS_PREFIX)
 
 
 def list_insee_codes_for_departments_and_coms() -> list:
