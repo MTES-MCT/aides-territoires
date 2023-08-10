@@ -299,7 +299,7 @@ def export_related_projects(aid_id, user_id):
 
     # Get active worksheet/tab
     worksheet = workbook.active
-    worksheet.title = f"{aid_name}"
+    worksheet.title = "Projets-ajoutes"
 
     # Define the titles for columns
     columns = [
@@ -352,7 +352,7 @@ def export_related_projects(aid_id, user_id):
     content = vworkbook.getvalue()
 
     content_file = ContentFile(content)
-    file_object = files.File(content_file, name="Aides-territoires-projets-lies.xlsx")
+    file_object = files.File(content_file, name=f"Aides-territoires-{aid_name}.xlsx")
     dataexport_object = DataExport.objects.create(
         author_id=user.id,
         exported_file=file_object,
