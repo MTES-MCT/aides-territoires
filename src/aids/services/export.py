@@ -360,9 +360,11 @@ def export_related_projects(aid_id, user_id):
             cell = worksheet.cell(row=row_num, column=col_num)
             cell.value = cell_value
 
+    # kept the workbook as bytes in an in-memory buffer
     vworkbook = BytesIO()
     workbook.save(vworkbook)
 
+    # takes the value from the Buffer
     content = vworkbook.getvalue()
 
     content_file = ContentFile(content)
