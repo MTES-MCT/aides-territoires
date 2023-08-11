@@ -1,8 +1,10 @@
 """Global fixtures for tests."""
 
+import environ
 import pytest
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
 
 from accounts.factories import UserFactory, ContributorFactory
 from aids.factories import AidFactory
@@ -13,12 +15,22 @@ from geofr.factories import PerimeterFactory
 from categories.factories import CategoryFactory
 from organizations.factories import OrganizationFactory
 
+# Conftest does not seem to load the Django settings
+environ.Env.read_env(".env.local")
+env = environ.Env()
+
 
 @pytest.fixture(scope="module")
 def browser():
-    opts = Options()
-    opts.add_argument("-headless")
-    browser = webdriver.Firefox(options=opts)
+    options = Options()
+    options.add_argument("-headless")
+
+    geckodriver_path = env("GECKODRIVER_PATH", default="")
+    if geckodriver_path:
+        service = Service(executable_path=geckodriver_path)
+        browser = webdriver.Firefox(options=options, service=service)
+    else:
+        browser = webdriver.Firefox(options=options)
     browser.implicitly_wait(1)
     browser.set_window_position(0, 0)
     browser.set_window_size(1200, 800)
@@ -111,7 +123,6 @@ def category():
 
 @pytest.fixture
 def perimeters():
-
     europe = PerimeterFactory(
         scale=Perimeter.SCALES.continent, name="Europe", code="EU"
     )

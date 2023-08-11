@@ -30,6 +30,14 @@ GeckoDriver s'attend à trouver Firefox installé.
     apt-get update
     apt-get purge firefox-esr
 
+Si geckodriver n'est pas trouvé automatiquement par pytest, il est possible de spécifier directement
+son emplacement en ajoutant une ligne comme
+
+```
+GECKODRIVER_PATH="/snap/bin/geckodriver"
+```
+au fichier `.env.local`
+
 ## Définition du fini
 
 Avant chaque mise en production, les intervenant·es sont prié·es de [passer
