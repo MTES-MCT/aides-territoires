@@ -7,7 +7,23 @@ from blog.factories import BlogPostFactory
 pytestmark = pytest.mark.django_db
 
 
+def test_user_can_view_post_list(client):
+    blog_post = BlogPostFactory(status="published")
+
+    blog_post_list = reverse("blog_post_list_view")
+    res = client.get(blog_post_list)
+    assert blog_post.title in res.content.decode()
+
+
 def test_anonymous_user_can_view_published_blog_post(client):
+    blog_post = BlogPostFactory(status="published")
+    blog_post_detail_url = reverse("blog_post_detail_view", args=[blog_post.slug])
+    res = client.get(blog_post_detail_url)
+    assert res.status_code == 200
+
+
+def test_connected_user_can_view_published_blog_post(client, user):
+    client.force_login(user)
     blog_post = BlogPostFactory(status="published")
     blog_post_detail_url = reverse("blog_post_detail_view", args=[blog_post.slug])
     res = client.get(blog_post_detail_url)

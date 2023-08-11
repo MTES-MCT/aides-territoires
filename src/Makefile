@@ -27,7 +27,7 @@ build:
 	pipenv run python manage.py compress --force
 
 test:
-	pipenv run py.test -v -n 10
+	pipenv run py.test $(app) -v -n 10
 
 check:
 	pipenv run python manage.py check

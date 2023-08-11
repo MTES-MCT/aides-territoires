@@ -614,6 +614,46 @@ def test_user_deletion_form_allows_to_delete_specific_alerts(client, contributor
     assert Alert.objects.first().querystring == "text=Garder"
 
 
+def test_user_deletion_warns_of_content_before_deleting(client, contributor):
+    client.force_login(contributor)
+
+    contributor_org = contributor.beneficiary_organization
+
+    UserFactory(
+        email="invited@example.org",
+        proposed_organization=contributor.beneficiary_organization,
+        invitation_author=contributor,
+        invitation_date=timezone.now(),
+    )
+
+    other_member = UserFactory(email="to.keep@example.org")
+    other_member.beneficiary_organization = contributor_org
+    other_member.save()
+
+    user_project = ProjectFactory(name="Projet de l’utilisateur")
+    user_project.author.add(contributor)
+    user_project.save()
+
+    associated_aid = AidFactory(author=contributor)
+    aid_project = AidProject(
+        aid=associated_aid, project=user_project, creator=contributor
+    )
+    aid_project.save()
+
+    contributor_org.project_set.add(user_project)
+    contributor_org.save()
+
+    contributor_org.beneficiaries.add(other_member)
+    contributor_org.save()
+
+    user_deletion_url = reverse("delete_user_account")
+
+    res = client.get(user_deletion_url)
+
+    assert other_member.full_name in res.content.decode()
+    assert user_project.name in res.content.decode()
+
+
 def test_user_deletion_form_allows_to_reattribute_invitations(client, contributor):
     client.force_login(contributor)
 
