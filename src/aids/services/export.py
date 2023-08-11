@@ -299,7 +299,7 @@ def export_related_projects(aid_id, user_id):
 
     # Get active worksheet/tab
     worksheet = workbook.active
-    worksheet.title = "Projets-ajoutes"
+    worksheet.title = "Projets-ajoutés"
 
     # Define the titles for columns
     columns = [
@@ -308,6 +308,9 @@ def export_related_projects(aid_id, user_id):
         "Porteur du projet",
         "Périmètre du porteur",
         "Type de porteur",
+        "Personne ayant ajouté l'aide",
+        "Fonction de la personne",
+        "email de la personne",
     ]
     row_num = 1
 
@@ -340,6 +343,17 @@ def export_related_projects(aid_id, user_id):
         key = project.organization.organization_type[0]
         organization_type_value = choices_dict.get(key, "")
         row.append(organization_type_value)
+
+        aidproject = AidProject.objects.get(aid=aid.id, project=project.id)
+        if aidproject.creator is not None:
+            creator = User.objects.get(id=aidproject.creator.id)
+            row.append(creator.full_name)
+            row.append(creator.beneficiary_function)
+            row.append(creator.email)
+        else:
+            row.append("données inconnues")
+            row.append("données inconnues")
+            row.append("données inconnues")
 
         # Assign the data for each cell of the row
         for col_num, cell_value in enumerate(row, 1):
