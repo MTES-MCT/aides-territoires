@@ -307,6 +307,7 @@ def export_related_projects(aid_id, user_id):
         "Caractère public du projet",
         "Porteur du projet",
         "Périmètre du porteur",
+        "Code Insee du périmètre",
         "Type de porteur",
         "Personne ayant ajouté l'aide",
         "Fonction de la personne",
@@ -336,7 +337,9 @@ def export_related_projects(aid_id, user_id):
 
         if project.organization.perimeter is not None:
             row.append(project.organization.perimeter.name)
+            row.append(project.organization.perimeter.insee)
         else:
+            row.append("périmètre non communiqué")
             row.append("périmètre non communiqué")
 
         choices_dict = dict(Organization.ORGANIZATION_TYPE_CHOICES)
