@@ -345,10 +345,15 @@ def export_related_projects(aid_id, user_id):
         row.append(organization_type_value)
 
         aidproject = AidProject.objects.get(aid=aid.id, project=project.id)
-        if aidproject.creator is not None:
-            creator = User.objects.get(id=aidproject.creator.id)
+        if aidproject.project.author.all() is not None:
+            creator = aidproject.project.author.all().first()
             row.append(creator.full_name)
-            row.append(creator.beneficiary_function)
+
+            choices_dict = dict(User.FUNCTION_TYPE)
+            key = creator.beneficiary_function
+            beneficiary_function_value = choices_dict.get(key, "")
+            row.append(beneficiary_function_value)
+
             row.append(creator.email)
         else:
             row.append("données inconnues")
