@@ -12,7 +12,6 @@ class PageView(DetailView):
 
     def get(self, request, *args, **kwargs):
         url = self.kwargs.get("url")
-        print(url)
         if "://" in url:
             raise PermissionDenied()
         elif url == "europe/":
