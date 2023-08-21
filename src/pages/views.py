@@ -13,6 +13,7 @@ class PageView(DetailView):
     def get(self, request, *args, **kwargs):
         url = self.kwargs.get("url")
         if "://" in url:
+            # Reject full URLs to avoid "Open redirect"-type security issues
             raise PermissionDenied()
         elif url == "europe/":
             redirect_url = reverse("search_page", args=["europe"])
