@@ -1,6 +1,7 @@
 from django.views.generic import DetailView
 from django.urls import reverse
 from django.http import Http404, HttpResponsePermanentRedirect
+from django.core.exceptions import PermissionDenied
 
 from pages.models import Page
 
@@ -11,7 +12,10 @@ class PageView(DetailView):
 
     def get(self, request, *args, **kwargs):
         url = self.kwargs.get("url")
-        if url == "europe/":
+        if "://" in url:
+            # Reject full URLs to avoid "Open redirect"-type security issues
+            raise PermissionDenied()
+        elif url == "europe/":
             redirect_url = reverse("search_page", args=["europe"])
             return HttpResponsePermanentRedirect(redirect_url)
         elif not url.endswith("/"):
