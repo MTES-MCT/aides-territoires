@@ -1,16 +1,16 @@
 {% extends "_base.html" %}
 
 {% block content %}
-<article>
-<h1>Action interdite</h1>
-
-<p>Il semble que vous essayiez d’accéder à un contenu sans la bonne
-autorisation.</p>
-
-<p>Le mieux que nous puissions faire est de vous <a href="{% url 'home' %}">
-renvoyer vers la page d’accueil.</a></p>
-
-<p>Si vous pensez qu’il s’agit d’une erreur de notre part, vous pouvez aussi <a
-href="mailto:aides-territoires@beta.gouv.fr"> nous contacter</a>.</p>
-</article>
+<div class="fr-container fr-my-4w">
+    <h1>Action interdite</h1>
+    
+    <p>Il semble que vous essayiez d’accéder à un contenu sans la bonne
+    autorisation.</p>
+    
+    <p>Le mieux que nous puissions faire est de vous <a href="{% url 'home' %}">
+    renvoyer vers la page d’accueil.</a></p>
+    
+    <p>Si vous pensez qu’il s’agit d’une erreur de notre part, vous pouvez aussi <a
+    href="mailto:aides-territoires@beta.gouv.fr"> nous contacter</a>.</p>
+</div>
 {% endblock content %}
