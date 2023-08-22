@@ -1,6 +1,6 @@
 import pytest
 
-from backers.models import Backer
+from backers.models import Backer, BackerCategory, BackerSubCategory, logo_upload_to
 from backers.factories import BackerFactory
 from aids.models import AidWorkflow
 from aids.factories import AidFactory
@@ -16,7 +16,6 @@ def test_backer_slug():
 
 
 def test_backer_filtering():
-
     BackerFactory()
     aid_draft = AidFactory(status=AidWorkflow.states.draft)
     BackerFactory(financed_aids=[aid_draft])
@@ -27,3 +26,30 @@ def test_backer_filtering():
     assert Backer.objects.count() == 3
     assert Backer.objects.has_financed_aids().count() == 2
     assert Backer.objects.has_published_financed_aids().count() == 1
+
+
+def test_logo_upload_to():
+    backer = BackerFactory(name="Département imaginaire")
+
+    result = logo_upload_to(backer, "0345.png")
+
+    assert result == "backers/departement-imaginaire_logo.png"
+
+
+def test_backer_category():
+    backer_cat = BackerCategory(name="Collectivités")
+    backer_cat.save()
+
+    assert backer_cat.id_slug == "1-collectivites"
+
+
+def test_backer_sub_category():
+    backer_cat = BackerCategory(name="Collectivités")
+    backer_cat.save()
+    backer_subcat = BackerSubCategory(
+        name="Conseils départementaux", category=backer_cat
+    )
+    backer_subcat.save()
+
+    assert backer_subcat.id_slug == "1-conseils-departementaux"
+    assert backer_cat == backer_subcat.category

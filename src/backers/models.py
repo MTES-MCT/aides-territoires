@@ -14,8 +14,7 @@ def logo_upload_to(instance, filename):
     """Rename uploaded files with the object's slug."""
 
     _, extension = splitext(filename)
-    name = instance.slug
-    filename = "backers/{}_logo{}".format(name, extension)
+    filename = f"backers/{instance.slug}_logo{extension}"
     return filename
 
 
