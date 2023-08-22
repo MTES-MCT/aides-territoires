@@ -1,5 +1,3 @@
-"""Test user login views."""
-
 import pytest
 import re
 
