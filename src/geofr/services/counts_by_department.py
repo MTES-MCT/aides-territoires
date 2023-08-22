@@ -198,23 +198,12 @@ def get_backers_count_by_department(
                             financed_aids__aid_types__overlap=[
                                 "strategic_engineering",
                                 "diagnostic_engineering",
+                                "animation_engineering",
+                                "AMOA_engineering",
+                                "MOE_engineering",
                             ]
                         )
                     ),
-                    distinct=True,
-                )
-            )
-            .annotate(
-                AMOA_count=Count(
-                    "financed_aids",
-                    filter=(Q(financed_aids__aid_types__overlap=["AMOA_engineering"])),
-                    distinct=True,
-                )
-            )
-            .annotate(
-                MOE_count=Count(
-                    "financed_aids",
-                    filter=(Q(financed_aids__aid_types__overlap=["MOE_engineering"])),
                     distinct=True,
                 )
             )
@@ -264,8 +253,6 @@ def get_backers_count_by_department(
                 "group__subcategory__category__name",
                 "technical_aids",
                 "technical_count",
-                "AMOA_count",
-                "MOE_count",
                 "financial_count",
                 "legal_count",
                 "formation_count",
@@ -412,21 +399,12 @@ def get_programs_count_by_department(
                             aids__aid_types__overlap=[
                                 "strategic_engineering",
                                 "diagnostic_engineering",
+                                "animation_engineering",
+                                "AMOA_engineering",
+                                "MOE_engineering",
                             ]
                         )
                     ),
-                )
-            )
-            .annotate(
-                AMOA_count=Count(
-                    "aids",
-                    filter=(Q(aids__aid_types__overlap=["AMOA_engineering"])),
-                )
-            )
-            .annotate(
-                MOE_count=Count(
-                    "aids",
-                    filter=(Q(aids__aid_types__overlap=["MOE_engineering"])),
                 )
             )
             .annotate(
@@ -460,8 +438,6 @@ def get_programs_count_by_department(
                 "slug",
                 "technical_aids",
                 "technical_count",
-                "AMOA_count",
-                "MOE_count",
                 "financial_count",
                 "legal_count",
                 "formation_count",

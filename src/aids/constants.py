@@ -54,9 +54,13 @@ technical_engineering and legal_engineering are now divided in multiple choices
 TECHNICAL_AIDS = (
     ("technical_engineering", "Ingénierie technique"),
     ("strategic_engineering", "Ingénierie de planification et stratégie"),
-    ("diagnostic_engineering", "Ingénierie d’études et diagnostiques"),
-    ("AMOA_engineering", "AMOA / MOD"),
-    ("MOE_engineering", "MOE / MOE déléguée"),
+    ("diagnostic_engineering", "Ingénierie d’étude et diagnostic"),
+    ("animation_engineering", "Ingénierie d’animation et mise en réseau"),
+    (
+        "AMOA_engineering",
+        "Assistance à maîtrise d’ouvrage / Maîtrise d’ouvrage déléguée",
+    ),
+    ("MOE_engineering", "Maîtrise d’oeuvre / Maîtrise d’oeuvre déléguée"),
     ("financial_engineering", "Ingénierie financière"),
     ("legal_engineering", "Ingénierie Juridique / administrative"),
     ("administrative_engineering", "Ingénierie administrative"),
@@ -66,9 +70,13 @@ TECHNICAL_AIDS = (
 
 TECHNICAL_AIDS_FOR_FRONT_PURPOSE = (
     ("strategic_engineering", "Ingénierie de planification et stratégie"),
-    ("diagnostic_engineering", "Ingénierie d’études et diagnostiques"),
-    ("AMOA_engineering", "AMOA / MOD"),
-    ("MOE_engineering", "MOE / MOE déléguée"),
+    ("diagnostic_engineering", "Ingénierie d’étude et diagnostic"),
+    ("animation_engineering", "Ingénierie d’animation et mise en réseau"),
+    (
+        "AMOA_engineering",
+        "Assistance à maîtrise d’ouvrage / Maîtrise d’ouvrage déléguée",
+    ),
+    ("MOE_engineering", "Maîtrise d’oeuvre / Maîtrise d’oeuvre déléguée"),
     ("financial_engineering", "Ingénierie financière"),
     ("administrative_engineering", "Ingénierie administrative"),
     ("legal_and_regulatory_engineering", "Ingénierie juridique et réglementaire"),
@@ -77,9 +85,13 @@ TECHNICAL_AIDS_FOR_FRONT_PURPOSE = (
 
 TECHNICAL_ENGINEERING_AIDS = (
     ("strategic_engineering", "Ingénierie de planification et stratégie"),
-    ("diagnostic_engineering", "Ingénierie d’études et diagnostiques"),
-    ("AMOA_engineering", "AMOA / MOD"),
-    ("MOE_engineering", "MOE / MOE déléguée"),
+    ("diagnostic_engineering", "Ingénierie d’étude et diagnostic"),
+    ("animation_engineering", "Ingénierie d’animation et mise en réseau"),
+    (
+        "AMOA_engineering",
+        "Assistance à maîtrise d’ouvrage / Maîtrise d’ouvrage déléguée",
+    ),
+    ("MOE_engineering", "Maîtrise d’oeuvre / Maîtrise d’oeuvre déléguée"),
 )
 
 LEGAL_AND_ADMINISTRATIVE_ENGINEERING_AIDS = (
@@ -90,6 +102,7 @@ LEGAL_AND_ADMINISTRATIVE_ENGINEERING_AIDS = (
 TECHNICAL_AIDS_LIST = (
     "strategic_engineering",
     "diagnostic_engineering",
+    "animation_engineering",
     "AMOA_engineering",
     "MOE_engineering",
     "financial_engineering",

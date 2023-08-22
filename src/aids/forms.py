@@ -410,6 +410,7 @@ class AidEditForm(BaseAidForm):
             "is_call_for_project",
             "programs",
             "aid_types",
+            "support_type",
             "subvention_rate",
             "subvention_comment",
             "loan_amount",
@@ -426,6 +427,7 @@ class AidEditForm(BaseAidForm):
         ]
         widgets = {
             "mobilization_steps": MultipleChoiceFilterWidget(),
+            "support_type": MultipleChoiceFilterWidget(),
             "destinations": MultipleChoiceFilterWidget,
             "targeted_audiences": MultipleChoiceFilterWidget,
             "aid_types": MultipleChoiceFilterWidget,

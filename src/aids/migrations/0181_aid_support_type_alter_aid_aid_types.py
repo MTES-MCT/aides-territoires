@@ -6,7 +6,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("aids", "0180_alter_aid_mobilization_steps"),
+        ("aids", "0180_alter_aid_destinations"),
     ]
 
     operations = [
@@ -42,10 +42,20 @@ class Migration(migrations.Migration):
                         ),
                         (
                             "diagnostic_engineering",
-                            "Ingénierie d’études et diagnostiques",
+                            "Ingénierie d’étude et diagnostic",
                         ),
-                        ("AMOA_engineering", "AMOA / MOD"),
-                        ("MOE_engineering", "MOE / MOE déléguée"),
+                        (
+                            "animation_engineering",
+                            "Ingénierie d’animation et mise en réseau",
+                        ),
+                        (
+                            "AMOA_engineering",
+                            "Assistance à maîtrise d’ouvrage / maîtrise d’ouvrage déléguée",
+                        ),
+                        (
+                            "MOE_engineering",
+                            "Maîtrise d’oeuvre / Maîtrise d’oeuvre déléguée",
+                        ),
                         ("financial_engineering", "Ingénierie financière"),
                         ("legal_engineering", "Ingénierie Juridique / administrative"),
                         ("administrative_engineering", "Ingénierie administrative"),

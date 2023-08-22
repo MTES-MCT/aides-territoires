@@ -27,7 +27,7 @@ def update_mobilization_steps_field(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("aids", "0179_aid_contact_info_updated_alter_aid_aid_types_and_more"),
+        ("aids", "0181_aid_support_type_alter_aid_aid_types"),
     ]
 
     operations = [
