@@ -69,8 +69,8 @@ class BackerSubCategory(models.Model):
     date_created = models.DateTimeField("Date de création", default=timezone.now)
 
     class Meta:
-        verbose_name = "Sous-Catégorie de porteurs"
-        verbose_name_plural = "Sous-Catégories de porteurs"
+        verbose_name = "Sous-catégorie de porteurs"
+        verbose_name_plural = "Sous-catégories de porteurs"
 
     def __str__(self):
         return self.name
