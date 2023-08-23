@@ -9,6 +9,7 @@ class BackerFactory(DjangoModelFactory):
 
     class Meta:
         model = Backer
+        skip_postgeneration_save = True
 
     name = factory.Faker("company")
 

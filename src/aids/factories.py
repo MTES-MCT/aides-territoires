@@ -12,6 +12,7 @@ class AidFactory(DjangoModelFactory):
 
     class Meta:
         model = Aid
+        skip_postgeneration_save = True
 
     name = factory.Faker("company", locale="fr_FR")
     author = factory.SubFactory(UserFactory)

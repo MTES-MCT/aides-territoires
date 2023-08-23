@@ -1,6 +1,7 @@
 """Global fixtures for tests."""
 
 import environ
+from os import path
 import pytest
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
@@ -27,7 +28,7 @@ def browser():
 
     geckodriver_path = env("GECKODRIVER_PATH", default="")
     if geckodriver_path:
-        service = Service(executable_path=geckodriver_path)
+        service = Service(executable_path=geckodriver_path, log_path=path.devnull)
         browser = webdriver.Firefox(options=options, service=service)
     else:
         browser = webdriver.Firefox(options=options)
