@@ -983,9 +983,7 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
                 project_obj = Project.objects.get(pk=project)
                 project_name = project_obj.name
                 project_slug = project_obj.slug
-                project_url = reverse(
-                    "project_detail_view", args=[project, project_slug]
-                )
+                url = reverse("project_detail_view", args=[project, project_slug])
 
                 user = self.request.user
 
@@ -994,16 +992,16 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
                     suggestedaidproject_obj = SuggestedAidProject.objects.get(
                         aid=aid.pk, project=project_obj.pk
                     )
-                    suggestedaidproject_obj.is_associated = True
-                    suggestedaidproject_obj.date_associated = timezone.now()
-                    suggestedaidproject_obj.save()
-                    url = project_url
-                    send_suggested_aid_accepted_notification_email.delay(
-                        project_author_organization_name=user.beneficiary_organization.name,
-                        suggester_user_email=suggestedaidproject_obj.creator.email,
-                        project_id=project_obj.pk,
-                        suggested_aid_id=aid.pk,
-                    )
+                    if suggestedaidproject_obj.creator is not None:
+                        suggestedaidproject_obj.is_associated = True
+                        suggestedaidproject_obj.date_associated = timezone.now()
+                        suggestedaidproject_obj.save()
+                        send_suggested_aid_accepted_notification_email.delay(
+                            project_author_organization_name=user.beneficiary_organization.name,
+                            suggester_user_email=suggestedaidproject_obj.creator.email,
+                            project_id=project_obj.pk,
+                            suggested_aid_id=aid.pk,
+                        )
 
                 # send email to project_followers if exist
                 organizations_favorite = project_obj.organization_favorite.all()
@@ -1035,7 +1033,7 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
                         """,
                     )
 
-                msg = f"L’aide a bien été associée au projet <a href='{project_url}'>{project_name}.</a>"  # noqa
+                msg = f"L’aide a bien été associée au projet <a href='{url}'>{project_name}.</a>"  # noqa
                 messages.success(self.request, msg)
 
         if self.request.POST.get("new_project"):
