@@ -10,6 +10,7 @@ class PerimeterFactory(DjangoModelFactory):
     class Meta:
         model = Perimeter
         django_get_or_create = ("scale", "code")
+        skip_postgeneration_save = True
 
     scale = Perimeter.SCALES.region
     code = factory.Sequence(lambda n: "%08d" % n)

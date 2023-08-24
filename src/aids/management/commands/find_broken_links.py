@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.contrib.sites.models import Site
-from aids.utils import check_if_url_return_an_error
+from aids.utils import check_if_url_returns_an_error
 
 
 class Command(BaseCommand):
@@ -26,20 +26,20 @@ class Command(BaseCommand):
 
         for aid in aids:
             logger.info(f"check for aid_id {aid.id} links")
-            if aid.origin_url:
-                if check_if_url_return_an_error(aid.origin_url):
-                    nb_links += 1
-                    aids_list.append(aid)
-                    aid.has_broken_link = True
-                    aid.save()
-                    logger.info(f"{aid.name} contains a broken 'origin_url' link")
-            if aid.application_url:
-                if check_if_url_return_an_error(aid.application_url):
-                    nb_links += 1
-                    aids_list.append(aid)
-                    aid.has_broken_link = True
-                    aid.save()
-                    logger.info(f"{aid.name} contains a broken 'application_url' link")
+            if aid.origin_url and check_if_url_returns_an_error(aid.origin_url):
+                nb_links += 1
+                aids_list.append(aid)
+                aid.has_broken_link = True
+                aid.save()
+                logger.info(f"{aid.name} contains a broken 'origin_url' link")
+            if aid.application_url and check_if_url_returns_an_error(
+                aid.application_url
+            ):
+                nb_links += 1
+                aids_list.append(aid)
+                aid.has_broken_link = True
+                aid.save()
+                logger.info(f"{aid.name} contains a broken 'application_url' link")
 
         email_body = render_to_string(
             "emails/find_broken_links.txt",

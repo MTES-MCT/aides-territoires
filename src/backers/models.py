@@ -10,13 +10,11 @@ from django.urls import reverse
 from aids.models import AidWorkflow
 
 
-def logo_upload_to(instance, filename):
+def logo_upload_to(instance, filename) -> str:
     """Rename uploaded files with the object's slug."""
 
     _, extension = splitext(filename)
-    name = instance.slug
-    filename = "backers/{}_logo{}".format(name, extension)
-    return filename
+    return f"backers/{instance.slug}_logo{extension}"
 
 
 class BackerCategory(models.Model):

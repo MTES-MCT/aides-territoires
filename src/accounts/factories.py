@@ -1,5 +1,5 @@
 import factory
-from factory.django import DjangoModelFactory
+from factory.django import DjangoModelFactory, Password
 from accounts.models import User
 
 
@@ -9,11 +9,12 @@ class UserFactory(DjangoModelFactory):
     class Meta:
         model = User
         django_get_or_create = ("email",)
+        skip_postgeneration_save = True
 
     first_name = factory.Faker("first_name", locale="fr_FR")
     last_name = factory.Faker("last_name", locale="fr_FR")
     email = factory.Faker("email", locale="fr_FR")
-    password = factory.PostGenerationMethodCall("set_password", "DefaultPassword!")
+    password = Password("DefaultPassword!")  # NOSONAR
     is_contributor = False
     is_beneficiary = True
     beneficiary_function = "other"

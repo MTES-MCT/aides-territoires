@@ -12,22 +12,18 @@ from core.fields import ChoiceArrayField
 from aids.models import Aid
 
 
-def logo_upload_to(instance, filename):
+def logo_upload_to(instance, filename) -> str:
     """Rename uploaded files with the object's slug."""
 
     _, extension = splitext(filename)
-    name = instance.slug
-    filename = "blog/{}_logo{}".format(name, extension)
-    return filename
+    return f"blog/{instance.slug}_logo{extension}"
 
 
 def promotion_img_upload_to(instance, filename):
     """Rename uploaded files with the object's slug."""
 
     _, extension = splitext(filename)
-    name = instance.slug
-    filename = "promotion/{}_img{}".format(name, extension)
-    return filename
+    return f"promotion/{instance.slug}_img{extension}"
 
 
 class BlogPostWorkflow(xwf_models.Workflow):
@@ -57,7 +53,6 @@ class BlogPostQuerySet(models.QuerySet):
 
 
 class BlogPost(xwf_models.WorkflowEnabled, models.Model):
-
     objects = BlogPostQuerySet.as_manager()
 
     title = models.CharField("Titre", max_length=256, db_index=True)
@@ -159,7 +154,6 @@ class BlogPost(xwf_models.WorkflowEnabled, models.Model):
 
 
 class BlogPostCategory(models.Model):
-
     name = models.CharField("Nom", max_length=256, db_index=True)
     slug = models.SlugField(
         "Fragment d’URL", help_text="Laisser vide pour autoremplir.", unique=True
@@ -209,7 +203,6 @@ class PromotionPostWorkflow(xwf_models.Workflow):
 
 
 class PromotionPost(xwf_models.WorkflowEnabled, models.Model):
-
     title = models.CharField("Titre", max_length=256, db_index=True)
     slug = models.SlugField(
         "Fragment d’URL", help_text="Laisser vide pour autoremplir.", blank=True

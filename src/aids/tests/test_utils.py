@@ -1,15 +1,29 @@
-"""Test data prepared to send to Démarches-Simplifiées to prepopulate a folder."""
-
 import pytest
 
-from aids.factories import AidFactory
-from aids.utils import prepopulate_ds_folder
 from accounts.factories import UserFactory
-from organizations.factories import OrganizationFactory
 from accounts.models import User
-
+from aids.factories import AidFactory
+from aids.utils import check_if_url_returns_an_error, prepopulate_ds_folder
+from core.utils import get_base_url
+from organizations.factories import OrganizationFactory
 
 pytestmark = pytest.mark.django_db
+
+
+def test_check_if_url_returns_an_error(client):
+    url = get_base_url()
+
+    res = check_if_url_returns_an_error(url)
+    assert res is False
+
+    res = check_if_url_returns_an_error(url + "/404/")
+    assert res is True
+
+    res = check_if_url_returns_an_error("/")
+    assert res is True
+
+
+"""Test data prepared to send to Démarches-Simplifiées to prepopulate a folder."""
 
 
 def test_data_json_is_populated_with_aid_ds_mapping_field_data(client):

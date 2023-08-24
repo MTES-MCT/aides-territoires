@@ -7,7 +7,9 @@ from geofr.models import Perimeter
 from aids.models import Aid
 
 
-def filter_generic_aids(qs: QuerySet, search_perimeter: Perimeter = None) -> QuerySet:
+def filter_generic_aids(  # NOSONAR
+    qs: QuerySet, search_perimeter: Perimeter = None
+) -> QuerySet:
     """
     We should never have both the generic aid and its local version
     together on search results.
@@ -76,7 +78,7 @@ def filter_generic_aids(qs: QuerySet, search_perimeter: Perimeter = None) -> Que
     return qs
 
 
-def check_if_url_return_an_error(url):
+def check_if_url_returns_an_error(url: str) -> bool:
     try:
         headers = {
             "user-agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:107.0) Gecko/20100101 Firefox/107.0",  # noqa
@@ -84,11 +86,13 @@ def check_if_url_return_an_error(url):
         response = requests.get(url, headers=headers)
         if response.status_code == 404:
             return True
+        else:
+            return False
     except Exception:
         return True
 
 
-def prepopulate_ds_folder(ds_mapping, user, org):
+def prepopulate_ds_folder(ds_mapping, user, org):  # NOSONAR
     data = {}
 
     for field in ds_mapping["FieldsList"]:
