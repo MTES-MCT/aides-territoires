@@ -992,10 +992,10 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
                     suggestedaidproject_obj = SuggestedAidProject.objects.get(
                         aid=aid.pk, project=project_obj.pk
                     )
+                    suggestedaidproject_obj.is_associated = True
+                    suggestedaidproject_obj.date_associated = timezone.now()
+                    suggestedaidproject_obj.save()
                     if suggestedaidproject_obj.creator is not None:
-                        suggestedaidproject_obj.is_associated = True
-                        suggestedaidproject_obj.date_associated = timezone.now()
-                        suggestedaidproject_obj.save()
                         send_suggested_aid_accepted_notification_email.delay(
                             project_author_organization_name=user.beneficiary_organization.name,
                             suggester_user_email=suggestedaidproject_obj.creator.email,
