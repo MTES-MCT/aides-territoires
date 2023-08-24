@@ -1,0 +1,8 @@
+{% extends "admin/submit_line.html" %}
+
+{% block submit-row %}
+    {{ block.super }}
+    <a href="{% url 'admin:aid_export_related_projects' original.pk %}" class="submitlink">
+        Exporter les projets liés en tâche de fond
+    </a>
+{% endblock submit-row %}

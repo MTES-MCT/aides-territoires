@@ -11,6 +11,7 @@ from accounts.resources import UserResource
 from exporting.models import DataExport
 from projects.models import Project, ValidatedProject
 from projects.resources import ProjectResource, ValidatedProjectResource
+from aids.services.export import export_related_projects
 
 
 def export_aids(aids_id_list, author_id, file_format):
@@ -59,6 +60,11 @@ def export_aids_as_csv(aids_id_list, author_id):
 @app.task
 def export_aids_as_xlsx(aids_id_list, author_id):
     export_aids(aids_id_list, author_id, file_format="xlsx")
+
+
+@app.task
+def export_related_projects_as_xlsx(aid_id, user_id):
+    return export_related_projects(aid_id, user_id)
 
 
 @app.task

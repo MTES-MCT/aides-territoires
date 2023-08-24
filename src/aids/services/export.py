@@ -11,15 +11,19 @@ from django.template.loader import get_template
 from django.utils.text import get_valid_filename
 from django.utils import timezone
 from django.db.models import Count
+from django.core import files
+from django.core.files.base import ContentFile
 
 from aids.resources import AidResourcePublic
 from aids.models import Aid, AidProject
+from accounts.models import User
 from organizations.models import Organization
 from stats.models import (
     AidApplicationUrlClickEvent,
     AidOriginUrlClickEvent,
     AidViewEvent,
 )
+from exporting.models import DataExport
 
 
 def fetch_resources(uri: str, rel) -> str:
@@ -283,3 +287,98 @@ def export_aid_stats(
     workbook.save(response)
 
     return response
+
+
+def export_related_projects(aid_id, user_id):
+
+    aid = Aid.objects.get(id=aid_id)
+    user = User.objects.get(id=user_id)
+    aid_name = aid.name
+
+    workbook = Workbook()
+
+    # Get active worksheet/tab
+    worksheet = workbook.active
+    worksheet.title = "Projets-ajoutés"
+
+    # Define the titles for columns
+    columns = [
+        "Nom du projet",
+        "Caractère public du projet",
+        "Porteur du projet",
+        "Périmètre du porteur",
+        "Code Insee du périmètre",
+        "Type de porteur",
+        "Personne ayant ajouté l'aide",
+        "Fonction de la personne",
+        "email de la personne",
+    ]
+    row_num = 1
+
+    # Assign the titles for each cell of the header
+    for col_num, column_title in enumerate(columns, 1):
+        cell = worksheet.cell(row=row_num, column=col_num)
+        cell.value = column_title
+
+    for project in aid.projects.all():
+        row_num += 1
+        row = [
+            project.name,
+        ]
+
+        project_is_public = project.is_public
+        if project_is_public is not False:
+            project_is_public = "Oui"
+        else:
+            project_is_public = "Non"
+        row.append(project_is_public)
+
+        row.append(project.organization.name)
+
+        if project.organization.perimeter is not None:
+            row.append(project.organization.perimeter.name)
+            row.append(project.organization.perimeter.insee)
+        else:
+            row.append("périmètre non communiqué")
+            row.append("périmètre non communiqué")
+
+        choices_dict = dict(Organization.ORGANIZATION_TYPE_CHOICES)
+        key = project.organization.organization_type[0]
+        organization_type_value = choices_dict.get(key, "")
+        row.append(organization_type_value)
+
+        aidproject = AidProject.objects.get(aid=aid.id, project=project.id)
+        if aidproject.project.author.all() is not None:
+            creator = aidproject.project.author.all().first()
+            row.append(creator.full_name)
+
+            choices_dict = dict(User.FUNCTION_TYPE)
+            key = creator.beneficiary_function
+            beneficiary_function_value = choices_dict.get(key, "")
+            row.append(beneficiary_function_value)
+
+            row.append(creator.email)
+        else:
+            row.append("données inconnues")
+            row.append("données inconnues")
+            row.append("données inconnues")
+
+        # Assign the data for each cell of the row
+        for col_num, cell_value in enumerate(row, 1):
+            cell = worksheet.cell(row=row_num, column=col_num)
+            cell.value = cell_value
+
+    # kept the workbook as bytes in an in-memory buffer
+    vworkbook = BytesIO()
+    workbook.save(vworkbook)
+
+    # takes the value from the Buffer
+    content = vworkbook.getvalue()
+
+    content_file = ContentFile(content)
+    file_object = files.File(content_file, name=f"Aides-territoires-{aid_name}.xlsx")
+    dataexport_object = DataExport.objects.create(
+        author_id=user.id,
+        exported_file=file_object,
+    )
+    return dataexport_object
