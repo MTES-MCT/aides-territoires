@@ -1,0 +1,37 @@
+<section class="fr-accordion">
+    <h2 class="fr-accordion__title">
+        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-help-search">
+            Conseils pour la recherche
+        </button>
+    </h2>
+    <div class="fr-collapse" id="accordion-help-search">
+        <p>
+            Le moteur de recherche peut vous proposer d’associer certains mots à des synonymes pour optimiser votre recherche.
+        </p>
+
+        <h3 class="fr-text--lg">Comment utiliser la recherche par mot-clé ?</h3>
+        <ul>
+            <li class="fr-mx-2w">"<strong>piste cyclable</strong>" renverra les aides contenant les 2 termes « piste » <strong>ET</strong> « cyclable ».</li>
+            <li class="fr-mx-2w">"<strong>piste cyclable , voie douce</strong>" avec une virgule comme séparateur, renverra les aides contenant les 2 termes "piste" et "cyclable" ou les 2 termes « piste » <strong>OU</strong> « cyclable ».</li>
+            <li class="fr-mx-2w">Selon la recherche effectuée, nous pouvons vous suggérer une recherche permettant d’accéder à des résultats plus complets (prise en compte de synonymes) et précis (mots clés spécifiques).</li>
+        </ul>
+
+        <h3 class="fr-text--lg">Certains champs permettent de choisir plusieurs valeurs :</h3>
+        <ul>
+            <li class="fr-mx-2w">Nature de l’aide</li>
+            <li class="fr-mx-2w">Thématiques</li>
+            <li class="fr-mx-2w">Porteurs d’aides</li>
+            <li class="fr-mx-2w">Programmes d’aides</li>
+            <li class="fr-mx-2w">Avancement du projet</li>
+            <li class="fr-mx-2w">Actions concernées</li>
+        </ul>
+
+        <h3 class="fr-text--lg">Exclure des porteurs :</h3>
+        <p>
+            Il est possible d’exclure des porteurs d’aides de la recherche.
+            Si vous avez un compte, vous pouvez masquer certains porteurs par défaut
+            depuis la fiche du porteur en question ou depuis
+            <a href="{% url 'backers_exclusion_list' %}?backlink=1">vos préférences</a>.
+        </p>
+    </div>
+</section>

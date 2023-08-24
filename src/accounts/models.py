@@ -356,6 +356,13 @@ class User(AbstractBaseUser, PermissionsMixin):
             if organization.perimeter is not None:
                 preferences["perimeter"] = organization.perimeter_id
                 preferences_string += f'&perimeter={preferences["perimeter"]}'
+
+        if self.excluded_backers.count():
+            excluded_backers = []
+            for eb in self.excluded_backers.all():
+                excluded_backers.append(eb.id_slug)
+                preferences_string += f"&excluded_backers={eb.id_slug}"
+            preferences["excluded_backers"] = excluded_backers
         preferences["base_search_string"] = preferences_string
         return preferences
 

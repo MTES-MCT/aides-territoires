@@ -35,14 +35,6 @@
                 </h1>
                 {% endblock result-count %}
 
-                {% if user.is_authenticated %}
-                    <div class="fr-tags-group">
-                        <a href="{% url 'backers_exclusion_list' %}?backlink=1" class="fr-tag fr-icon-eye-fill fr-tag--icon-left" target="_self">
-                            {{ user.excluded_backers.count }} porteur{{ user.excluded_backers.count|pluralize }} d’aides masqué{{ user.excluded_backers.count|pluralize }}
-                        </a>
-                    </div>
-                {% endif %}
-
                 {% if request.GET.published_after %}
                     <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w">
                         <p>Les résultats affichés sur cette page correspondent uniquement aux aides publiées depuis votre précédent mail d’alerte.</p>
@@ -61,44 +53,9 @@
                                     {% block search-form %}
                                         {% include "aids/_search_form.html" %}
                                     {% endblock search-form %}
-                                    <section class="fr-accordion">
-                                        <h2 class="fr-accordion__title">
-                                            <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-help-search">
-                                                Conseils pour la recherche
-                                            </button>
-                                        </h2>
-                                        <div class="fr-collapse" id="accordion-help-search">
-                                            <p class="fr-hint-text">
-                                                Le moteur de recherche peut vous proposer d’associer certains mots à des synonymes pour optimiser votre recherche.
-                                            </p>
-                                            <p class="fr-hint-text">
-                                                <strong>
-                                                    Comment utiliser la recherche par mot-clé ?
-                                                </strong>
-                                            </p>
-                                            <ul class="fr-hint-text">
-                                                <li class="fr-mx-2w">"<strong>piste cyclable</strong>" renverra les aides contenant les 2 termes « piste » <strong>ET</strong> « cyclable ».</li>
-                                                <li class="fr-mx-2w">"<strong>piste cyclable , voie douce</strong>" avec une virgule comme séparateur, renverra les aides contenant les 2 termes "piste" et "cyclable" ou les 2 termes « piste » <strong>OU</strong> « cyclable ».</li>
-                                                <li class="fr-mx-2w">Selon la recherche effectuée, nous pouvons vous suggérer une recherche permettant d’accéder à des résultats plus complets (prise en compte de synonymes) et précis (mots clés spécifiques).</li>
-                                            </ul>
-
-                                            <p class="fr-hint-text">
-                                                <strong>
-                                                    Certains champs permettent de choisir plusieurs valeurs :
-                                                </strong>
-                                            </p>
-
-                                            <ul class="fr-hint-text">
-                                                <li class="fr-mx-2w">Nature de l’aide</li>
-                                                <li class="fr-mx-2w">Thématiques</li>
-                                                <li class="fr-mx-2w">Porteurs d’aides</li>
-                                                <li class="fr-mx-2w">Programmes d’aides</li>
-                                                <li class="fr-mx-2w">Avancement du projet</li>
-                                                <li class="fr-mx-2w">Actions concernées</li>
-                                            </ul>
-
-                                        </div>
-                                    </section>
+                                    {% block search-help %}
+                                        {% include "aids/_search_help.html" %}
+                                    {% endblock search-help %}
                                 </div>
                             </div>
                         </div>
@@ -135,6 +92,7 @@
         <script src="{% static 'js/aids/aid_types_autocomplete.js' %}"></script>
         <script src="{% static 'js/aids/targeted_audiences_autocomplete.js' %}"></script>
         <script src="{% static 'js/aids/backers_autocomplete.js' %}"></script>
+        <script src="{% static 'js/aids/excluded_backers_autocomplete.js' %}"></script>
         <script src="{% static 'js/aids/categories_autocomplete.js' %}"></script>
         <script src="{% static 'js/aids/destinations_autocomplete.js' %}"></script>
         <script src="{% static 'js/aids/mobilization_steps_autocomplete.js' %}"></script>

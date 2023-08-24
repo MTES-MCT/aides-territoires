@@ -51,6 +51,17 @@
     {% endif %}
     {% endblock search-meta-backers %}
 
+    {% block search-meta-excluded-backers %}
+    {% if current_search_dict.excluded_backers %}
+    <div class="fr-tags-group">
+        <p title="Porteur d’aides masqués" class="fr-tag">
+            <span class="ri-eye-off-line ri-xl fr-mr-1w at-icon-align--sub" aria-hidden="true"></span>
+            {{ current_search_dict.excluded_backers|join:', ' }}
+        </p>
+    </div>
+    {% endif %}
+    {% endblock search-meta-excluded-backers %}
+
     {% block search-meta-aid-type %}
     {% if current_search_dict.aid_type %}
     <div class="fr-tags-group">

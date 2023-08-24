@@ -577,6 +577,9 @@ class BaseAidSearchForm(AidesTerrBaseForm):
     backers = AutocompleteModelMultipleChoiceField(
         label="Porteurs d’aides", queryset=Backer.objects.all(), required=False
     )
+    excluded_backers = AutocompleteModelMultipleChoiceField(
+        label="Porteurs d’aides exclus", queryset=Backer.objects.all(), required=False
+    )
     programs = forms.ModelMultipleChoiceField(
         label="Programmes d’aides",
         queryset=Program.objects.all(),
@@ -752,6 +755,12 @@ class BaseAidSearchForm(AidesTerrBaseForm):
         backers = self.cleaned_data.get("backers", None)
         if backers:
             qs = qs.filter(Q(financers__in=backers) | Q(instructors__in=backers))
+
+        excluded_backers = self.cleaned_data.get("excluded_backers", None)
+        if excluded_backers:
+            qs = qs.exclude(
+                Q(financers__in=excluded_backers) | Q(instructors__in=excluded_backers)
+            )
 
         origin_url = self.cleaned_data.get("origin_url", None)
         if origin_url:
