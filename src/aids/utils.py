@@ -78,7 +78,7 @@ def filter_generic_aids(  # NOSONAR
     return qs
 
 
-def check_if_url_returns_an_error(url) -> bool:
+def check_if_url_returns_an_error(url: str) -> bool:
     try:
         headers = {
             "user-agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:107.0) Gecko/20100101 Firefox/107.0",  # noqa
