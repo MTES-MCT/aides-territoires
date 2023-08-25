@@ -4,6 +4,11 @@ from django.contrib.postgres.fields import ArrayField
 from django.urls import path
 
 from admin_auto_filters.filters import AutocompleteFilter
+from admin_numeric_filter.admin import NumericFilterModelAdmin, RangeNumericFilter
+
+from exporting.tasks import export_perimeters_as_csv, export_perimeters_as_xlsx
+from exporting.utils import get_admin_export_message
+
 from geofr.admin_views import PerimeterUpload, PerimeterCombine
 from geofr.models import FinancialData, Perimeter, PerimeterImport, PerimeterData
 from geofr.utils import get_all_related_perimeters
@@ -30,7 +35,7 @@ class PerimeterAdminForm(forms.ModelForm):
         fields = ["name", "code", "is_visible_to_users"]
 
 
-class PerimeterAdmin(admin.ModelAdmin):
+class PerimeterAdmin(NumericFilterModelAdmin):
     """Admin module for perimeters."""
 
     form = PerimeterAdminForm
@@ -50,6 +55,7 @@ class PerimeterAdmin(admin.ModelAdmin):
     ]
     list_filter = [
         "scale",
+        ("population", RangeNumericFilter),
         "is_overseas",
         "manually_created",
         "is_visible_to_users",
@@ -57,7 +63,8 @@ class PerimeterAdmin(admin.ModelAdmin):
     ]
     search_fields = ["id", "name", "code"]
     ordering = ["-date_created"]
-    # readonly_fields ? managed below
+    actions = ["export_csv", "export_xlsx"]
+    # readonly_fields are managed below
 
     inlines = [
         PerimeterDataInline,
@@ -240,6 +247,27 @@ class PerimeterAdmin(admin.ModelAdmin):
         return super().change_view(
             request, object_id, form_url=form_url, extra_context=context
         )
+
+    def show_export_message(self, request):
+        self.message_user(request, get_admin_export_message())
+
+    def export_csv(self, request, queryset):
+        aids_id_list = list(queryset.values_list("id", flat=True))
+        export_perimeters_as_csv.delay(aids_id_list, request.user.id)
+        self.show_export_message(request)
+
+    export_csv.short_description = (
+        "Exporter les périmètres sélectionnés en CSV en tâche de fond"
+    )
+
+    def export_xlsx(self, request, queryset):
+        aids_id_list = list(queryset.values_list("id", flat=True))
+        export_perimeters_as_xlsx.delay(aids_id_list, request.user.id)
+        self.show_export_message(request)
+
+    export_xlsx.short_description = (
+        "Exporter les périmètres sélectionnés en XLSX en tâche de fond"
+    )
 
 
 class PerimeterImportAdmin(admin.ModelAdmin):
