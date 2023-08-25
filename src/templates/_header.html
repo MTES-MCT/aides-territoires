@@ -36,30 +36,36 @@
                     <div class="fr-header__tools-links">
                         <ul class="fr-btns-group">
                             {% if user.is_authenticated %}
-                            <li>
-                                <a class="fr-btn fr-icon-account-line" href="{% url 'user_dashboard' %}">
-                                    <span class="at-username">{{ user.full_name }}</span>
-                                </a>
-                            </li>
-                            <li>
-                                {% with user.unread_notifications as user_unread_notifications %}
-                                <a
-                                    href="{% url 'notification_list_view' %}"
-                                    class="at-notification-icon fr-tag fr-icon-notification-3-line fr-tag--icon-left {% if user_unread_notifications %}at-notification-icon-unread{% else %}at-notification-icon-no-unread{% endif %}"
-                                    target="_self"
-                                    title="{% if user_unread_notifications == 0 %}Voir la page des notifications{% elif user_unread_notifications == 1 %}Voir la notification non lue{% else %}Voir les {{ user_unread_notifications }} notifications non lues{% endif %}"
-                                >
-                                    {% if user_unread_notifications %}{{ user_unread_notifications }}{% endif %}
-                                </a>
-                                {% endwith %}
-                            </li>
+                                <li>
+                                    <a class="fr-btn fr-icon-account-line" href="{% url 'user_dashboard' %}">
+                                        <span class="at-username">{{ user.full_name }}</span>
+                                    </a>
+                                </li>
+                                {% if user.is_superuser %}
+                                    <li>
+                                        <a href="{% url 'admin:index' %}" class="fr-btn fr-icon-lock-line">Administration</a>
+                                    </li>
+                                {% endif %}
+
+                                <li>
+                                    {% with user.unread_notifications as user_unread_notifications %}
+                                    <a
+                                        href="{% url 'notification_list_view' %}"
+                                        class="at-notification-icon fr-tag fr-icon-notification-3-line fr-tag--icon-left {% if user_unread_notifications %}at-notification-icon-unread{% else %}at-notification-icon-no-unread{% endif %}"
+                                        target="_self"
+                                        title="{% if user_unread_notifications == 0 %}Voir la page des notifications{% elif user_unread_notifications == 1 %}Voir la notification non lue{% else %}Voir les {{ user_unread_notifications }} notifications non lues{% endif %}"
+                                    >
+                                        {% if user_unread_notifications %}{{ user_unread_notifications }}{% endif %}
+                                    </a>
+                                    {% endwith %}
+                                </li>
                             {% else %}
-                            <li>
-                                <a class="fr-btn fr-icon-lock-line" href="{% url 'login' %}">Se connecter</a>
-                            </li>
-                            <li>
-                                <a class="fr-btn fr-icon-account-line" href="{% url 'register' %}">S’inscrire</a>
-                            </li>
+                                <li>
+                                    <a class="fr-btn fr-icon-lock-line" href="{% url 'login' %}">Se connecter</a>
+                                </li>
+                                <li>
+                                    <a class="fr-btn fr-icon-account-line" href="{% url 'register' %}">S’inscrire</a>
+                                </li>
                             {% endif %}
                             <li>
                                 <a class="fr-btn fr-btn--secondary fr-icon-edit-box-line" href="{% url 'aid_draft_list_view' %}">
