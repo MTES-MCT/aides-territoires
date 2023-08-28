@@ -1,10 +1,11 @@
 import json
 
-from django.db.models import Exists, OuterRef
+from django.db.models import Q, Count, Exists, OuterRef
 from django.conf import settings
 from django.contrib import messages
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
+from django.utils import timezone
 from django.views import View
 from django.views.generic import ListView
 
@@ -26,7 +27,6 @@ class BackerDetailView(ListView):
     paginator_class = AidPaginator
 
     def get(self, request, *args, **kwargs):
-
         if "pk" in self.kwargs:
             backer = self.kwargs.get("pk")
 
@@ -41,7 +41,6 @@ class BackerDetailView(ListView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-
         qs = (
             Aid.objects.live()
             .filter(financers=self.backer.id)
@@ -89,7 +88,6 @@ class BackerDetailView(ListView):
         return qs
 
     def get_context_data(self, **kwargs):
-
         backer = self.backer
         aids = self.object_list
         categories = (
@@ -168,7 +166,22 @@ class BackersExclusionListView(ContributorAndProfileCompleteRequiredMixin, ListV
         excluded_backers = user.excluded_backers.all()
 
         qs = qs | excluded_backers
-        qs = qs.distinct().annotate_aids_count(Backer.financed_aids, "nb_financed_aids")
+
+        # Only count live aids
+        today = timezone.now().date()
+        live_aids_count = Count(
+            "financed_aids",
+            filter=Q(
+                Q(financed_aids__status="published")
+                & (
+                    Q(financed_aids__submission_deadline__gte=today)
+                    | Q(financed_aids__submission_deadline__isnull=True)
+                    | Q(financed_aids__recurrence="ongoing")
+                )
+            ),
+        )
+
+        qs = qs.distinct().annotate(nb_financed_aids=live_aids_count)
 
         return qs.order_by(("name"))
 
