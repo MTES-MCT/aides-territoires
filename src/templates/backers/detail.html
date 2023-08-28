@@ -53,9 +53,16 @@
 
         <div class="fr-grid-row fr-grid-row--gutters at--space-between">
             {% if backer.perimeter %}
-            <div class="fr-col-12 at-background-alt-grey fr-pt-5w fr-px-5w">
+            <div class="fr-col-12 at-background-alt-grey fr-my-5w fr-pb-3w fr-px-5w">
                 <h2 class="fr-mt-1w">Zone géographique couverte</h2>
-                <p class="fr-mb-0">{{ backer.perimeter }}</p>
+                {% if backer.perimeter.scale == 10 %}
+                    <p class="fr-mb-0">
+                        <a href="{% url 'department_backers_view' backer.perimeter.code backer.perimeter.name|slugify %}">
+                            {{ backer.perimeter }}</p>
+                        </a>
+                {% else %}
+                    <p class="fr-mb-0">{{ backer.perimeter }}</p>
+                {% endif %}
             </div>
             {% endif %}
             {% if backer.description %}
