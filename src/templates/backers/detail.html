@@ -58,8 +58,9 @@
                 {% if backer.perimeter.scale == 10 %}
                     <p class="fr-mb-0">
                         <a href="{% url 'department_backers_view' backer.perimeter.code backer.perimeter.name|slugify %}">
-                            {{ backer.perimeter }}</p>
+                            {{ backer.perimeter }}
                         </a>
+                    </p>
                 {% else %}
                     <p class="fr-mb-0">{{ backer.perimeter }}</p>
                 {% endif %}
