@@ -87,6 +87,36 @@
                 </div>
             {% endif %}
 
+            <div class="at-backers-list">
+                {% for backer in page_obj %}
+                <div class="fr-tile fr-tile--sm fr-tile--horizontal  fr-my-5w" id="toggle-mask-{{ backer.id }}-tile">
+                    <div class="fr-tile__body">
+                        <div class="fr-tile__content">
+                            <h3 class="fr-tile__title">
+                                <a href="{{ backer.get_absolute_url }}" id="toggle-mask-{{ backer.id }}-name">{{ backer.name }}</a>
+                            </h3>
+                            <p class="fr-tile__detail">
+                                {{ backer.nb_financed_aids }} aide{{ backer.nb_financed_aids|pluralize }}
+                            </p>
+                            <div class="fr-toggle">
+                                <input type="checkbox" class="fr-toggle__input" id="toggle-mask-{{ backer.id }}" aria-describedby="toggle-mask-{{ backer.id }}-name" data-at-backer-id="{{ backer.id }}"{% if backer.is_excluded %}checked{% endif %}>
+                                <label class="fr-toggle__label" for="toggle-mask-{{ backer.id }}" data-fr-checked-label="Masqué" data-fr-unchecked-label="Affiché">
+                                    Afficher ou masquer dans les résultats de recherche
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    {% if backer.logo %}
+                    <div class="fr-tile__header">
+                        <div class="fr-tile__pictogram">
+                            <img class="fr-artwork-decorative" src="{{ backer.logo.url }}" alt="" />
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+
             <div id="at-backer-toggles">
                 {% for backer in page_obj %}
                     <div class="fr-toggle">
