@@ -101,7 +101,7 @@
                             <div class="fr-toggle">
                                 <input type="checkbox" class="fr-toggle__input" id="toggle-mask-{{ backer.id }}" aria-describedby="toggle-mask-{{ backer.id }}-name" data-at-backer-id="{{ backer.id }}"{% if backer.is_excluded %}checked{% endif %}>
                                 <label class="fr-toggle__label" for="toggle-mask-{{ backer.id }}" data-fr-checked-label="Masqué" data-fr-unchecked-label="Affiché">
-                                    Afficher ou masquer dans les résultats de recherche
+                                    Masquer ce porteur dans les résultats de recherche ?
                                 </label>
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                     {% if backer.logo %}
                     <div class="fr-tile__header">
                         <div class="fr-tile__pictogram">
-                            <img class="fr-artwork-decorative" src="{{ backer.logo.url }}" alt="" />
+                            <img class="at-tile__logo" src="{{ backer.logo.url }}" alt="" />
                         </div>
                     </div>
                     {% endif %}
