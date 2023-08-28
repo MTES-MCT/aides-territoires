@@ -167,7 +167,7 @@ class BackersExclusionListView(ContributorAndProfileCompleteRequiredMixin, ListV
 
         qs = qs | excluded_backers
 
-        # Only count live aids
+        # Annotate with the number of live aids
         today = timezone.now().date()
         live_aids_count = Count(
             "financed_aids",
