@@ -22,7 +22,7 @@
     "leaflet": "^1.9.4",
     "postcss-cli": "^10.0.0",
     "select2": "^4.0.13",
-    "stimulus": "^3.1.0",
+    "stimulus": "^3.2.2",
     "trumbowyg": "^2.25.2"
   },
   "devDependencies": {
