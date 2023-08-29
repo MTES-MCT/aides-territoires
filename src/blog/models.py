@@ -263,6 +263,13 @@ class PromotionPost(xwf_models.WorkflowEnabled, models.Model):
         blank=True,
     )
 
+    keywords = models.ManyToManyField(
+        "keywords.SynonymList",
+        verbose_name="Listes de synonymes",
+        related_name="promotionsPost",
+        blank=True,
+    )
+
     status = xwf_models.StateField(PromotionPostWorkflow, verbose_name="Statut")
 
     date_created = models.DateTimeField("Date de création", default=timezone.now)

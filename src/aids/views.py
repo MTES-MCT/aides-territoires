@@ -44,6 +44,7 @@ from aids.forms import (
 from aids.models import Aid, AidProject, SuggestedAidProject
 from aids.mixins import AidEditMixin, AidCopyMixin
 from aids.utils import prepopulate_ds_folder
+from keywords.models import SynonymList
 from projects.constants import EXPORT_FORMAT_KEYS
 from aids.services.export import export_aids, export_aid_stats, export_aid_detail_pdf
 from alerts.forms import AlertForm
@@ -182,7 +183,6 @@ class SearchView(SearchMixin, FormMixin, ListView):
         return programs
 
     def get_promotions(self):
-
         promotions = PromotionPost.objects.filter(status="published")
 
         searched_backers = self.form.cleaned_data.get("backers", None)
@@ -226,10 +226,22 @@ class SearchView(SearchMixin, FormMixin, ListView):
         if searched_targeted_audiences:
             promotions = promotions.filter(
                 Q(targeted_audiences__overlap=searched_targeted_audiences)
-                | Q(targeted_audiences__isnull=True)
+                | Q(targeted_audiences=[])
             )
         else:
-            promotions = promotions.filter(targeted_audiences__isnull=True)
+            promotions = promotions.filter(targeted_audiences=[])
+
+        searched_text = self.form.cleaned_data.get("text", None)
+        if searched_text:
+            synonym_list_ids = SynonymList.objects.filter(
+                keywords_list__icontains=searched_text
+            )
+
+            promotions = promotions.filter(
+                Q(keywords__in=synonym_list_ids) | Q(keywords__isnull=True)
+            )
+        else:
+            promotions = promotions.filter(keywords__isnull=True)
 
         promotions = promotions.distinct()
 
@@ -502,7 +514,6 @@ class AidDetailView(DetailView):
         return qs
 
     def post_prepopulate_data(self, user, org):
-
         data = prepopulate_ds_folder(self.object.ds_mapping, user, org)
         ds_id = self.object.ds_id
         headers = {
@@ -859,7 +870,6 @@ class AidEditView(
         return kwargs
 
     def form_valid(self, form):
-
         action = self.request.POST.get("_action", None)
 
         if action == "save_as_new":
@@ -871,7 +881,6 @@ class AidEditView(
             <a href="{reverse('aid_draft_list_view')}">votre portefeuille d’aides</a>."""
             response = HttpResponseRedirect(self.get_success_url())
         else:
-
             response = super().form_valid(form)
 
             if action == "update_status":
@@ -965,7 +974,6 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
     model = Aid
 
     def form_valid(self, form):
-
         aid = form.save(commit=False)
         url = reverse("aid_detail_view", args=[aid.slug])
 
@@ -1081,7 +1089,6 @@ class AidUnmatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateVi
     model = Aid
 
     def form_valid(self, form):
-
         aid = form.save(commit=False)
         project_pk = int(self.request.POST.get("project-pk"))
         aid.projects.remove(project_pk)
@@ -1219,7 +1226,6 @@ class SuggestedAidUnmatchProjectView(
     model = Aid
 
     def form_valid(self, form):
-
         aid = form.save(commit=False)
         project_pk = int(self.request.POST.get("project-pk"))
         suggested_aidproject = SuggestedAidProject.objects.get(
@@ -1252,11 +1258,9 @@ class AidProjectStatusView(ContributorAndProfileCompleteRequiredMixin, UpdateVie
     model = AidProject
 
     def get_template_names(self):
-
         return ["projects/project_detail.html"]
 
     def form_valid(self, form):
-
         aidproject = form.save(commit=False)
 
         user_organization = self.request.user.beneficiary_organization
@@ -1350,7 +1354,6 @@ class AidDetailExportPdfView(ContributorAndProfileCompleteRequiredMixin, View):
     """Export an aid in pdf format."""
 
     def get(self, request, *args, **kwargs):
-
         aid = Aid.objects.get(slug=self.kwargs["slug"])
         user = self.request.user
         organization = user.beneficiary_organization
@@ -1413,7 +1416,6 @@ class AidDetailStatsView(
         return obj
 
     def get_period(self):
-
         period = timezone.now().strftime("%Y-%m-%d")
 
         if self.request.GET:
@@ -1505,7 +1507,6 @@ class AidDetailStatsExportView(ContributorAndProfileCompleteRequiredMixin, View)
     """Export stats of a specific aid."""
 
     def get(self, request, *args, **kwargs):
-
         aid = Aid.objects.get(slug=self.kwargs["slug"])
         user = self.request.user
         if user != aid.author and not user.is_superuser:
