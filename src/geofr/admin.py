@@ -252,8 +252,8 @@ class PerimeterAdmin(NumericFilterModelAdmin):
         self.message_user(request, get_admin_export_message())
 
     def export_csv(self, request, queryset):
-        aids_id_list = list(queryset.values_list("id", flat=True))
-        export_perimeters_as_csv.delay(aids_id_list, request.user.id)
+        perimeters_id_list = list(queryset.values_list("id", flat=True))
+        export_perimeters_as_csv.delay(perimeters_id_list, request.user.id)
         self.show_export_message(request)
 
     export_csv.short_description = (
@@ -261,8 +261,8 @@ class PerimeterAdmin(NumericFilterModelAdmin):
     )
 
     def export_xlsx(self, request, queryset):
-        aids_id_list = list(queryset.values_list("id", flat=True))
-        export_perimeters_as_xlsx.delay(aids_id_list, request.user.id)
+        perimeters_id_list = list(queryset.values_list("id", flat=True))
+        export_perimeters_as_xlsx.delay(perimeters_id_list, request.user.id)
         self.show_export_message(request)
 
     export_xlsx.short_description = (
