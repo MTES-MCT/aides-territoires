@@ -21,9 +21,17 @@ from alerts.models import Alert
 from backers.models import Backer
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeters
+from organizations.constants import INTERCOMMUNALITY_TYPES
 from organizations.models import Organization
 from projects.models import Project
 from search.models import SearchPage
+from stats.constants import (
+    DEPARTMENTS_ORG_COMMUNES_MAX,
+    NB_COMMUNES_PAR_DEPARTEMENT_2022,
+    OBJECTIF_COMMUNES,
+    OBJECTIF_EPCI,
+    TOTAL_BY_INTERCOMMUNALITY_TYPE,
+)
 from stats.forms import StatSearchForm
 from stats.models import (
     AidViewEvent,
@@ -33,126 +41,6 @@ from stats.models import (
     AidContactClickEvent,
     AidOriginUrlClickEvent,
 )
-
-# The manual percentage threshold to ensure that the metropolitan area
-# has enough contrasts between departments. It is not computed because
-# some exceptions like Guadeloupe already have 70% of their communes
-# with an account!
-DEPARTMENTS_ORG_COMMUNES_MAX = "30"
-
-# That table should/could be computed with the `populate_communes`
-# command once and for all, annualy from official sources (COG or geoAPI).
-# For instance the length of:
-# https://geo.api.gouv.fr/communes?fields=nom&codeDepartement=54
-# Current source: https://fr.wikipedia.org/wiki/Nombre_de_communes_en_France
-NB_COMMUNES_PAR_DEPARTEMENT_2022 = {
-    "01": 393,
-    "02": 799,
-    "03": 317,
-    "04": 198,
-    "05": 162,
-    "06": 163,
-    "07": 335,
-    "08": 449,
-    "09": 327,
-    "10": 431,
-    "11": 433,
-    "12": 285,
-    "13": 119,
-    "14": 528,
-    "15": 246,
-    "16": 364,
-    "17": 463,
-    "18": 287,
-    "19": 279,
-    "2A": 124,
-    "2B": 236,
-    "21": 698,
-    "22": 348,
-    "23": 256,
-    "24": 503,
-    "25": 571,
-    "26": 363,
-    "27": 585,
-    "28": 365,
-    "29": 277,
-    "30": 351,
-    "31": 586,
-    "32": 461,
-    "33": 535,
-    "34": 342,
-    "35": 333,
-    "36": 241,
-    "37": 272,
-    "38": 512,
-    "39": 494,
-    "40": 327,
-    "41": 267,
-    "42": 323,
-    "43": 257,
-    "44": 207,
-    "45": 325,
-    "46": 313,
-    "47": 319,
-    "48": 152,
-    "49": 177,
-    "50": 446,
-    "51": 613,
-    "52": 426,
-    "53": 240,
-    "54": 591,
-    "55": 499,
-    "56": 249,
-    "57": 725,
-    "58": 309,
-    "59": 648,
-    "60": 679,
-    "61": 385,
-    "62": 890,
-    "63": 464,
-    "64": 546,
-    "65": 469,
-    "66": 226,
-    "67": 514,
-    "68": 366,
-    "69": 208,
-    "69M": 59,
-    "70": 539,
-    "71": 565,
-    "72": 354,
-    "73": 273,
-    "74": 279,
-    "75": 1,
-    "76": 708,
-    "77": 507,
-    "78": 259,
-    "79": 256,
-    "80": 772,
-    "81": 314,
-    "82": 195,
-    "83": 153,
-    "84": 151,
-    "85": 257,
-    "86": 266,
-    "87": 195,
-    "88": 507,
-    "89": 423,
-    "90": 101,
-    "91": 194,
-    "92": 36,
-    "93": 40,
-    "94": 47,
-    "95": 184,
-    "971": 32,
-    "972": 34,
-    "973": 22,
-    "974": 24,
-    "976": 17,
-}
-
-
-OBJECTIF_COMMUNES = 10000  # of 35049.
-OBJECTIF_EPCI = 941  # 75% of 1255.
 
 
 class StatsView(TemplateView):
@@ -201,32 +89,12 @@ class MatomoMixin:
         return data
 
 
-class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
-    def get_period(self):
-
-        period = timezone.now().strftime("%Y-%m-%d")
-
-        if self.request.GET:
-            form = StatSearchForm(self.request.GET)
-            if form.is_valid():
-                start_date = form.cleaned_data["start_date"]
-                if form.cleaned_data["end_date"]:
-                    end_date = form.cleaned_data["end_date"]
-                else:
-                    end_date = start_date
-
-                start_date = start_date.strftime("%Y-%m-%d")
-                end_date = end_date.strftime("%Y-%m-%d")
-                period = start_date.split() + end_date.split()
-
-        return period
-
+class DateRangeMixin:
     def get_context_dates(self, context, **kwargs):
         if self.request.GET:
             form = StatSearchForm(self.request.GET)
-            if form.errors:
-                if form.errors["start_date"]:
-                    context["start_date_error"] = form.errors["start_date"]
+            if form.errors and form.errors["start_date"]:
+                context["start_date_error"] = form.errors["start_date"]
 
         period = self.get_period()
         if not isinstance(period, str):
@@ -245,6 +113,26 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
         context["start_date_range"] = start_date_range
         context["end_date_range"] = end_date_range
         return context
+
+
+class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin, DateRangeMixin):
+    def get_period(self):
+        period = timezone.now().strftime("%Y-%m-%d")
+
+        if self.request.GET:
+            form = StatSearchForm(self.request.GET)
+            if form.is_valid():
+                start_date = form.cleaned_data["start_date"]
+                if form.cleaned_data["end_date"]:
+                    end_date = form.cleaned_data["end_date"]
+                else:
+                    end_date = start_date
+
+                start_date = start_date.strftime("%Y-%m-%d")
+                end_date = end_date.strftime("%Y-%m-%d")
+                period = start_date.split() + end_date.split()
+
+        return period
 
     def get_context_stats(self, context, **kwargs):
         # General stats.
@@ -292,9 +180,23 @@ class DashboardBaseView(MatomoMixin, SuperUserRequiredMixin, FormMixin):
             context["nb_communes"] - context["objectif_communes"], 0
         )
 
+        context["nb_interco"] = (
+            Organization.objects.filter(
+                organization_type=["epci"],
+                perimeter__scale=Perimeter.SCALES.epci,
+                perimeter__is_obsolete=False,
+            )
+            .exclude(perimeter_id__isnull=True)
+            .exclude(is_imported=True)
+            .order_by("perimeter")
+            .distinct("perimeter")
+            .count()
+        )
+
         context["nb_epci"] = (
             Organization.objects.filter(
                 organization_type=["epci"],
+                intercommunality_type__in=["CC", "CA", "CU", "METRO"],
                 perimeter__scale=Perimeter.SCALES.epci,
                 perimeter__is_obsolete=False,
             )
@@ -972,7 +874,7 @@ class DashboardPorteursView(DashboardBaseView, TemplateView):
         return context
 
 
-class UsersStatsView(SuperUserRequiredMixin, FormMixin, ListView):
+class UsersStatsView(SuperUserRequiredMixin, FormMixin, ListView, DateRangeMixin):
     template_name = "stats/users_stats.html"
     form_class = StatSearchForm
     context_object_name = "users"
@@ -980,7 +882,6 @@ class UsersStatsView(SuperUserRequiredMixin, FormMixin, ListView):
     paginator_class = AidPaginator
 
     def get_period(self):
-
         period = timezone.now().strftime("%Y-%m-%d")
 
         if self.request.GET:
@@ -1000,12 +901,6 @@ class UsersStatsView(SuperUserRequiredMixin, FormMixin, ListView):
 
     def get_queryset(self):
         """Return the list of users to display."""
-
-        if self.request.GET:
-            form = StatSearchForm(self.request.GET)
-            if form.errors:
-                if form.errors["start_date"]:
-                    context["start_date_error"] = form.errors["start_date"]  # noqa
 
         period = self.get_period()
         if not isinstance(period, str):
@@ -1030,6 +925,7 @@ class UsersStatsView(SuperUserRequiredMixin, FormMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context = self.get_context_dates(context, **kwargs)
 
         # general stats:
         context["nb_beneficiaries_and_contributors"] = (
@@ -1271,7 +1167,7 @@ class CartoStatsView(SuperUserRequiredMixin, TemplateView):
         return context
 
 
-class ProjectsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
+class ProjectsStatsView(SuperUserRequiredMixin, FormMixin, ListView, DateRangeMixin):
     template_name = "stats/projects_stats.html"
     form_class = StatSearchForm
     context_object_name = "projects"
@@ -1279,7 +1175,6 @@ class ProjectsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
     paginator_class = AidPaginator
 
     def get_period(self):
-
         period = timezone.now().strftime("%Y-%m-%d")
 
         if self.request.GET:
@@ -1299,12 +1194,6 @@ class ProjectsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
 
     def get_queryset(self):
         """Return the list of users to display."""
-
-        if self.request.GET:
-            form = StatSearchForm(self.request.GET)
-            if form.errors:
-                if form.errors["start_date"]:
-                    context["start_date_error"] = form.errors["start_date"]  # noqa
 
         period = self.get_period()
         if not isinstance(period, str):
@@ -1330,8 +1219,15 @@ class ProjectsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
 
         return projects
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = self.get_context_dates(context, **kwargs)
+        return context
 
-class OrganizationsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
+
+class OrganizationsStatsView(
+    SuperUserRequiredMixin, FormMixin, ListView, DateRangeMixin
+):
     template_name = "stats/organizations_stats.html"
     form_class = StatSearchForm
     context_object_name = "organizations"
@@ -1339,7 +1235,6 @@ class OrganizationsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
     paginator_class = AidPaginator
 
     def get_period(self):
-
         period = timezone.now().strftime("%Y-%m-%d")
 
         if self.request.GET:
@@ -1359,12 +1254,6 @@ class OrganizationsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
 
     def get_queryset(self):
         """Return the list of users to display."""
-
-        if self.request.GET:
-            form = StatSearchForm(self.request.GET)
-            if form.errors:
-                if form.errors["start_date"]:
-                    context["start_date_error"] = form.errors["start_date"]  # noqa
 
         period = self.get_period()
         if not isinstance(period, str):
@@ -1401,6 +1290,7 @@ class OrganizationsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
         - Similarly, group other types of organization by their name and perimeter_id
         """
         context = super().get_context_data(**kwargs)
+        context = self.get_context_dates(context, **kwargs)
 
         communes_count = (
             Organization.objects.filter(organization_type__contains=["commune"])
@@ -1433,5 +1323,58 @@ class OrganizationsStatsView(SuperUserRequiredMixin, FormMixin, ListView):
 
         context["all_organizations_types"] = all_organizations_types
         context["total_organizations"] = sum(all_organizations_types.values())
+
+        return context
+
+
+class IntercoStatsView(SuperUserRequiredMixin, TemplateView):
+    template_name = "stats/interco_stats.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["interco_types"] = []
+
+        interco_types = INTERCOMMUNALITY_TYPES
+        for interco_type in interco_types:
+            key, label = interco_type
+
+            # Saving some space on the label
+            label = label.replace("Communauté", "Comm.")
+            label_parts = label.split(" ")
+            label_part_1 = " ".join(label_parts[:4])
+            label_part_2 = " ".join(label_parts[4:])
+
+            label = f"{label_part_1}<br />{label_part_2}"
+
+            interco_type_dict = {
+                "div_id": f"#chart-{key.lower()}",
+                "label": label,
+            }
+
+            if label == "Pays et pôles d’équilibre territorial et rural (PETR)":
+                interco_type_dict[
+                    "label"
+                ] = "Pays et pôles d’équilibre<br />territorial et rural (PETR)"
+
+            interco_type_dict["total"] = TOTAL_BY_INTERCOMMUNALITY_TYPE[key]
+            interco_type_dict["current"] = (
+                Organization.objects.filter(
+                    organization_type=["epci"],
+                    intercommunality_type=key,
+                    perimeter__scale=Perimeter.SCALES.epci,
+                    perimeter__is_obsolete=False,
+                )
+                .exclude(perimeter_id__isnull=True)
+                .exclude(is_imported=True)
+                .order_by("perimeter")
+                .distinct("perimeter")
+                .count()
+            )
+            interco_type_dict["percentage"] = round(
+                interco_type_dict["current"] * 100 / interco_type_dict["total"],
+                1,
+            )
+
+            context["interco_types"].append(interco_type_dict)
 
         return context
