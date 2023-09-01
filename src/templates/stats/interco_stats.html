@@ -104,7 +104,7 @@
             plugins: [
                 Chartist.plugins.fillDonut({
                 items: [{
-                    content: '<p class="at-centered"><strong>{{ interco_type.current }} / {{ interco_type.total }} ({{ interco_type.percentage }}%)<br />{{ interco_type.label|safe }}</strong></p>',
+                    content: '<p class="at-centered"><strong>{{ interco_type.current }} / {{ interco_type.total }} ({{ interco_type.percentage }}%)<br /><a href="/admin/organizations/organization/?intercommunality_type__exact={{ interco_type.code }}">{{ interco_type.label|safe }}</a></strong></p>',
                     offsetY: -20
                 }]
                 })

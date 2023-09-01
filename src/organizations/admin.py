@@ -28,12 +28,11 @@ class OrganizationTypeListFilter(admin.SimpleListFilter):
 
 
 class OrganizationAdmin(ImportExportActionModelAdmin):
-
     resource_class = OrganizationResource
     formats = [base_formats.CSV, base_formats.XLSX]
     list_display = ["name", "date_created"]
     search_fields = ["name"]
-    list_filter = [OrganizationTypeListFilter, "is_imported"]
+    list_filter = [OrganizationTypeListFilter, "is_imported", "intercommunality_type"]
     autocomplete_fields = ["beneficiaries", "backer", "perimeter", "favorite_projects"]
     prepopulated_fields = {"slug": ("name",)}
     readonly_fields = [

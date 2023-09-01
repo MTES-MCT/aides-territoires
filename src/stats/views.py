@@ -1343,10 +1343,10 @@ class IntercoStatsView(SuperUserRequiredMixin, TemplateView):
             label_parts = label.split(" ")
             label_part_1 = " ".join(label_parts[:4])
             label_part_2 = " ".join(label_parts[4:])
-
             label = f"{label_part_1}<br />{label_part_2}"
 
             interco_type_dict = {
+                "code": key,
                 "div_id": f"#chart-{key.lower()}",
                 "label": label,
             }
