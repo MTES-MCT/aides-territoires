@@ -90,7 +90,7 @@ class MatomoMixin:
 
 
 class DateRangeMixin:
-    def get_context_dates(self, context, **kwargs):
+    def get_context_dates(self, context):
         if self.request.GET:
             form = StatSearchForm(self.request.GET)
             if form.errors and form.errors["start_date"]:
