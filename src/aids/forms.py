@@ -446,9 +446,6 @@ class AidEditForm(BaseAidForm):
         if "mobilization_steps" in self.fields:
             self.fields["mobilization_steps"].required = True
 
-        if "destinations" in self.fields:
-            self.fields["destinations"].required = True
-
         if "targeted_audiences" in self.fields:
             self.fields["targeted_audiences"].required = True
 
@@ -491,6 +488,27 @@ class AidEditForm(BaseAidForm):
             if not any((data.get("financers"), data.get("financer_suggestion"))):
                 msg = "Merci d’indiquer un porteur d’aide."
                 self.add_error("financers", msg)
+
+        aid_types = data.get("aid_types", None)
+        if not aid_types:
+            msg = "Veuillez compléter le champ type d’aide"
+            self.add_error(
+                "aid_types",
+                ValidationError(msg, code="missing_aid_types"),
+            )
+        else:
+            # If one or more of the financial aid types is checked, make the
+            # destination mandatory.
+            if not set(aid_types).isdisjoint(FINANCIAL_AIDS_LIST) and not data.get(
+                "destinations", None
+            ):
+                msg = (
+                    "Veuillez compléter le champ types de dépenses / actions couvertes"
+                )
+                self.add_error(
+                    "destinations",
+                    ValidationError(msg, code="missing_destinations"),
+                )
 
         return data
 
