@@ -9,7 +9,7 @@
      */
     exports.toggleSupportTypeFields = function(form, div) {
 
-        var engineeringInputs = [
+        let engineeringInputs = [
             "strategic_engineering",
             "diagnostic_engineering",
             "AMOA_engineering",
@@ -21,9 +21,9 @@
         ]
         
         engineeringInputs.forEach(element => {
-            var checkbox = form.find(`input[value=${element}]`);
-            var checked = checkbox.prop('checked');
-            var hasErrors = div.find('p.error').length > 0;
+            let checkbox = form.find(`input[value=${element}]`);
+            let checked = checkbox.prop('checked');
+            let hasErrors = div.find('p.error').length > 0;
             
             if (checked || hasErrors) {
                 div.addClass('fr-collapse--expanded');
@@ -31,7 +31,7 @@
 
         });
 
-        var engineeringchecked = $('#id_aid_types_1 > .fr-checkbox-group > input:checked').length;
+        let engineeringchecked = $('#id_aid_types_1 > .fr-checkbox-group > input:checked').length;
         if (engineeringchecked < 1){
             div.removeClass('fr-collapse--expanded');
         };
@@ -42,8 +42,8 @@ $(document).ready(function () {
 
     // Only display engineering aid_type related fields when at least one `engineering`
     // checkbox is checked.
-    var aidEditForm = $('form.main-form');
-    var supportTypeFieldsDiv = $('div#support-type-fields-collapse');
+    let aidEditForm = $('form.main-form');
+    let supportTypeFieldsDiv = $('div#support-type-fields-collapse');
 
     toggleSupportTypeFields(aidEditForm, supportTypeFieldsDiv);
 
