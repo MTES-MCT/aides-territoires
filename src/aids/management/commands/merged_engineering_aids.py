@@ -29,6 +29,9 @@ class Command(BaseCommand):
                 if Aid.TYPES.technical_engineering in aid.aid_types:
                     aid.aid_types.append(Aid.TYPES.strategic_engineering)
                     aid.aid_types.append(Aid.TYPES.diagnostic_engineering)
+                    aid.aid_types.append(Aid.TYPES.animation_engineering)
+                    aid.aid_types.append(Aid.TYPES.AMOA_engineering)
+                    aid.aid_types.append(Aid.TYPES.MOE_engineering)
                     aid.aid_types.remove(Aid.TYPES.technical_engineering)
                     aid.save()
 
@@ -48,7 +51,7 @@ class Command(BaseCommand):
             if "aid_type=technical_engineering" in alert.querystring:
                 new_querystring = alert.querystring.replace(
                     "aid_type=technical_engineering",
-                    "aid_type=strategic_engineering&aid_type=diagnostic_engineering",
+                    "aid_type=strategic_engineering&aid_type=diagnostic_engineering&aid_type=animation_engineering&aid_type=AMOA_engineering&aid_type=MOE_engineering",
                 )
                 alert.querystring = new_querystring
                 alert.save()
@@ -69,7 +72,7 @@ class Command(BaseCommand):
             if "aid_type=technical_engineering" in portal.search_querystring:
                 new_querystring = portal.search_querystring.replace(
                     "aid_type=technical_engineering",
-                    "aid_type=strategic_engineering&aid_type=diagnostic_engineering",
+                    "aid_type=strategic_engineering&aid_type=diagnostic_engineering&aid_type=animation_engineering&aid_type=AMOA_engineering&aid_type=MOE_engineering",
                 )
                 portal.search_querystring = new_querystring
                 portal.save()
