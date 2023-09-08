@@ -1,6 +1,8 @@
 from io import BytesIO
+import logging
 import os
 from openpyxl import Workbook
+from openpyxl.utils.escape import escape
 from xhtml2pdf import pisa
 from datetime import date, datetime, timedelta
 
@@ -13,11 +15,16 @@ from django.utils import timezone
 from django.db.models import Count
 from django.core import files
 from django.core.files.base import ContentFile
-from aids.constants import COLLECTIVITIES_AUDIENCES
+from aids.constants import (
+    COLLECTIVITIES_AUDIENCES,
+    FINANCIAL_AIDS_LIST,
+    TECHNICAL_AIDS_LIST,
+)
 
 from aids.resources import AidResourcePublic
 from aids.models import Aid, AidProject
 from accounts.models import User
+from core.utils import get_base_url
 from organizations.models import Organization
 from stats.models import (
     AidApplicationUrlClickEvent,
@@ -25,6 +32,8 @@ from stats.models import (
     AidViewEvent,
 )
 from exporting.models import DataExport
+
+logger = logging.getLogger("console_log")
 
 
 def fetch_resources(uri: str, rel) -> str:
@@ -382,10 +391,14 @@ def export_related_projects(aid_id, user_id):
     return dataexport_object
 
 
-def export_aids_for_collectivities():
+def export_aids_for_collectivities():  # NOSONAR
     user = User.objects.get(email=settings.SERVER_EMAIL)
     coll_audiences = [x for x, y in COLLECTIVITIES_AUDIENCES]
-    aids = Aid.objects.filter(targeted_audiences__overlap=coll_audiences)
+    aids = Aid.objects.filter(
+        targeted_audiences__overlap=coll_audiences,
+        date_created__year__gte=2019,
+        date_created__year__lte=2022,
+    )
 
     workbook = Workbook()
 
@@ -453,6 +466,30 @@ def export_aids_for_collectivities():
         else:
             row.append("")
 
+        if aid.aid_types and set(aid.aid_types).isdisjoint(TECHNICAL_AIDS_LIST):
+            row.append("Non")
+        else:
+            row.append("Oui")
+
+        if aid.aid_types and set(aid.aid_types).isdisjoint(FINANCIAL_AIDS_LIST):
+            row.append("Non")
+        else:
+            row.append("Oui")
+
+        if aid.destinations:
+            row.append(", ".join([dict(Aid.DESTINATIONS)[x] for x in aid.destinations]))
+        else:
+            row.append("")
+
+        row.append(", ".join(aid.categories.values_list("name", flat=True).distinct()))
+
+        row.append(", ".join(aid.programs.values_list("name", flat=True).distinct()))
+
+        row.append(escape(aid.description))
+
+        base_url = get_base_url()
+        row.append(f"{base_url}{aid.get_absolute_url()}")
+
         # Assign the data for each cell of the row
         for col_num, cell_value in enumerate(row, 1):
             cell = worksheet.cell(row=row_num, column=col_num)
@@ -473,4 +510,6 @@ def export_aids_for_collectivities():
         author_id=user.id,
         exported_file=file_object,
     )
+
+    logger.info(f"{aids.count()} aids exported")
     return dataexport_object
