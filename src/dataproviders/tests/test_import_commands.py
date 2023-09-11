@@ -183,7 +183,7 @@ def test_import_aids_from_departement_de_la_manche(perimeters):
     assert aids.count() == 0
 
     args = []
-    opts = {"data-file": "dataproviders/tests/departement_manche.json"}
+    opts = {"data-file": "dataproviders/tests/departement_manche_data.json"}
     call_command("import_departement_manche", *args, **opts)
 
     assert aids.count() == 10
