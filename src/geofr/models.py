@@ -53,6 +53,29 @@ class PerimeterQuerySet(models.QuerySet):
 
         return departments_list
 
+    def regions(self, values=None):
+        """
+        Returns a list of the regions
+        - with a slug
+        - sorted by name
+        """
+        regions = self.filter(scale=Perimeter.SCALES.region, is_obsolete=False)
+        if values:
+            regions = regions.values(*values)
+        regions = regions.order_by("name")
+        regions_list = []
+
+        # perimeters currently don't have a proper slug
+        for region in regions:
+            if values:
+                region["slug"] = slugify(region["name"])
+            else:
+                region.slug = slugify(region.name)
+
+            regions_list.append(region)
+
+        return regions_list
+
     def communes_by_distance(
         self, latitude: float, longitude: float, radius: int | None = None
     ) -> QuerySet:

@@ -14,6 +14,58 @@ from geofr.models import FinancialData, Perimeter, PerimeterImport, PerimeterDat
 from geofr.utils import get_all_related_perimeters
 
 
+class DepartmentFilter(admin.SimpleListFilter):
+    """Custom admin filter to get perimeters by department."""
+
+    parameter_name = "by_department"
+    title = "Par département"
+    template = "admin/dropdown_filter.html"
+
+    def lookups(self, request, model_admin):
+        return [(d.code, d.name) for d in Perimeter.objects.departments()]
+
+    def queryset(self, request, queryset):
+        value = self.value()
+
+        if value:
+            # Concatenating perimeters which either is the searched department
+            # or a perimeter inside it (commune, EPCI)
+            perimeter_is_dept = queryset.filter(
+                scale=Perimeter.SCALES.department,
+                code=value,
+            )
+            perimeter_in_dept = queryset.filter(departments__contains=[value])
+
+            return perimeter_is_dept | perimeter_in_dept
+        return queryset
+
+
+class RegionFilter(admin.SimpleListFilter):
+    """Custom admin filter to get perimeters by region."""
+
+    parameter_name = "by_region"
+    title = "Par région"
+    template = "admin/dropdown_filter.html"
+
+    def lookups(self, request, model_admin):
+        return [(r.code, r.name) for r in Perimeter.objects.regions()]
+
+    def queryset(self, request, queryset):
+        value = self.value()
+
+        if value:
+            # Concatenating perimeters which either is the searched region
+            # or a perimeter inside it (commune, EPCI, department)
+            perimeter_is_region = queryset.filter(
+                scale=Perimeter.SCALES.region,
+                code=value,
+            )
+            perimeter_in_region = queryset.filter(regions__contains=[value])
+
+            return perimeter_is_region | perimeter_in_region
+        return queryset
+
+
 class PerimeterAutocompleteFilter(AutocompleteFilter):
     field_name = "perimeter"
     title = "périmètre"
@@ -56,6 +108,8 @@ class PerimeterAdmin(NumericFilterModelAdmin):
     list_filter = [
         "scale",
         ("population", RangeNumericFilter),
+        DepartmentFilter,
+        RegionFilter,
         "is_overseas",
         "manually_created",
         "is_visible_to_users",

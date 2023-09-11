@@ -52,7 +52,7 @@ class DepartmentFilter(admin.SimpleListFilter):
 
         if value:
             # Concatenating the users whose perimeter is the searched department
-            # or a petimeter inside it (commune, EPCI)
+            # or a perimeter inside it (commune, EPCI)
             perimeter_is_dept = queryset.filter(
                 beneficiary_organization__perimeter__scale=Perimeter.SCALES.department,
                 beneficiary_organization__perimeter__code=value,
