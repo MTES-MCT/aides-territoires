@@ -280,7 +280,7 @@
                 "sha256:a0713dc7a1de3f06bc0df5a9567ad19ead2d3d5689b434768a6145bff77c0667",
                 "sha256:f184f0d851d96b6d29297354ed981b7dd71df7ff500d82fa6d11f0856bee8035"
             ],
-            "markers": "python_version < '4' and python_full_version >= '3.6.2'",
+            "markers": "python_full_version >= '3.6.2' and python_full_version < '4.0.0'",
             "version": "==0.3.0"
         },
         "click-plugins": {
@@ -590,7 +590,7 @@
                 "sha256:916d0fd924443462f099f02122cc38d6a6e901ea17f1206c343836199df8bc49",
                 "sha256:ed28d3ff8e3500f2bc173cdf1aab7a3244ef607d06ad890611512de1bae6074d"
             ],
-            "markers": "python_version >= '3.8' and python_version < '4'",
+            "markers": "python_version >= '3.8' and python_full_version < '4.0.0'",
             "version": "==6.0.1"
         },
         "django-widget-tweaks": {
@@ -1325,7 +1325,7 @@
                 "sha256:faeebde62f0f6ad86985bec5685411260393d2eb7ba907972da56af586b644e8",
                 "sha256:ff09a0a1e5cef05309ac09dfc5185e8151d927bcf45470d2f540c96260f8a355"
             ],
-            "markers": "python_version >= '3.7' and python_version < '4'",
+            "markers": "python_version >= '3.7' and python_full_version < '4.0.0'",
             "version": "==3.6.13"
         },
         "requests": {
