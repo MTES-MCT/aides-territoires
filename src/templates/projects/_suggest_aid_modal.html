@@ -46,6 +46,8 @@
                                                 {% endif %}
                                                 {% endfor %}
                                             </div>
+
+                                            {% include '_field_snippet.html' with field=suggest_aid_form.message %}
                                         </fieldset>
                                     </div>
                                     <div id="form-group-aid" class="fr-input-group fr-input-group--error required">

@@ -333,6 +333,22 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.notification_counter += 1
         self.save()
 
+    @property
+    def notification_signature(self) -> str:
+        """
+        Returns the user name and the organization name if relevant
+        """
+        signature = f"{self.first_name} {self.last_name}"
+
+        user_org = self.beneficiary_organization
+        if user_org:
+            if user_org.organization_type == ["private_person"]:
+                signature += " (particulier)"
+            else:
+                signature += f" ({user_org.name})"
+
+        return signature
+
     def get_search_preferences(self):
         """
         Returns the perimeter and organization type of the user to pre-fill the search forms

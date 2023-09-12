@@ -182,7 +182,6 @@ class SearchView(SearchMixin, FormMixin, ListView):
         return programs
 
     def get_promotions(self):
-
         promotions = PromotionPost.objects.filter(status="published")
 
         searched_backers = self.form.cleaned_data.get("backers", None)
@@ -502,7 +501,6 @@ class AidDetailView(DetailView):
         return qs
 
     def post_prepopulate_data(self, user, org):
-
         data = prepopulate_ds_folder(self.object.ds_mapping, user, org)
         ds_id = self.object.ds_id
         headers = {
@@ -859,7 +857,6 @@ class AidEditView(
         return kwargs
 
     def form_valid(self, form):
-
         action = self.request.POST.get("_action", None)
 
         if action == "save_as_new":
@@ -871,7 +868,6 @@ class AidEditView(
             <a href="{reverse('aid_draft_list_view')}">votre portefeuille d’aides</a>."""
             response = HttpResponseRedirect(self.get_success_url())
         else:
-
             response = super().form_valid(form)
 
             if action == "update_status":
@@ -965,7 +961,6 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
     model = Aid
 
     def form_valid(self, form):
-
         aid = form.save(commit=False)
         url = reverse("aid_detail_view", args=[aid.slug])
 
@@ -1081,7 +1076,6 @@ class AidUnmatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateVi
     model = Aid
 
     def form_valid(self, form):
-
         aid = form.save(commit=False)
         project_pk = int(self.request.POST.get("project-pk"))
         aid.projects.remove(project_pk)
@@ -1129,6 +1123,7 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
         aid = form.cleaned_data["aid"]
         projects = form.cleaned_data["project"]
         user = self.request.user
+        message = form.cleaned_data["message"]
 
         if projects and aid:
             try:
@@ -1138,12 +1133,30 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
                             project.pk, through_defaults={"creator": self.request.user}
                         )
                         aid.save()
+                        project_author = project.author.first()
                         send_new_suggested_aid_notification_email.delay(
-                            project_author_email=project.author.first().email,
+                            project_author_email=project_author.email,
                             suggester_user_email=user.email,
                             suggester_organization_name=user.beneficiary_organization.name,
                             project_id=project.id,
                             suggested_aid_id=aid.id,
+                        )
+                        project_url = reverse(
+                            "project_detail_view", args=[project.id, project.slug]
+                        )
+                        project_author.send_notification(
+                            title=f"Suggestion d’une aide pour votre projet « {project.name} »",
+                            message=f"""<p>{message}</p>
+                            <ul>
+                                <li><a href="{aid.get_absolute_url()}">{aid.name}</a></li>
+                            </ul>
+                            <p>{user.notification_signature}</p>
+                            <p>
+                                <a class="fr-btn" href="{project_url}">
+                                    Accepter ou rejeter cette recommandation
+                                </a>
+                            </p>
+                            """,
                         )
                         track_goal(self.request.session, settings.GOAL_REGISTER_ID)
                     else:
@@ -1219,7 +1232,6 @@ class SuggestedAidUnmatchProjectView(
     model = Aid
 
     def form_valid(self, form):
-
         aid = form.save(commit=False)
         project_pk = int(self.request.POST.get("project-pk"))
         suggested_aidproject = SuggestedAidProject.objects.get(
@@ -1252,11 +1264,9 @@ class AidProjectStatusView(ContributorAndProfileCompleteRequiredMixin, UpdateVie
     model = AidProject
 
     def get_template_names(self):
-
         return ["projects/project_detail.html"]
 
     def form_valid(self, form):
-
         aidproject = form.save(commit=False)
 
         user_organization = self.request.user.beneficiary_organization
@@ -1350,7 +1360,6 @@ class AidDetailExportPdfView(ContributorAndProfileCompleteRequiredMixin, View):
     """Export an aid in pdf format."""
 
     def get(self, request, *args, **kwargs):
-
         aid = Aid.objects.get(slug=self.kwargs["slug"])
         user = self.request.user
         organization = user.beneficiary_organization
@@ -1413,7 +1422,6 @@ class AidDetailStatsView(
         return obj
 
     def get_period(self):
-
         period = timezone.now().strftime("%Y-%m-%d")
 
         if self.request.GET:
@@ -1505,7 +1513,6 @@ class AidDetailStatsExportView(ContributorAndProfileCompleteRequiredMixin, View)
     """Export stats of a specific aid."""
 
     def get(self, request, *args, **kwargs):
-
         aid = Aid.objects.get(slug=self.kwargs["slug"])
         user = self.request.user
         if user != aid.author and not user.is_superuser:

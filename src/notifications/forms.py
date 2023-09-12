@@ -7,7 +7,7 @@ from notifications.constants import NOTIFICATION_SETTINGS_FREQUENCIES_LIST
 
 
 class NotificationSettingsForm(forms.ModelForm, AidesTerrBaseForm):
-    """form to allow user to add/remove a public project to/from its favorite-projects-list."""
+    """form to allow user to manage notifications."""
 
     notification_email_frequency = forms.ChoiceField(
         label="Fréquence d’envoi des emails de notifications",

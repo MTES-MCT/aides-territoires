@@ -951,6 +951,13 @@ class SuggestAidMatchProjectForm(AidesTerrBaseForm):
         help_text="Coller ici l’URL de l’aide que vous souhaitez suggérer pour le projet.",
     )
 
+    message = forms.CharField(
+        label="Message",
+        required=False,
+        widget=forms.Textarea,
+        initial="Bonjour, je vous recommande cette aide qui semble convenir à votre projet.",
+    )
+
     def get_origin_page_from_post_data(self):
         origin_page = self.data.get("origin_page", None)
         return origin_page
@@ -984,7 +991,7 @@ class SuggestAidMatchProjectForm(AidesTerrBaseForm):
                         return aid_url
                 return aid
             except Exception:
-                msg = "Cette url ne correspond pas à une aide actuellement publiée. \
-                Merci de saisir une url correcte."
+                msg = "Cette URL ne correspond pas à une aide actuellement publiée. \
+                Merci de saisir une URL correcte."
                 self.add_error("aid", msg)
                 return aid_url
