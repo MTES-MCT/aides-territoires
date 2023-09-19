@@ -61,6 +61,7 @@
                                         <input type="checkbox" checked hidden name="project" value="{{ project.pk }}" id="{{ project.pk }}" />
                                     </div>
                                     {% include '_field_snippet.html' with field=suggest_aid_form.aid %}
+                                    {% include '_field_snippet.html' with field=suggest_aid_form.message %}
                                 {% endif %}
 
                                 <footer>
