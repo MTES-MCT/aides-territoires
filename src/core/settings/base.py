@@ -22,6 +22,7 @@ DJANGO_APPS = [
     "admin_tools.theming",
     "admin_tools.menu",
     "admin_tools.dashboard",
+    "admin_numeric_filter",
     "django.forms",  # This is needed because of the custom form renderer
     "django.contrib.admin",
     "django.contrib.auth",
