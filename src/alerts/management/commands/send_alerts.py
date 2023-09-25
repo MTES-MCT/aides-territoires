@@ -21,7 +21,6 @@ from stats.utils import log_event
 from emails.utils import send_email
 
 
-logger = logging.getLogger(__name__)
 User = get_user_model()
 
 
@@ -29,18 +28,29 @@ class Command(BaseCommand):
     """Send an email alert upon new aid results."""
 
     def handle(self, *args, **options):
+        # Manage logs
+        if settings.DEBUG:
+            logger = logging.getLogger("console_log")
+        else:
+            logger = logging.getLogger(__name__)
 
+        verbosity = int(options["verbosity"])
+        if verbosity > 1:
+            logger.setLevel(logging.DEBUG)
+        else:
+            logger.setLevel(logging.INFO)
+
+        # Command itself
         alerts = self.get_alerts()
         alerted_alerts = []
         for alert in alerts:
             new_aids = list(alert.get_new_aids())
             if new_aids:
+                logger.debug(f"Sending alert with ID {alert.pk}")
                 alerted_alerts.append(alert.token)
                 self.send_alert(alert, new_aids)
                 logger.info(
-                    "Sending alert alert email to {}: {} alerts".format(
-                        alert.email, len(new_aids)
-                    )
+                    f"Sending alert email to {alert.email}: {len(new_aids)} alerts"
                 )
 
         updated = Alert.objects.filter(token__in=alerted_alerts).update(
@@ -48,7 +58,6 @@ class Command(BaseCommand):
         )
         self.stdout.write("{} alerts sent".format(updated))
         log_event("alert", "sent", source="send_alerts", value=updated)
-        return
 
     def get_alerts(self):
         """Get alerts that could request a new email.
@@ -83,10 +92,14 @@ class Command(BaseCommand):
         site = Site.objects.get_current()
         domain = site.domain
         in_minisite = is_subdomain(alert.source)
+
+        search_page = SearchPage.objects.filter(slug=alert.source).first()
+
         if (
             alert.source != "aides-territoires"
             and alert.source != ""
-            and SearchPage.objects.get(slug=alert.source).subdomain_enabled is not True
+            and search_page
+            and search_page.subdomain_enabled is not True
         ):
             domain_with_subdomain = build_host_with_subdomain(
                 site.domain, "aides-territoires"
