@@ -1,5 +1,6 @@
 from os.path import splitext
 
+from django.apps import apps
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.db import models
@@ -10,6 +11,7 @@ from django.utils import timezone
 
 from aids.constants import AUDIENCES_GROUPED
 from aids.models import Aid
+
 from core.fields import ChoiceArrayField
 from pages.models import Page
 
@@ -306,6 +308,21 @@ class SearchPage(models.Model):
             return False
         else:
             return True
+
+    def delete(self):
+        """
+        Changes the source for alerts using that search page, so that
+        they are now sent with the default AT as a source
+        """
+
+        # Avoid circular import
+        Alert = apps.get_model("alerts", "Alert")
+
+        alerts = Alert.objects.filter(source=self.slug)
+        if alerts:
+            alerts.update(source="aides-territoires")
+
+        super(SearchPage, self).delete()
 
 
 class SearchPageLite(SearchPage):
