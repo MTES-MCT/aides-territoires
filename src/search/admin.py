@@ -140,7 +140,7 @@ class AdministratorFilter(admin.SimpleListFilter):
 class SearchPageAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
     list_display = ["slug", "title", "meta_description", "nb_pages", "date_created"]
     filter_vertical = ["available_categories"]
-    search_fields = ["title"]
+    search_fields = ["title", "slug"]
     list_filter = [AdministratorFilter, "subdomain_enabled"]
 
     form = SearchPageAdminForm
