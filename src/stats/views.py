@@ -1361,7 +1361,6 @@ class IntercoStatsView(SuperUserRequiredMixin, TemplateView):
                 Organization.objects.filter(
                     organization_type=["epci"],
                     intercommunality_type=key,
-                    perimeter__scale=Perimeter.SCALES.epci,
                     perimeter__is_obsolete=False,
                 )
                 .exclude(perimeter_id__isnull=True)
