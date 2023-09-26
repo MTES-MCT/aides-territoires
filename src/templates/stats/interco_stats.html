@@ -91,8 +91,8 @@
         {% for interco_type in interco_types %}
             new Chartist.Pie("{{ interco_type.div_id }}", {
             series: [
-                {{ interco_type.current }},
-                {{ interco_type.total }}-{{ interco_type.current }}
+                {{ interco_type.current_chart }},
+                {{ interco_type.total }}-{{ interco_type.current_chart }}
             ]
             }, {
             donut: true,
@@ -104,7 +104,7 @@
             plugins: [
                 Chartist.plugins.fillDonut({
                 items: [{
-                    content: '<p class="at-centered"><strong>{{ interco_type.current }} / {{ interco_type.total }} ({{ interco_type.percentage }}%)<br /><a href="/admin/organizations/organization/?intercommunality_type__exact={{ interco_type.code }}">{{ interco_type.label|safe }}</a></strong></p>',
+                    content: '<p class="at-centered{% if interco_type.percentage > 100 %} at-text-red{% endif %}"><strong>{{ interco_type.current }} / {{ interco_type.total }} ({{ interco_type.percentage }}%)<br /><a href="/admin/organizations/organization/?intercommunality_type__exact={{ interco_type.code }}">{{ interco_type.label|safe }}</a></strong></p>',
                     offsetY: -20
                 }]
                 })

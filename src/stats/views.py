@@ -1351,11 +1351,6 @@ class IntercoStatsView(SuperUserRequiredMixin, TemplateView):
                 "label": label,
             }
 
-            if label == "Pays et pôles d’équilibre territorial et rural (PETR)":
-                interco_type_dict[
-                    "label"
-                ] = "Pays et pôles d’équilibre<br />territorial et rural (PETR)"
-
             interco_type_dict["total"] = TOTAL_BY_INTERCOMMUNALITY_TYPE[key]
             interco_type_dict["current"] = (
                 Organization.objects.filter(
@@ -1373,6 +1368,12 @@ class IntercoStatsView(SuperUserRequiredMixin, TemplateView):
                 interco_type_dict["current"] * 100 / interco_type_dict["total"],
                 1,
             )
+
+            # Prevent the chart to "overflow"
+            if interco_type_dict["current"] > interco_type_dict["total"]:
+                interco_type_dict["current_chart"] = interco_type_dict["total"]
+            else:
+                interco_type_dict["current_chart"] = interco_type_dict["current"]
 
             context["interco_types"].append(interco_type_dict)
 
