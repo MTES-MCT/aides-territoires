@@ -24,8 +24,12 @@ CATEGORIES_MAPPING_CSV_PATH = (
     os.path.dirname(os.path.realpath(__file__))
     + "/../../data/departement_manche_categories_mapping.csv"
 )
-SOURCE_COLUMN_NAME = "Thématique du Conseil départemental de la Manche"
-AT_COLUMN_NAMES = ["Sous-thématique AT 1"]
+SOURCE_COLUMN_NAME = "Sous-thématique du Conseil départemental de la Manche"
+AT_COLUMN_NAMES = [
+    "Sous-thématique AT 1",
+    "Sous-thématique AT 2",
+    "Sous-thématique AT 3",
+]
 CATEGORIES_DICT = mapping_categories(
     CATEGORIES_MAPPING_CSV_PATH, SOURCE_COLUMN_NAME, AT_COLUMN_NAMES
 )
