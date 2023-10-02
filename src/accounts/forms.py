@@ -554,3 +554,26 @@ class CompleteProfileForm(forms.ModelForm, AidesTerrBaseForm):
         if commit:
             user.save()
         return user
+
+
+class UserApiTokenForm(forms.ModelForm, AidesTerrBaseForm):
+    api_project_description = forms.CharField(
+        label="Description de votre projet",
+        required=True,
+        widget=forms.Textarea(
+            attrs={
+                "placeholder": "Merci de décrire précisément l’usage que vous allez avoir de l’API Aides-territoires"  # noqa
+            }
+        ),
+    )
+    api_project_url = forms.CharField(
+        label="URL de votre service",
+        required=False,
+        widget=forms.TextInput(
+            attrs={"placeholder": "Entrez ici l’URL de votre service le cas échéant"}
+        ),
+    )
+
+    class Meta:
+        model = User
+        fields = ["api_project_description", "api_project_url"]

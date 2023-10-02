@@ -24,6 +24,7 @@ from django.db.models.query import QuerySet
 
 
 from braces.views import AnonymousRequiredMixin, MessageMixin
+from rest_framework.authtoken.models import Token
 
 from accounts.mixins import (
     ContributorAndProfileCompleteRequiredMixin,
@@ -38,6 +39,7 @@ from accounts.forms import (
     InviteCollaboratorForm,
     CompleteProfileForm,
     JoinOrganizationForm,
+    UserApiTokenForm,
 )
 from accounts.tasks import (
     send_connection_email,
@@ -139,7 +141,6 @@ class RegisterView(AnonymousRequiredMixin, CreateView):
         return response
 
     def get_context_data(self, **kwargs):
-
         context = super().get_context_data(**kwargs)
         return context
 
@@ -152,7 +153,6 @@ class RegisterCommuneView(AnonymousRequiredMixin, CreateView):
     success_url = reverse_lazy("register_success")
 
     def form_valid(self, form):
-
         organization_name = self.request.POST.get("organization_name", None)
         organization_perimeter_id = int(
             self.request.POST.get("perimeter", None).partition("-")[0]
@@ -334,7 +334,6 @@ class UserDashboardView(ContributorAndProfileCompleteRequiredMixin, TemplateView
     template_name = "accounts/user_dashboard.html"
 
     def get_context_data(self, **kwargs):
-
         context = super().get_context_data(**kwargs)
         if self.request.user.beneficiary_organization is not None:
             context["collaborators_number"] = (
@@ -353,10 +352,24 @@ class UserDashboardView(ContributorAndProfileCompleteRequiredMixin, TemplateView
         return context
 
 
-class UserApiTokenView(ContributorAndProfileCompleteRequiredMixin, TemplateView):
+class UserApiTokenView(ContributorAndProfileCompleteRequiredMixin, UpdateView):
     """User can access to his API Token"""
 
     template_name = "accounts/user_api_token.html"
+    form_class = UserApiTokenForm
+
+    def get_object(self):
+        return self.request.user
+
+    def get_success_url(self):
+        return reverse("api_token")
+
+    def form_valid(self, form):
+        user = self.request.user
+        if not user.has_api_token:
+            Token.objects.create(user=user)
+
+        return super().form_valid(form)
 
 
 class SubscribeNewsletter(ContributorAndProfileCompleteRequiredMixin, View):
@@ -434,7 +447,6 @@ class UnSubscribeNewsletter(View):
 
 
 class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, FormView):
-
     form_class = InviteCollaboratorForm
     template_name = "accounts/collaborators.html"
 
@@ -526,7 +538,6 @@ class InviteCollaborator(ContributorAndProfileCompleteRequiredMixin, FormView):
 
 
 class JoinOrganization(ContributorAndProfileCompleteRequiredMixin, FormView):
-
     form_class = JoinOrganizationForm
     template_name = "accounts/join_organization.html"
 
@@ -907,7 +918,6 @@ class DeleteHistoryLoginView(ContributorAndProfileCompleteRequiredMixin, View):
     """Allow user to delete its connexion-logs"""
 
     def get(self, request):
-
         if self.request.user:
             try:
                 UserLastConnexion.objects.filter(user=self.request.user.pk).delete()

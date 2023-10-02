@@ -33,9 +33,36 @@
         {% include 'accounts/_sidebar_menu.html' %}
 
         <div class="fr-col-12 fr-col-md-9">
-            <h1 class="fr-h3">Ma clé API</h1>
-            <p>La clé API, ou Token API, est une combinaison vous permettant d’associer votre login et votre mot de passe de façon sécurisée lors de vos intégrations.</p>
-            <p>Cet identifiant vous permet de connecter notre API à votre logiciel/service en ligne avec une sécurité maximale.</p>
+            <h1>Ma clé API</h1>
+            <p>
+                La clé API, ou Token API, est une combinaison vous permettant d’associer votre
+                login et votre mot de passe de façon sécurisée lors de vos intégrations.
+            </p>
+            <p>
+                Cet identifiant vous permet de connecter notre API à votre logiciel/service en
+                ligne avec une sécurité maximale.
+            </p>
+            <p>
+
+                <strong>
+                    Il sera obligatoire pour utiliser la nouvelle version de notre API prévue en
+                    novembre 2023.
+                </strong>
+            </p>
+
+            {% if user.auth_token %}
+                <div class="fr-alert fr-alert--success">
+                    <p>Votre Token API :</p>
+                    <p><strong>{{ user.auth_token.key }}</strong></p>
+
+                    <p>
+                        <a href="{% url 'swagger-ui' %}?version={{ api_version }}" target="_blank" rel="noopener">
+                            Consulter la documentation de l’API
+                            <span class="fr-sr-only">Ouvre une nouvelle fenêtre</span>
+                        </a>
+                    </p>
+                </div>
+            {% else %}
             <div class="fr-alert fr-alert--info">
                 <p>
                     <a href="{% url 'swagger-ui' %}?version={{ api_version }}" target="_blank" rel="noopener">
@@ -44,17 +71,17 @@
                     </a>
                 </p>
             </div>
-            {% if user.auth_token %}
-            <div class="fr-alert fr-alert--success">
-                <p>Votre Token API :</p>
-                <p>{{ user.auth_token.key }}</p>
-            </div>
-            {% else %}
-            <div class="fr-alert fr-alert--error">
-                <p>Vous n'avez pas encore de Token API.</p>
-                <p>Pour en obtenir un, c'est très simple (et gratuit !), il suffit juste de <a href="{% url 'contact' %}">nous contacter</a> en décrivant votre projet et en renseignant l'url de votre service.</p>
-            </div>
+            <h2>Pour obtenir votre clé, merci de remplir le formulaire :</h2>
             {% endif %}
+
+            <form method="post" class="fr-mt-3w" novalidate>
+                <p>Les champs marqués d’un astérisque (*) sont obligatoires.</p>
+                {% csrf_token %}
+
+                {% include '_field_snippet.html' with field=form.api_project_description %}
+                {% include '_field_snippet.html' with field=form.api_project_url %}
+                <button type="submit" class="fr-btn">Envoyer</button>
+            </form>
         </div>
     </div>
 </div>

@@ -9,6 +9,7 @@ from django.contrib.auth.models import (
 from django.utils import timezone
 
 from model_utils import Choices
+from rest_framework.authtoken.models import Token
 
 from notifications.constants import NOTIFICATION_SETTINGS_FREQUENCIES_LIST
 from notifications.models import Notification
@@ -255,6 +256,20 @@ class User(AbstractBaseUser, PermissionsMixin):
         default="daily",
     )
 
+    # API token information
+    api_project_description = models.TextField(
+        "Description de votre projet",
+        help_text="Merci de décrire précisément l’usage que vous allez avoir de l’API Aides-territoires",  # noqa
+        default="",
+        blank=True,
+    )
+    api_project_url = models.URLField(
+        "URL de votre service",
+        max_length=700,
+        blank=True,
+        help_text="Entrez ici l’URL de votre service le cas échéant",
+    )
+
     date_created = models.DateTimeField("Date de création", default=timezone.now)
     date_updated = models.DateTimeField("Date de mise à jour", auto_now=True)
 
@@ -319,6 +334,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         """Only the minisite administrators can access
         certain pages of the app."""
         return self.search_pages.exists()
+
+    @property
+    def has_api_token(self):
+        return Token.objects.filter(user=self).exists()
 
     def send_notification(self, title: str, message: str) -> None:
         """
