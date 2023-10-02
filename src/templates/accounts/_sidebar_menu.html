@@ -80,10 +80,19 @@
                     <div class="fr-collapse" id="fr-sidemenu-item-5">
                         <ul class="fr-sidemenu__list">
                             <li class="fr-sidemenu__item {% if contrib_profile %}fr-sidemenu__item--active{% endif %}">
-                                <a class="fr-sidemenu__link" href="{% url 'contributor_profile' %}" target="_self" {% if contrib_profile %}aria-current="page"{% endif %} rel="noopener">Mon profil</a>
+                                <a class="fr-sidemenu__link" href="{% url 'contributor_profile' %}" target="_self" {% if contrib_profile %}aria-current="page"{% endif %} rel="noopener">
+                                    Mon profil
+                                </a>
+                            </li>
+                            <li class="fr-sidemenu__item {% if api_token %}fr-sidemenu__item--active{% endif %}">
+                                <a class="fr-sidemenu__link" href="{% url 'api_token' %}" target="_self" {% if api_token %}aria-current="page"{% endif %} rel="noopener">
+                                    Ma clé API
+                                </a>
                             </li>
                             <li class="fr-sidemenu__item {% if history_login %}fr-sidemenu__item--active{% endif %}">
-                                <a class="fr-sidemenu__link" href="{% url 'history_login' %}" target="_self" {% if history_login %}aria-current="page"{% endif %} rel="noopener">Mon journal de connexion</a>
+                                <a class="fr-sidemenu__link" href="{% url 'history_login' %}" target="_self" {% if history_login %}aria-current="page"{% endif %} rel="noopener">
+                                    Mon journal de connexion
+                                </a>
                             </li>
                         </ul>
                     </div>
