@@ -7,7 +7,6 @@ from django.contrib.postgres.indexes import GinIndex
 
 
 class Keyword(models.Model):
-
     name = models.CharField("Nom", max_length=70)
     slug = models.SlugField("Fragment d'url")
 
@@ -32,7 +31,6 @@ class Keyword(models.Model):
 
 
 class SynonymList(models.Model):
-
     name = models.CharField("Nom de la liste", max_length=70)
     slug = models.SlugField("Fragment d'url")
 

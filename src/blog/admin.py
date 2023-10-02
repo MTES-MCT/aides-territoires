@@ -17,7 +17,6 @@ class BlogPostForm(forms.ModelForm):
 
 
 class BlogPostAdmin(admin.ModelAdmin):
-
     list_display = ["title", "category", "status", "date_created"]
     search_fields = ["title"]
     list_filter = ["status", "category"]
@@ -86,7 +85,6 @@ class BlogPostAdmin(admin.ModelAdmin):
 
 
 class BlogPostCategoryAdmin(admin.ModelAdmin):
-
     list_display = ["name"]
     fields = ["name", "slug", "description", "date_created"]
     search_fields = ["name"]
@@ -96,7 +94,6 @@ class BlogPostCategoryAdmin(admin.ModelAdmin):
 
 
 class PromotionPostForm(forms.ModelForm):
-
     short_text = RichTextField(label="Contenu", required=False)
 
     categories = CategoryMultipleChoiceField(
@@ -111,7 +108,6 @@ class PromotionPostForm(forms.ModelForm):
 
 
 class PromotionPostAdmin(admin.ModelAdmin):
-
     list_display = ["title", "status", "date_created"]
     search_fields = ["title"]
     ordering = ["title"]
@@ -148,6 +144,7 @@ class PromotionPostAdmin(admin.ModelAdmin):
                     "programs",
                     "perimeter",
                     "categories",
+                    "keywords",
                 )
             },
         ),
