@@ -1,6 +1,7 @@
 from django.urls import path
 
 from stats.views import (
+    IntercoStatsView,
     StatsView,
     DashboardAcquisitionView,
     DashboardConsultationView,
@@ -38,4 +39,5 @@ urlpatterns = [
         OrganizationsStatsView.as_view(),
         name="organizations_stats",
     ),
+    path("stats-intercommunalites/", IntercoStatsView.as_view(), name="interco_stats"),
 ]

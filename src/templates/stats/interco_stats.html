@@ -1,0 +1,115 @@
+{% extends "_base.html" %}
+{% load static humanize compress form_utils stats settings organizations aids %}
+
+{% block extratitle %}Statistiques internes - Intercommunalités{% endblock extratitle %}
+
+{% block extra_head %}
+  <script src="{% static 'chartist/dist/chartist.min.js' %}"></script>
+  <script src="{% static 'chartist-plugin-fill-donut/dist/chartist-plugin-fill-donut.js' %}"></script>
+  <script src="{% static 'js/stats/chartist-plugin-tooltip.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'chartist/dist/chartist.css' %}" />
+  <link rel="stylesheet" href="{% static 'js/stats/chartist-plugin-tooltip.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/stats.css' %}" />
+{% endblock extra_head %}
+
+{% block breadcrumbs %}
+<div class="fr-container">
+    <nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+        <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+        <div class="fr-collapse" id="breadcrumb-1">
+            <ol class="fr-breadcrumb__list">
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" href="{% url 'dashboard_view' %}">Dashboard</a>
+                </li>
+                <li>
+                    <a class="fr-breadcrumb__link" aria-current="page">Statistiques Intercommunalités</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<section id="users-stats" class="fr-container">
+
+    <h1 class="fr-mt-0w">Intercommunalités par type</h1>
+    <h2>EPCI</h2>
+
+    <div class="charts" style="margin-bottom: -175px;">
+        <div id="chart-cc" class="ct-chart"></div>
+        <div id="chart-ca" class="ct-chart"></div>
+    </div>
+
+    <div class="charts" style="margin-bottom: -175px;">
+        <div id="chart-cu" class="ct-chart"></div>
+        <div id="chart-metro" class="ct-chart"></div>
+    </div>
+
+    <div class="charts-legends">
+        <ul>
+            <li><span class="charts-legend charts-legend-accent"></span> Territoires inscrits</li>
+        </ul>
+    </div>
+
+
+    <h2>Autres</h2>
+
+    <div class="charts" style="margin-bottom: -175px;">
+        <div id="chart-gal" class="ct-chart"></div>
+        <div id="chart-pnr" class="ct-chart"></div>
+    </div>
+
+    <div class="charts" style="margin-bottom: -175px;">
+        <div id="chart-petr" class="ct-chart"></div>
+        <div id="chart-sm" class="ct-chart"></div>
+    </div>
+
+    <div class="charts-legends">
+        <ul>
+            <li><span class="charts-legend charts-legend-accent"></span> Territoires inscrits</li>
+        </ul>
+    </div>
+
+</section>
+{% endblock content %}
+
+{% block extra_js %}
+    <script type="module" nonce="{{ request.csp_nonce }}">
+        import { Application } from "{% static '@hotwired/stimulus/dist/stimulus.js' %}"
+        import tableController from "{% static 'js/stats/table_controller.js' %}"
+        window.Stimulus = Application.start()
+        {% setting "DEBUG" as Debug %}
+        Stimulus.debug = {{ Debug|lower }}
+        Stimulus.register("table", tableController)
+    </script>  
+
+    <script nonce="{{ request.csp_nonce }}">
+        {% for interco_type in interco_types %}
+            new Chartist.Pie("{{ interco_type.div_id }}", {
+            series: [
+                {{ interco_type.current_chart }},
+                {{ interco_type.total }}-{{ interco_type.current_chart }}
+            ]
+            }, {
+            donut: true,
+            donutWidth: 60,
+            donutSolid: true,
+            startAngle: 270,
+            total: {{ interco_type.total }} * 2,
+            showLabel: false,
+            plugins: [
+                Chartist.plugins.fillDonut({
+                items: [{
+                    content: '<p class="at-centered{% if interco_type.percentage > 100 %} at-text-red{% endif %}"><strong>{{ interco_type.current }} / {{ interco_type.total }} ({{ interco_type.percentage }}%)<br /><a href="/admin/organizations/organization/?intercommunality_type__exact={{ interco_type.code }}">{{ interco_type.label|safe }}</a></strong></p>',
+                    offsetY: -20
+                }]
+                })
+            ]
+            })
+        {% endfor %}  
+    </script>
+{% endblock extra_js %}
