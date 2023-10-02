@@ -1,6 +1,8 @@
 from io import BytesIO
+import logging
 import os
 from openpyxl import Workbook
+from openpyxl.utils.escape import escape
 from xhtml2pdf import pisa
 from datetime import date, datetime, timedelta
 
@@ -13,10 +15,16 @@ from django.utils import timezone
 from django.db.models import Count
 from django.core import files
 from django.core.files.base import ContentFile
+from aids.constants import (
+    COLLECTIVITIES_AUDIENCES,
+    FINANCIAL_AIDS_LIST,
+    TECHNICAL_AIDS_LIST,
+)
 
 from aids.resources import AidResourcePublic
 from aids.models import Aid, AidProject
 from accounts.models import User
+from core.utils import get_base_url
 from organizations.models import Organization
 from stats.models import (
     AidApplicationUrlClickEvent,
@@ -24,6 +32,8 @@ from stats.models import (
     AidViewEvent,
 )
 from exporting.models import DataExport
+
+logger = logging.getLogger("console_log")
 
 
 def fetch_resources(uri: str, rel) -> str:
@@ -112,7 +122,6 @@ def export_aids(organization, file_format: str) -> dict:
 
 
 def export_aid_detail_pdf(aid, user, organization):
-
     today = date.today()
     today_formated = today.strftime("%Y-%m-%d")
 
@@ -166,7 +175,6 @@ def export_aid_stats(
     start_date,
     end_date,
 ) -> dict:
-
     if end_date is None:
         end_date = timezone.now().date()
     else:
@@ -290,7 +298,6 @@ def export_aid_stats(
 
 
 def export_related_projects(aid_id, user_id):
-
     aid = Aid.objects.get(id=aid_id)
     user = User.objects.get(id=user_id)
     aid_name = aid.name
@@ -381,4 +388,128 @@ def export_related_projects(aid_id, user_id):
         author_id=user.id,
         exported_file=file_object,
     )
+    return dataexport_object
+
+
+def export_aids_for_collectivities():  # NOSONAR
+    user = User.objects.get(email=settings.SERVER_EMAIL)
+    coll_audiences = [x for x, y in COLLECTIVITIES_AUDIENCES]
+    aids = Aid.objects.filter(
+        targeted_audiences__overlap=coll_audiences,
+        date_created__year__gte=2019,
+        date_created__year__lte=2022,
+    )
+
+    workbook = Workbook()
+
+    # Get active worksheet/tab
+    worksheet = workbook.active
+    worksheet.title = "Aides-collectivites"
+
+    # Define the titles for columns
+    columns = [
+        "Nom de l’aide",
+        "Année de l’aide",
+        "Aide périmée",
+        "Porteur de l’aide",
+        "Catégorie du porteur",
+        "Public bénéficiaire",
+        "Périmètre de l’aide",
+        "Aide en ingénierie",
+        "Aide financière",
+        "Type de dépenses couvertes",
+        "Thématiques de l’aide",
+        "Programme de l’aide",
+        "Description de l’aide",
+        "URL de l’aide",
+    ]
+    row_num = 1
+
+    # Assign the titles for each cell of the header
+    for col_num, column_title in enumerate(columns, 1):
+        cell = worksheet.cell(row=row_num, column=col_num)
+        cell.value = column_title
+
+    for aid in aids:
+        row_num += 1
+        row = [
+            aid.name,
+            aid.date_created.year,
+        ]
+
+        if aid.has_expired():
+            row.append("Oui")
+        else:
+            row.append("Non")
+
+        financers = aid.financers.all().values_list("name", flat=True)
+        if financers:
+            row.append(", ".join(financers))
+        else:
+            row.append("")
+
+        financers_categories = aid.financers.all().values_list(
+            "group__subcategory__category__name", flat=True
+        )
+        if financers_categories and list(financers_categories) != [None]:
+            row.append(", ".join(financers_categories))
+        else:
+            row.append("")
+
+        if aid.targeted_audiences:
+            row.append(", ".join(aid.targeted_audiences))
+        else:
+            row.append("")
+
+        if aid.perimeter:
+            row.append(aid.perimeter.name)
+        else:
+            row.append("")
+
+        if aid.aid_types and set(aid.aid_types).isdisjoint(TECHNICAL_AIDS_LIST):
+            row.append("Non")
+        else:
+            row.append("Oui")
+
+        if aid.aid_types and set(aid.aid_types).isdisjoint(FINANCIAL_AIDS_LIST):
+            row.append("Non")
+        else:
+            row.append("Oui")
+
+        if aid.destinations:
+            row.append(", ".join([dict(Aid.DESTINATIONS)[x] for x in aid.destinations]))
+        else:
+            row.append("")
+
+        row.append(", ".join(aid.categories.values_list("name", flat=True).distinct()))
+
+        row.append(", ".join(aid.programs.values_list("name", flat=True).distinct()))
+
+        row.append(escape(aid.description))
+
+        base_url = get_base_url()
+        row.append(f"{base_url}{aid.get_absolute_url()}")
+
+        # Assign the data for each cell of the row
+        for col_num, cell_value in enumerate(row, 1):
+            cell = worksheet.cell(row=row_num, column=col_num)
+            cell.value = cell_value
+
+    # kept the workbook as bytes in an in-memory buffer
+    vworkbook = BytesIO()
+    workbook.save(vworkbook)
+
+    # takes the value from the Buffer
+    content = vworkbook.getvalue()
+
+    content_file = ContentFile(content)
+    file_object = files.File(
+        content_file, name="Aides-territoires-aids-collectivities.xlsx"
+    )
+    dataexport_object = DataExport.objects.create(
+        author_id=user.id,
+        exported_file=file_object,
+    )
+
+    logger.info(f"{aids.count()} aids exported")
     return dataexport_object
