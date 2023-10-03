@@ -55,7 +55,8 @@ class Command(BaseImportCommand):
         if options["data-file"]:
             data_file = os.path.abspath(options["data-file"])
             data = json.load(open(data_file))
-            self.stdout.write("Total number of aids: {}".format(len(data["aides"])))
+            aids_count = len(data["aides"])
+            self.stdout.write(f"Total number of aids: {aids_count}")
             for line in data["aides"]:
                 yield line
         else:
