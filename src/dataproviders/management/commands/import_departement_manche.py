@@ -152,7 +152,21 @@ class Command(BaseImportCommand):
         return is_call_for_project
 
     def extract_aid_types(self, line):
-        return []
+        aid_types = line.get("aid_types", None)
+        name = line["name"][:180]
+        aid_aid_types = []
+        if aid_types is not None and aid_types != []:
+            for aid_type in aid_types:
+                try:
+                    aid_type_key = next(
+                        choice[0] for choice in Aid.TYPES if choice[1] == aid_type
+                    )
+                    aid_aid_types.append(aid_type_key)
+                except Exception:
+                    print(aid_type_key)
+        else:
+            print(f"{name} aucun bénéficiaire")
+        return aid_aid_types
 
     def extract_start_date(self, line):
         if line.get("start_date", None) is not None:
@@ -190,7 +204,7 @@ class Command(BaseImportCommand):
         eligibility = line.get("eligibility", "")
         return eligibility
 
-    def extract_targeted_audiences(self, line):  # NOSONAR
+    def extract_targeted_audiences(self, line):
         """
         Exemple of string to process:
         [
@@ -203,32 +217,31 @@ class Command(BaseImportCommand):
         targeted_audiences = line.get("targeted_audiences", None)
         name = line["name"][:180]
         aid_targeted_audiences = []
-        if targeted_audiences is not None:
-            if targeted_audiences != []:
-                for targeted_audience in targeted_audiences:
-                    """
-                    Mostly matches our audiences save for two, so mapping manually here
-                    """
-                    if (
-                        targeted_audience
-                        == "Établissements publics (écoles, bibliothèques…)"
-                    ):
-                        aid_targeted_audiences.append("public_org")
-                    elif targeted_audience == "EPCI à fiscalité propre":
-                        aid_targeted_audiences.append("epci")
-                    else:
-                        try:
-                            targeted_audience = next(
-                                choice[0]
-                                for choice in Aid.AUDIENCES
-                                if choice[1] == targeted_audience
-                            )
-                            aid_targeted_audiences.append(targeted_audience)
-                        except Exception:
-                            print(f"{targeted_audience}")
-            else:
-                print(f"{name} aucun bénéficiaire")
-            return aid_targeted_audiences
+        if targeted_audiences is not None and targeted_audiences != []:
+            for targeted_audience in targeted_audiences:
+                """
+                Mostly matches our audiences save for two, so mapping manually here
+                """
+                if (
+                    targeted_audience
+                    == "Établissements publics (écoles, bibliothèques…)"
+                ):
+                    aid_targeted_audiences.append("public_org")
+                elif targeted_audience == "EPCI à fiscalité propre":
+                    aid_targeted_audiences.append("epci")
+                else:
+                    try:
+                        targeted_audience = next(
+                            choice[0]
+                            for choice in Aid.AUDIENCES
+                            if choice[1] == targeted_audience
+                        )
+                        aid_targeted_audiences.append(targeted_audience)
+                    except Exception:
+                        print(f"{targeted_audience}")
+        else:
+            print(f"{name} aucun bénéficiaire")
+        return aid_targeted_audiences
 
     def extract_categories(self, line):
         """
@@ -287,3 +300,21 @@ class Command(BaseImportCommand):
         if line.get("contact_phone", ""):
             contact += line.get("contact_phone")
         return contact
+
+    def extract_destinations(self, line):
+        """
+        Source format: list of strings
+        These strings match our values from Aid.DESTINATIONS, so we just have
+        to revert the dict to get the key
+        """
+        DESTINATIONS_DICT = {v: k for k, v in dict(Aid.DESTINATIONS).items()}
+        aid_destinations = []
+
+        destinations = line.get("destinations", [])
+
+        if destinations:
+            for destination in destinations:
+                destination = destination.replace("'", "’")
+                aid_destinations.append(DESTINATIONS_DICT[destination])
+
+        return aid_destinations
