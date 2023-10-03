@@ -190,7 +190,7 @@ class Command(BaseImportCommand):
         eligibility = line.get("eligibility", "")
         return eligibility
 
-    def extract_targeted_audiences(self, line):
+    def extract_targeted_audiences(self, line):  # NOSONAR
         """
         Exemple of string to process:
         [
@@ -206,15 +206,26 @@ class Command(BaseImportCommand):
         if targeted_audiences is not None:
             if targeted_audiences != []:
                 for targeted_audience in targeted_audiences:
-                    try:
-                        targeted_audience = next(
-                            choice[0]
-                            for choice in Aid.AUDIENCES
-                            if choice[1] == targeted_audience
-                        )
-                        aid_targeted_audiences.append(targeted_audience)
-                    except Exception:
-                        print(f"{targeted_audience}")
+                    """
+                    Mostly matches our audiences save for two, so mapping manually here
+                    """
+                    if (
+                        targeted_audience
+                        == "Établissements publics (écoles, bibliothèques…)"
+                    ):
+                        aid_targeted_audiences.append("public_org")
+                    elif targeted_audience == "EPCI à fiscalité propre":
+                        aid_targeted_audiences.append("epci")
+                    else:
+                        try:
+                            targeted_audience = next(
+                                choice[0]
+                                for choice in Aid.AUDIENCES
+                                if choice[1] == targeted_audience
+                            )
+                            aid_targeted_audiences.append(targeted_audience)
+                        except Exception:
+                            print(f"{targeted_audience}")
             else:
                 print(f"{name} aucun bénéficiaire")
             return aid_targeted_audiences
