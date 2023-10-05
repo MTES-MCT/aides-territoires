@@ -151,7 +151,7 @@
         <script nonce="{{ request.csp_nonce }}">
             $(document).ready(function () {
                 $('.sortable-table').DataTable({
-                    paging: false,
+                    paging: true,
                     info: false,
                     "order": [[ 3, 'desc' ]],
                     "language": datatables_fr_strings
