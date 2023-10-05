@@ -1136,6 +1136,7 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
         aid = form.cleaned_data["aid"]
         projects = form.cleaned_data["project"]
         user = self.request.user
+        message = form.cleaned_data["message"]
 
         if projects and aid:
             try:
@@ -1145,12 +1146,30 @@ class SuggestAidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, For
                             project.pk, through_defaults={"creator": self.request.user}
                         )
                         aid.save()
+                        project_author = project.author.first()
                         send_new_suggested_aid_notification_email.delay(
-                            project_author_email=project.author.first().email,
+                            project_author_email=project_author.email,
                             suggester_user_email=user.email,
                             suggester_organization_name=user.beneficiary_organization.name,
                             project_id=project.id,
                             suggested_aid_id=aid.id,
+                        )
+                        project_url = reverse(
+                            "project_detail_view", args=[project.id, project.slug]
+                        )
+                        project_author.send_notification(
+                            title=f"Suggestion d’une aide pour votre projet « {project.name} »",
+                            message=f"""<p>{message}</p>
+                            <ul>
+                                <li><a href="{aid.get_absolute_url()}">{aid.name}</a></li>
+                            </ul>
+                            <p>{user.notification_signature}</p>
+                            <p>
+                                <a class="fr-btn" href="{project_url}">
+                                    Accepter ou rejeter cette recommandation
+                                </a>
+                            </p>
+                            """,
                         )
                         track_goal(self.request.session, settings.GOAL_REGISTER_ID)
                     else:
