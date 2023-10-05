@@ -163,7 +163,7 @@ class Command(BaseImportCommand):
                     )
                     aid_aid_types.append(aid_type_key)
                 except Exception:
-                    print(aid_type_key)
+                    print(aid_type)
         else:
             print(f"{name} aucun bénéficiaire")
         return aid_aid_types
