@@ -87,6 +87,11 @@ h2, h3, h4 {
                 <p>{% choices_display aid 'targeted_audiences' %}</p>
             {% endif %}
 
+            {% if aid.aid_types %}
+                <h4>Types d’aide</h4>
+                <p>{% choices_display aid 'aid_types' %}</p>
+            {% endif %}
+
             <h4>Zone géographique couverte par l’aide</h4>
             <p>{{ aid.perimeter }}</p>
 
