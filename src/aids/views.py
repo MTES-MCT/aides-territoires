@@ -730,7 +730,6 @@ class AidDraftListView(
 
     template_name = "aids/draft_list.html"
     context_object_name = "aids"
-    paginate_by = 50
 
     def get_queryset(self):
         qs = super().get_queryset()
