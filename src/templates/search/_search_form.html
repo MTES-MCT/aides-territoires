@@ -16,7 +16,7 @@
 
                     {% if search_page.show_audience_field %}
                         <div class="fr-col-12 fr-col-md-3">
-                            {% include '_checkbox_snippet_multiple.html' with field=form.targeted_audiences %}
+                            {% include '_field_snippet.html' with field=form.targeted_audiences %}
                         </div>
                     {% endif %}
 
@@ -47,13 +47,13 @@
 
                     {% if search_page.show_mobilization_step_field %}
                         <div class="fr-col-12 fr-col-md-3">
-                            {% include '_checkbox_snippet_multiple.html' with field=form.mobilization_step %}
+                            {% include '_field_snippet.html' with field=form.mobilization_step %}
                         </div>
                     {% endif %}
 
                     {% if search_page.show_aid_type_field %}
                         <div class="fr-col-12 fr-col-md-3">
-                            {% include '_checkbox_snippet_multiple.html' with field=form.aid_type %}
+                            {% include '_field_snippet.html' with field=form.aid_type %}
                         </div>
                     {% endif %}
                 </div>
@@ -102,7 +102,7 @@
 
                         {% if not search_page.show_aid_type_field %}
                             <div class="fr-col-12 fr-col-md-3">
-                                {% include '_checkbox_snippet_multiple.html' with field=form.aid_type %}
+                                {% include '_field_snippet.html' with field=form.aid_type %}
                             </div>
                         {% endif %}
 
@@ -113,7 +113,7 @@
                         {% endif %}
 
                         <div class="fr-col-12 fr-col-md-3">
-                            {% include '_checkbox_snippet_multiple.html' with field=form.destinations  %}
+                            {% include '_field_snippet.html' with field=form.destinations  %}
                         </div>
 
                         <div class="fr-col-12 fr-col-md-3">
