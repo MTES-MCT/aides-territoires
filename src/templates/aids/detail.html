@@ -25,15 +25,21 @@
         <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
         <div class="fr-collapse" id="breadcrumb-1">
             <ol class="fr-breadcrumb__list">
-                <li>
-                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
-                </li>
-                <li>
-                    <a class="fr-breadcrumb__link" title="Lancer une nouvelle recherche" href="{% url 'search_view' %}?{{ current_search }}">Trouver des aides</a>
-                </li>
-                <li>
-                    <a class="fr-breadcrumb__link" title="Revenir aux résultats" href="{% url 'search_view' %}?{{ current_search }}">Résultats</a>
-                </li>
+                {% if back_to_searchpage %}
+                    <li>
+                        <a class="fr-breadcrumb__link" title="Revenir au portail" href="{{ back_to_searchpage.get_absolute_url }}?{{ current_search }}">Revenir au portail</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                    </li>
+                    <li>
+                        <a class="fr-breadcrumb__link" title="Lancer une nouvelle recherche" href="{% url 'search_view' %}?{{ current_search }}">Trouver des aides</a>
+                    </li>
+                    <li>
+                        <a class="fr-breadcrumb__link" title="Revenir aux résultats" href="{% url 'search_view' %}?{{ current_search }}">Résultats</a>
+                    </li>
+                {% endif %}
                 <li>
                     <a class="fr-breadcrumb__link" aria-current="page">Détail de l’aide</a>
                 </li>

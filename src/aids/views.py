@@ -57,6 +57,7 @@ from projects.forms import ProjectExportForm
 from geofr.models import Perimeter
 from geofr.utils import get_all_related_perimeters
 from blog.models import PromotionPost
+from search.models import SearchPage
 from search.utils import clean_search_form
 from stats.models import (
     AidViewEvent,
@@ -546,6 +547,18 @@ class AidDetailView(DetailView):
                 context["text_search"] = clean_search_form(
                     current_search_form.cleaned_data, remove_extra_fields=True
                 )["text"]
+
+        # Use "Revenir au portail" instead of the normal breadcrumb if the referer is a searchpage
+        http_referer = self.request.META.get("HTTP_REFERER")
+        if http_referer and "/portails/" in http_referer:
+            referer_parts = http_referer.split("/")
+            searchpage_index = referer_parts.index("portails") + 1
+            searchpage_slug = referer_parts[searchpage_index]
+            searchpage = SearchPage.objects.filter(slug=searchpage_slug).first()
+
+            if searchpage:
+                context["back_to_searchpage"] = searchpage
+            print(searchpage)
 
         if self.request.GET.get("open-modal"):
             context["open_modal"] = True
