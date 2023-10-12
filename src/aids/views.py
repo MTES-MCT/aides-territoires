@@ -524,7 +524,7 @@ class AidDetailView(DetailView):
         response = requests.request("POST", post_url, json=data, headers=headers)
         return response
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):  # NOSONAR
         context = super().get_context_data(**kwargs)
 
         user = self.request.user
@@ -744,7 +744,7 @@ class AidDraftListView(
     template_name = "aids/draft_list.html"
     context_object_name = "aids"
 
-    def get_queryset(self):
+    def get_queryset(self):  # NOSONAR
         qs = super().get_queryset()
 
         filter_form = DraftListAidFilterForm(self.request.GET)
@@ -985,7 +985,7 @@ class AidMatchProjectView(ContributorAndProfileCompleteRequiredMixin, UpdateView
     context_object_name = "aid"
     model = Aid
 
-    def form_valid(self, form):
+    def form_valid(self, form):  # NOSONAR
         aid = form.save(commit=False)
         url = reverse("aid_detail_view", args=[aid.slug])
 

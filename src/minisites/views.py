@@ -20,6 +20,7 @@ from programs.views import ProgramDetail
 from categories.models import Category
 
 from alerts.views import AlertCreate
+from search.utils import clean_search_querystring
 from stats.models import AidViewEvent, AidSearchEvent
 from pages.models import Page
 from stats.utils import log_aidsearchevent
@@ -177,7 +178,7 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         if not self.form.data:
             self.form = AidSearchForm(data=self.search_page.get_base_querystring_data())
             if self.search_page.available_categories:
-                if len(self.get_available_categories()) > 1:
+                if len(self.get_available_categories()) >= 1:
                     available_categories = self.get_available_categories()
                 else:
                     available_categories = Category.objects.select_related(
@@ -217,14 +218,20 @@ class SiteHome(MinisiteMixin, NarrowedFiltersMixin, SearchView):
         return qs
 
     def get_context_data(self, **kwargs):
-
         pages = Page.objects.filter(minisite=self.search_page)
 
         # We need to add form to context data to populate all filters* in front form input(s)
         # all filters = filters from the search_page's querystring and filters choosen by user
         form = self.form
 
-        return super().get_context_data(pages=pages, form=form, **kwargs)
+        context = super().get_context_data(pages=pages, form=form, **kwargs)
+
+        context["base_search_url"] = get_base_url() + "/aides/"
+
+        context["querystring_cleaned"] = clean_search_querystring(
+            self.search_page.search_querystring
+        )
+        return context
 
 
 class SiteAid(MinisiteMixin, AidDetailView):
@@ -313,7 +320,7 @@ class SiteStats(MinisiteMixin, TemplateView):
                 .order_by("-search_count")
             )
             # get the display_name of each audience
-            for (index, item) in enumerate(top_audiences_searched):
+            for index, item in enumerate(top_audiences_searched):
                 try:
                     top_audiences_searched[index]["audience"] = Aid.AUDIENCES[
                         item["audience"]
@@ -390,7 +397,6 @@ class PageDetail(MinisiteMixin, DetailView):
     context_object_name = "page"
 
     def get_context_data(self, **kwargs):
-
         pages = Page.objects.filter(minisite=self.search_page)
         return super().get_context_data(pages=pages, **kwargs)
 
