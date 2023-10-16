@@ -180,7 +180,7 @@ class Command(BaseImportCommand):
         else:
             return ""
 
-    def extract_application_url(self, line):
+    def extract_application_url(self, line):  # NOSONAR
         if line["url_agir"]:
             return line["url_agir"]
         else:
@@ -214,7 +214,7 @@ class Command(BaseImportCommand):
     def extract_mobilization_steps(self, line):
         return [Aid.STEPS.op, Aid.STEPS.preop, Aid.STEPS.postop]
 
-    def extract_perimeter(self, line):
+    def extract_perimeter(self, line):  # NOSONAR
         couv_geo = line.get("couverture_geo", [])["code"]
         if couv_geo == "1":
             return Perimeter.objects.get(code="FRA")

@@ -172,3 +172,18 @@ def test_import_aids_from_departement_de_la_drome(perimeters):
     call_command("import_departement_drome", *args, **opts)
 
     assert aids.count() == 3
+
+
+def test_import_aids_from_departement_de_la_manche(perimeters):
+    DataSourceFactory(
+        name="Conseil Départemental de la Manche", perimeter=perimeters["france"], id=12
+    )
+
+    aids = Aid.objects.all()
+    assert aids.count() == 0
+
+    args = []
+    opts = {"data-file": "dataproviders/tests/departement_manche_data.json"}
+    call_command("import_departement_manche", *args, **opts)
+
+    assert aids.count() == 10
