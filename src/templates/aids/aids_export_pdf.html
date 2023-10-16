@@ -132,7 +132,7 @@ h2, h3, h4 {
                 <ul>
                     <li><strong>Récurrence:</strong> {{ aid.get_recurrence_display }}</li>
                     {% if aid.start_date %}
-                        <li><strong>Ouverture:</strong> {{ aid.start_date|date }}</li>                
+                        <li><strong>Ouverture:</strong> {{ aid.start_date|date }}</li>
                     {% endif %}
                     {% if aid.submission_deadline %}
                         <li><strong>Clôture:</strong> {{ aid.submission_deadline|date }}</li>
@@ -143,10 +143,10 @@ h2, h3, h4 {
                     <h4>Liens :</h4>
                     <ul>
                         {% if aid.origin_url %}
-                            <li>Plus d’informations : {{ aid.origin_url|split_words }}</li>
+                            <li>Plus d’informations : <a href="{{ aid.origin_url }}">{{ aid.origin_url|split_words|safe }}</a></li>
                         {% endif %}
                         {% if aid.application_url %}
-                            <li>Candidater à l’aide : {{ aid.application_url|split_words }}</li>
+                            <li>Candidater à l’aide : <a href="{{ aid.application_url }}">{{ aid.application_url|split_words|safe }}</a></li>
                         {% endif %}
                     </ul>
                 {% endif %}

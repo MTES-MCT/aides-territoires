@@ -249,8 +249,11 @@ def get(dict_object, key, default=None):
 
 @register.filter
 def split_words(input_string: str, max_length: int = 100):
-    """Split the string by max_length with spaces, including if it cuts in the middle of a word"""
-    return (" ").join(
+    """
+    Split the string by max_length with carriage returns,
+    including if it cuts in the middle of a word.
+    """
+    return ("<br />").join(
         [
             input_string[i : i + max_length]
             for i in range(0, len(input_string), max_length)
