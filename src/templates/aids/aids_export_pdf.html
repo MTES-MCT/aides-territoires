@@ -20,9 +20,9 @@ h2, h3, h4 {
 {% block extratitle %}{{ organization }}{% endblock extratitle %}
 
 {% block logo_partner %}
-<img src="{% static 'img/logo_AT_courbes.png' %}" style="height:75pt" alt="Aides-territoires" />
+<img src="{% static 'img/logo_AT_courbes.png' %}" style="height:60pt" alt="Aides-territoires" />
 {% if organization.backer.has_logo %}
-<img src="{{ organization.backer.logo.url }}" style="height:75pt" alt="logo de la structure {{organization}}" />
+<img src="{{ organization.backer.logo.url }}" style="height:60pt" alt="logo de la structure {{organization}}" />
 {% endif %}
 {% endblock logo_partner %}
 
