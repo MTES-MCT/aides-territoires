@@ -14,7 +14,7 @@ endif
 ifdef LOCAL_PATH_PP
 	local_path_pp := $(LOCAL_PATH_PP)
 else
-	local_path_pp := francemobilites.aides-territoires.localhost:8001
+	local_path_pp := avenir-montagnes.aides-territoires.localhost:8001
 endif
 
 init:
