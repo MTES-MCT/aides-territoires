@@ -97,6 +97,23 @@ class BaseImportCommand(BaseCommand):
                             "import_raw_object_temp_calendar", flat=True
                         ).get(import_uniqueid=aid.import_uniqueid)
 
+                        current_aid_filter = Aid.objects.filter(
+                            import_uniqueid=aid.import_uniqueid
+                        )
+
+                        current_aid = current_aid_filter.first()
+
+                        # Do not reset the manually set submission_deadline for
+                        # aids from Ministère de la culture
+                        if (
+                            aid.import_data_source.pk == 8
+                            and aid.submission_deadline is None
+                            and current_aid.submission_deadline is not None
+                        ):
+                            submission_deadline = current_aid.submission_deadline
+                        else:
+                            submission_deadline = aid.submission_deadline
+
                         if (
                             import_raw_object_temp != aid.import_raw_object
                             and import_raw_object != aid.import_raw_object
@@ -117,11 +134,9 @@ class BaseImportCommand(BaseCommand):
                                 - name_initial
                             """
                             try:
-                                Aid.objects.filter(
-                                    import_uniqueid=aid.import_uniqueid
-                                ).update(
+                                current_aid_filter.update(
                                     start_date=aid.start_date,
-                                    submission_deadline=aid.submission_deadline,
+                                    submission_deadline=submission_deadline,
                                     name_initial=aid.name_initial,
                                     import_raw_object_temp=aid.import_raw_object,
                                     import_raw_object_temp_calendar=aid.import_raw_object_calendar,  # noqa
@@ -159,11 +174,9 @@ class BaseImportCommand(BaseCommand):
                             and aid.import_data_source.pk != 2
                         ):
                             try:
-                                Aid.objects.filter(
-                                    import_uniqueid=aid.import_uniqueid
-                                ).update(
+                                current_aid_filter.update(
                                     start_date=aid.start_date,
-                                    submission_deadline=aid.submission_deadline,
+                                    submission_deadline=submission_deadline,
                                     name_initial=aid.name_initial,
                                     import_raw_object_temp_calendar=aid.import_raw_object_calendar,  # noqa
                                     date_updated=timezone.now(),
