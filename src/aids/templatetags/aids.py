@@ -59,7 +59,7 @@ def financers_type_display(obj):
 
 
 @register.simple_tag
-def aid_types_choices_display_list(obj, field):
+def aid_types_choices_display_list(obj, field):  # NOSONAR
     """Correct rendering of `ChoiceArrayField` values.."""
 
     choices = obj._meta.get_field(field).base_field.choices
@@ -245,3 +245,17 @@ def stats_url(aid):
 @register.simple_tag
 def get(dict_object, key, default=None):
     return dict_object.get(key, default)
+
+
+@register.filter
+def split_words(input_string: str, max_length: int = 100):
+    """
+    Split the string by max_length with carriage returns,
+    including if it cuts in the middle of a word.
+    """
+    return ("<br />").join(
+        [
+            input_string[i : i + max_length]
+            for i in range(0, len(input_string), max_length)
+        ]
+    )

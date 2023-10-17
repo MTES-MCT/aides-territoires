@@ -10,14 +10,19 @@ h2, h3, h4 {
     background-color: #f5f5fe;
     padding: 1em 1em 0 1em;
 }
+
+.aid-title {
+    background-color: #000091;
+    color: #ffffff;
+}
 {% endblock title_style%}
 
 {% block extratitle %}{{ organization }}{% endblock extratitle %}
 
 {% block logo_partner %}
-<img src="{% static 'img/logo_AT_courbes.png' %}" style="width:150px" alt="Aides-territoires" />
+<img src="{% static 'img/logo_AT_courbes.png' %}" style="height:60pt" alt="Aides-territoires" />
 {% if organization.backer.has_logo %}
-<img src="{{ organization.backer.logo.url }}" style="width:150px" alt="logo de la structure {{organization}}" />
+<img src="{{ organization.backer.logo.url }}" style="height:60pt" alt="logo de la structure {{organization}}" />
 {% endif %}
 {% endblock logo_partner %}
 
@@ -31,7 +36,7 @@ h2, h3, h4 {
         <div class="fr-col-12 fr-col-md-9">
             <div class="fr-grid-row">
               <div class="fr-col-12 fr-col-md-9">
-                  <h1 class="fr-h3">Les aides portées par la structure « {{ organization }} »</h1>
+                  <h1>Les aides portées par la structure « {{ organization }} »</h1>
               </div>
             </div>
 
@@ -64,7 +69,6 @@ h2, h3, h4 {
                 {% endfor %}
             </table>
 
-            <p>Aides-territoires est un service public numérique qui facilite la recherche d’aides, financières et d’ingénierie, et la réalisation des projets des collectivités territoriales en regroupant les dispositifs auxquels elles peuvent prétendre sur un portail unique. L’ensemble des aides citées ont été publiées sur la plateforme Aides-territoires qui a édité ce fichier.</p>
             <pdf:nextpage />
 
             {# Aid detail #}
@@ -72,7 +76,7 @@ h2, h3, h4 {
             {% for aid in aid_set %}
                 {# name is an obsolete attribute for web but it is the correct one for PDFs #}
                 <a name="anchor-aid-{{ aid.id }}"></a>
-                <h3>{{ aid.name }}</h3>
+                <h3 class="aid-title">{{ aid.name }}</h3>
                 <p>{{ aid.description|safe }}</p>
 
             {% if aid.is_local and aid.local_characteristics %}
@@ -85,6 +89,11 @@ h2, h3, h4 {
             {% if aid.targeted_audiences %}
                 <h4>Bénéficiaires de l’aide</h4>
                 <p>{% choices_display aid 'targeted_audiences' %}</p>
+            {% endif %}
+
+            {% if aid.aid_types %}
+                <h4>Types d’aide</h4>
+                <p>{% aid_types_choices_display_list aid 'aid_types' %}</p>
             {% endif %}
 
             <h4>Zone géographique couverte par l’aide</h4>
@@ -123,16 +132,38 @@ h2, h3, h4 {
                 <ul>
                     <li><strong>Récurrence:</strong> {{ aid.get_recurrence_display }}</li>
                     {% if aid.start_date %}
-                        <li><strong>Ouverture:</strong> {{ aid.start_date|date }}</li>                
+                        <li><strong>Ouverture:</strong> {{ aid.start_date|date }}</li>
                     {% endif %}
                     {% if aid.submission_deadline %}
                         <li><strong>Clôture:</strong> {{ aid.submission_deadline|date }}</li>
                     {% endif %}
                 </ul>
-                <strong>Voir le descriptif complet sur Aides-territoires :</strong>
-                <a href="{{ hostname }}{{ aid.get_absolute_url }}" class="at-pdf-link">
-                    {{ hostname }}{{ aid.get_absolute_url }}
-                </a>
+
+                {% if aid.origin_url or aid.application_url %}
+                    <h4>Liens :</h4>
+                    <ul>
+                        {% if aid.origin_url %}
+                            <li>Plus d’informations : <a href="{{ aid.origin_url }}">{{ aid.origin_url|split_words|safe }}</a></li>
+                        {% endif %}
+                        {% if aid.application_url %}
+                            <li>Candidater à l’aide : <a href="{{ aid.application_url }}">{{ aid.application_url|split_words|safe }}</a></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+
+                {% if aid.contact %}
+                    <h4>Contact</h4>
+                    <p>{{ aid.contact|safe }}</p>
+                {% endif %}
+
+                <p>
+                    <strong>Voir le descriptif complet sur Aides-territoires :</strong>
+                </p>
+                <p>
+                    <a href="{{ hostname }}{{ aid.get_absolute_url }}" class="at-pdf-link">
+                        {{ hostname }}{{ aid.get_absolute_url }}
+                    </a>
+                </p>
                 <pdf:nextpage />
             {% endfor %}
 
@@ -145,3 +176,10 @@ h2, h3, h4 {
     </div>
 </div>
 {% endblock content %}
+
+{% block footer-sup %}
+<span><br />
+    L’ensemble des aides citées a été publié sur la plateforme Aides-territoires
+    depuis laquelle ce fichier a été édité.
+</span>
+{% endblock footer-sup %}

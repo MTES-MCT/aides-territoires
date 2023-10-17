@@ -94,10 +94,10 @@
 
         <div id="footer_content">
             {% block footer %}
-                <div>
-                    <p>Page <pdf:pagenumber /> </p>
+                <p>
+                    <span>Page <pdf:pagenumber />/<pdf:pagecount /> </span>
                     {% block footer-sup %}{% endblock footer-sup %}
-                </div>
+                </p>
             {% endblock footer %}
             {# If the pagenumber is at the end of the string, it will be printed twice #}
             {# A simple space is enough to solve this though #}

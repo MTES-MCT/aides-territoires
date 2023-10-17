@@ -1391,7 +1391,7 @@ class AidDetailExportPdfView(ContributorAndProfileCompleteRequiredMixin, View):
         if user != aid.author and not user.is_superuser:
             raise PermissionDenied()
 
-        response_data = export_aid_detail_pdf(aid, user, organization)
+        response_data = export_aid_detail_pdf(aid, organization)
         if "error" not in response_data:
             filename = response_data["filename"]
             return HttpResponse(

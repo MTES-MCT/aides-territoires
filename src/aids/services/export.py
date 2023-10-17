@@ -55,7 +55,7 @@ def fetch_resources(uri: str, rel) -> str:
 
     # make sure that file exists
     if not os.path.isfile(path):
-        raise Exception("media URI must start with %s or %s" % (static_url, media_url))
+        raise ValueError("media URI must start with %s or %s" % (static_url, media_url))
 
     return path
 
@@ -121,7 +121,7 @@ def export_aids(organization, file_format: str) -> dict:
     return response
 
 
-def export_aid_detail_pdf(aid, user, organization):
+def export_aid_detail_pdf(aid, organization):
     today = date.today()
     today_formated = today.strftime("%Y-%m-%d")
 
@@ -170,11 +170,7 @@ def date_range_list(start_date, end_date):
     return date_list
 
 
-def export_aid_stats(
-    aid,
-    start_date,
-    end_date,
-) -> dict:
+def export_aid_stats(aid, start_date, end_date) -> dict:  # NOSONAR
     if end_date is None:
         end_date = timezone.now().date()
     else:
