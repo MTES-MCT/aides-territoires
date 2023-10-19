@@ -371,6 +371,10 @@ class SiteLegalMentions(MinisiteMixin, TemplateView):
     template_name = "minisites/legal_mentions.html"
 
 
+class SiteTerms(MinisiteMixin, TemplateView):
+    template_name = "minisites/cgu.html"
+
+
 class SitePrivacyPolicy(MinisiteMixin, TemplateView):
     template_name = "minisites/privacy_policy.html"
 

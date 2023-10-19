@@ -20,6 +20,7 @@ from minisites.views import (
     Error,
     PageList,
     PageDetail,
+    SiteTerms,
 )
 from minisites.utils import RedirectAidDetailView
 
@@ -80,6 +81,11 @@ urlpatterns = [
         "politique-de-confidentialité/",
         SitePrivacyPolicy.as_view(),
         name="privacy_policy",
+    ),
+    path(
+        "conditions-generales-dutilisation/",
+        SiteTerms.as_view(),
+        name="cgu",
     ),
     path("accessibilité/", SiteAccessibility.as_view(), name="accessibility"),
     # Api related routes
