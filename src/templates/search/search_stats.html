@@ -1,13 +1,6 @@
 {% extends 'stats/stats.html' %}
 {% load i18n compress humanize %}
 
-{% block header %}
-    {% include 'minisites/_header.html' %}
-{% endblock %}
-
-{% block footer %}
-    {% include 'minisites/_footer.html' %}
-{% endblock %}
 
 {% block breadcrumbs %}
 <div class="fr-container fr-background-main fr-py-1w">
@@ -16,7 +9,7 @@
         <div class="fr-collapse" id="breadcrumb-1">
             <ol class="fr-breadcrumb__list">
                 <li>
-                    <a class="fr-breadcrumb__link" href="{% url 'home' %}">Accueil</a>
+                    <a class="fr-breadcrumb__link" href="{% url 'search_page' search_page.slug %}">Revenir au portail</a>
                 </li>
                 <li>
                     <a class="fr-breadcrumb__link" aria-current="page">Statistiques publiques</a>
@@ -212,7 +205,6 @@
 
 {% block extra_css %}
     {{ block.super }}
-    {% include 'minisites/_css.html' %}
     <link rel="stylesheet" href="/static/chart.js/dist/Chart.css" />
 {% endblock %}
 
