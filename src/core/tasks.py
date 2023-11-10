@@ -63,6 +63,13 @@ def task_import_departement_drome():
 
 
 @app.task
+def task_import_departement_manche():
+    """Import data from the 'Département Manche' data feed."""
+    logger.info("Starting Département Manche import task")
+    management.call_command("import_departement_manche", verbosity=1)
+
+
+@app.task
 def task_import_welcome_europe():
     """Import data from the 'Welcome Europe' data feed."""
     logger.info("Starting Welcome Europe import task")
