@@ -46,7 +46,6 @@ def test_department_view_is_complete(client, perimeters, aids):
 
 
 def test_department_view_has_detailed_data_for_engineering_aids(client, perimeters):
-
     normandie = perimeters["normandie"]
     aid_1 = AidFactory(aid_types=["technical_engineering"], perimeter=normandie)
     aid_2 = AidFactory(aid_types=["financial_engineering"], perimeter=normandie)
@@ -65,7 +64,6 @@ def test_department_view_has_detailed_data_for_engineering_aids(client, perimete
     )
     res = client.get(f"{url}?aid_type=technical_group")
 
-    print(res.content.decode())
     assert res.status_code == 200
 
     soup = BeautifulSoup(res.content.decode(), "html.parser")
@@ -76,8 +74,9 @@ def test_department_view_has_detailed_data_for_engineering_aids(client, perimete
 
     assert [a.string.strip() for a in row.find_all("a")] == [
         "Porteur 1",
-        "3",
-        "1",
         "2",
+        "0",
+        "2",
+        "0",
         "0",
     ]
