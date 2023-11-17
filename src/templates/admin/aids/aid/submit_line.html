@@ -2,7 +2,9 @@
 
 {% block submit-row %}
     {{ block.super }}
-    <a href="{% url 'admin:aid_export_related_projects' original.pk %}" class="submitlink">
-        Exporter les projets liés en tâche de fond
-    </a>
+    {% if original %}
+        <a href="{% url 'admin:aid_export_related_projects' original.pk %}" class="submitlink">
+            Exporter les projets liés en tâche de fond
+        </a>
+    {% endif %}
 {% endblock submit-row %}
