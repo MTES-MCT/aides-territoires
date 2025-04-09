@@ -12,7 +12,7 @@
   "dependencies": {
     "autoprefixer": "^10.4.16",
     "chart.js": "^2.9.4",
-    "chartist": "^0.11.4",
+    "chartist": "^1.3.1",
     "chartist-plugin-fill-donut": "git+https://git@github.com/Ash-Crow/chartist-plugin-fill-donut.git",
     "chartjs-plugin-datalabels": "^0.7.0",
     "datatables.net": "^1.11.5",
